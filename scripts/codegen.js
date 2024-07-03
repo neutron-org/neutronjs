@@ -43,10 +43,8 @@ telescope({
       excluded: {
         protos: [
           "neutron/dex/genesis.proto",
-          "neutron/dex/query.proto",
           "neutron/transfer/v1/query.proto",
           "slinky/abci/v1/vote_extensions.proto",
-          "slinky/oracle/v1/query.proto",
         ],
       },
       methods: {
@@ -84,6 +82,9 @@ telescope({
       enabled: false,
       useLegacyInlineEncoding: true,
     },
+    tsDisable: {
+      patterns: ["*/query.proto"]
+    }
   },
 }).then(
   () => {
