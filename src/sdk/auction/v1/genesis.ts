@@ -3,6 +3,7 @@ import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
+import { Decimal } from "@cosmjs/math";
 export const protobufPackage = "sdk.auction.v1";
 /** GenesisState defines the genesis state of the x/auction module. */
 export interface GenesisState {
@@ -115,7 +116,7 @@ export const Params = {
       writer.uint32(40).bool(message.frontRunningProtection);
     }
     if (message.proposerFee !== "") {
-      writer.uint32(50).string(message.proposerFee);
+      writer.uint32(50).string(Decimal.fromUserInput(message.proposerFee, 18).atomics);
     }
     return writer;
   },
@@ -142,7 +143,7 @@ export const Params = {
           message.frontRunningProtection = reader.bool();
           break;
         case 6:
-          message.proposerFee = reader.string();
+          message.proposerFee = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);

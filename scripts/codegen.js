@@ -63,7 +63,7 @@ telescope({
         timestamp: "timestamp",
         duration: "duration",
         customTypes: {
-          useCosmosSDKDec: false,
+          useCosmosSDKDec: true,
         },
         num64: "bigint",
       },
@@ -82,9 +82,6 @@ telescope({
       enabled: false,
       useLegacyInlineEncoding: true,
     },
-    tsDisable: {
-      patterns: ["*/query.proto"]
-    }
   },
 }).then(
   () => {

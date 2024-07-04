@@ -3,6 +3,7 @@ import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
+import { Decimal } from "@cosmjs/math";
 export const protobufPackage = "feemarket.feemarket.v1";
 /** GenesisState defines the feemarket module's genesis state. */
 export interface GenesisState {
@@ -109,10 +110,10 @@ export const State = {
   typeUrl: "/feemarket.feemarket.v1.State",
   encode(message: State, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.baseGasPrice !== "") {
-      writer.uint32(10).string(message.baseGasPrice);
+      writer.uint32(10).string(Decimal.fromUserInput(message.baseGasPrice, 18).atomics);
     }
     if (message.learningRate !== "") {
-      writer.uint32(18).string(message.learningRate);
+      writer.uint32(18).string(Decimal.fromUserInput(message.learningRate, 18).atomics);
     }
     writer.uint32(26).fork();
     for (const v of message.window) {
@@ -132,10 +133,10 @@ export const State = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.baseGasPrice = reader.string();
+          message.baseGasPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.learningRate = reader.string();
+          message.learningRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           if ((tag & 7) === 2) {

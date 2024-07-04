@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Decimal } from "@cosmjs/math";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "feemarket.feemarket.v1";
@@ -86,25 +87,25 @@ export const Params = {
   typeUrl: "/feemarket.feemarket.v1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.alpha !== "") {
-      writer.uint32(10).string(message.alpha);
+      writer.uint32(10).string(Decimal.fromUserInput(message.alpha, 18).atomics);
     }
     if (message.beta !== "") {
-      writer.uint32(18).string(message.beta);
+      writer.uint32(18).string(Decimal.fromUserInput(message.beta, 18).atomics);
     }
     if (message.gamma !== "") {
-      writer.uint32(26).string(message.gamma);
+      writer.uint32(26).string(Decimal.fromUserInput(message.gamma, 18).atomics);
     }
     if (message.delta !== "") {
-      writer.uint32(34).string(message.delta);
+      writer.uint32(34).string(Decimal.fromUserInput(message.delta, 18).atomics);
     }
     if (message.minBaseGasPrice !== "") {
-      writer.uint32(42).string(message.minBaseGasPrice);
+      writer.uint32(42).string(Decimal.fromUserInput(message.minBaseGasPrice, 18).atomics);
     }
     if (message.minLearningRate !== "") {
-      writer.uint32(50).string(message.minLearningRate);
+      writer.uint32(50).string(Decimal.fromUserInput(message.minLearningRate, 18).atomics);
     }
     if (message.maxLearningRate !== "") {
-      writer.uint32(58).string(message.maxLearningRate);
+      writer.uint32(58).string(Decimal.fromUserInput(message.maxLearningRate, 18).atomics);
     }
     if (message.maxBlockUtilization !== BigInt(0)) {
       writer.uint32(64).uint64(message.maxBlockUtilization);
@@ -131,25 +132,25 @@ export const Params = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.alpha = reader.string();
+          message.alpha = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.beta = reader.string();
+          message.beta = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.gamma = reader.string();
+          message.gamma = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.delta = reader.string();
+          message.delta = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.minBaseGasPrice = reader.string();
+          message.minBaseGasPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 6:
-          message.minLearningRate = reader.string();
+          message.minLearningRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 7:
-          message.maxLearningRate = reader.string();
+          message.maxLearningRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 8:
           message.maxBlockUtilization = reader.uint64();

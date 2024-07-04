@@ -3,6 +3,7 @@ import { CurrencyPair } from "../../types/v1/currency_pair";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
+import { Decimal } from "@cosmjs/math";
 export const protobufPackage = "slinky.sla.v1";
 /** GenesisState defines the sla module's genesis state. */
 export interface GenesisState {
@@ -217,10 +218,10 @@ export const PriceFeedSLA = {
       writer.uint32(8).uint64(message.maximumViableWindow);
     }
     if (message.expectedUptime !== "") {
-      writer.uint32(18).string(message.expectedUptime);
+      writer.uint32(18).string(Decimal.fromUserInput(message.expectedUptime, 18).atomics);
     }
     if (message.slashConstant !== "") {
-      writer.uint32(26).string(message.slashConstant);
+      writer.uint32(26).string(Decimal.fromUserInput(message.slashConstant, 18).atomics);
     }
     if (message.minimumBlockUpdates !== BigInt(0)) {
       writer.uint32(32).uint64(message.minimumBlockUpdates);
@@ -244,10 +245,10 @@ export const PriceFeedSLA = {
           message.maximumViableWindow = reader.uint64();
           break;
         case 2:
-          message.expectedUptime = reader.string();
+          message.expectedUptime = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.slashConstant = reader.string();
+          message.slashConstant = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
           message.minimumBlockUpdates = reader.uint64();

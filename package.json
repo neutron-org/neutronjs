@@ -42,10 +42,12 @@
     "prepare-publishing": "./scripts/prepare-publishing.sh",
     "build": "rm -rf ./build && tsc && npm run prepare-publishing"
   },
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "@cosmology/telescope": "^1.0.7",
     "@types/node": "^15.6.2",
+    "@cosmjs/math": "^0.32.4",
     "prettier": "^3.0.3",
     "typescript": "~5.2"
   }
