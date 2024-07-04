@@ -10,8 +10,7 @@ This section is for maintainers of this repo, not users.
 
 ```sh
 # Pull external code
-git submodule init
-git submodule update
+git submodule update --init --recursive
 
 # Install dependencies
 npm install
