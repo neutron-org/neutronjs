@@ -1,7 +1,8 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BlockParams, EvidenceParams, ValidatorParams, ABCIParams } from "../../../tendermint/types/params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.consensus.v1";
 /** MsgUpdateParams is the Msg/UpdateParams request type. */
@@ -158,25 +159,3 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
 };
-/** Msg defines the consensus Msg service. */
-export interface Msg {
-  /**
-   * UpdateParams defines a governance operation for updating the x/consensus module parameters.
-   * The authority is defined in the keeper.
-   *
-   * Since: cosmos-sdk 0.47
-   */
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.UpdateParams = this.UpdateParams.bind(this);
-  }
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request("cosmos.consensus.v1.Msg", "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
-  }
-}

@@ -1,7 +1,8 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.evidence.v1beta1";
 /**
@@ -127,23 +128,3 @@ export const MsgSubmitEvidenceResponse = {
     return message;
   },
 };
-/** Msg defines the evidence Msg service. */
-export interface Msg {
-  /**
-   * SubmitEvidence submits an arbitrary Evidence of misbehavior such as equivocation or
-   * counterfactual signing.
-   */
-  SubmitEvidence(request: MsgSubmitEvidence): Promise<MsgSubmitEvidenceResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.SubmitEvidence = this.SubmitEvidence.bind(this);
-  }
-  SubmitEvidence(request: MsgSubmitEvidence): Promise<MsgSubmitEvidenceResponse> {
-    const data = MsgSubmitEvidence.encode(request).finish();
-    const promise = this.rpc.request("cosmos.evidence.v1beta1.Msg", "SubmitEvidence", data);
-    return promise.then((data) => MsgSubmitEvidenceResponse.decode(new BinaryReader(data)));
-  }
-}

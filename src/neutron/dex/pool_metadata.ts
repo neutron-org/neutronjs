@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PairID } from "./pair_id";
 import { BinaryReader, BinaryWriter } from "../../binary";

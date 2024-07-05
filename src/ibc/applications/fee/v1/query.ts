@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { PacketId } from "../../../core/channel/v1/channel";
@@ -5,7 +6,7 @@ import { IdentifiedPacketFees } from "./fee";
 import { Coin } from "../../../../cosmos/base/v1beta1/coin";
 import { FeeEnabledChannel } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../../helpers";
 import { JsonSafe } from "../../../../json-safe";
 export const protobufPackage = "ibc.applications.fee.v1";
 /** QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc */
@@ -1324,96 +1325,3 @@ export const QueryFeeEnabledChannelResponse = {
     return message;
   },
 };
-/** Query defines the ICS29 gRPC querier service. */
-export interface Query {
-  /** IncentivizedPackets returns all incentivized packets and their associated fees */
-  IncentivizedPackets(request: QueryIncentivizedPacketsRequest): Promise<QueryIncentivizedPacketsResponse>;
-  /** IncentivizedPacket returns all packet fees for a packet given its identifier */
-  IncentivizedPacket(request: QueryIncentivizedPacketRequest): Promise<QueryIncentivizedPacketResponse>;
-  /** Gets all incentivized packets for a specific channel */
-  IncentivizedPacketsForChannel(
-    request: QueryIncentivizedPacketsForChannelRequest,
-  ): Promise<QueryIncentivizedPacketsForChannelResponse>;
-  /** TotalRecvFees returns the total receive fees for a packet given its identifier */
-  TotalRecvFees(request: QueryTotalRecvFeesRequest): Promise<QueryTotalRecvFeesResponse>;
-  /** TotalAckFees returns the total acknowledgement fees for a packet given its identifier */
-  TotalAckFees(request: QueryTotalAckFeesRequest): Promise<QueryTotalAckFeesResponse>;
-  /** TotalTimeoutFees returns the total timeout fees for a packet given its identifier */
-  TotalTimeoutFees(request: QueryTotalTimeoutFeesRequest): Promise<QueryTotalTimeoutFeesResponse>;
-  /** Payee returns the registered payee address for a specific channel given the relayer address */
-  Payee(request: QueryPayeeRequest): Promise<QueryPayeeResponse>;
-  /** CounterpartyPayee returns the registered counterparty payee for forward relaying */
-  CounterpartyPayee(request: QueryCounterpartyPayeeRequest): Promise<QueryCounterpartyPayeeResponse>;
-  /** FeeEnabledChannels returns a list of all fee enabled channels */
-  FeeEnabledChannels(request: QueryFeeEnabledChannelsRequest): Promise<QueryFeeEnabledChannelsResponse>;
-  /** FeeEnabledChannel returns true if the provided port and channel identifiers belong to a fee enabled channel */
-  FeeEnabledChannel(request: QueryFeeEnabledChannelRequest): Promise<QueryFeeEnabledChannelResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.IncentivizedPackets = this.IncentivizedPackets.bind(this);
-    this.IncentivizedPacket = this.IncentivizedPacket.bind(this);
-    this.IncentivizedPacketsForChannel = this.IncentivizedPacketsForChannel.bind(this);
-    this.TotalRecvFees = this.TotalRecvFees.bind(this);
-    this.TotalAckFees = this.TotalAckFees.bind(this);
-    this.TotalTimeoutFees = this.TotalTimeoutFees.bind(this);
-    this.Payee = this.Payee.bind(this);
-    this.CounterpartyPayee = this.CounterpartyPayee.bind(this);
-    this.FeeEnabledChannels = this.FeeEnabledChannels.bind(this);
-    this.FeeEnabledChannel = this.FeeEnabledChannel.bind(this);
-  }
-  IncentivizedPackets(request: QueryIncentivizedPacketsRequest): Promise<QueryIncentivizedPacketsResponse> {
-    const data = QueryIncentivizedPacketsRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.applications.fee.v1.Query", "IncentivizedPackets", data);
-    return promise.then((data) => QueryIncentivizedPacketsResponse.decode(new BinaryReader(data)));
-  }
-  IncentivizedPacket(request: QueryIncentivizedPacketRequest): Promise<QueryIncentivizedPacketResponse> {
-    const data = QueryIncentivizedPacketRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.applications.fee.v1.Query", "IncentivizedPacket", data);
-    return promise.then((data) => QueryIncentivizedPacketResponse.decode(new BinaryReader(data)));
-  }
-  IncentivizedPacketsForChannel(
-    request: QueryIncentivizedPacketsForChannelRequest,
-  ): Promise<QueryIncentivizedPacketsForChannelResponse> {
-    const data = QueryIncentivizedPacketsForChannelRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.applications.fee.v1.Query", "IncentivizedPacketsForChannel", data);
-    return promise.then((data) => QueryIncentivizedPacketsForChannelResponse.decode(new BinaryReader(data)));
-  }
-  TotalRecvFees(request: QueryTotalRecvFeesRequest): Promise<QueryTotalRecvFeesResponse> {
-    const data = QueryTotalRecvFeesRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.applications.fee.v1.Query", "TotalRecvFees", data);
-    return promise.then((data) => QueryTotalRecvFeesResponse.decode(new BinaryReader(data)));
-  }
-  TotalAckFees(request: QueryTotalAckFeesRequest): Promise<QueryTotalAckFeesResponse> {
-    const data = QueryTotalAckFeesRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.applications.fee.v1.Query", "TotalAckFees", data);
-    return promise.then((data) => QueryTotalAckFeesResponse.decode(new BinaryReader(data)));
-  }
-  TotalTimeoutFees(request: QueryTotalTimeoutFeesRequest): Promise<QueryTotalTimeoutFeesResponse> {
-    const data = QueryTotalTimeoutFeesRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.applications.fee.v1.Query", "TotalTimeoutFees", data);
-    return promise.then((data) => QueryTotalTimeoutFeesResponse.decode(new BinaryReader(data)));
-  }
-  Payee(request: QueryPayeeRequest): Promise<QueryPayeeResponse> {
-    const data = QueryPayeeRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.applications.fee.v1.Query", "Payee", data);
-    return promise.then((data) => QueryPayeeResponse.decode(new BinaryReader(data)));
-  }
-  CounterpartyPayee(request: QueryCounterpartyPayeeRequest): Promise<QueryCounterpartyPayeeResponse> {
-    const data = QueryCounterpartyPayeeRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.applications.fee.v1.Query", "CounterpartyPayee", data);
-    return promise.then((data) => QueryCounterpartyPayeeResponse.decode(new BinaryReader(data)));
-  }
-  FeeEnabledChannels(request: QueryFeeEnabledChannelsRequest): Promise<QueryFeeEnabledChannelsResponse> {
-    const data = QueryFeeEnabledChannelsRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.applications.fee.v1.Query", "FeeEnabledChannels", data);
-    return promise.then((data) => QueryFeeEnabledChannelsResponse.decode(new BinaryReader(data)));
-  }
-  FeeEnabledChannel(request: QueryFeeEnabledChannelRequest): Promise<QueryFeeEnabledChannelResponse> {
-    const data = QueryFeeEnabledChannelRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.applications.fee.v1.Query", "FeeEnabledChannel", data);
-    return promise.then((data) => QueryFeeEnabledChannelResponse.decode(new BinaryReader(data)));
-  }
-}

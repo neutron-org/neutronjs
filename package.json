@@ -45,7 +45,7 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@cosmology/telescope": "^1.0.7",
+    "@cosmology/telescope": "^1.5.4",
     "@types/node": "^15.6.2",
     "@cosmjs/math": "^0.32.4",
     "prettier": "^3.0.3",

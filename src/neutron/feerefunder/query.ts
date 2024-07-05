@@ -1,9 +1,10 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./params";
 import { FeeInfo } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../helpers";
+import { DeepPartial, Exact, isSet } from "../../helpers";
 export const protobufPackage = "neutron.feerefunder";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
@@ -220,27 +221,3 @@ export const FeeInfoResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /** Parameters queries the parameters of the module. */
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  FeeInfo(request: FeeInfoRequest): Promise<FeeInfoResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-    this.FeeInfo = this.FeeInfo.bind(this);
-  }
-  Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.feerefunder.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-  FeeInfo(request: FeeInfoRequest): Promise<FeeInfoResponse> {
-    const data = FeeInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.feerefunder.Query", "FeeInfo", data);
-    return promise.then((data) => FeeInfoResponse.decode(new BinaryReader(data)));
-  }
-}

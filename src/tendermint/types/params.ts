@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Duration } from "../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../binary";

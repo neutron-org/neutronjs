@@ -1,10 +1,11 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Any } from "../../../google/protobuf/any";
 import { Fee } from "../../feerefunder/fee";
 import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "neutron.interchaintxs.v1";
 /** MsgRegisterInterchainAccount is used to register an account on a remote zone. */
@@ -477,37 +478,3 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
 };
-/** Msg defines the Msg service. */
-export interface Msg {
-  RegisterInterchainAccount(
-    request: MsgRegisterInterchainAccount,
-  ): Promise<MsgRegisterInterchainAccountResponse>;
-  SubmitTx(request: MsgSubmitTx): Promise<MsgSubmitTxResponse>;
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.RegisterInterchainAccount = this.RegisterInterchainAccount.bind(this);
-    this.SubmitTx = this.SubmitTx.bind(this);
-    this.UpdateParams = this.UpdateParams.bind(this);
-  }
-  RegisterInterchainAccount(
-    request: MsgRegisterInterchainAccount,
-  ): Promise<MsgRegisterInterchainAccountResponse> {
-    const data = MsgRegisterInterchainAccount.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchaintxs.v1.Msg", "RegisterInterchainAccount", data);
-    return promise.then((data) => MsgRegisterInterchainAccountResponse.decode(new BinaryReader(data)));
-  }
-  SubmitTx(request: MsgSubmitTx): Promise<MsgSubmitTxResponse> {
-    const data = MsgSubmitTx.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchaintxs.v1.Msg", "SubmitTx", data);
-    return promise.then((data) => MsgSubmitTxResponse.decode(new BinaryReader(data)));
-  }
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchaintxs.v1.Msg", "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
-  }
-}

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PoolReserves } from "./pool_reserves";
 import { LimitOrderTranche } from "./limit_order_tranche";

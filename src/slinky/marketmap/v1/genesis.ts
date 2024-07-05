@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { MarketMap } from "./market";
 import { Params } from "./params";

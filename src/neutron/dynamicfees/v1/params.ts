@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { DecCoin } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";

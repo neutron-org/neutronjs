@@ -1,7 +1,8 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./mint";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.mint.v1beta1";
 /**
@@ -119,25 +120,3 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
 };
-/** Msg defines the x/mint Msg service. */
-export interface Msg {
-  /**
-   * UpdateParams defines a governance operation for updating the x/mint module
-   * parameters. The authority is defaults to the x/gov module account.
-   *
-   * Since: cosmos-sdk 0.47
-   */
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.UpdateParams = this.UpdateParams.bind(this);
-  }
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request("cosmos.mint.v1beta1.Msg", "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
-  }
-}

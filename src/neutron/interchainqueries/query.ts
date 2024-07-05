@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
 import { Params } from "./params";
@@ -5,7 +6,7 @@ import { RegisteredQuery } from "./genesis";
 import { QueryResult } from "./tx";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes, Rpc } from "../../helpers";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 export const protobufPackage = "neutron.interchainqueries";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
@@ -653,48 +654,3 @@ export const QueryLastRemoteHeightResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /** Parameters queries the parameters of the module. */
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  RegisteredQueries(request: QueryRegisteredQueriesRequest): Promise<QueryRegisteredQueriesResponse>;
-  RegisteredQuery(request: QueryRegisteredQueryRequest): Promise<QueryRegisteredQueryResponse>;
-  QueryResult(request: QueryRegisteredQueryResultRequest): Promise<QueryRegisteredQueryResultResponse>;
-  LastRemoteHeight(request: QueryLastRemoteHeight): Promise<QueryLastRemoteHeightResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-    this.RegisteredQueries = this.RegisteredQueries.bind(this);
-    this.RegisteredQuery = this.RegisteredQuery.bind(this);
-    this.QueryResult = this.QueryResult.bind(this);
-    this.LastRemoteHeight = this.LastRemoteHeight.bind(this);
-  }
-  Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchainqueries.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-  RegisteredQueries(request: QueryRegisteredQueriesRequest): Promise<QueryRegisteredQueriesResponse> {
-    const data = QueryRegisteredQueriesRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchainqueries.Query", "RegisteredQueries", data);
-    return promise.then((data) => QueryRegisteredQueriesResponse.decode(new BinaryReader(data)));
-  }
-  RegisteredQuery(request: QueryRegisteredQueryRequest): Promise<QueryRegisteredQueryResponse> {
-    const data = QueryRegisteredQueryRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchainqueries.Query", "RegisteredQuery", data);
-    return promise.then((data) => QueryRegisteredQueryResponse.decode(new BinaryReader(data)));
-  }
-  QueryResult(request: QueryRegisteredQueryResultRequest): Promise<QueryRegisteredQueryResultResponse> {
-    const data = QueryRegisteredQueryResultRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchainqueries.Query", "QueryResult", data);
-    return promise.then((data) => QueryRegisteredQueryResultResponse.decode(new BinaryReader(data)));
-  }
-  LastRemoteHeight(request: QueryLastRemoteHeight): Promise<QueryLastRemoteHeightResponse> {
-    const data = QueryLastRemoteHeight.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchainqueries.Query", "LastRemoteHeight", data);
-    return promise.then((data) => QueryLastRemoteHeightResponse.decode(new BinaryReader(data)));
-  }
-}

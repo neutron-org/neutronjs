@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { MsgStoreCode, MsgInstantiateContract, MsgExecuteContract } from "./tx";
 import { Params, CodeInfo, ContractInfo, Model, ContractCodeHistoryEntry } from "./types";

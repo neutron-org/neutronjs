@@ -1,8 +1,9 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Grant } from "./feegrant";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.feegrant.v1beta1";
 /** QueryAllowanceRequest is the request type for the Query/Allowance RPC method. */
@@ -412,40 +413,3 @@ export const QueryAllowancesByGranterResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /** Allowance returns granted allwance to the grantee by the granter. */
-  Allowance(request: QueryAllowanceRequest): Promise<QueryAllowanceResponse>;
-  /** Allowances returns all the grants for the given grantee address. */
-  Allowances(request: QueryAllowancesRequest): Promise<QueryAllowancesResponse>;
-  /**
-   * AllowancesByGranter returns all the grants given by an address
-   *
-   * Since: cosmos-sdk 0.46
-   */
-  AllowancesByGranter(request: QueryAllowancesByGranterRequest): Promise<QueryAllowancesByGranterResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Allowance = this.Allowance.bind(this);
-    this.Allowances = this.Allowances.bind(this);
-    this.AllowancesByGranter = this.AllowancesByGranter.bind(this);
-  }
-  Allowance(request: QueryAllowanceRequest): Promise<QueryAllowanceResponse> {
-    const data = QueryAllowanceRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.feegrant.v1beta1.Query", "Allowance", data);
-    return promise.then((data) => QueryAllowanceResponse.decode(new BinaryReader(data)));
-  }
-  Allowances(request: QueryAllowancesRequest): Promise<QueryAllowancesResponse> {
-    const data = QueryAllowancesRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.feegrant.v1beta1.Query", "Allowances", data);
-    return promise.then((data) => QueryAllowancesResponse.decode(new BinaryReader(data)));
-  }
-  AllowancesByGranter(request: QueryAllowancesByGranterRequest): Promise<QueryAllowancesByGranterResponse> {
-    const data = QueryAllowancesByGranterRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.feegrant.v1beta1.Query", "AllowancesByGranter", data);
-    return promise.then((data) => QueryAllowancesByGranterResponse.decode(new BinaryReader(data)));
-  }
-}

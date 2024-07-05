@@ -1,10 +1,11 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./params";
 import { State } from "./genesis";
 import { DecCoin } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet } from "../../../helpers";
 export const protobufPackage = "feemarket.feemarket.v1";
 /** ParamsRequest is the request type for the Query/Params RPC method. */
 export interface ParamsRequest {}
@@ -384,50 +385,3 @@ export const GasPricesResponse = {
     return message;
   },
 };
-/** Query Service for the feemarket module. */
-export interface Query {
-  /** Params returns the current feemarket module parameters. */
-  Params(request?: ParamsRequest): Promise<ParamsResponse>;
-  /** State returns the current feemarket module state. */
-  State(request?: StateRequest): Promise<StateResponse>;
-  /**
-   * GasPrice returns the current feemarket module gas price
-   * for specified denom.
-   */
-  GasPrice(request: GasPriceRequest): Promise<GasPriceResponse>;
-  /**
-   * GasPrices returns the current feemarket module list of gas prices
-   * in all available denoms.
-   */
-  GasPrices(request?: GasPricesRequest): Promise<GasPricesResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-    this.State = this.State.bind(this);
-    this.GasPrice = this.GasPrice.bind(this);
-    this.GasPrices = this.GasPrices.bind(this);
-  }
-  Params(request: ParamsRequest = {}): Promise<ParamsResponse> {
-    const data = ParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("feemarket.feemarket.v1.Query", "Params", data);
-    return promise.then((data) => ParamsResponse.decode(new BinaryReader(data)));
-  }
-  State(request: StateRequest = {}): Promise<StateResponse> {
-    const data = StateRequest.encode(request).finish();
-    const promise = this.rpc.request("feemarket.feemarket.v1.Query", "State", data);
-    return promise.then((data) => StateResponse.decode(new BinaryReader(data)));
-  }
-  GasPrice(request: GasPriceRequest): Promise<GasPriceResponse> {
-    const data = GasPriceRequest.encode(request).finish();
-    const promise = this.rpc.request("feemarket.feemarket.v1.Query", "GasPrice", data);
-    return promise.then((data) => GasPriceResponse.decode(new BinaryReader(data)));
-  }
-  GasPrices(request: GasPricesRequest = {}): Promise<GasPricesResponse> {
-    const data = GasPricesRequest.encode(request).finish();
-    const promise = this.rpc.request("feemarket.feemarket.v1.Query", "GasPrices", data);
-    return promise.then((data) => GasPricesResponse.decode(new BinaryReader(data)));
-  }
-}

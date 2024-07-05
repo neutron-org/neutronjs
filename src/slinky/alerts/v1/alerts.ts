@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { CurrencyPair } from "../../types/v1/currency_pair";
 import { ExtendedCommitInfo } from "../../../tendermint/abci/types";

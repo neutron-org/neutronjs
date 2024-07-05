@@ -1,9 +1,10 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Proposal as Proposal1 } from "../../gov/v1/gov";
 import { Proposal as Proposal2 } from "../../gov/v1beta1/gov";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, Rpc } from "../../../helpers";
+import { DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.adminmodule.adminmodule";
 export interface QueryAdminsRequest {}
 export interface QueryAdminsResponse {
@@ -342,40 +343,3 @@ export const QueryArchivedProposalsLegacyResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /** Queries a list of admins items. */
-  Admins(request?: QueryAdminsRequest): Promise<QueryAdminsResponse>;
-  /** Queries a list of archived proposals. */
-  ArchivedProposals(request?: QueryArchivedProposalsRequest): Promise<QueryArchivedProposalsResponse>;
-  /** Queries a list of archived proposals. */
-  ArchivedProposalsLegacy(
-    request?: QueryArchivedProposalsLegacyRequest,
-  ): Promise<QueryArchivedProposalsLegacyResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Admins = this.Admins.bind(this);
-    this.ArchivedProposals = this.ArchivedProposals.bind(this);
-    this.ArchivedProposalsLegacy = this.ArchivedProposalsLegacy.bind(this);
-  }
-  Admins(request: QueryAdminsRequest = {}): Promise<QueryAdminsResponse> {
-    const data = QueryAdminsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.adminmodule.adminmodule.Query", "Admins", data);
-    return promise.then((data) => QueryAdminsResponse.decode(new BinaryReader(data)));
-  }
-  ArchivedProposals(request: QueryArchivedProposalsRequest = {}): Promise<QueryArchivedProposalsResponse> {
-    const data = QueryArchivedProposalsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.adminmodule.adminmodule.Query", "ArchivedProposals", data);
-    return promise.then((data) => QueryArchivedProposalsResponse.decode(new BinaryReader(data)));
-  }
-  ArchivedProposalsLegacy(
-    request: QueryArchivedProposalsLegacyRequest = {},
-  ): Promise<QueryArchivedProposalsLegacyResponse> {
-    const data = QueryArchivedProposalsLegacyRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.adminmodule.adminmodule.Query", "ArchivedProposalsLegacy", data);
-    return promise.then((data) => QueryArchivedProposalsLegacyResponse.decode(new BinaryReader(data)));
-  }
-}

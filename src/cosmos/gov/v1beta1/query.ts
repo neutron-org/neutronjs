@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import {
   ProposalStatus,
@@ -13,7 +14,7 @@ import {
 } from "./gov";
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.gov.v1beta1";
 /** QueryProposalRequest is the request type for the Query/Proposal RPC method. */
@@ -1047,76 +1048,3 @@ export const QueryTallyResultResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service for gov module */
-export interface Query {
-  /** Proposal queries proposal details based on ProposalID. */
-  Proposal(request: QueryProposalRequest): Promise<QueryProposalResponse>;
-  /** Proposals queries all proposals based on given status. */
-  Proposals(request: QueryProposalsRequest): Promise<QueryProposalsResponse>;
-  /** Vote queries voted information based on proposalID, voterAddr. */
-  Vote(request: QueryVoteRequest): Promise<QueryVoteResponse>;
-  /** Votes queries votes of a given proposal. */
-  Votes(request: QueryVotesRequest): Promise<QueryVotesResponse>;
-  /** Params queries all parameters of the gov module. */
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** Deposit queries single deposit information based on proposalID, depositor address. */
-  Deposit(request: QueryDepositRequest): Promise<QueryDepositResponse>;
-  /** Deposits queries all deposits of a single proposal. */
-  Deposits(request: QueryDepositsRequest): Promise<QueryDepositsResponse>;
-  /** TallyResult queries the tally of a proposal vote. */
-  TallyResult(request: QueryTallyResultRequest): Promise<QueryTallyResultResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Proposal = this.Proposal.bind(this);
-    this.Proposals = this.Proposals.bind(this);
-    this.Vote = this.Vote.bind(this);
-    this.Votes = this.Votes.bind(this);
-    this.Params = this.Params.bind(this);
-    this.Deposit = this.Deposit.bind(this);
-    this.Deposits = this.Deposits.bind(this);
-    this.TallyResult = this.TallyResult.bind(this);
-  }
-  Proposal(request: QueryProposalRequest): Promise<QueryProposalResponse> {
-    const data = QueryProposalRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Proposal", data);
-    return promise.then((data) => QueryProposalResponse.decode(new BinaryReader(data)));
-  }
-  Proposals(request: QueryProposalsRequest): Promise<QueryProposalsResponse> {
-    const data = QueryProposalsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Proposals", data);
-    return promise.then((data) => QueryProposalsResponse.decode(new BinaryReader(data)));
-  }
-  Vote(request: QueryVoteRequest): Promise<QueryVoteResponse> {
-    const data = QueryVoteRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Vote", data);
-    return promise.then((data) => QueryVoteResponse.decode(new BinaryReader(data)));
-  }
-  Votes(request: QueryVotesRequest): Promise<QueryVotesResponse> {
-    const data = QueryVotesRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Votes", data);
-    return promise.then((data) => QueryVotesResponse.decode(new BinaryReader(data)));
-  }
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-  Deposit(request: QueryDepositRequest): Promise<QueryDepositResponse> {
-    const data = QueryDepositRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Deposit", data);
-    return promise.then((data) => QueryDepositResponse.decode(new BinaryReader(data)));
-  }
-  Deposits(request: QueryDepositsRequest): Promise<QueryDepositsResponse> {
-    const data = QueryDepositsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Deposits", data);
-    return promise.then((data) => QueryDepositsResponse.decode(new BinaryReader(data)));
-  }
-  TallyResult(request: QueryTallyResultRequest): Promise<QueryTallyResultResponse> {
-    const data = QueryTallyResultRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "TallyResult", data);
-    return promise.then((data) => QueryTallyResultResponse.decode(new BinaryReader(data)));
-  }
-}

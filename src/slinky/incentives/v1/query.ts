@@ -1,7 +1,8 @@
+//@ts-nocheck
 /* eslint-disable */
 import { IncentivesByType } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "slinky.incentives.v1";
 /**
@@ -224,31 +225,3 @@ export const GetAllIncentivesResponse = {
     return message;
   },
 };
-/** Query is the query service for the x/incentives module. */
-export interface Query {
-  /**
-   * GetIncentivesByType returns all incentives of a given type. If the type is
-   * not registered with the module, an error is returned.
-   */
-  GetIncentivesByType(request: GetIncentivesByTypeRequest): Promise<GetIncentivesByTypeResponse>;
-  /** GetAllIncentives returns all incentives. */
-  GetAllIncentives(request?: GetAllIncentivesRequest): Promise<GetAllIncentivesResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.GetIncentivesByType = this.GetIncentivesByType.bind(this);
-    this.GetAllIncentives = this.GetAllIncentives.bind(this);
-  }
-  GetIncentivesByType(request: GetIncentivesByTypeRequest): Promise<GetIncentivesByTypeResponse> {
-    const data = GetIncentivesByTypeRequest.encode(request).finish();
-    const promise = this.rpc.request("slinky.incentives.v1.Query", "GetIncentivesByType", data);
-    return promise.then((data) => GetIncentivesByTypeResponse.decode(new BinaryReader(data)));
-  }
-  GetAllIncentives(request: GetAllIncentivesRequest = {}): Promise<GetAllIncentivesResponse> {
-    const data = GetAllIncentivesRequest.encode(request).finish();
-    const promise = this.rpc.request("slinky.incentives.v1.Query", "GetAllIncentives", data);
-    return promise.then((data) => GetAllIncentivesResponse.decode(new BinaryReader(data)));
-  }
-}

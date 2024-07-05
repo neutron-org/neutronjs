@@ -1,7 +1,8 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.adminmodule.adminmodule";
 export interface MsgDeleteAdmin {
@@ -443,40 +444,3 @@ export const MsgSubmitProposalResponse = {
     return message;
   },
 };
-/** Msg defines the Msg service. */
-export interface Msg {
-  DeleteAdmin(request: MsgDeleteAdmin): Promise<MsgDeleteAdminResponse>;
-  AddAdmin(request: MsgAddAdmin): Promise<MsgAddAdminResponse>;
-  SubmitProposal(request: MsgSubmitProposal): Promise<MsgSubmitProposalResponse>;
-  SubmitProposalLegacy(request: MsgSubmitProposalLegacy): Promise<MsgSubmitProposalLegacyResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.DeleteAdmin = this.DeleteAdmin.bind(this);
-    this.AddAdmin = this.AddAdmin.bind(this);
-    this.SubmitProposal = this.SubmitProposal.bind(this);
-    this.SubmitProposalLegacy = this.SubmitProposalLegacy.bind(this);
-  }
-  DeleteAdmin(request: MsgDeleteAdmin): Promise<MsgDeleteAdminResponse> {
-    const data = MsgDeleteAdmin.encode(request).finish();
-    const promise = this.rpc.request("cosmos.adminmodule.adminmodule.Msg", "DeleteAdmin", data);
-    return promise.then((data) => MsgDeleteAdminResponse.decode(new BinaryReader(data)));
-  }
-  AddAdmin(request: MsgAddAdmin): Promise<MsgAddAdminResponse> {
-    const data = MsgAddAdmin.encode(request).finish();
-    const promise = this.rpc.request("cosmos.adminmodule.adminmodule.Msg", "AddAdmin", data);
-    return promise.then((data) => MsgAddAdminResponse.decode(new BinaryReader(data)));
-  }
-  SubmitProposal(request: MsgSubmitProposal): Promise<MsgSubmitProposalResponse> {
-    const data = MsgSubmitProposal.encode(request).finish();
-    const promise = this.rpc.request("cosmos.adminmodule.adminmodule.Msg", "SubmitProposal", data);
-    return promise.then((data) => MsgSubmitProposalResponse.decode(new BinaryReader(data)));
-  }
-  SubmitProposalLegacy(request: MsgSubmitProposalLegacy): Promise<MsgSubmitProposalLegacyResponse> {
-    const data = MsgSubmitProposalLegacy.encode(request).finish();
-    const promise = this.rpc.request("cosmos.adminmodule.adminmodule.Msg", "SubmitProposalLegacy", data);
-    return promise.then((data) => MsgSubmitProposalLegacyResponse.decode(new BinaryReader(data)));
-  }
-}

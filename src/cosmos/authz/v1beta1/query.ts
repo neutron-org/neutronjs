@@ -1,8 +1,9 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Grant, GrantAuthorization } from "./authz";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.authz.v1beta1";
 /** QueryGrantsRequest is the request type for the Query/Grants RPC method. */
@@ -443,44 +444,3 @@ export const QueryGranteeGrantsResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /** Returns list of `Authorization`, granted to the grantee by the granter. */
-  Grants(request: QueryGrantsRequest): Promise<QueryGrantsResponse>;
-  /**
-   * GranterGrants returns list of `GrantAuthorization`, granted by granter.
-   *
-   * Since: cosmos-sdk 0.46
-   */
-  GranterGrants(request: QueryGranterGrantsRequest): Promise<QueryGranterGrantsResponse>;
-  /**
-   * GranteeGrants returns a list of `GrantAuthorization` by grantee.
-   *
-   * Since: cosmos-sdk 0.46
-   */
-  GranteeGrants(request: QueryGranteeGrantsRequest): Promise<QueryGranteeGrantsResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Grants = this.Grants.bind(this);
-    this.GranterGrants = this.GranterGrants.bind(this);
-    this.GranteeGrants = this.GranteeGrants.bind(this);
-  }
-  Grants(request: QueryGrantsRequest): Promise<QueryGrantsResponse> {
-    const data = QueryGrantsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.authz.v1beta1.Query", "Grants", data);
-    return promise.then((data) => QueryGrantsResponse.decode(new BinaryReader(data)));
-  }
-  GranterGrants(request: QueryGranterGrantsRequest): Promise<QueryGranterGrantsResponse> {
-    const data = QueryGranterGrantsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.authz.v1beta1.Query", "GranterGrants", data);
-    return promise.then((data) => QueryGranterGrantsResponse.decode(new BinaryReader(data)));
-  }
-  GranteeGrants(request: QueryGranteeGrantsRequest): Promise<QueryGranteeGrantsResponse> {
-    const data = QueryGranteeGrantsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.authz.v1beta1.Query", "GranteeGrants", data);
-    return promise.then((data) => QueryGranteeGrantsResponse.decode(new BinaryReader(data)));
-  }
-}

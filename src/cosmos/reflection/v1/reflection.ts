@@ -1,8 +1,9 @@
+//@ts-nocheck
 /* eslint-disable */
 import { FileDescriptorProto } from "../../../google/protobuf/descriptor";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, Rpc } from "../../../helpers";
+import { DeepPartial, Exact } from "../../../helpers";
 export const protobufPackage = "cosmos.reflection.v1";
 /** FileDescriptorsRequest is the Query/FileDescriptors request type. */
 export interface FileDescriptorsRequest {}
@@ -97,24 +98,3 @@ export const FileDescriptorsResponse = {
     return message;
   },
 };
-/** Package cosmos.reflection.v1 provides support for inspecting protobuf
- file descriptors. */
-export interface ReflectionService {
-  /**
-   * FileDescriptors queries all the file descriptors in the app in order
-   * to enable easier generation of dynamic clients.
-   */
-  FileDescriptors(request?: FileDescriptorsRequest): Promise<FileDescriptorsResponse>;
-}
-export class ReflectionServiceClientImpl implements ReflectionService {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.FileDescriptors = this.FileDescriptors.bind(this);
-  }
-  FileDescriptors(request: FileDescriptorsRequest = {}): Promise<FileDescriptorsResponse> {
-    const data = FileDescriptorsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.reflection.v1.ReflectionService", "FileDescriptors", data);
-    return promise.then((data) => FileDescriptorsResponse.decode(new BinaryReader(data)));
-  }
-}

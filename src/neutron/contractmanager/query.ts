@@ -1,10 +1,11 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
 import { Params } from "./params";
 import { Failure } from "./failure";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../helpers";
+import { DeepPartial, Exact, isSet } from "../../helpers";
 export const protobufPackage = "neutron.contractmanager";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
@@ -243,44 +244,3 @@ export const QueryFailuresResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /** Parameters queries the parameters of the module. */
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** Queries a Failure by contract address and failure ID. */
-  AddressFailure(request: QueryFailuresRequest): Promise<QueryFailuresResponse>;
-  /** Queries Failures by contract address. */
-  AddressFailures(request: QueryFailuresRequest): Promise<QueryFailuresResponse>;
-  /** Queries a list of Failures occurred on the network. */
-  Failures(request: QueryFailuresRequest): Promise<QueryFailuresResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-    this.AddressFailure = this.AddressFailure.bind(this);
-    this.AddressFailures = this.AddressFailures.bind(this);
-    this.Failures = this.Failures.bind(this);
-  }
-  Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.contractmanager.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-  AddressFailure(request: QueryFailuresRequest): Promise<QueryFailuresResponse> {
-    const data = QueryFailuresRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.contractmanager.Query", "AddressFailure", data);
-    return promise.then((data) => QueryFailuresResponse.decode(new BinaryReader(data)));
-  }
-  AddressFailures(request: QueryFailuresRequest): Promise<QueryFailuresResponse> {
-    const data = QueryFailuresRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.contractmanager.Query", "AddressFailures", data);
-    return promise.then((data) => QueryFailuresResponse.decode(new BinaryReader(data)));
-  }
-  Failures(request: QueryFailuresRequest): Promise<QueryFailuresResponse> {
-    const data = QueryFailuresRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.contractmanager.Query", "Failures", data);
-    return promise.then((data) => QueryFailuresResponse.decode(new BinaryReader(data)));
-  }
-}

@@ -1,8 +1,9 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PriceFeedSLA, PriceFeed, Params } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet } from "../../../helpers";
 export const protobufPackage = "slinky.sla.v1";
 /** QueryAllSLAsRequest is the request type for the Query/GetAllSLAs RPC method. */
 export interface GetAllSLAsRequest {}
@@ -300,39 +301,3 @@ export const ParamsResponse = {
     return message;
   },
 };
-/** Query is the query service for the x/sla module. */
-export interface Query {
-  /** GetAllSLAs returns all SLAs that the module is currently enforcing. */
-  GetAllSLAs(request?: GetAllSLAsRequest): Promise<GetAllSLAsResponse>;
-  /**
-   * GetPriceFeeds returns all price feeds that the module is currently
-   * tracking. This request type inputs the SLA ID to query price feeds for.
-   */
-  GetPriceFeeds(request: GetPriceFeedsRequest): Promise<GetPriceFeedsResponse>;
-  /** Params returns the current SLA module parameters. */
-  Params(request?: ParamsRequest): Promise<ParamsResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.GetAllSLAs = this.GetAllSLAs.bind(this);
-    this.GetPriceFeeds = this.GetPriceFeeds.bind(this);
-    this.Params = this.Params.bind(this);
-  }
-  GetAllSLAs(request: GetAllSLAsRequest = {}): Promise<GetAllSLAsResponse> {
-    const data = GetAllSLAsRequest.encode(request).finish();
-    const promise = this.rpc.request("slinky.sla.v1.Query", "GetAllSLAs", data);
-    return promise.then((data) => GetAllSLAsResponse.decode(new BinaryReader(data)));
-  }
-  GetPriceFeeds(request: GetPriceFeedsRequest): Promise<GetPriceFeedsResponse> {
-    const data = GetPriceFeedsRequest.encode(request).finish();
-    const promise = this.rpc.request("slinky.sla.v1.Query", "GetPriceFeeds", data);
-    return promise.then((data) => GetPriceFeedsResponse.decode(new BinaryReader(data)));
-  }
-  Params(request: ParamsRequest = {}): Promise<ParamsResponse> {
-    const data = ParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("slinky.sla.v1.Query", "Params", data);
-    return promise.then((data) => ParamsResponse.decode(new BinaryReader(data)));
-  }
-}

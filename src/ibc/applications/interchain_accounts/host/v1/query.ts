@@ -1,8 +1,9 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./host";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
 import { JsonSafe } from "../../../../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../../../../helpers";
+import { DeepPartial, Exact, isSet } from "../../../../../helpers";
 export const protobufPackage = "ibc.applications.interchain_accounts.host.v1";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
@@ -94,20 +95,3 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-/** Query provides defines the gRPC querier service. */
-export interface Query {
-  /** Params queries all parameters of the ICA host submodule. */
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-  }
-  Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.applications.interchain_accounts.host.v1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-}

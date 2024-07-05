@@ -1,8 +1,9 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Config } from "./config";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet } from "../../../helpers";
 export const protobufPackage = "cosmos.app.v1alpha1";
 /** QueryConfigRequest is the Query/Config request type. */
 export interface QueryConfigRequest {}
@@ -94,20 +95,3 @@ export const QueryConfigResponse = {
     return message;
   },
 };
-/** Query is the app module query service. */
-export interface Query {
-  /** Config returns the current app config. */
-  Config(request?: QueryConfigRequest): Promise<QueryConfigResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Config = this.Config.bind(this);
-  }
-  Config(request: QueryConfigRequest = {}): Promise<QueryConfigResponse> {
-    const data = QueryConfigRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.app.v1alpha1.Query", "Config", data);
-    return promise.then((data) => QueryConfigResponse.decode(new BinaryReader(data)));
-  }
-}

@@ -1,9 +1,10 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Timestamp } from "../../google/protobuf/timestamp";
 import { Params } from "./params";
 import { Coin } from "../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp, Rpc } from "../../helpers";
+import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
 export const protobufPackage = "neutron.dex";
 export enum LimitOrderType {
@@ -1385,65 +1386,3 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
 };
-/** Msg defines the Msg service. */
-export interface Msg {
-  Deposit(request: MsgDeposit): Promise<MsgDepositResponse>;
-  Withdrawal(request: MsgWithdrawal): Promise<MsgWithdrawalResponse>;
-  PlaceLimitOrder(request: MsgPlaceLimitOrder): Promise<MsgPlaceLimitOrderResponse>;
-  WithdrawFilledLimitOrder(
-    request: MsgWithdrawFilledLimitOrder,
-  ): Promise<MsgWithdrawFilledLimitOrderResponse>;
-  CancelLimitOrder(request: MsgCancelLimitOrder): Promise<MsgCancelLimitOrderResponse>;
-  MultiHopSwap(request: MsgMultiHopSwap): Promise<MsgMultiHopSwapResponse>;
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Deposit = this.Deposit.bind(this);
-    this.Withdrawal = this.Withdrawal.bind(this);
-    this.PlaceLimitOrder = this.PlaceLimitOrder.bind(this);
-    this.WithdrawFilledLimitOrder = this.WithdrawFilledLimitOrder.bind(this);
-    this.CancelLimitOrder = this.CancelLimitOrder.bind(this);
-    this.MultiHopSwap = this.MultiHopSwap.bind(this);
-    this.UpdateParams = this.UpdateParams.bind(this);
-  }
-  Deposit(request: MsgDeposit): Promise<MsgDepositResponse> {
-    const data = MsgDeposit.encode(request).finish();
-    const promise = this.rpc.request("neutron.dex.Msg", "Deposit", data);
-    return promise.then((data) => MsgDepositResponse.decode(new BinaryReader(data)));
-  }
-  Withdrawal(request: MsgWithdrawal): Promise<MsgWithdrawalResponse> {
-    const data = MsgWithdrawal.encode(request).finish();
-    const promise = this.rpc.request("neutron.dex.Msg", "Withdrawal", data);
-    return promise.then((data) => MsgWithdrawalResponse.decode(new BinaryReader(data)));
-  }
-  PlaceLimitOrder(request: MsgPlaceLimitOrder): Promise<MsgPlaceLimitOrderResponse> {
-    const data = MsgPlaceLimitOrder.encode(request).finish();
-    const promise = this.rpc.request("neutron.dex.Msg", "PlaceLimitOrder", data);
-    return promise.then((data) => MsgPlaceLimitOrderResponse.decode(new BinaryReader(data)));
-  }
-  WithdrawFilledLimitOrder(
-    request: MsgWithdrawFilledLimitOrder,
-  ): Promise<MsgWithdrawFilledLimitOrderResponse> {
-    const data = MsgWithdrawFilledLimitOrder.encode(request).finish();
-    const promise = this.rpc.request("neutron.dex.Msg", "WithdrawFilledLimitOrder", data);
-    return promise.then((data) => MsgWithdrawFilledLimitOrderResponse.decode(new BinaryReader(data)));
-  }
-  CancelLimitOrder(request: MsgCancelLimitOrder): Promise<MsgCancelLimitOrderResponse> {
-    const data = MsgCancelLimitOrder.encode(request).finish();
-    const promise = this.rpc.request("neutron.dex.Msg", "CancelLimitOrder", data);
-    return promise.then((data) => MsgCancelLimitOrderResponse.decode(new BinaryReader(data)));
-  }
-  MultiHopSwap(request: MsgMultiHopSwap): Promise<MsgMultiHopSwapResponse> {
-    const data = MsgMultiHopSwap.encode(request).finish();
-    const promise = this.rpc.request("neutron.dex.Msg", "MultiHopSwap", data);
-    return promise.then((data) => MsgMultiHopSwapResponse.decode(new BinaryReader(data)));
-  }
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request("neutron.dex.Msg", "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
-  }
-}

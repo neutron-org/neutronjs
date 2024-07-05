@@ -1,7 +1,8 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./controller";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../../../helpers";
 import { JsonSafe } from "../../../../../json-safe";
 export const protobufPackage = "ibc.applications.interchain_accounts.controller.v1";
 /** QueryInterchainAccountRequest is the request type for the Query/InterchainAccount RPC method. */
@@ -212,36 +213,3 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-/** Query provides defines the gRPC querier service. */
-export interface Query {
-  /** InterchainAccount returns the interchain account address for a given owner address on a given connection */
-  InterchainAccount(request: QueryInterchainAccountRequest): Promise<QueryInterchainAccountResponse>;
-  /** Params queries all parameters of the ICA controller submodule. */
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.InterchainAccount = this.InterchainAccount.bind(this);
-    this.Params = this.Params.bind(this);
-  }
-  InterchainAccount(request: QueryInterchainAccountRequest): Promise<QueryInterchainAccountResponse> {
-    const data = QueryInterchainAccountRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "ibc.applications.interchain_accounts.controller.v1.Query",
-      "InterchainAccount",
-      data,
-    );
-    return promise.then((data) => QueryInterchainAccountResponse.decode(new BinaryReader(data)));
-  }
-  Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "ibc.applications.interchain_accounts.controller.v1.Query",
-      "Params",
-      data,
-    );
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-}

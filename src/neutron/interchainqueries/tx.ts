@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { KVKey } from "./genesis";
 import { Params } from "./params";
@@ -5,7 +6,7 @@ import { ProofOps, Proof } from "../../tendermint/crypto/proof";
 import { Any } from "../../google/protobuf/any";
 import { ExecTxResult } from "../../tendermint/abci/types";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Rpc } from "../../helpers";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
 export const protobufPackage = "neutron.interchainqueries";
 export interface MsgRegisterInterchainQuery {
@@ -1064,47 +1065,3 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
 };
-/** Msg defines the Msg service. */
-export interface Msg {
-  RegisterInterchainQuery(request: MsgRegisterInterchainQuery): Promise<MsgRegisterInterchainQueryResponse>;
-  SubmitQueryResult(request: MsgSubmitQueryResult): Promise<MsgSubmitQueryResultResponse>;
-  RemoveInterchainQuery(request: MsgRemoveInterchainQueryRequest): Promise<MsgRemoveInterchainQueryResponse>;
-  UpdateInterchainQuery(request: MsgUpdateInterchainQueryRequest): Promise<MsgUpdateInterchainQueryResponse>;
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.RegisterInterchainQuery = this.RegisterInterchainQuery.bind(this);
-    this.SubmitQueryResult = this.SubmitQueryResult.bind(this);
-    this.RemoveInterchainQuery = this.RemoveInterchainQuery.bind(this);
-    this.UpdateInterchainQuery = this.UpdateInterchainQuery.bind(this);
-    this.UpdateParams = this.UpdateParams.bind(this);
-  }
-  RegisterInterchainQuery(request: MsgRegisterInterchainQuery): Promise<MsgRegisterInterchainQueryResponse> {
-    const data = MsgRegisterInterchainQuery.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchainqueries.Msg", "RegisterInterchainQuery", data);
-    return promise.then((data) => MsgRegisterInterchainQueryResponse.decode(new BinaryReader(data)));
-  }
-  SubmitQueryResult(request: MsgSubmitQueryResult): Promise<MsgSubmitQueryResultResponse> {
-    const data = MsgSubmitQueryResult.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchainqueries.Msg", "SubmitQueryResult", data);
-    return promise.then((data) => MsgSubmitQueryResultResponse.decode(new BinaryReader(data)));
-  }
-  RemoveInterchainQuery(request: MsgRemoveInterchainQueryRequest): Promise<MsgRemoveInterchainQueryResponse> {
-    const data = MsgRemoveInterchainQueryRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchainqueries.Msg", "RemoveInterchainQuery", data);
-    return promise.then((data) => MsgRemoveInterchainQueryResponse.decode(new BinaryReader(data)));
-  }
-  UpdateInterchainQuery(request: MsgUpdateInterchainQueryRequest): Promise<MsgUpdateInterchainQueryResponse> {
-    const data = MsgUpdateInterchainQueryRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchainqueries.Msg", "UpdateInterchainQuery", data);
-    return promise.then((data) => MsgUpdateInterchainQueryResponse.decode(new BinaryReader(data)));
-  }
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchainqueries.Msg", "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
-  }
-}

@@ -1,7 +1,8 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { JsonSafe } from "../../../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../../../helpers";
+import { DeepPartial, Exact, isSet } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.reflection.v1beta1";
 /** ListAllInterfacesRequest is the request type of the ListAllInterfaces RPC. */
 export interface ListAllInterfacesRequest {}
@@ -214,42 +215,3 @@ export const ListImplementationsResponse = {
     return message;
   },
 };
-/** ReflectionService defines a service for interface reflection. */
-export interface ReflectionService {
-  /**
-   * ListAllInterfaces lists all the interfaces registered in the interface
-   * registry.
-   */
-  ListAllInterfaces(request?: ListAllInterfacesRequest): Promise<ListAllInterfacesResponse>;
-  /**
-   * ListImplementations list all the concrete types that implement a given
-   * interface.
-   */
-  ListImplementations(request: ListImplementationsRequest): Promise<ListImplementationsResponse>;
-}
-export class ReflectionServiceClientImpl implements ReflectionService {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.ListAllInterfaces = this.ListAllInterfaces.bind(this);
-    this.ListImplementations = this.ListImplementations.bind(this);
-  }
-  ListAllInterfaces(request: ListAllInterfacesRequest = {}): Promise<ListAllInterfacesResponse> {
-    const data = ListAllInterfacesRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "cosmos.base.reflection.v1beta1.ReflectionService",
-      "ListAllInterfaces",
-      data,
-    );
-    return promise.then((data) => ListAllInterfacesResponse.decode(new BinaryReader(data)));
-  }
-  ListImplementations(request: ListImplementationsRequest): Promise<ListImplementationsResponse> {
-    const data = ListImplementationsRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "cosmos.base.reflection.v1beta1.ReflectionService",
-      "ListImplementations",
-      data,
-    );
-    return promise.then((data) => ListImplementationsResponse.decode(new BinaryReader(data)));
-  }
-}

@@ -1,8 +1,9 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { NFT, Class } from "./nft";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.nft.v1beta1";
 /** QueryBalanceRequest is the request type for the Query/Balance RPC method */
@@ -831,75 +832,3 @@ export const QueryClassesResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /** Balance queries the number of NFTs of a given class owned by the owner, same as balanceOf in ERC721 */
-  Balance(request: QueryBalanceRequest): Promise<QueryBalanceResponse>;
-  /** Owner queries the owner of the NFT based on its class and id, same as ownerOf in ERC721 */
-  Owner(request: QueryOwnerRequest): Promise<QueryOwnerResponse>;
-  /** Supply queries the number of NFTs from the given class, same as totalSupply of ERC721. */
-  Supply(request: QuerySupplyRequest): Promise<QuerySupplyResponse>;
-  /**
-   * NFTs queries all NFTs of a given class or owner,choose at least one of the two, similar to tokenByIndex in
-   * ERC721Enumerable
-   */
-  NFTs(request: QueryNFTsRequest): Promise<QueryNFTsResponse>;
-  /** NFT queries an NFT based on its class and id. */
-  NFT(request: QueryNFTRequest): Promise<QueryNFTResponse>;
-  /** Class queries an NFT class based on its id */
-  Class(request: QueryClassRequest): Promise<QueryClassResponse>;
-  /** Classes queries all NFT classes */
-  Classes(request?: QueryClassesRequest): Promise<QueryClassesResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Balance = this.Balance.bind(this);
-    this.Owner = this.Owner.bind(this);
-    this.Supply = this.Supply.bind(this);
-    this.NFTs = this.NFTs.bind(this);
-    this.NFT = this.NFT.bind(this);
-    this.Class = this.Class.bind(this);
-    this.Classes = this.Classes.bind(this);
-  }
-  Balance(request: QueryBalanceRequest): Promise<QueryBalanceResponse> {
-    const data = QueryBalanceRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.nft.v1beta1.Query", "Balance", data);
-    return promise.then((data) => QueryBalanceResponse.decode(new BinaryReader(data)));
-  }
-  Owner(request: QueryOwnerRequest): Promise<QueryOwnerResponse> {
-    const data = QueryOwnerRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.nft.v1beta1.Query", "Owner", data);
-    return promise.then((data) => QueryOwnerResponse.decode(new BinaryReader(data)));
-  }
-  Supply(request: QuerySupplyRequest): Promise<QuerySupplyResponse> {
-    const data = QuerySupplyRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.nft.v1beta1.Query", "Supply", data);
-    return promise.then((data) => QuerySupplyResponse.decode(new BinaryReader(data)));
-  }
-  NFTs(request: QueryNFTsRequest): Promise<QueryNFTsResponse> {
-    const data = QueryNFTsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.nft.v1beta1.Query", "NFTs", data);
-    return promise.then((data) => QueryNFTsResponse.decode(new BinaryReader(data)));
-  }
-  NFT(request: QueryNFTRequest): Promise<QueryNFTResponse> {
-    const data = QueryNFTRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.nft.v1beta1.Query", "NFT", data);
-    return promise.then((data) => QueryNFTResponse.decode(new BinaryReader(data)));
-  }
-  Class(request: QueryClassRequest): Promise<QueryClassResponse> {
-    const data = QueryClassRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.nft.v1beta1.Query", "Class", data);
-    return promise.then((data) => QueryClassResponse.decode(new BinaryReader(data)));
-  }
-  Classes(
-    request: QueryClassesRequest = {
-      pagination: PageRequest.fromPartial({}),
-    },
-  ): Promise<QueryClassesResponse> {
-    const data = QueryClassesRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.nft.v1beta1.Query", "Classes", data);
-    return promise.then((data) => QueryClassesResponse.decode(new BinaryReader(data)));
-  }
-}

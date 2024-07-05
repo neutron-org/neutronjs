@@ -1,8 +1,9 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Any } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.evidence.v1beta1";
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
@@ -265,32 +266,3 @@ export const QueryAllEvidenceResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /** Evidence queries evidence based on evidence hash. */
-  Evidence(request: QueryEvidenceRequest): Promise<QueryEvidenceResponse>;
-  /** AllEvidence queries all evidence. */
-  AllEvidence(request?: QueryAllEvidenceRequest): Promise<QueryAllEvidenceResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Evidence = this.Evidence.bind(this);
-    this.AllEvidence = this.AllEvidence.bind(this);
-  }
-  Evidence(request: QueryEvidenceRequest): Promise<QueryEvidenceResponse> {
-    const data = QueryEvidenceRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.evidence.v1beta1.Query", "Evidence", data);
-    return promise.then((data) => QueryEvidenceResponse.decode(new BinaryReader(data)));
-  }
-  AllEvidence(
-    request: QueryAllEvidenceRequest = {
-      pagination: PageRequest.fromPartial({}),
-    },
-  ): Promise<QueryAllEvidenceResponse> {
-    const data = QueryAllEvidenceRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.evidence.v1beta1.Query", "AllEvidence", data);
-    return promise.then((data) => QueryAllEvidenceResponse.decode(new BinaryReader(data)));
-  }
-}

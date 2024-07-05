@@ -1,7 +1,8 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes, Rpc } from "../../../../helpers";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { JsonSafe } from "../../../../json-safe";
 export const protobufPackage = "ibc.lightclients.wasm.v1";
 /** QueryChecksumsRequest is the request type for the Query/Checksums RPC method. */
@@ -230,32 +231,3 @@ export const QueryCodeResponse = {
     return message;
   },
 };
-/** Query service for wasm module */
-export interface Query {
-  /** Get all Wasm checksums */
-  Checksums(request?: QueryChecksumsRequest): Promise<QueryChecksumsResponse>;
-  /** Get Wasm code for given checksum */
-  Code(request: QueryCodeRequest): Promise<QueryCodeResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Checksums = this.Checksums.bind(this);
-    this.Code = this.Code.bind(this);
-  }
-  Checksums(
-    request: QueryChecksumsRequest = {
-      pagination: PageRequest.fromPartial({}),
-    },
-  ): Promise<QueryChecksumsResponse> {
-    const data = QueryChecksumsRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.lightclients.wasm.v1.Query", "Checksums", data);
-    return promise.then((data) => QueryChecksumsResponse.decode(new BinaryReader(data)));
-  }
-  Code(request: QueryCodeRequest): Promise<QueryCodeResponse> {
-    const data = QueryCodeRequest.encode(request).finish();
-    const promise = this.rpc.request("ibc.lightclients.wasm.v1.Query", "Code", data);
-    return promise.then((data) => QueryCodeResponse.decode(new BinaryReader(data)));
-  }
-}

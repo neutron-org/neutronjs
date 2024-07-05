@@ -1,6 +1,7 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.nft.v1beta1";
 /** MsgSend represents a message to send a nft from one account to another account. */
@@ -127,20 +128,3 @@ export const MsgSendResponse = {
     return message;
   },
 };
-/** Msg defines the nft Msg service. */
-export interface Msg {
-  /** Send defines a method to send a nft from one account to another account. */
-  Send(request: MsgSend): Promise<MsgSendResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Send = this.Send.bind(this);
-  }
-  Send(request: MsgSend): Promise<MsgSendResponse> {
-    const data = MsgSend.encode(request).finish();
-    const promise = this.rpc.request("cosmos.nft.v1beta1.Msg", "Send", data);
-    return promise.then((data) => MsgSendResponse.decode(new BinaryReader(data)));
-  }
-}

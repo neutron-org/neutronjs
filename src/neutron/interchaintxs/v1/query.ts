@@ -1,8 +1,9 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet } from "../../../helpers";
 export const protobufPackage = "neutron.interchaintxs.v1";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
@@ -240,31 +241,3 @@ export const QueryInterchainAccountAddressResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /** Parameters queries the parameters of the module. */
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  InterchainAccountAddress(
-    request: QueryInterchainAccountAddressRequest,
-  ): Promise<QueryInterchainAccountAddressResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-    this.InterchainAccountAddress = this.InterchainAccountAddress.bind(this);
-  }
-  Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchaintxs.v1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-  InterchainAccountAddress(
-    request: QueryInterchainAccountAddressRequest,
-  ): Promise<QueryInterchainAccountAddressResponse> {
-    const data = QueryInterchainAccountAddressRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.interchaintxs.v1.Query", "InterchainAccountAddress", data);
-    return promise.then((data) => QueryInterchainAccountAddressResponse.decode(new BinaryReader(data)));
-  }
-}

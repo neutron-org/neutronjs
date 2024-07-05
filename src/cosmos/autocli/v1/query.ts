@@ -1,8 +1,9 @@
+//@ts-nocheck
 /* eslint-disable */
 import { ModuleOptions } from "./options";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, isObject, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet, isObject } from "../../../helpers";
 export const protobufPackage = "cosmos.autocli.v1";
 /** AppOptionsRequest is the RemoteInfoService/AppOptions request type. */
 export interface AppOptionsRequest {}
@@ -188,21 +189,3 @@ export const AppOptionsResponse = {
     return message;
   },
 };
-/** RemoteInfoService provides clients with the information they need
- to build dynamically CLI clients for remote chains. */
-export interface Query {
-  /** AppOptions returns the autocli options for all of the modules in an app. */
-  AppOptions(request?: AppOptionsRequest): Promise<AppOptionsResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.AppOptions = this.AppOptions.bind(this);
-  }
-  AppOptions(request: AppOptionsRequest = {}): Promise<AppOptionsResponse> {
-    const data = AppOptionsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.autocli.v1.Query", "AppOptions", data);
-    return promise.then((data) => AppOptionsResponse.decode(new BinaryReader(data)));
-  }
-}
