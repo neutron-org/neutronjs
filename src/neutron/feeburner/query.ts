@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./params";
 import { TotalBurnedNeutronsAmount } from "./total_burned_neutrons_amount";

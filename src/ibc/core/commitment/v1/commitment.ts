@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { CommitmentProof } from "../../../../cosmos/ics23/v1/proofs";
 import { BinaryReader, BinaryWriter } from "../../../../binary";

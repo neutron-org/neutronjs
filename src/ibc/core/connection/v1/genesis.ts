@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { IdentifiedConnection, ConnectionPaths, Params } from "./connection";
 import { BinaryReader, BinaryWriter } from "../../../../binary";

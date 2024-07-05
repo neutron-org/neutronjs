@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PairID } from "./pair_id";
 import { Pool } from "./pool";

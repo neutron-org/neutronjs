@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { IdentifiedChannel, PacketState, Params } from "./channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";

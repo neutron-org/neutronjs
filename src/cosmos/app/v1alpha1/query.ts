@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Config } from "./config";
 import { BinaryReader, BinaryWriter } from "../../../binary";

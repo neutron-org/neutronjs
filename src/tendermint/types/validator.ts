@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PublicKey } from "../crypto/keys";
 import { BinaryReader, BinaryWriter } from "../../binary";

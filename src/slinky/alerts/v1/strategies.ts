@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Validator } from "../../../tendermint/abci/types";
 import { BinaryReader, BinaryWriter } from "../../../binary";

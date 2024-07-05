@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Proof } from "../crypto/proof";
 import { Consensus } from "../version/types";

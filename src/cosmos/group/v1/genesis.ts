@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { GroupInfo, GroupMember, GroupPolicyInfo, Proposal, Vote } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";

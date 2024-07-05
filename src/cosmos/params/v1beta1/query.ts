@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { ParamChange } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";

@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { AccessConfig } from "./types";
 import { Any } from "../../../google/protobuf/any";

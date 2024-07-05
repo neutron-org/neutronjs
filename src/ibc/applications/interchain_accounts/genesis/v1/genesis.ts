@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Params as Params1 } from "../../controller/v1/controller";
 import { Params as Params2 } from "../../host/v1/host";

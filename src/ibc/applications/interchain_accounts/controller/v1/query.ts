@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./controller";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";

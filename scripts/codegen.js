@@ -21,13 +21,13 @@ telescope({
     logLevel: 0,
     useSDKTypes: false,
     tsDisable: {
-      disableAll: true,
+      files: ["slinky/oracle/v1/query.ts"],
     },
     eslintDisable: {
       disableAll: true,
     },
     bundle: {
-      enabled: true,
+      enabled: false,
     },
     interfaces: {
       enabled: false,

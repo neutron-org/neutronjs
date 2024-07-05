@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Fee, PacketFee } from "./fee";
 import { PacketId } from "../../../core/channel/v1/channel";

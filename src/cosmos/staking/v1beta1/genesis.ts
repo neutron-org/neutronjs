@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Params, Validator, Delegation, UnbondingDelegation, Redelegation } from "./staking";
 import { BinaryReader, BinaryWriter } from "../../../binary";

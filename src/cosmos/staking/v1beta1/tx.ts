@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Description, CommissionRates, Params } from "./staking";
 import { Any } from "../../../google/protobuf/any";

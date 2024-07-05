@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PageRequest } from "../../query/v1beta1/pagination";
 import { Rpc } from "../../../../helpers";

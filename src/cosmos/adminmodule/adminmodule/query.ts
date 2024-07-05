@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Proposal as Proposal1 } from "../../gov/v1/gov";
 import { Proposal as Proposal2 } from "../../gov/v1beta1/gov";

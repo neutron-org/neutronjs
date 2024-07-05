@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PoolReserves } from "./pool_reserves";
 import { BinaryReader, BinaryWriter } from "../../binary";

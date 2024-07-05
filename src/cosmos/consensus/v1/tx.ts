@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { BlockParams, EvidenceParams, ValidatorParams, ABCIParams } from "../../../tendermint/types/params";
 import { BinaryReader, BinaryWriter } from "../../../binary";

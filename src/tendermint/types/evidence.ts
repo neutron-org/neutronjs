@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Vote, LightBlock } from "./types";
 import { Timestamp } from "../../google/protobuf/timestamp";

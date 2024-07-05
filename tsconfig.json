@@ -26,5 +26,6 @@
     "target": "es2020",
     "strictNullChecks": false,
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["src/google/**"]
 }

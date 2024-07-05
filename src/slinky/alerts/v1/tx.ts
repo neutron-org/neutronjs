@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Alert } from "./alerts";
 import { Any } from "../../../google/protobuf/any";

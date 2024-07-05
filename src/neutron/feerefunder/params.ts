@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Fee } from "./fee";
 import { BinaryReader, BinaryWriter } from "../../binary";

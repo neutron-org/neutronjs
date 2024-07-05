@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { IdentifiedClientState, ClientConsensusStates, Params } from "./client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";

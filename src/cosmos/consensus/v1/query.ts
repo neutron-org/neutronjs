@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { ConsensusParams } from "../../../tendermint/types/params";
 import { BinaryReader, BinaryWriter } from "../../../binary";

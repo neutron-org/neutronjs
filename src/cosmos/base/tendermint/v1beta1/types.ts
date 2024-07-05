@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Data, Commit, BlockID } from "../../../../tendermint/types/types";
 import { EvidenceList } from "../../../../tendermint/types/evidence";

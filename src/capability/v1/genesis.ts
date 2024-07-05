@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { CapabilityOwners } from "./capability";
 import { BinaryReader, BinaryWriter } from "../../binary";

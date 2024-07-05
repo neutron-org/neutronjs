@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { TradePairID } from "./trade_pair_id";
 import { BinaryReader, BinaryWriter } from "../../binary";

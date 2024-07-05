@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Schedule } from "./schedule";
 import { Params } from "./params";

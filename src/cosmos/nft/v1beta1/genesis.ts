@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Class, NFT } from "./nft";
 import { BinaryReader, BinaryWriter } from "../../../binary";

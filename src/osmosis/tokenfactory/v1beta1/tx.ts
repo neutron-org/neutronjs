@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Metadata, Params } from "../../../cosmos/bank/v1beta1/bank";

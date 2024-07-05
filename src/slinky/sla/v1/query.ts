@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { PriceFeedSLA, PriceFeed, Params } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";

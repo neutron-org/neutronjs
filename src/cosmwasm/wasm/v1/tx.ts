@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { AccessConfig, Params } from "./types";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";

@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./params";
 import { PacketID, Fee } from "./fee";

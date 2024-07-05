@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Alert } from "./alerts";
 import { Params } from "./genesis";

@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { Counterparty, Version } from "./connection";
 import { Any } from "../../../../google/protobuf/any";

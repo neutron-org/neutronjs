@@ -1,4 +1,3 @@
-//@ts-nocheck
 /* eslint-disable */
 import { IncentivesByType } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
