@@ -2,7 +2,7 @@
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Permissions, GenesisAccountPermissions } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.circuit.v1";
 /** QueryAccountRequest is the request type for the Query/Account RPC method. */
@@ -324,40 +324,3 @@ export const DisabledListResponse = {
     return message;
   },
 };
-/** Query defines the circuit gRPC querier service. */
-export interface Query {
-  /** Account returns account permissions. */
-  Account(request: QueryAccountRequest): Promise<AccountResponse>;
-  /** Account returns account permissions. */
-  Accounts(request?: QueryAccountsRequest): Promise<AccountsResponse>;
-  /** DisabledList returns a list of disabled message urls */
-  DisabledList(request?: QueryDisabledListRequest): Promise<DisabledListResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Account = this.Account.bind(this);
-    this.Accounts = this.Accounts.bind(this);
-    this.DisabledList = this.DisabledList.bind(this);
-  }
-  Account(request: QueryAccountRequest): Promise<AccountResponse> {
-    const data = QueryAccountRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.circuit.v1.Query", "Account", data);
-    return promise.then((data) => AccountResponse.decode(new BinaryReader(data)));
-  }
-  Accounts(
-    request: QueryAccountsRequest = {
-      pagination: PageRequest.fromPartial({}),
-    },
-  ): Promise<AccountsResponse> {
-    const data = QueryAccountsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.circuit.v1.Query", "Accounts", data);
-    return promise.then((data) => AccountsResponse.decode(new BinaryReader(data)));
-  }
-  DisabledList(request: QueryDisabledListRequest = {}): Promise<DisabledListResponse> {
-    const data = QueryDisabledListRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.circuit.v1.Query", "DisabledList", data);
-    return promise.then((data) => DisabledListResponse.decode(new BinaryReader(data)));
-  }
-}

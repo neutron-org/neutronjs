@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, isObject, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet, isObject } from "../../../helpers";
 export const protobufPackage = "sdk.mempool.v1";
 /**
  * GetTxDistributionRequest is the request type for the Service.GetTxDistribution
@@ -196,20 +196,3 @@ export const GetTxDistributionResponse = {
     return message;
   },
 };
-/** Service defines the gRPC querier service for the Block SDK mempool. */
-export interface Service {
-  /** GetTxDistribution returns the distribution of transactions in the mempool. */
-  GetTxDistribution(request?: GetTxDistributionRequest): Promise<GetTxDistributionResponse>;
-}
-export class ServiceClientImpl implements Service {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.GetTxDistribution = this.GetTxDistribution.bind(this);
-  }
-  GetTxDistribution(request: GetTxDistributionRequest = {}): Promise<GetTxDistributionResponse> {
-    const data = GetTxDistributionRequest.encode(request).finish();
-    const promise = this.rpc.request("sdk.mempool.v1.Service", "GetTxDistribution", data);
-    return promise.then((data) => GetTxDistributionResponse.decode(new BinaryReader(data)));
-  }
-}

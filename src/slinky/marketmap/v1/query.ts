@@ -4,7 +4,7 @@ import { MarketMap, Market } from "./market";
 import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet } from "../../../helpers";
 export const protobufPackage = "slinky.marketmap.v1";
 /**
  * MarketMapRequest is the query request for the MarketMap query.
@@ -430,50 +430,3 @@ export const LastUpdatedResponse = {
     return message;
   },
 };
-/** Query is the query service for the x/marketmap module. */
-export interface Query {
-  /**
-   * MarketMap returns the full market map stored in the x/marketmap
-   * module.
-   */
-  MarketMap(request?: MarketMapRequest): Promise<MarketMapResponse>;
-  /**
-   * Market returns a market stored in the x/marketmap
-   * module.
-   */
-  Market(request: MarketRequest): Promise<MarketResponse>;
-  /** LastUpdated returns the last height the market map was updated at. */
-  LastUpdated(request?: LastUpdatedRequest): Promise<LastUpdatedResponse>;
-  /** Params returns the current x/marketmap module parameters. */
-  Params(request?: ParamsRequest): Promise<ParamsResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.MarketMap = this.MarketMap.bind(this);
-    this.Market = this.Market.bind(this);
-    this.LastUpdated = this.LastUpdated.bind(this);
-    this.Params = this.Params.bind(this);
-  }
-  MarketMap(request: MarketMapRequest = {}): Promise<MarketMapResponse> {
-    const data = MarketMapRequest.encode(request).finish();
-    const promise = this.rpc.request("slinky.marketmap.v1.Query", "MarketMap", data);
-    return promise.then((data) => MarketMapResponse.decode(new BinaryReader(data)));
-  }
-  Market(request: MarketRequest): Promise<MarketResponse> {
-    const data = MarketRequest.encode(request).finish();
-    const promise = this.rpc.request("slinky.marketmap.v1.Query", "Market", data);
-    return promise.then((data) => MarketResponse.decode(new BinaryReader(data)));
-  }
-  LastUpdated(request: LastUpdatedRequest = {}): Promise<LastUpdatedResponse> {
-    const data = LastUpdatedRequest.encode(request).finish();
-    const promise = this.rpc.request("slinky.marketmap.v1.Query", "LastUpdated", data);
-    return promise.then((data) => LastUpdatedResponse.decode(new BinaryReader(data)));
-  }
-  Params(request: ParamsRequest = {}): Promise<ParamsResponse> {
-    const data = ParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("slinky.marketmap.v1.Query", "Params", data);
-    return promise.then((data) => ParamsResponse.decode(new BinaryReader(data)));
-  }
-}

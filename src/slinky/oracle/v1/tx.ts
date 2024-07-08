@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { CurrencyPair } from "../../types/v1/currency_pair";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "slinky.oracle.v1";
 /**
@@ -239,36 +239,3 @@ export const MsgRemoveCurrencyPairsResponse = {
     return message;
   },
 };
-/** Msg is the message service for the x/oracle module. */
-export interface Msg {
-  /**
-   * AddCurrencyPairs will be used only by governance to update the set of
-   * available CurrencyPairs. Given a set of CurrencyPair objects, update
-   * the available currency pairs in the module .
-   */
-  AddCurrencyPairs(request: MsgAddCurrencyPairs): Promise<MsgAddCurrencyPairsResponse>;
-  /**
-   * RemoveCurrencyPairs will be used explicitly by governance to remove the
-   * given set of currency-pairs from the module's state. Thus these
-   * CurrencyPairs will no longer have price-data available from this module.
-   */
-  RemoveCurrencyPairs(request: MsgRemoveCurrencyPairs): Promise<MsgRemoveCurrencyPairsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.AddCurrencyPairs = this.AddCurrencyPairs.bind(this);
-    this.RemoveCurrencyPairs = this.RemoveCurrencyPairs.bind(this);
-  }
-  AddCurrencyPairs(request: MsgAddCurrencyPairs): Promise<MsgAddCurrencyPairsResponse> {
-    const data = MsgAddCurrencyPairs.encode(request).finish();
-    const promise = this.rpc.request("slinky.oracle.v1.Msg", "AddCurrencyPairs", data);
-    return promise.then((data) => MsgAddCurrencyPairsResponse.decode(new BinaryReader(data)));
-  }
-  RemoveCurrencyPairs(request: MsgRemoveCurrencyPairs): Promise<MsgRemoveCurrencyPairsResponse> {
-    const data = MsgRemoveCurrencyPairs.encode(request).finish();
-    const promise = this.rpc.request("slinky.oracle.v1.Msg", "RemoveCurrencyPairs", data);
-    return promise.then((data) => MsgRemoveCurrencyPairsResponse.decode(new BinaryReader(data)));
-  }
-}

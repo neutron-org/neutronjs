@@ -3,7 +3,7 @@ import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Params, ValidatorSigningInfo } from "./slashing";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet } from "../../../helpers";
 export const protobufPackage = "cosmos.slashing.v1beta1";
 /** QueryParamsRequest is the request type for the Query/Params RPC method */
 export interface QueryParamsRequest {}
@@ -342,40 +342,3 @@ export const QuerySigningInfosResponse = {
     return message;
   },
 };
-/** Query provides defines the gRPC querier service */
-export interface Query {
-  /** Params queries the parameters of slashing module */
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** SigningInfo queries the signing info of given cons address */
-  SigningInfo(request: QuerySigningInfoRequest): Promise<QuerySigningInfoResponse>;
-  /** SigningInfos queries signing info of all validators */
-  SigningInfos(request?: QuerySigningInfosRequest): Promise<QuerySigningInfosResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-    this.SigningInfo = this.SigningInfo.bind(this);
-    this.SigningInfos = this.SigningInfos.bind(this);
-  }
-  Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.slashing.v1beta1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-  SigningInfo(request: QuerySigningInfoRequest): Promise<QuerySigningInfoResponse> {
-    const data = QuerySigningInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.slashing.v1beta1.Query", "SigningInfo", data);
-    return promise.then((data) => QuerySigningInfoResponse.decode(new BinaryReader(data)));
-  }
-  SigningInfos(
-    request: QuerySigningInfosRequest = {
-      pagination: PageRequest.fromPartial({}),
-    },
-  ): Promise<QuerySigningInfosResponse> {
-    const data = QuerySigningInfosRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.slashing.v1beta1.Query", "SigningInfos", data);
-    return promise.then((data) => QuerySigningInfosResponse.decode(new BinaryReader(data)));
-  }
-}

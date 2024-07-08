@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Params } from "./host";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../../../helpers";
 import { JsonSafe } from "../../../../../json-safe";
 export const protobufPackage = "ibc.applications.interchain_accounts.host.v1";
 /** MsgUpdateParams defines the payload for Msg/UpdateParams */
@@ -110,24 +110,3 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
 };
-/** Msg defines the 27-interchain-accounts/host Msg service. */
-export interface Msg {
-  /** UpdateParams defines a rpc handler for MsgUpdateParams. */
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.UpdateParams = this.UpdateParams.bind(this);
-  }
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request(
-      "ibc.applications.interchain_accounts.host.v1.Msg",
-      "UpdateParams",
-      data,
-    );
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
-  }
-}

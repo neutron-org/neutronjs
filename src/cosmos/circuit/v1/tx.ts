@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Permissions } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.circuit.v1";
 /** MsgAuthorizeCircuitBreaker defines the Msg/AuthorizeCircuitBreaker request type. */
@@ -397,42 +397,3 @@ export const MsgResetCircuitBreakerResponse = {
     return message;
   },
 };
-/** Msg defines the circuit Msg service. */
-export interface Msg {
-  /**
-   * AuthorizeCircuitBreaker allows a super-admin to grant (or revoke) another
-   * account's circuit breaker permissions.
-   */
-  AuthorizeCircuitBreaker(request: MsgAuthorizeCircuitBreaker): Promise<MsgAuthorizeCircuitBreakerResponse>;
-  /** TripCircuitBreaker pauses processing of Msg's in the state machine. */
-  TripCircuitBreaker(request: MsgTripCircuitBreaker): Promise<MsgTripCircuitBreakerResponse>;
-  /**
-   * ResetCircuitBreaker resumes processing of Msg's in the state machine that
-   * have been been paused using TripCircuitBreaker.
-   */
-  ResetCircuitBreaker(request: MsgResetCircuitBreaker): Promise<MsgResetCircuitBreakerResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.AuthorizeCircuitBreaker = this.AuthorizeCircuitBreaker.bind(this);
-    this.TripCircuitBreaker = this.TripCircuitBreaker.bind(this);
-    this.ResetCircuitBreaker = this.ResetCircuitBreaker.bind(this);
-  }
-  AuthorizeCircuitBreaker(request: MsgAuthorizeCircuitBreaker): Promise<MsgAuthorizeCircuitBreakerResponse> {
-    const data = MsgAuthorizeCircuitBreaker.encode(request).finish();
-    const promise = this.rpc.request("cosmos.circuit.v1.Msg", "AuthorizeCircuitBreaker", data);
-    return promise.then((data) => MsgAuthorizeCircuitBreakerResponse.decode(new BinaryReader(data)));
-  }
-  TripCircuitBreaker(request: MsgTripCircuitBreaker): Promise<MsgTripCircuitBreakerResponse> {
-    const data = MsgTripCircuitBreaker.encode(request).finish();
-    const promise = this.rpc.request("cosmos.circuit.v1.Msg", "TripCircuitBreaker", data);
-    return promise.then((data) => MsgTripCircuitBreakerResponse.decode(new BinaryReader(data)));
-  }
-  ResetCircuitBreaker(request: MsgResetCircuitBreaker): Promise<MsgResetCircuitBreakerResponse> {
-    const data = MsgResetCircuitBreaker.encode(request).finish();
-    const promise = this.rpc.request("cosmos.circuit.v1.Msg", "ResetCircuitBreaker", data);
-    return promise.then((data) => MsgResetCircuitBreakerResponse.decode(new BinaryReader(data)));
-  }
-}

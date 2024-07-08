@@ -2,7 +2,7 @@
 import { Params } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet } from "../../../helpers";
 export const protobufPackage = "sdk.auction.v1";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
@@ -109,20 +109,3 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-/** Query defines the x/auction querier service. */
-export interface Query {
-  /** Params queries the parameters of the x/auction module. */
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-  }
-  Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("sdk.auction.v1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-}

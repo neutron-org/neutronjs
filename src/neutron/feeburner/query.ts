@@ -3,7 +3,7 @@ import { Params } from "./params";
 import { TotalBurnedNeutronsAmount } from "./total_burned_neutrons_amount";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../helpers";
+import { DeepPartial, Exact, isSet } from "../../helpers";
 export const protobufPackage = "neutron.feeburner";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
@@ -206,32 +206,3 @@ export const QueryTotalBurnedNeutronsAmountResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /** Parameters queries the parameters of the module. */
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** TotalBurnedNeutronsAmount queries total amount of burned neutron fees. */
-  TotalBurnedNeutronsAmount(
-    request?: QueryTotalBurnedNeutronsAmountRequest,
-  ): Promise<QueryTotalBurnedNeutronsAmountResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-    this.TotalBurnedNeutronsAmount = this.TotalBurnedNeutronsAmount.bind(this);
-  }
-  Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.feeburner.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-  TotalBurnedNeutronsAmount(
-    request: QueryTotalBurnedNeutronsAmountRequest = {},
-  ): Promise<QueryTotalBurnedNeutronsAmountResponse> {
-    const data = QueryTotalBurnedNeutronsAmountRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.feeburner.Query", "TotalBurnedNeutronsAmount", data);
-    return promise.then((data) => QueryTotalBurnedNeutronsAmountResponse.decode(new BinaryReader(data)));
-  }
-}

@@ -2,7 +2,7 @@
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Params } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "sdk.auction.v1";
 /**
@@ -246,31 +246,3 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
 };
-/** Msg defines the x/auction Msg service. */
-export interface Msg {
-  /** AuctionBid defines a method for sending bids to the x/auction module. */
-  AuctionBid(request: MsgAuctionBid): Promise<MsgAuctionBidResponse>;
-  /**
-   * UpdateParams defines a governance operation for updating the x/auction
-   * module parameters. The authority is hard-coded to the x/gov module account.
-   */
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.AuctionBid = this.AuctionBid.bind(this);
-    this.UpdateParams = this.UpdateParams.bind(this);
-  }
-  AuctionBid(request: MsgAuctionBid): Promise<MsgAuctionBidResponse> {
-    const data = MsgAuctionBid.encode(request).finish();
-    const promise = this.rpc.request("sdk.auction.v1.Msg", "AuctionBid", data);
-    return promise.then((data) => MsgAuctionBidResponse.decode(new BinaryReader(data)));
-  }
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request("sdk.auction.v1.Msg", "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
-  }
-}

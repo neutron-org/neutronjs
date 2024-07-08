@@ -12,7 +12,6 @@ import {
   fromJsonTimestamp,
   base64FromBytes,
   fromTimestamp,
-  Rpc,
 } from "../../../../helpers";
 import { JsonSafe } from "../../../../json-safe";
 export const protobufPackage = "cosmos.orm.query.v1alpha1";
@@ -633,28 +632,3 @@ export const IndexValue = {
     return message;
   },
 };
-/** Query is a generic gRPC service for querying ORM data. */
-export interface Query {
-  /** Get queries an ORM table against an unique index. */
-  Get(request: GetRequest): Promise<GetResponse>;
-  /** List queries an ORM table against an index. */
-  List(request: ListRequest): Promise<ListResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Get = this.Get.bind(this);
-    this.List = this.List.bind(this);
-  }
-  Get(request: GetRequest): Promise<GetResponse> {
-    const data = GetRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.orm.query.v1alpha1.Query", "Get", data);
-    return promise.then((data) => GetResponse.decode(new BinaryReader(data)));
-  }
-  List(request: ListRequest): Promise<ListResponse> {
-    const data = ListRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.orm.query.v1alpha1.Query", "List", data);
-    return promise.then((data) => ListResponse.decode(new BinaryReader(data)));
-  }
-}

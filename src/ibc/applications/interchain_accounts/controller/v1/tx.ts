@@ -3,7 +3,7 @@ import { Order, orderFromJSON, orderToJSON } from "../../../../core/channel/v1/c
 import { InterchainAccountPacketData } from "../../v1/packet";
 import { Params } from "./controller";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../../../helpers";
 import { JsonSafe } from "../../../../../json-safe";
 export const protobufPackage = "ibc.applications.interchain_accounts.controller.v1";
 /** MsgRegisterInterchainAccount defines the payload for Msg/RegisterAccount */
@@ -410,52 +410,3 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
 };
-/** Msg defines the 27-interchain-accounts/controller Msg service. */
-export interface Msg {
-  /** RegisterInterchainAccount defines a rpc handler for MsgRegisterInterchainAccount. */
-  RegisterInterchainAccount(
-    request: MsgRegisterInterchainAccount,
-  ): Promise<MsgRegisterInterchainAccountResponse>;
-  /** SendTx defines a rpc handler for MsgSendTx. */
-  SendTx(request: MsgSendTx): Promise<MsgSendTxResponse>;
-  /** UpdateParams defines a rpc handler for MsgUpdateParams. */
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.RegisterInterchainAccount = this.RegisterInterchainAccount.bind(this);
-    this.SendTx = this.SendTx.bind(this);
-    this.UpdateParams = this.UpdateParams.bind(this);
-  }
-  RegisterInterchainAccount(
-    request: MsgRegisterInterchainAccount,
-  ): Promise<MsgRegisterInterchainAccountResponse> {
-    const data = MsgRegisterInterchainAccount.encode(request).finish();
-    const promise = this.rpc.request(
-      "ibc.applications.interchain_accounts.controller.v1.Msg",
-      "RegisterInterchainAccount",
-      data,
-    );
-    return promise.then((data) => MsgRegisterInterchainAccountResponse.decode(new BinaryReader(data)));
-  }
-  SendTx(request: MsgSendTx): Promise<MsgSendTxResponse> {
-    const data = MsgSendTx.encode(request).finish();
-    const promise = this.rpc.request(
-      "ibc.applications.interchain_accounts.controller.v1.Msg",
-      "SendTx",
-      data,
-    );
-    return promise.then((data) => MsgSendTxResponse.decode(new BinaryReader(data)));
-  }
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request(
-      "ibc.applications.interchain_accounts.controller.v1.Msg",
-      "UpdateParams",
-      data,
-    );
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
-  }
-}

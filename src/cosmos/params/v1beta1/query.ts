@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { ParamChange } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.params.v1beta1";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
@@ -293,35 +293,3 @@ export const Subspace = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /**
-   * Params queries a specific parameter of a module, given its subspace and
-   * key.
-   */
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /**
-   * Subspaces queries for all registered subspaces and all keys for a subspace.
-   *
-   * Since: cosmos-sdk 0.46
-   */
-  Subspaces(request?: QuerySubspacesRequest): Promise<QuerySubspacesResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-    this.Subspaces = this.Subspaces.bind(this);
-  }
-  Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.params.v1beta1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-  Subspaces(request: QuerySubspacesRequest = {}): Promise<QuerySubspacesResponse> {
-    const data = QuerySubspacesRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.params.v1beta1.Query", "Subspaces", data);
-    return promise.then((data) => QuerySubspacesResponse.decode(new BinaryReader(data)));
-  }
-}

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "neutron.dynamicfees.v1";
 /** MsgUpdateParams is the MsgUpdateParams request type. */
@@ -113,19 +113,3 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
 };
-/** Msg defines the Msg service. */
-export interface Msg {
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.UpdateParams = this.UpdateParams.bind(this);
-  }
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request("neutron.dynamicfees.v1.Msg", "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
-  }
-}

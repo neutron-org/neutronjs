@@ -4,7 +4,7 @@ import { Height } from "../../../ibc/core/client/v1/client";
 import { Fee } from "../../feerefunder/fee";
 import { Params } from "../../../ibc/applications/transfer/v1/transfer";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "neutron.transfer";
 export interface MsgTransfer {
@@ -344,28 +344,3 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
 };
-/** Msg defines the ibc/transfer Msg service. */
-export interface Msg {
-  /** Transfer defines a rpc handler method for MsgTransfer. */
-  Transfer(request: MsgTransfer): Promise<MsgTransferResponse>;
-  /** UpdateParams defines a rpc handler for MsgUpdateParams. */
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Transfer = this.Transfer.bind(this);
-    this.UpdateParams = this.UpdateParams.bind(this);
-  }
-  Transfer(request: MsgTransfer): Promise<MsgTransferResponse> {
-    const data = MsgTransfer.encode(request).finish();
-    const promise = this.rpc.request("neutron.transfer.Msg", "Transfer", data);
-    return promise.then((data) => MsgTransferResponse.decode(new BinaryReader(data)));
-  }
-  UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
-    const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request("neutron.transfer.Msg", "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
-  }
-}

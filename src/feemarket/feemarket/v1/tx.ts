@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "feemarket.feemarket.v1";
 /**
@@ -112,21 +112,3 @@ export const MsgParamsResponse = {
     return message;
   },
 };
-/** Message service defines the types of messages supported by the feemarket
- module. */
-export interface Msg {
-  /** Params defines a method for updating the feemarket module parameters. */
-  Params(request: MsgParams): Promise<MsgParamsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-  }
-  Params(request: MsgParams): Promise<MsgParamsResponse> {
-    const data = MsgParams.encode(request).finish();
-    const promise = this.rpc.request("feemarket.feemarket.v1.Msg", "Params", data);
-    return promise.then((data) => MsgParamsResponse.decode(new BinaryReader(data)));
-  }
-}

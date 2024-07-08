@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Plan } from "./upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "cosmos.upgrade.v1beta1";
 /**
@@ -210,37 +210,3 @@ export const MsgCancelUpgradeResponse = {
     return message;
   },
 };
-/** Msg defines the upgrade Msg service. */
-export interface Msg {
-  /**
-   * SoftwareUpgrade is a governance operation for initiating a software upgrade.
-   *
-   * Since: cosmos-sdk 0.46
-   */
-  SoftwareUpgrade(request: MsgSoftwareUpgrade): Promise<MsgSoftwareUpgradeResponse>;
-  /**
-   * CancelUpgrade is a governance operation for cancelling a previously
-   * approved software upgrade.
-   *
-   * Since: cosmos-sdk 0.46
-   */
-  CancelUpgrade(request: MsgCancelUpgrade): Promise<MsgCancelUpgradeResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.SoftwareUpgrade = this.SoftwareUpgrade.bind(this);
-    this.CancelUpgrade = this.CancelUpgrade.bind(this);
-  }
-  SoftwareUpgrade(request: MsgSoftwareUpgrade): Promise<MsgSoftwareUpgradeResponse> {
-    const data = MsgSoftwareUpgrade.encode(request).finish();
-    const promise = this.rpc.request("cosmos.upgrade.v1beta1.Msg", "SoftwareUpgrade", data);
-    return promise.then((data) => MsgSoftwareUpgradeResponse.decode(new BinaryReader(data)));
-  }
-  CancelUpgrade(request: MsgCancelUpgrade): Promise<MsgCancelUpgradeResponse> {
-    const data = MsgCancelUpgrade.encode(request).finish();
-    const promise = this.rpc.request("cosmos.upgrade.v1beta1.Msg", "CancelUpgrade", data);
-    return promise.then((data) => MsgCancelUpgradeResponse.decode(new BinaryReader(data)));
-  }
-}

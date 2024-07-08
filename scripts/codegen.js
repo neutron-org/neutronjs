@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const { join } = require("path");
-const { writeFileSync } = require("fs");
 const telescope = require("@cosmology/telescope").default;
 
 const outPath = join(__dirname, "/../src");
@@ -22,7 +21,7 @@ telescope({
     logLevel: 0,
     useSDKTypes: false,
     tsDisable: {
-      disableAll: false,
+      files: ["slinky/oracle/v1/query.ts"],
     },
     eslintDisable: {
       disableAll: true,
@@ -46,6 +45,7 @@ telescope({
           "neutron/transfer/v1/query.proto",
           "slinky/abci/v1/vote_extensions.proto",
         ],
+        packages: ["google.api"],
       },
       methods: {
         // There are users who need those functions. CosmJS does not need them directly.
@@ -73,10 +73,9 @@ telescope({
     },
     rpcClients: {
       enabled: true,
-      inline: true,
-      extensions: false,
-      camelCase: false,
-      enabledServices: ["Msg", "Query", "Service", "ReflectionService", "ABCIApplication"],
+      extensions: true,
+      camelCase: true,
+      useConnectComet: true,
     },
     aminoEncoding: {
       enabled: false,
@@ -85,16 +84,6 @@ telescope({
   },
 }).then(
   () => {
-    // Create index.ts
-    const index_ts = `
-    // Auto-generated, see scripts/codegen.js!
-
-    // Exports we want to provide at the root of the "cosmjs-types" package
-
-    export { DeepPartial, Exact } from "./helpers";
-    `;
-    writeFileSync(`${outPath}/index.ts`, index_ts);
-
     console.log("✨ All Done!");
   },
   (e) => {

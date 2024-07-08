@@ -4,7 +4,7 @@ import { Params } from "./params";
 import { Schedule } from "./schedule";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../helpers";
+import { DeepPartial, Exact, isSet } from "../../helpers";
 export const protobufPackage = "neutron.cron";
 export interface QueryParamsRequest {}
 export interface QueryParamsResponse {
@@ -317,40 +317,3 @@ export const QuerySchedulesResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  /** Queries the parameters of the module. */
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** Queries a Schedule by name. */
-  Schedule(request: QueryGetScheduleRequest): Promise<QueryGetScheduleResponse>;
-  /** Queries a list of Schedule items. */
-  Schedules(request?: QuerySchedulesRequest): Promise<QuerySchedulesResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-    this.Schedule = this.Schedule.bind(this);
-    this.Schedules = this.Schedules.bind(this);
-  }
-  Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.cron.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-  Schedule(request: QueryGetScheduleRequest): Promise<QueryGetScheduleResponse> {
-    const data = QueryGetScheduleRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.cron.Query", "Schedule", data);
-    return promise.then((data) => QueryGetScheduleResponse.decode(new BinaryReader(data)));
-  }
-  Schedules(
-    request: QuerySchedulesRequest = {
-      pagination: PageRequest.fromPartial({}),
-    },
-  ): Promise<QuerySchedulesResponse> {
-    const data = QuerySchedulesRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.cron.Query", "Schedules", data);
-    return promise.then((data) => QuerySchedulesResponse.decode(new BinaryReader(data)));
-  }
-}

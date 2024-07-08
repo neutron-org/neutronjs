@@ -10,7 +10,6 @@ import {
   bytesFromBase64,
   fromTimestamp,
   base64FromBytes,
-  Rpc,
 } from "../../../../helpers";
 export const protobufPackage = "cosmos.base.node.v1beta1";
 /** ConfigRequest defines the request structure for the Config gRPC query. */
@@ -283,28 +282,3 @@ export const StatusResponse = {
     return message;
   },
 };
-/** Service defines the gRPC querier service for node related queries. */
-export interface Service {
-  /** Config queries for the operator configuration. */
-  Config(request?: ConfigRequest): Promise<ConfigResponse>;
-  /** Status queries for the node status. */
-  Status(request?: StatusRequest): Promise<StatusResponse>;
-}
-export class ServiceClientImpl implements Service {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Config = this.Config.bind(this);
-    this.Status = this.Status.bind(this);
-  }
-  Config(request: ConfigRequest = {}): Promise<ConfigResponse> {
-    const data = ConfigRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.node.v1beta1.Service", "Config", data);
-    return promise.then((data) => ConfigResponse.decode(new BinaryReader(data)));
-  }
-  Status(request: StatusRequest = {}): Promise<StatusResponse> {
-    const data = StatusRequest.encode(request).finish();
-    const promise = this.rpc.request("cosmos.base.node.v1beta1.Service", "Status", data);
-    return promise.then((data) => StatusResponse.decode(new BinaryReader(data)));
-  }
-}

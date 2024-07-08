@@ -2,7 +2,7 @@
 import { Alert } from "./alerts";
 import { Params } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "slinky.alerts.v1";
 /**
@@ -248,30 +248,3 @@ export const ParamsResponse = {
     return message;
   },
 };
-/** Query is the query service for the x/alerts module. */
-export interface Query {
-  /**
-   * Alerts gets all alerts in state under the given status. If no status is
-   * given, all Alerts are returned
-   */
-  Alerts(request: AlertsRequest): Promise<AlertsResponse>;
-  Params(request?: ParamsRequest): Promise<ParamsResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Alerts = this.Alerts.bind(this);
-    this.Params = this.Params.bind(this);
-  }
-  Alerts(request: AlertsRequest): Promise<AlertsResponse> {
-    const data = AlertsRequest.encode(request).finish();
-    const promise = this.rpc.request("slinky.alerts.v1.Query", "Alerts", data);
-    return promise.then((data) => AlertsResponse.decode(new BinaryReader(data)));
-  }
-  Params(request: ParamsRequest = {}): Promise<ParamsResponse> {
-    const data = ParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("slinky.alerts.v1.Query", "Params", data);
-    return promise.then((data) => ParamsResponse.decode(new BinaryReader(data)));
-  }
-}

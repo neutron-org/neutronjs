@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../../helpers";
 import { JsonSafe } from "../../../../json-safe";
 export const protobufPackage = "cosmos.base.reflection.v2alpha1";
 /** AppDescriptor describes a cosmos-sdk based application */
@@ -1595,96 +1595,3 @@ export const QueryMethodDescriptor = {
     return message;
   },
 };
-/** ReflectionService defines a service for application reflection. */
-export interface ReflectionService {
-  /**
-   * GetAuthnDescriptor returns information on how to authenticate transactions in the application
-   * NOTE: this RPC is still experimental and might be subject to breaking changes or removal in
-   * future releases of the cosmos-sdk.
-   */
-  GetAuthnDescriptor(request?: GetAuthnDescriptorRequest): Promise<GetAuthnDescriptorResponse>;
-  /** GetChainDescriptor returns the description of the chain */
-  GetChainDescriptor(request?: GetChainDescriptorRequest): Promise<GetChainDescriptorResponse>;
-  /** GetCodecDescriptor returns the descriptor of the codec of the application */
-  GetCodecDescriptor(request?: GetCodecDescriptorRequest): Promise<GetCodecDescriptorResponse>;
-  /** GetConfigurationDescriptor returns the descriptor for the sdk.Config of the application */
-  GetConfigurationDescriptor(
-    request?: GetConfigurationDescriptorRequest,
-  ): Promise<GetConfigurationDescriptorResponse>;
-  /** GetQueryServicesDescriptor returns the available gRPC queryable services of the application */
-  GetQueryServicesDescriptor(
-    request?: GetQueryServicesDescriptorRequest,
-  ): Promise<GetQueryServicesDescriptorResponse>;
-  /** GetTxDescriptor returns information on the used transaction object and available msgs that can be used */
-  GetTxDescriptor(request?: GetTxDescriptorRequest): Promise<GetTxDescriptorResponse>;
-}
-export class ReflectionServiceClientImpl implements ReflectionService {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.GetAuthnDescriptor = this.GetAuthnDescriptor.bind(this);
-    this.GetChainDescriptor = this.GetChainDescriptor.bind(this);
-    this.GetCodecDescriptor = this.GetCodecDescriptor.bind(this);
-    this.GetConfigurationDescriptor = this.GetConfigurationDescriptor.bind(this);
-    this.GetQueryServicesDescriptor = this.GetQueryServicesDescriptor.bind(this);
-    this.GetTxDescriptor = this.GetTxDescriptor.bind(this);
-  }
-  GetAuthnDescriptor(request: GetAuthnDescriptorRequest = {}): Promise<GetAuthnDescriptorResponse> {
-    const data = GetAuthnDescriptorRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "cosmos.base.reflection.v2alpha1.ReflectionService",
-      "GetAuthnDescriptor",
-      data,
-    );
-    return promise.then((data) => GetAuthnDescriptorResponse.decode(new BinaryReader(data)));
-  }
-  GetChainDescriptor(request: GetChainDescriptorRequest = {}): Promise<GetChainDescriptorResponse> {
-    const data = GetChainDescriptorRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "cosmos.base.reflection.v2alpha1.ReflectionService",
-      "GetChainDescriptor",
-      data,
-    );
-    return promise.then((data) => GetChainDescriptorResponse.decode(new BinaryReader(data)));
-  }
-  GetCodecDescriptor(request: GetCodecDescriptorRequest = {}): Promise<GetCodecDescriptorResponse> {
-    const data = GetCodecDescriptorRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "cosmos.base.reflection.v2alpha1.ReflectionService",
-      "GetCodecDescriptor",
-      data,
-    );
-    return promise.then((data) => GetCodecDescriptorResponse.decode(new BinaryReader(data)));
-  }
-  GetConfigurationDescriptor(
-    request: GetConfigurationDescriptorRequest = {},
-  ): Promise<GetConfigurationDescriptorResponse> {
-    const data = GetConfigurationDescriptorRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "cosmos.base.reflection.v2alpha1.ReflectionService",
-      "GetConfigurationDescriptor",
-      data,
-    );
-    return promise.then((data) => GetConfigurationDescriptorResponse.decode(new BinaryReader(data)));
-  }
-  GetQueryServicesDescriptor(
-    request: GetQueryServicesDescriptorRequest = {},
-  ): Promise<GetQueryServicesDescriptorResponse> {
-    const data = GetQueryServicesDescriptorRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "cosmos.base.reflection.v2alpha1.ReflectionService",
-      "GetQueryServicesDescriptor",
-      data,
-    );
-    return promise.then((data) => GetQueryServicesDescriptorResponse.decode(new BinaryReader(data)));
-  }
-  GetTxDescriptor(request: GetTxDescriptorRequest = {}): Promise<GetTxDescriptorResponse> {
-    const data = GetTxDescriptorRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "cosmos.base.reflection.v2alpha1.ReflectionService",
-      "GetTxDescriptor",
-      data,
-    );
-    return promise.then((data) => GetTxDescriptorResponse.decode(new BinaryReader(data)));
-  }
-}

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { PriceFeedSLA, Params } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, Rpc } from "../../../helpers";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "slinky.sla.v1";
 /**
@@ -323,42 +323,3 @@ export const MsgParamsResponse = {
     return message;
   },
 };
-/** Msg is the message service for the x/sla module. */
-export interface Msg {
-  /**
-   * AddSLA defines a method for adding a new SLAs to the store. Note, this will
-   * overwrite any existing SLA with the same ID.
-   */
-  AddSLAs(request: MsgAddSLAs): Promise<MsgAddSLAsResponse>;
-  /**
-   * RemoveSLA defines a method for removing existing SLAs from the store. Note,
-   * this will not panic if the SLA does not exist.
-   */
-  RemoveSLAs(request: MsgRemoveSLAs): Promise<MsgRemoveSLAsResponse>;
-  /** Params defines a method for updating the SLA module parameters. */
-  Params(request: MsgParams): Promise<MsgParamsResponse>;
-}
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.AddSLAs = this.AddSLAs.bind(this);
-    this.RemoveSLAs = this.RemoveSLAs.bind(this);
-    this.Params = this.Params.bind(this);
-  }
-  AddSLAs(request: MsgAddSLAs): Promise<MsgAddSLAsResponse> {
-    const data = MsgAddSLAs.encode(request).finish();
-    const promise = this.rpc.request("slinky.sla.v1.Msg", "AddSLAs", data);
-    return promise.then((data) => MsgAddSLAsResponse.decode(new BinaryReader(data)));
-  }
-  RemoveSLAs(request: MsgRemoveSLAs): Promise<MsgRemoveSLAsResponse> {
-    const data = MsgRemoveSLAs.encode(request).finish();
-    const promise = this.rpc.request("slinky.sla.v1.Msg", "RemoveSLAs", data);
-    return promise.then((data) => MsgRemoveSLAsResponse.decode(new BinaryReader(data)));
-  }
-  Params(request: MsgParams): Promise<MsgParamsResponse> {
-    const data = MsgParams.encode(request).finish();
-    const promise = this.rpc.request("slinky.sla.v1.Msg", "Params", data);
-    return promise.then((data) => MsgParamsResponse.decode(new BinaryReader(data)));
-  }
-}

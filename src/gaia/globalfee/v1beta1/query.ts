@@ -2,7 +2,7 @@
 import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, Rpc } from "../../../helpers";
+import { DeepPartial, Exact, isSet } from "../../../helpers";
 export const protobufPackage = "gaia.globalfee.v1beta1";
 /**
  * QueryMinimumGasPricesRequest is the request type for the
@@ -99,19 +99,3 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-/** Query defines the gRPC querier service. */
-export interface Query {
-  Params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-}
-export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.Params = this.Params.bind(this);
-  }
-  Params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("gaia.globalfee.v1beta1.Query", "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
-  }
-}
