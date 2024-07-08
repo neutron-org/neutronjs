@@ -3,7 +3,7 @@
 set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
-DIRS=(capability cosmos cosmos_proto cosmwasm feemarket gaia gogoproto ibc neutron osmosis sdk slinky tendermint)
+DIRS=(capability cosmos cosmos_proto cosmwasm feemarket gaia gogoproto google ibc neutron osmosis sdk slinky tendermint)
 FILES=(
   binary.d.ts
   binary.js
@@ -11,9 +11,6 @@ FILES=(
   helpers.d.ts
   helpers.js
   helpers.js.map
-  # index.d.ts
-  # index.js
-  # index.js.map
   json-safe.d.ts
   json-safe.js
   json-safe.js.map

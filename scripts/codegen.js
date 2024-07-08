@@ -73,12 +73,9 @@ telescope({
     },
     rpcClients: {
       enabled: true,
-      // bundle: true,
-      // inline: true,
       extensions: true,
       camelCase: true,
       useConnectComet: true,
-      // enabledServices: ["Msg", "Query", "Service", "ReflectionService", "ABCIApplication"],
     },
     aminoEncoding: {
       enabled: false,
