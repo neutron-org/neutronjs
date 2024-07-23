@@ -32,9 +32,11 @@ node_modules/
 /index.*
 /utf8.*
 /varint.*
+/querier_types.*
 
 # IDEs
 .vscode/
 
 # macOS
 .DS_Store
+.idea

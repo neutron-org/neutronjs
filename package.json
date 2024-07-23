@@ -1,6 +1,6 @@
 {
   "name": "@neutron-org/neutronjs",
-  "version": "0.1.0-rc2",
+  "version": "0.1.0-rc3",
   "description": "JS and TS types relating to Protocol Buffers used by Cosmos SDK and other related projects",
   "contributors": [],
   "license": "Apache-2.0",
@@ -38,7 +38,7 @@
   "scripts": {
     "format": "prettier --write --log-level warn \"./src/**/*.ts\" \"./scripts/**/*.js\"",
     "precodegen": "./scripts/exports_protos.sh",
-    "codegen": "rm -rf ./src && ./scripts/codegen.js && npm run format",
+    "codegen": "rm -rf ./src && ./scripts/codegen.js && cp -rf copypaste_files/* ./src/ && npm run format",
     "prepare-publishing": "./scripts/prepare-publishing.sh",
     "build": "rm -rf ./build && tsc && npm run prepare-publishing"
   },

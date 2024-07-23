@@ -20,6 +20,8 @@ FILES=(
   varint.d.ts
   varint.js
   varint.js.map
+  querier_types.js
+  querier_types.d.ts
 )
 
 for dir in "${DIRS[@]}"; do
