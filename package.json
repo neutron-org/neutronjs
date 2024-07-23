@@ -1,6 +1,6 @@
 {
   "name": "@neutron-org/neutronjs",
-  "version": "0.1.0-rc3",
+  "version": "0.1.0-rc4",
   "description": "JS and TS types relating to Protocol Buffers used by Cosmos SDK and other related projects",
   "contributors": [],
   "license": "Apache-2.0",
@@ -31,6 +31,7 @@
     "/utf8.*",
     "/varint.*",
     "/index.*",
+    "/querier_types.*",
     "*.md",
     "!wasmd-*/**/*.md",
     "!cosmos-sdk-*/**/*.md"
