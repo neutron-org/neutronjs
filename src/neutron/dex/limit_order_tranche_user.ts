@@ -12,6 +12,7 @@ export interface LimitOrderTrancheUser {
   address: string;
   sharesOwned: string;
   sharesWithdrawn: string;
+  /** TODO: remove this in next release. It is no longer used */
   sharesCancelled: string;
   orderType: LimitOrderType;
 }

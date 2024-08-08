@@ -17,6 +17,12 @@ export interface QueryParamsResponse {
 export interface QueryFailuresRequest {
   /** address of the contract which Sudo call failed. */
   address: string;
+  pagination?: PageRequest;
+}
+/** QueryFailureRequest is request type for the Query/Failures RPC method. */
+export interface QueryFailureRequest {
+  /** address of the contract which Sudo call failed. */
+  address: string;
   /** ID of the failure for the given contract. */
   failureId: bigint;
   pagination?: PageRequest;
@@ -112,13 +118,72 @@ export const QueryParamsResponse = {
 function createBaseQueryFailuresRequest(): QueryFailuresRequest {
   return {
     address: "",
-    failureId: BigInt(0),
     pagination: undefined,
   };
 }
 export const QueryFailuresRequest = {
   typeUrl: "/neutron.contractmanager.QueryFailuresRequest",
   encode(message: QueryFailuresRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryFailuresRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFailuresRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.address = reader.string();
+          break;
+        case 3:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QueryFailuresRequest {
+    const obj = createBaseQueryFailuresRequest();
+    if (isSet(object.address)) obj.address = String(object.address);
+    if (isSet(object.pagination)) obj.pagination = PageRequest.fromJSON(object.pagination);
+    return obj;
+  },
+  toJSON(message: QueryFailuresRequest): JsonSafe<QueryFailuresRequest> {
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryFailuresRequest>, I>>(object: I): QueryFailuresRequest {
+    const message = createBaseQueryFailuresRequest();
+    message.address = object.address ?? "";
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    }
+    return message;
+  },
+};
+function createBaseQueryFailureRequest(): QueryFailureRequest {
+  return {
+    address: "",
+    failureId: BigInt(0),
+    pagination: undefined,
+  };
+}
+export const QueryFailureRequest = {
+  typeUrl: "/neutron.contractmanager.QueryFailureRequest",
+  encode(message: QueryFailureRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
@@ -130,10 +195,10 @@ export const QueryFailuresRequest = {
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): QueryFailuresRequest {
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryFailureRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryFailuresRequest();
+    const message = createBaseQueryFailureRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -153,14 +218,14 @@ export const QueryFailuresRequest = {
     }
     return message;
   },
-  fromJSON(object: any): QueryFailuresRequest {
-    const obj = createBaseQueryFailuresRequest();
+  fromJSON(object: any): QueryFailureRequest {
+    const obj = createBaseQueryFailureRequest();
     if (isSet(object.address)) obj.address = String(object.address);
     if (isSet(object.failureId)) obj.failureId = BigInt(object.failureId.toString());
     if (isSet(object.pagination)) obj.pagination = PageRequest.fromJSON(object.pagination);
     return obj;
   },
-  toJSON(message: QueryFailuresRequest): JsonSafe<QueryFailuresRequest> {
+  toJSON(message: QueryFailureRequest): JsonSafe<QueryFailureRequest> {
     const obj: any = {};
     message.address !== undefined && (obj.address = message.address);
     message.failureId !== undefined && (obj.failureId = (message.failureId || BigInt(0)).toString());
@@ -168,8 +233,8 @@ export const QueryFailuresRequest = {
       (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
-  fromPartial<I extends Exact<DeepPartial<QueryFailuresRequest>, I>>(object: I): QueryFailuresRequest {
-    const message = createBaseQueryFailuresRequest();
+  fromPartial<I extends Exact<DeepPartial<QueryFailureRequest>, I>>(object: I): QueryFailureRequest {
+    const message = createBaseQueryFailureRequest();
     message.address = object.address ?? "";
     if (object.failureId !== undefined && object.failureId !== null) {
       message.failureId = BigInt(object.failureId.toString());
