@@ -1,7 +1,7 @@
 {
   "name": "@neutron-org/neutronjs",
   "version": "0.1.0-rc5",
-  "description": "JS and TS types relating to Protocol Buffers used by Cosmos SDK and other related projects",
+  "description": "JS and TS types relating to Protocol Buffers used by Neutron",
   "contributors": [],
   "license": "Apache-2.0",
   "repository": {
