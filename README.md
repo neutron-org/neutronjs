@@ -1,4 +1,4 @@
-# cosmjs-types
+# neutronjs
 
 [![npm version](https://img.shields.io/npm/v/@neutron-org/neutronjs.svg)](https://www.npmjs.com/package/@neutron-org/neutronjs)
 
