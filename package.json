@@ -1,6 +1,6 @@
 {
   "name": "@neutron-org/neutronjs",
-  "version": "4.2.0",
+  "version": "0.1.0-rc5",
   "description": "JS and TS types relating to Protocol Buffers used by Neutron",
   "contributors": [],
   "license": "Apache-2.0",

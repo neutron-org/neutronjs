@@ -1,4 +1,4 @@
-# cosmjs-types
+# neutronjs
 
 Cosmjs types for users of Neutron chain.
 
@@ -6,7 +6,7 @@ https://www.neutron.org/
 
 Version of this package is synced with Neutron chain version.
 
-[![npm version](https://img.shields.io/npm/v/cosmjs-types.svg)](https://www.npmjs.com/package/cosmjs-types)
+[![npm version](https://img.shields.io/npm/v/@neutron-org/neutronjs.svg)](https://www.npmjs.com/package/@neutron-org/neutronjs)
 
 ## Maintenance
 
