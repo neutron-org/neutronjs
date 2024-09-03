@@ -34,7 +34,9 @@ export interface MsgSubmitQueryResult {
   /**
    * is the IBC client ID for an IBC connection between Neutron chain and target
    * chain (where the result was obtained from)
+   * Deprecated: populating this field does not make any affect
    */
+  /** @deprecated */
   clientId: string;
   result?: QueryResult;
 }

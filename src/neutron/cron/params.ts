@@ -3,7 +3,7 @@ import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
 export const protobufPackage = "neutron.cron";
-/** Params defines the parameters for the module. */
+/** Defines the parameters for the module. */
 export interface Params {
   /** Security address that can remove schedules */
   securityAddress: string;

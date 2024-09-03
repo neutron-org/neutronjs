@@ -5,7 +5,7 @@ import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
 export const protobufPackage = "neutron.cron";
-/** GenesisState defines the cron module's genesis state. */
+/** Defines the cron module's genesis state. */
 export interface GenesisState {
   scheduleList: Schedule[];
   params: Params;

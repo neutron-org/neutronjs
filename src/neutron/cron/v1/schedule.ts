@@ -1,41 +1,8 @@
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
-export const protobufPackage = "neutron.cron";
-/** Defines when messages will be executed in the block */
-export enum ExecutionStage {
-  /** EXECUTION_STAGE_END_BLOCKER - Execution at the end of the block */
-  EXECUTION_STAGE_END_BLOCKER = 0,
-  /** EXECUTION_STAGE_BEGIN_BLOCKER - Execution at the beginning of the block */
-  EXECUTION_STAGE_BEGIN_BLOCKER = 1,
-  UNRECOGNIZED = -1,
-}
-export function executionStageFromJSON(object: any): ExecutionStage {
-  switch (object) {
-    case 0:
-    case "EXECUTION_STAGE_END_BLOCKER":
-      return ExecutionStage.EXECUTION_STAGE_END_BLOCKER;
-    case 1:
-    case "EXECUTION_STAGE_BEGIN_BLOCKER":
-      return ExecutionStage.EXECUTION_STAGE_BEGIN_BLOCKER;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ExecutionStage.UNRECOGNIZED;
-  }
-}
-export function executionStageToJSON(object: ExecutionStage): string {
-  switch (object) {
-    case ExecutionStage.EXECUTION_STAGE_END_BLOCKER:
-      return "EXECUTION_STAGE_END_BLOCKER";
-    case ExecutionStage.EXECUTION_STAGE_BEGIN_BLOCKER:
-      return "EXECUTION_STAGE_BEGIN_BLOCKER";
-    case ExecutionStage.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
-  }
-}
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { isSet, DeepPartial, Exact } from "../../../helpers";
+import { JsonSafe } from "../../../json-safe";
+export const protobufPackage = "neutron.cron.v1";
 /** Defines the schedule for execution */
 export interface Schedule {
   /** Name of schedule */
@@ -46,8 +13,6 @@ export interface Schedule {
   msgs: MsgExecuteContract[];
   /** Last execution's block height */
   lastExecuteHeight: bigint;
-  /** Stage when messages will be executed */
-  executionStage: ExecutionStage;
 }
 /** Defines the contract and the message to pass */
 export interface MsgExecuteContract {
@@ -67,11 +32,10 @@ function createBaseSchedule(): Schedule {
     period: BigInt(0),
     msgs: [],
     lastExecuteHeight: BigInt(0),
-    executionStage: 0,
   };
 }
 export const Schedule = {
-  typeUrl: "/neutron.cron.Schedule",
+  typeUrl: "/neutron.cron.v1.Schedule",
   encode(message: Schedule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
       writer.uint32(10).string(message.name);
@@ -84,9 +48,6 @@ export const Schedule = {
     }
     if (message.lastExecuteHeight !== BigInt(0)) {
       writer.uint32(32).uint64(message.lastExecuteHeight);
-    }
-    if (message.executionStage !== 0) {
-      writer.uint32(40).int32(message.executionStage);
     }
     return writer;
   },
@@ -109,9 +70,6 @@ export const Schedule = {
         case 4:
           message.lastExecuteHeight = reader.uint64();
           break;
-        case 5:
-          message.executionStage = reader.int32() as any;
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -125,7 +83,6 @@ export const Schedule = {
     if (isSet(object.period)) obj.period = BigInt(object.period.toString());
     if (Array.isArray(object?.msgs)) obj.msgs = object.msgs.map((e: any) => MsgExecuteContract.fromJSON(e));
     if (isSet(object.lastExecuteHeight)) obj.lastExecuteHeight = BigInt(object.lastExecuteHeight.toString());
-    if (isSet(object.executionStage)) obj.executionStage = executionStageFromJSON(object.executionStage);
     return obj;
   },
   toJSON(message: Schedule): JsonSafe<Schedule> {
@@ -139,8 +96,6 @@ export const Schedule = {
     }
     message.lastExecuteHeight !== undefined &&
       (obj.lastExecuteHeight = (message.lastExecuteHeight || BigInt(0)).toString());
-    message.executionStage !== undefined &&
-      (obj.executionStage = executionStageToJSON(message.executionStage));
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<Schedule>, I>>(object: I): Schedule {
@@ -153,7 +108,6 @@ export const Schedule = {
     if (object.lastExecuteHeight !== undefined && object.lastExecuteHeight !== null) {
       message.lastExecuteHeight = BigInt(object.lastExecuteHeight.toString());
     }
-    message.executionStage = object.executionStage ?? 0;
     return message;
   },
 };
@@ -164,7 +118,7 @@ function createBaseMsgExecuteContract(): MsgExecuteContract {
   };
 }
 export const MsgExecuteContract = {
-  typeUrl: "/neutron.cron.MsgExecuteContract",
+  typeUrl: "/neutron.cron.v1.MsgExecuteContract",
   encode(message: MsgExecuteContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.contract !== "") {
       writer.uint32(10).string(message.contract);
@@ -219,7 +173,7 @@ function createBaseScheduleCount(): ScheduleCount {
   };
 }
 export const ScheduleCount = {
-  typeUrl: "/neutron.cron.ScheduleCount",
+  typeUrl: "/neutron.cron.v1.ScheduleCount",
   encode(message: ScheduleCount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.count !== 0) {
       writer.uint32(8).int32(message.count);
