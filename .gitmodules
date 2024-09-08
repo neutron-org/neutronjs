@@ -13,10 +13,6 @@
 [submodule "ibc-go"]
 	path = protos/ibc-go-src
 	url = git@github.com:cosmos/ibc-go.git
-[submodule "neutron"]
-	path = protos/neutron-src
-	url = git@github.com:neutron-org/neutron.git
-        branch = feat/icq-params-gov-gated
 [submodule "slinky"]
 	path = protos/slinky-src
 	url = git@github.com:skip-mev/slinky.git

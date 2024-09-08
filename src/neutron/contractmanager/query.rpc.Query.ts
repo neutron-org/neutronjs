@@ -5,6 +5,8 @@ import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryParamsRequest,
   QueryParamsResponse,
+  QueryFailureRequest,
+  QueryFailureResponse,
   QueryFailuresRequest,
   QueryFailuresResponse,
 } from "./query";
@@ -13,7 +15,7 @@ export interface Query {
   /** Parameters queries the parameters of the module. */
   params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
   /** Queries a Failure by contract address and failure ID. */
-  addressFailure(request: QueryFailuresRequest): Promise<QueryFailuresResponse>;
+  addressFailure(request: QueryFailureRequest): Promise<QueryFailureResponse>;
   /** Queries Failures by contract address. */
   addressFailures(request: QueryFailuresRequest): Promise<QueryFailuresResponse>;
   /** Queries a list of Failures occurred on the network. */
@@ -33,10 +35,10 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("neutron.contractmanager.Query", "Params", data);
     return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
   }
-  addressFailure(request: QueryFailuresRequest): Promise<QueryFailuresResponse> {
-    const data = QueryFailuresRequest.encode(request).finish();
+  addressFailure(request: QueryFailureRequest): Promise<QueryFailureResponse> {
+    const data = QueryFailureRequest.encode(request).finish();
     const promise = this.rpc.request("neutron.contractmanager.Query", "AddressFailure", data);
-    return promise.then((data) => QueryFailuresResponse.decode(new BinaryReader(data)));
+    return promise.then((data) => QueryFailureResponse.decode(new BinaryReader(data)));
   }
   addressFailures(request: QueryFailuresRequest): Promise<QueryFailuresResponse> {
     const data = QueryFailuresRequest.encode(request).finish();
@@ -56,7 +58,7 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     params(request?: QueryParamsRequest): Promise<QueryParamsResponse> {
       return queryService.params(request);
     },
-    addressFailure(request: QueryFailuresRequest): Promise<QueryFailuresResponse> {
+    addressFailure(request: QueryFailureRequest): Promise<QueryFailureResponse> {
       return queryService.addressFailure(request);
     },
     addressFailures(request: QueryFailuresRequest): Promise<QueryFailuresResponse> {
