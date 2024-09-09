@@ -19,12 +19,18 @@ export interface Params {
    * means no limit.
    */
   txQueryRemovalLimit: bigint;
+  /** Maximum amount of keys in a registered key value query */
+  maxKvQueryKeysCount: bigint;
+  /** max_transactions_filters defines maximum allowed amount of tx filters in msgRegisterInterchainQuery */
+  maxTransactionsFilters: bigint;
 }
 function createBaseParams(): Params {
   return {
     querySubmitTimeout: BigInt(0),
     queryDeposit: [],
     txQueryRemovalLimit: BigInt(0),
+    maxKvQueryKeysCount: BigInt(0),
+    maxTransactionsFilters: BigInt(0),
   };
 }
 export const Params = {
@@ -38,6 +44,12 @@ export const Params = {
     }
     if (message.txQueryRemovalLimit !== BigInt(0)) {
       writer.uint32(24).uint64(message.txQueryRemovalLimit);
+    }
+    if (message.maxKvQueryKeysCount !== BigInt(0)) {
+      writer.uint32(32).uint64(message.maxKvQueryKeysCount);
+    }
+    if (message.maxTransactionsFilters !== BigInt(0)) {
+      writer.uint32(40).uint64(message.maxTransactionsFilters);
     }
     return writer;
   },
@@ -57,6 +69,12 @@ export const Params = {
         case 3:
           message.txQueryRemovalLimit = reader.uint64();
           break;
+        case 4:
+          message.maxKvQueryKeysCount = reader.uint64();
+          break;
+        case 5:
+          message.maxTransactionsFilters = reader.uint64();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -72,6 +90,10 @@ export const Params = {
       obj.queryDeposit = object.queryDeposit.map((e: any) => Coin.fromJSON(e));
     if (isSet(object.txQueryRemovalLimit))
       obj.txQueryRemovalLimit = BigInt(object.txQueryRemovalLimit.toString());
+    if (isSet(object.maxKvQueryKeysCount))
+      obj.maxKvQueryKeysCount = BigInt(object.maxKvQueryKeysCount.toString());
+    if (isSet(object.maxTransactionsFilters))
+      obj.maxTransactionsFilters = BigInt(object.maxTransactionsFilters.toString());
     return obj;
   },
   toJSON(message: Params): JsonSafe<Params> {
@@ -85,6 +107,10 @@ export const Params = {
     }
     message.txQueryRemovalLimit !== undefined &&
       (obj.txQueryRemovalLimit = (message.txQueryRemovalLimit || BigInt(0)).toString());
+    message.maxKvQueryKeysCount !== undefined &&
+      (obj.maxKvQueryKeysCount = (message.maxKvQueryKeysCount || BigInt(0)).toString());
+    message.maxTransactionsFilters !== undefined &&
+      (obj.maxTransactionsFilters = (message.maxTransactionsFilters || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
@@ -95,6 +121,12 @@ export const Params = {
     message.queryDeposit = object.queryDeposit?.map((e) => Coin.fromPartial(e)) || [];
     if (object.txQueryRemovalLimit !== undefined && object.txQueryRemovalLimit !== null) {
       message.txQueryRemovalLimit = BigInt(object.txQueryRemovalLimit.toString());
+    }
+    if (object.maxKvQueryKeysCount !== undefined && object.maxKvQueryKeysCount !== null) {
+      message.maxKvQueryKeysCount = BigInt(object.maxKvQueryKeysCount.toString());
+    }
+    if (object.maxTransactionsFilters !== undefined && object.maxTransactionsFilters !== null) {
+      message.maxTransactionsFilters = BigInt(object.maxTransactionsFilters.toString());
     }
     return message;
   },
