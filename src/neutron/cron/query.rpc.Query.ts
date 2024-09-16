@@ -11,7 +11,7 @@ import {
   QuerySchedulesRequest,
   QuerySchedulesResponse,
 } from "./query";
-/** Query defines the gRPC querier service. */
+/** Defines the gRPC querier service. */
 export interface Query {
   /** Queries the parameters of the module. */
   params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;

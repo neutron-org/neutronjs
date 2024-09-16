@@ -31,6 +31,7 @@ export interface MsgConnectionOpenTry {
   /** Deprecated: this field is unused. Crossing hellos are no longer supported in core IBC. */
   /** @deprecated */
   previousConnectionId: string;
+  /** @deprecated */
   clientState?: Any;
   counterparty: Counterparty;
   delayPeriod: bigint;
@@ -42,12 +43,16 @@ export interface MsgConnectionOpenTry {
    */
   proofInit: Uint8Array;
   /** proof of client state included in message */
+  /** @deprecated */
   proofClient: Uint8Array;
   /** proof of client consensus state */
+  /** @deprecated */
   proofConsensus: Uint8Array;
+  /** @deprecated */
   consensusHeight: Height;
   signer: string;
   /** optional proof data for host state machines that are unable to introspect their own consensus state */
+  /** @deprecated */
   hostConsensusStateProof: Uint8Array;
 }
 /** MsgConnectionOpenTryResponse defines the Msg/ConnectionOpenTry response type. */
@@ -60,6 +65,7 @@ export interface MsgConnectionOpenAck {
   connectionId: string;
   counterpartyConnectionId: string;
   version?: Version;
+  /** @deprecated */
   clientState?: Any;
   proofHeight: Height;
   /**
@@ -68,12 +74,16 @@ export interface MsgConnectionOpenAck {
    */
   proofTry: Uint8Array;
   /** proof of client state included in message */
+  /** @deprecated */
   proofClient: Uint8Array;
   /** proof of client consensus state */
+  /** @deprecated */
   proofConsensus: Uint8Array;
+  /** @deprecated */
   consensusHeight: Height;
   signer: string;
   /** optional proof data for host state machines that are unable to introspect their own consensus state */
+  /** @deprecated */
   hostConsensusStateProof: Uint8Array;
 }
 /** MsgConnectionOpenAckResponse defines the Msg/ConnectionOpenAck response type. */

@@ -6,20 +6,26 @@ import { BinaryReader, BinaryWriter } from "../../binary";
 import { JsonSafe } from "../../json-safe";
 import { DeepPartial, Exact, isSet } from "../../helpers";
 export const protobufPackage = "neutron.cron";
+/** The request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
+/** The response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
   /** params holds all the parameters of this module. */
   params: Params;
 }
+/** The request type for the Query/Schedule RPC method. */
 export interface QueryGetScheduleRequest {
   name: string;
 }
+/** The response type for the Query/Params RPC method. */
 export interface QueryGetScheduleResponse {
   schedule: Schedule;
 }
+/** The request type for the Query/Schedules RPC method. */
 export interface QuerySchedulesRequest {
   pagination?: PageRequest;
 }
+/** The response type for the Query/Params RPC method. */
 export interface QuerySchedulesResponse {
   schedules: Schedule[];
   pagination?: PageResponse;

@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Order, Params, orderFromJSON, orderToJSON } from "../../../ibc/core/channel/v1/channel";
 import { Any } from "../../../google/protobuf/any";
 import { Fee } from "../../feerefunder/fee";
-import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
@@ -13,6 +13,7 @@ export interface MsgRegisterInterchainAccount {
   connectionId: string;
   interchainAccountId: string;
   registerFee: Coin[];
+  ordering: Order;
 }
 /**
  * MsgRegisterInterchainAccountResponse is the response type for
@@ -74,6 +75,7 @@ function createBaseMsgRegisterInterchainAccount(): MsgRegisterInterchainAccount 
     connectionId: "",
     interchainAccountId: "",
     registerFee: [],
+    ordering: 0,
   };
 }
 export const MsgRegisterInterchainAccount = {
@@ -90,6 +92,9 @@ export const MsgRegisterInterchainAccount = {
     }
     for (const v of message.registerFee) {
       Coin.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.ordering !== 0) {
+      writer.uint32(40).int32(message.ordering);
     }
     return writer;
   },
@@ -112,6 +117,9 @@ export const MsgRegisterInterchainAccount = {
         case 4:
           message.registerFee.push(Coin.decode(reader, reader.uint32()));
           break;
+        case 5:
+          message.ordering = reader.int32() as any;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -126,6 +134,7 @@ export const MsgRegisterInterchainAccount = {
     if (isSet(object.interchainAccountId)) obj.interchainAccountId = String(object.interchainAccountId);
     if (Array.isArray(object?.registerFee))
       obj.registerFee = object.registerFee.map((e: any) => Coin.fromJSON(e));
+    if (isSet(object.ordering)) obj.ordering = orderFromJSON(object.ordering);
     return obj;
   },
   toJSON(message: MsgRegisterInterchainAccount): JsonSafe<MsgRegisterInterchainAccount> {
@@ -138,6 +147,7 @@ export const MsgRegisterInterchainAccount = {
     } else {
       obj.registerFee = [];
     }
+    message.ordering !== undefined && (obj.ordering = orderToJSON(message.ordering));
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MsgRegisterInterchainAccount>, I>>(
@@ -148,6 +158,7 @@ export const MsgRegisterInterchainAccount = {
     message.connectionId = object.connectionId ?? "";
     message.interchainAccountId = object.interchainAccountId ?? "";
     message.registerFee = object.registerFee?.map((e) => Coin.fromPartial(e)) || [];
+    message.ordering = object.ordering ?? 0;
     return message;
   },
 };
