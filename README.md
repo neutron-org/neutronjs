@@ -20,6 +20,9 @@ git submodule update --init --recursive
 
 # Install dependencies
 npm install
+
+# Set specified versions for submodules
+npm run set-versions
 ```
 
 ### Rebuilding types
