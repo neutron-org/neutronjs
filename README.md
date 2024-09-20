@@ -2,7 +2,7 @@
 
 Cosmjs types for users of Neutron chain.
 
-https://www.neutron.org/
+<https://www.neutron.org/>
 
 Version of this package is synced with Neutron chain version.
 
@@ -25,6 +25,15 @@ npm install
 ### Rebuilding types
 
 ```sh
-npm run codegen # Generate .ts files into ./src
-npm run build # Build .js/.d.ts files
+# Generate .ts files into ./src
+npm run codegen
+
+# Build .js/.d.ts files
+npm run build
+```
+
+### Removing all unnecessary folders and files
+
+```sh
+npm run clean
 ```
