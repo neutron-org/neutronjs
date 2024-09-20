@@ -13,18 +13,28 @@ export interface QueryPricesResponse_PricesEntry {
 }
 /** QueryPricesResponse defines the response type for the Prices method. */
 export interface QueryPricesResponse {
-  /** prices defines the list of prices. */
+  /** Prices defines the list of prices. */
   prices: {
     [key: string]: string;
   };
+  /** Timestamp defines the timestamp of the prices. */
   timestamp: Timestamp;
+  /** Version defines the version of the oracle service that provided the prices. */
+  version: string;
 }
 /** QueryMarketMapRequest defines the request type for the MarketMap method. */
 export interface QueryMarketMapRequest {}
 /** QueryMarketMapResponse defines the response type for the MarketMap method. */
 export interface QueryMarketMapResponse {
-  /** market_map defines the current market map configuration. */
+  /** MarketMap defines the current market map configuration. */
   marketMap?: MarketMap;
+}
+/** QueryVersionRequest defines the request type for the Version method. */
+export interface QueryVersionRequest {}
+/** QueryVersionResponse defines the response type for the Version method. */
+export interface QueryVersionResponse {
+  /** Version defines the current version of the oracle service. */
+  version: string;
 }
 function createBaseQueryPricesRequest(): QueryPricesRequest {
   return {};
@@ -125,6 +135,7 @@ function createBaseQueryPricesResponse(): QueryPricesResponse {
   return {
     prices: {},
     timestamp: Timestamp.fromPartial({}),
+    version: "",
   };
 }
 export const QueryPricesResponse = {
@@ -141,6 +152,9 @@ export const QueryPricesResponse = {
     });
     if (message.timestamp !== undefined) {
       Timestamp.encode(message.timestamp, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.version !== "") {
+      writer.uint32(26).string(message.version);
     }
     return writer;
   },
@@ -160,6 +174,9 @@ export const QueryPricesResponse = {
         case 2:
           message.timestamp = Timestamp.decode(reader, reader.uint32());
           break;
+        case 3:
+          message.version = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -177,6 +194,7 @@ export const QueryPricesResponse = {
         return acc;
       }, {});
     if (isSet(object.timestamp)) obj.timestamp = fromJsonTimestamp(object.timestamp);
+    if (isSet(object.version)) obj.version = String(object.version);
     return obj;
   },
   toJSON(message: QueryPricesResponse): JsonSafe<QueryPricesResponse> {
@@ -188,6 +206,7 @@ export const QueryPricesResponse = {
       });
     }
     message.timestamp !== undefined && (obj.timestamp = fromTimestamp(message.timestamp).toISOString());
+    message.version !== undefined && (obj.version = message.version);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<QueryPricesResponse>, I>>(object: I): QueryPricesResponse {
@@ -203,6 +222,7 @@ export const QueryPricesResponse = {
     if (object.timestamp !== undefined && object.timestamp !== null) {
       message.timestamp = Timestamp.fromPartial(object.timestamp);
     }
+    message.version = object.version ?? "";
     return message;
   },
 };
@@ -287,6 +307,87 @@ export const QueryMarketMapResponse = {
     if (object.marketMap !== undefined && object.marketMap !== null) {
       message.marketMap = MarketMap.fromPartial(object.marketMap);
     }
+    return message;
+  },
+};
+function createBaseQueryVersionRequest(): QueryVersionRequest {
+  return {};
+}
+export const QueryVersionRequest = {
+  typeUrl: "/slinky.service.v1.QueryVersionRequest",
+  encode(_: QueryVersionRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryVersionRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryVersionRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(_: any): QueryVersionRequest {
+    const obj = createBaseQueryVersionRequest();
+    return obj;
+  },
+  toJSON(_: QueryVersionRequest): JsonSafe<QueryVersionRequest> {
+    const obj: any = {};
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryVersionRequest>, I>>(_: I): QueryVersionRequest {
+    const message = createBaseQueryVersionRequest();
+    return message;
+  },
+};
+function createBaseQueryVersionResponse(): QueryVersionResponse {
+  return {
+    version: "",
+  };
+}
+export const QueryVersionResponse = {
+  typeUrl: "/slinky.service.v1.QueryVersionResponse",
+  encode(message: QueryVersionResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.version !== "") {
+      writer.uint32(10).string(message.version);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryVersionResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryVersionResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.version = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QueryVersionResponse {
+    const obj = createBaseQueryVersionResponse();
+    if (isSet(object.version)) obj.version = String(object.version);
+    return obj;
+  },
+  toJSON(message: QueryVersionResponse): JsonSafe<QueryVersionResponse> {
+    const obj: any = {};
+    message.version !== undefined && (obj.version = message.version);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryVersionResponse>, I>>(object: I): QueryVersionResponse {
+    const message = createBaseQueryVersionResponse();
+    message.version = object.version ?? "";
     return message;
   },
 };

@@ -41,10 +41,10 @@
     "precodegen": "./scripts/exports_protos.sh",
     "codegen": "rm -rf ./src && ./scripts/codegen.js && cp -rf copypaste_files/* ./src/ && npm run format",
     "prepare-publishing": "./scripts/prepare-publishing.sh",
-    "build": "rm -rf ./build && tsc && npm run prepare-publishing"
+    "build": "rm -rf ./build && tsc && npm run prepare-publishing",
+    "clean": "./scripts/clean.sh"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@cosmology/telescope": "^1.5.4",
     "@types/node": "^15.6.2",

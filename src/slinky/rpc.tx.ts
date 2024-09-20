@@ -62,9 +62,6 @@ export const createRPCMsgClient = async ({ rpc }: { rpc: Rpc }) => ({
     alerts: {
       v1: new (await import("./alerts/v1/tx.rpc.msg")).MsgClientImpl(rpc),
     },
-    marketmap: {
-      v1: new (await import("./marketmap/v1/tx.rpc.msg")).MsgClientImpl(rpc),
-    },
     oracle: {
       v1: new (await import("./oracle/v1/tx.rpc.msg")).MsgClientImpl(rpc),
     },
