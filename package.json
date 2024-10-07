@@ -24,7 +24,7 @@
     "neutron/",
     "osmosis/",
     "sdk/",
-    "slinky/",
+    "connect/",
     "tendermint/",
     "/binary.*",
     "/helpers.*",
