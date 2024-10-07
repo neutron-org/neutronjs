@@ -19,6 +19,8 @@ for dir in block-sdk feemarket slinky ; do
   buf export "protos/$dir-src/proto" --output "protos/$dir"
 done
 
+sed -i '' '/additional_bindings : \[\]/d' protos/slinky/connect/oracle/v2/query.proto
+
 for dir in neutron ; do
   rm -rf "protos/$dir"
   mkdir -p "protos/$dir"

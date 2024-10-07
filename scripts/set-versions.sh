@@ -17,9 +17,9 @@ readonly BLOCK_SDK_REV="v2.1.5"
 readonly COSMOS_SDK_REV="v0.50.9-neutron"
 readonly FEEMARKET_REV="v1.1.1"
 readonly IBC_GO_REV="v8.5.1"
-readonly NEUTRON_REV="feat/choose-cron-blocker-2"
-readonly SLINKY_REV="v1.0.12"
-readonly WASMD_REV="v0.51.2-neutron"
+readonly NEUTRON_REV="chore/ics-v6"
+readonly SLINKY_REV="v2.0.1"
+readonly WASMD_REV="v0.53.0-neutron"
 
 checkout_version () {
    git -C protos/$1 checkout $2

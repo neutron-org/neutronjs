@@ -21,7 +21,11 @@ telescope({
     logLevel: 0,
     useSDKTypes: false,
     tsDisable: {
-      files: ["slinky/oracle/v1/query.ts"],
+      files: [
+        "connect/oracle/v2/query.ts",
+        "connect/marketmap/v2/tx.ts",
+        "connect/abci/v2/vote_extensions.ts",
+      ],
     },
     eslintDisable: {
       disableAll: true,
