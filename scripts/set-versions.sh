@@ -17,7 +17,7 @@ readonly BLOCK_SDK_REV="v2.1.5"
 readonly COSMOS_SDK_REV="v0.50.9-neutron"
 readonly FEEMARKET_REV="v1.1.1"
 readonly IBC_GO_REV="v8.5.1"
-readonly NEUTRON_REV="v4.2.4"
+readonly NEUTRON_REV="main"
 readonly SLINKY_REV="v1.0.12"
 readonly WASMD_REV="v0.51.2-neutron"
 
