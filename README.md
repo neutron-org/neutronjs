@@ -22,6 +22,7 @@ git submodule update --init --recursive
 npm install
 
 # Set specified versions for submodules
+# Submodules versions (commits or tags) should be set in the ./scripts/set-versions.sh script for the corresponding *_REV constants
 npm run set-versions
 ```
 
@@ -33,10 +34,4 @@ npm run codegen
 
 # Build .js/.d.ts files
 npm run build
-```
-
-### Removing all unnecessary folders and files
-
-```sh
-npm run clean
 ```

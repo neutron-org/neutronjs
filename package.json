@@ -42,8 +42,8 @@
     "precodegen": "./scripts/exports_protos.sh",
     "codegen": "rm -rf ./src && ./scripts/codegen.js && cp -rf copypaste_files/* ./src/ && npm run format",
     "prepare-publishing": "./scripts/prepare-publishing.sh",
-    "build": "rm -rf ./build && tsc && npm run prepare-publishing",
-    "clean": "./scripts/clean.sh"
+    "clean": "./scripts/clean.sh",
+    "build": "rm -rf ./build && tsc && npm run prepare-publishing && npm run clean"
   },
   "dependencies": {},
   "devDependencies": {

@@ -9,7 +9,7 @@ readonly COSMOS_SDK_DIR="cosmos-sdk-src"
 readonly FEEMARKET_DIR="feemarket-src"
 readonly IBC_GO_DIR="ibc-go-src"
 readonly NEUTRON_DIR="neutron-src"
-readonly connect_DIR="connect-src"
+readonly CONNECT_DIR="connect-src"
 readonly WASMD_DIR="wasmd-src"
 
 readonly ADMIN_MODULE_REV="v2.0.2"
@@ -18,7 +18,7 @@ readonly COSMOS_SDK_REV="v0.50.9-neutron"
 readonly FEEMARKET_REV="v1.1.1"
 readonly IBC_GO_REV="v8.5.1"
 readonly NEUTRON_REV="chore/ics-v6"
-readonly connect_REV="v2.0.1"
+readonly CONNECT_REV="v2.0.1"
 readonly WASMD_REV="v0.53.0-neutron"
 
 checkout_version () {
@@ -31,5 +31,5 @@ checkout_version $COSMOS_SDK_DIR $COSMOS_SDK_REV
 checkout_version $FEEMARKET_DIR $FEEMARKET_REV
 checkout_version $IBC_GO_DIR $IBC_GO_REV
 checkout_version $NEUTRON_DIR $NEUTRON_REV
-checkout_version $connect_DIR $connect_REV
+checkout_version $CONNECT_DIR $CONNECT_REV
 checkout_version $WASMD_DIR $WASMD_REV
