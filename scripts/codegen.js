@@ -13,7 +13,7 @@ telescope({
     "protos/feemarket",
     "protos/ibc-go",
     "protos/neutron",
-    "protos/slinky",
+    "protos/connect",
     "protos/wasmd",
   ],
   outPath: outPath,
@@ -21,7 +21,11 @@ telescope({
     logLevel: 0,
     useSDKTypes: false,
     tsDisable: {
-      files: ["slinky/oracle/v1/query.ts"],
+      files: [
+        "connect/oracle/v2/query.ts",
+        "connect/marketmap/v2/tx.ts",
+        "connect/abci/v2/vote_extensions.ts",
+      ],
     },
     eslintDisable: {
       disableAll: true,
@@ -43,8 +47,8 @@ telescope({
         protos: [
           "neutron/dex/genesis.proto",
           "neutron/transfer/v1/query.proto",
-          "slinky/abci/v1/vote_extensions.proto",
-          "slinky/marketmap/v1/tx.proto",
+          "connect/abci/v1/vote_extensions.proto",
+          "connect/marketmap/v1/tx.proto",
         ],
         packages: ["google.api"],
       },

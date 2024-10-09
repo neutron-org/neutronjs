@@ -3,7 +3,7 @@
 set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
-DIRS=(capability cosmos cosmos_proto cosmwasm feemarket gaia gogoproto google ibc neutron osmosis sdk slinky tendermint)
+DIRS=(capability cosmos cosmos_proto cosmwasm feemarket gaia gogoproto google ibc neutron osmosis sdk connect tendermint)
 FILES=(
   binary.d.ts
   binary.js
@@ -36,6 +36,6 @@ done
 
 rm -rf ./build
 
-for dir in admin-module block-sdk cosmos-sdk feemarket ibc-go neutron slinky wasmd ; do
+for dir in admin-module block-sdk cosmos-sdk feemarket ibc-go neutron connect wasmd ; do
   rm -rf "protos/$dir"
 done
