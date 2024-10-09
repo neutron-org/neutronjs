@@ -9,7 +9,7 @@ node_modules/
 /protos/feemarket
 /protos/ibc-go
 /protos/neutron
-/protos/slinky
+/protos/connect
 /protos/wasmd
 
 /build/
@@ -25,7 +25,7 @@ node_modules/
 /neutron/
 /osmosis/
 /sdk/
-/slinky/
+/connect/
 /tendermint/
 /binary.*
 /helpers.*
