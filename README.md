@@ -2,7 +2,7 @@
 
 Cosmjs types for users of Neutron chain.
 
-https://www.neutron.org/
+<https://www.neutron.org/>
 
 Version of this package is synced with Neutron chain version.
 
@@ -20,11 +20,18 @@ git submodule update --init --recursive
 
 # Install dependencies
 npm install
+
+# Set specified versions for submodules
+# Submodules versions (commits or tags) should be set in the ./scripts/set-versions.sh script for the corresponding *_REV constants
+npm run set-versions
 ```
 
 ### Rebuilding types
 
 ```sh
-npm run codegen # Generate .ts files into ./src
-npm run build # Build .js/.d.ts files
+# Generate .ts files into ./src
+npm run codegen
+
+# Build .js/.d.ts files
+npm run build
 ```
