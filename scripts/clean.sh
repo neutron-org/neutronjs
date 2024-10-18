@@ -36,6 +36,6 @@ done
 
 rm -rf ./build
 
-for dir in admin-module block-sdk cosmos-sdk feemarket ibc-go neutron slinky wasmd ; do
+for dir in admin-module block-sdk cosmos-sdk feemarket ibc-go neutron slinky wasmd; do
   rm -rf "protos/$dir"
 done

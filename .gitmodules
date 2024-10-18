@@ -22,3 +22,6 @@
 [submodule "wasmd"]
 	path = protos/wasmd-src
 	url = git@github.com:neutron-org/wasmd.git
+[submodule "interchain-security"]
+	path = protos/interchain-security-src
+	url = git@github.com:cosmos/interchain-security.git

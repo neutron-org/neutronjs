@@ -22,7 +22,11 @@ export interface LimitOrderTranche {
    * Order deletion still functions the same and the orders will be deleted at the end of the block
    */
   expirationTime?: Timestamp;
+  /** DEPRECATED: price_taker_to_maker will be removed in future release, `maker_price` should always be used. */
+  /** @deprecated */
   priceTakerToMaker: string;
+  /** This is the price of the LimitOrder denominated in the opposite token. (ie. 1 TokenA with a maker_price of 10 is worth 10 TokenB ) */
+  makerPrice: string;
 }
 function createBaseLimitOrderTrancheKey(): LimitOrderTrancheKey {
   return {
@@ -106,6 +110,7 @@ function createBaseLimitOrderTranche(): LimitOrderTranche {
     totalTakerDenom: "",
     expirationTime: undefined,
     priceTakerToMaker: "",
+    makerPrice: "",
   };
 }
 export const LimitOrderTranche = {
@@ -131,6 +136,9 @@ export const LimitOrderTranche = {
     }
     if (message.priceTakerToMaker !== "") {
       writer.uint32(58).string(message.priceTakerToMaker);
+    }
+    if (message.makerPrice !== "") {
+      writer.uint32(66).string(message.makerPrice);
     }
     return writer;
   },
@@ -162,6 +170,9 @@ export const LimitOrderTranche = {
         case 7:
           message.priceTakerToMaker = reader.string();
           break;
+        case 8:
+          message.makerPrice = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -178,6 +189,7 @@ export const LimitOrderTranche = {
     if (isSet(object.totalTakerDenom)) obj.totalTakerDenom = String(object.totalTakerDenom);
     if (isSet(object.expirationTime)) obj.expirationTime = fromJsonTimestamp(object.expirationTime);
     if (isSet(object.priceTakerToMaker)) obj.priceTakerToMaker = String(object.priceTakerToMaker);
+    if (isSet(object.makerPrice)) obj.makerPrice = String(object.makerPrice);
     return obj;
   },
   toJSON(message: LimitOrderTranche): JsonSafe<LimitOrderTranche> {
@@ -191,6 +203,7 @@ export const LimitOrderTranche = {
     message.expirationTime !== undefined &&
       (obj.expirationTime = fromTimestamp(message.expirationTime).toISOString());
     message.priceTakerToMaker !== undefined && (obj.priceTakerToMaker = message.priceTakerToMaker);
+    message.makerPrice !== undefined && (obj.makerPrice = message.makerPrice);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<LimitOrderTranche>, I>>(object: I): LimitOrderTranche {
@@ -206,6 +219,7 @@ export const LimitOrderTranche = {
       message.expirationTime = Timestamp.fromPartial(object.expirationTime);
     }
     message.priceTakerToMaker = object.priceTakerToMaker ?? "";
+    message.makerPrice = object.makerPrice ?? "";
     return message;
   },
 };

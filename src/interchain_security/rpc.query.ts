@@ -91,23 +91,14 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
         v1beta1: (await import("../cosmos/upgrade/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
       },
     },
-    neutron: {
-      contractmanager: (await import("./contractmanager/query.rpc.Query")).createRpcQueryExtension(client),
-      cron: (await import("./cron/query.rpc.Query")).createRpcQueryExtension(client),
-      dex: (await import("./dex/query.rpc.Query")).createRpcQueryExtension(client),
-      dynamicfees: {
-        v1: (await import("./dynamicfees/v1/query.rpc.Query")).createRpcQueryExtension(client),
-      },
-      feeburner: (await import("./feeburner/query.rpc.Query")).createRpcQueryExtension(client),
-      feerefunder: (await import("./feerefunder/query.rpc.Query")).createRpcQueryExtension(client),
-      ibcratelimit: {
-        v1beta1: (await import("./ibcratelimit/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
-      },
-      interchainqueries: (await import("./interchainqueries/query.rpc.Query")).createRpcQueryExtension(
-        client,
-      ),
-      interchaintxs: {
-        v1: (await import("./interchaintxs/v1/query.rpc.Query")).createRpcQueryExtension(client),
+    interchain_security: {
+      ccv: {
+        consumer: {
+          v1: (await import("./ccv/consumer/v1/query.rpc.Query")).createRpcQueryExtension(client),
+        },
+        provider: {
+          v1: (await import("./ccv/provider/v1/query.rpc.Query")).createRpcQueryExtension(client),
+        },
       },
     },
   };
