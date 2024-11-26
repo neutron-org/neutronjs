@@ -12,8 +12,17 @@ export interface PoolReservesKey {
 export interface PoolReserves {
   key?: PoolReservesKey;
   reservesMakerDenom: string;
+  /** DEPRECATED: price_taker_to_maker will be removed in future release, `maker_price` should always be used. */
+  /** @deprecated */
   priceTakerToMaker: string;
+  /**
+   * DEPRECATED: price_opposite_taker_maker was an internal implementation detail and will be removed in a future release.
+   * It is being kept strictly for backwards compatibility. The actual field value is unused.
+   */
+  /** @deprecated */
   priceOppositeTakerToMaker: string;
+  /** This is the price of the PoolReserves denominated in the opposite token. (ie. 1 TokenA with a maker_price of 10 is worth 10 TokenB ) */
+  makerPrice: string;
 }
 function createBasePoolReservesKey(): PoolReservesKey {
   return {
@@ -96,6 +105,7 @@ function createBasePoolReserves(): PoolReserves {
     reservesMakerDenom: "",
     priceTakerToMaker: "",
     priceOppositeTakerToMaker: "",
+    makerPrice: "",
   };
 }
 export const PoolReserves = {
@@ -112,6 +122,9 @@ export const PoolReserves = {
     }
     if (message.priceOppositeTakerToMaker !== "") {
       writer.uint32(34).string(message.priceOppositeTakerToMaker);
+    }
+    if (message.makerPrice !== "") {
+      writer.uint32(42).string(message.makerPrice);
     }
     return writer;
   },
@@ -134,6 +147,9 @@ export const PoolReserves = {
         case 4:
           message.priceOppositeTakerToMaker = reader.string();
           break;
+        case 5:
+          message.makerPrice = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -148,6 +164,7 @@ export const PoolReserves = {
     if (isSet(object.priceTakerToMaker)) obj.priceTakerToMaker = String(object.priceTakerToMaker);
     if (isSet(object.priceOppositeTakerToMaker))
       obj.priceOppositeTakerToMaker = String(object.priceOppositeTakerToMaker);
+    if (isSet(object.makerPrice)) obj.makerPrice = String(object.makerPrice);
     return obj;
   },
   toJSON(message: PoolReserves): JsonSafe<PoolReserves> {
@@ -157,6 +174,7 @@ export const PoolReserves = {
     message.priceTakerToMaker !== undefined && (obj.priceTakerToMaker = message.priceTakerToMaker);
     message.priceOppositeTakerToMaker !== undefined &&
       (obj.priceOppositeTakerToMaker = message.priceOppositeTakerToMaker);
+    message.makerPrice !== undefined && (obj.makerPrice = message.makerPrice);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<PoolReserves>, I>>(object: I): PoolReserves {
@@ -167,6 +185,7 @@ export const PoolReserves = {
     message.reservesMakerDenom = object.reservesMakerDenom ?? "";
     message.priceTakerToMaker = object.priceTakerToMaker ?? "";
     message.priceOppositeTakerToMaker = object.priceOppositeTakerToMaker ?? "";
+    message.makerPrice = object.makerPrice ?? "";
     return message;
   },
 };

@@ -67,6 +67,9 @@ export const createRPCMsgClient = async ({ rpc }: { rpc: Rpc }) => ({
     },
     feeburner: new (await import("./feeburner/tx.rpc.msg")).MsgClientImpl(rpc),
     feerefunder: new (await import("./feerefunder/tx.rpc.msg")).MsgClientImpl(rpc),
+    ibcratelimit: {
+      v1beta1: new (await import("./ibcratelimit/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc),
+    },
     interchainqueries: new (await import("./interchainqueries/tx.rpc.msg")).MsgClientImpl(rpc),
     interchaintxs: {
       v1: new (await import("./interchaintxs/v1/tx.rpc.msg")).MsgClientImpl(rpc),

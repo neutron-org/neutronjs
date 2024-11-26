@@ -26,6 +26,14 @@ export interface MsgUpdateParams {
  * Since: 0.47
  */
 export interface MsgUpdateParamsResponse {}
+/** MsgResubmitFailure - contract that has failed acknowledgement can resubmit its failure */
+export interface MsgResubmitFailure {
+  /** sender is the contract which failure to acknowledge is resubmitted. */
+  sender: string;
+  /** failure_id is id of failure to resubmit */
+  failureId: bigint;
+}
+export interface MsgResubmitFailureResponse {}
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -116,6 +124,99 @@ export const MsgUpdateParamsResponse = {
   },
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+};
+function createBaseMsgResubmitFailure(): MsgResubmitFailure {
+  return {
+    sender: "",
+    failureId: BigInt(0),
+  };
+}
+export const MsgResubmitFailure = {
+  typeUrl: "/neutron.contractmanager.MsgResubmitFailure",
+  encode(message: MsgResubmitFailure, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+    if (message.failureId !== BigInt(0)) {
+      writer.uint32(16).uint64(message.failureId);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgResubmitFailure {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgResubmitFailure();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.sender = reader.string();
+          break;
+        case 2:
+          message.failureId = reader.uint64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): MsgResubmitFailure {
+    const obj = createBaseMsgResubmitFailure();
+    if (isSet(object.sender)) obj.sender = String(object.sender);
+    if (isSet(object.failureId)) obj.failureId = BigInt(object.failureId.toString());
+    return obj;
+  },
+  toJSON(message: MsgResubmitFailure): JsonSafe<MsgResubmitFailure> {
+    const obj: any = {};
+    message.sender !== undefined && (obj.sender = message.sender);
+    message.failureId !== undefined && (obj.failureId = (message.failureId || BigInt(0)).toString());
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgResubmitFailure>, I>>(object: I): MsgResubmitFailure {
+    const message = createBaseMsgResubmitFailure();
+    message.sender = object.sender ?? "";
+    if (object.failureId !== undefined && object.failureId !== null) {
+      message.failureId = BigInt(object.failureId.toString());
+    }
+    return message;
+  },
+};
+function createBaseMsgResubmitFailureResponse(): MsgResubmitFailureResponse {
+  return {};
+}
+export const MsgResubmitFailureResponse = {
+  typeUrl: "/neutron.contractmanager.MsgResubmitFailureResponse",
+  encode(_: MsgResubmitFailureResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgResubmitFailureResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgResubmitFailureResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(_: any): MsgResubmitFailureResponse {
+    const obj = createBaseMsgResubmitFailureResponse();
+    return obj;
+  },
+  toJSON(_: MsgResubmitFailureResponse): JsonSafe<MsgResubmitFailureResponse> {
+    const obj: any = {};
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgResubmitFailureResponse>, I>>(_: I): MsgResubmitFailureResponse {
+    const message = createBaseMsgResubmitFailureResponse();
     return message;
   },
 };

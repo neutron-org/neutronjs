@@ -100,6 +100,9 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
       },
       feeburner: (await import("./feeburner/query.rpc.Query")).createRpcQueryExtension(client),
       feerefunder: (await import("./feerefunder/query.rpc.Query")).createRpcQueryExtension(client),
+      ibcratelimit: {
+        v1beta1: (await import("./ibcratelimit/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
+      },
       interchainqueries: (await import("./interchainqueries/query.rpc.Query")).createRpcQueryExtension(
         client,
       ),

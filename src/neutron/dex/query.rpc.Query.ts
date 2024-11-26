@@ -39,6 +39,18 @@ import {
   QueryGetPoolMetadataResponse,
   QueryAllPoolMetadataRequest,
   QueryAllPoolMetadataResponse,
+  QuerySimulateDepositRequest,
+  QuerySimulateDepositResponse,
+  QuerySimulateWithdrawalRequest,
+  QuerySimulateWithdrawalResponse,
+  QuerySimulatePlaceLimitOrderRequest,
+  QuerySimulatePlaceLimitOrderResponse,
+  QuerySimulateWithdrawFilledLimitOrderRequest,
+  QuerySimulateWithdrawFilledLimitOrderResponse,
+  QuerySimulateCancelLimitOrderRequest,
+  QuerySimulateCancelLimitOrderResponse,
+  QuerySimulateMultiHopSwapRequest,
+  QuerySimulateMultiHopSwapResponse,
 } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {
@@ -79,9 +91,9 @@ export interface Query {
   poolReservesAll(request: QueryAllPoolReservesRequest): Promise<QueryAllPoolReservesResponse>;
   /** Queries a PoolReserve by index */
   poolReserves(request: QueryGetPoolReservesRequest): Promise<QueryGetPoolReservesResponse>;
-  /** Queries the simulated result of a multihop swap */
+  /** DEPRECATED Queries the simulated result of a multihop swap */
   estimateMultiHopSwap(request: QueryEstimateMultiHopSwapRequest): Promise<QueryEstimateMultiHopSwapResponse>;
-  /** Queries the simulated result of a PlaceLimit order */
+  /** DEPRECATED Queries the simulated result of a PlaceLimit order */
   estimatePlaceLimitOrder(
     request: QueryEstimatePlaceLimitOrderRequest,
   ): Promise<QueryEstimatePlaceLimitOrderResponse>;
@@ -93,6 +105,24 @@ export interface Query {
   poolMetadata(request: QueryGetPoolMetadataRequest): Promise<QueryGetPoolMetadataResponse>;
   /** Queries a list of PoolMetadata items. */
   poolMetadataAll(request?: QueryAllPoolMetadataRequest): Promise<QueryAllPoolMetadataResponse>;
+  /** Simulates MsgDeposit */
+  simulateDeposit(request: QuerySimulateDepositRequest): Promise<QuerySimulateDepositResponse>;
+  /** Simulates MsgWithdrawal */
+  simulateWithdrawal(request: QuerySimulateWithdrawalRequest): Promise<QuerySimulateWithdrawalResponse>;
+  /** Simulates MsgPlaceLimitOrder */
+  simulatePlaceLimitOrder(
+    request: QuerySimulatePlaceLimitOrderRequest,
+  ): Promise<QuerySimulatePlaceLimitOrderResponse>;
+  /** Simulates MsgWithdrawFilledLimitOrder */
+  simulateWithdrawFilledLimitOrder(
+    request: QuerySimulateWithdrawFilledLimitOrderRequest,
+  ): Promise<QuerySimulateWithdrawFilledLimitOrderResponse>;
+  /** Simulates MsgCancelLimitOrder */
+  simulateCancelLimitOrder(
+    request: QuerySimulateCancelLimitOrderRequest,
+  ): Promise<QuerySimulateCancelLimitOrderResponse>;
+  /** Simulates MsgMultiHopSwap */
+  simulateMultiHopSwap(request: QuerySimulateMultiHopSwapRequest): Promise<QuerySimulateMultiHopSwapResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
@@ -116,6 +146,12 @@ export class QueryClientImpl implements Query {
     this.poolByID = this.poolByID.bind(this);
     this.poolMetadata = this.poolMetadata.bind(this);
     this.poolMetadataAll = this.poolMetadataAll.bind(this);
+    this.simulateDeposit = this.simulateDeposit.bind(this);
+    this.simulateWithdrawal = this.simulateWithdrawal.bind(this);
+    this.simulatePlaceLimitOrder = this.simulatePlaceLimitOrder.bind(this);
+    this.simulateWithdrawFilledLimitOrder = this.simulateWithdrawFilledLimitOrder.bind(this);
+    this.simulateCancelLimitOrder = this.simulateCancelLimitOrder.bind(this);
+    this.simulateMultiHopSwap = this.simulateMultiHopSwap.bind(this);
   }
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -233,6 +269,46 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("neutron.dex.Query", "PoolMetadataAll", data);
     return promise.then((data) => QueryAllPoolMetadataResponse.decode(new BinaryReader(data)));
   }
+  simulateDeposit(request: QuerySimulateDepositRequest): Promise<QuerySimulateDepositResponse> {
+    const data = QuerySimulateDepositRequest.encode(request).finish();
+    const promise = this.rpc.request("neutron.dex.Query", "SimulateDeposit", data);
+    return promise.then((data) => QuerySimulateDepositResponse.decode(new BinaryReader(data)));
+  }
+  simulateWithdrawal(request: QuerySimulateWithdrawalRequest): Promise<QuerySimulateWithdrawalResponse> {
+    const data = QuerySimulateWithdrawalRequest.encode(request).finish();
+    const promise = this.rpc.request("neutron.dex.Query", "SimulateWithdrawal", data);
+    return promise.then((data) => QuerySimulateWithdrawalResponse.decode(new BinaryReader(data)));
+  }
+  simulatePlaceLimitOrder(
+    request: QuerySimulatePlaceLimitOrderRequest,
+  ): Promise<QuerySimulatePlaceLimitOrderResponse> {
+    const data = QuerySimulatePlaceLimitOrderRequest.encode(request).finish();
+    const promise = this.rpc.request("neutron.dex.Query", "SimulatePlaceLimitOrder", data);
+    return promise.then((data) => QuerySimulatePlaceLimitOrderResponse.decode(new BinaryReader(data)));
+  }
+  simulateWithdrawFilledLimitOrder(
+    request: QuerySimulateWithdrawFilledLimitOrderRequest,
+  ): Promise<QuerySimulateWithdrawFilledLimitOrderResponse> {
+    const data = QuerySimulateWithdrawFilledLimitOrderRequest.encode(request).finish();
+    const promise = this.rpc.request("neutron.dex.Query", "SimulateWithdrawFilledLimitOrder", data);
+    return promise.then((data) =>
+      QuerySimulateWithdrawFilledLimitOrderResponse.decode(new BinaryReader(data)),
+    );
+  }
+  simulateCancelLimitOrder(
+    request: QuerySimulateCancelLimitOrderRequest,
+  ): Promise<QuerySimulateCancelLimitOrderResponse> {
+    const data = QuerySimulateCancelLimitOrderRequest.encode(request).finish();
+    const promise = this.rpc.request("neutron.dex.Query", "SimulateCancelLimitOrder", data);
+    return promise.then((data) => QuerySimulateCancelLimitOrderResponse.decode(new BinaryReader(data)));
+  }
+  simulateMultiHopSwap(
+    request: QuerySimulateMultiHopSwapRequest,
+  ): Promise<QuerySimulateMultiHopSwapResponse> {
+    const data = QuerySimulateMultiHopSwapRequest.encode(request).finish();
+    const promise = this.rpc.request("neutron.dex.Query", "SimulateMultiHopSwap", data);
+    return promise.then((data) => QuerySimulateMultiHopSwapResponse.decode(new BinaryReader(data)));
+  }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {
   const rpc = createProtobufRpcClient(base);
@@ -307,6 +383,32 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     },
     poolMetadataAll(request?: QueryAllPoolMetadataRequest): Promise<QueryAllPoolMetadataResponse> {
       return queryService.poolMetadataAll(request);
+    },
+    simulateDeposit(request: QuerySimulateDepositRequest): Promise<QuerySimulateDepositResponse> {
+      return queryService.simulateDeposit(request);
+    },
+    simulateWithdrawal(request: QuerySimulateWithdrawalRequest): Promise<QuerySimulateWithdrawalResponse> {
+      return queryService.simulateWithdrawal(request);
+    },
+    simulatePlaceLimitOrder(
+      request: QuerySimulatePlaceLimitOrderRequest,
+    ): Promise<QuerySimulatePlaceLimitOrderResponse> {
+      return queryService.simulatePlaceLimitOrder(request);
+    },
+    simulateWithdrawFilledLimitOrder(
+      request: QuerySimulateWithdrawFilledLimitOrderRequest,
+    ): Promise<QuerySimulateWithdrawFilledLimitOrderResponse> {
+      return queryService.simulateWithdrawFilledLimitOrder(request);
+    },
+    simulateCancelLimitOrder(
+      request: QuerySimulateCancelLimitOrderRequest,
+    ): Promise<QuerySimulateCancelLimitOrderResponse> {
+      return queryService.simulateCancelLimitOrder(request);
+    },
+    simulateMultiHopSwap(
+      request: QuerySimulateMultiHopSwapRequest,
+    ): Promise<QuerySimulateMultiHopSwapResponse> {
+      return queryService.simulateMultiHopSwap(request);
     },
   };
 };
