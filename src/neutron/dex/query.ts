@@ -1,6 +1,23 @@
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
-import { MultiHopRoute, LimitOrderType, limitOrderTypeFromJSON, limitOrderTypeToJSON } from "./tx";
+import {
+  MultiHopRoute,
+  LimitOrderType,
+  MsgDeposit,
+  MsgWithdrawal,
+  MsgPlaceLimitOrder,
+  MsgWithdrawFilledLimitOrder,
+  MsgCancelLimitOrder,
+  MsgMultiHopSwap,
+  MsgDepositResponse,
+  MsgWithdrawalResponse,
+  MsgPlaceLimitOrderResponse,
+  MsgWithdrawFilledLimitOrderResponse,
+  MsgCancelLimitOrderResponse,
+  MsgMultiHopSwapResponse,
+  limitOrderTypeFromJSON,
+  limitOrderTypeToJSON,
+} from "./tx";
 import { Timestamp } from "../../google/protobuf/timestamp";
 import { Params } from "./params";
 import { LimitOrderTrancheUser } from "./limit_order_tranche_user";
@@ -117,6 +134,7 @@ export interface QueryGetPoolReservesResponse {
   poolReserves?: PoolReserves;
 }
 export interface QueryEstimateMultiHopSwapRequest {
+  /** DEPRECATED: Use QuerySimulateMultiHopSwap */
   creator: string;
   receiver: string;
   routes: MultiHopRoute[];
@@ -132,6 +150,7 @@ export interface QueryEstimateMultiHopSwapResponse {
   coinOut: Coin;
 }
 export interface QueryEstimatePlaceLimitOrderRequest {
+  /** DEPRECATED: Use QuerySimulatePlaceLimitOrder */
   creator: string;
   receiver: string;
   tokenIn: string;
@@ -183,6 +202,42 @@ export interface QueryAllPoolMetadataRequest {
 export interface QueryAllPoolMetadataResponse {
   poolMetadata: PoolMetadata[];
   pagination?: PageResponse;
+}
+export interface QuerySimulateDepositRequest {
+  msg?: MsgDeposit;
+}
+export interface QuerySimulateDepositResponse {
+  resp?: MsgDepositResponse;
+}
+export interface QuerySimulateWithdrawalRequest {
+  msg?: MsgWithdrawal;
+}
+export interface QuerySimulateWithdrawalResponse {
+  resp?: MsgWithdrawalResponse;
+}
+export interface QuerySimulatePlaceLimitOrderRequest {
+  msg?: MsgPlaceLimitOrder;
+}
+export interface QuerySimulatePlaceLimitOrderResponse {
+  resp?: MsgPlaceLimitOrderResponse;
+}
+export interface QuerySimulateWithdrawFilledLimitOrderRequest {
+  msg?: MsgWithdrawFilledLimitOrder;
+}
+export interface QuerySimulateWithdrawFilledLimitOrderResponse {
+  resp?: MsgWithdrawFilledLimitOrderResponse;
+}
+export interface QuerySimulateCancelLimitOrderRequest {
+  msg?: MsgCancelLimitOrder;
+}
+export interface QuerySimulateCancelLimitOrderResponse {
+  resp?: MsgCancelLimitOrderResponse;
+}
+export interface QuerySimulateMultiHopSwapRequest {
+  msg?: MsgMultiHopSwap;
+}
+export interface QuerySimulateMultiHopSwapResponse {
+  resp?: MsgMultiHopSwapResponse;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -2533,6 +2588,648 @@ export const QueryAllPoolMetadataResponse = {
     message.poolMetadata = object.poolMetadata?.map((e) => PoolMetadata.fromPartial(e)) || [];
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageResponse.fromPartial(object.pagination);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulateDepositRequest(): QuerySimulateDepositRequest {
+  return {
+    msg: undefined,
+  };
+}
+export const QuerySimulateDepositRequest = {
+  typeUrl: "/neutron.dex.QuerySimulateDepositRequest",
+  encode(message: QuerySimulateDepositRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.msg !== undefined) {
+      MsgDeposit.encode(message.msg, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulateDepositRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulateDepositRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.msg = MsgDeposit.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulateDepositRequest {
+    const obj = createBaseQuerySimulateDepositRequest();
+    if (isSet(object.msg)) obj.msg = MsgDeposit.fromJSON(object.msg);
+    return obj;
+  },
+  toJSON(message: QuerySimulateDepositRequest): JsonSafe<QuerySimulateDepositRequest> {
+    const obj: any = {};
+    message.msg !== undefined && (obj.msg = message.msg ? MsgDeposit.toJSON(message.msg) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulateDepositRequest>, I>>(
+    object: I,
+  ): QuerySimulateDepositRequest {
+    const message = createBaseQuerySimulateDepositRequest();
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = MsgDeposit.fromPartial(object.msg);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulateDepositResponse(): QuerySimulateDepositResponse {
+  return {
+    resp: undefined,
+  };
+}
+export const QuerySimulateDepositResponse = {
+  typeUrl: "/neutron.dex.QuerySimulateDepositResponse",
+  encode(message: QuerySimulateDepositResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.resp !== undefined) {
+      MsgDepositResponse.encode(message.resp, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulateDepositResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulateDepositResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.resp = MsgDepositResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulateDepositResponse {
+    const obj = createBaseQuerySimulateDepositResponse();
+    if (isSet(object.resp)) obj.resp = MsgDepositResponse.fromJSON(object.resp);
+    return obj;
+  },
+  toJSON(message: QuerySimulateDepositResponse): JsonSafe<QuerySimulateDepositResponse> {
+    const obj: any = {};
+    message.resp !== undefined &&
+      (obj.resp = message.resp ? MsgDepositResponse.toJSON(message.resp) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulateDepositResponse>, I>>(
+    object: I,
+  ): QuerySimulateDepositResponse {
+    const message = createBaseQuerySimulateDepositResponse();
+    if (object.resp !== undefined && object.resp !== null) {
+      message.resp = MsgDepositResponse.fromPartial(object.resp);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulateWithdrawalRequest(): QuerySimulateWithdrawalRequest {
+  return {
+    msg: undefined,
+  };
+}
+export const QuerySimulateWithdrawalRequest = {
+  typeUrl: "/neutron.dex.QuerySimulateWithdrawalRequest",
+  encode(
+    message: QuerySimulateWithdrawalRequest,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
+    if (message.msg !== undefined) {
+      MsgWithdrawal.encode(message.msg, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulateWithdrawalRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulateWithdrawalRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.msg = MsgWithdrawal.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulateWithdrawalRequest {
+    const obj = createBaseQuerySimulateWithdrawalRequest();
+    if (isSet(object.msg)) obj.msg = MsgWithdrawal.fromJSON(object.msg);
+    return obj;
+  },
+  toJSON(message: QuerySimulateWithdrawalRequest): JsonSafe<QuerySimulateWithdrawalRequest> {
+    const obj: any = {};
+    message.msg !== undefined && (obj.msg = message.msg ? MsgWithdrawal.toJSON(message.msg) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulateWithdrawalRequest>, I>>(
+    object: I,
+  ): QuerySimulateWithdrawalRequest {
+    const message = createBaseQuerySimulateWithdrawalRequest();
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = MsgWithdrawal.fromPartial(object.msg);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulateWithdrawalResponse(): QuerySimulateWithdrawalResponse {
+  return {
+    resp: undefined,
+  };
+}
+export const QuerySimulateWithdrawalResponse = {
+  typeUrl: "/neutron.dex.QuerySimulateWithdrawalResponse",
+  encode(
+    message: QuerySimulateWithdrawalResponse,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
+    if (message.resp !== undefined) {
+      MsgWithdrawalResponse.encode(message.resp, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulateWithdrawalResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulateWithdrawalResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.resp = MsgWithdrawalResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulateWithdrawalResponse {
+    const obj = createBaseQuerySimulateWithdrawalResponse();
+    if (isSet(object.resp)) obj.resp = MsgWithdrawalResponse.fromJSON(object.resp);
+    return obj;
+  },
+  toJSON(message: QuerySimulateWithdrawalResponse): JsonSafe<QuerySimulateWithdrawalResponse> {
+    const obj: any = {};
+    message.resp !== undefined &&
+      (obj.resp = message.resp ? MsgWithdrawalResponse.toJSON(message.resp) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulateWithdrawalResponse>, I>>(
+    object: I,
+  ): QuerySimulateWithdrawalResponse {
+    const message = createBaseQuerySimulateWithdrawalResponse();
+    if (object.resp !== undefined && object.resp !== null) {
+      message.resp = MsgWithdrawalResponse.fromPartial(object.resp);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulatePlaceLimitOrderRequest(): QuerySimulatePlaceLimitOrderRequest {
+  return {
+    msg: undefined,
+  };
+}
+export const QuerySimulatePlaceLimitOrderRequest = {
+  typeUrl: "/neutron.dex.QuerySimulatePlaceLimitOrderRequest",
+  encode(
+    message: QuerySimulatePlaceLimitOrderRequest,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
+    if (message.msg !== undefined) {
+      MsgPlaceLimitOrder.encode(message.msg, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulatePlaceLimitOrderRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulatePlaceLimitOrderRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.msg = MsgPlaceLimitOrder.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulatePlaceLimitOrderRequest {
+    const obj = createBaseQuerySimulatePlaceLimitOrderRequest();
+    if (isSet(object.msg)) obj.msg = MsgPlaceLimitOrder.fromJSON(object.msg);
+    return obj;
+  },
+  toJSON(message: QuerySimulatePlaceLimitOrderRequest): JsonSafe<QuerySimulatePlaceLimitOrderRequest> {
+    const obj: any = {};
+    message.msg !== undefined && (obj.msg = message.msg ? MsgPlaceLimitOrder.toJSON(message.msg) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulatePlaceLimitOrderRequest>, I>>(
+    object: I,
+  ): QuerySimulatePlaceLimitOrderRequest {
+    const message = createBaseQuerySimulatePlaceLimitOrderRequest();
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = MsgPlaceLimitOrder.fromPartial(object.msg);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulatePlaceLimitOrderResponse(): QuerySimulatePlaceLimitOrderResponse {
+  return {
+    resp: undefined,
+  };
+}
+export const QuerySimulatePlaceLimitOrderResponse = {
+  typeUrl: "/neutron.dex.QuerySimulatePlaceLimitOrderResponse",
+  encode(
+    message: QuerySimulatePlaceLimitOrderResponse,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
+    if (message.resp !== undefined) {
+      MsgPlaceLimitOrderResponse.encode(message.resp, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulatePlaceLimitOrderResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulatePlaceLimitOrderResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.resp = MsgPlaceLimitOrderResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulatePlaceLimitOrderResponse {
+    const obj = createBaseQuerySimulatePlaceLimitOrderResponse();
+    if (isSet(object.resp)) obj.resp = MsgPlaceLimitOrderResponse.fromJSON(object.resp);
+    return obj;
+  },
+  toJSON(message: QuerySimulatePlaceLimitOrderResponse): JsonSafe<QuerySimulatePlaceLimitOrderResponse> {
+    const obj: any = {};
+    message.resp !== undefined &&
+      (obj.resp = message.resp ? MsgPlaceLimitOrderResponse.toJSON(message.resp) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulatePlaceLimitOrderResponse>, I>>(
+    object: I,
+  ): QuerySimulatePlaceLimitOrderResponse {
+    const message = createBaseQuerySimulatePlaceLimitOrderResponse();
+    if (object.resp !== undefined && object.resp !== null) {
+      message.resp = MsgPlaceLimitOrderResponse.fromPartial(object.resp);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulateWithdrawFilledLimitOrderRequest(): QuerySimulateWithdrawFilledLimitOrderRequest {
+  return {
+    msg: undefined,
+  };
+}
+export const QuerySimulateWithdrawFilledLimitOrderRequest = {
+  typeUrl: "/neutron.dex.QuerySimulateWithdrawFilledLimitOrderRequest",
+  encode(
+    message: QuerySimulateWithdrawFilledLimitOrderRequest,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
+    if (message.msg !== undefined) {
+      MsgWithdrawFilledLimitOrder.encode(message.msg, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulateWithdrawFilledLimitOrderRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulateWithdrawFilledLimitOrderRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.msg = MsgWithdrawFilledLimitOrder.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulateWithdrawFilledLimitOrderRequest {
+    const obj = createBaseQuerySimulateWithdrawFilledLimitOrderRequest();
+    if (isSet(object.msg)) obj.msg = MsgWithdrawFilledLimitOrder.fromJSON(object.msg);
+    return obj;
+  },
+  toJSON(
+    message: QuerySimulateWithdrawFilledLimitOrderRequest,
+  ): JsonSafe<QuerySimulateWithdrawFilledLimitOrderRequest> {
+    const obj: any = {};
+    message.msg !== undefined &&
+      (obj.msg = message.msg ? MsgWithdrawFilledLimitOrder.toJSON(message.msg) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulateWithdrawFilledLimitOrderRequest>, I>>(
+    object: I,
+  ): QuerySimulateWithdrawFilledLimitOrderRequest {
+    const message = createBaseQuerySimulateWithdrawFilledLimitOrderRequest();
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = MsgWithdrawFilledLimitOrder.fromPartial(object.msg);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulateWithdrawFilledLimitOrderResponse(): QuerySimulateWithdrawFilledLimitOrderResponse {
+  return {
+    resp: undefined,
+  };
+}
+export const QuerySimulateWithdrawFilledLimitOrderResponse = {
+  typeUrl: "/neutron.dex.QuerySimulateWithdrawFilledLimitOrderResponse",
+  encode(
+    message: QuerySimulateWithdrawFilledLimitOrderResponse,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
+    if (message.resp !== undefined) {
+      MsgWithdrawFilledLimitOrderResponse.encode(message.resp, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulateWithdrawFilledLimitOrderResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulateWithdrawFilledLimitOrderResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.resp = MsgWithdrawFilledLimitOrderResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulateWithdrawFilledLimitOrderResponse {
+    const obj = createBaseQuerySimulateWithdrawFilledLimitOrderResponse();
+    if (isSet(object.resp)) obj.resp = MsgWithdrawFilledLimitOrderResponse.fromJSON(object.resp);
+    return obj;
+  },
+  toJSON(
+    message: QuerySimulateWithdrawFilledLimitOrderResponse,
+  ): JsonSafe<QuerySimulateWithdrawFilledLimitOrderResponse> {
+    const obj: any = {};
+    message.resp !== undefined &&
+      (obj.resp = message.resp ? MsgWithdrawFilledLimitOrderResponse.toJSON(message.resp) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulateWithdrawFilledLimitOrderResponse>, I>>(
+    object: I,
+  ): QuerySimulateWithdrawFilledLimitOrderResponse {
+    const message = createBaseQuerySimulateWithdrawFilledLimitOrderResponse();
+    if (object.resp !== undefined && object.resp !== null) {
+      message.resp = MsgWithdrawFilledLimitOrderResponse.fromPartial(object.resp);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulateCancelLimitOrderRequest(): QuerySimulateCancelLimitOrderRequest {
+  return {
+    msg: undefined,
+  };
+}
+export const QuerySimulateCancelLimitOrderRequest = {
+  typeUrl: "/neutron.dex.QuerySimulateCancelLimitOrderRequest",
+  encode(
+    message: QuerySimulateCancelLimitOrderRequest,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
+    if (message.msg !== undefined) {
+      MsgCancelLimitOrder.encode(message.msg, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulateCancelLimitOrderRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulateCancelLimitOrderRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.msg = MsgCancelLimitOrder.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulateCancelLimitOrderRequest {
+    const obj = createBaseQuerySimulateCancelLimitOrderRequest();
+    if (isSet(object.msg)) obj.msg = MsgCancelLimitOrder.fromJSON(object.msg);
+    return obj;
+  },
+  toJSON(message: QuerySimulateCancelLimitOrderRequest): JsonSafe<QuerySimulateCancelLimitOrderRequest> {
+    const obj: any = {};
+    message.msg !== undefined &&
+      (obj.msg = message.msg ? MsgCancelLimitOrder.toJSON(message.msg) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulateCancelLimitOrderRequest>, I>>(
+    object: I,
+  ): QuerySimulateCancelLimitOrderRequest {
+    const message = createBaseQuerySimulateCancelLimitOrderRequest();
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = MsgCancelLimitOrder.fromPartial(object.msg);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulateCancelLimitOrderResponse(): QuerySimulateCancelLimitOrderResponse {
+  return {
+    resp: undefined,
+  };
+}
+export const QuerySimulateCancelLimitOrderResponse = {
+  typeUrl: "/neutron.dex.QuerySimulateCancelLimitOrderResponse",
+  encode(
+    message: QuerySimulateCancelLimitOrderResponse,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
+    if (message.resp !== undefined) {
+      MsgCancelLimitOrderResponse.encode(message.resp, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulateCancelLimitOrderResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulateCancelLimitOrderResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.resp = MsgCancelLimitOrderResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulateCancelLimitOrderResponse {
+    const obj = createBaseQuerySimulateCancelLimitOrderResponse();
+    if (isSet(object.resp)) obj.resp = MsgCancelLimitOrderResponse.fromJSON(object.resp);
+    return obj;
+  },
+  toJSON(message: QuerySimulateCancelLimitOrderResponse): JsonSafe<QuerySimulateCancelLimitOrderResponse> {
+    const obj: any = {};
+    message.resp !== undefined &&
+      (obj.resp = message.resp ? MsgCancelLimitOrderResponse.toJSON(message.resp) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulateCancelLimitOrderResponse>, I>>(
+    object: I,
+  ): QuerySimulateCancelLimitOrderResponse {
+    const message = createBaseQuerySimulateCancelLimitOrderResponse();
+    if (object.resp !== undefined && object.resp !== null) {
+      message.resp = MsgCancelLimitOrderResponse.fromPartial(object.resp);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulateMultiHopSwapRequest(): QuerySimulateMultiHopSwapRequest {
+  return {
+    msg: undefined,
+  };
+}
+export const QuerySimulateMultiHopSwapRequest = {
+  typeUrl: "/neutron.dex.QuerySimulateMultiHopSwapRequest",
+  encode(
+    message: QuerySimulateMultiHopSwapRequest,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
+    if (message.msg !== undefined) {
+      MsgMultiHopSwap.encode(message.msg, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulateMultiHopSwapRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulateMultiHopSwapRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.msg = MsgMultiHopSwap.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulateMultiHopSwapRequest {
+    const obj = createBaseQuerySimulateMultiHopSwapRequest();
+    if (isSet(object.msg)) obj.msg = MsgMultiHopSwap.fromJSON(object.msg);
+    return obj;
+  },
+  toJSON(message: QuerySimulateMultiHopSwapRequest): JsonSafe<QuerySimulateMultiHopSwapRequest> {
+    const obj: any = {};
+    message.msg !== undefined && (obj.msg = message.msg ? MsgMultiHopSwap.toJSON(message.msg) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulateMultiHopSwapRequest>, I>>(
+    object: I,
+  ): QuerySimulateMultiHopSwapRequest {
+    const message = createBaseQuerySimulateMultiHopSwapRequest();
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = MsgMultiHopSwap.fromPartial(object.msg);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulateMultiHopSwapResponse(): QuerySimulateMultiHopSwapResponse {
+  return {
+    resp: undefined,
+  };
+}
+export const QuerySimulateMultiHopSwapResponse = {
+  typeUrl: "/neutron.dex.QuerySimulateMultiHopSwapResponse",
+  encode(
+    message: QuerySimulateMultiHopSwapResponse,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
+    if (message.resp !== undefined) {
+      MsgMultiHopSwapResponse.encode(message.resp, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulateMultiHopSwapResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulateMultiHopSwapResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.resp = MsgMultiHopSwapResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulateMultiHopSwapResponse {
+    const obj = createBaseQuerySimulateMultiHopSwapResponse();
+    if (isSet(object.resp)) obj.resp = MsgMultiHopSwapResponse.fromJSON(object.resp);
+    return obj;
+  },
+  toJSON(message: QuerySimulateMultiHopSwapResponse): JsonSafe<QuerySimulateMultiHopSwapResponse> {
+    const obj: any = {};
+    message.resp !== undefined &&
+      (obj.resp = message.resp ? MsgMultiHopSwapResponse.toJSON(message.resp) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulateMultiHopSwapResponse>, I>>(
+    object: I,
+  ): QuerySimulateMultiHopSwapResponse {
+    const message = createBaseQuerySimulateMultiHopSwapResponse();
+    if (object.resp !== undefined && object.resp !== null) {
+      message.resp = MsgMultiHopSwapResponse.fromPartial(object.resp);
     }
     return message;
   },

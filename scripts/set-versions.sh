@@ -11,6 +11,7 @@ readonly IBC_GO_DIR="ibc-go-src"
 readonly NEUTRON_DIR="neutron-src"
 readonly SLINKY_DIR="slinky-src"
 readonly WASMD_DIR="wasmd-src"
+readonly ICS_DIR="interchain-security-src"
 
 readonly ADMIN_MODULE_REV="v2.0.2"
 readonly BLOCK_SDK_REV="v2.1.5"
@@ -20,6 +21,7 @@ readonly IBC_GO_REV="v8.5.1"
 readonly NEUTRON_REV="main"
 readonly SLINKY_REV="v1.0.12"
 readonly WASMD_REV="v0.51.2-neutron"
+readonly ICS_REV="v5.1.1"
 
 checkout_version () {
    git -C protos/$1 checkout $2
@@ -33,3 +35,4 @@ checkout_version $IBC_GO_DIR $IBC_GO_REV
 checkout_version $NEUTRON_DIR $NEUTRON_REV
 checkout_version $SLINKY_DIR $SLINKY_REV
 checkout_version $WASMD_DIR $WASMD_REV
+checkout_version $ICS_DIR $ICS_REV
