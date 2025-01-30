@@ -8,121 +8,179 @@ import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
 export const protobufPackage = "neutron.interchainqueries";
+/** Request type for the Msg/RegisterInterchainQuery RPC method. */
 export interface MsgRegisterInterchainQuery {
-  /** defines a query type: `kv` or `tx` now */
+  /** The query type identifier: `kv` or `tx`. */
   queryType: string;
   /**
-   * is used to define KV-storage keys for which we want to get values from
-   * remote chain
+   * The KV-storage keys for which we want to get values from remote chain. Only applicable for the
+   * KV Interchain Queries. Max amount of keys is limited by the module's `max_kv_query_keys_count`
+   * parameters.
    */
   keys: KVKey[];
-  /** is used to define a filter for transaction search ICQ */
+  /**
+   * A stringified list of filters for remote transactions search. Only applicable for the TX
+   * Interchain Queries. Example: "[{\"field\":\"tx.height\",\"op\":\"Gte\",\"value\":2644737}]".
+   * Supported operators: "eq", "lt", "gt", "lte", "gte". Max amount of filter conditions is
+   * limited by the module's `max_transactions_filters` parameters.
+   */
   transactionsFilter: string;
-  /** is IBC connection ID for getting ConsensusState to verify proofs */
+  /**
+   * The IBC connection ID to the remote chain (the source of querying data). Is used for getting
+   * ConsensusState from the respective IBC client to verify query result proofs.
+   */
   connectionId: string;
-  /** is used to specify how often (in neutron blocks) the query must be updated */
+  /**
+   * Parameter that defines the minimal delay between consecutive query executions (i.e. the
+   * minimal delay between query results update).
+   */
   updatePeriod: bigint;
-  /** is the signer of the message */
+  /** The signer of the message. */
   sender: string;
 }
+/** Response type for the Msg/RegisterInterchainQuery RPC method. */
 export interface MsgRegisterInterchainQueryResponse {
+  /** The ID assigned to the registered Interchain Query by the module. */
   id: bigint;
 }
+/** Request type for the Msg/SubmitQueryResult RPC method. */
 export interface MsgSubmitQueryResult {
+  /** The ID of the Interchain Query. */
   queryId: bigint;
+  /** The signer of the message. */
   sender: string;
   /**
-   * is the IBC client ID for an IBC connection between Neutron chain and target
-   * chain (where the result was obtained from)
+   * The IBC client ID that corresponds to the IBC connection to the remote chain (where the
+   * query result is coming from).
    * Deprecated: populating this field does not make any affect
    */
   /** @deprecated */
   clientId: string;
+  /** The result of the Interchain Query execution. */
   result?: QueryResult;
 }
+/**
+ * Contains different information about a single Interchain Query execution result. Currently,
+ * this structure is used both in query result submission via an ICQ Relayer and as a query result
+ * storage for read/write operations to interchainqueries module, but the structure fields are
+ * populated in a bit different ways. When submitting a query result, all fields are populated and
+ * provided to the interchainqueries module in order to verify the result against the IBC client's
+ * state. But in order to lighten the chain state, the interchainqueries module removes the block
+ * field and proofs from the kv_results.
+ */
 export interface QueryResult {
+  /**
+   * A list of a KV Interchain Query execution results. Each result contains query parameters, a
+   * response value and a proof.
+   */
   kvResults: StorageValue[];
+  /**
+   * A TX Interchain Query execution result. Contains metainformation about the blocks of the query
+   * execution height. Only populated when submitting an Interchain Query result for verification
+   * and emptied when saving the result on chain.
+   */
   block?: Block;
+  /** The height of the chain at the moment of the Interchain Query execution. */
   height: bigint;
+  /** The revision number of the chain at the moment of the Interchain Query execution. */
   revision: bigint;
+  /**
+   * Whether to send the query result to the owner contract as a sudo message. Only applicable for
+   * KV type of Interchain Queries.
+   */
   allowKvCallbacks: boolean;
 }
+/** A verifiable result of performing a single KVKey read. */
 export interface StorageValue {
-  /** is the substore name (acc, staking, etc.) */
+  /**
+   * The substore name used in the read operation. Typically, this corresponds to the keeper's
+   * storeKey, usually the module's name, such as "bank", "staking", etc.
+   */
   storagePrefix: string;
-  /** is the key in IAVL store */
+  /** A bytes field representing the key of the data read from the module's storage. */
   key: Uint8Array;
-  /** is the value in IAVL store */
+  /** A bytes field containing the value associated with the key in the store. */
   value: Uint8Array;
   /**
-   * is the Merkle Proof which proves existence of key-value pair in IAVL
-   * storage
+   * The Merkle Proof which proves existence/nonexistence of key-value pair in IAVL storage. Is
+   * used to verify
+   * the pair against the respective remote chain's header.
    */
   proof?: ProofOps;
 }
+/** A single verifiable result of an Interchain Query of TX type. */
 export interface Block {
   /**
-   * We need to know block X+1 to verify response of transaction for block X
-   * since LastResultsHash is root hash of all results from the txs from the
-   * previous block
+   * The header of the block next to the block the transaction is included in. It is needed to know
+   * block X+1 header to verify response of transaction for block X since LastResultsHash is root
+   * hash of all results of the txs from the previous block.
    */
   nextBlockHeader?: Any;
-  /** We need to know block X to verify inclusion of transaction for block X */
+  /**
+   * The header of the block the transaction is included in. It is needed to know block header to
+   * verify inclusion of the transaction.
+   */
   header?: Any;
+  /** The transaction matched by the Interchain Query's transaction filter. */
   tx?: TxValue;
 }
+/** Contains transaction body, response, and proofs of inclusion and delivery. */
 export interface TxValue {
+  /** The result of the transaction execution. */
   response?: ExecTxResult;
   /**
-   * is the Merkle Proof which proves existence of response in block with height
-   * next_block_header.Height
+   * The Merkle Proof which proves existence of response in the block next to the block the
+   * transaction is included in.
    */
   deliveryProof?: Proof;
-  /**
-   * is the Merkle Proof which proves existence of data in block with height
-   * header.Height
-   */
+  /** The Merkle Proof which proves inclusion of the transaction in the block. */
   inclusionProof?: Proof;
-  /** is body of the transaction */
+  /** The arbitrary data typed body of the transaction. */
   data: Uint8Array;
 }
+/** Response type for the Msg/SubmitQueryResult RPC method. */
 export interface MsgSubmitQueryResultResponse {}
+/** Request type for the Msg/RemoveInterchainQuery RPC method. */
 export interface MsgRemoveInterchainQueryRequest {
+  /** The ID of the query to remove. */
   queryId: bigint;
-  /** is the signer of the message */
+  /** The signer of the message. */
   sender: string;
 }
+/** Response type for the Msg/RemoveInterchainQuery RPC method. */
 export interface MsgRemoveInterchainQueryResponse {}
+/** Request type for the Msg/UpdateInterchainQuery RPC method. */
 export interface MsgUpdateInterchainQueryRequest {
+  /** The ID of the query to update. */
   queryId: bigint;
+  /**
+   * A new list of KV-storage keys for which to get values from the remote chain. Only applicable
+   * for a KV Interchain Query. Max amount of keys is limited by the module's `max_kv_query_keys_count`
+   * parameters.
+   */
   newKeys: KVKey[];
+  /** A new minimal delay between consecutive query executions. */
   newUpdatePeriod: bigint;
+  /**
+   * A new list of filters for remote transactions search. Only applicable for a TX Interchain
+   * Query. Example: "[{\"field\":\"tx.height\",\"op\":\"Gte\",\"value\":2644737}]".
+   * Supported operators: "eq", "lt", "gt", "lte", "gte". Max amount of filter conditions is
+   * limited by the module's `max_transactions_filters` parameters.
+   */
   newTransactionsFilter: string;
-  /** is the signer of the message */
+  /** The signer of the message. */
   sender: string;
 }
+/** Response type for the Msg/UpdateInterchainQuery RPC method. */
 export interface MsgUpdateInterchainQueryResponse {}
-/**
- * MsgUpdateParams is the MsgUpdateParams request type.
- *
- * Since: 0.47
- */
+/** Request type for the Msg/UpdateParams RPC method. */
 export interface MsgUpdateParams {
-  /** Authority is the address of the governance account. */
+  /** The address of the authority of the module. */
   authority: string;
-  /**
-   * params defines the x/interchainqueries parameters to update.
-   *
-   * NOTE: All parameters must be supplied.
-   */
+  /** The new parameters of the module. All parameters must be supplied. */
   params: Params;
 }
-/**
- * MsgUpdateParamsResponse defines the response structure for executing a
- * MsgUpdateParams message.
- *
- * Since: 0.47
- */
+/** Response type for the Msg/UpdateParams RPC method. */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgRegisterInterchainQuery(): MsgRegisterInterchainQuery {
   return {

@@ -4,19 +4,19 @@ import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
 export const protobufPackage = "neutron.interchainqueries";
-/** Params defines the parameters for the module. */
+/** The parameters for the module. */
 export interface Params {
   /**
-   * Defines amount of blocks required before query becomes available for
-   * removal by anybody
+   * The duration, measured in blocks, that must pass since the query's registration or its last
+   * result submission before the query becomes eligible for removal by anyone. Is used to set
+   * `submit_timeout` on Interchain Query registration.
    */
   querySubmitTimeout: bigint;
-  /** Amount of coins deposited for the query. */
+  /** Amount of coins required to be provided as deposit on Interchain Query registration. */
   queryDeposit: Coin[];
   /**
-   * Amount of tx hashes to be removed during a single EndBlock. Can vary to
-   * balance between network cleaning speed and EndBlock duration. A zero value
-   * means no limit.
+   * Amount of tx hashes to be removed during a single EndBlock. Can vary to balance between
+   * network cleaning speed and EndBlock duration. A zero value means no limit.
    */
   txQueryRemovalLimit: bigint;
   /** Maximum amount of keys in a registered key value query */

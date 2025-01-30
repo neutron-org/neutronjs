@@ -7,33 +7,61 @@ import { BinaryReader, BinaryWriter } from "../../binary";
 import { JsonSafe } from "../../json-safe";
 import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 export const protobufPackage = "neutron.interchainqueries";
-/** QueryParamsRequest is request type for the Query/Params RPC method. */
+/** Request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
-/** QueryParamsResponse is response type for the Query/Params RPC method. */
+/** Response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
-  /** params holds all the parameters of this module. */
+  /** Contains all parameters of the module. */
   params: Params;
 }
+/** Request type for the Query/RegisteredQueries RPC method. */
 export interface QueryRegisteredQueriesRequest {
+  /**
+   * A list of owners of Interchain Queries. Query response will contain only Interchain Queries
+   * that are owned by one of the owners in the list. If none, Interchain Queries are not filtered
+   * out by the owner field.
+   */
   owners: string[];
+  /**
+   * IBC connection ID. Query response will contain only Interchain Queries that have the same IBC
+   * connection ID parameter. If none, Interchain Queries are not filtered out by the connection ID
+   * field.
+   */
   connectionId: string;
+  /**
+   * Pagination parameters for the request. Use values from previous response in the next request
+   * in consecutive requests with paginated responses.
+   */
   pagination?: PageRequest;
 }
+/** Response type for the Query/RegisteredQueries RPC method. */
 export interface QueryRegisteredQueriesResponse {
+  /** A list of registered Interchain Queries. */
   registeredQueries: RegisteredQuery[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * Current page information. Use values from previous response in the next request in consecutive
+   * requests with paginated responses.
+   */
   pagination?: PageResponse;
 }
+/** Request type for the Query/RegisteredQuery RPC method. */
 export interface QueryRegisteredQueryRequest {
+  /** ID of an Interchain Query. */
   queryId: bigint;
 }
+/** Response type for the Query/RegisteredQuery RPC method. */
 export interface QueryRegisteredQueryResponse {
+  /** A registered Interchain Query. */
   registeredQuery?: RegisteredQuery;
 }
+/** Request type for the Query/QueryResult RPC method. */
 export interface QueryRegisteredQueryResultRequest {
+  /** ID of an Interchain Query. */
   queryId: bigint;
 }
+/** Response type for the Query/QueryResult RPC method. */
 export interface QueryRegisteredQueryResultResponse {
+  /** The last successfully submitted result of an Interchain Query. */
   result?: QueryResult;
 }
 export interface Transaction {
@@ -41,11 +69,20 @@ export interface Transaction {
   height: bigint;
   data: Uint8Array;
 }
+/** Request type for the Query/LastRemoteHeight RPC method. */
 export interface QueryLastRemoteHeight {
+  /**
+   * Connection ID of an IBC connection to a remote chain. Determines the IBC client used in query
+   * handling.
+   */
   connectionId: string;
 }
+/** Response type for the Query/LastRemoteHeight RPC method. */
 export interface QueryLastRemoteHeightResponse {
+  /** The height of the chain that the IBC client is currently on. */
   height: bigint;
+  /** The revision of the chain that the IBC client is currently on. */
+  revision: bigint;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -606,6 +643,7 @@ export const QueryLastRemoteHeight = {
 function createBaseQueryLastRemoteHeightResponse(): QueryLastRemoteHeightResponse {
   return {
     height: BigInt(0),
+    revision: BigInt(0),
   };
 }
 export const QueryLastRemoteHeightResponse = {
@@ -613,6 +651,9 @@ export const QueryLastRemoteHeightResponse = {
   encode(message: QueryLastRemoteHeightResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).uint64(message.height);
+    }
+    if (message.revision !== BigInt(0)) {
+      writer.uint32(16).uint64(message.revision);
     }
     return writer;
   },
@@ -626,6 +667,9 @@ export const QueryLastRemoteHeightResponse = {
         case 1:
           message.height = reader.uint64();
           break;
+        case 2:
+          message.revision = reader.uint64();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -636,11 +680,13 @@ export const QueryLastRemoteHeightResponse = {
   fromJSON(object: any): QueryLastRemoteHeightResponse {
     const obj = createBaseQueryLastRemoteHeightResponse();
     if (isSet(object.height)) obj.height = BigInt(object.height.toString());
+    if (isSet(object.revision)) obj.revision = BigInt(object.revision.toString());
     return obj;
   },
   toJSON(message: QueryLastRemoteHeightResponse): JsonSafe<QueryLastRemoteHeightResponse> {
     const obj: any = {};
     message.height !== undefined && (obj.height = (message.height || BigInt(0)).toString());
+    message.revision !== undefined && (obj.revision = (message.revision || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<QueryLastRemoteHeightResponse>, I>>(
@@ -649,6 +695,9 @@ export const QueryLastRemoteHeightResponse = {
     const message = createBaseQueryLastRemoteHeightResponse();
     if (object.height !== undefined && object.height !== null) {
       message.height = BigInt(object.height.toString());
+    }
+    if (object.revision !== undefined && object.revision !== null) {
+      message.revision = BigInt(object.revision.toString());
     }
     return message;
   },

@@ -109,6 +109,7 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
       interchaintxs: {
         v1: (await import("./interchaintxs/v1/query.rpc.Query")).createRpcQueryExtension(client),
       },
+      revenue: (await import("./revenue/query.rpc.Query")).createRpcQueryExtension(client),
     },
   };
 };
