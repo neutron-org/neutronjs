@@ -4,52 +4,6 @@ import { isSet, DeepPartial, Exact } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
 import { Decimal } from "@cosmjs/math";
 export const protobufPackage = "neutron.revenue";
-/** Represents the type of payment schedule for validator compensation. */
-export enum PaymentScheduleType {
-  /**
-   * PAYMENT_SCHEDULE_TYPE_UNSPECIFIED - Unspecified payment schedule type. With this payment schedule type, the module does not
-   * distribute any revenue.
-   */
-  PAYMENT_SCHEDULE_TYPE_UNSPECIFIED = 0,
-  /** PAYMENT_SCHEDULE_TYPE_MONTHLY - Monthly periods with payments made at the end of each month. */
-  PAYMENT_SCHEDULE_TYPE_MONTHLY = 1,
-  /**
-   * PAYMENT_SCHEDULE_TYPE_BLOCK_BASED - Periods defined by a specific number of blocks, with payments made when the required block
-   * count is reached.
-   */
-  PAYMENT_SCHEDULE_TYPE_BLOCK_BASED = 2,
-  UNRECOGNIZED = -1,
-}
-export function paymentScheduleTypeFromJSON(object: any): PaymentScheduleType {
-  switch (object) {
-    case 0:
-    case "PAYMENT_SCHEDULE_TYPE_UNSPECIFIED":
-      return PaymentScheduleType.PAYMENT_SCHEDULE_TYPE_UNSPECIFIED;
-    case 1:
-    case "PAYMENT_SCHEDULE_TYPE_MONTHLY":
-      return PaymentScheduleType.PAYMENT_SCHEDULE_TYPE_MONTHLY;
-    case 2:
-    case "PAYMENT_SCHEDULE_TYPE_BLOCK_BASED":
-      return PaymentScheduleType.PAYMENT_SCHEDULE_TYPE_BLOCK_BASED;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return PaymentScheduleType.UNRECOGNIZED;
-  }
-}
-export function paymentScheduleTypeToJSON(object: PaymentScheduleType): string {
-  switch (object) {
-    case PaymentScheduleType.PAYMENT_SCHEDULE_TYPE_UNSPECIFIED:
-      return "PAYMENT_SCHEDULE_TYPE_UNSPECIFIED";
-    case PaymentScheduleType.PAYMENT_SCHEDULE_TYPE_MONTHLY:
-      return "PAYMENT_SCHEDULE_TYPE_MONTHLY";
-    case PaymentScheduleType.PAYMENT_SCHEDULE_TYPE_BLOCK_BASED:
-      return "PAYMENT_SCHEDULE_TYPE_BLOCK_BASED";
-    case PaymentScheduleType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
-  }
-}
 /** Defines the parameters for the module. */
 export interface Params {
   /** The denom to be used for compensation. */
@@ -66,11 +20,24 @@ export interface Params {
    * met, the validator is not rewarded.
    */
   oracleVotesPerformanceRequirement?: PerformanceRequirement;
-  /** Indicates the currently active type of payment schedule. */
-  paymentScheduleType: PaymentScheduleType;
+  monthlyPaymentScheduleType?: MonthlyPaymentScheduleType;
+  blockBasedPaymentScheduleType?: BlockBasedPaymentScheduleType;
+  emptyPaymentScheduleType?: EmptyPaymentScheduleType;
   /** The window in seconds to calculate TWAP price of NTRN */
   tWAPWindow: bigint;
 }
+/** Monthly periods with payments made at the end of each month. */
+export interface MonthlyPaymentScheduleType {}
+/**
+ * Periods defined by a specific number of blocks, with payments made when the required block
+ * count is reached.
+ */
+export interface BlockBasedPaymentScheduleType {
+  /** The number of blocks in a payment period. */
+  blocksPerPeriod: bigint;
+}
+/** Endless periods with payments never made. */
+export interface EmptyPaymentScheduleType {}
 /** Specifies a performance criteria that validators must meet to qualify for network rewards. */
 export interface PerformanceRequirement {
   /**
@@ -91,7 +58,9 @@ function createBaseParams(): Params {
     baseCompensation: BigInt(0),
     blocksPerformanceRequirement: undefined,
     oracleVotesPerformanceRequirement: undefined,
-    paymentScheduleType: 0,
+    monthlyPaymentScheduleType: undefined,
+    blockBasedPaymentScheduleType: undefined,
+    emptyPaymentScheduleType: undefined,
     tWAPWindow: BigInt(0),
   };
 }
@@ -113,11 +82,23 @@ export const Params = {
         writer.uint32(34).fork(),
       ).ldelim();
     }
-    if (message.paymentScheduleType !== 0) {
-      writer.uint32(40).int32(message.paymentScheduleType);
+    if (message.monthlyPaymentScheduleType !== undefined) {
+      MonthlyPaymentScheduleType.encode(
+        message.monthlyPaymentScheduleType,
+        writer.uint32(42).fork(),
+      ).ldelim();
+    }
+    if (message.blockBasedPaymentScheduleType !== undefined) {
+      BlockBasedPaymentScheduleType.encode(
+        message.blockBasedPaymentScheduleType,
+        writer.uint32(50).fork(),
+      ).ldelim();
+    }
+    if (message.emptyPaymentScheduleType !== undefined) {
+      EmptyPaymentScheduleType.encode(message.emptyPaymentScheduleType, writer.uint32(58).fork()).ldelim();
     }
     if (message.tWAPWindow !== BigInt(0)) {
-      writer.uint32(48).uint64(message.tWAPWindow);
+      writer.uint32(64).int64(message.tWAPWindow);
     }
     return writer;
   },
@@ -141,10 +122,19 @@ export const Params = {
           message.oracleVotesPerformanceRequirement = PerformanceRequirement.decode(reader, reader.uint32());
           break;
         case 5:
-          message.paymentScheduleType = reader.int32() as any;
+          message.monthlyPaymentScheduleType = MonthlyPaymentScheduleType.decode(reader, reader.uint32());
           break;
         case 6:
-          message.tWAPWindow = reader.uint64();
+          message.blockBasedPaymentScheduleType = BlockBasedPaymentScheduleType.decode(
+            reader,
+            reader.uint32(),
+          );
+          break;
+        case 7:
+          message.emptyPaymentScheduleType = EmptyPaymentScheduleType.decode(reader, reader.uint32());
+          break;
+        case 8:
+          message.tWAPWindow = reader.int64();
           break;
         default:
           reader.skipType(tag & 7);
@@ -163,8 +153,14 @@ export const Params = {
       obj.oracleVotesPerformanceRequirement = PerformanceRequirement.fromJSON(
         object.oracleVotesPerformanceRequirement,
       );
-    if (isSet(object.paymentScheduleType))
-      obj.paymentScheduleType = paymentScheduleTypeFromJSON(object.paymentScheduleType);
+    if (isSet(object.monthlyPaymentScheduleType))
+      obj.monthlyPaymentScheduleType = MonthlyPaymentScheduleType.fromJSON(object.monthlyPaymentScheduleType);
+    if (isSet(object.blockBasedPaymentScheduleType))
+      obj.blockBasedPaymentScheduleType = BlockBasedPaymentScheduleType.fromJSON(
+        object.blockBasedPaymentScheduleType,
+      );
+    if (isSet(object.emptyPaymentScheduleType))
+      obj.emptyPaymentScheduleType = EmptyPaymentScheduleType.fromJSON(object.emptyPaymentScheduleType);
     if (isSet(object.tWAPWindow)) obj.tWAPWindow = BigInt(object.tWAPWindow.toString());
     return obj;
   },
@@ -181,8 +177,18 @@ export const Params = {
       (obj.oracleVotesPerformanceRequirement = message.oracleVotesPerformanceRequirement
         ? PerformanceRequirement.toJSON(message.oracleVotesPerformanceRequirement)
         : undefined);
-    message.paymentScheduleType !== undefined &&
-      (obj.paymentScheduleType = paymentScheduleTypeToJSON(message.paymentScheduleType));
+    message.monthlyPaymentScheduleType !== undefined &&
+      (obj.monthlyPaymentScheduleType = message.monthlyPaymentScheduleType
+        ? MonthlyPaymentScheduleType.toJSON(message.monthlyPaymentScheduleType)
+        : undefined);
+    message.blockBasedPaymentScheduleType !== undefined &&
+      (obj.blockBasedPaymentScheduleType = message.blockBasedPaymentScheduleType
+        ? BlockBasedPaymentScheduleType.toJSON(message.blockBasedPaymentScheduleType)
+        : undefined);
+    message.emptyPaymentScheduleType !== undefined &&
+      (obj.emptyPaymentScheduleType = message.emptyPaymentScheduleType
+        ? EmptyPaymentScheduleType.toJSON(message.emptyPaymentScheduleType)
+        : undefined);
     message.tWAPWindow !== undefined && (obj.tWAPWindow = (message.tWAPWindow || BigInt(0)).toString());
     return obj;
   },
@@ -205,10 +211,145 @@ export const Params = {
         object.oracleVotesPerformanceRequirement,
       );
     }
-    message.paymentScheduleType = object.paymentScheduleType ?? 0;
+    if (object.monthlyPaymentScheduleType !== undefined && object.monthlyPaymentScheduleType !== null) {
+      message.monthlyPaymentScheduleType = MonthlyPaymentScheduleType.fromPartial(
+        object.monthlyPaymentScheduleType,
+      );
+    }
+    if (object.blockBasedPaymentScheduleType !== undefined && object.blockBasedPaymentScheduleType !== null) {
+      message.blockBasedPaymentScheduleType = BlockBasedPaymentScheduleType.fromPartial(
+        object.blockBasedPaymentScheduleType,
+      );
+    }
+    if (object.emptyPaymentScheduleType !== undefined && object.emptyPaymentScheduleType !== null) {
+      message.emptyPaymentScheduleType = EmptyPaymentScheduleType.fromPartial(
+        object.emptyPaymentScheduleType,
+      );
+    }
     if (object.tWAPWindow !== undefined && object.tWAPWindow !== null) {
       message.tWAPWindow = BigInt(object.tWAPWindow.toString());
     }
+    return message;
+  },
+};
+function createBaseMonthlyPaymentScheduleType(): MonthlyPaymentScheduleType {
+  return {};
+}
+export const MonthlyPaymentScheduleType = {
+  typeUrl: "/neutron.revenue.MonthlyPaymentScheduleType",
+  encode(_: MonthlyPaymentScheduleType, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MonthlyPaymentScheduleType {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMonthlyPaymentScheduleType();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(_: any): MonthlyPaymentScheduleType {
+    const obj = createBaseMonthlyPaymentScheduleType();
+    return obj;
+  },
+  toJSON(_: MonthlyPaymentScheduleType): JsonSafe<MonthlyPaymentScheduleType> {
+    const obj: any = {};
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<MonthlyPaymentScheduleType>, I>>(_: I): MonthlyPaymentScheduleType {
+    const message = createBaseMonthlyPaymentScheduleType();
+    return message;
+  },
+};
+function createBaseBlockBasedPaymentScheduleType(): BlockBasedPaymentScheduleType {
+  return {
+    blocksPerPeriod: BigInt(0),
+  };
+}
+export const BlockBasedPaymentScheduleType = {
+  typeUrl: "/neutron.revenue.BlockBasedPaymentScheduleType",
+  encode(message: BlockBasedPaymentScheduleType, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.blocksPerPeriod !== BigInt(0)) {
+      writer.uint32(8).uint64(message.blocksPerPeriod);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): BlockBasedPaymentScheduleType {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBlockBasedPaymentScheduleType();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.blocksPerPeriod = reader.uint64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): BlockBasedPaymentScheduleType {
+    const obj = createBaseBlockBasedPaymentScheduleType();
+    if (isSet(object.blocksPerPeriod)) obj.blocksPerPeriod = BigInt(object.blocksPerPeriod.toString());
+    return obj;
+  },
+  toJSON(message: BlockBasedPaymentScheduleType): JsonSafe<BlockBasedPaymentScheduleType> {
+    const obj: any = {};
+    message.blocksPerPeriod !== undefined &&
+      (obj.blocksPerPeriod = (message.blocksPerPeriod || BigInt(0)).toString());
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<BlockBasedPaymentScheduleType>, I>>(
+    object: I,
+  ): BlockBasedPaymentScheduleType {
+    const message = createBaseBlockBasedPaymentScheduleType();
+    if (object.blocksPerPeriod !== undefined && object.blocksPerPeriod !== null) {
+      message.blocksPerPeriod = BigInt(object.blocksPerPeriod.toString());
+    }
+    return message;
+  },
+};
+function createBaseEmptyPaymentScheduleType(): EmptyPaymentScheduleType {
+  return {};
+}
+export const EmptyPaymentScheduleType = {
+  typeUrl: "/neutron.revenue.EmptyPaymentScheduleType",
+  encode(_: EmptyPaymentScheduleType, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): EmptyPaymentScheduleType {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEmptyPaymentScheduleType();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(_: any): EmptyPaymentScheduleType {
+    const obj = createBaseEmptyPaymentScheduleType();
+    return obj;
+  },
+  toJSON(_: EmptyPaymentScheduleType): JsonSafe<EmptyPaymentScheduleType> {
+    const obj: any = {};
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<EmptyPaymentScheduleType>, I>>(_: I): EmptyPaymentScheduleType {
+    const message = createBaseEmptyPaymentScheduleType();
     return message;
   },
 };

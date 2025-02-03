@@ -59,13 +59,13 @@ export interface EmptyPaymentSchedule {}
  * and the timestamp at which this price is valid.
  *
  * It is used to calculate TWAP as:
- * twap_from_time_t(n)_to_time_t(n-1) = (cumulative_price_at_tn - cumulative_price_at_t(n-1))/(tn - t(n-1))
+ * twap_from_time_t(n)_to_time_t(n-1) = (cumulative_price_at_t(n) - cumulative_price_at_t(n-1))/(t(n) - t(n-1))
  */
 export interface CumulativePrice {
   /**
    * Cumulative price of a denom from the start of monitoring to the last block
    * calculates as
-   * `cumulative_price at timestamp t(n)` = `last_price at t(n-1)` * (t(n) - t(n-1))`
+   * `cumulative_price at timestamp t(n)` = `last_price at t(n-1)` * (t(n) - t(n-1)) + `cumulative_price at timestamp t(n-1)`
    */
   cumulativePrice: string;
   /** last_price is the price at the current timestamp */
