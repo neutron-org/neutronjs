@@ -22,8 +22,8 @@ export interface QueryStateResponse {
 }
 /** Request type for the Query/ValidatorStats RPC method. */
 export interface QueryValidatorStatsRequest {
-  /** The validator's consensus node address. */
-  consensusAddress: string;
+  /** The validator's node operator address. */
+  valOperAddress: string;
 }
 /** Response type for the Query/ValidatorStats RPC method. */
 export interface QueryValidatorStatsResponse {
@@ -43,6 +43,11 @@ export interface ValidatorStats {
   validatorInfo: ValidatorInfo;
   /** The validator's performance rating. Represented as a decimal value. */
   performanceRating: string;
+  /**
+   * Contains expected revenue for the validator
+   * based on performance rating of ongoing performance window and current TWAP price.
+   */
+  expectedRevenue: string;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -212,14 +217,14 @@ export const QueryStateResponse = {
 };
 function createBaseQueryValidatorStatsRequest(): QueryValidatorStatsRequest {
   return {
-    consensusAddress: "",
+    valOperAddress: "",
   };
 }
 export const QueryValidatorStatsRequest = {
   typeUrl: "/neutron.revenue.QueryValidatorStatsRequest",
   encode(message: QueryValidatorStatsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.consensusAddress !== "") {
-      writer.uint32(10).string(message.consensusAddress);
+    if (message.valOperAddress !== "") {
+      writer.uint32(10).string(message.valOperAddress);
     }
     return writer;
   },
@@ -231,7 +236,7 @@ export const QueryValidatorStatsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.consensusAddress = reader.string();
+          message.valOperAddress = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -242,19 +247,19 @@ export const QueryValidatorStatsRequest = {
   },
   fromJSON(object: any): QueryValidatorStatsRequest {
     const obj = createBaseQueryValidatorStatsRequest();
-    if (isSet(object.consensusAddress)) obj.consensusAddress = String(object.consensusAddress);
+    if (isSet(object.valOperAddress)) obj.valOperAddress = String(object.valOperAddress);
     return obj;
   },
   toJSON(message: QueryValidatorStatsRequest): JsonSafe<QueryValidatorStatsRequest> {
     const obj: any = {};
-    message.consensusAddress !== undefined && (obj.consensusAddress = message.consensusAddress);
+    message.valOperAddress !== undefined && (obj.valOperAddress = message.valOperAddress);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<QueryValidatorStatsRequest>, I>>(
     object: I,
   ): QueryValidatorStatsRequest {
     const message = createBaseQueryValidatorStatsRequest();
-    message.consensusAddress = object.consensusAddress ?? "";
+    message.valOperAddress = object.valOperAddress ?? "";
     return message;
   },
 };
@@ -402,6 +407,7 @@ function createBaseValidatorStats(): ValidatorStats {
   return {
     validatorInfo: ValidatorInfo.fromPartial({}),
     performanceRating: "",
+    expectedRevenue: "",
   };
 }
 export const ValidatorStats = {
@@ -412,6 +418,9 @@ export const ValidatorStats = {
     }
     if (message.performanceRating !== "") {
       writer.uint32(18).string(Decimal.fromUserInput(message.performanceRating, 18).atomics);
+    }
+    if (message.expectedRevenue !== "") {
+      writer.uint32(26).string(message.expectedRevenue);
     }
     return writer;
   },
@@ -428,6 +437,9 @@ export const ValidatorStats = {
         case 2:
           message.performanceRating = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
+        case 3:
+          message.expectedRevenue = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -439,6 +451,7 @@ export const ValidatorStats = {
     const obj = createBaseValidatorStats();
     if (isSet(object.validatorInfo)) obj.validatorInfo = ValidatorInfo.fromJSON(object.validatorInfo);
     if (isSet(object.performanceRating)) obj.performanceRating = String(object.performanceRating);
+    if (isSet(object.expectedRevenue)) obj.expectedRevenue = String(object.expectedRevenue);
     return obj;
   },
   toJSON(message: ValidatorStats): JsonSafe<ValidatorStats> {
@@ -446,6 +459,7 @@ export const ValidatorStats = {
     message.validatorInfo !== undefined &&
       (obj.validatorInfo = message.validatorInfo ? ValidatorInfo.toJSON(message.validatorInfo) : undefined);
     message.performanceRating !== undefined && (obj.performanceRating = message.performanceRating);
+    message.expectedRevenue !== undefined && (obj.expectedRevenue = message.expectedRevenue);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<ValidatorStats>, I>>(object: I): ValidatorStats {
@@ -454,6 +468,7 @@ export const ValidatorStats = {
       message.validatorInfo = ValidatorInfo.fromPartial(object.validatorInfo);
     }
     message.performanceRating = object.performanceRating ?? "";
+    message.expectedRevenue = object.expectedRevenue ?? "";
     return message;
   },
 };

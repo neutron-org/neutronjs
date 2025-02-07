@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { Params } from "./params";
-import { DecCoin } from "../../cosmos/base/v1beta1/coin";
+import { Coin } from "../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
@@ -22,7 +22,7 @@ export interface MsgFundTreasury {
    * The amount of coins to fund the revenue treasury pool with. Must match the denom compensation
    * defined in the module's params.
    */
-  amount: DecCoin[];
+  amount: Coin[];
 }
 /** Response type for the Msg/FundTreasury RPC method. */
 export interface MsgFundTreasuryResponse {}
@@ -132,7 +132,7 @@ export const MsgFundTreasury = {
       writer.uint32(10).string(message.sender);
     }
     for (const v of message.amount) {
-      DecCoin.encode(v!, writer.uint32(18).fork()).ldelim();
+      Coin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -147,7 +147,7 @@ export const MsgFundTreasury = {
           message.sender = reader.string();
           break;
         case 2:
-          message.amount.push(DecCoin.decode(reader, reader.uint32()));
+          message.amount.push(Coin.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -159,14 +159,14 @@ export const MsgFundTreasury = {
   fromJSON(object: any): MsgFundTreasury {
     const obj = createBaseMsgFundTreasury();
     if (isSet(object.sender)) obj.sender = String(object.sender);
-    if (Array.isArray(object?.amount)) obj.amount = object.amount.map((e: any) => DecCoin.fromJSON(e));
+    if (Array.isArray(object?.amount)) obj.amount = object.amount.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
   toJSON(message: MsgFundTreasury): JsonSafe<MsgFundTreasury> {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = message.sender);
     if (message.amount) {
-      obj.amount = message.amount.map((e) => (e ? DecCoin.toJSON(e) : undefined));
+      obj.amount = message.amount.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.amount = [];
     }
@@ -175,7 +175,7 @@ export const MsgFundTreasury = {
   fromPartial<I extends Exact<DeepPartial<MsgFundTreasury>, I>>(object: I): MsgFundTreasury {
     const message = createBaseMsgFundTreasury();
     message.sender = object.sender ?? "";
-    message.amount = object.amount?.map((e) => DecCoin.fromPartial(e)) || [];
+    message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };

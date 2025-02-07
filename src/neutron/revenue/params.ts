@@ -23,8 +23,8 @@ export interface Params {
   monthlyPaymentScheduleType?: MonthlyPaymentScheduleType;
   blockBasedPaymentScheduleType?: BlockBasedPaymentScheduleType;
   emptyPaymentScheduleType?: EmptyPaymentScheduleType;
-  /** The window in seconds to calculate TWAP price of NTRN */
-  tWAPWindow: bigint;
+  /** Represents the window in seconds to calculate TWAP price of `denom_compensation` */
+  twapWindow: bigint;
 }
 /** Monthly periods with payments made at the end of each month. */
 export interface MonthlyPaymentScheduleType {}
@@ -61,7 +61,7 @@ function createBaseParams(): Params {
     monthlyPaymentScheduleType: undefined,
     blockBasedPaymentScheduleType: undefined,
     emptyPaymentScheduleType: undefined,
-    tWAPWindow: BigInt(0),
+    twapWindow: BigInt(0),
   };
 }
 export const Params = {
@@ -97,8 +97,8 @@ export const Params = {
     if (message.emptyPaymentScheduleType !== undefined) {
       EmptyPaymentScheduleType.encode(message.emptyPaymentScheduleType, writer.uint32(58).fork()).ldelim();
     }
-    if (message.tWAPWindow !== BigInt(0)) {
-      writer.uint32(64).int64(message.tWAPWindow);
+    if (message.twapWindow !== BigInt(0)) {
+      writer.uint32(64).int64(message.twapWindow);
     }
     return writer;
   },
@@ -134,7 +134,7 @@ export const Params = {
           message.emptyPaymentScheduleType = EmptyPaymentScheduleType.decode(reader, reader.uint32());
           break;
         case 8:
-          message.tWAPWindow = reader.int64();
+          message.twapWindow = reader.int64();
           break;
         default:
           reader.skipType(tag & 7);
@@ -161,7 +161,7 @@ export const Params = {
       );
     if (isSet(object.emptyPaymentScheduleType))
       obj.emptyPaymentScheduleType = EmptyPaymentScheduleType.fromJSON(object.emptyPaymentScheduleType);
-    if (isSet(object.tWAPWindow)) obj.tWAPWindow = BigInt(object.tWAPWindow.toString());
+    if (isSet(object.twapWindow)) obj.twapWindow = BigInt(object.twapWindow.toString());
     return obj;
   },
   toJSON(message: Params): JsonSafe<Params> {
@@ -189,7 +189,7 @@ export const Params = {
       (obj.emptyPaymentScheduleType = message.emptyPaymentScheduleType
         ? EmptyPaymentScheduleType.toJSON(message.emptyPaymentScheduleType)
         : undefined);
-    message.tWAPWindow !== undefined && (obj.tWAPWindow = (message.tWAPWindow || BigInt(0)).toString());
+    message.twapWindow !== undefined && (obj.twapWindow = (message.twapWindow || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
@@ -226,8 +226,8 @@ export const Params = {
         object.emptyPaymentScheduleType,
       );
     }
-    if (object.tWAPWindow !== undefined && object.tWAPWindow !== null) {
-      message.tWAPWindow = BigInt(object.tWAPWindow.toString());
+    if (object.twapWindow !== undefined && object.twapWindow !== null) {
+      message.twapWindow = BigInt(object.twapWindow.toString());
     }
     return message;
   },

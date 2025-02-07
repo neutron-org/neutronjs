@@ -19,8 +19,8 @@ export interface GenesisState {
 }
 /** Contains information about a validator. */
 export interface ValidatorInfo {
-  /** The validator's consensus node address. */
-  consensusAddress: string;
+  /** The validator's node operator address. */
+  valOperAddress: string;
   /** The number of blocks commited by the validator in the current payment period. */
   commitedBlocksInPeriod: bigint;
   /** The number of oracle votes commited by the validator in the current payment period. */
@@ -54,7 +54,7 @@ export interface BlockBasedPaymentSchedule {
 /** Represents a payment schedule where revenue is never distributed. */
 export interface EmptyPaymentSchedule {}
 /**
- * CumulativePrice is a structure that contains the cumulative price of an asset over the
+ * Represents a type that contains the cumulative price of an asset over the
  * entire observation period, as well as the last recorded asset price
  * and the timestamp at which this price is valid.
  *
@@ -68,9 +68,9 @@ export interface CumulativePrice {
    * `cumulative_price at timestamp t(n)` = `last_price at t(n-1)` * (t(n) - t(n-1)) + `cumulative_price at timestamp t(n-1)`
    */
   cumulativePrice: string;
-  /** last_price is the price at the current timestamp */
+  /** Specifies the price at the current timestamp */
   lastPrice: string;
-  /** Timestamp when the price has been saved. */
+  /** The timestamp when the price has been saved. */
   timestamp: bigint;
 }
 function createBaseGenesisState(): GenesisState {
@@ -165,7 +165,7 @@ export const GenesisState = {
 };
 function createBaseValidatorInfo(): ValidatorInfo {
   return {
-    consensusAddress: "",
+    valOperAddress: "",
     commitedBlocksInPeriod: BigInt(0),
     commitedOracleVotesInPeriod: BigInt(0),
   };
@@ -173,8 +173,8 @@ function createBaseValidatorInfo(): ValidatorInfo {
 export const ValidatorInfo = {
   typeUrl: "/neutron.revenue.ValidatorInfo",
   encode(message: ValidatorInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.consensusAddress !== "") {
-      writer.uint32(10).string(message.consensusAddress);
+    if (message.valOperAddress !== "") {
+      writer.uint32(10).string(message.valOperAddress);
     }
     if (message.commitedBlocksInPeriod !== BigInt(0)) {
       writer.uint32(16).uint64(message.commitedBlocksInPeriod);
@@ -192,7 +192,7 @@ export const ValidatorInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.consensusAddress = reader.string();
+          message.valOperAddress = reader.string();
           break;
         case 2:
           message.commitedBlocksInPeriod = reader.uint64();
@@ -209,7 +209,7 @@ export const ValidatorInfo = {
   },
   fromJSON(object: any): ValidatorInfo {
     const obj = createBaseValidatorInfo();
-    if (isSet(object.consensusAddress)) obj.consensusAddress = String(object.consensusAddress);
+    if (isSet(object.valOperAddress)) obj.valOperAddress = String(object.valOperAddress);
     if (isSet(object.commitedBlocksInPeriod))
       obj.commitedBlocksInPeriod = BigInt(object.commitedBlocksInPeriod.toString());
     if (isSet(object.commitedOracleVotesInPeriod))
@@ -218,7 +218,7 @@ export const ValidatorInfo = {
   },
   toJSON(message: ValidatorInfo): JsonSafe<ValidatorInfo> {
     const obj: any = {};
-    message.consensusAddress !== undefined && (obj.consensusAddress = message.consensusAddress);
+    message.valOperAddress !== undefined && (obj.valOperAddress = message.valOperAddress);
     message.commitedBlocksInPeriod !== undefined &&
       (obj.commitedBlocksInPeriod = (message.commitedBlocksInPeriod || BigInt(0)).toString());
     message.commitedOracleVotesInPeriod !== undefined &&
@@ -227,7 +227,7 @@ export const ValidatorInfo = {
   },
   fromPartial<I extends Exact<DeepPartial<ValidatorInfo>, I>>(object: I): ValidatorInfo {
     const message = createBaseValidatorInfo();
-    message.consensusAddress = object.consensusAddress ?? "";
+    message.valOperAddress = object.valOperAddress ?? "";
     if (object.commitedBlocksInPeriod !== undefined && object.commitedBlocksInPeriod !== null) {
       message.commitedBlocksInPeriod = BigInt(object.commitedBlocksInPeriod.toString());
     }
