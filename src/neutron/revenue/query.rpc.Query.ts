@@ -5,8 +5,8 @@ import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryParamsRequest,
   QueryParamsResponse,
-  QueryStateRequest,
-  QueryStateResponse,
+  QueryPaymentInfoRequest,
+  QueryPaymentInfoResponse,
   QueryValidatorStatsRequest,
   QueryValidatorStatsResponse,
   QueryValidatorsStatsRequest,
@@ -16,8 +16,8 @@ import {
 export interface Query {
   /** Fetches the current parameters of the revenue module. */
   params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** Fetches the current state of the revenue module. */
-  state(request?: QueryStateRequest): Promise<QueryStateResponse>;
+  /** Fetches the current payment info of the module such as payment schedule and revenue details. */
+  paymentInfo(request?: QueryPaymentInfoRequest): Promise<QueryPaymentInfoResponse>;
   /** Fetches a given validator's stats from the revenue module's state. */
   validatorStats(request: QueryValidatorStatsRequest): Promise<QueryValidatorStatsResponse>;
   /** Fetches all validators' stats from the revenue module's state. */
@@ -28,7 +28,7 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.params = this.params.bind(this);
-    this.state = this.state.bind(this);
+    this.paymentInfo = this.paymentInfo.bind(this);
     this.validatorStats = this.validatorStats.bind(this);
     this.validatorsStats = this.validatorsStats.bind(this);
   }
@@ -37,10 +37,10 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("neutron.revenue.Query", "Params", data);
     return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
   }
-  state(request: QueryStateRequest = {}): Promise<QueryStateResponse> {
-    const data = QueryStateRequest.encode(request).finish();
-    const promise = this.rpc.request("neutron.revenue.Query", "State", data);
-    return promise.then((data) => QueryStateResponse.decode(new BinaryReader(data)));
+  paymentInfo(request: QueryPaymentInfoRequest = {}): Promise<QueryPaymentInfoResponse> {
+    const data = QueryPaymentInfoRequest.encode(request).finish();
+    const promise = this.rpc.request("neutron.revenue.Query", "PaymentInfo", data);
+    return promise.then((data) => QueryPaymentInfoResponse.decode(new BinaryReader(data)));
   }
   validatorStats(request: QueryValidatorStatsRequest): Promise<QueryValidatorStatsResponse> {
     const data = QueryValidatorStatsRequest.encode(request).finish();
@@ -60,8 +60,8 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     params(request?: QueryParamsRequest): Promise<QueryParamsResponse> {
       return queryService.params(request);
     },
-    state(request?: QueryStateRequest): Promise<QueryStateResponse> {
-      return queryService.state(request);
+    paymentInfo(request?: QueryPaymentInfoRequest): Promise<QueryPaymentInfoResponse> {
+      return queryService.paymentInfo(request);
     },
     validatorStats(request: QueryValidatorStatsRequest): Promise<QueryValidatorStatsResponse> {
       return queryService.validatorStats(request);

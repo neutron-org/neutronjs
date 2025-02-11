@@ -1,6 +1,5 @@
 /* eslint-disable */
 import { Params } from "../../ibc/core/client/v1/client";
-import { Any } from "../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
@@ -10,12 +9,28 @@ export const protobufPackage = "neutron.revenue";
 export interface GenesisState {
   /** Revenue module parameters. */
   params: Params;
-  /** Revenue module state. */
-  state: State;
+  /**
+   * The current payment schedule. If nil, the module will use the respective payment schedule for
+   * the payment schedule type specified in the params.
+   */
+  paymentSchedule?: PaymentSchedule;
   /** Revenue module list of validators. */
   validators: ValidatorInfo[];
-  /** CumulativePrices is accumulate prices of the Revenue denom to calculate TWAP price for a given period of time */
-  cumulativePrices: CumulativePrice[];
+  /** Prices of the reward denom. Used to calculate the reward denom TWAP. */
+  prices: RewardAssetPrice[];
+}
+/**
+ * A model that contains information specific to the currently active payment schedule. The oneof
+ * implementations define conditions for payment periods ending and track the progress of the
+ * current payment period. This is a module's state variable.
+ * The inner oneof must correspond with the respective payment schedule type defined in the module
+ * params. In runtime, on a mismatch due to e.g. MsgUpdateParams execution, the module will switch
+ * to the payment schedule that corresponds to the payment schedule type automatically.
+ */
+export interface PaymentSchedule {
+  monthlyPaymentSchedule?: MonthlyPaymentSchedule;
+  blockBasedPaymentSchedule?: BlockBasedPaymentSchedule;
+  emptyPaymentSchedule?: EmptyPaymentSchedule;
 }
 /** Contains information about a validator. */
 export interface ValidatorInfo {
@@ -25,14 +40,6 @@ export interface ValidatorInfo {
   commitedBlocksInPeriod: bigint;
   /** The number of oracle votes commited by the validator in the current payment period. */
   commitedOracleVotesInPeriod: bigint;
-}
-/** Contains information about the current state of the revenue module. */
-export interface State {
-  /**
-   * Information specific to the current payment schedule. This can represent different types of
-   * payment schedules (e.g., monthly or block-based).
-   */
-  paymentSchedule?: Any;
 }
 /** Represents a payment schedule where revenue payments are processed once a month. */
 export interface MonthlyPaymentSchedule {
@@ -54,31 +61,27 @@ export interface BlockBasedPaymentSchedule {
 /** Represents a payment schedule where revenue is never distributed. */
 export interface EmptyPaymentSchedule {}
 /**
- * Represents a type that contains the cumulative price of an asset over the
- * entire observation period, as well as the last recorded asset price
- * and the timestamp at which this price is valid.
- *
- * It is used to calculate TWAP as:
- * twap_from_time_t(n)_to_time_t(n-1) = (cumulative_price_at_t(n) - cumulative_price_at_t(n-1))/(t(n) - t(n-1))
+ * Represents a data structure that tracks the cumulative price of an asset over the entire
+ * observation period, along with the last absolute asset price and the timestamp when this
+ * price was last recorded.
  */
-export interface CumulativePrice {
+export interface RewardAssetPrice {
   /**
-   * Cumulative price of a denom from the start of monitoring to the last block
-   * calculates as
-   * `cumulative_price at timestamp t(n)` = `last_price at t(n-1)` * (t(n) - t(n-1)) + `cumulative_price at timestamp t(n-1)`
+   * The cumulative price of the reward asset within the TWAP window. It is calculated as:
+   * `cumulative_price_at_timestamp_t(n)` = `last_price_at_t(n-1)` * (t(n) - t(n-1)) + `cumulative_price_at_timestamp_t(n-1)`
    */
   cumulativePrice: string;
-  /** Specifies the price at the current timestamp */
-  lastPrice: string;
-  /** The timestamp when the price has been saved. */
+  /** The price of the asset in USD that corresponds to the timestamp. */
+  absolutePrice: string;
+  /** The timestamp of the last update of the absolute and cumulative price. */
   timestamp: bigint;
 }
 function createBaseGenesisState(): GenesisState {
   return {
     params: Params.fromPartial({}),
-    state: State.fromPartial({}),
+    paymentSchedule: undefined,
     validators: [],
-    cumulativePrices: [],
+    prices: [],
   };
 }
 export const GenesisState = {
@@ -87,14 +90,14 @@ export const GenesisState = {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
-    if (message.state !== undefined) {
-      State.encode(message.state, writer.uint32(18).fork()).ldelim();
+    if (message.paymentSchedule !== undefined) {
+      PaymentSchedule.encode(message.paymentSchedule, writer.uint32(18).fork()).ldelim();
     }
     for (const v of message.validators) {
       ValidatorInfo.encode(v!, writer.uint32(26).fork()).ldelim();
     }
-    for (const v of message.cumulativePrices) {
-      CumulativePrice.encode(v!, writer.uint32(34).fork()).ldelim();
+    for (const v of message.prices) {
+      RewardAssetPrice.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -109,13 +112,13 @@ export const GenesisState = {
           message.params = Params.decode(reader, reader.uint32());
           break;
         case 2:
-          message.state = State.decode(reader, reader.uint32());
+          message.paymentSchedule = PaymentSchedule.decode(reader, reader.uint32());
           break;
         case 3:
           message.validators.push(ValidatorInfo.decode(reader, reader.uint32()));
           break;
         case 4:
-          message.cumulativePrices.push(CumulativePrice.decode(reader, reader.uint32()));
+          message.prices.push(RewardAssetPrice.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -127,26 +130,29 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     const obj = createBaseGenesisState();
     if (isSet(object.params)) obj.params = Params.fromJSON(object.params);
-    if (isSet(object.state)) obj.state = State.fromJSON(object.state);
+    if (isSet(object.paymentSchedule)) obj.paymentSchedule = PaymentSchedule.fromJSON(object.paymentSchedule);
     if (Array.isArray(object?.validators))
       obj.validators = object.validators.map((e: any) => ValidatorInfo.fromJSON(e));
-    if (Array.isArray(object?.cumulativePrices))
-      obj.cumulativePrices = object.cumulativePrices.map((e: any) => CumulativePrice.fromJSON(e));
+    if (Array.isArray(object?.prices))
+      obj.prices = object.prices.map((e: any) => RewardAssetPrice.fromJSON(e));
     return obj;
   },
   toJSON(message: GenesisState): JsonSafe<GenesisState> {
     const obj: any = {};
     message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    message.state !== undefined && (obj.state = message.state ? State.toJSON(message.state) : undefined);
+    message.paymentSchedule !== undefined &&
+      (obj.paymentSchedule = message.paymentSchedule
+        ? PaymentSchedule.toJSON(message.paymentSchedule)
+        : undefined);
     if (message.validators) {
       obj.validators = message.validators.map((e) => (e ? ValidatorInfo.toJSON(e) : undefined));
     } else {
       obj.validators = [];
     }
-    if (message.cumulativePrices) {
-      obj.cumulativePrices = message.cumulativePrices.map((e) => (e ? CumulativePrice.toJSON(e) : undefined));
+    if (message.prices) {
+      obj.prices = message.prices.map((e) => (e ? RewardAssetPrice.toJSON(e) : undefined));
     } else {
-      obj.cumulativePrices = [];
+      obj.prices = [];
     }
     return obj;
   },
@@ -155,11 +161,97 @@ export const GenesisState = {
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     }
-    if (object.state !== undefined && object.state !== null) {
-      message.state = State.fromPartial(object.state);
+    if (object.paymentSchedule !== undefined && object.paymentSchedule !== null) {
+      message.paymentSchedule = PaymentSchedule.fromPartial(object.paymentSchedule);
     }
     message.validators = object.validators?.map((e) => ValidatorInfo.fromPartial(e)) || [];
-    message.cumulativePrices = object.cumulativePrices?.map((e) => CumulativePrice.fromPartial(e)) || [];
+    message.prices = object.prices?.map((e) => RewardAssetPrice.fromPartial(e)) || [];
+    return message;
+  },
+};
+function createBasePaymentSchedule(): PaymentSchedule {
+  return {
+    monthlyPaymentSchedule: undefined,
+    blockBasedPaymentSchedule: undefined,
+    emptyPaymentSchedule: undefined,
+  };
+}
+export const PaymentSchedule = {
+  typeUrl: "/neutron.revenue.PaymentSchedule",
+  encode(message: PaymentSchedule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.monthlyPaymentSchedule !== undefined) {
+      MonthlyPaymentSchedule.encode(message.monthlyPaymentSchedule, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.blockBasedPaymentSchedule !== undefined) {
+      BlockBasedPaymentSchedule.encode(message.blockBasedPaymentSchedule, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.emptyPaymentSchedule !== undefined) {
+      EmptyPaymentSchedule.encode(message.emptyPaymentSchedule, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): PaymentSchedule {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePaymentSchedule();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.monthlyPaymentSchedule = MonthlyPaymentSchedule.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.blockBasedPaymentSchedule = BlockBasedPaymentSchedule.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.emptyPaymentSchedule = EmptyPaymentSchedule.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): PaymentSchedule {
+    const obj = createBasePaymentSchedule();
+    if (isSet(object.monthlyPaymentSchedule))
+      obj.monthlyPaymentSchedule = MonthlyPaymentSchedule.fromJSON(object.monthlyPaymentSchedule);
+    if (isSet(object.blockBasedPaymentSchedule))
+      obj.blockBasedPaymentSchedule = BlockBasedPaymentSchedule.fromJSON(object.blockBasedPaymentSchedule);
+    if (isSet(object.emptyPaymentSchedule))
+      obj.emptyPaymentSchedule = EmptyPaymentSchedule.fromJSON(object.emptyPaymentSchedule);
+    return obj;
+  },
+  toJSON(message: PaymentSchedule): JsonSafe<PaymentSchedule> {
+    const obj: any = {};
+    message.monthlyPaymentSchedule !== undefined &&
+      (obj.monthlyPaymentSchedule = message.monthlyPaymentSchedule
+        ? MonthlyPaymentSchedule.toJSON(message.monthlyPaymentSchedule)
+        : undefined);
+    message.blockBasedPaymentSchedule !== undefined &&
+      (obj.blockBasedPaymentSchedule = message.blockBasedPaymentSchedule
+        ? BlockBasedPaymentSchedule.toJSON(message.blockBasedPaymentSchedule)
+        : undefined);
+    message.emptyPaymentSchedule !== undefined &&
+      (obj.emptyPaymentSchedule = message.emptyPaymentSchedule
+        ? EmptyPaymentSchedule.toJSON(message.emptyPaymentSchedule)
+        : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<PaymentSchedule>, I>>(object: I): PaymentSchedule {
+    const message = createBasePaymentSchedule();
+    if (object.monthlyPaymentSchedule !== undefined && object.monthlyPaymentSchedule !== null) {
+      message.monthlyPaymentSchedule = MonthlyPaymentSchedule.fromPartial(object.monthlyPaymentSchedule);
+    }
+    if (object.blockBasedPaymentSchedule !== undefined && object.blockBasedPaymentSchedule !== null) {
+      message.blockBasedPaymentSchedule = BlockBasedPaymentSchedule.fromPartial(
+        object.blockBasedPaymentSchedule,
+      );
+    }
+    if (object.emptyPaymentSchedule !== undefined && object.emptyPaymentSchedule !== null) {
+      message.emptyPaymentSchedule = EmptyPaymentSchedule.fromPartial(object.emptyPaymentSchedule);
+    }
     return message;
   },
 };
@@ -233,55 +325,6 @@ export const ValidatorInfo = {
     }
     if (object.commitedOracleVotesInPeriod !== undefined && object.commitedOracleVotesInPeriod !== null) {
       message.commitedOracleVotesInPeriod = BigInt(object.commitedOracleVotesInPeriod.toString());
-    }
-    return message;
-  },
-};
-function createBaseState(): State {
-  return {
-    paymentSchedule: undefined,
-  };
-}
-export const State = {
-  typeUrl: "/neutron.revenue.State",
-  encode(message: State, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.paymentSchedule !== undefined) {
-      Any.encode(message.paymentSchedule, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-  decode(input: BinaryReader | Uint8Array, length?: number): State {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseState();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.paymentSchedule = Any.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromJSON(object: any): State {
-    const obj = createBaseState();
-    if (isSet(object.paymentSchedule)) obj.paymentSchedule = Any.fromJSON(object.paymentSchedule);
-    return obj;
-  },
-  toJSON(message: State): JsonSafe<State> {
-    const obj: any = {};
-    message.paymentSchedule !== undefined &&
-      (obj.paymentSchedule = message.paymentSchedule ? Any.toJSON(message.paymentSchedule) : undefined);
-    return obj;
-  },
-  fromPartial<I extends Exact<DeepPartial<State>, I>>(object: I): State {
-    const message = createBaseState();
-    if (object.paymentSchedule !== undefined && object.paymentSchedule !== null) {
-      message.paymentSchedule = Any.fromPartial(object.paymentSchedule);
     }
     return message;
   },
@@ -448,31 +491,31 @@ export const EmptyPaymentSchedule = {
     return message;
   },
 };
-function createBaseCumulativePrice(): CumulativePrice {
+function createBaseRewardAssetPrice(): RewardAssetPrice {
   return {
     cumulativePrice: "",
-    lastPrice: "",
+    absolutePrice: "",
     timestamp: BigInt(0),
   };
 }
-export const CumulativePrice = {
-  typeUrl: "/neutron.revenue.CumulativePrice",
-  encode(message: CumulativePrice, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+export const RewardAssetPrice = {
+  typeUrl: "/neutron.revenue.RewardAssetPrice",
+  encode(message: RewardAssetPrice, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.cumulativePrice !== "") {
       writer.uint32(10).string(Decimal.fromUserInput(message.cumulativePrice, 18).atomics);
     }
-    if (message.lastPrice !== "") {
-      writer.uint32(18).string(Decimal.fromUserInput(message.lastPrice, 18).atomics);
+    if (message.absolutePrice !== "") {
+      writer.uint32(18).string(Decimal.fromUserInput(message.absolutePrice, 18).atomics);
     }
     if (message.timestamp !== BigInt(0)) {
       writer.uint32(24).int64(message.timestamp);
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): CumulativePrice {
+  decode(input: BinaryReader | Uint8Array, length?: number): RewardAssetPrice {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseCumulativePrice();
+    const message = createBaseRewardAssetPrice();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -480,7 +523,7 @@ export const CumulativePrice = {
           message.cumulativePrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.lastPrice = Decimal.fromAtomics(reader.string(), 18).toString();
+          message.absolutePrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.timestamp = reader.int64();
@@ -492,24 +535,24 @@ export const CumulativePrice = {
     }
     return message;
   },
-  fromJSON(object: any): CumulativePrice {
-    const obj = createBaseCumulativePrice();
+  fromJSON(object: any): RewardAssetPrice {
+    const obj = createBaseRewardAssetPrice();
     if (isSet(object.cumulativePrice)) obj.cumulativePrice = String(object.cumulativePrice);
-    if (isSet(object.lastPrice)) obj.lastPrice = String(object.lastPrice);
+    if (isSet(object.absolutePrice)) obj.absolutePrice = String(object.absolutePrice);
     if (isSet(object.timestamp)) obj.timestamp = BigInt(object.timestamp.toString());
     return obj;
   },
-  toJSON(message: CumulativePrice): JsonSafe<CumulativePrice> {
+  toJSON(message: RewardAssetPrice): JsonSafe<RewardAssetPrice> {
     const obj: any = {};
     message.cumulativePrice !== undefined && (obj.cumulativePrice = message.cumulativePrice);
-    message.lastPrice !== undefined && (obj.lastPrice = message.lastPrice);
+    message.absolutePrice !== undefined && (obj.absolutePrice = message.absolutePrice);
     message.timestamp !== undefined && (obj.timestamp = (message.timestamp || BigInt(0)).toString());
     return obj;
   },
-  fromPartial<I extends Exact<DeepPartial<CumulativePrice>, I>>(object: I): CumulativePrice {
-    const message = createBaseCumulativePrice();
+  fromPartial<I extends Exact<DeepPartial<RewardAssetPrice>, I>>(object: I): RewardAssetPrice {
+    const message = createBaseRewardAssetPrice();
     message.cumulativePrice = object.cumulativePrice ?? "";
-    message.lastPrice = object.lastPrice ?? "";
+    message.absolutePrice = object.absolutePrice ?? "";
     if (object.timestamp !== undefined && object.timestamp !== null) {
       message.timestamp = BigInt(object.timestamp.toString());
     }

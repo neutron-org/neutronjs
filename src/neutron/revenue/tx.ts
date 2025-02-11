@@ -18,10 +18,7 @@ export interface MsgUpdateParamsResponse {}
 export interface MsgFundTreasury {
   /** The signer of the message. */
   sender: string;
-  /**
-   * The amount of coins to fund the revenue treasury pool with. Must match the denom compensation
-   * defined in the module's params.
-   */
+  /** The amount of coins to fund the revenue treasury pool with. Must match the reward asset denom. */
   amount: Coin[];
 }
 /** Response type for the Msg/FundTreasury RPC method. */

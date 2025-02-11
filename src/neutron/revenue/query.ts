@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { Params } from "./params";
-import { State, ValidatorInfo } from "./genesis";
+import { PaymentSchedule, ValidatorInfo } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { JsonSafe } from "../../json-safe";
 import { DeepPartial, Exact, isSet } from "../../helpers";
@@ -13,12 +13,25 @@ export interface QueryParamsResponse {
   /** Contains all parameters of the module. */
   params: Params;
 }
-/** Request type for the Query/State RPC method. */
-export interface QueryStateRequest {}
-/** Response type for the Query/State RPC method. */
-export interface QueryStateResponse {
-  /** Contains the current state of the revenue module. */
-  state: State;
+/** Request type for the Query/PaymentInfo RPC method. */
+export interface QueryPaymentInfoRequest {}
+/** Response type for the Query/PaymentInfo RPC method. */
+export interface QueryPaymentInfoResponse {
+  /** The current payment schedule. */
+  paymentSchedule: PaymentSchedule;
+  /** The denom used in revenue payments. */
+  rewardDenom: string;
+  /**
+   * The current TWAP of the reward denom in USD. Is calculated as:
+   * twap_from_time_t(n)_to_time_t(m) = (cumulative_price_at_t(n) - cumulative_price_at_t(m)) / (t(n) - t(m))
+   */
+  rewardDenomTwap: string;
+  /**
+   * The current evaluation of the base revenue amount. This whole amount will be paid to the
+   * validators with impeccable performance (at least as good as allowed_to_miss). For the others
+   * this amount will be multiplied by their performance rating.
+   */
+  baseRevenueAmount: string;
 }
 /** Request type for the Query/ValidatorStats RPC method. */
 export interface QueryValidatorStatsRequest {
@@ -45,7 +58,7 @@ export interface ValidatorStats {
   performanceRating: string;
   /**
    * Contains expected revenue for the validator
-   * based on performance rating of ongoing performance window and current TWAP price.
+   * based on performance rating of ongoing performance window and current TWAP.
    */
   expectedRevenue: string;
 }
@@ -132,18 +145,18 @@ export const QueryParamsResponse = {
     return message;
   },
 };
-function createBaseQueryStateRequest(): QueryStateRequest {
+function createBaseQueryPaymentInfoRequest(): QueryPaymentInfoRequest {
   return {};
 }
-export const QueryStateRequest = {
-  typeUrl: "/neutron.revenue.QueryStateRequest",
-  encode(_: QueryStateRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+export const QueryPaymentInfoRequest = {
+  typeUrl: "/neutron.revenue.QueryPaymentInfoRequest",
+  encode(_: QueryPaymentInfoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): QueryStateRequest {
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryPaymentInfoRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryStateRequest();
+    const message = createBaseQueryPaymentInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -154,41 +167,62 @@ export const QueryStateRequest = {
     }
     return message;
   },
-  fromJSON(_: any): QueryStateRequest {
-    const obj = createBaseQueryStateRequest();
+  fromJSON(_: any): QueryPaymentInfoRequest {
+    const obj = createBaseQueryPaymentInfoRequest();
     return obj;
   },
-  toJSON(_: QueryStateRequest): JsonSafe<QueryStateRequest> {
+  toJSON(_: QueryPaymentInfoRequest): JsonSafe<QueryPaymentInfoRequest> {
     const obj: any = {};
     return obj;
   },
-  fromPartial<I extends Exact<DeepPartial<QueryStateRequest>, I>>(_: I): QueryStateRequest {
-    const message = createBaseQueryStateRequest();
+  fromPartial<I extends Exact<DeepPartial<QueryPaymentInfoRequest>, I>>(_: I): QueryPaymentInfoRequest {
+    const message = createBaseQueryPaymentInfoRequest();
     return message;
   },
 };
-function createBaseQueryStateResponse(): QueryStateResponse {
+function createBaseQueryPaymentInfoResponse(): QueryPaymentInfoResponse {
   return {
-    state: State.fromPartial({}),
+    paymentSchedule: PaymentSchedule.fromPartial({}),
+    rewardDenom: "",
+    rewardDenomTwap: "",
+    baseRevenueAmount: "",
   };
 }
-export const QueryStateResponse = {
-  typeUrl: "/neutron.revenue.QueryStateResponse",
-  encode(message: QueryStateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.state !== undefined) {
-      State.encode(message.state, writer.uint32(10).fork()).ldelim();
+export const QueryPaymentInfoResponse = {
+  typeUrl: "/neutron.revenue.QueryPaymentInfoResponse",
+  encode(message: QueryPaymentInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.paymentSchedule !== undefined) {
+      PaymentSchedule.encode(message.paymentSchedule, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.rewardDenom !== "") {
+      writer.uint32(18).string(message.rewardDenom);
+    }
+    if (message.rewardDenomTwap !== "") {
+      writer.uint32(26).string(Decimal.fromUserInput(message.rewardDenomTwap, 18).atomics);
+    }
+    if (message.baseRevenueAmount !== "") {
+      writer.uint32(34).string(message.baseRevenueAmount);
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): QueryStateResponse {
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryPaymentInfoResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryStateResponse();
+    const message = createBaseQueryPaymentInfoResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.state = State.decode(reader, reader.uint32());
+          message.paymentSchedule = PaymentSchedule.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.rewardDenom = reader.string();
+          break;
+        case 3:
+          message.rewardDenomTwap = Decimal.fromAtomics(reader.string(), 18).toString();
+          break;
+        case 4:
+          message.baseRevenueAmount = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -197,21 +231,35 @@ export const QueryStateResponse = {
     }
     return message;
   },
-  fromJSON(object: any): QueryStateResponse {
-    const obj = createBaseQueryStateResponse();
-    if (isSet(object.state)) obj.state = State.fromJSON(object.state);
+  fromJSON(object: any): QueryPaymentInfoResponse {
+    const obj = createBaseQueryPaymentInfoResponse();
+    if (isSet(object.paymentSchedule)) obj.paymentSchedule = PaymentSchedule.fromJSON(object.paymentSchedule);
+    if (isSet(object.rewardDenom)) obj.rewardDenom = String(object.rewardDenom);
+    if (isSet(object.rewardDenomTwap)) obj.rewardDenomTwap = String(object.rewardDenomTwap);
+    if (isSet(object.baseRevenueAmount)) obj.baseRevenueAmount = String(object.baseRevenueAmount);
     return obj;
   },
-  toJSON(message: QueryStateResponse): JsonSafe<QueryStateResponse> {
+  toJSON(message: QueryPaymentInfoResponse): JsonSafe<QueryPaymentInfoResponse> {
     const obj: any = {};
-    message.state !== undefined && (obj.state = message.state ? State.toJSON(message.state) : undefined);
+    message.paymentSchedule !== undefined &&
+      (obj.paymentSchedule = message.paymentSchedule
+        ? PaymentSchedule.toJSON(message.paymentSchedule)
+        : undefined);
+    message.rewardDenom !== undefined && (obj.rewardDenom = message.rewardDenom);
+    message.rewardDenomTwap !== undefined && (obj.rewardDenomTwap = message.rewardDenomTwap);
+    message.baseRevenueAmount !== undefined && (obj.baseRevenueAmount = message.baseRevenueAmount);
     return obj;
   },
-  fromPartial<I extends Exact<DeepPartial<QueryStateResponse>, I>>(object: I): QueryStateResponse {
-    const message = createBaseQueryStateResponse();
-    if (object.state !== undefined && object.state !== null) {
-      message.state = State.fromPartial(object.state);
+  fromPartial<I extends Exact<DeepPartial<QueryPaymentInfoResponse>, I>>(
+    object: I,
+  ): QueryPaymentInfoResponse {
+    const message = createBaseQueryPaymentInfoResponse();
+    if (object.paymentSchedule !== undefined && object.paymentSchedule !== null) {
+      message.paymentSchedule = PaymentSchedule.fromPartial(object.paymentSchedule);
     }
+    message.rewardDenom = object.rewardDenom ?? "";
+    message.rewardDenomTwap = object.rewardDenomTwap ?? "";
+    message.baseRevenueAmount = object.baseRevenueAmount ?? "";
     return message;
   },
 };
