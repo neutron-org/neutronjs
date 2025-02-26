@@ -11,6 +11,8 @@ import {
   QueryDenomsFromCreatorResponse,
   QueryBeforeSendHookAddressRequest,
   QueryBeforeSendHookAddressResponse,
+  QueryFullDenomRequest,
+  QueryFullDenomResponse,
 } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {
@@ -38,6 +40,11 @@ export interface Query {
   beforeSendHookAddress(
     request: QueryBeforeSendHookAddressRequest,
   ): Promise<QueryBeforeSendHookAddressResponse>;
+  /**
+   * FullDenom defines a gRPC query method for getting full denom name
+   * from the creator and subdenom strings.
+   */
+  fullDenom(request: QueryFullDenomRequest): Promise<QueryFullDenomResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
@@ -47,6 +54,7 @@ export class QueryClientImpl implements Query {
     this.denomAuthorityMetadata = this.denomAuthorityMetadata.bind(this);
     this.denomsFromCreator = this.denomsFromCreator.bind(this);
     this.beforeSendHookAddress = this.beforeSendHookAddress.bind(this);
+    this.fullDenom = this.fullDenom.bind(this);
   }
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -72,6 +80,11 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("osmosis.tokenfactory.v1beta1.Query", "BeforeSendHookAddress", data);
     return promise.then((data) => QueryBeforeSendHookAddressResponse.decode(new BinaryReader(data)));
   }
+  fullDenom(request: QueryFullDenomRequest): Promise<QueryFullDenomResponse> {
+    const data = QueryFullDenomRequest.encode(request).finish();
+    const promise = this.rpc.request("osmosis.tokenfactory.v1beta1.Query", "FullDenom", data);
+    return promise.then((data) => QueryFullDenomResponse.decode(new BinaryReader(data)));
+  }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {
   const rpc = createProtobufRpcClient(base);
@@ -92,6 +105,9 @@ export const createRpcQueryExtension = (base: QueryClient) => {
       request: QueryBeforeSendHookAddressRequest,
     ): Promise<QueryBeforeSendHookAddressResponse> {
       return queryService.beforeSendHookAddress(request);
+    },
+    fullDenom(request: QueryFullDenomRequest): Promise<QueryFullDenomResponse> {
+      return queryService.fullDenom(request);
     },
   };
 };
