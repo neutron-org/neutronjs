@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Params } from "../../ibc/core/client/v1/client";
+import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
@@ -36,10 +36,15 @@ export interface PaymentSchedule {
 export interface ValidatorInfo {
   /** The validator's node operator address. */
   valOperAddress: string;
-  /** The number of blocks commited by the validator in the current payment period. */
+  /** The number of blocks the validator has committed in the current payment period. */
   commitedBlocksInPeriod: bigint;
-  /** The number of oracle votes commited by the validator in the current payment period. */
+  /** The number of oracle votes the validator has submitted in the current payment period. */
   commitedOracleVotesInPeriod: bigint;
+  /**
+   * The number of blocks the validator has remained in the active validator set for in the
+   * current payment period.
+   */
+  inActiveValsetForBlocksInPeriod: bigint;
 }
 /** Represents a payment schedule where revenue payments are processed once a month. */
 export interface MonthlyPaymentSchedule {
@@ -260,6 +265,7 @@ function createBaseValidatorInfo(): ValidatorInfo {
     valOperAddress: "",
     commitedBlocksInPeriod: BigInt(0),
     commitedOracleVotesInPeriod: BigInt(0),
+    inActiveValsetForBlocksInPeriod: BigInt(0),
   };
 }
 export const ValidatorInfo = {
@@ -273,6 +279,9 @@ export const ValidatorInfo = {
     }
     if (message.commitedOracleVotesInPeriod !== BigInt(0)) {
       writer.uint32(24).uint64(message.commitedOracleVotesInPeriod);
+    }
+    if (message.inActiveValsetForBlocksInPeriod !== BigInt(0)) {
+      writer.uint32(32).uint64(message.inActiveValsetForBlocksInPeriod);
     }
     return writer;
   },
@@ -292,6 +301,9 @@ export const ValidatorInfo = {
         case 3:
           message.commitedOracleVotesInPeriod = reader.uint64();
           break;
+        case 4:
+          message.inActiveValsetForBlocksInPeriod = reader.uint64();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -306,6 +318,8 @@ export const ValidatorInfo = {
       obj.commitedBlocksInPeriod = BigInt(object.commitedBlocksInPeriod.toString());
     if (isSet(object.commitedOracleVotesInPeriod))
       obj.commitedOracleVotesInPeriod = BigInt(object.commitedOracleVotesInPeriod.toString());
+    if (isSet(object.inActiveValsetForBlocksInPeriod))
+      obj.inActiveValsetForBlocksInPeriod = BigInt(object.inActiveValsetForBlocksInPeriod.toString());
     return obj;
   },
   toJSON(message: ValidatorInfo): JsonSafe<ValidatorInfo> {
@@ -315,6 +329,10 @@ export const ValidatorInfo = {
       (obj.commitedBlocksInPeriod = (message.commitedBlocksInPeriod || BigInt(0)).toString());
     message.commitedOracleVotesInPeriod !== undefined &&
       (obj.commitedOracleVotesInPeriod = (message.commitedOracleVotesInPeriod || BigInt(0)).toString());
+    message.inActiveValsetForBlocksInPeriod !== undefined &&
+      (obj.inActiveValsetForBlocksInPeriod = (
+        message.inActiveValsetForBlocksInPeriod || BigInt(0)
+      ).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<ValidatorInfo>, I>>(object: I): ValidatorInfo {
@@ -325,6 +343,12 @@ export const ValidatorInfo = {
     }
     if (object.commitedOracleVotesInPeriod !== undefined && object.commitedOracleVotesInPeriod !== null) {
       message.commitedOracleVotesInPeriod = BigInt(object.commitedOracleVotesInPeriod.toString());
+    }
+    if (
+      object.inActiveValsetForBlocksInPeriod !== undefined &&
+      object.inActiveValsetForBlocksInPeriod !== null
+    ) {
+      message.inActiveValsetForBlocksInPeriod = BigInt(object.inActiveValsetForBlocksInPeriod.toString());
     }
     return message;
   },

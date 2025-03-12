@@ -54,6 +54,8 @@ export interface QueryValidatorsStatsResponse {
 export interface ValidatorStats {
   /** Contains the validator's information. */
   validatorInfo: ValidatorInfo;
+  /** The total number of blocks produced by the chain in the current payment period. */
+  totalProducedBlocksInPeriod: bigint;
   /** The validator's performance rating. Represented as a decimal value. */
   performanceRating: string;
   /**
@@ -454,6 +456,7 @@ export const QueryValidatorsStatsResponse = {
 function createBaseValidatorStats(): ValidatorStats {
   return {
     validatorInfo: ValidatorInfo.fromPartial({}),
+    totalProducedBlocksInPeriod: BigInt(0),
     performanceRating: "",
     expectedRevenue: "",
   };
@@ -464,11 +467,14 @@ export const ValidatorStats = {
     if (message.validatorInfo !== undefined) {
       ValidatorInfo.encode(message.validatorInfo, writer.uint32(10).fork()).ldelim();
     }
+    if (message.totalProducedBlocksInPeriod !== BigInt(0)) {
+      writer.uint32(16).uint64(message.totalProducedBlocksInPeriod);
+    }
     if (message.performanceRating !== "") {
-      writer.uint32(18).string(Decimal.fromUserInput(message.performanceRating, 18).atomics);
+      writer.uint32(26).string(Decimal.fromUserInput(message.performanceRating, 18).atomics);
     }
     if (message.expectedRevenue !== "") {
-      writer.uint32(26).string(message.expectedRevenue);
+      writer.uint32(34).string(message.expectedRevenue);
     }
     return writer;
   },
@@ -483,9 +489,12 @@ export const ValidatorStats = {
           message.validatorInfo = ValidatorInfo.decode(reader, reader.uint32());
           break;
         case 2:
-          message.performanceRating = Decimal.fromAtomics(reader.string(), 18).toString();
+          message.totalProducedBlocksInPeriod = reader.uint64();
           break;
         case 3:
+          message.performanceRating = Decimal.fromAtomics(reader.string(), 18).toString();
+          break;
+        case 4:
           message.expectedRevenue = reader.string();
           break;
         default:
@@ -498,6 +507,8 @@ export const ValidatorStats = {
   fromJSON(object: any): ValidatorStats {
     const obj = createBaseValidatorStats();
     if (isSet(object.validatorInfo)) obj.validatorInfo = ValidatorInfo.fromJSON(object.validatorInfo);
+    if (isSet(object.totalProducedBlocksInPeriod))
+      obj.totalProducedBlocksInPeriod = BigInt(object.totalProducedBlocksInPeriod.toString());
     if (isSet(object.performanceRating)) obj.performanceRating = String(object.performanceRating);
     if (isSet(object.expectedRevenue)) obj.expectedRevenue = String(object.expectedRevenue);
     return obj;
@@ -506,6 +517,8 @@ export const ValidatorStats = {
     const obj: any = {};
     message.validatorInfo !== undefined &&
       (obj.validatorInfo = message.validatorInfo ? ValidatorInfo.toJSON(message.validatorInfo) : undefined);
+    message.totalProducedBlocksInPeriod !== undefined &&
+      (obj.totalProducedBlocksInPeriod = (message.totalProducedBlocksInPeriod || BigInt(0)).toString());
     message.performanceRating !== undefined && (obj.performanceRating = message.performanceRating);
     message.expectedRevenue !== undefined && (obj.expectedRevenue = message.expectedRevenue);
     return obj;
@@ -514,6 +527,9 @@ export const ValidatorStats = {
     const message = createBaseValidatorStats();
     if (object.validatorInfo !== undefined && object.validatorInfo !== null) {
       message.validatorInfo = ValidatorInfo.fromPartial(object.validatorInfo);
+    }
+    if (object.totalProducedBlocksInPeriod !== undefined && object.totalProducedBlocksInPeriod !== null) {
+      message.totalProducedBlocksInPeriod = BigInt(object.totalProducedBlocksInPeriod.toString());
     }
     message.performanceRating = object.performanceRating ?? "";
     message.expectedRevenue = object.expectedRevenue ?? "";
