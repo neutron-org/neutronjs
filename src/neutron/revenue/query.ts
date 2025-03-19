@@ -19,8 +19,8 @@ export interface QueryPaymentInfoRequest {}
 export interface QueryPaymentInfoResponse {
   /** The current payment schedule. */
   paymentSchedule: PaymentSchedule;
-  /** Revenue amount multiplier value that corresponds to the completeness of the payment period. */
-  periodCompleteness: string;
+  /** Revenue amount multiplier value that corresponds to the effective payment period progress. */
+  effectivePeriodProgress: string;
   /** The denom used in revenue payments. */
   rewardDenom: string;
   /**
@@ -62,8 +62,8 @@ export interface ValidatorStats {
   performanceRating: string;
   /**
    * Contains expected revenue for the validator based on their performance rating in the current
-   * payment period, current reward denom TWAP, completeness of the payment period, and duration
-   * of validator's presence in the active validator set.
+   * payment period, current reward denom TWAP, and duration of validator's presence in the active
+   * validator set. Does not take into account effective payment period progress.
    */
   expectedRevenue: string;
 }
@@ -188,7 +188,7 @@ export const QueryPaymentInfoRequest = {
 function createBaseQueryPaymentInfoResponse(): QueryPaymentInfoResponse {
   return {
     paymentSchedule: PaymentSchedule.fromPartial({}),
-    periodCompleteness: "",
+    effectivePeriodProgress: "",
     rewardDenom: "",
     rewardDenomTwap: "",
     baseRevenueAmount: "",
@@ -200,8 +200,8 @@ export const QueryPaymentInfoResponse = {
     if (message.paymentSchedule !== undefined) {
       PaymentSchedule.encode(message.paymentSchedule, writer.uint32(10).fork()).ldelim();
     }
-    if (message.periodCompleteness !== "") {
-      writer.uint32(18).string(Decimal.fromUserInput(message.periodCompleteness, 18).atomics);
+    if (message.effectivePeriodProgress !== "") {
+      writer.uint32(18).string(Decimal.fromUserInput(message.effectivePeriodProgress, 18).atomics);
     }
     if (message.rewardDenom !== "") {
       writer.uint32(26).string(message.rewardDenom);
@@ -225,7 +225,7 @@ export const QueryPaymentInfoResponse = {
           message.paymentSchedule = PaymentSchedule.decode(reader, reader.uint32());
           break;
         case 2:
-          message.periodCompleteness = Decimal.fromAtomics(reader.string(), 18).toString();
+          message.effectivePeriodProgress = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.rewardDenom = reader.string();
@@ -246,7 +246,8 @@ export const QueryPaymentInfoResponse = {
   fromJSON(object: any): QueryPaymentInfoResponse {
     const obj = createBaseQueryPaymentInfoResponse();
     if (isSet(object.paymentSchedule)) obj.paymentSchedule = PaymentSchedule.fromJSON(object.paymentSchedule);
-    if (isSet(object.periodCompleteness)) obj.periodCompleteness = String(object.periodCompleteness);
+    if (isSet(object.effectivePeriodProgress))
+      obj.effectivePeriodProgress = String(object.effectivePeriodProgress);
     if (isSet(object.rewardDenom)) obj.rewardDenom = String(object.rewardDenom);
     if (isSet(object.rewardDenomTwap)) obj.rewardDenomTwap = String(object.rewardDenomTwap);
     if (isSet(object.baseRevenueAmount)) obj.baseRevenueAmount = String(object.baseRevenueAmount);
@@ -258,7 +259,8 @@ export const QueryPaymentInfoResponse = {
       (obj.paymentSchedule = message.paymentSchedule
         ? PaymentSchedule.toJSON(message.paymentSchedule)
         : undefined);
-    message.periodCompleteness !== undefined && (obj.periodCompleteness = message.periodCompleteness);
+    message.effectivePeriodProgress !== undefined &&
+      (obj.effectivePeriodProgress = message.effectivePeriodProgress);
     message.rewardDenom !== undefined && (obj.rewardDenom = message.rewardDenom);
     message.rewardDenomTwap !== undefined && (obj.rewardDenomTwap = message.rewardDenomTwap);
     message.baseRevenueAmount !== undefined && (obj.baseRevenueAmount = message.baseRevenueAmount);
@@ -271,7 +273,7 @@ export const QueryPaymentInfoResponse = {
     if (object.paymentSchedule !== undefined && object.paymentSchedule !== null) {
       message.paymentSchedule = PaymentSchedule.fromPartial(object.paymentSchedule);
     }
-    message.periodCompleteness = object.periodCompleteness ?? "";
+    message.effectivePeriodProgress = object.effectivePeriodProgress ?? "";
     message.rewardDenom = object.rewardDenom ?? "";
     message.rewardDenomTwap = object.rewardDenomTwap ?? "";
     message.baseRevenueAmount = object.baseRevenueAmount ?? "";

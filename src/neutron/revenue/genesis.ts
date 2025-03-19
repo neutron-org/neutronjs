@@ -52,6 +52,8 @@ export interface MonthlyPaymentSchedule {
   currentMonth: bigint;
   /** The block height at which the current month started. */
   currentMonthStartBlock: bigint;
+  /** The timestamp of the block at which the current month started. */
+  currentMonthStartBlockTs: bigint;
 }
 /**
  * Represents a payment schedule where revenue payments are processed after a specified number
@@ -357,6 +359,7 @@ function createBaseMonthlyPaymentSchedule(): MonthlyPaymentSchedule {
   return {
     currentMonth: BigInt(0),
     currentMonthStartBlock: BigInt(0),
+    currentMonthStartBlockTs: BigInt(0),
   };
 }
 export const MonthlyPaymentSchedule = {
@@ -367,6 +370,9 @@ export const MonthlyPaymentSchedule = {
     }
     if (message.currentMonthStartBlock !== BigInt(0)) {
       writer.uint32(16).uint64(message.currentMonthStartBlock);
+    }
+    if (message.currentMonthStartBlockTs !== BigInt(0)) {
+      writer.uint32(24).uint64(message.currentMonthStartBlockTs);
     }
     return writer;
   },
@@ -383,6 +389,9 @@ export const MonthlyPaymentSchedule = {
         case 2:
           message.currentMonthStartBlock = reader.uint64();
           break;
+        case 3:
+          message.currentMonthStartBlockTs = reader.uint64();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -395,6 +404,8 @@ export const MonthlyPaymentSchedule = {
     if (isSet(object.currentMonth)) obj.currentMonth = BigInt(object.currentMonth.toString());
     if (isSet(object.currentMonthStartBlock))
       obj.currentMonthStartBlock = BigInt(object.currentMonthStartBlock.toString());
+    if (isSet(object.currentMonthStartBlockTs))
+      obj.currentMonthStartBlockTs = BigInt(object.currentMonthStartBlockTs.toString());
     return obj;
   },
   toJSON(message: MonthlyPaymentSchedule): JsonSafe<MonthlyPaymentSchedule> {
@@ -402,6 +413,8 @@ export const MonthlyPaymentSchedule = {
     message.currentMonth !== undefined && (obj.currentMonth = (message.currentMonth || BigInt(0)).toString());
     message.currentMonthStartBlock !== undefined &&
       (obj.currentMonthStartBlock = (message.currentMonthStartBlock || BigInt(0)).toString());
+    message.currentMonthStartBlockTs !== undefined &&
+      (obj.currentMonthStartBlockTs = (message.currentMonthStartBlockTs || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MonthlyPaymentSchedule>, I>>(object: I): MonthlyPaymentSchedule {
@@ -411,6 +424,9 @@ export const MonthlyPaymentSchedule = {
     }
     if (object.currentMonthStartBlock !== undefined && object.currentMonthStartBlock !== null) {
       message.currentMonthStartBlock = BigInt(object.currentMonthStartBlock.toString());
+    }
+    if (object.currentMonthStartBlockTs !== undefined && object.currentMonthStartBlockTs !== null) {
+      message.currentMonthStartBlockTs = BigInt(object.currentMonthStartBlockTs.toString());
     }
     return message;
   },
