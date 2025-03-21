@@ -7,8 +7,8 @@ export const protobufPackage = "neutron.revenue";
 /** Defines the parameters for the module. */
 export interface Params {
   /**
-   * The compensation amount measured in USD. USD is used as a quote in price queries to the dex
-   * module to determine the price of the reward denom. The base compensation amount is multiplied
+   * The compensation amount measured in USD. USD is used as a quote in price queries to the slinky oracle
+   * module to determine the price of the reward denom. The base compensation amount is divided
    * by the price of the reward denom to determine the final compensation amount.
    */
   baseCompensation: bigint;

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Params } from "../../ibc/core/client/v1/client";
+import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
@@ -36,17 +36,22 @@ export interface PaymentSchedule {
 export interface ValidatorInfo {
   /** The validator's node operator address. */
   valOperAddress: string;
-  /** The number of blocks commited by the validator in the current payment period. */
+  /** The number of blocks the validator has committed in the current payment period. */
   commitedBlocksInPeriod: bigint;
-  /** The number of oracle votes commited by the validator in the current payment period. */
+  /** The number of oracle votes the validator has submitted in the current payment period. */
   commitedOracleVotesInPeriod: bigint;
+  /**
+   * The number of blocks the validator has remained in the active validator set for in the
+   * current payment period.
+   */
+  inActiveValsetForBlocksInPeriod: bigint;
 }
 /** Represents a payment schedule where revenue payments are processed once a month. */
 export interface MonthlyPaymentSchedule {
-  /** A numeric representation of the current month. */
-  currentMonth: bigint;
   /** The block height at which the current month started. */
   currentMonthStartBlock: bigint;
+  /** The timestamp of the block at which the current month started. */
+  currentMonthStartBlockTs: bigint;
 }
 /**
  * Represents a payment schedule where revenue payments are processed after a specified number
@@ -260,6 +265,7 @@ function createBaseValidatorInfo(): ValidatorInfo {
     valOperAddress: "",
     commitedBlocksInPeriod: BigInt(0),
     commitedOracleVotesInPeriod: BigInt(0),
+    inActiveValsetForBlocksInPeriod: BigInt(0),
   };
 }
 export const ValidatorInfo = {
@@ -273,6 +279,9 @@ export const ValidatorInfo = {
     }
     if (message.commitedOracleVotesInPeriod !== BigInt(0)) {
       writer.uint32(24).uint64(message.commitedOracleVotesInPeriod);
+    }
+    if (message.inActiveValsetForBlocksInPeriod !== BigInt(0)) {
+      writer.uint32(32).uint64(message.inActiveValsetForBlocksInPeriod);
     }
     return writer;
   },
@@ -292,6 +301,9 @@ export const ValidatorInfo = {
         case 3:
           message.commitedOracleVotesInPeriod = reader.uint64();
           break;
+        case 4:
+          message.inActiveValsetForBlocksInPeriod = reader.uint64();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -306,6 +318,8 @@ export const ValidatorInfo = {
       obj.commitedBlocksInPeriod = BigInt(object.commitedBlocksInPeriod.toString());
     if (isSet(object.commitedOracleVotesInPeriod))
       obj.commitedOracleVotesInPeriod = BigInt(object.commitedOracleVotesInPeriod.toString());
+    if (isSet(object.inActiveValsetForBlocksInPeriod))
+      obj.inActiveValsetForBlocksInPeriod = BigInt(object.inActiveValsetForBlocksInPeriod.toString());
     return obj;
   },
   toJSON(message: ValidatorInfo): JsonSafe<ValidatorInfo> {
@@ -315,6 +329,10 @@ export const ValidatorInfo = {
       (obj.commitedBlocksInPeriod = (message.commitedBlocksInPeriod || BigInt(0)).toString());
     message.commitedOracleVotesInPeriod !== undefined &&
       (obj.commitedOracleVotesInPeriod = (message.commitedOracleVotesInPeriod || BigInt(0)).toString());
+    message.inActiveValsetForBlocksInPeriod !== undefined &&
+      (obj.inActiveValsetForBlocksInPeriod = (
+        message.inActiveValsetForBlocksInPeriod || BigInt(0)
+      ).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<ValidatorInfo>, I>>(object: I): ValidatorInfo {
@@ -326,23 +344,29 @@ export const ValidatorInfo = {
     if (object.commitedOracleVotesInPeriod !== undefined && object.commitedOracleVotesInPeriod !== null) {
       message.commitedOracleVotesInPeriod = BigInt(object.commitedOracleVotesInPeriod.toString());
     }
+    if (
+      object.inActiveValsetForBlocksInPeriod !== undefined &&
+      object.inActiveValsetForBlocksInPeriod !== null
+    ) {
+      message.inActiveValsetForBlocksInPeriod = BigInt(object.inActiveValsetForBlocksInPeriod.toString());
+    }
     return message;
   },
 };
 function createBaseMonthlyPaymentSchedule(): MonthlyPaymentSchedule {
   return {
-    currentMonth: BigInt(0),
     currentMonthStartBlock: BigInt(0),
+    currentMonthStartBlockTs: BigInt(0),
   };
 }
 export const MonthlyPaymentSchedule = {
   typeUrl: "/neutron.revenue.MonthlyPaymentSchedule",
   encode(message: MonthlyPaymentSchedule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.currentMonth !== BigInt(0)) {
-      writer.uint32(8).uint64(message.currentMonth);
-    }
     if (message.currentMonthStartBlock !== BigInt(0)) {
-      writer.uint32(16).uint64(message.currentMonthStartBlock);
+      writer.uint32(8).uint64(message.currentMonthStartBlock);
+    }
+    if (message.currentMonthStartBlockTs !== BigInt(0)) {
+      writer.uint32(16).uint64(message.currentMonthStartBlockTs);
     }
     return writer;
   },
@@ -354,10 +378,10 @@ export const MonthlyPaymentSchedule = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.currentMonth = reader.uint64();
+          message.currentMonthStartBlock = reader.uint64();
           break;
         case 2:
-          message.currentMonthStartBlock = reader.uint64();
+          message.currentMonthStartBlockTs = reader.uint64();
           break;
         default:
           reader.skipType(tag & 7);
@@ -368,25 +392,27 @@ export const MonthlyPaymentSchedule = {
   },
   fromJSON(object: any): MonthlyPaymentSchedule {
     const obj = createBaseMonthlyPaymentSchedule();
-    if (isSet(object.currentMonth)) obj.currentMonth = BigInt(object.currentMonth.toString());
     if (isSet(object.currentMonthStartBlock))
       obj.currentMonthStartBlock = BigInt(object.currentMonthStartBlock.toString());
+    if (isSet(object.currentMonthStartBlockTs))
+      obj.currentMonthStartBlockTs = BigInt(object.currentMonthStartBlockTs.toString());
     return obj;
   },
   toJSON(message: MonthlyPaymentSchedule): JsonSafe<MonthlyPaymentSchedule> {
     const obj: any = {};
-    message.currentMonth !== undefined && (obj.currentMonth = (message.currentMonth || BigInt(0)).toString());
     message.currentMonthStartBlock !== undefined &&
       (obj.currentMonthStartBlock = (message.currentMonthStartBlock || BigInt(0)).toString());
+    message.currentMonthStartBlockTs !== undefined &&
+      (obj.currentMonthStartBlockTs = (message.currentMonthStartBlockTs || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MonthlyPaymentSchedule>, I>>(object: I): MonthlyPaymentSchedule {
     const message = createBaseMonthlyPaymentSchedule();
-    if (object.currentMonth !== undefined && object.currentMonth !== null) {
-      message.currentMonth = BigInt(object.currentMonth.toString());
-    }
     if (object.currentMonthStartBlock !== undefined && object.currentMonthStartBlock !== null) {
       message.currentMonthStartBlock = BigInt(object.currentMonthStartBlock.toString());
+    }
+    if (object.currentMonthStartBlockTs !== undefined && object.currentMonthStartBlockTs !== null) {
+      message.currentMonthStartBlockTs = BigInt(object.currentMonthStartBlockTs.toString());
     }
     return message;
   },

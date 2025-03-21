@@ -19,6 +19,8 @@ export interface QueryPaymentInfoRequest {}
 export interface QueryPaymentInfoResponse {
   /** The current payment schedule. */
   paymentSchedule: PaymentSchedule;
+  /** Revenue amount multiplier value that corresponds to the effective payment period progress. */
+  effectivePeriodProgress: string;
   /** The denom used in revenue payments. */
   rewardDenom: string;
   /**
@@ -54,11 +56,14 @@ export interface QueryValidatorsStatsResponse {
 export interface ValidatorStats {
   /** Contains the validator's information. */
   validatorInfo: ValidatorInfo;
+  /** The total number of blocks produced by the chain in the current payment period. */
+  totalProducedBlocksInPeriod: bigint;
   /** The validator's performance rating. Represented as a decimal value. */
   performanceRating: string;
   /**
-   * Contains expected revenue for the validator
-   * based on performance rating of ongoing performance window and current TWAP.
+   * Contains expected revenue for the validator based on their performance rating in the current
+   * payment period, current reward denom TWAP, and duration of validator's presence in the active
+   * validator set. Does not take into account effective payment period progress.
    */
   expectedRevenue: string;
 }
@@ -183,6 +188,7 @@ export const QueryPaymentInfoRequest = {
 function createBaseQueryPaymentInfoResponse(): QueryPaymentInfoResponse {
   return {
     paymentSchedule: PaymentSchedule.fromPartial({}),
+    effectivePeriodProgress: "",
     rewardDenom: "",
     rewardDenomTwap: "",
     baseRevenueAmount: "",
@@ -194,14 +200,17 @@ export const QueryPaymentInfoResponse = {
     if (message.paymentSchedule !== undefined) {
       PaymentSchedule.encode(message.paymentSchedule, writer.uint32(10).fork()).ldelim();
     }
+    if (message.effectivePeriodProgress !== "") {
+      writer.uint32(18).string(Decimal.fromUserInput(message.effectivePeriodProgress, 18).atomics);
+    }
     if (message.rewardDenom !== "") {
-      writer.uint32(18).string(message.rewardDenom);
+      writer.uint32(26).string(message.rewardDenom);
     }
     if (message.rewardDenomTwap !== "") {
-      writer.uint32(26).string(Decimal.fromUserInput(message.rewardDenomTwap, 18).atomics);
+      writer.uint32(34).string(Decimal.fromUserInput(message.rewardDenomTwap, 18).atomics);
     }
     if (message.baseRevenueAmount !== "") {
-      writer.uint32(34).string(message.baseRevenueAmount);
+      writer.uint32(42).string(message.baseRevenueAmount);
     }
     return writer;
   },
@@ -216,12 +225,15 @@ export const QueryPaymentInfoResponse = {
           message.paymentSchedule = PaymentSchedule.decode(reader, reader.uint32());
           break;
         case 2:
-          message.rewardDenom = reader.string();
+          message.effectivePeriodProgress = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.rewardDenomTwap = Decimal.fromAtomics(reader.string(), 18).toString();
+          message.rewardDenom = reader.string();
           break;
         case 4:
+          message.rewardDenomTwap = Decimal.fromAtomics(reader.string(), 18).toString();
+          break;
+        case 5:
           message.baseRevenueAmount = reader.string();
           break;
         default:
@@ -234,6 +246,8 @@ export const QueryPaymentInfoResponse = {
   fromJSON(object: any): QueryPaymentInfoResponse {
     const obj = createBaseQueryPaymentInfoResponse();
     if (isSet(object.paymentSchedule)) obj.paymentSchedule = PaymentSchedule.fromJSON(object.paymentSchedule);
+    if (isSet(object.effectivePeriodProgress))
+      obj.effectivePeriodProgress = String(object.effectivePeriodProgress);
     if (isSet(object.rewardDenom)) obj.rewardDenom = String(object.rewardDenom);
     if (isSet(object.rewardDenomTwap)) obj.rewardDenomTwap = String(object.rewardDenomTwap);
     if (isSet(object.baseRevenueAmount)) obj.baseRevenueAmount = String(object.baseRevenueAmount);
@@ -245,6 +259,8 @@ export const QueryPaymentInfoResponse = {
       (obj.paymentSchedule = message.paymentSchedule
         ? PaymentSchedule.toJSON(message.paymentSchedule)
         : undefined);
+    message.effectivePeriodProgress !== undefined &&
+      (obj.effectivePeriodProgress = message.effectivePeriodProgress);
     message.rewardDenom !== undefined && (obj.rewardDenom = message.rewardDenom);
     message.rewardDenomTwap !== undefined && (obj.rewardDenomTwap = message.rewardDenomTwap);
     message.baseRevenueAmount !== undefined && (obj.baseRevenueAmount = message.baseRevenueAmount);
@@ -257,6 +273,7 @@ export const QueryPaymentInfoResponse = {
     if (object.paymentSchedule !== undefined && object.paymentSchedule !== null) {
       message.paymentSchedule = PaymentSchedule.fromPartial(object.paymentSchedule);
     }
+    message.effectivePeriodProgress = object.effectivePeriodProgress ?? "";
     message.rewardDenom = object.rewardDenom ?? "";
     message.rewardDenomTwap = object.rewardDenomTwap ?? "";
     message.baseRevenueAmount = object.baseRevenueAmount ?? "";
@@ -454,6 +471,7 @@ export const QueryValidatorsStatsResponse = {
 function createBaseValidatorStats(): ValidatorStats {
   return {
     validatorInfo: ValidatorInfo.fromPartial({}),
+    totalProducedBlocksInPeriod: BigInt(0),
     performanceRating: "",
     expectedRevenue: "",
   };
@@ -464,11 +482,14 @@ export const ValidatorStats = {
     if (message.validatorInfo !== undefined) {
       ValidatorInfo.encode(message.validatorInfo, writer.uint32(10).fork()).ldelim();
     }
+    if (message.totalProducedBlocksInPeriod !== BigInt(0)) {
+      writer.uint32(16).uint64(message.totalProducedBlocksInPeriod);
+    }
     if (message.performanceRating !== "") {
-      writer.uint32(18).string(Decimal.fromUserInput(message.performanceRating, 18).atomics);
+      writer.uint32(26).string(Decimal.fromUserInput(message.performanceRating, 18).atomics);
     }
     if (message.expectedRevenue !== "") {
-      writer.uint32(26).string(message.expectedRevenue);
+      writer.uint32(34).string(message.expectedRevenue);
     }
     return writer;
   },
@@ -483,9 +504,12 @@ export const ValidatorStats = {
           message.validatorInfo = ValidatorInfo.decode(reader, reader.uint32());
           break;
         case 2:
-          message.performanceRating = Decimal.fromAtomics(reader.string(), 18).toString();
+          message.totalProducedBlocksInPeriod = reader.uint64();
           break;
         case 3:
+          message.performanceRating = Decimal.fromAtomics(reader.string(), 18).toString();
+          break;
+        case 4:
           message.expectedRevenue = reader.string();
           break;
         default:
@@ -498,6 +522,8 @@ export const ValidatorStats = {
   fromJSON(object: any): ValidatorStats {
     const obj = createBaseValidatorStats();
     if (isSet(object.validatorInfo)) obj.validatorInfo = ValidatorInfo.fromJSON(object.validatorInfo);
+    if (isSet(object.totalProducedBlocksInPeriod))
+      obj.totalProducedBlocksInPeriod = BigInt(object.totalProducedBlocksInPeriod.toString());
     if (isSet(object.performanceRating)) obj.performanceRating = String(object.performanceRating);
     if (isSet(object.expectedRevenue)) obj.expectedRevenue = String(object.expectedRevenue);
     return obj;
@@ -506,6 +532,8 @@ export const ValidatorStats = {
     const obj: any = {};
     message.validatorInfo !== undefined &&
       (obj.validatorInfo = message.validatorInfo ? ValidatorInfo.toJSON(message.validatorInfo) : undefined);
+    message.totalProducedBlocksInPeriod !== undefined &&
+      (obj.totalProducedBlocksInPeriod = (message.totalProducedBlocksInPeriod || BigInt(0)).toString());
     message.performanceRating !== undefined && (obj.performanceRating = message.performanceRating);
     message.expectedRevenue !== undefined && (obj.expectedRevenue = message.expectedRevenue);
     return obj;
@@ -514,6 +542,9 @@ export const ValidatorStats = {
     const message = createBaseValidatorStats();
     if (object.validatorInfo !== undefined && object.validatorInfo !== null) {
       message.validatorInfo = ValidatorInfo.fromPartial(object.validatorInfo);
+    }
+    if (object.totalProducedBlocksInPeriod !== undefined && object.totalProducedBlocksInPeriod !== null) {
+      message.totalProducedBlocksInPeriod = BigInt(object.totalProducedBlocksInPeriod.toString());
     }
     message.performanceRating = object.performanceRating ?? "";
     message.expectedRevenue = object.expectedRevenue ?? "";
