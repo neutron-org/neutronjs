@@ -15,8 +15,8 @@
 	url = git@github.com:cosmos/ibc-go.git
 [submodule "neutron"]
 	path = protos/neutron-src
-	url = git@github.com:neutron-org/neutron-private.git
-  branch = feat/twap-revenue
+	url = git@github.com:neutron-org/neutron.git
+  branch = test/move-to-sovereign
 [submodule "slinky"]
 	path = protos/slinky-src
 	url = git@github.com:skip-mev/slinky.git

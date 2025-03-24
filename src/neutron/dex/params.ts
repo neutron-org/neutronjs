@@ -9,6 +9,11 @@ export interface Params {
   paused: boolean;
   maxJitsPerBlock: bigint;
   goodTilPurgeAllowance: bigint;
+  /**
+   * Whitelisted_lps have special LP privileges;
+   * currently, the only such privilege is depositing outside of the allowed fee_tiers.
+   */
+  whitelistedLps: string[];
 }
 function createBaseParams(): Params {
   return {
@@ -16,6 +21,7 @@ function createBaseParams(): Params {
     paused: false,
     maxJitsPerBlock: BigInt(0),
     goodTilPurgeAllowance: BigInt(0),
+    whitelistedLps: [],
   };
 }
 export const Params = {
@@ -34,6 +40,9 @@ export const Params = {
     }
     if (message.goodTilPurgeAllowance !== BigInt(0)) {
       writer.uint32(40).uint64(message.goodTilPurgeAllowance);
+    }
+    for (const v of message.whitelistedLps) {
+      writer.uint32(50).string(v!);
     }
     return writer;
   },
@@ -63,6 +72,9 @@ export const Params = {
         case 5:
           message.goodTilPurgeAllowance = reader.uint64();
           break;
+        case 6:
+          message.whitelistedLps.push(reader.string());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -77,6 +89,8 @@ export const Params = {
     if (isSet(object.maxJitsPerBlock)) obj.maxJitsPerBlock = BigInt(object.maxJitsPerBlock.toString());
     if (isSet(object.goodTilPurgeAllowance))
       obj.goodTilPurgeAllowance = BigInt(object.goodTilPurgeAllowance.toString());
+    if (Array.isArray(object?.whitelistedLps))
+      obj.whitelistedLps = object.whitelistedLps.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: Params): JsonSafe<Params> {
@@ -91,6 +105,11 @@ export const Params = {
       (obj.maxJitsPerBlock = (message.maxJitsPerBlock || BigInt(0)).toString());
     message.goodTilPurgeAllowance !== undefined &&
       (obj.goodTilPurgeAllowance = (message.goodTilPurgeAllowance || BigInt(0)).toString());
+    if (message.whitelistedLps) {
+      obj.whitelistedLps = message.whitelistedLps.map((e) => e);
+    } else {
+      obj.whitelistedLps = [];
+    }
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
@@ -103,6 +122,7 @@ export const Params = {
     if (object.goodTilPurgeAllowance !== undefined && object.goodTilPurgeAllowance !== null) {
       message.goodTilPurgeAllowance = BigInt(object.goodTilPurgeAllowance.toString());
     }
+    message.whitelistedLps = object.whitelistedLps?.map((e) => e) || [];
     return message;
   },
 };
