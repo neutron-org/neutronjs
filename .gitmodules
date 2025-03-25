@@ -16,7 +16,7 @@
 [submodule "neutron"]
 	path = protos/neutron-src
 	url = git@github.com:neutron-org/neutron.git
-  branch = test/move-to-sovereign
+	branch = feat/use-untrn-metadata-by-revenue
 [submodule "slinky"]
 	path = protos/slinky-src
 	url = git@github.com:skip-mev/slinky.git

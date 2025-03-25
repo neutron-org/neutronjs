@@ -6,12 +6,10 @@ import { Decimal } from "@cosmjs/math";
 export const protobufPackage = "neutron.revenue";
 /** Defines the parameters for the module. */
 export interface Params {
-  /**
-   * The compensation amount measured in USD. USD is used as a quote in price queries to the slinky oracle
-   * module to determine the price of the reward denom. The base compensation amount is divided
-   * by the price of the reward denom to determine the final compensation amount.
-   */
-  baseCompensation: bigint;
+  /** The asset used in revenue payments to validators. */
+  rewardAsset: string;
+  /** Quotation of the reward asset. */
+  rewardQuote?: RewardQuote;
   /**
    * Specifies performance requirements for validators in scope of blocks signing and creation. If
    * not met, the validator is not rewarded.
@@ -26,6 +24,19 @@ export interface Params {
   paymentScheduleType?: PaymentScheduleType;
   /** The time window, in seconds, used to calculate the TWAP of the reward asset. */
   twapWindow: bigint;
+}
+/** Defines information about the reward quote. */
+export interface RewardQuote {
+  /**
+   * The compensation amount measured in the quote asset. The amount is divided by the price of
+   * the reward asset to determine the base revenue amount.
+   */
+  amount: bigint;
+  /**
+   * The name of the quote asset. It is used as a quote in price queries to the slinky oracle
+   * module to determine the price of the reward asset.
+   */
+  asset: string;
 }
 /**
  * A model that contains information specific to the currently active payment schedule type. The
@@ -66,7 +77,8 @@ export interface PerformanceRequirement {
 }
 function createBaseParams(): Params {
   return {
-    baseCompensation: BigInt(0),
+    rewardAsset: "",
+    rewardQuote: undefined,
     blocksPerformanceRequirement: undefined,
     oracleVotesPerformanceRequirement: undefined,
     paymentScheduleType: undefined,
@@ -76,23 +88,26 @@ function createBaseParams(): Params {
 export const Params = {
   typeUrl: "/neutron.revenue.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.baseCompensation !== BigInt(0)) {
-      writer.uint32(8).uint64(message.baseCompensation);
+    if (message.rewardAsset !== "") {
+      writer.uint32(10).string(message.rewardAsset);
+    }
+    if (message.rewardQuote !== undefined) {
+      RewardQuote.encode(message.rewardQuote, writer.uint32(18).fork()).ldelim();
     }
     if (message.blocksPerformanceRequirement !== undefined) {
-      PerformanceRequirement.encode(message.blocksPerformanceRequirement, writer.uint32(18).fork()).ldelim();
+      PerformanceRequirement.encode(message.blocksPerformanceRequirement, writer.uint32(26).fork()).ldelim();
     }
     if (message.oracleVotesPerformanceRequirement !== undefined) {
       PerformanceRequirement.encode(
         message.oracleVotesPerformanceRequirement,
-        writer.uint32(26).fork(),
+        writer.uint32(34).fork(),
       ).ldelim();
     }
     if (message.paymentScheduleType !== undefined) {
-      PaymentScheduleType.encode(message.paymentScheduleType, writer.uint32(34).fork()).ldelim();
+      PaymentScheduleType.encode(message.paymentScheduleType, writer.uint32(42).fork()).ldelim();
     }
     if (message.twapWindow !== BigInt(0)) {
-      writer.uint32(40).int64(message.twapWindow);
+      writer.uint32(48).int64(message.twapWindow);
     }
     return writer;
   },
@@ -104,18 +119,21 @@ export const Params = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.baseCompensation = reader.uint64();
+          message.rewardAsset = reader.string();
           break;
         case 2:
-          message.blocksPerformanceRequirement = PerformanceRequirement.decode(reader, reader.uint32());
+          message.rewardQuote = RewardQuote.decode(reader, reader.uint32());
           break;
         case 3:
-          message.oracleVotesPerformanceRequirement = PerformanceRequirement.decode(reader, reader.uint32());
+          message.blocksPerformanceRequirement = PerformanceRequirement.decode(reader, reader.uint32());
           break;
         case 4:
-          message.paymentScheduleType = PaymentScheduleType.decode(reader, reader.uint32());
+          message.oracleVotesPerformanceRequirement = PerformanceRequirement.decode(reader, reader.uint32());
           break;
         case 5:
+          message.paymentScheduleType = PaymentScheduleType.decode(reader, reader.uint32());
+          break;
+        case 6:
           message.twapWindow = reader.int64();
           break;
         default:
@@ -127,7 +145,8 @@ export const Params = {
   },
   fromJSON(object: any): Params {
     const obj = createBaseParams();
-    if (isSet(object.baseCompensation)) obj.baseCompensation = BigInt(object.baseCompensation.toString());
+    if (isSet(object.rewardAsset)) obj.rewardAsset = String(object.rewardAsset);
+    if (isSet(object.rewardQuote)) obj.rewardQuote = RewardQuote.fromJSON(object.rewardQuote);
     if (isSet(object.blocksPerformanceRequirement))
       obj.blocksPerformanceRequirement = PerformanceRequirement.fromJSON(object.blocksPerformanceRequirement);
     if (isSet(object.oracleVotesPerformanceRequirement))
@@ -141,8 +160,9 @@ export const Params = {
   },
   toJSON(message: Params): JsonSafe<Params> {
     const obj: any = {};
-    message.baseCompensation !== undefined &&
-      (obj.baseCompensation = (message.baseCompensation || BigInt(0)).toString());
+    message.rewardAsset !== undefined && (obj.rewardAsset = message.rewardAsset);
+    message.rewardQuote !== undefined &&
+      (obj.rewardQuote = message.rewardQuote ? RewardQuote.toJSON(message.rewardQuote) : undefined);
     message.blocksPerformanceRequirement !== undefined &&
       (obj.blocksPerformanceRequirement = message.blocksPerformanceRequirement
         ? PerformanceRequirement.toJSON(message.blocksPerformanceRequirement)
@@ -160,8 +180,9 @@ export const Params = {
   },
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
-    if (object.baseCompensation !== undefined && object.baseCompensation !== null) {
-      message.baseCompensation = BigInt(object.baseCompensation.toString());
+    message.rewardAsset = object.rewardAsset ?? "";
+    if (object.rewardQuote !== undefined && object.rewardQuote !== null) {
+      message.rewardQuote = RewardQuote.fromPartial(object.rewardQuote);
     }
     if (object.blocksPerformanceRequirement !== undefined && object.blocksPerformanceRequirement !== null) {
       message.blocksPerformanceRequirement = PerformanceRequirement.fromPartial(
@@ -182,6 +203,64 @@ export const Params = {
     if (object.twapWindow !== undefined && object.twapWindow !== null) {
       message.twapWindow = BigInt(object.twapWindow.toString());
     }
+    return message;
+  },
+};
+function createBaseRewardQuote(): RewardQuote {
+  return {
+    amount: BigInt(0),
+    asset: "",
+  };
+}
+export const RewardQuote = {
+  typeUrl: "/neutron.revenue.RewardQuote",
+  encode(message: RewardQuote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.amount !== BigInt(0)) {
+      writer.uint32(8).uint64(message.amount);
+    }
+    if (message.asset !== "") {
+      writer.uint32(18).string(message.asset);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): RewardQuote {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseRewardQuote();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.amount = reader.uint64();
+          break;
+        case 2:
+          message.asset = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): RewardQuote {
+    const obj = createBaseRewardQuote();
+    if (isSet(object.amount)) obj.amount = BigInt(object.amount.toString());
+    if (isSet(object.asset)) obj.asset = String(object.asset);
+    return obj;
+  },
+  toJSON(message: RewardQuote): JsonSafe<RewardQuote> {
+    const obj: any = {};
+    message.amount !== undefined && (obj.amount = (message.amount || BigInt(0)).toString());
+    message.asset !== undefined && (obj.asset = message.asset);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<RewardQuote>, I>>(object: I): RewardQuote {
+    const message = createBaseRewardQuote();
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = BigInt(object.amount.toString());
+    }
+    message.asset = object.asset ?? "";
     return message;
   },
 };

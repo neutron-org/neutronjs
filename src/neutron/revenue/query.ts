@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { Params } from "./params";
 import { PaymentSchedule, ValidatorInfo } from "./genesis";
+import { Coin } from "../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { JsonSafe } from "../../json-safe";
 import { DeepPartial, Exact, isSet } from "../../helpers";
@@ -21,19 +22,17 @@ export interface QueryPaymentInfoResponse {
   paymentSchedule: PaymentSchedule;
   /** Revenue amount multiplier value that corresponds to the effective payment period progress. */
   effectivePeriodProgress: string;
-  /** The denom used in revenue payments. */
-  rewardDenom: string;
   /**
-   * The current TWAP of the reward denom in USD. Is calculated as:
+   * The current TWAP of the reward asset in quote asset. Is calculated as:
    * twap_from_time_t(n)_to_time_t(m) = (cumulative_price_at_t(n) - cumulative_price_at_t(m)) / (t(n) - t(m))
    */
-  rewardDenomTwap: string;
+  rewardAssetTwap: string;
   /**
-   * The current evaluation of the base revenue amount. This whole amount will be paid to the
-   * validators with impeccable performance (at least as good as allowed_to_miss). For the others
-   * this amount will be multiplied by their performance rating.
+   * The current evaluation of the base revenue amount. This is the maximum amount a validator can
+   * receive in the current price condition if not affected with reducing factors (e.g. imperfect
+   * performance, incomplete payment period, partial validator set presence).
    */
-  baseRevenueAmount: string;
+  baseRevenueAmount: Coin;
 }
 /** Request type for the Query/ValidatorStats RPC method. */
 export interface QueryValidatorStatsRequest {
@@ -62,10 +61,10 @@ export interface ValidatorStats {
   performanceRating: string;
   /**
    * Contains expected revenue for the validator based on their performance rating in the current
-   * payment period, current reward denom TWAP, and duration of validator's presence in the active
+   * payment period, current reward asset TWAP, and duration of validator's presence in the active
    * validator set. Does not take into account effective payment period progress.
    */
-  expectedRevenue: string;
+  expectedRevenue: Coin;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -189,9 +188,8 @@ function createBaseQueryPaymentInfoResponse(): QueryPaymentInfoResponse {
   return {
     paymentSchedule: PaymentSchedule.fromPartial({}),
     effectivePeriodProgress: "",
-    rewardDenom: "",
-    rewardDenomTwap: "",
-    baseRevenueAmount: "",
+    rewardAssetTwap: "",
+    baseRevenueAmount: Coin.fromPartial({}),
   };
 }
 export const QueryPaymentInfoResponse = {
@@ -203,14 +201,11 @@ export const QueryPaymentInfoResponse = {
     if (message.effectivePeriodProgress !== "") {
       writer.uint32(18).string(Decimal.fromUserInput(message.effectivePeriodProgress, 18).atomics);
     }
-    if (message.rewardDenom !== "") {
-      writer.uint32(26).string(message.rewardDenom);
+    if (message.rewardAssetTwap !== "") {
+      writer.uint32(26).string(Decimal.fromUserInput(message.rewardAssetTwap, 18).atomics);
     }
-    if (message.rewardDenomTwap !== "") {
-      writer.uint32(34).string(Decimal.fromUserInput(message.rewardDenomTwap, 18).atomics);
-    }
-    if (message.baseRevenueAmount !== "") {
-      writer.uint32(42).string(message.baseRevenueAmount);
+    if (message.baseRevenueAmount !== undefined) {
+      Coin.encode(message.baseRevenueAmount, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -228,13 +223,10 @@ export const QueryPaymentInfoResponse = {
           message.effectivePeriodProgress = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.rewardDenom = reader.string();
+          message.rewardAssetTwap = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.rewardDenomTwap = Decimal.fromAtomics(reader.string(), 18).toString();
-          break;
-        case 5:
-          message.baseRevenueAmount = reader.string();
+          message.baseRevenueAmount = Coin.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -248,9 +240,8 @@ export const QueryPaymentInfoResponse = {
     if (isSet(object.paymentSchedule)) obj.paymentSchedule = PaymentSchedule.fromJSON(object.paymentSchedule);
     if (isSet(object.effectivePeriodProgress))
       obj.effectivePeriodProgress = String(object.effectivePeriodProgress);
-    if (isSet(object.rewardDenom)) obj.rewardDenom = String(object.rewardDenom);
-    if (isSet(object.rewardDenomTwap)) obj.rewardDenomTwap = String(object.rewardDenomTwap);
-    if (isSet(object.baseRevenueAmount)) obj.baseRevenueAmount = String(object.baseRevenueAmount);
+    if (isSet(object.rewardAssetTwap)) obj.rewardAssetTwap = String(object.rewardAssetTwap);
+    if (isSet(object.baseRevenueAmount)) obj.baseRevenueAmount = Coin.fromJSON(object.baseRevenueAmount);
     return obj;
   },
   toJSON(message: QueryPaymentInfoResponse): JsonSafe<QueryPaymentInfoResponse> {
@@ -261,9 +252,11 @@ export const QueryPaymentInfoResponse = {
         : undefined);
     message.effectivePeriodProgress !== undefined &&
       (obj.effectivePeriodProgress = message.effectivePeriodProgress);
-    message.rewardDenom !== undefined && (obj.rewardDenom = message.rewardDenom);
-    message.rewardDenomTwap !== undefined && (obj.rewardDenomTwap = message.rewardDenomTwap);
-    message.baseRevenueAmount !== undefined && (obj.baseRevenueAmount = message.baseRevenueAmount);
+    message.rewardAssetTwap !== undefined && (obj.rewardAssetTwap = message.rewardAssetTwap);
+    message.baseRevenueAmount !== undefined &&
+      (obj.baseRevenueAmount = message.baseRevenueAmount
+        ? Coin.toJSON(message.baseRevenueAmount)
+        : undefined);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<QueryPaymentInfoResponse>, I>>(
@@ -274,9 +267,10 @@ export const QueryPaymentInfoResponse = {
       message.paymentSchedule = PaymentSchedule.fromPartial(object.paymentSchedule);
     }
     message.effectivePeriodProgress = object.effectivePeriodProgress ?? "";
-    message.rewardDenom = object.rewardDenom ?? "";
-    message.rewardDenomTwap = object.rewardDenomTwap ?? "";
-    message.baseRevenueAmount = object.baseRevenueAmount ?? "";
+    message.rewardAssetTwap = object.rewardAssetTwap ?? "";
+    if (object.baseRevenueAmount !== undefined && object.baseRevenueAmount !== null) {
+      message.baseRevenueAmount = Coin.fromPartial(object.baseRevenueAmount);
+    }
     return message;
   },
 };
@@ -473,7 +467,7 @@ function createBaseValidatorStats(): ValidatorStats {
     validatorInfo: ValidatorInfo.fromPartial({}),
     totalProducedBlocksInPeriod: BigInt(0),
     performanceRating: "",
-    expectedRevenue: "",
+    expectedRevenue: Coin.fromPartial({}),
   };
 }
 export const ValidatorStats = {
@@ -488,8 +482,8 @@ export const ValidatorStats = {
     if (message.performanceRating !== "") {
       writer.uint32(26).string(Decimal.fromUserInput(message.performanceRating, 18).atomics);
     }
-    if (message.expectedRevenue !== "") {
-      writer.uint32(34).string(message.expectedRevenue);
+    if (message.expectedRevenue !== undefined) {
+      Coin.encode(message.expectedRevenue, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -510,7 +504,7 @@ export const ValidatorStats = {
           message.performanceRating = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.expectedRevenue = reader.string();
+          message.expectedRevenue = Coin.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -525,7 +519,7 @@ export const ValidatorStats = {
     if (isSet(object.totalProducedBlocksInPeriod))
       obj.totalProducedBlocksInPeriod = BigInt(object.totalProducedBlocksInPeriod.toString());
     if (isSet(object.performanceRating)) obj.performanceRating = String(object.performanceRating);
-    if (isSet(object.expectedRevenue)) obj.expectedRevenue = String(object.expectedRevenue);
+    if (isSet(object.expectedRevenue)) obj.expectedRevenue = Coin.fromJSON(object.expectedRevenue);
     return obj;
   },
   toJSON(message: ValidatorStats): JsonSafe<ValidatorStats> {
@@ -535,7 +529,8 @@ export const ValidatorStats = {
     message.totalProducedBlocksInPeriod !== undefined &&
       (obj.totalProducedBlocksInPeriod = (message.totalProducedBlocksInPeriod || BigInt(0)).toString());
     message.performanceRating !== undefined && (obj.performanceRating = message.performanceRating);
-    message.expectedRevenue !== undefined && (obj.expectedRevenue = message.expectedRevenue);
+    message.expectedRevenue !== undefined &&
+      (obj.expectedRevenue = message.expectedRevenue ? Coin.toJSON(message.expectedRevenue) : undefined);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<ValidatorStats>, I>>(object: I): ValidatorStats {
@@ -547,7 +542,9 @@ export const ValidatorStats = {
       message.totalProducedBlocksInPeriod = BigInt(object.totalProducedBlocksInPeriod.toString());
     }
     message.performanceRating = object.performanceRating ?? "";
-    message.expectedRevenue = object.expectedRevenue ?? "";
+    if (object.expectedRevenue !== undefined && object.expectedRevenue !== null) {
+      message.expectedRevenue = Coin.fromPartial(object.expectedRevenue);
+    }
     return message;
   },
 };
