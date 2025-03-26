@@ -16,8 +16,6 @@ export interface GenesisState {
   paymentSchedule?: PaymentSchedule;
   /** Revenue module list of validators. */
   validators: ValidatorInfo[];
-  /** Prices of the reward denom. Used to calculate the reward denom TWAP. */
-  prices: RewardAssetPrice[];
 }
 /**
  * A model that contains information specific to the currently active payment schedule. The oneof
@@ -76,7 +74,7 @@ export interface RewardAssetPrice {
    * `cumulative_price_at_timestamp_t(n)` = `last_price_at_t(n-1)` * (t(n) - t(n-1)) + `cumulative_price_at_timestamp_t(n-1)`
    */
   cumulativePrice: string;
-  /** The price of the asset in USD that corresponds to the timestamp. */
+  /** The price of the reward asset in reward quote asset that corresponds to the timestamp. */
   absolutePrice: string;
   /** The timestamp of the last update of the absolute and cumulative price. */
   timestamp: bigint;
@@ -86,7 +84,6 @@ function createBaseGenesisState(): GenesisState {
     params: Params.fromPartial({}),
     paymentSchedule: undefined,
     validators: [],
-    prices: [],
   };
 }
 export const GenesisState = {
@@ -100,9 +97,6 @@ export const GenesisState = {
     }
     for (const v of message.validators) {
       ValidatorInfo.encode(v!, writer.uint32(26).fork()).ldelim();
-    }
-    for (const v of message.prices) {
-      RewardAssetPrice.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -122,9 +116,6 @@ export const GenesisState = {
         case 3:
           message.validators.push(ValidatorInfo.decode(reader, reader.uint32()));
           break;
-        case 4:
-          message.prices.push(RewardAssetPrice.decode(reader, reader.uint32()));
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -138,8 +129,6 @@ export const GenesisState = {
     if (isSet(object.paymentSchedule)) obj.paymentSchedule = PaymentSchedule.fromJSON(object.paymentSchedule);
     if (Array.isArray(object?.validators))
       obj.validators = object.validators.map((e: any) => ValidatorInfo.fromJSON(e));
-    if (Array.isArray(object?.prices))
-      obj.prices = object.prices.map((e: any) => RewardAssetPrice.fromJSON(e));
     return obj;
   },
   toJSON(message: GenesisState): JsonSafe<GenesisState> {
@@ -154,11 +143,6 @@ export const GenesisState = {
     } else {
       obj.validators = [];
     }
-    if (message.prices) {
-      obj.prices = message.prices.map((e) => (e ? RewardAssetPrice.toJSON(e) : undefined));
-    } else {
-      obj.prices = [];
-    }
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
@@ -170,7 +154,6 @@ export const GenesisState = {
       message.paymentSchedule = PaymentSchedule.fromPartial(object.paymentSchedule);
     }
     message.validators = object.validators?.map((e) => ValidatorInfo.fromPartial(e)) || [];
-    message.prices = object.prices?.map((e) => RewardAssetPrice.fromPartial(e)) || [];
     return message;
   },
 };
