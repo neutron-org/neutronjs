@@ -6,7 +6,12 @@ import { Decimal } from "@cosmjs/math";
 export const protobufPackage = "neutron.revenue";
 /** Defines the parameters for the module. */
 export interface Params {
-  /** The asset used in revenue payments to validators. */
+  /**
+   * The asset used in revenue payments to validators. Expected to be a native token of the chain
+   * with its denom metadata registered in the bank module. The denom metadata must have a defined
+   * symbol field and contain a denom unit with an alias equal to the symbol and a specified
+   * exponent.
+   */
   rewardAsset: string;
   /** Quotation of the reward asset. */
   rewardQuote?: RewardQuote;
