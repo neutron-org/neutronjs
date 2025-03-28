@@ -1,39 +1,28 @@
 /* eslint-disable */
 import { Params } from "./params";
+import { Coin } from "../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
-export const protobufPackage = "neutron.contractmanager";
-/**
- * MsgUpdateParams is the MsgUpdateParams request type.
- *
- * Since: 0.47
- */
+export const protobufPackage = "neutron.revenue";
+/** Request type for the Msg/UpdateParams RPC method. */
 export interface MsgUpdateParams {
-  /** Authority is the address of the governance account. */
+  /** The address of the authority of the module. */
   authority: string;
-  /**
-   * params defines the x/contractmanager parameters to update.
-   *
-   * NOTE: All parameters must be supplied.
-   */
+  /** The new parameters of the module. All parameters must be supplied. */
   params: Params;
 }
-/**
- * MsgUpdateParamsResponse defines the response structure for executing a
- * MsgUpdateParams message.
- *
- * Since: 0.47
- */
+/** Response type for the Msg/UpdateParams RPC method. */
 export interface MsgUpdateParamsResponse {}
-/** MsgResubmitFailure - contract that has failed acknowledgement can resubmit its failure */
-export interface MsgResubmitFailure {
-  /** sender is the contract which failure to acknowledge is resubmitted. */
+/** Request type for the Msg/FundTreasury RPC method. */
+export interface MsgFundTreasury {
+  /** The signer of the message. */
   sender: string;
-  /** failure_id is id of failure to resubmit */
-  failureId: bigint;
+  /** The amount of coins to fund the revenue treasury pool with. Must match the reward asset denom. */
+  amount: Coin[];
 }
-export interface MsgResubmitFailureResponse {}
+/** Response type for the Msg/FundTreasury RPC method. */
+export interface MsgFundTreasuryResponse {}
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -41,7 +30,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
   };
 }
 export const MsgUpdateParams = {
-  typeUrl: "/neutron.contractmanager.MsgUpdateParams",
+  typeUrl: "/neutron.revenue.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
@@ -96,7 +85,7 @@ function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
 export const MsgUpdateParamsResponse = {
-  typeUrl: "/neutron.contractmanager.MsgUpdateParamsResponse",
+  typeUrl: "/neutron.revenue.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -127,27 +116,27 @@ export const MsgUpdateParamsResponse = {
     return message;
   },
 };
-function createBaseMsgResubmitFailure(): MsgResubmitFailure {
+function createBaseMsgFundTreasury(): MsgFundTreasury {
   return {
     sender: "",
-    failureId: BigInt(0),
+    amount: [],
   };
 }
-export const MsgResubmitFailure = {
-  typeUrl: "/neutron.contractmanager.MsgResubmitFailure",
-  encode(message: MsgResubmitFailure, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+export const MsgFundTreasury = {
+  typeUrl: "/neutron.revenue.MsgFundTreasury",
+  encode(message: MsgFundTreasury, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
-    if (message.failureId !== BigInt(0)) {
-      writer.uint32(16).uint64(message.failureId);
+    for (const v of message.amount) {
+      Coin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgResubmitFailure {
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgFundTreasury {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgResubmitFailure();
+    const message = createBaseMsgFundTreasury();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -155,7 +144,7 @@ export const MsgResubmitFailure = {
           message.sender = reader.string();
           break;
         case 2:
-          message.failureId = reader.uint64();
+          message.amount.push(Coin.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -164,39 +153,41 @@ export const MsgResubmitFailure = {
     }
     return message;
   },
-  fromJSON(object: any): MsgResubmitFailure {
-    const obj = createBaseMsgResubmitFailure();
+  fromJSON(object: any): MsgFundTreasury {
+    const obj = createBaseMsgFundTreasury();
     if (isSet(object.sender)) obj.sender = String(object.sender);
-    if (isSet(object.failureId)) obj.failureId = BigInt(object.failureId.toString());
+    if (Array.isArray(object?.amount)) obj.amount = object.amount.map((e: any) => Coin.fromJSON(e));
     return obj;
   },
-  toJSON(message: MsgResubmitFailure): JsonSafe<MsgResubmitFailure> {
+  toJSON(message: MsgFundTreasury): JsonSafe<MsgFundTreasury> {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = message.sender);
-    message.failureId !== undefined && (obj.failureId = (message.failureId || BigInt(0)).toString());
+    if (message.amount) {
+      obj.amount = message.amount.map((e) => (e ? Coin.toJSON(e) : undefined));
+    } else {
+      obj.amount = [];
+    }
     return obj;
   },
-  fromPartial<I extends Exact<DeepPartial<MsgResubmitFailure>, I>>(object: I): MsgResubmitFailure {
-    const message = createBaseMsgResubmitFailure();
+  fromPartial<I extends Exact<DeepPartial<MsgFundTreasury>, I>>(object: I): MsgFundTreasury {
+    const message = createBaseMsgFundTreasury();
     message.sender = object.sender ?? "";
-    if (object.failureId !== undefined && object.failureId !== null) {
-      message.failureId = BigInt(object.failureId.toString());
-    }
+    message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
-function createBaseMsgResubmitFailureResponse(): MsgResubmitFailureResponse {
+function createBaseMsgFundTreasuryResponse(): MsgFundTreasuryResponse {
   return {};
 }
-export const MsgResubmitFailureResponse = {
-  typeUrl: "/neutron.contractmanager.MsgResubmitFailureResponse",
-  encode(_: MsgResubmitFailureResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+export const MsgFundTreasuryResponse = {
+  typeUrl: "/neutron.revenue.MsgFundTreasuryResponse",
+  encode(_: MsgFundTreasuryResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgResubmitFailureResponse {
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgFundTreasuryResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgResubmitFailureResponse();
+    const message = createBaseMsgFundTreasuryResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -207,16 +198,16 @@ export const MsgResubmitFailureResponse = {
     }
     return message;
   },
-  fromJSON(_: any): MsgResubmitFailureResponse {
-    const obj = createBaseMsgResubmitFailureResponse();
+  fromJSON(_: any): MsgFundTreasuryResponse {
+    const obj = createBaseMsgFundTreasuryResponse();
     return obj;
   },
-  toJSON(_: MsgResubmitFailureResponse): JsonSafe<MsgResubmitFailureResponse> {
+  toJSON(_: MsgFundTreasuryResponse): JsonSafe<MsgFundTreasuryResponse> {
     const obj: any = {};
     return obj;
   },
-  fromPartial<I extends Exact<DeepPartial<MsgResubmitFailureResponse>, I>>(_: I): MsgResubmitFailureResponse {
-    const message = createBaseMsgResubmitFailureResponse();
+  fromPartial<I extends Exact<DeepPartial<MsgFundTreasuryResponse>, I>>(_: I): MsgFundTreasuryResponse {
+    const message = createBaseMsgFundTreasuryResponse();
     return message;
   },
 };

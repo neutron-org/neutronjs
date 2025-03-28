@@ -41,16 +41,35 @@ export interface QueryDenomsFromCreatorRequest {
 export interface QueryDenomsFromCreatorResponse {
   denoms: string[];
 }
+/**
+ * QueryBeforeSendHookAddressRequest defines the request structure for the
+ * BeforeSendHookAddress gRPC query.
+ */
 export interface QueryBeforeSendHookAddressRequest {
   creator: string;
   subdenom: string;
 }
 /**
  * QueryBeforeSendHookAddressResponse defines the response structure for the
- * DenomBeforeSendHook gRPC query.
+ * BeforeSendHookAddress gRPC query.
  */
 export interface QueryBeforeSendHookAddressResponse {
   contractAddr: string;
+}
+/**
+ * QueryFullDenomRequest defines the request structure for the
+ * FullDenom gRPC query.
+ */
+export interface QueryFullDenomRequest {
+  creator: string;
+  subdenom: string;
+}
+/**
+ * QueryFullDenomResponse defines the response structure for the
+ * FullDenom gRPC query.
+ */
+export interface QueryFullDenomResponse {
+  fullDenom: string;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -465,6 +484,108 @@ export const QueryBeforeSendHookAddressResponse = {
   ): QueryBeforeSendHookAddressResponse {
     const message = createBaseQueryBeforeSendHookAddressResponse();
     message.contractAddr = object.contractAddr ?? "";
+    return message;
+  },
+};
+function createBaseQueryFullDenomRequest(): QueryFullDenomRequest {
+  return {
+    creator: "",
+    subdenom: "",
+  };
+}
+export const QueryFullDenomRequest = {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.QueryFullDenomRequest",
+  encode(message: QueryFullDenomRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.subdenom !== "") {
+      writer.uint32(18).string(message.subdenom);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryFullDenomRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFullDenomRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.subdenom = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QueryFullDenomRequest {
+    const obj = createBaseQueryFullDenomRequest();
+    if (isSet(object.creator)) obj.creator = String(object.creator);
+    if (isSet(object.subdenom)) obj.subdenom = String(object.subdenom);
+    return obj;
+  },
+  toJSON(message: QueryFullDenomRequest): JsonSafe<QueryFullDenomRequest> {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.subdenom !== undefined && (obj.subdenom = message.subdenom);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryFullDenomRequest>, I>>(object: I): QueryFullDenomRequest {
+    const message = createBaseQueryFullDenomRequest();
+    message.creator = object.creator ?? "";
+    message.subdenom = object.subdenom ?? "";
+    return message;
+  },
+};
+function createBaseQueryFullDenomResponse(): QueryFullDenomResponse {
+  return {
+    fullDenom: "",
+  };
+}
+export const QueryFullDenomResponse = {
+  typeUrl: "/osmosis.tokenfactory.v1beta1.QueryFullDenomResponse",
+  encode(message: QueryFullDenomResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.fullDenom !== "") {
+      writer.uint32(10).string(message.fullDenom);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryFullDenomResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFullDenomResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.fullDenom = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QueryFullDenomResponse {
+    const obj = createBaseQueryFullDenomResponse();
+    if (isSet(object.fullDenom)) obj.fullDenom = String(object.fullDenom);
+    return obj;
+  },
+  toJSON(message: QueryFullDenomResponse): JsonSafe<QueryFullDenomResponse> {
+    const obj: any = {};
+    message.fullDenom !== undefined && (obj.fullDenom = message.fullDenom);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryFullDenomResponse>, I>>(object: I): QueryFullDenomResponse {
+    const message = createBaseQueryFullDenomResponse();
+    message.fullDenom = object.fullDenom ?? "";
     return message;
   },
 };
