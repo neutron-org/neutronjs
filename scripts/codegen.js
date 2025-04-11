@@ -45,6 +45,7 @@ telescope({
           "neutron/transfer/v1/query.proto",
           "slinky/abci/v1/vote_extensions.proto",
           "slinky/marketmap/v1/tx.proto",
+          "slinky/oracle/v1/query.proto",
         ],
         packages: ["google.api"],
       },

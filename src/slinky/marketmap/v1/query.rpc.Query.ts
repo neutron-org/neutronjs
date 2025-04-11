@@ -5,6 +5,8 @@ import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   MarketMapRequest,
   MarketMapResponse,
+  MarketsRequest,
+  MarketsResponse,
   MarketRequest,
   MarketResponse,
   LastUpdatedRequest,
@@ -16,9 +18,15 @@ import {
 export interface Query {
   /**
    * MarketMap returns the full market map stored in the x/marketmap
-   * module.
+   * module.  NOTE: the value returned by this query is not safe for on-chain
+   * code.
    */
   marketMap(request?: MarketMapRequest): Promise<MarketMapResponse>;
+  /**
+   * Market returns all stored in the x/marketmap
+   * module as a sorted list.
+   */
+  markets(request?: MarketsRequest): Promise<MarketsResponse>;
   /**
    * Market returns a market stored in the x/marketmap
    * module.
@@ -34,6 +42,7 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.marketMap = this.marketMap.bind(this);
+    this.markets = this.markets.bind(this);
     this.market = this.market.bind(this);
     this.lastUpdated = this.lastUpdated.bind(this);
     this.params = this.params.bind(this);
@@ -42,6 +51,11 @@ export class QueryClientImpl implements Query {
     const data = MarketMapRequest.encode(request).finish();
     const promise = this.rpc.request("slinky.marketmap.v1.Query", "MarketMap", data);
     return promise.then((data) => MarketMapResponse.decode(new BinaryReader(data)));
+  }
+  markets(request: MarketsRequest = {}): Promise<MarketsResponse> {
+    const data = MarketsRequest.encode(request).finish();
+    const promise = this.rpc.request("slinky.marketmap.v1.Query", "Markets", data);
+    return promise.then((data) => MarketsResponse.decode(new BinaryReader(data)));
   }
   market(request: MarketRequest): Promise<MarketResponse> {
     const data = MarketRequest.encode(request).finish();
@@ -65,6 +79,9 @@ export const createRpcQueryExtension = (base: QueryClient) => {
   return {
     marketMap(request?: MarketMapRequest): Promise<MarketMapResponse> {
       return queryService.marketMap(request);
+    },
+    markets(request?: MarketsRequest): Promise<MarketsResponse> {
+      return queryService.markets(request);
     },
     market(request: MarketRequest): Promise<MarketResponse> {
       return queryService.market(request);
