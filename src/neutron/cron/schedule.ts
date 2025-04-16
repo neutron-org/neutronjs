@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact } from "../../helpers";
@@ -156,6 +157,40 @@ export const Schedule = {
     message.executionStage = object.executionStage ?? 0;
     return message;
   },
+  fromAmino(object: ScheduleAmino): Schedule {
+    const message = createBaseSchedule();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.period !== undefined && object.period !== null) {
+      message.period = BigInt(object.period);
+    }
+    message.msgs = object.msgs?.map((e) => MsgExecuteContract.fromAmino(e)) || [];
+    if (object.last_execute_height !== undefined && object.last_execute_height !== null) {
+      message.lastExecuteHeight = BigInt(object.last_execute_height);
+    }
+    if (object.execution_stage !== undefined && object.execution_stage !== null) {
+      message.executionStage = object.execution_stage;
+    }
+    return message;
+  },
+  toAmino(message: Schedule): ScheduleAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.period = message.period !== BigInt(0) ? message.period?.toString() : undefined;
+    if (message.msgs) {
+      obj.msgs = message.msgs.map((e) => (e ? MsgExecuteContract.toAmino(e) : undefined));
+    } else {
+      obj.msgs = message.msgs;
+    }
+    obj.last_execute_height =
+      message.lastExecuteHeight !== BigInt(0) ? message.lastExecuteHeight?.toString() : undefined;
+    obj.execution_stage = message.executionStage === 0 ? undefined : message.executionStage;
+    return obj;
+  },
+  fromAminoMsg(object: ScheduleAminoMsg): Schedule {
+    return Schedule.fromAmino(object.value);
+  },
 };
 function createBaseMsgExecuteContract(): MsgExecuteContract {
   return {
@@ -212,6 +247,25 @@ export const MsgExecuteContract = {
     message.msg = object.msg ?? "";
     return message;
   },
+  fromAmino(object: MsgExecuteContractAmino): MsgExecuteContract {
+    const message = createBaseMsgExecuteContract();
+    if (object.contract !== undefined && object.contract !== null) {
+      message.contract = object.contract;
+    }
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = object.msg;
+    }
+    return message;
+  },
+  toAmino(message: MsgExecuteContract): MsgExecuteContractAmino {
+    const obj: any = {};
+    obj.contract = message.contract === "" ? undefined : message.contract;
+    obj.msg = message.msg === "" ? undefined : message.msg;
+    return obj;
+  },
+  fromAminoMsg(object: MsgExecuteContractAminoMsg): MsgExecuteContract {
+    return MsgExecuteContract.fromAmino(object.value);
+  },
 };
 function createBaseScheduleCount(): ScheduleCount {
   return {
@@ -257,5 +311,20 @@ export const ScheduleCount = {
     const message = createBaseScheduleCount();
     message.count = object.count ?? 0;
     return message;
+  },
+  fromAmino(object: ScheduleCountAmino): ScheduleCount {
+    const message = createBaseScheduleCount();
+    if (object.count !== undefined && object.count !== null) {
+      message.count = object.count;
+    }
+    return message;
+  },
+  toAmino(message: ScheduleCount): ScheduleCountAmino {
+    const obj: any = {};
+    obj.count = message.count === 0 ? undefined : message.count;
+    return obj;
+  },
+  fromAminoMsg(object: ScheduleCountAminoMsg): ScheduleCount {
+    return ScheduleCount.fromAmino(object.value);
   },
 };

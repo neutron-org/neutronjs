@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Duration } from "../../../../google/protobuf/duration";
 import { Height } from "../../../core/client/v1/client";
@@ -283,6 +284,76 @@ export const ClientState = {
     message.allowUpdateAfterMisbehaviour = object.allowUpdateAfterMisbehaviour ?? false;
     return message;
   },
+  fromAmino(object: ClientStateAmino): ClientState {
+    const message = createBaseClientState();
+    if (object.chain_id !== undefined && object.chain_id !== null) {
+      message.chainId = object.chain_id;
+    }
+    if (object.trust_level !== undefined && object.trust_level !== null) {
+      message.trustLevel = Fraction.fromAmino(object.trust_level);
+    }
+    if (object.trusting_period !== undefined && object.trusting_period !== null) {
+      message.trustingPeriod = Duration.fromAmino(object.trusting_period);
+    }
+    if (object.unbonding_period !== undefined && object.unbonding_period !== null) {
+      message.unbondingPeriod = Duration.fromAmino(object.unbonding_period);
+    }
+    if (object.max_clock_drift !== undefined && object.max_clock_drift !== null) {
+      message.maxClockDrift = Duration.fromAmino(object.max_clock_drift);
+    }
+    if (object.frozen_height !== undefined && object.frozen_height !== null) {
+      message.frozenHeight = Height.fromAmino(object.frozen_height);
+    }
+    if (object.latest_height !== undefined && object.latest_height !== null) {
+      message.latestHeight = Height.fromAmino(object.latest_height);
+    }
+    message.proofSpecs = object.proof_specs?.map((e) => ProofSpec.fromAmino(e)) || [];
+    message.upgradePath = object.upgrade_path?.map((e) => e) || [];
+    if (object.allow_update_after_expiry !== undefined && object.allow_update_after_expiry !== null) {
+      message.allowUpdateAfterExpiry = object.allow_update_after_expiry;
+    }
+    if (
+      object.allow_update_after_misbehaviour !== undefined &&
+      object.allow_update_after_misbehaviour !== null
+    ) {
+      message.allowUpdateAfterMisbehaviour = object.allow_update_after_misbehaviour;
+    }
+    return message;
+  },
+  toAmino(message: ClientState): ClientStateAmino {
+    const obj: any = {};
+    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
+    obj.trust_level = message.trustLevel ? Fraction.toAmino(message.trustLevel) : undefined;
+    obj.trusting_period = message.trustingPeriod ? Duration.toAmino(message.trustingPeriod) : undefined;
+    obj.unbonding_period = message.unbondingPeriod ? Duration.toAmino(message.unbondingPeriod) : undefined;
+    obj.max_clock_drift = message.maxClockDrift ? Duration.toAmino(message.maxClockDrift) : undefined;
+    obj.frozen_height = message.frozenHeight ? Height.toAmino(message.frozenHeight) : {};
+    obj.latest_height = message.latestHeight ? Height.toAmino(message.latestHeight) : {};
+    if (message.proofSpecs) {
+      obj.proof_specs = message.proofSpecs.map((e) => (e ? ProofSpec.toAmino(e) : undefined));
+    } else {
+      obj.proof_specs = message.proofSpecs;
+    }
+    if (message.upgradePath) {
+      obj.upgrade_path = message.upgradePath.map((e) => e);
+    } else {
+      obj.upgrade_path = message.upgradePath;
+    }
+    obj.allow_update_after_expiry =
+      message.allowUpdateAfterExpiry === false ? undefined : message.allowUpdateAfterExpiry;
+    obj.allow_update_after_misbehaviour =
+      message.allowUpdateAfterMisbehaviour === false ? undefined : message.allowUpdateAfterMisbehaviour;
+    return obj;
+  },
+  fromAminoMsg(object: ClientStateAminoMsg): ClientState {
+    return ClientState.fromAmino(object.value);
+  },
+  toAminoMsg(message: ClientState): ClientStateAminoMsg {
+    return {
+      type: "cosmos-sdk/ClientState",
+      value: ClientState.toAmino(message),
+    };
+  },
 };
 function createBaseConsensusState(): ConsensusState {
   return {
@@ -356,6 +427,37 @@ export const ConsensusState = {
     message.nextValidatorsHash = object.nextValidatorsHash ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: ConsensusStateAmino): ConsensusState {
+    const message = createBaseConsensusState();
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Timestamp.fromAmino(object.timestamp);
+    }
+    if (object.root !== undefined && object.root !== null) {
+      message.root = MerkleRoot.fromAmino(object.root);
+    }
+    if (object.next_validators_hash !== undefined && object.next_validators_hash !== null) {
+      message.nextValidatorsHash = bytesFromBase64(object.next_validators_hash);
+    }
+    return message;
+  },
+  toAmino(message: ConsensusState): ConsensusStateAmino {
+    const obj: any = {};
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
+    obj.root = message.root ? MerkleRoot.toAmino(message.root) : undefined;
+    obj.next_validators_hash = message.nextValidatorsHash
+      ? base64FromBytes(message.nextValidatorsHash)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ConsensusStateAminoMsg): ConsensusState {
+    return ConsensusState.fromAmino(object.value);
+  },
+  toAminoMsg(message: ConsensusState): ConsensusStateAminoMsg {
+    return {
+      type: "cosmos-sdk/ConsensusState",
+      value: ConsensusState.toAmino(message),
+    };
+  },
 };
 function createBaseMisbehaviour(): Misbehaviour {
   return {
@@ -427,6 +529,35 @@ export const Misbehaviour = {
       message.header2 = Header.fromPartial(object.header2);
     }
     return message;
+  },
+  fromAmino(object: MisbehaviourAmino): Misbehaviour {
+    const message = createBaseMisbehaviour();
+    if (object.client_id !== undefined && object.client_id !== null) {
+      message.clientId = object.client_id;
+    }
+    if (object.header_1 !== undefined && object.header_1 !== null) {
+      message.header1 = Header.fromAmino(object.header_1);
+    }
+    if (object.header_2 !== undefined && object.header_2 !== null) {
+      message.header2 = Header.fromAmino(object.header_2);
+    }
+    return message;
+  },
+  toAmino(message: Misbehaviour): MisbehaviourAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId === "" ? undefined : message.clientId;
+    obj.header_1 = message.header1 ? Header.toAmino(message.header1) : undefined;
+    obj.header_2 = message.header2 ? Header.toAmino(message.header2) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MisbehaviourAminoMsg): Misbehaviour {
+    return Misbehaviour.fromAmino(object.value);
+  },
+  toAminoMsg(message: Misbehaviour): MisbehaviourAminoMsg {
+    return {
+      type: "cosmos-sdk/Misbehaviour",
+      value: Misbehaviour.toAmino(message),
+    };
   },
 };
 function createBaseHeader(): Header {
@@ -519,6 +650,41 @@ export const Header = {
     }
     return message;
   },
+  fromAmino(object: HeaderAmino): Header {
+    const message = createBaseHeader();
+    if (object.signed_header !== undefined && object.signed_header !== null) {
+      message.signedHeader = SignedHeader.fromAmino(object.signed_header);
+    }
+    if (object.validator_set !== undefined && object.validator_set !== null) {
+      message.validatorSet = ValidatorSet.fromAmino(object.validator_set);
+    }
+    if (object.trusted_height !== undefined && object.trusted_height !== null) {
+      message.trustedHeight = Height.fromAmino(object.trusted_height);
+    }
+    if (object.trusted_validators !== undefined && object.trusted_validators !== null) {
+      message.trustedValidators = ValidatorSet.fromAmino(object.trusted_validators);
+    }
+    return message;
+  },
+  toAmino(message: Header): HeaderAmino {
+    const obj: any = {};
+    obj.signed_header = message.signedHeader ? SignedHeader.toAmino(message.signedHeader) : undefined;
+    obj.validator_set = message.validatorSet ? ValidatorSet.toAmino(message.validatorSet) : undefined;
+    obj.trusted_height = message.trustedHeight ? Height.toAmino(message.trustedHeight) : {};
+    obj.trusted_validators = message.trustedValidators
+      ? ValidatorSet.toAmino(message.trustedValidators)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: HeaderAminoMsg): Header {
+    return Header.fromAmino(object.value);
+  },
+  toAminoMsg(message: Header): HeaderAminoMsg {
+    return {
+      type: "cosmos-sdk/Header",
+      value: Header.toAmino(message),
+    };
+  },
 };
 function createBaseFraction(): Fraction {
   return {
@@ -578,5 +744,30 @@ export const Fraction = {
       message.denominator = BigInt(object.denominator.toString());
     }
     return message;
+  },
+  fromAmino(object: FractionAmino): Fraction {
+    const message = createBaseFraction();
+    if (object.numerator !== undefined && object.numerator !== null) {
+      message.numerator = BigInt(object.numerator);
+    }
+    if (object.denominator !== undefined && object.denominator !== null) {
+      message.denominator = BigInt(object.denominator);
+    }
+    return message;
+  },
+  toAmino(message: Fraction): FractionAmino {
+    const obj: any = {};
+    obj.numerator = message.numerator !== BigInt(0) ? message.numerator?.toString() : undefined;
+    obj.denominator = message.denominator !== BigInt(0) ? message.denominator?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: FractionAminoMsg): Fraction {
+    return Fraction.fromAmino(object.value);
+  },
+  toAminoMsg(message: Fraction): FractionAminoMsg {
+    return {
+      type: "cosmos-sdk/Fraction",
+      value: Fraction.toAmino(message),
+    };
   },
 };

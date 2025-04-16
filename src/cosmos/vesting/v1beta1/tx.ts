@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Coin } from "../../base/v1beta1/coin";
 import { Period } from "./vesting";
@@ -147,6 +148,45 @@ export const MsgCreateVestingAccount = {
     message.delayed = object.delayed ?? false;
     return message;
   },
+  fromAmino(object: MsgCreateVestingAccountAmino): MsgCreateVestingAccount {
+    const message = createBaseMsgCreateVestingAccount();
+    if (object.from_address !== undefined && object.from_address !== null) {
+      message.fromAddress = object.from_address;
+    }
+    if (object.to_address !== undefined && object.to_address !== null) {
+      message.toAddress = object.to_address;
+    }
+    message.amount = object.amount?.map((e) => Coin.fromAmino(e)) || [];
+    if (object.end_time !== undefined && object.end_time !== null) {
+      message.endTime = BigInt(object.end_time);
+    }
+    if (object.delayed !== undefined && object.delayed !== null) {
+      message.delayed = object.delayed;
+    }
+    return message;
+  },
+  toAmino(message: MsgCreateVestingAccount): MsgCreateVestingAccountAmino {
+    const obj: any = {};
+    obj.from_address = message.fromAddress === "" ? undefined : message.fromAddress;
+    obj.to_address = message.toAddress === "" ? undefined : message.toAddress;
+    if (message.amount) {
+      obj.amount = message.amount.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.amount = message.amount;
+    }
+    obj.end_time = message.endTime !== BigInt(0) ? message.endTime?.toString() : undefined;
+    obj.delayed = message.delayed === false ? undefined : message.delayed;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateVestingAccountAminoMsg): MsgCreateVestingAccount {
+    return MsgCreateVestingAccount.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCreateVestingAccount): MsgCreateVestingAccountAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgCreateVestingAccount",
+      value: MsgCreateVestingAccount.toAmino(message),
+    };
+  },
 };
 function createBaseMsgCreateVestingAccountResponse(): MsgCreateVestingAccountResponse {
   return {};
@@ -183,6 +223,23 @@ export const MsgCreateVestingAccountResponse = {
   ): MsgCreateVestingAccountResponse {
     const message = createBaseMsgCreateVestingAccountResponse();
     return message;
+  },
+  fromAmino(_: MsgCreateVestingAccountResponseAmino): MsgCreateVestingAccountResponse {
+    const message = createBaseMsgCreateVestingAccountResponse();
+    return message;
+  },
+  toAmino(_: MsgCreateVestingAccountResponse): MsgCreateVestingAccountResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateVestingAccountResponseAminoMsg): MsgCreateVestingAccountResponse {
+    return MsgCreateVestingAccountResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCreateVestingAccountResponse): MsgCreateVestingAccountResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgCreateVestingAccountResponse",
+      value: MsgCreateVestingAccountResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgCreatePermanentLockedAccount(): MsgCreatePermanentLockedAccount {
@@ -259,6 +316,37 @@ export const MsgCreatePermanentLockedAccount = {
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: MsgCreatePermanentLockedAccountAmino): MsgCreatePermanentLockedAccount {
+    const message = createBaseMsgCreatePermanentLockedAccount();
+    if (object.from_address !== undefined && object.from_address !== null) {
+      message.fromAddress = object.from_address;
+    }
+    if (object.to_address !== undefined && object.to_address !== null) {
+      message.toAddress = object.to_address;
+    }
+    message.amount = object.amount?.map((e) => Coin.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: MsgCreatePermanentLockedAccount): MsgCreatePermanentLockedAccountAmino {
+    const obj: any = {};
+    obj.from_address = message.fromAddress === "" ? undefined : message.fromAddress;
+    obj.to_address = message.toAddress === "" ? undefined : message.toAddress;
+    if (message.amount) {
+      obj.amount = message.amount.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.amount = message.amount;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreatePermanentLockedAccountAminoMsg): MsgCreatePermanentLockedAccount {
+    return MsgCreatePermanentLockedAccount.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCreatePermanentLockedAccount): MsgCreatePermanentLockedAccountAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgCreatePermLockedAccount",
+      value: MsgCreatePermanentLockedAccount.toAmino(message),
+    };
+  },
 };
 function createBaseMsgCreatePermanentLockedAccountResponse(): MsgCreatePermanentLockedAccountResponse {
   return {};
@@ -298,6 +386,27 @@ export const MsgCreatePermanentLockedAccountResponse = {
   ): MsgCreatePermanentLockedAccountResponse {
     const message = createBaseMsgCreatePermanentLockedAccountResponse();
     return message;
+  },
+  fromAmino(_: MsgCreatePermanentLockedAccountResponseAmino): MsgCreatePermanentLockedAccountResponse {
+    const message = createBaseMsgCreatePermanentLockedAccountResponse();
+    return message;
+  },
+  toAmino(_: MsgCreatePermanentLockedAccountResponse): MsgCreatePermanentLockedAccountResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(
+    object: MsgCreatePermanentLockedAccountResponseAminoMsg,
+  ): MsgCreatePermanentLockedAccountResponse {
+    return MsgCreatePermanentLockedAccountResponse.fromAmino(object.value);
+  },
+  toAminoMsg(
+    message: MsgCreatePermanentLockedAccountResponse,
+  ): MsgCreatePermanentLockedAccountResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgCreatePermanentLockedAccountResponse",
+      value: MsgCreatePermanentLockedAccountResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgCreatePeriodicVestingAccount(): MsgCreatePeriodicVestingAccount {
@@ -387,6 +496,41 @@ export const MsgCreatePeriodicVestingAccount = {
     message.vestingPeriods = object.vestingPeriods?.map((e) => Period.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: MsgCreatePeriodicVestingAccountAmino): MsgCreatePeriodicVestingAccount {
+    const message = createBaseMsgCreatePeriodicVestingAccount();
+    if (object.from_address !== undefined && object.from_address !== null) {
+      message.fromAddress = object.from_address;
+    }
+    if (object.to_address !== undefined && object.to_address !== null) {
+      message.toAddress = object.to_address;
+    }
+    if (object.start_time !== undefined && object.start_time !== null) {
+      message.startTime = BigInt(object.start_time);
+    }
+    message.vestingPeriods = object.vesting_periods?.map((e) => Period.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: MsgCreatePeriodicVestingAccount): MsgCreatePeriodicVestingAccountAmino {
+    const obj: any = {};
+    obj.from_address = message.fromAddress === "" ? undefined : message.fromAddress;
+    obj.to_address = message.toAddress === "" ? undefined : message.toAddress;
+    obj.start_time = message.startTime !== BigInt(0) ? message.startTime?.toString() : undefined;
+    if (message.vestingPeriods) {
+      obj.vesting_periods = message.vestingPeriods.map((e) => (e ? Period.toAmino(e) : undefined));
+    } else {
+      obj.vesting_periods = message.vestingPeriods;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreatePeriodicVestingAccountAminoMsg): MsgCreatePeriodicVestingAccount {
+    return MsgCreatePeriodicVestingAccount.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCreatePeriodicVestingAccount): MsgCreatePeriodicVestingAccountAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgCreatePeriodVestAccount",
+      value: MsgCreatePeriodicVestingAccount.toAmino(message),
+    };
+  },
 };
 function createBaseMsgCreatePeriodicVestingAccountResponse(): MsgCreatePeriodicVestingAccountResponse {
   return {};
@@ -426,5 +570,26 @@ export const MsgCreatePeriodicVestingAccountResponse = {
   ): MsgCreatePeriodicVestingAccountResponse {
     const message = createBaseMsgCreatePeriodicVestingAccountResponse();
     return message;
+  },
+  fromAmino(_: MsgCreatePeriodicVestingAccountResponseAmino): MsgCreatePeriodicVestingAccountResponse {
+    const message = createBaseMsgCreatePeriodicVestingAccountResponse();
+    return message;
+  },
+  toAmino(_: MsgCreatePeriodicVestingAccountResponse): MsgCreatePeriodicVestingAccountResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(
+    object: MsgCreatePeriodicVestingAccountResponseAminoMsg,
+  ): MsgCreatePeriodicVestingAccountResponse {
+    return MsgCreatePeriodicVestingAccountResponse.fromAmino(object.value);
+  },
+  toAminoMsg(
+    message: MsgCreatePeriodicVestingAccountResponse,
+  ): MsgCreatePeriodicVestingAccountResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgCreatePeriodicVestingAccountResponse",
+      value: MsgCreatePeriodicVestingAccountResponse.toAmino(message),
+    };
   },
 };

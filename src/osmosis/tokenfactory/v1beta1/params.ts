@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -99,5 +100,37 @@ export const Params = {
     }
     message.feeCollectorAddress = object.feeCollectorAddress ?? "";
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    message.denomCreationFee = object.denom_creation_fee?.map((e) => Coin.fromAmino(e)) || [];
+    if (object.denom_creation_gas_consume !== undefined && object.denom_creation_gas_consume !== null) {
+      message.denomCreationGasConsume = BigInt(object.denom_creation_gas_consume);
+    }
+    if (object.fee_collector_address !== undefined && object.fee_collector_address !== null) {
+      message.feeCollectorAddress = object.fee_collector_address;
+    }
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.denomCreationFee) {
+      obj.denom_creation_fee = message.denomCreationFee.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.denom_creation_fee = message.denomCreationFee;
+    }
+    obj.denom_creation_gas_consume =
+      message.denomCreationGasConsume !== BigInt(0) ? message.denomCreationGasConsume?.toString() : undefined;
+    obj.fee_collector_address = message.feeCollectorAddress === "" ? undefined : message.feeCollectorAddress;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/params",
+      value: Params.toAmino(message),
+    };
   },
 };

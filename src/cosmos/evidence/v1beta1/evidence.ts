@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -98,5 +99,38 @@ export const Equivocation = {
     }
     message.consensusAddress = object.consensusAddress ?? "";
     return message;
+  },
+  fromAmino(object: EquivocationAmino): Equivocation {
+    const message = createBaseEquivocation();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.time !== undefined && object.time !== null) {
+      message.time = Timestamp.fromAmino(object.time);
+    }
+    if (object.power !== undefined && object.power !== null) {
+      message.power = BigInt(object.power);
+    }
+    if (object.consensus_address !== undefined && object.consensus_address !== null) {
+      message.consensusAddress = object.consensus_address;
+    }
+    return message;
+  },
+  toAmino(message: Equivocation): EquivocationAmino {
+    const obj: any = {};
+    obj.height = message.height !== BigInt(0) ? message.height?.toString() : undefined;
+    obj.time = message.time ? Timestamp.toAmino(message.time) : Timestamp.toAmino(Timestamp.fromPartial({}));
+    obj.power = message.power !== BigInt(0) ? message.power?.toString() : undefined;
+    obj.consensus_address = message.consensusAddress === "" ? undefined : message.consensusAddress;
+    return obj;
+  },
+  fromAminoMsg(object: EquivocationAminoMsg): Equivocation {
+    return Equivocation.fromAmino(object.value);
+  },
+  toAminoMsg(message: Equivocation): EquivocationAminoMsg {
+    return {
+      type: "cosmos-sdk/Equivocation",
+      value: Equivocation.toAmino(message),
+    };
   },
 };

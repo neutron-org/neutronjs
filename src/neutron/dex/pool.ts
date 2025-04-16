@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PoolReserves } from "./pool_reserves";
 import { BinaryReader, BinaryWriter } from "../../binary";
@@ -81,5 +82,28 @@ export const Pool = {
       message.upperTick1 = PoolReserves.fromPartial(object.upperTick1);
     }
     return message;
+  },
+  fromAmino(object: PoolAmino): Pool {
+    const message = createBasePool();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.lower_tick0 !== undefined && object.lower_tick0 !== null) {
+      message.lowerTick0 = PoolReserves.fromAmino(object.lower_tick0);
+    }
+    if (object.upper_tick1 !== undefined && object.upper_tick1 !== null) {
+      message.upperTick1 = PoolReserves.fromAmino(object.upper_tick1);
+    }
+    return message;
+  },
+  toAmino(message: Pool): PoolAmino {
+    const obj: any = {};
+    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
+    obj.lower_tick0 = message.lowerTick0 ? PoolReserves.toAmino(message.lowerTick0) : undefined;
+    obj.upper_tick1 = message.upperTick1 ? PoolReserves.toAmino(message.upperTick1) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PoolAminoMsg): Pool {
+    return Pool.fromAmino(object.value);
   },
 };

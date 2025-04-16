@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Header, Data, Commit } from "./types";
 import { EvidenceList } from "./evidence";
@@ -95,5 +96,32 @@ export const Block = {
       message.lastCommit = Commit.fromPartial(object.lastCommit);
     }
     return message;
+  },
+  fromAmino(object: BlockAmino): Block {
+    const message = createBaseBlock();
+    if (object.header !== undefined && object.header !== null) {
+      message.header = Header.fromAmino(object.header);
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = Data.fromAmino(object.data);
+    }
+    if (object.evidence !== undefined && object.evidence !== null) {
+      message.evidence = EvidenceList.fromAmino(object.evidence);
+    }
+    if (object.last_commit !== undefined && object.last_commit !== null) {
+      message.lastCommit = Commit.fromAmino(object.last_commit);
+    }
+    return message;
+  },
+  toAmino(message: Block): BlockAmino {
+    const obj: any = {};
+    obj.header = message.header ? Header.toAmino(message.header) : undefined;
+    obj.data = message.data ? Data.toAmino(message.data) : undefined;
+    obj.evidence = message.evidence ? EvidenceList.toAmino(message.evidence) : undefined;
+    obj.last_commit = message.lastCommit ? Commit.toAmino(message.lastCommit) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: BlockAminoMsg): Block {
+    return Block.fromAmino(object.value);
   },
 };

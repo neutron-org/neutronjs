@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
@@ -79,6 +80,31 @@ export const Coin = {
     message.amount = object.amount ?? "";
     return message;
   },
+  fromAmino(object: CoinAmino): Coin {
+    const message = createBaseCoin();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    return message;
+  },
+  toAmino(message: Coin): CoinAmino {
+    const obj: any = {};
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.amount = message.amount ?? "";
+    return obj;
+  },
+  fromAminoMsg(object: CoinAminoMsg): Coin {
+    return Coin.fromAmino(object.value);
+  },
+  toAminoMsg(message: Coin): CoinAminoMsg {
+    return {
+      type: "cosmos-sdk/Coin",
+      value: Coin.toAmino(message),
+    };
+  },
 };
 function createBaseDecCoin(): DecCoin {
   return {
@@ -134,5 +160,30 @@ export const DecCoin = {
     message.denom = object.denom ?? "";
     message.amount = object.amount ?? "";
     return message;
+  },
+  fromAmino(object: DecCoinAmino): DecCoin {
+    const message = createBaseDecCoin();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    return message;
+  },
+  toAmino(message: DecCoin): DecCoinAmino {
+    const obj: any = {};
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.amount = message.amount === "" ? undefined : message.amount;
+    return obj;
+  },
+  fromAminoMsg(object: DecCoinAminoMsg): DecCoin {
+    return DecCoin.fromAmino(object.value);
+  },
+  toAminoMsg(message: DecCoin): DecCoinAminoMsg {
+    return {
+      type: "cosmos-sdk/DecCoin",
+      value: DecCoin.toAmino(message),
+    };
   },
 };

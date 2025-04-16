@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Params } from "./genesis";
@@ -117,6 +118,37 @@ export const MsgAuctionBid = {
     message.transactions = object.transactions?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: MsgAuctionBidAmino): MsgAuctionBid {
+    const message = createBaseMsgAuctionBid();
+    if (object.bidder !== undefined && object.bidder !== null) {
+      message.bidder = object.bidder;
+    }
+    if (object.bid !== undefined && object.bid !== null) {
+      message.bid = Coin.fromAmino(object.bid);
+    }
+    message.transactions = object.transactions?.map((e) => bytesFromBase64(e)) || [];
+    return message;
+  },
+  toAmino(message: MsgAuctionBid): MsgAuctionBidAmino {
+    const obj: any = {};
+    obj.bidder = message.bidder === "" ? undefined : message.bidder;
+    obj.bid = message.bid ? Coin.toAmino(message.bid) : Coin.toAmino(Coin.fromPartial({}));
+    if (message.transactions) {
+      obj.transactions = message.transactions.map((e) => base64FromBytes(e));
+    } else {
+      obj.transactions = message.transactions;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgAuctionBidAminoMsg): MsgAuctionBid {
+    return MsgAuctionBid.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgAuctionBid): MsgAuctionBidAminoMsg {
+    return {
+      type: "block-sdk/x/auction/MsgAuctionBid",
+      value: MsgAuctionBid.toAmino(message),
+    };
+  },
 };
 function createBaseMsgAuctionBidResponse(): MsgAuctionBidResponse {
   return {};
@@ -151,6 +183,17 @@ export const MsgAuctionBidResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgAuctionBidResponse>, I>>(_: I): MsgAuctionBidResponse {
     const message = createBaseMsgAuctionBidResponse();
     return message;
+  },
+  fromAmino(_: MsgAuctionBidResponseAmino): MsgAuctionBidResponse {
+    const message = createBaseMsgAuctionBidResponse();
+    return message;
+  },
+  toAmino(_: MsgAuctionBidResponse): MsgAuctionBidResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgAuctionBidResponseAminoMsg): MsgAuctionBidResponse {
+    return MsgAuctionBidResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -210,6 +253,31 @@ export const MsgUpdateParams = {
     }
     return message;
   },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
+    return {
+      type: "block-sdk/x/auction/MsgUpdateParams",
+      value: MsgUpdateParams.toAmino(message),
+    };
+  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -244,5 +312,16 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
   },
 };

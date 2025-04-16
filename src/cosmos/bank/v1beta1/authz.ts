@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Coin } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -83,5 +84,34 @@ export const SendAuthorization = {
     message.spendLimit = object.spendLimit?.map((e) => Coin.fromPartial(e)) || [];
     message.allowList = object.allowList?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: SendAuthorizationAmino): SendAuthorization {
+    const message = createBaseSendAuthorization();
+    message.spendLimit = object.spend_limit?.map((e) => Coin.fromAmino(e)) || [];
+    message.allowList = object.allow_list?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: SendAuthorization): SendAuthorizationAmino {
+    const obj: any = {};
+    if (message.spendLimit) {
+      obj.spend_limit = message.spendLimit.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.spend_limit = message.spendLimit;
+    }
+    if (message.allowList) {
+      obj.allow_list = message.allowList.map((e) => e);
+    } else {
+      obj.allow_list = message.allowList;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SendAuthorizationAminoMsg): SendAuthorization {
+    return SendAuthorization.fromAmino(object.value);
+  },
+  toAminoMsg(message: SendAuthorization): SendAuthorizationAminoMsg {
+    return {
+      type: "cosmos-sdk/SendAuthorization",
+      value: SendAuthorization.toAmino(message),
+    };
   },
 };

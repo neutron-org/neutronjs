@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
@@ -156,6 +157,43 @@ export const Snapshot = {
     }
     return message;
   },
+  fromAmino(object: SnapshotAmino): Snapshot {
+    const message = createBaseSnapshot();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.format !== undefined && object.format !== null) {
+      message.format = object.format;
+    }
+    if (object.chunks !== undefined && object.chunks !== null) {
+      message.chunks = object.chunks;
+    }
+    if (object.hash !== undefined && object.hash !== null) {
+      message.hash = bytesFromBase64(object.hash);
+    }
+    if (object.metadata !== undefined && object.metadata !== null) {
+      message.metadata = Metadata.fromAmino(object.metadata);
+    }
+    return message;
+  },
+  toAmino(message: Snapshot): SnapshotAmino {
+    const obj: any = {};
+    obj.height = message.height !== BigInt(0) ? message.height?.toString() : undefined;
+    obj.format = message.format === 0 ? undefined : message.format;
+    obj.chunks = message.chunks === 0 ? undefined : message.chunks;
+    obj.hash = message.hash ? base64FromBytes(message.hash) : undefined;
+    obj.metadata = message.metadata ? Metadata.toAmino(message.metadata) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: SnapshotAminoMsg): Snapshot {
+    return Snapshot.fromAmino(object.value);
+  },
+  toAminoMsg(message: Snapshot): SnapshotAminoMsg {
+    return {
+      type: "cosmos-sdk/Snapshot",
+      value: Snapshot.toAmino(message),
+    };
+  },
 };
 function createBaseMetadata(): Metadata {
   return {
@@ -208,6 +246,29 @@ export const Metadata = {
     const message = createBaseMetadata();
     message.chunkHashes = object.chunkHashes?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: MetadataAmino): Metadata {
+    const message = createBaseMetadata();
+    message.chunkHashes = object.chunk_hashes?.map((e) => bytesFromBase64(e)) || [];
+    return message;
+  },
+  toAmino(message: Metadata): MetadataAmino {
+    const obj: any = {};
+    if (message.chunkHashes) {
+      obj.chunk_hashes = message.chunkHashes.map((e) => base64FromBytes(e));
+    } else {
+      obj.chunk_hashes = message.chunkHashes;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MetadataAminoMsg): Metadata {
+    return Metadata.fromAmino(object.value);
+  },
+  toAminoMsg(message: Metadata): MetadataAminoMsg {
+    return {
+      type: "cosmos-sdk/Metadata",
+      value: Metadata.toAmino(message),
+    };
   },
 };
 function createBaseSnapshotItem(): SnapshotItem {
@@ -300,6 +361,41 @@ export const SnapshotItem = {
     }
     return message;
   },
+  fromAmino(object: SnapshotItemAmino): SnapshotItem {
+    const message = createBaseSnapshotItem();
+    if (object.store !== undefined && object.store !== null) {
+      message.store = SnapshotStoreItem.fromAmino(object.store);
+    }
+    if (object.iavl !== undefined && object.iavl !== null) {
+      message.iavl = SnapshotIAVLItem.fromAmino(object.iavl);
+    }
+    if (object.extension !== undefined && object.extension !== null) {
+      message.extension = SnapshotExtensionMeta.fromAmino(object.extension);
+    }
+    if (object.extension_payload !== undefined && object.extension_payload !== null) {
+      message.extensionPayload = SnapshotExtensionPayload.fromAmino(object.extension_payload);
+    }
+    return message;
+  },
+  toAmino(message: SnapshotItem): SnapshotItemAmino {
+    const obj: any = {};
+    obj.store = message.store ? SnapshotStoreItem.toAmino(message.store) : undefined;
+    obj.iavl = message.iavl ? SnapshotIAVLItem.toAmino(message.iavl) : undefined;
+    obj.extension = message.extension ? SnapshotExtensionMeta.toAmino(message.extension) : undefined;
+    obj.extension_payload = message.extensionPayload
+      ? SnapshotExtensionPayload.toAmino(message.extensionPayload)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: SnapshotItemAminoMsg): SnapshotItem {
+    return SnapshotItem.fromAmino(object.value);
+  },
+  toAminoMsg(message: SnapshotItem): SnapshotItemAminoMsg {
+    return {
+      type: "cosmos-sdk/SnapshotItem",
+      value: SnapshotItem.toAmino(message),
+    };
+  },
 };
 function createBaseSnapshotStoreItem(): SnapshotStoreItem {
   return {
@@ -345,6 +441,27 @@ export const SnapshotStoreItem = {
     const message = createBaseSnapshotStoreItem();
     message.name = object.name ?? "";
     return message;
+  },
+  fromAmino(object: SnapshotStoreItemAmino): SnapshotStoreItem {
+    const message = createBaseSnapshotStoreItem();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    return message;
+  },
+  toAmino(message: SnapshotStoreItem): SnapshotStoreItemAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    return obj;
+  },
+  fromAminoMsg(object: SnapshotStoreItemAminoMsg): SnapshotStoreItem {
+    return SnapshotStoreItem.fromAmino(object.value);
+  },
+  toAminoMsg(message: SnapshotStoreItem): SnapshotStoreItemAminoMsg {
+    return {
+      type: "cosmos-sdk/SnapshotStoreItem",
+      value: SnapshotStoreItem.toAmino(message),
+    };
   },
 };
 function createBaseSnapshotIAVLItem(): SnapshotIAVLItem {
@@ -426,6 +543,39 @@ export const SnapshotIAVLItem = {
     message.height = object.height ?? 0;
     return message;
   },
+  fromAmino(object: SnapshotIAVLItemAmino): SnapshotIAVLItem {
+    const message = createBaseSnapshotIAVLItem();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = bytesFromBase64(object.key);
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = bytesFromBase64(object.value);
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = BigInt(object.version);
+    }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = object.height;
+    }
+    return message;
+  },
+  toAmino(message: SnapshotIAVLItem): SnapshotIAVLItemAmino {
+    const obj: any = {};
+    obj.key = message.key ? base64FromBytes(message.key) : undefined;
+    obj.value = message.value ? base64FromBytes(message.value) : undefined;
+    obj.version = message.version !== BigInt(0) ? message.version?.toString() : undefined;
+    obj.height = message.height === 0 ? undefined : message.height;
+    return obj;
+  },
+  fromAminoMsg(object: SnapshotIAVLItemAminoMsg): SnapshotIAVLItem {
+    return SnapshotIAVLItem.fromAmino(object.value);
+  },
+  toAminoMsg(message: SnapshotIAVLItem): SnapshotIAVLItemAminoMsg {
+    return {
+      type: "cosmos-sdk/SnapshotIAVLItem",
+      value: SnapshotIAVLItem.toAmino(message),
+    };
+  },
 };
 function createBaseSnapshotExtensionMeta(): SnapshotExtensionMeta {
   return {
@@ -482,6 +632,31 @@ export const SnapshotExtensionMeta = {
     message.format = object.format ?? 0;
     return message;
   },
+  fromAmino(object: SnapshotExtensionMetaAmino): SnapshotExtensionMeta {
+    const message = createBaseSnapshotExtensionMeta();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.format !== undefined && object.format !== null) {
+      message.format = object.format;
+    }
+    return message;
+  },
+  toAmino(message: SnapshotExtensionMeta): SnapshotExtensionMetaAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.format = message.format === 0 ? undefined : message.format;
+    return obj;
+  },
+  fromAminoMsg(object: SnapshotExtensionMetaAminoMsg): SnapshotExtensionMeta {
+    return SnapshotExtensionMeta.fromAmino(object.value);
+  },
+  toAminoMsg(message: SnapshotExtensionMeta): SnapshotExtensionMetaAminoMsg {
+    return {
+      type: "cosmos-sdk/SnapshotExtensionMeta",
+      value: SnapshotExtensionMeta.toAmino(message),
+    };
+  },
 };
 function createBaseSnapshotExtensionPayload(): SnapshotExtensionPayload {
   return {
@@ -530,5 +705,26 @@ export const SnapshotExtensionPayload = {
     const message = createBaseSnapshotExtensionPayload();
     message.payload = object.payload ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: SnapshotExtensionPayloadAmino): SnapshotExtensionPayload {
+    const message = createBaseSnapshotExtensionPayload();
+    if (object.payload !== undefined && object.payload !== null) {
+      message.payload = bytesFromBase64(object.payload);
+    }
+    return message;
+  },
+  toAmino(message: SnapshotExtensionPayload): SnapshotExtensionPayloadAmino {
+    const obj: any = {};
+    obj.payload = message.payload ? base64FromBytes(message.payload) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: SnapshotExtensionPayloadAminoMsg): SnapshotExtensionPayload {
+    return SnapshotExtensionPayload.fromAmino(object.value);
+  },
+  toAminoMsg(message: SnapshotExtensionPayload): SnapshotExtensionPayloadAminoMsg {
+    return {
+      type: "cosmos-sdk/SnapshotExtensionPayload",
+      value: SnapshotExtensionPayload.toAmino(message),
+    };
   },
 };

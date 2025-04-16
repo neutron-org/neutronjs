@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Timeout, Order, orderFromJSON, orderToJSON } from "./channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
@@ -110,6 +111,36 @@ export const Upgrade = {
     }
     return message;
   },
+  fromAmino(object: UpgradeAmino): Upgrade {
+    const message = createBaseUpgrade();
+    if (object.fields !== undefined && object.fields !== null) {
+      message.fields = UpgradeFields.fromAmino(object.fields);
+    }
+    if (object.timeout !== undefined && object.timeout !== null) {
+      message.timeout = Timeout.fromAmino(object.timeout);
+    }
+    if (object.next_sequence_send !== undefined && object.next_sequence_send !== null) {
+      message.nextSequenceSend = BigInt(object.next_sequence_send);
+    }
+    return message;
+  },
+  toAmino(message: Upgrade): UpgradeAmino {
+    const obj: any = {};
+    obj.fields = message.fields ? UpgradeFields.toAmino(message.fields) : undefined;
+    obj.timeout = message.timeout ? Timeout.toAmino(message.timeout) : undefined;
+    obj.next_sequence_send =
+      message.nextSequenceSend !== BigInt(0) ? message.nextSequenceSend?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: UpgradeAminoMsg): Upgrade {
+    return Upgrade.fromAmino(object.value);
+  },
+  toAminoMsg(message: Upgrade): UpgradeAminoMsg {
+    return {
+      type: "cosmos-sdk/Upgrade",
+      value: Upgrade.toAmino(message),
+    };
+  },
 };
 function createBaseUpgradeFields(): UpgradeFields {
   return {
@@ -181,6 +212,37 @@ export const UpgradeFields = {
     message.version = object.version ?? "";
     return message;
   },
+  fromAmino(object: UpgradeFieldsAmino): UpgradeFields {
+    const message = createBaseUpgradeFields();
+    if (object.ordering !== undefined && object.ordering !== null) {
+      message.ordering = object.ordering;
+    }
+    message.connectionHops = object.connection_hops?.map((e) => e) || [];
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    return message;
+  },
+  toAmino(message: UpgradeFields): UpgradeFieldsAmino {
+    const obj: any = {};
+    obj.ordering = message.ordering === 0 ? undefined : message.ordering;
+    if (message.connectionHops) {
+      obj.connection_hops = message.connectionHops.map((e) => e);
+    } else {
+      obj.connection_hops = message.connectionHops;
+    }
+    obj.version = message.version === "" ? undefined : message.version;
+    return obj;
+  },
+  fromAminoMsg(object: UpgradeFieldsAminoMsg): UpgradeFields {
+    return UpgradeFields.fromAmino(object.value);
+  },
+  toAminoMsg(message: UpgradeFields): UpgradeFieldsAminoMsg {
+    return {
+      type: "cosmos-sdk/UpgradeFields",
+      value: UpgradeFields.toAmino(message),
+    };
+  },
 };
 function createBaseErrorReceipt(): ErrorReceipt {
   return {
@@ -238,5 +300,30 @@ export const ErrorReceipt = {
     }
     message.message = object.message ?? "";
     return message;
+  },
+  fromAmino(object: ErrorReceiptAmino): ErrorReceipt {
+    const message = createBaseErrorReceipt();
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = BigInt(object.sequence);
+    }
+    if (object.message !== undefined && object.message !== null) {
+      message.message = object.message;
+    }
+    return message;
+  },
+  toAmino(message: ErrorReceipt): ErrorReceiptAmino {
+    const obj: any = {};
+    obj.sequence = message.sequence !== BigInt(0) ? message.sequence?.toString() : undefined;
+    obj.message = message.message === "" ? undefined : message.message;
+    return obj;
+  },
+  fromAminoMsg(object: ErrorReceiptAminoMsg): ErrorReceipt {
+    return ErrorReceipt.fromAmino(object.value);
+  },
+  toAminoMsg(message: ErrorReceipt): ErrorReceiptAminoMsg {
+    return {
+      type: "cosmos-sdk/ErrorReceipt",
+      value: ErrorReceipt.toAmino(message),
+    };
   },
 };

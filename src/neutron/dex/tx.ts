@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Timestamp } from "../../google/protobuf/timestamp";
 import { Params } from "./params";
@@ -262,6 +263,39 @@ export const DepositOptions = {
     }
     return message;
   },
+  fromAmino(object: DepositOptionsAmino): DepositOptions {
+    const message = createBaseDepositOptions();
+    if (object.disable_autoswap !== undefined && object.disable_autoswap !== null) {
+      message.disableAutoswap = object.disable_autoswap;
+    }
+    if (object.fail_tx_on_bel !== undefined && object.fail_tx_on_bel !== null) {
+      message.failTxOnBel = object.fail_tx_on_bel;
+    }
+    if (object.swap_on_deposit !== undefined && object.swap_on_deposit !== null) {
+      message.swapOnDeposit = object.swap_on_deposit;
+    }
+    if (
+      object.swap_on_deposit_slop_tolerance_bps !== undefined &&
+      object.swap_on_deposit_slop_tolerance_bps !== null
+    ) {
+      message.swapOnDepositSlopToleranceBps = BigInt(object.swap_on_deposit_slop_tolerance_bps);
+    }
+    return message;
+  },
+  toAmino(message: DepositOptions): DepositOptionsAmino {
+    const obj: any = {};
+    obj.disable_autoswap = message.disableAutoswap === false ? undefined : message.disableAutoswap;
+    obj.fail_tx_on_bel = message.failTxOnBel === false ? undefined : message.failTxOnBel;
+    obj.swap_on_deposit = message.swapOnDeposit === false ? undefined : message.swapOnDeposit;
+    obj.swap_on_deposit_slop_tolerance_bps =
+      message.swapOnDepositSlopToleranceBps !== BigInt(0)
+        ? message.swapOnDepositSlopToleranceBps?.toString()
+        : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: DepositOptionsAminoMsg): DepositOptions {
+    return DepositOptions.fromAmino(object.value);
+  },
 };
 function createBaseMsgDeposit(): MsgDeposit {
   return {
@@ -428,6 +462,69 @@ export const MsgDeposit = {
     message.options = object.options?.map((e) => DepositOptions.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: MsgDepositAmino): MsgDeposit {
+    const message = createBaseMsgDeposit();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    if (object.token_a !== undefined && object.token_a !== null) {
+      message.tokenA = object.token_a;
+    }
+    if (object.token_b !== undefined && object.token_b !== null) {
+      message.tokenB = object.token_b;
+    }
+    message.amountsA = object.amounts_a?.map((e) => e) || [];
+    message.amountsB = object.amounts_b?.map((e) => e) || [];
+    message.tickIndexesAToB = object.tick_indexes_a_to_b?.map((e) => BigInt(e)) || [];
+    message.fees = object.fees?.map((e) => BigInt(e)) || [];
+    message.options = object.options?.map((e) => DepositOptions.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: MsgDeposit): MsgDepositAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.receiver = message.receiver === "" ? undefined : message.receiver;
+    obj.token_a = message.tokenA === "" ? undefined : message.tokenA;
+    obj.token_b = message.tokenB === "" ? undefined : message.tokenB;
+    if (message.amountsA) {
+      obj.amounts_a = message.amountsA.map((e) => e);
+    } else {
+      obj.amounts_a = message.amountsA;
+    }
+    if (message.amountsB) {
+      obj.amounts_b = message.amountsB.map((e) => e);
+    } else {
+      obj.amounts_b = message.amountsB;
+    }
+    if (message.tickIndexesAToB) {
+      obj.tick_indexes_a_to_b = message.tickIndexesAToB.map((e) => e.toString());
+    } else {
+      obj.tick_indexes_a_to_b = message.tickIndexesAToB;
+    }
+    if (message.fees) {
+      obj.fees = message.fees.map((e) => e.toString());
+    } else {
+      obj.fees = message.fees;
+    }
+    if (message.options) {
+      obj.options = message.options.map((e) => (e ? DepositOptions.toAmino(e) : undefined));
+    } else {
+      obj.options = message.options;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgDepositAminoMsg): MsgDeposit {
+    return MsgDeposit.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgDeposit): MsgDepositAminoMsg {
+    return {
+      type: "dex/MsgDeposit",
+      value: MsgDeposit.toAmino(message),
+    };
+  },
 };
 function createBaseFailedDeposit(): FailedDeposit {
   return {
@@ -485,6 +582,25 @@ export const FailedDeposit = {
     }
     message.error = object.error ?? "";
     return message;
+  },
+  fromAmino(object: FailedDepositAmino): FailedDeposit {
+    const message = createBaseFailedDeposit();
+    if (object.deposit_idx !== undefined && object.deposit_idx !== null) {
+      message.depositIdx = BigInt(object.deposit_idx);
+    }
+    if (object.error !== undefined && object.error !== null) {
+      message.error = object.error;
+    }
+    return message;
+  },
+  toAmino(message: FailedDeposit): FailedDepositAmino {
+    const obj: any = {};
+    obj.deposit_idx = message.depositIdx !== BigInt(0) ? message.depositIdx?.toString() : undefined;
+    obj.error = message.error === "" ? undefined : message.error;
+    return obj;
+  },
+  fromAminoMsg(object: FailedDepositAminoMsg): FailedDeposit {
+    return FailedDeposit.fromAmino(object.value);
   },
 };
 function createBaseMsgDepositResponse(): MsgDepositResponse {
@@ -581,6 +697,41 @@ export const MsgDepositResponse = {
     message.failedDeposits = object.failedDeposits?.map((e) => FailedDeposit.fromPartial(e)) || [];
     message.sharesIssued = object.sharesIssued?.map((e) => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MsgDepositResponseAmino): MsgDepositResponse {
+    const message = createBaseMsgDepositResponse();
+    message.reserve0Deposited = object.reserve0_deposited?.map((e) => e) || [];
+    message.reserve1Deposited = object.reserve1_deposited?.map((e) => e) || [];
+    message.failedDeposits = object.failed_deposits?.map((e) => FailedDeposit.fromAmino(e)) || [];
+    message.sharesIssued = object.shares_issued?.map((e) => Coin.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: MsgDepositResponse): MsgDepositResponseAmino {
+    const obj: any = {};
+    if (message.reserve0Deposited) {
+      obj.reserve0_deposited = message.reserve0Deposited.map((e) => e);
+    } else {
+      obj.reserve0_deposited = message.reserve0Deposited;
+    }
+    if (message.reserve1Deposited) {
+      obj.reserve1_deposited = message.reserve1Deposited.map((e) => e);
+    } else {
+      obj.reserve1_deposited = message.reserve1Deposited;
+    }
+    if (message.failedDeposits) {
+      obj.failed_deposits = message.failedDeposits.map((e) => (e ? FailedDeposit.toAmino(e) : undefined));
+    } else {
+      obj.failed_deposits = message.failedDeposits;
+    }
+    if (message.sharesIssued) {
+      obj.shares_issued = message.sharesIssued.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.shares_issued = message.sharesIssued;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgDepositResponseAminoMsg): MsgDepositResponse {
+    return MsgDepositResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgWithdrawal(): MsgWithdrawal {
@@ -720,6 +871,57 @@ export const MsgWithdrawal = {
     message.fees = object.fees?.map((e) => BigInt(e.toString())) || [];
     return message;
   },
+  fromAmino(object: MsgWithdrawalAmino): MsgWithdrawal {
+    const message = createBaseMsgWithdrawal();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    if (object.token_a !== undefined && object.token_a !== null) {
+      message.tokenA = object.token_a;
+    }
+    if (object.token_b !== undefined && object.token_b !== null) {
+      message.tokenB = object.token_b;
+    }
+    message.sharesToRemove = object.shares_to_remove?.map((e) => e) || [];
+    message.tickIndexesAToB = object.tick_indexes_a_to_b?.map((e) => BigInt(e)) || [];
+    message.fees = object.fees?.map((e) => BigInt(e)) || [];
+    return message;
+  },
+  toAmino(message: MsgWithdrawal): MsgWithdrawalAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.receiver = message.receiver === "" ? undefined : message.receiver;
+    obj.token_a = message.tokenA === "" ? undefined : message.tokenA;
+    obj.token_b = message.tokenB === "" ? undefined : message.tokenB;
+    if (message.sharesToRemove) {
+      obj.shares_to_remove = message.sharesToRemove.map((e) => e);
+    } else {
+      obj.shares_to_remove = message.sharesToRemove;
+    }
+    if (message.tickIndexesAToB) {
+      obj.tick_indexes_a_to_b = message.tickIndexesAToB.map((e) => e.toString());
+    } else {
+      obj.tick_indexes_a_to_b = message.tickIndexesAToB;
+    }
+    if (message.fees) {
+      obj.fees = message.fees.map((e) => e.toString());
+    } else {
+      obj.fees = message.fees;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgWithdrawalAminoMsg): MsgWithdrawal {
+    return MsgWithdrawal.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgWithdrawal): MsgWithdrawalAminoMsg {
+    return {
+      type: "dex/MsgWithdrawal",
+      value: MsgWithdrawal.toAmino(message),
+    };
+  },
 };
 function createBaseMsgWithdrawalResponse(): MsgWithdrawalResponse {
   return {
@@ -790,6 +992,31 @@ export const MsgWithdrawalResponse = {
     message.reserve1Withdrawn = object.reserve1Withdrawn ?? "";
     message.sharesBurned = object.sharesBurned?.map((e) => Coin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MsgWithdrawalResponseAmino): MsgWithdrawalResponse {
+    const message = createBaseMsgWithdrawalResponse();
+    if (object.reserve0_withdrawn !== undefined && object.reserve0_withdrawn !== null) {
+      message.reserve0Withdrawn = object.reserve0_withdrawn;
+    }
+    if (object.reserve1_withdrawn !== undefined && object.reserve1_withdrawn !== null) {
+      message.reserve1Withdrawn = object.reserve1_withdrawn;
+    }
+    message.sharesBurned = object.shares_burned?.map((e) => Coin.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: MsgWithdrawalResponse): MsgWithdrawalResponseAmino {
+    const obj: any = {};
+    obj.reserve0_withdrawn = message.reserve0Withdrawn ?? "";
+    obj.reserve1_withdrawn = message.reserve1Withdrawn ?? "";
+    if (message.sharesBurned) {
+      obj.shares_burned = message.sharesBurned.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.shares_burned = message.sharesBurned;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgWithdrawalResponseAminoMsg): MsgWithdrawalResponse {
+    return MsgWithdrawalResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgPlaceLimitOrder(): MsgPlaceLimitOrder {
@@ -943,6 +1170,68 @@ export const MsgPlaceLimitOrder = {
     message.minAverageSellPrice = object.minAverageSellPrice ?? undefined;
     return message;
   },
+  fromAmino(object: MsgPlaceLimitOrderAmino): MsgPlaceLimitOrder {
+    const message = createBaseMsgPlaceLimitOrder();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    if (object.token_in !== undefined && object.token_in !== null) {
+      message.tokenIn = object.token_in;
+    }
+    if (object.token_out !== undefined && object.token_out !== null) {
+      message.tokenOut = object.token_out;
+    }
+    if (object.tick_index_in_to_out !== undefined && object.tick_index_in_to_out !== null) {
+      message.tickIndexInToOut = BigInt(object.tick_index_in_to_out);
+    }
+    if (object.amount_in !== undefined && object.amount_in !== null) {
+      message.amountIn = object.amount_in;
+    }
+    if (object.order_type !== undefined && object.order_type !== null) {
+      message.orderType = object.order_type;
+    }
+    if (object.expiration_time !== undefined && object.expiration_time !== null) {
+      message.expirationTime = Timestamp.fromAmino(object.expiration_time);
+    }
+    if (object.max_amount_out !== undefined && object.max_amount_out !== null) {
+      message.maxAmountOut = object.max_amount_out;
+    }
+    if (object.limit_sell_price !== undefined && object.limit_sell_price !== null) {
+      message.limitSellPrice = object.limit_sell_price;
+    }
+    if (object.min_average_sell_price !== undefined && object.min_average_sell_price !== null) {
+      message.minAverageSellPrice = object.min_average_sell_price;
+    }
+    return message;
+  },
+  toAmino(message: MsgPlaceLimitOrder): MsgPlaceLimitOrderAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.receiver = message.receiver === "" ? undefined : message.receiver;
+    obj.token_in = message.tokenIn === "" ? undefined : message.tokenIn;
+    obj.token_out = message.tokenOut === "" ? undefined : message.tokenOut;
+    obj.tick_index_in_to_out =
+      message.tickIndexInToOut !== BigInt(0) ? message.tickIndexInToOut?.toString() : undefined;
+    obj.amount_in = message.amountIn ?? "";
+    obj.order_type = message.orderType === 0 ? undefined : message.orderType;
+    obj.expiration_time = message.expirationTime ? Timestamp.toAmino(message.expirationTime) : undefined;
+    obj.max_amount_out = message.maxAmountOut ?? null;
+    obj.limit_sell_price = message.limitSellPrice ?? null;
+    obj.min_average_sell_price = message.minAverageSellPrice ?? null;
+    return obj;
+  },
+  fromAminoMsg(object: MsgPlaceLimitOrderAminoMsg): MsgPlaceLimitOrder {
+    return MsgPlaceLimitOrder.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgPlaceLimitOrder): MsgPlaceLimitOrderAminoMsg {
+    return {
+      type: "dex/MsgPlaceLimitOrder",
+      value: MsgPlaceLimitOrder.toAmino(message),
+    };
+  },
 };
 function createBaseMsgPlaceLimitOrderResponse(): MsgPlaceLimitOrderResponse {
   return {
@@ -1029,6 +1318,37 @@ export const MsgPlaceLimitOrderResponse = {
     }
     return message;
   },
+  fromAmino(object: MsgPlaceLimitOrderResponseAmino): MsgPlaceLimitOrderResponse {
+    const message = createBaseMsgPlaceLimitOrderResponse();
+    if (object.trancheKey !== undefined && object.trancheKey !== null) {
+      message.trancheKey = object.trancheKey;
+    }
+    if (object.coin_in !== undefined && object.coin_in !== null) {
+      message.coinIn = Coin.fromAmino(object.coin_in);
+    }
+    if (object.taker_coin_out !== undefined && object.taker_coin_out !== null) {
+      message.takerCoinOut = Coin.fromAmino(object.taker_coin_out);
+    }
+    if (object.taker_coin_in !== undefined && object.taker_coin_in !== null) {
+      message.takerCoinIn = Coin.fromAmino(object.taker_coin_in);
+    }
+    return message;
+  },
+  toAmino(message: MsgPlaceLimitOrderResponse): MsgPlaceLimitOrderResponseAmino {
+    const obj: any = {};
+    obj.trancheKey = message.trancheKey === "" ? undefined : message.trancheKey;
+    obj.coin_in = message.coinIn ? Coin.toAmino(message.coinIn) : Coin.toAmino(Coin.fromPartial({}));
+    obj.taker_coin_out = message.takerCoinOut
+      ? Coin.toAmino(message.takerCoinOut)
+      : Coin.toAmino(Coin.fromPartial({}));
+    obj.taker_coin_in = message.takerCoinIn
+      ? Coin.toAmino(message.takerCoinIn)
+      : Coin.toAmino(Coin.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: MsgPlaceLimitOrderResponseAminoMsg): MsgPlaceLimitOrderResponse {
+    return MsgPlaceLimitOrderResponse.fromAmino(object.value);
+  },
 };
 function createBaseMsgWithdrawFilledLimitOrder(): MsgWithdrawFilledLimitOrder {
   return {
@@ -1086,6 +1406,31 @@ export const MsgWithdrawFilledLimitOrder = {
     message.creator = object.creator ?? "";
     message.trancheKey = object.trancheKey ?? "";
     return message;
+  },
+  fromAmino(object: MsgWithdrawFilledLimitOrderAmino): MsgWithdrawFilledLimitOrder {
+    const message = createBaseMsgWithdrawFilledLimitOrder();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.tranche_key !== undefined && object.tranche_key !== null) {
+      message.trancheKey = object.tranche_key;
+    }
+    return message;
+  },
+  toAmino(message: MsgWithdrawFilledLimitOrder): MsgWithdrawFilledLimitOrderAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.tranche_key = message.trancheKey === "" ? undefined : message.trancheKey;
+    return obj;
+  },
+  fromAminoMsg(object: MsgWithdrawFilledLimitOrderAminoMsg): MsgWithdrawFilledLimitOrder {
+    return MsgWithdrawFilledLimitOrder.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgWithdrawFilledLimitOrder): MsgWithdrawFilledLimitOrderAminoMsg {
+    return {
+      type: "dex/MsgWithdrawFilledLimitOrder",
+      value: MsgWithdrawFilledLimitOrder.toAmino(message),
+    };
   },
 };
 function createBaseMsgWithdrawFilledLimitOrderResponse(): MsgWithdrawFilledLimitOrderResponse {
@@ -1154,6 +1499,29 @@ export const MsgWithdrawFilledLimitOrderResponse = {
     }
     return message;
   },
+  fromAmino(object: MsgWithdrawFilledLimitOrderResponseAmino): MsgWithdrawFilledLimitOrderResponse {
+    const message = createBaseMsgWithdrawFilledLimitOrderResponse();
+    if (object.taker_coin_out !== undefined && object.taker_coin_out !== null) {
+      message.takerCoinOut = Coin.fromAmino(object.taker_coin_out);
+    }
+    if (object.maker_coin_out !== undefined && object.maker_coin_out !== null) {
+      message.makerCoinOut = Coin.fromAmino(object.maker_coin_out);
+    }
+    return message;
+  },
+  toAmino(message: MsgWithdrawFilledLimitOrderResponse): MsgWithdrawFilledLimitOrderResponseAmino {
+    const obj: any = {};
+    obj.taker_coin_out = message.takerCoinOut
+      ? Coin.toAmino(message.takerCoinOut)
+      : Coin.toAmino(Coin.fromPartial({}));
+    obj.maker_coin_out = message.makerCoinOut
+      ? Coin.toAmino(message.makerCoinOut)
+      : Coin.toAmino(Coin.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: MsgWithdrawFilledLimitOrderResponseAminoMsg): MsgWithdrawFilledLimitOrderResponse {
+    return MsgWithdrawFilledLimitOrderResponse.fromAmino(object.value);
+  },
 };
 function createBaseMsgCancelLimitOrder(): MsgCancelLimitOrder {
   return {
@@ -1209,6 +1577,31 @@ export const MsgCancelLimitOrder = {
     message.creator = object.creator ?? "";
     message.trancheKey = object.trancheKey ?? "";
     return message;
+  },
+  fromAmino(object: MsgCancelLimitOrderAmino): MsgCancelLimitOrder {
+    const message = createBaseMsgCancelLimitOrder();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.tranche_key !== undefined && object.tranche_key !== null) {
+      message.trancheKey = object.tranche_key;
+    }
+    return message;
+  },
+  toAmino(message: MsgCancelLimitOrder): MsgCancelLimitOrderAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.tranche_key = message.trancheKey === "" ? undefined : message.trancheKey;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCancelLimitOrderAminoMsg): MsgCancelLimitOrder {
+    return MsgCancelLimitOrder.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCancelLimitOrder): MsgCancelLimitOrderAminoMsg {
+    return {
+      type: "dex/MsgCancelLimitOrder",
+      value: MsgCancelLimitOrder.toAmino(message),
+    };
   },
 };
 function createBaseMsgCancelLimitOrderResponse(): MsgCancelLimitOrderResponse {
@@ -1274,6 +1667,29 @@ export const MsgCancelLimitOrderResponse = {
     }
     return message;
   },
+  fromAmino(object: MsgCancelLimitOrderResponseAmino): MsgCancelLimitOrderResponse {
+    const message = createBaseMsgCancelLimitOrderResponse();
+    if (object.taker_coin_out !== undefined && object.taker_coin_out !== null) {
+      message.takerCoinOut = Coin.fromAmino(object.taker_coin_out);
+    }
+    if (object.maker_coin_out !== undefined && object.maker_coin_out !== null) {
+      message.makerCoinOut = Coin.fromAmino(object.maker_coin_out);
+    }
+    return message;
+  },
+  toAmino(message: MsgCancelLimitOrderResponse): MsgCancelLimitOrderResponseAmino {
+    const obj: any = {};
+    obj.taker_coin_out = message.takerCoinOut
+      ? Coin.toAmino(message.takerCoinOut)
+      : Coin.toAmino(Coin.fromPartial({}));
+    obj.maker_coin_out = message.makerCoinOut
+      ? Coin.toAmino(message.makerCoinOut)
+      : Coin.toAmino(Coin.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: MsgCancelLimitOrderResponseAminoMsg): MsgCancelLimitOrderResponse {
+    return MsgCancelLimitOrderResponse.fromAmino(object.value);
+  },
 };
 function createBaseMultiHopRoute(): MultiHopRoute {
   return {
@@ -1323,6 +1739,23 @@ export const MultiHopRoute = {
     const message = createBaseMultiHopRoute();
     message.hops = object.hops?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: MultiHopRouteAmino): MultiHopRoute {
+    const message = createBaseMultiHopRoute();
+    message.hops = object.hops?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: MultiHopRoute): MultiHopRouteAmino {
+    const obj: any = {};
+    if (message.hops) {
+      obj.hops = message.hops.map((e) => e);
+    } else {
+      obj.hops = message.hops;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MultiHopRouteAminoMsg): MultiHopRoute {
+    return MultiHopRoute.fromAmino(object.value);
   },
 };
 function createBaseMsgMultiHopSwap(): MsgMultiHopSwap {
@@ -1424,6 +1857,49 @@ export const MsgMultiHopSwap = {
     message.pickBestRoute = object.pickBestRoute ?? false;
     return message;
   },
+  fromAmino(object: MsgMultiHopSwapAmino): MsgMultiHopSwap {
+    const message = createBaseMsgMultiHopSwap();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    message.routes = object.routes?.map((e) => MultiHopRoute.fromAmino(e)) || [];
+    if (object.amount_in !== undefined && object.amount_in !== null) {
+      message.amountIn = object.amount_in;
+    }
+    if (object.exit_limit_price !== undefined && object.exit_limit_price !== null) {
+      message.exitLimitPrice = object.exit_limit_price;
+    }
+    if (object.pick_best_route !== undefined && object.pick_best_route !== null) {
+      message.pickBestRoute = object.pick_best_route;
+    }
+    return message;
+  },
+  toAmino(message: MsgMultiHopSwap): MsgMultiHopSwapAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.receiver = message.receiver === "" ? undefined : message.receiver;
+    if (message.routes) {
+      obj.routes = message.routes.map((e) => (e ? MultiHopRoute.toAmino(e) : undefined));
+    } else {
+      obj.routes = message.routes;
+    }
+    obj.amount_in = message.amountIn ?? "";
+    obj.exit_limit_price = message.exitLimitPrice ?? "";
+    obj.pick_best_route = message.pickBestRoute === false ? undefined : message.pickBestRoute;
+    return obj;
+  },
+  fromAminoMsg(object: MsgMultiHopSwapAminoMsg): MsgMultiHopSwap {
+    return MsgMultiHopSwap.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgMultiHopSwap): MsgMultiHopSwapAminoMsg {
+    return {
+      type: "dex/MsgMultiHopSwap",
+      value: MsgMultiHopSwap.toAmino(message),
+    };
+  },
 };
 function createBaseMsgMultiHopSwapResponse(): MsgMultiHopSwapResponse {
   return {
@@ -1500,6 +1976,31 @@ export const MsgMultiHopSwapResponse = {
     message.dust = object.dust?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: MsgMultiHopSwapResponseAmino): MsgMultiHopSwapResponse {
+    const message = createBaseMsgMultiHopSwapResponse();
+    if (object.coin_out !== undefined && object.coin_out !== null) {
+      message.coinOut = Coin.fromAmino(object.coin_out);
+    }
+    if (object.route !== undefined && object.route !== null) {
+      message.route = MultiHopRoute.fromAmino(object.route);
+    }
+    message.dust = object.dust?.map((e) => Coin.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: MsgMultiHopSwapResponse): MsgMultiHopSwapResponseAmino {
+    const obj: any = {};
+    obj.coin_out = message.coinOut ? Coin.toAmino(message.coinOut) : Coin.toAmino(Coin.fromPartial({}));
+    obj.route = message.route ? MultiHopRoute.toAmino(message.route) : undefined;
+    if (message.dust) {
+      obj.dust = message.dust.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.dust = message.dust;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgMultiHopSwapResponseAminoMsg): MsgMultiHopSwapResponse {
+    return MsgMultiHopSwapResponse.fromAmino(object.value);
+  },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
@@ -1558,6 +2059,31 @@ export const MsgUpdateParams = {
     }
     return message;
   },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
+    return {
+      type: "dex/MsgUpdateParams",
+      value: MsgUpdateParams.toAmino(message),
+    };
+  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -1592,5 +2118,16 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
   },
 };

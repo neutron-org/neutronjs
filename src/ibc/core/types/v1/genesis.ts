@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { GenesisState as GenesisState1 } from "../../client/v1/genesis";
 import { GenesisState as GenesisState2 } from "../../connection/v1/genesis";
@@ -93,5 +94,36 @@ export const GenesisState = {
       message.channelGenesis = GenesisState3.fromPartial(object.channelGenesis);
     }
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    const message = createBaseGenesisState();
+    if (object.client_genesis !== undefined && object.client_genesis !== null) {
+      message.clientGenesis = GenesisState1.fromAmino(object.client_genesis);
+    }
+    if (object.connection_genesis !== undefined && object.connection_genesis !== null) {
+      message.connectionGenesis = GenesisState2.fromAmino(object.connection_genesis);
+    }
+    if (object.channel_genesis !== undefined && object.channel_genesis !== null) {
+      message.channelGenesis = GenesisState3.fromAmino(object.channel_genesis);
+    }
+    return message;
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.client_genesis = message.clientGenesis ? GenesisState1.toAmino(message.clientGenesis) : undefined;
+    obj.connection_genesis = message.connectionGenesis
+      ? GenesisState2.toAmino(message.connectionGenesis)
+      : undefined;
+    obj.channel_genesis = message.channelGenesis ? GenesisState3.toAmino(message.channelGenesis) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
   },
 };

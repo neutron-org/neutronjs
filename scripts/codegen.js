@@ -21,6 +21,7 @@ telescope({
     logLevel: 0,
     useSDKTypes: false,
     tsDisable: {
+      disableAll: true,
       files: ["slinky/oracle/v1/query.ts"],
     },
     eslintDisable: {
@@ -53,8 +54,8 @@ telescope({
         // See https://github.com/cosmos/cosmjs/pull/1329
         fromJSON: true,
         toJSON: true,
-        fromAmino: false,
-        toAmino: false,
+        fromAmino: true,
+        toAmino: true,
         fromProto: false,
         toProto: false,
       },
@@ -79,7 +80,7 @@ telescope({
       useConnectComet: true,
     },
     aminoEncoding: {
-      enabled: false,
+      enabled: true,
       useLegacyInlineEncoding: true,
     },
   },

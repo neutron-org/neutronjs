@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact, isObject } from "../../../helpers";
@@ -92,6 +93,25 @@ export const ProposalInfo_TxsByLaneEntry = {
       message.value = BigInt(object.value.toString());
     }
     return message;
+  },
+  fromAmino(object: ProposalInfo_TxsByLaneEntryAmino): ProposalInfo_TxsByLaneEntry {
+    const message = createBaseProposalInfo_TxsByLaneEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = BigInt(object.value);
+    }
+    return message;
+  },
+  toAmino(message: ProposalInfo_TxsByLaneEntry): ProposalInfo_TxsByLaneEntryAmino {
+    const obj: any = {};
+    obj.key = message.key === "" ? undefined : message.key;
+    obj.value = message.value !== BigInt(0) ? message.value?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ProposalInfo_TxsByLaneEntryAminoMsg): ProposalInfo_TxsByLaneEntry {
+    return ProposalInfo_TxsByLaneEntry.fromAmino(object.value);
   },
 };
 function createBaseProposalInfo(): ProposalInfo {
@@ -213,5 +233,46 @@ export const ProposalInfo = {
       message.gasLimit = BigInt(object.gasLimit.toString());
     }
     return message;
+  },
+  fromAmino(object: ProposalInfoAmino): ProposalInfo {
+    const message = createBaseProposalInfo();
+    message.txsByLane = Object.entries(object.txs_by_lane ?? {}).reduce<{
+      [key: string]: bigint;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
+        acc[key] = BigInt(value.toString());
+      }
+      return acc;
+    }, {});
+    if (object.max_block_size !== undefined && object.max_block_size !== null) {
+      message.maxBlockSize = BigInt(object.max_block_size);
+    }
+    if (object.max_gas_limit !== undefined && object.max_gas_limit !== null) {
+      message.maxGasLimit = BigInt(object.max_gas_limit);
+    }
+    if (object.block_size !== undefined && object.block_size !== null) {
+      message.blockSize = BigInt(object.block_size);
+    }
+    if (object.gas_limit !== undefined && object.gas_limit !== null) {
+      message.gasLimit = BigInt(object.gas_limit);
+    }
+    return message;
+  },
+  toAmino(message: ProposalInfo): ProposalInfoAmino {
+    const obj: any = {};
+    obj.txs_by_lane = {};
+    if (message.txsByLane) {
+      Object.entries(message.txsByLane).forEach(([k, v]) => {
+        obj.txs_by_lane[k] = v.toString();
+      });
+    }
+    obj.max_block_size = message.maxBlockSize !== BigInt(0) ? message.maxBlockSize?.toString() : undefined;
+    obj.max_gas_limit = message.maxGasLimit !== BigInt(0) ? message.maxGasLimit?.toString() : undefined;
+    obj.block_size = message.blockSize !== BigInt(0) ? message.blockSize?.toString() : undefined;
+    obj.gas_limit = message.gasLimit !== BigInt(0) ? message.gasLimit?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ProposalInfoAminoMsg): ProposalInfo {
+    return ProposalInfo.fromAmino(object.value);
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
 import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../../helpers";
@@ -89,6 +90,33 @@ export const Params = {
     message.allowMessages = object.allowMessages?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    if (object.host_enabled !== undefined && object.host_enabled !== null) {
+      message.hostEnabled = object.host_enabled;
+    }
+    message.allowMessages = object.allow_messages?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.host_enabled = message.hostEnabled === false ? undefined : message.hostEnabled;
+    if (message.allowMessages) {
+      obj.allow_messages = message.allowMessages.map((e) => e);
+    } else {
+      obj.allow_messages = message.allowMessages;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/Params",
+      value: Params.toAmino(message),
+    };
+  },
 };
 function createBaseQueryRequest(): QueryRequest {
   return {
@@ -145,5 +173,30 @@ export const QueryRequest = {
     message.path = object.path ?? "";
     message.data = object.data ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: QueryRequestAmino): QueryRequest {
+    const message = createBaseQueryRequest();
+    if (object.path !== undefined && object.path !== null) {
+      message.path = object.path;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
+  },
+  toAmino(message: QueryRequest): QueryRequestAmino {
+    const obj: any = {};
+    obj.path = message.path === "" ? undefined : message.path;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryRequestAminoMsg): QueryRequest {
+    return QueryRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryRequest): QueryRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryRequest",
+      value: QueryRequest.toAmino(message),
+    };
   },
 };

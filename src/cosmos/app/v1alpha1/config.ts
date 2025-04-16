@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -122,6 +123,35 @@ export const Config = {
     message.golangBindings = object.golangBindings?.map((e) => GolangBinding.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ConfigAmino): Config {
+    const message = createBaseConfig();
+    message.modules = object.modules?.map((e) => ModuleConfig.fromAmino(e)) || [];
+    message.golangBindings = object.golang_bindings?.map((e) => GolangBinding.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: Config): ConfigAmino {
+    const obj: any = {};
+    if (message.modules) {
+      obj.modules = message.modules.map((e) => (e ? ModuleConfig.toAmino(e) : undefined));
+    } else {
+      obj.modules = message.modules;
+    }
+    if (message.golangBindings) {
+      obj.golang_bindings = message.golangBindings.map((e) => (e ? GolangBinding.toAmino(e) : undefined));
+    } else {
+      obj.golang_bindings = message.golangBindings;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ConfigAminoMsg): Config {
+    return Config.fromAmino(object.value);
+  },
+  toAminoMsg(message: Config): ConfigAminoMsg {
+    return {
+      type: "cosmos-sdk/Config",
+      value: Config.toAmino(message),
+    };
+  },
 };
 function createBaseModuleConfig(): ModuleConfig {
   return {
@@ -195,6 +225,37 @@ export const ModuleConfig = {
     message.golangBindings = object.golangBindings?.map((e) => GolangBinding.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ModuleConfigAmino): ModuleConfig {
+    const message = createBaseModuleConfig();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.config !== undefined && object.config !== null) {
+      message.config = Any.fromAmino(object.config);
+    }
+    message.golangBindings = object.golang_bindings?.map((e) => GolangBinding.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: ModuleConfig): ModuleConfigAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.config = message.config ? Any.toAmino(message.config) : undefined;
+    if (message.golangBindings) {
+      obj.golang_bindings = message.golangBindings.map((e) => (e ? GolangBinding.toAmino(e) : undefined));
+    } else {
+      obj.golang_bindings = message.golangBindings;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ModuleConfigAminoMsg): ModuleConfig {
+    return ModuleConfig.fromAmino(object.value);
+  },
+  toAminoMsg(message: ModuleConfig): ModuleConfigAminoMsg {
+    return {
+      type: "cosmos-sdk/ModuleConfig",
+      value: ModuleConfig.toAmino(message),
+    };
+  },
 };
 function createBaseGolangBinding(): GolangBinding {
   return {
@@ -250,5 +311,30 @@ export const GolangBinding = {
     message.interfaceType = object.interfaceType ?? "";
     message.implementation = object.implementation ?? "";
     return message;
+  },
+  fromAmino(object: GolangBindingAmino): GolangBinding {
+    const message = createBaseGolangBinding();
+    if (object.interface_type !== undefined && object.interface_type !== null) {
+      message.interfaceType = object.interface_type;
+    }
+    if (object.implementation !== undefined && object.implementation !== null) {
+      message.implementation = object.implementation;
+    }
+    return message;
+  },
+  toAmino(message: GolangBinding): GolangBindingAmino {
+    const obj: any = {};
+    obj.interface_type = message.interfaceType === "" ? undefined : message.interfaceType;
+    obj.implementation = message.implementation === "" ? undefined : message.implementation;
+    return obj;
+  },
+  fromAminoMsg(object: GolangBindingAminoMsg): GolangBinding {
+    return GolangBinding.fromAmino(object.value);
+  },
+  toAminoMsg(message: GolangBinding): GolangBindingAminoMsg {
+    return {
+      type: "cosmos-sdk/GolangBinding",
+      value: GolangBinding.toAmino(message),
+    };
   },
 };

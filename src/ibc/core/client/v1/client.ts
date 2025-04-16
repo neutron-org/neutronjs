@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../../google/protobuf/any";
 import { Plan } from "../../../../cosmos/upgrade/v1beta1/upgrade";
@@ -163,6 +164,31 @@ export const IdentifiedClientState = {
     }
     return message;
   },
+  fromAmino(object: IdentifiedClientStateAmino): IdentifiedClientState {
+    const message = createBaseIdentifiedClientState();
+    if (object.client_id !== undefined && object.client_id !== null) {
+      message.clientId = object.client_id;
+    }
+    if (object.client_state !== undefined && object.client_state !== null) {
+      message.clientState = Any.fromAmino(object.client_state);
+    }
+    return message;
+  },
+  toAmino(message: IdentifiedClientState): IdentifiedClientStateAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId === "" ? undefined : message.clientId;
+    obj.client_state = message.clientState ? Any.toAmino(message.clientState) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: IdentifiedClientStateAminoMsg): IdentifiedClientState {
+    return IdentifiedClientState.fromAmino(object.value);
+  },
+  toAminoMsg(message: IdentifiedClientState): IdentifiedClientStateAminoMsg {
+    return {
+      type: "cosmos-sdk/IdentifiedClientState",
+      value: IdentifiedClientState.toAmino(message),
+    };
+  },
 };
 function createBaseConsensusStateWithHeight(): ConsensusStateWithHeight {
   return {
@@ -225,6 +251,31 @@ export const ConsensusStateWithHeight = {
       message.consensusState = Any.fromPartial(object.consensusState);
     }
     return message;
+  },
+  fromAmino(object: ConsensusStateWithHeightAmino): ConsensusStateWithHeight {
+    const message = createBaseConsensusStateWithHeight();
+    if (object.height !== undefined && object.height !== null) {
+      message.height = Height.fromAmino(object.height);
+    }
+    if (object.consensus_state !== undefined && object.consensus_state !== null) {
+      message.consensusState = Any.fromAmino(object.consensus_state);
+    }
+    return message;
+  },
+  toAmino(message: ConsensusStateWithHeight): ConsensusStateWithHeightAmino {
+    const obj: any = {};
+    obj.height = message.height ? Height.toAmino(message.height) : undefined;
+    obj.consensus_state = message.consensusState ? Any.toAmino(message.consensusState) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ConsensusStateWithHeightAminoMsg): ConsensusStateWithHeight {
+    return ConsensusStateWithHeight.fromAmino(object.value);
+  },
+  toAminoMsg(message: ConsensusStateWithHeight): ConsensusStateWithHeightAminoMsg {
+    return {
+      type: "cosmos-sdk/ConsensusStateWithHeight",
+      value: ConsensusStateWithHeight.toAmino(message),
+    };
   },
 };
 function createBaseClientConsensusStates(): ClientConsensusStates {
@@ -290,6 +341,36 @@ export const ClientConsensusStates = {
       object.consensusStates?.map((e) => ConsensusStateWithHeight.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ClientConsensusStatesAmino): ClientConsensusStates {
+    const message = createBaseClientConsensusStates();
+    if (object.client_id !== undefined && object.client_id !== null) {
+      message.clientId = object.client_id;
+    }
+    message.consensusStates =
+      object.consensus_states?.map((e) => ConsensusStateWithHeight.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: ClientConsensusStates): ClientConsensusStatesAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId === "" ? undefined : message.clientId;
+    if (message.consensusStates) {
+      obj.consensus_states = message.consensusStates.map((e) =>
+        e ? ConsensusStateWithHeight.toAmino(e) : undefined,
+      );
+    } else {
+      obj.consensus_states = message.consensusStates;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ClientConsensusStatesAminoMsg): ClientConsensusStates {
+    return ClientConsensusStates.fromAmino(object.value);
+  },
+  toAminoMsg(message: ClientConsensusStates): ClientConsensusStatesAminoMsg {
+    return {
+      type: "cosmos-sdk/ClientConsensusStates",
+      value: ClientConsensusStates.toAmino(message),
+    };
+  },
 };
 function createBaseHeight(): Height {
   return {
@@ -352,6 +433,29 @@ export const Height = {
     }
     return message;
   },
+  fromAmino(object: HeightAmino): Height {
+    return {
+      revisionNumber: BigInt(object.revision_number || "0"),
+      revisionHeight: BigInt(object.revision_height || "0"),
+    };
+  },
+  toAmino(message: Height): HeightAmino {
+    const obj: any = {};
+    obj.revision_number =
+      message.revisionNumber !== BigInt(0) ? message.revisionNumber?.toString() : undefined;
+    obj.revision_height =
+      message.revisionHeight !== BigInt(0) ? message.revisionHeight?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: HeightAminoMsg): Height {
+    return Height.fromAmino(object.value);
+  },
+  toAminoMsg(message: Height): HeightAminoMsg {
+    return {
+      type: "cosmos-sdk/Height",
+      value: Height.toAmino(message),
+    };
+  },
 };
 function createBaseParams(): Params {
   return {
@@ -402,6 +506,29 @@ export const Params = {
     const message = createBaseParams();
     message.allowedClients = object.allowedClients?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    message.allowedClients = object.allowed_clients?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.allowedClients) {
+      obj.allowed_clients = message.allowedClients.map((e) => e);
+    } else {
+      obj.allowed_clients = message.allowedClients;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/Params",
+      value: Params.toAmino(message),
+    };
   },
 };
 function createBaseClientUpdateProposal(): ClientUpdateProposal {
@@ -478,6 +605,39 @@ export const ClientUpdateProposal = {
     message.subjectClientId = object.subjectClientId ?? "";
     message.substituteClientId = object.substituteClientId ?? "";
     return message;
+  },
+  fromAmino(object: ClientUpdateProposalAmino): ClientUpdateProposal {
+    const message = createBaseClientUpdateProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.subject_client_id !== undefined && object.subject_client_id !== null) {
+      message.subjectClientId = object.subject_client_id;
+    }
+    if (object.substitute_client_id !== undefined && object.substitute_client_id !== null) {
+      message.substituteClientId = object.substitute_client_id;
+    }
+    return message;
+  },
+  toAmino(message: ClientUpdateProposal): ClientUpdateProposalAmino {
+    const obj: any = {};
+    obj.title = message.title === "" ? undefined : message.title;
+    obj.description = message.description === "" ? undefined : message.description;
+    obj.subject_client_id = message.subjectClientId === "" ? undefined : message.subjectClientId;
+    obj.substitute_client_id = message.substituteClientId === "" ? undefined : message.substituteClientId;
+    return obj;
+  },
+  fromAminoMsg(object: ClientUpdateProposalAminoMsg): ClientUpdateProposal {
+    return ClientUpdateProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: ClientUpdateProposal): ClientUpdateProposalAminoMsg {
+    return {
+      type: "cosmos-sdk/ClientUpdateProposal",
+      value: ClientUpdateProposal.toAmino(message),
+    };
   },
 };
 function createBaseUpgradeProposal(): UpgradeProposal {
@@ -561,5 +721,40 @@ export const UpgradeProposal = {
       message.upgradedClientState = Any.fromPartial(object.upgradedClientState);
     }
     return message;
+  },
+  fromAmino(object: UpgradeProposalAmino): UpgradeProposal {
+    const message = createBaseUpgradeProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.plan !== undefined && object.plan !== null) {
+      message.plan = Plan.fromAmino(object.plan);
+    }
+    if (object.upgraded_client_state !== undefined && object.upgraded_client_state !== null) {
+      message.upgradedClientState = Any.fromAmino(object.upgraded_client_state);
+    }
+    return message;
+  },
+  toAmino(message: UpgradeProposal): UpgradeProposalAmino {
+    const obj: any = {};
+    obj.title = message.title === "" ? undefined : message.title;
+    obj.description = message.description === "" ? undefined : message.description;
+    obj.plan = message.plan ? Plan.toAmino(message.plan) : undefined;
+    obj.upgraded_client_state = message.upgradedClientState
+      ? Any.toAmino(message.upgradedClientState)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: UpgradeProposalAminoMsg): UpgradeProposal {
+    return UpgradeProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: UpgradeProposal): UpgradeProposalAminoMsg {
+    return {
+      type: "cosmos-sdk/UpgradeProposal",
+      value: UpgradeProposal.toAmino(message),
+    };
   },
 };

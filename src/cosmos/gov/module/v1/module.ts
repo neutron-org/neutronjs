@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../../helpers";
@@ -70,5 +71,31 @@ export const Module = {
     }
     message.authority = object.authority ?? "";
     return message;
+  },
+  fromAmino(object: ModuleAmino): Module {
+    const message = createBaseModule();
+    if (object.max_metadata_len !== undefined && object.max_metadata_len !== null) {
+      message.maxMetadataLen = BigInt(object.max_metadata_len);
+    }
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    return message;
+  },
+  toAmino(message: Module): ModuleAmino {
+    const obj: any = {};
+    obj.max_metadata_len =
+      message.maxMetadataLen !== BigInt(0) ? message.maxMetadataLen?.toString() : undefined;
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    return obj;
+  },
+  fromAminoMsg(object: ModuleAminoMsg): Module {
+    return Module.fromAmino(object.value);
+  },
+  toAminoMsg(message: Module): ModuleAminoMsg {
+    return {
+      type: "cosmos-sdk/Module",
+      value: Module.toAmino(message),
+    };
   },
 };

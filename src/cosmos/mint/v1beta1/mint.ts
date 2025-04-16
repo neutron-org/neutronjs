@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { Decimal } from "@cosmjs/math";
@@ -80,6 +81,31 @@ export const Minter = {
     message.inflation = object.inflation ?? "";
     message.annualProvisions = object.annualProvisions ?? "";
     return message;
+  },
+  fromAmino(object: MinterAmino): Minter {
+    const message = createBaseMinter();
+    if (object.inflation !== undefined && object.inflation !== null) {
+      message.inflation = object.inflation;
+    }
+    if (object.annual_provisions !== undefined && object.annual_provisions !== null) {
+      message.annualProvisions = object.annual_provisions;
+    }
+    return message;
+  },
+  toAmino(message: Minter): MinterAmino {
+    const obj: any = {};
+    obj.inflation = message.inflation === "" ? undefined : message.inflation;
+    obj.annual_provisions = message.annualProvisions === "" ? undefined : message.annualProvisions;
+    return obj;
+  },
+  fromAminoMsg(object: MinterAminoMsg): Minter {
+    return Minter.fromAmino(object.value);
+  },
+  toAminoMsg(message: Minter): MinterAminoMsg {
+    return {
+      type: "cosmos-sdk/Minter",
+      value: Minter.toAmino(message),
+    };
   },
 };
 function createBaseParams(): Params {
@@ -179,5 +205,46 @@ export const Params = {
       message.blocksPerYear = BigInt(object.blocksPerYear.toString());
     }
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    if (object.mint_denom !== undefined && object.mint_denom !== null) {
+      message.mintDenom = object.mint_denom;
+    }
+    if (object.inflation_rate_change !== undefined && object.inflation_rate_change !== null) {
+      message.inflationRateChange = object.inflation_rate_change;
+    }
+    if (object.inflation_max !== undefined && object.inflation_max !== null) {
+      message.inflationMax = object.inflation_max;
+    }
+    if (object.inflation_min !== undefined && object.inflation_min !== null) {
+      message.inflationMin = object.inflation_min;
+    }
+    if (object.goal_bonded !== undefined && object.goal_bonded !== null) {
+      message.goalBonded = object.goal_bonded;
+    }
+    if (object.blocks_per_year !== undefined && object.blocks_per_year !== null) {
+      message.blocksPerYear = BigInt(object.blocks_per_year);
+    }
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.mint_denom = message.mintDenom === "" ? undefined : message.mintDenom;
+    obj.inflation_rate_change = message.inflationRateChange ?? "";
+    obj.inflation_max = message.inflationMax ?? "";
+    obj.inflation_min = message.inflationMin ?? "";
+    obj.goal_bonded = message.goalBonded ?? "";
+    obj.blocks_per_year = message.blocksPerYear !== BigInt(0) ? message.blocksPerYear?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/x/mint/Params",
+      value: Params.toAmino(message),
+    };
   },
 };

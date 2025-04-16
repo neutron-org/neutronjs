@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { CurrencyPair } from "../../types/v1/currency_pair";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -103,6 +104,33 @@ export const MsgAddCurrencyPairs = {
     message.currencyPairs = object.currencyPairs?.map((e) => CurrencyPair.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: MsgAddCurrencyPairsAmino): MsgAddCurrencyPairs {
+    const message = createBaseMsgAddCurrencyPairs();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    message.currencyPairs = object.currency_pairs?.map((e) => CurrencyPair.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: MsgAddCurrencyPairs): MsgAddCurrencyPairsAmino {
+    const obj: any = {};
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    if (message.currencyPairs) {
+      obj.currency_pairs = message.currencyPairs.map((e) => (e ? CurrencyPair.toAmino(e) : undefined));
+    } else {
+      obj.currency_pairs = message.currencyPairs;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgAddCurrencyPairsAminoMsg): MsgAddCurrencyPairs {
+    return MsgAddCurrencyPairs.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgAddCurrencyPairs): MsgAddCurrencyPairsAminoMsg {
+    return {
+      type: "slinky/x/oracle/MsgAddCurrencyPairs",
+      value: MsgAddCurrencyPairs.toAmino(message),
+    };
+  },
 };
 function createBaseMsgAddCurrencyPairsResponse(): MsgAddCurrencyPairsResponse {
   return {};
@@ -139,6 +167,17 @@ export const MsgAddCurrencyPairsResponse = {
   ): MsgAddCurrencyPairsResponse {
     const message = createBaseMsgAddCurrencyPairsResponse();
     return message;
+  },
+  fromAmino(_: MsgAddCurrencyPairsResponseAmino): MsgAddCurrencyPairsResponse {
+    const message = createBaseMsgAddCurrencyPairsResponse();
+    return message;
+  },
+  toAmino(_: MsgAddCurrencyPairsResponse): MsgAddCurrencyPairsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgAddCurrencyPairsResponseAminoMsg): MsgAddCurrencyPairsResponse {
+    return MsgAddCurrencyPairsResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgRemoveCurrencyPairs(): MsgRemoveCurrencyPairs {
@@ -201,6 +240,33 @@ export const MsgRemoveCurrencyPairs = {
     message.currencyPairIds = object.currencyPairIds?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: MsgRemoveCurrencyPairsAmino): MsgRemoveCurrencyPairs {
+    const message = createBaseMsgRemoveCurrencyPairs();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    message.currencyPairIds = object.currency_pair_ids?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: MsgRemoveCurrencyPairs): MsgRemoveCurrencyPairsAmino {
+    const obj: any = {};
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    if (message.currencyPairIds) {
+      obj.currency_pair_ids = message.currencyPairIds.map((e) => e);
+    } else {
+      obj.currency_pair_ids = message.currencyPairIds;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgRemoveCurrencyPairsAminoMsg): MsgRemoveCurrencyPairs {
+    return MsgRemoveCurrencyPairs.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRemoveCurrencyPairs): MsgRemoveCurrencyPairsAminoMsg {
+    return {
+      type: "slinky/x/oracle/MsgSetCurrencyPairs",
+      value: MsgRemoveCurrencyPairs.toAmino(message),
+    };
+  },
 };
 function createBaseMsgRemoveCurrencyPairsResponse(): MsgRemoveCurrencyPairsResponse {
   return {};
@@ -237,5 +303,16 @@ export const MsgRemoveCurrencyPairsResponse = {
   ): MsgRemoveCurrencyPairsResponse {
     const message = createBaseMsgRemoveCurrencyPairsResponse();
     return message;
+  },
+  fromAmino(_: MsgRemoveCurrencyPairsResponseAmino): MsgRemoveCurrencyPairsResponse {
+    const message = createBaseMsgRemoveCurrencyPairsResponse();
+    return message;
+  },
+  toAmino(_: MsgRemoveCurrencyPairsResponse): MsgRemoveCurrencyPairsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgRemoveCurrencyPairsResponseAminoMsg): MsgRemoveCurrencyPairsResponse {
+    return MsgRemoveCurrencyPairsResponse.fromAmino(object.value);
   },
 };

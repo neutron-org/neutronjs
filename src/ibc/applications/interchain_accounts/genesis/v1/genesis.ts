@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params as Params1 } from "../../controller/v1/controller";
 import { Params as Params2 } from "../../host/v1/host";
@@ -107,6 +108,35 @@ export const GenesisState = {
     }
     return message;
   },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    const message = createBaseGenesisState();
+    if (object.controller_genesis_state !== undefined && object.controller_genesis_state !== null) {
+      message.controllerGenesisState = ControllerGenesisState.fromAmino(object.controller_genesis_state);
+    }
+    if (object.host_genesis_state !== undefined && object.host_genesis_state !== null) {
+      message.hostGenesisState = HostGenesisState.fromAmino(object.host_genesis_state);
+    }
+    return message;
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.controller_genesis_state = message.controllerGenesisState
+      ? ControllerGenesisState.toAmino(message.controllerGenesisState)
+      : undefined;
+    obj.host_genesis_state = message.hostGenesisState
+      ? HostGenesisState.toAmino(message.hostGenesisState)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
+  },
 };
 function createBaseControllerGenesisState(): ControllerGenesisState {
   return {
@@ -205,6 +235,48 @@ export const ControllerGenesisState = {
     }
     return message;
   },
+  fromAmino(object: ControllerGenesisStateAmino): ControllerGenesisState {
+    const message = createBaseControllerGenesisState();
+    message.activeChannels = object.active_channels?.map((e) => ActiveChannel.fromAmino(e)) || [];
+    message.interchainAccounts =
+      object.interchain_accounts?.map((e) => RegisteredInterchainAccount.fromAmino(e)) || [];
+    message.ports = object.ports?.map((e) => e) || [];
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params1.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: ControllerGenesisState): ControllerGenesisStateAmino {
+    const obj: any = {};
+    if (message.activeChannels) {
+      obj.active_channels = message.activeChannels.map((e) => (e ? ActiveChannel.toAmino(e) : undefined));
+    } else {
+      obj.active_channels = message.activeChannels;
+    }
+    if (message.interchainAccounts) {
+      obj.interchain_accounts = message.interchainAccounts.map((e) =>
+        e ? RegisteredInterchainAccount.toAmino(e) : undefined,
+      );
+    } else {
+      obj.interchain_accounts = message.interchainAccounts;
+    }
+    if (message.ports) {
+      obj.ports = message.ports.map((e) => e);
+    } else {
+      obj.ports = message.ports;
+    }
+    obj.params = message.params ? Params1.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ControllerGenesisStateAminoMsg): ControllerGenesisState {
+    return ControllerGenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: ControllerGenesisState): ControllerGenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/ControllerGenesisState",
+      value: ControllerGenesisState.toAmino(message),
+    };
+  },
 };
 function createBaseHostGenesisState(): HostGenesisState {
   return {
@@ -299,6 +371,46 @@ export const HostGenesisState = {
     }
     return message;
   },
+  fromAmino(object: HostGenesisStateAmino): HostGenesisState {
+    const message = createBaseHostGenesisState();
+    message.activeChannels = object.active_channels?.map((e) => ActiveChannel.fromAmino(e)) || [];
+    message.interchainAccounts =
+      object.interchain_accounts?.map((e) => RegisteredInterchainAccount.fromAmino(e)) || [];
+    if (object.port !== undefined && object.port !== null) {
+      message.port = object.port;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params2.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: HostGenesisState): HostGenesisStateAmino {
+    const obj: any = {};
+    if (message.activeChannels) {
+      obj.active_channels = message.activeChannels.map((e) => (e ? ActiveChannel.toAmino(e) : undefined));
+    } else {
+      obj.active_channels = message.activeChannels;
+    }
+    if (message.interchainAccounts) {
+      obj.interchain_accounts = message.interchainAccounts.map((e) =>
+        e ? RegisteredInterchainAccount.toAmino(e) : undefined,
+      );
+    } else {
+      obj.interchain_accounts = message.interchainAccounts;
+    }
+    obj.port = message.port === "" ? undefined : message.port;
+    obj.params = message.params ? Params2.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: HostGenesisStateAminoMsg): HostGenesisState {
+    return HostGenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: HostGenesisState): HostGenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/HostGenesisState",
+      value: HostGenesisState.toAmino(message),
+    };
+  },
 };
 function createBaseActiveChannel(): ActiveChannel {
   return {
@@ -375,6 +487,40 @@ export const ActiveChannel = {
     message.isMiddlewareEnabled = object.isMiddlewareEnabled ?? false;
     return message;
   },
+  fromAmino(object: ActiveChannelAmino): ActiveChannel {
+    const message = createBaseActiveChannel();
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.is_middleware_enabled !== undefined && object.is_middleware_enabled !== null) {
+      message.isMiddlewareEnabled = object.is_middleware_enabled;
+    }
+    return message;
+  },
+  toAmino(message: ActiveChannel): ActiveChannelAmino {
+    const obj: any = {};
+    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.is_middleware_enabled =
+      message.isMiddlewareEnabled === false ? undefined : message.isMiddlewareEnabled;
+    return obj;
+  },
+  fromAminoMsg(object: ActiveChannelAminoMsg): ActiveChannel {
+    return ActiveChannel.fromAmino(object.value);
+  },
+  toAminoMsg(message: ActiveChannel): ActiveChannelAminoMsg {
+    return {
+      type: "cosmos-sdk/ActiveChannel",
+      value: ActiveChannel.toAmino(message),
+    };
+  },
 };
 function createBaseRegisteredInterchainAccount(): RegisteredInterchainAccount {
   return {
@@ -442,5 +588,34 @@ export const RegisteredInterchainAccount = {
     message.portId = object.portId ?? "";
     message.accountAddress = object.accountAddress ?? "";
     return message;
+  },
+  fromAmino(object: RegisteredInterchainAccountAmino): RegisteredInterchainAccount {
+    const message = createBaseRegisteredInterchainAccount();
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.account_address !== undefined && object.account_address !== null) {
+      message.accountAddress = object.account_address;
+    }
+    return message;
+  },
+  toAmino(message: RegisteredInterchainAccount): RegisteredInterchainAccountAmino {
+    const obj: any = {};
+    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.account_address = message.accountAddress === "" ? undefined : message.accountAddress;
+    return obj;
+  },
+  fromAminoMsg(object: RegisteredInterchainAccountAminoMsg): RegisteredInterchainAccount {
+    return RegisteredInterchainAccount.fromAmino(object.value);
+  },
+  toAminoMsg(message: RegisteredInterchainAccount): RegisteredInterchainAccountAminoMsg {
+    return {
+      type: "cosmos-sdk/RegisteredInterchainAccount",
+      value: RegisteredInterchainAccount.toAmino(message),
+    };
   },
 };

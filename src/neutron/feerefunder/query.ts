@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./params";
 import { FeeInfo } from "./genesis";
@@ -54,6 +55,17 @@ export const QueryParamsRequest = {
     const message = createBaseQueryParamsRequest();
     return message;
   },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    const message = createBaseQueryParamsRequest();
+    return message;
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
@@ -101,6 +113,21 @@ export const QueryParamsResponse = {
       message.params = Params.fromPartial(object.params);
     }
     return message;
+  },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
   },
 };
 function createBaseFeeInfoRequest(): FeeInfoRequest {
@@ -170,6 +197,29 @@ export const FeeInfoRequest = {
     }
     return message;
   },
+  fromAmino(object: FeeInfoRequestAmino): FeeInfoRequest {
+    const message = createBaseFeeInfoRequest();
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = BigInt(object.sequence);
+    }
+    return message;
+  },
+  toAmino(message: FeeInfoRequest): FeeInfoRequestAmino {
+    const obj: any = {};
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.sequence = message.sequence !== BigInt(0) ? message.sequence?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: FeeInfoRequestAminoMsg): FeeInfoRequest {
+    return FeeInfoRequest.fromAmino(object.value);
+  },
 };
 function createBaseFeeInfoResponse(): FeeInfoResponse {
   return {
@@ -218,5 +268,20 @@ export const FeeInfoResponse = {
       message.feeInfo = FeeInfo.fromPartial(object.feeInfo);
     }
     return message;
+  },
+  fromAmino(object: FeeInfoResponseAmino): FeeInfoResponse {
+    const message = createBaseFeeInfoResponse();
+    if (object.fee_info !== undefined && object.fee_info !== null) {
+      message.feeInfo = FeeInfo.fromAmino(object.fee_info);
+    }
+    return message;
+  },
+  toAmino(message: FeeInfoResponse): FeeInfoResponseAmino {
+    const obj: any = {};
+    obj.fee_info = message.feeInfo ? FeeInfo.toAmino(message.feeInfo) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: FeeInfoResponseAminoMsg): FeeInfoResponse {
+    return FeeInfoResponse.fromAmino(object.value);
   },
 };

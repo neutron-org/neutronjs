@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
 import { JsonSafe } from "../../../../../json-safe";
@@ -61,6 +62,29 @@ export const Pairs = {
     message.pairs = object.pairs?.map((e) => Pair.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: PairsAmino): Pairs {
+    const message = createBasePairs();
+    message.pairs = object.pairs?.map((e) => Pair.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: Pairs): PairsAmino {
+    const obj: any = {};
+    if (message.pairs) {
+      obj.pairs = message.pairs.map((e) => (e ? Pair.toAmino(e) : undefined));
+    } else {
+      obj.pairs = message.pairs;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: PairsAminoMsg): Pairs {
+    return Pairs.fromAmino(object.value);
+  },
+  toAminoMsg(message: Pairs): PairsAminoMsg {
+    return {
+      type: "cosmos-sdk/Pairs",
+      value: Pairs.toAmino(message),
+    };
+  },
 };
 function createBasePair(): Pair {
   return {
@@ -118,5 +142,30 @@ export const Pair = {
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: PairAmino): Pair {
+    const message = createBasePair();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = bytesFromBase64(object.key);
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = bytesFromBase64(object.value);
+    }
+    return message;
+  },
+  toAmino(message: Pair): PairAmino {
+    const obj: any = {};
+    obj.key = message.key ? base64FromBytes(message.key) : undefined;
+    obj.value = message.value ? base64FromBytes(message.value) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PairAminoMsg): Pair {
+    return Pair.fromAmino(object.value);
+  },
+  toAminoMsg(message: Pair): PairAminoMsg {
+    return {
+      type: "cosmos-sdk/Pair",
+      value: Pair.toAmino(message),
+    };
   },
 };

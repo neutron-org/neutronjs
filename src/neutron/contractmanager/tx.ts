@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../binary";
@@ -91,6 +92,31 @@ export const MsgUpdateParams = {
     }
     return message;
   },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
+    return {
+      type: "contractmanager/MsgUpdateParams",
+      value: MsgUpdateParams.toAmino(message),
+    };
+  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -125,6 +151,17 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgResubmitFailure(): MsgResubmitFailure {
@@ -184,6 +221,31 @@ export const MsgResubmitFailure = {
     }
     return message;
   },
+  fromAmino(object: MsgResubmitFailureAmino): MsgResubmitFailure {
+    const message = createBaseMsgResubmitFailure();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.failure_id !== undefined && object.failure_id !== null) {
+      message.failureId = BigInt(object.failure_id);
+    }
+    return message;
+  },
+  toAmino(message: MsgResubmitFailure): MsgResubmitFailureAmino {
+    const obj: any = {};
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.failure_id = message.failureId !== BigInt(0) ? message.failureId?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgResubmitFailureAminoMsg): MsgResubmitFailure {
+    return MsgResubmitFailure.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgResubmitFailure): MsgResubmitFailureAminoMsg {
+    return {
+      type: "contractmanager/MsgResubmitFailure",
+      value: MsgResubmitFailure.toAmino(message),
+    };
+  },
 };
 function createBaseMsgResubmitFailureResponse(): MsgResubmitFailureResponse {
   return {};
@@ -218,5 +280,16 @@ export const MsgResubmitFailureResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgResubmitFailureResponse>, I>>(_: I): MsgResubmitFailureResponse {
     const message = createBaseMsgResubmitFailureResponse();
     return message;
+  },
+  fromAmino(_: MsgResubmitFailureResponseAmino): MsgResubmitFailureResponse {
+    const message = createBaseMsgResubmitFailureResponse();
+    return message;
+  },
+  toAmino(_: MsgResubmitFailureResponse): MsgResubmitFailureResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgResubmitFailureResponseAminoMsg): MsgResubmitFailureResponse {
+    return MsgResubmitFailureResponse.fromAmino(object.value);
   },
 };

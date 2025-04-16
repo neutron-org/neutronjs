@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
@@ -104,5 +105,36 @@ export const Failure = {
     }
     message.ackType = object.ackType ?? "";
     return message;
+  },
+  fromAmino(object: FailureAmino): Failure {
+    const message = createBaseFailure();
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id);
+    }
+    if (object.ack_id !== undefined && object.ack_id !== null) {
+      message.ackId = BigInt(object.ack_id);
+    }
+    if (object.ack_type !== undefined && object.ack_type !== null) {
+      message.ackType = object.ack_type;
+    }
+    return message;
+  },
+  toAmino(message: Failure): FailureAmino {
+    const obj: any = {};
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.address = message.address === "" ? undefined : message.address;
+    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
+    obj.ack_id = message.ackId !== BigInt(0) ? message.ackId?.toString() : undefined;
+    obj.ack_type = message.ackType === "" ? undefined : message.ackType;
+    return obj;
+  },
+  fromAminoMsg(object: FailureAminoMsg): Failure {
+    return Failure.fromAmino(object.value);
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { FileDescriptorProto } from "../../../google/protobuf/descriptor";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -44,6 +45,23 @@ export const FileDescriptorsRequest = {
   fromPartial<I extends Exact<DeepPartial<FileDescriptorsRequest>, I>>(_: I): FileDescriptorsRequest {
     const message = createBaseFileDescriptorsRequest();
     return message;
+  },
+  fromAmino(_: FileDescriptorsRequestAmino): FileDescriptorsRequest {
+    const message = createBaseFileDescriptorsRequest();
+    return message;
+  },
+  toAmino(_: FileDescriptorsRequest): FileDescriptorsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: FileDescriptorsRequestAminoMsg): FileDescriptorsRequest {
+    return FileDescriptorsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: FileDescriptorsRequest): FileDescriptorsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/FileDescriptorsRequest",
+      value: FileDescriptorsRequest.toAmino(message),
+    };
   },
 };
 function createBaseFileDescriptorsResponse(): FileDescriptorsResponse {
@@ -95,5 +113,28 @@ export const FileDescriptorsResponse = {
     const message = createBaseFileDescriptorsResponse();
     message.files = object.files?.map((e) => FileDescriptorProto.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: FileDescriptorsResponseAmino): FileDescriptorsResponse {
+    const message = createBaseFileDescriptorsResponse();
+    message.files = object.files?.map((e) => FileDescriptorProto.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: FileDescriptorsResponse): FileDescriptorsResponseAmino {
+    const obj: any = {};
+    if (message.files) {
+      obj.files = message.files.map((e) => (e ? FileDescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.files = message.files;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: FileDescriptorsResponseAminoMsg): FileDescriptorsResponse {
+    return FileDescriptorsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: FileDescriptorsResponse): FileDescriptorsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/FileDescriptorsResponse",
+      value: FileDescriptorsResponse.toAmino(message),
+    };
   },
 };

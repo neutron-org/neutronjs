@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./params";
 import { Failure } from "./failure";
@@ -72,5 +73,26 @@ export const GenesisState = {
     }
     message.failuresList = object.failuresList?.map((e) => Failure.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.failuresList = object.failures_list?.map((e) => Failure.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    if (message.failuresList) {
+      obj.failures_list = message.failuresList.map((e) => (e ? Failure.toAmino(e) : undefined));
+    } else {
+      obj.failures_list = message.failuresList;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
   },
 };

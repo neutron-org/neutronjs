@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -141,6 +142,51 @@ export const Class = {
     }
     return message;
   },
+  fromAmino(object: ClassAmino): Class {
+    const message = createBaseClass();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.symbol !== undefined && object.symbol !== null) {
+      message.symbol = object.symbol;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.uri !== undefined && object.uri !== null) {
+      message.uri = object.uri;
+    }
+    if (object.uri_hash !== undefined && object.uri_hash !== null) {
+      message.uriHash = object.uri_hash;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = Any.fromAmino(object.data);
+    }
+    return message;
+  },
+  toAmino(message: Class): ClassAmino {
+    const obj: any = {};
+    obj.id = message.id === "" ? undefined : message.id;
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.symbol = message.symbol === "" ? undefined : message.symbol;
+    obj.description = message.description === "" ? undefined : message.description;
+    obj.uri = message.uri === "" ? undefined : message.uri;
+    obj.uri_hash = message.uriHash === "" ? undefined : message.uriHash;
+    obj.data = message.data ? Any.toAmino(message.data) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ClassAminoMsg): Class {
+    return Class.fromAmino(object.value);
+  },
+  toAminoMsg(message: Class): ClassAminoMsg {
+    return {
+      type: "cosmos-sdk/Class",
+      value: Class.toAmino(message),
+    };
+  },
 };
 function createBaseNFT(): NFT {
   return {
@@ -228,5 +274,42 @@ export const NFT = {
       message.data = Any.fromPartial(object.data);
     }
     return message;
+  },
+  fromAmino(object: NFTAmino): NFT {
+    const message = createBaseNFT();
+    if (object.class_id !== undefined && object.class_id !== null) {
+      message.classId = object.class_id;
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.uri !== undefined && object.uri !== null) {
+      message.uri = object.uri;
+    }
+    if (object.uri_hash !== undefined && object.uri_hash !== null) {
+      message.uriHash = object.uri_hash;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = Any.fromAmino(object.data);
+    }
+    return message;
+  },
+  toAmino(message: NFT): NFTAmino {
+    const obj: any = {};
+    obj.class_id = message.classId === "" ? undefined : message.classId;
+    obj.id = message.id === "" ? undefined : message.id;
+    obj.uri = message.uri === "" ? undefined : message.uri;
+    obj.uri_hash = message.uriHash === "" ? undefined : message.uriHash;
+    obj.data = message.data ? Any.toAmino(message.data) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: NFTAminoMsg): NFT {
+    return NFT.fromAmino(object.value);
+  },
+  toAminoMsg(message: NFT): NFTAminoMsg {
+    return {
+      type: "cosmos-sdk/NFT",
+      value: NFT.toAmino(message),
+    };
   },
 };

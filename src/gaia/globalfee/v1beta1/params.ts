@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { DecCoin } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -109,5 +110,38 @@ export const Params = {
       message.maxTotalBypassMinFeeMsgGasUsage = BigInt(object.maxTotalBypassMinFeeMsgGasUsage.toString());
     }
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    message.minimumGasPrices = object.minimum_gas_prices?.map((e) => DecCoin.fromAmino(e)) || [];
+    message.bypassMinFeeMsgTypes = object.bypass_min_fee_msg_types?.map((e) => e) || [];
+    if (
+      object.max_total_bypass_min_fee_msg_gas_usage !== undefined &&
+      object.max_total_bypass_min_fee_msg_gas_usage !== null
+    ) {
+      message.maxTotalBypassMinFeeMsgGasUsage = BigInt(object.max_total_bypass_min_fee_msg_gas_usage);
+    }
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.minimumGasPrices) {
+      obj.minimum_gas_prices = message.minimumGasPrices.map((e) => (e ? DecCoin.toAmino(e) : undefined));
+    } else {
+      obj.minimum_gas_prices = message.minimumGasPrices;
+    }
+    if (message.bypassMinFeeMsgTypes) {
+      obj.bypass_min_fee_msg_types = message.bypassMinFeeMsgTypes.map((e) => e);
+    } else {
+      obj.bypass_min_fee_msg_types = message.bypassMinFeeMsgTypes;
+    }
+    obj.max_total_bypass_min_fee_msg_gas_usage =
+      message.maxTotalBypassMinFeeMsgGasUsage !== BigInt(0)
+        ? message.maxTotalBypassMinFeeMsgGasUsage?.toString()
+        : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
   },
 };

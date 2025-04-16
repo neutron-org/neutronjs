@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers";
@@ -92,6 +93,29 @@ export const NetAddress = {
     message.port = object.port ?? 0;
     return message;
   },
+  fromAmino(object: NetAddressAmino): NetAddress {
+    const message = createBaseNetAddress();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    }
+    if (object.ip !== undefined && object.ip !== null) {
+      message.ip = object.ip;
+    }
+    if (object.port !== undefined && object.port !== null) {
+      message.port = object.port;
+    }
+    return message;
+  },
+  toAmino(message: NetAddress): NetAddressAmino {
+    const obj: any = {};
+    obj.id = message.id === "" ? undefined : message.id;
+    obj.ip = message.ip === "" ? undefined : message.ip;
+    obj.port = message.port === 0 ? undefined : message.port;
+    return obj;
+  },
+  fromAminoMsg(object: NetAddressAminoMsg): NetAddress {
+    return NetAddress.fromAmino(object.value);
+  },
 };
 function createBaseProtocolVersion(): ProtocolVersion {
   return {
@@ -163,6 +187,29 @@ export const ProtocolVersion = {
       message.app = BigInt(object.app.toString());
     }
     return message;
+  },
+  fromAmino(object: ProtocolVersionAmino): ProtocolVersion {
+    const message = createBaseProtocolVersion();
+    if (object.p2p !== undefined && object.p2p !== null) {
+      message.p2p = BigInt(object.p2p);
+    }
+    if (object.block !== undefined && object.block !== null) {
+      message.block = BigInt(object.block);
+    }
+    if (object.app !== undefined && object.app !== null) {
+      message.app = BigInt(object.app);
+    }
+    return message;
+  },
+  toAmino(message: ProtocolVersion): ProtocolVersionAmino {
+    const obj: any = {};
+    obj.p2p = message.p2p !== BigInt(0) ? message.p2p?.toString() : undefined;
+    obj.block = message.block !== BigInt(0) ? message.block?.toString() : undefined;
+    obj.app = message.app !== BigInt(0) ? message.app?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ProtocolVersionAminoMsg): ProtocolVersion {
+    return ProtocolVersion.fromAmino(object.value);
   },
 };
 function createBaseDefaultNodeInfo(): DefaultNodeInfo {
@@ -289,6 +336,51 @@ export const DefaultNodeInfo = {
     }
     return message;
   },
+  fromAmino(object: DefaultNodeInfoAmino): DefaultNodeInfo {
+    const message = createBaseDefaultNodeInfo();
+    if (object.protocol_version !== undefined && object.protocol_version !== null) {
+      message.protocolVersion = ProtocolVersion.fromAmino(object.protocol_version);
+    }
+    if (object.default_node_id !== undefined && object.default_node_id !== null) {
+      message.defaultNodeId = object.default_node_id;
+    }
+    if (object.listen_addr !== undefined && object.listen_addr !== null) {
+      message.listenAddr = object.listen_addr;
+    }
+    if (object.network !== undefined && object.network !== null) {
+      message.network = object.network;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    if (object.channels !== undefined && object.channels !== null) {
+      message.channels = bytesFromBase64(object.channels);
+    }
+    if (object.moniker !== undefined && object.moniker !== null) {
+      message.moniker = object.moniker;
+    }
+    if (object.other !== undefined && object.other !== null) {
+      message.other = DefaultNodeInfoOther.fromAmino(object.other);
+    }
+    return message;
+  },
+  toAmino(message: DefaultNodeInfo): DefaultNodeInfoAmino {
+    const obj: any = {};
+    obj.protocol_version = message.protocolVersion
+      ? ProtocolVersion.toAmino(message.protocolVersion)
+      : undefined;
+    obj.default_node_id = message.defaultNodeId === "" ? undefined : message.defaultNodeId;
+    obj.listen_addr = message.listenAddr === "" ? undefined : message.listenAddr;
+    obj.network = message.network === "" ? undefined : message.network;
+    obj.version = message.version === "" ? undefined : message.version;
+    obj.channels = message.channels ? base64FromBytes(message.channels) : undefined;
+    obj.moniker = message.moniker === "" ? undefined : message.moniker;
+    obj.other = message.other ? DefaultNodeInfoOther.toAmino(message.other) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: DefaultNodeInfoAminoMsg): DefaultNodeInfo {
+    return DefaultNodeInfo.fromAmino(object.value);
+  },
 };
 function createBaseDefaultNodeInfoOther(): DefaultNodeInfoOther {
   return {
@@ -344,5 +436,24 @@ export const DefaultNodeInfoOther = {
     message.txIndex = object.txIndex ?? "";
     message.rpcAddress = object.rpcAddress ?? "";
     return message;
+  },
+  fromAmino(object: DefaultNodeInfoOtherAmino): DefaultNodeInfoOther {
+    const message = createBaseDefaultNodeInfoOther();
+    if (object.tx_index !== undefined && object.tx_index !== null) {
+      message.txIndex = object.tx_index;
+    }
+    if (object.rpc_address !== undefined && object.rpc_address !== null) {
+      message.rpcAddress = object.rpc_address;
+    }
+    return message;
+  },
+  toAmino(message: DefaultNodeInfoOther): DefaultNodeInfoOtherAmino {
+    const obj: any = {};
+    obj.tx_index = message.txIndex === "" ? undefined : message.txIndex;
+    obj.rpc_address = message.rpcAddress === "" ? undefined : message.rpcAddress;
+    return obj;
+  },
+  fromAminoMsg(object: DefaultNodeInfoOtherAminoMsg): DefaultNodeInfoOther {
+    return DefaultNodeInfoOther.fromAmino(object.value);
   },
 };

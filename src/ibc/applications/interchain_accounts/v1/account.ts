@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BaseAccount } from "../../../../cosmos/auth/v1beta1/auth";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
@@ -66,5 +67,30 @@ export const InterchainAccount = {
     }
     message.accountOwner = object.accountOwner ?? "";
     return message;
+  },
+  fromAmino(object: InterchainAccountAmino): InterchainAccount {
+    const message = createBaseInterchainAccount();
+    if (object.base_account !== undefined && object.base_account !== null) {
+      message.baseAccount = BaseAccount.fromAmino(object.base_account);
+    }
+    if (object.account_owner !== undefined && object.account_owner !== null) {
+      message.accountOwner = object.account_owner;
+    }
+    return message;
+  },
+  toAmino(message: InterchainAccount): InterchainAccountAmino {
+    const obj: any = {};
+    obj.base_account = message.baseAccount ? BaseAccount.toAmino(message.baseAccount) : undefined;
+    obj.account_owner = message.accountOwner === "" ? undefined : message.accountOwner;
+    return obj;
+  },
+  fromAminoMsg(object: InterchainAccountAminoMsg): InterchainAccount {
+    return InterchainAccount.fromAmino(object.value);
+  },
+  toAminoMsg(message: InterchainAccount): InterchainAccountAminoMsg {
+    return {
+      type: "cosmos-sdk/InterchainAccount",
+      value: InterchainAccount.toAmino(message),
+    };
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Fee } from "./fee";
 import { BinaryReader, BinaryWriter } from "../../binary";
@@ -54,5 +55,20 @@ export const Params = {
       message.minFee = Fee.fromPartial(object.minFee);
     }
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    if (object.min_fee !== undefined && object.min_fee !== null) {
+      message.minFee = Fee.fromAmino(object.min_fee);
+    }
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.min_fee = message.minFee ? Fee.toAmino(message.minFee) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { JsonSafe } from "../../../../json-safe";
@@ -42,5 +43,22 @@ export const Module = {
   fromPartial<I extends Exact<DeepPartial<Module>, I>>(_: I): Module {
     const message = createBaseModule();
     return message;
+  },
+  fromAmino(_: ModuleAmino): Module {
+    const message = createBaseModule();
+    return message;
+  },
+  toAmino(_: Module): ModuleAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: ModuleAminoMsg): Module {
+    return Module.fromAmino(object.value);
+  },
+  toAminoMsg(message: Module): ModuleAminoMsg {
+    return {
+      type: "cosmos-sdk/Module",
+      value: Module.toAmino(message),
+    };
   },
 };

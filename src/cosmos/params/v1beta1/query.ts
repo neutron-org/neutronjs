@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { ParamChange } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -97,6 +98,31 @@ export const QueryParamsRequest = {
     message.key = object.key ?? "";
     return message;
   },
+  fromAmino(object: QueryParamsRequestAmino): QueryParamsRequest {
+    const message = createBaseQueryParamsRequest();
+    if (object.subspace !== undefined && object.subspace !== null) {
+      message.subspace = object.subspace;
+    }
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    return message;
+  },
+  toAmino(message: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    obj.subspace = message.subspace === "" ? undefined : message.subspace;
+    obj.key = message.key === "" ? undefined : message.key;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsRequest): QueryParamsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsRequest",
+      value: QueryParamsRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
@@ -146,6 +172,29 @@ export const QueryParamsResponse = {
     }
     return message;
   },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    const message = createBaseQueryParamsResponse();
+    if (object.param !== undefined && object.param !== null) {
+      message.param = ParamChange.fromAmino(object.param);
+    }
+    return message;
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.param = message.param
+      ? ParamChange.toAmino(message.param)
+      : ParamChange.toAmino(ParamChange.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsResponse): QueryParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryParamsResponse",
+      value: QueryParamsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQuerySubspacesRequest(): QuerySubspacesRequest {
   return {};
@@ -180,6 +229,23 @@ export const QuerySubspacesRequest = {
   fromPartial<I extends Exact<DeepPartial<QuerySubspacesRequest>, I>>(_: I): QuerySubspacesRequest {
     const message = createBaseQuerySubspacesRequest();
     return message;
+  },
+  fromAmino(_: QuerySubspacesRequestAmino): QuerySubspacesRequest {
+    const message = createBaseQuerySubspacesRequest();
+    return message;
+  },
+  toAmino(_: QuerySubspacesRequest): QuerySubspacesRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QuerySubspacesRequestAminoMsg): QuerySubspacesRequest {
+    return QuerySubspacesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QuerySubspacesRequest): QuerySubspacesRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QuerySubspacesRequest",
+      value: QuerySubspacesRequest.toAmino(message),
+    };
   },
 };
 function createBaseQuerySubspacesResponse(): QuerySubspacesResponse {
@@ -231,6 +297,29 @@ export const QuerySubspacesResponse = {
     const message = createBaseQuerySubspacesResponse();
     message.subspaces = object.subspaces?.map((e) => Subspace.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: QuerySubspacesResponseAmino): QuerySubspacesResponse {
+    const message = createBaseQuerySubspacesResponse();
+    message.subspaces = object.subspaces?.map((e) => Subspace.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QuerySubspacesResponse): QuerySubspacesResponseAmino {
+    const obj: any = {};
+    if (message.subspaces) {
+      obj.subspaces = message.subspaces.map((e) => (e ? Subspace.toAmino(e) : undefined));
+    } else {
+      obj.subspaces = message.subspaces;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QuerySubspacesResponseAminoMsg): QuerySubspacesResponse {
+    return QuerySubspacesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QuerySubspacesResponse): QuerySubspacesResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QuerySubspacesResponse",
+      value: QuerySubspacesResponse.toAmino(message),
+    };
   },
 };
 function createBaseSubspace(): Subspace {
@@ -291,5 +380,32 @@ export const Subspace = {
     message.subspace = object.subspace ?? "";
     message.keys = object.keys?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: SubspaceAmino): Subspace {
+    const message = createBaseSubspace();
+    if (object.subspace !== undefined && object.subspace !== null) {
+      message.subspace = object.subspace;
+    }
+    message.keys = object.keys?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: Subspace): SubspaceAmino {
+    const obj: any = {};
+    obj.subspace = message.subspace === "" ? undefined : message.subspace;
+    if (message.keys) {
+      obj.keys = message.keys.map((e) => e);
+    } else {
+      obj.keys = message.keys;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SubspaceAminoMsg): Subspace {
+    return Subspace.fromAmino(object.value);
+  },
+  toAminoMsg(message: Subspace): SubspaceAminoMsg {
+    return {
+      type: "cosmos-sdk/Subspace",
+      value: Subspace.toAmino(message),
+    };
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { MarketMap } from "../../marketmap/v1/market";
@@ -70,6 +71,17 @@ export const QueryPricesRequest = {
     const message = createBaseQueryPricesRequest();
     return message;
   },
+  fromAmino(_: QueryPricesRequestAmino): QueryPricesRequest {
+    const message = createBaseQueryPricesRequest();
+    return message;
+  },
+  toAmino(_: QueryPricesRequest): QueryPricesRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryPricesRequestAminoMsg): QueryPricesRequest {
+    return QueryPricesRequest.fromAmino(object.value);
+  },
 };
 function createBaseQueryPricesResponse_PricesEntry(): QueryPricesResponse_PricesEntry {
   return {
@@ -129,6 +141,25 @@ export const QueryPricesResponse_PricesEntry = {
     message.key = object.key ?? "";
     message.value = object.value ?? "";
     return message;
+  },
+  fromAmino(object: QueryPricesResponse_PricesEntryAmino): QueryPricesResponse_PricesEntry {
+    const message = createBaseQueryPricesResponse_PricesEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
+  },
+  toAmino(message: QueryPricesResponse_PricesEntry): QueryPricesResponse_PricesEntryAmino {
+    const obj: any = {};
+    obj.key = message.key === "" ? undefined : message.key;
+    obj.value = message.value === "" ? undefined : message.value;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPricesResponse_PricesEntryAminoMsg): QueryPricesResponse_PricesEntry {
+    return QueryPricesResponse_PricesEntry.fromAmino(object.value);
   },
 };
 function createBaseQueryPricesResponse(): QueryPricesResponse {
@@ -225,6 +256,39 @@ export const QueryPricesResponse = {
     message.version = object.version ?? "";
     return message;
   },
+  fromAmino(object: QueryPricesResponseAmino): QueryPricesResponse {
+    const message = createBaseQueryPricesResponse();
+    message.prices = Object.entries(object.prices ?? {}).reduce<{
+      [key: string]: string;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
+        acc[key] = String(value);
+      }
+      return acc;
+    }, {});
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Timestamp.fromAmino(object.timestamp);
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    return message;
+  },
+  toAmino(message: QueryPricesResponse): QueryPricesResponseAmino {
+    const obj: any = {};
+    obj.prices = {};
+    if (message.prices) {
+      Object.entries(message.prices).forEach(([k, v]) => {
+        obj.prices[k] = v;
+      });
+    }
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
+    obj.version = message.version === "" ? undefined : message.version;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPricesResponseAminoMsg): QueryPricesResponse {
+    return QueryPricesResponse.fromAmino(object.value);
+  },
 };
 function createBaseQueryMarketMapRequest(): QueryMarketMapRequest {
   return {};
@@ -259,6 +323,17 @@ export const QueryMarketMapRequest = {
   fromPartial<I extends Exact<DeepPartial<QueryMarketMapRequest>, I>>(_: I): QueryMarketMapRequest {
     const message = createBaseQueryMarketMapRequest();
     return message;
+  },
+  fromAmino(_: QueryMarketMapRequestAmino): QueryMarketMapRequest {
+    const message = createBaseQueryMarketMapRequest();
+    return message;
+  },
+  toAmino(_: QueryMarketMapRequest): QueryMarketMapRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryMarketMapRequestAminoMsg): QueryMarketMapRequest {
+    return QueryMarketMapRequest.fromAmino(object.value);
   },
 };
 function createBaseQueryMarketMapResponse(): QueryMarketMapResponse {
@@ -309,6 +384,21 @@ export const QueryMarketMapResponse = {
     }
     return message;
   },
+  fromAmino(object: QueryMarketMapResponseAmino): QueryMarketMapResponse {
+    const message = createBaseQueryMarketMapResponse();
+    if (object.market_map !== undefined && object.market_map !== null) {
+      message.marketMap = MarketMap.fromAmino(object.market_map);
+    }
+    return message;
+  },
+  toAmino(message: QueryMarketMapResponse): QueryMarketMapResponseAmino {
+    const obj: any = {};
+    obj.market_map = message.marketMap ? MarketMap.toAmino(message.marketMap) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryMarketMapResponseAminoMsg): QueryMarketMapResponse {
+    return QueryMarketMapResponse.fromAmino(object.value);
+  },
 };
 function createBaseQueryVersionRequest(): QueryVersionRequest {
   return {};
@@ -343,6 +433,17 @@ export const QueryVersionRequest = {
   fromPartial<I extends Exact<DeepPartial<QueryVersionRequest>, I>>(_: I): QueryVersionRequest {
     const message = createBaseQueryVersionRequest();
     return message;
+  },
+  fromAmino(_: QueryVersionRequestAmino): QueryVersionRequest {
+    const message = createBaseQueryVersionRequest();
+    return message;
+  },
+  toAmino(_: QueryVersionRequest): QueryVersionRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryVersionRequestAminoMsg): QueryVersionRequest {
+    return QueryVersionRequest.fromAmino(object.value);
   },
 };
 function createBaseQueryVersionResponse(): QueryVersionResponse {
@@ -389,5 +490,20 @@ export const QueryVersionResponse = {
     const message = createBaseQueryVersionResponse();
     message.version = object.version ?? "";
     return message;
+  },
+  fromAmino(object: QueryVersionResponseAmino): QueryVersionResponse {
+    const message = createBaseQueryVersionResponse();
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    return message;
+  },
+  toAmino(message: QueryVersionResponse): QueryVersionResponseAmino {
+    const obj: any = {};
+    obj.version = message.version === "" ? undefined : message.version;
+    return obj;
+  },
+  fromAminoMsg(object: QueryVersionResponseAminoMsg): QueryVersionResponse {
+    return QueryVersionResponse.fromAmino(object.value);
   },
 };

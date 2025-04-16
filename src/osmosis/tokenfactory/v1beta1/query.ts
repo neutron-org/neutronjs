@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "../params";
 import { DenomAuthorityMetadata } from "./authorityMetadata";
@@ -105,6 +106,23 @@ export const QueryParamsRequest = {
     const message = createBaseQueryParamsRequest();
     return message;
   },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    const message = createBaseQueryParamsRequest();
+    return message;
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsRequest): QueryParamsRequestAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/query-params-request",
+      value: QueryParamsRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
@@ -152,6 +170,27 @@ export const QueryParamsResponse = {
       message.params = Params.fromPartial(object.params);
     }
     return message;
+  },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsResponse): QueryParamsResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/query-params-response",
+      value: QueryParamsResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryDenomAuthorityMetadataRequest(): QueryDenomAuthorityMetadataRequest {
@@ -214,6 +253,31 @@ export const QueryDenomAuthorityMetadataRequest = {
     message.subdenom = object.subdenom ?? "";
     return message;
   },
+  fromAmino(object: QueryDenomAuthorityMetadataRequestAmino): QueryDenomAuthorityMetadataRequest {
+    const message = createBaseQueryDenomAuthorityMetadataRequest();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.subdenom !== undefined && object.subdenom !== null) {
+      message.subdenom = object.subdenom;
+    }
+    return message;
+  },
+  toAmino(message: QueryDenomAuthorityMetadataRequest): QueryDenomAuthorityMetadataRequestAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.subdenom = message.subdenom === "" ? undefined : message.subdenom;
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomAuthorityMetadataRequestAminoMsg): QueryDenomAuthorityMetadataRequest {
+    return QueryDenomAuthorityMetadataRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryDenomAuthorityMetadataRequest): QueryDenomAuthorityMetadataRequestAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/query-denom-authority-metadata-request",
+      value: QueryDenomAuthorityMetadataRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryDenomAuthorityMetadataResponse(): QueryDenomAuthorityMetadataResponse {
   return {
@@ -271,6 +335,29 @@ export const QueryDenomAuthorityMetadataResponse = {
     }
     return message;
   },
+  fromAmino(object: QueryDenomAuthorityMetadataResponseAmino): QueryDenomAuthorityMetadataResponse {
+    const message = createBaseQueryDenomAuthorityMetadataResponse();
+    if (object.authority_metadata !== undefined && object.authority_metadata !== null) {
+      message.authorityMetadata = DenomAuthorityMetadata.fromAmino(object.authority_metadata);
+    }
+    return message;
+  },
+  toAmino(message: QueryDenomAuthorityMetadataResponse): QueryDenomAuthorityMetadataResponseAmino {
+    const obj: any = {};
+    obj.authority_metadata = message.authorityMetadata
+      ? DenomAuthorityMetadata.toAmino(message.authorityMetadata)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomAuthorityMetadataResponseAminoMsg): QueryDenomAuthorityMetadataResponse {
+    return QueryDenomAuthorityMetadataResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryDenomAuthorityMetadataResponse): QueryDenomAuthorityMetadataResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/query-denom-authority-metadata-response",
+      value: QueryDenomAuthorityMetadataResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryDenomsFromCreatorRequest(): QueryDenomsFromCreatorRequest {
   return {
@@ -318,6 +405,27 @@ export const QueryDenomsFromCreatorRequest = {
     const message = createBaseQueryDenomsFromCreatorRequest();
     message.creator = object.creator ?? "";
     return message;
+  },
+  fromAmino(object: QueryDenomsFromCreatorRequestAmino): QueryDenomsFromCreatorRequest {
+    const message = createBaseQueryDenomsFromCreatorRequest();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    return message;
+  },
+  toAmino(message: QueryDenomsFromCreatorRequest): QueryDenomsFromCreatorRequestAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomsFromCreatorRequestAminoMsg): QueryDenomsFromCreatorRequest {
+    return QueryDenomsFromCreatorRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryDenomsFromCreatorRequest): QueryDenomsFromCreatorRequestAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/query-denoms-from-creator-request",
+      value: QueryDenomsFromCreatorRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryDenomsFromCreatorResponse(): QueryDenomsFromCreatorResponse {
@@ -373,6 +481,29 @@ export const QueryDenomsFromCreatorResponse = {
     const message = createBaseQueryDenomsFromCreatorResponse();
     message.denoms = object.denoms?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: QueryDenomsFromCreatorResponseAmino): QueryDenomsFromCreatorResponse {
+    const message = createBaseQueryDenomsFromCreatorResponse();
+    message.denoms = object.denoms?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: QueryDenomsFromCreatorResponse): QueryDenomsFromCreatorResponseAmino {
+    const obj: any = {};
+    if (message.denoms) {
+      obj.denoms = message.denoms.map((e) => e);
+    } else {
+      obj.denoms = message.denoms;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomsFromCreatorResponseAminoMsg): QueryDenomsFromCreatorResponse {
+    return QueryDenomsFromCreatorResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryDenomsFromCreatorResponse): QueryDenomsFromCreatorResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/query-denoms-from-creator-response",
+      value: QueryDenomsFromCreatorResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryBeforeSendHookAddressRequest(): QueryBeforeSendHookAddressRequest {
@@ -435,6 +566,31 @@ export const QueryBeforeSendHookAddressRequest = {
     message.subdenom = object.subdenom ?? "";
     return message;
   },
+  fromAmino(object: QueryBeforeSendHookAddressRequestAmino): QueryBeforeSendHookAddressRequest {
+    const message = createBaseQueryBeforeSendHookAddressRequest();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.subdenom !== undefined && object.subdenom !== null) {
+      message.subdenom = object.subdenom;
+    }
+    return message;
+  },
+  toAmino(message: QueryBeforeSendHookAddressRequest): QueryBeforeSendHookAddressRequestAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.subdenom = message.subdenom === "" ? undefined : message.subdenom;
+    return obj;
+  },
+  fromAminoMsg(object: QueryBeforeSendHookAddressRequestAminoMsg): QueryBeforeSendHookAddressRequest {
+    return QueryBeforeSendHookAddressRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryBeforeSendHookAddressRequest): QueryBeforeSendHookAddressRequestAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/query-before-send-hook-address-request",
+      value: QueryBeforeSendHookAddressRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryBeforeSendHookAddressResponse(): QueryBeforeSendHookAddressResponse {
   return {
@@ -485,6 +641,27 @@ export const QueryBeforeSendHookAddressResponse = {
     const message = createBaseQueryBeforeSendHookAddressResponse();
     message.contractAddr = object.contractAddr ?? "";
     return message;
+  },
+  fromAmino(object: QueryBeforeSendHookAddressResponseAmino): QueryBeforeSendHookAddressResponse {
+    const message = createBaseQueryBeforeSendHookAddressResponse();
+    if (object.contract_addr !== undefined && object.contract_addr !== null) {
+      message.contractAddr = object.contract_addr;
+    }
+    return message;
+  },
+  toAmino(message: QueryBeforeSendHookAddressResponse): QueryBeforeSendHookAddressResponseAmino {
+    const obj: any = {};
+    obj.contract_addr = message.contractAddr === "" ? undefined : message.contractAddr;
+    return obj;
+  },
+  fromAminoMsg(object: QueryBeforeSendHookAddressResponseAminoMsg): QueryBeforeSendHookAddressResponse {
+    return QueryBeforeSendHookAddressResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryBeforeSendHookAddressResponse): QueryBeforeSendHookAddressResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/query-before-send-hook-address-response",
+      value: QueryBeforeSendHookAddressResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryFullDenomRequest(): QueryFullDenomRequest {
@@ -542,6 +719,31 @@ export const QueryFullDenomRequest = {
     message.subdenom = object.subdenom ?? "";
     return message;
   },
+  fromAmino(object: QueryFullDenomRequestAmino): QueryFullDenomRequest {
+    const message = createBaseQueryFullDenomRequest();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.subdenom !== undefined && object.subdenom !== null) {
+      message.subdenom = object.subdenom;
+    }
+    return message;
+  },
+  toAmino(message: QueryFullDenomRequest): QueryFullDenomRequestAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.subdenom = message.subdenom === "" ? undefined : message.subdenom;
+    return obj;
+  },
+  fromAminoMsg(object: QueryFullDenomRequestAminoMsg): QueryFullDenomRequest {
+    return QueryFullDenomRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryFullDenomRequest): QueryFullDenomRequestAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/query-full-denom-request",
+      value: QueryFullDenomRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryFullDenomResponse(): QueryFullDenomResponse {
   return {
@@ -587,5 +789,26 @@ export const QueryFullDenomResponse = {
     const message = createBaseQueryFullDenomResponse();
     message.fullDenom = object.fullDenom ?? "";
     return message;
+  },
+  fromAmino(object: QueryFullDenomResponseAmino): QueryFullDenomResponse {
+    const message = createBaseQueryFullDenomResponse();
+    if (object.full_denom !== undefined && object.full_denom !== null) {
+      message.fullDenom = object.full_denom;
+    }
+    return message;
+  },
+  toAmino(message: QueryFullDenomResponse): QueryFullDenomResponseAmino {
+    const obj: any = {};
+    obj.full_denom = message.fullDenom === "" ? undefined : message.fullDenom;
+    return obj;
+  },
+  fromAminoMsg(object: QueryFullDenomResponseAminoMsg): QueryFullDenomResponse {
+    return QueryFullDenomResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryFullDenomResponse): QueryFullDenomResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/query-full-denom-response",
+      value: QueryFullDenomResponse.toAmino(message),
+    };
   },
 };

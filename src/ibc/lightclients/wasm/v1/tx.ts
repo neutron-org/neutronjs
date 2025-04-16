@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
@@ -95,6 +96,31 @@ export const MsgStoreCode = {
     message.wasmByteCode = object.wasmByteCode ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: MsgStoreCodeAmino): MsgStoreCode {
+    const message = createBaseMsgStoreCode();
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    if (object.wasm_byte_code !== undefined && object.wasm_byte_code !== null) {
+      message.wasmByteCode = bytesFromBase64(object.wasm_byte_code);
+    }
+    return message;
+  },
+  toAmino(message: MsgStoreCode): MsgStoreCodeAmino {
+    const obj: any = {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    obj.wasm_byte_code = message.wasmByteCode ? base64FromBytes(message.wasmByteCode) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgStoreCodeAminoMsg): MsgStoreCode {
+    return MsgStoreCode.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgStoreCode): MsgStoreCodeAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgStoreCode",
+      value: MsgStoreCode.toAmino(message),
+    };
+  },
 };
 function createBaseMsgStoreCodeResponse(): MsgStoreCodeResponse {
   return {
@@ -141,6 +167,27 @@ export const MsgStoreCodeResponse = {
     const message = createBaseMsgStoreCodeResponse();
     message.checksum = object.checksum ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: MsgStoreCodeResponseAmino): MsgStoreCodeResponse {
+    const message = createBaseMsgStoreCodeResponse();
+    if (object.checksum !== undefined && object.checksum !== null) {
+      message.checksum = bytesFromBase64(object.checksum);
+    }
+    return message;
+  },
+  toAmino(message: MsgStoreCodeResponse): MsgStoreCodeResponseAmino {
+    const obj: any = {};
+    obj.checksum = message.checksum ? base64FromBytes(message.checksum) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgStoreCodeResponseAminoMsg): MsgStoreCodeResponse {
+    return MsgStoreCodeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgStoreCodeResponse): MsgStoreCodeResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgStoreCodeResponse",
+      value: MsgStoreCodeResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgRemoveChecksum(): MsgRemoveChecksum {
@@ -199,6 +246,31 @@ export const MsgRemoveChecksum = {
     message.checksum = object.checksum ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: MsgRemoveChecksumAmino): MsgRemoveChecksum {
+    const message = createBaseMsgRemoveChecksum();
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    if (object.checksum !== undefined && object.checksum !== null) {
+      message.checksum = bytesFromBase64(object.checksum);
+    }
+    return message;
+  },
+  toAmino(message: MsgRemoveChecksum): MsgRemoveChecksumAmino {
+    const obj: any = {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    obj.checksum = message.checksum ? base64FromBytes(message.checksum) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRemoveChecksumAminoMsg): MsgRemoveChecksum {
+    return MsgRemoveChecksum.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRemoveChecksum): MsgRemoveChecksumAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRemoveChecksum",
+      value: MsgRemoveChecksum.toAmino(message),
+    };
+  },
 };
 function createBaseMsgRemoveChecksumResponse(): MsgRemoveChecksumResponse {
   return {};
@@ -233,6 +305,23 @@ export const MsgRemoveChecksumResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgRemoveChecksumResponse>, I>>(_: I): MsgRemoveChecksumResponse {
     const message = createBaseMsgRemoveChecksumResponse();
     return message;
+  },
+  fromAmino(_: MsgRemoveChecksumResponseAmino): MsgRemoveChecksumResponse {
+    const message = createBaseMsgRemoveChecksumResponse();
+    return message;
+  },
+  toAmino(_: MsgRemoveChecksumResponse): MsgRemoveChecksumResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgRemoveChecksumResponseAminoMsg): MsgRemoveChecksumResponse {
+    return MsgRemoveChecksumResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRemoveChecksumResponse): MsgRemoveChecksumResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRemoveChecksumResponse",
+      value: MsgRemoveChecksumResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgMigrateContract(): MsgMigrateContract {
@@ -312,6 +401,39 @@ export const MsgMigrateContract = {
     message.msg = object.msg ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: MsgMigrateContractAmino): MsgMigrateContract {
+    const message = createBaseMsgMigrateContract();
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    if (object.client_id !== undefined && object.client_id !== null) {
+      message.clientId = object.client_id;
+    }
+    if (object.checksum !== undefined && object.checksum !== null) {
+      message.checksum = bytesFromBase64(object.checksum);
+    }
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = bytesFromBase64(object.msg);
+    }
+    return message;
+  },
+  toAmino(message: MsgMigrateContract): MsgMigrateContractAmino {
+    const obj: any = {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    obj.client_id = message.clientId === "" ? undefined : message.clientId;
+    obj.checksum = message.checksum ? base64FromBytes(message.checksum) : undefined;
+    obj.msg = message.msg ? base64FromBytes(message.msg) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgMigrateContractAminoMsg): MsgMigrateContract {
+    return MsgMigrateContract.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgMigrateContract): MsgMigrateContractAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgMigrateContract",
+      value: MsgMigrateContract.toAmino(message),
+    };
+  },
 };
 function createBaseMsgMigrateContractResponse(): MsgMigrateContractResponse {
   return {};
@@ -346,5 +468,22 @@ export const MsgMigrateContractResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgMigrateContractResponse>, I>>(_: I): MsgMigrateContractResponse {
     const message = createBaseMsgMigrateContractResponse();
     return message;
+  },
+  fromAmino(_: MsgMigrateContractResponseAmino): MsgMigrateContractResponse {
+    const message = createBaseMsgMigrateContractResponse();
+    return message;
+  },
+  toAmino(_: MsgMigrateContractResponse): MsgMigrateContractResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgMigrateContractResponseAminoMsg): MsgMigrateContractResponse {
+    return MsgMigrateContractResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgMigrateContractResponse): MsgMigrateContractResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgMigrateContractResponse",
+      value: MsgMigrateContractResponse.toAmino(message),
+    };
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
@@ -158,6 +159,39 @@ export const ModuleDescriptor = {
     message.canMigrateFrom = object.canMigrateFrom?.map((e) => MigrateFromInfo.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ModuleDescriptorAmino): ModuleDescriptor {
+    const message = createBaseModuleDescriptor();
+    if (object.go_import !== undefined && object.go_import !== null) {
+      message.goImport = object.go_import;
+    }
+    message.usePackage = object.use_package?.map((e) => PackageReference.fromAmino(e)) || [];
+    message.canMigrateFrom = object.can_migrate_from?.map((e) => MigrateFromInfo.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: ModuleDescriptor): ModuleDescriptorAmino {
+    const obj: any = {};
+    obj.go_import = message.goImport === "" ? undefined : message.goImport;
+    if (message.usePackage) {
+      obj.use_package = message.usePackage.map((e) => (e ? PackageReference.toAmino(e) : undefined));
+    } else {
+      obj.use_package = message.usePackage;
+    }
+    if (message.canMigrateFrom) {
+      obj.can_migrate_from = message.canMigrateFrom.map((e) => (e ? MigrateFromInfo.toAmino(e) : undefined));
+    } else {
+      obj.can_migrate_from = message.canMigrateFrom;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ModuleDescriptorAminoMsg): ModuleDescriptor {
+    return ModuleDescriptor.fromAmino(object.value);
+  },
+  toAminoMsg(message: ModuleDescriptor): ModuleDescriptorAminoMsg {
+    return {
+      type: "cosmos-sdk/ModuleDescriptor",
+      value: ModuleDescriptor.toAmino(message),
+    };
+  },
 };
 function createBasePackageReference(): PackageReference {
   return {
@@ -214,6 +248,31 @@ export const PackageReference = {
     message.revision = object.revision ?? 0;
     return message;
   },
+  fromAmino(object: PackageReferenceAmino): PackageReference {
+    const message = createBasePackageReference();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.revision !== undefined && object.revision !== null) {
+      message.revision = object.revision;
+    }
+    return message;
+  },
+  toAmino(message: PackageReference): PackageReferenceAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.revision = message.revision === 0 ? undefined : message.revision;
+    return obj;
+  },
+  fromAminoMsg(object: PackageReferenceAminoMsg): PackageReference {
+    return PackageReference.fromAmino(object.value);
+  },
+  toAminoMsg(message: PackageReference): PackageReferenceAminoMsg {
+    return {
+      type: "cosmos-sdk/PackageReference",
+      value: PackageReference.toAmino(message),
+    };
+  },
 };
 function createBaseMigrateFromInfo(): MigrateFromInfo {
   return {
@@ -259,5 +318,26 @@ export const MigrateFromInfo = {
     const message = createBaseMigrateFromInfo();
     message.module = object.module ?? "";
     return message;
+  },
+  fromAmino(object: MigrateFromInfoAmino): MigrateFromInfo {
+    const message = createBaseMigrateFromInfo();
+    if (object.module !== undefined && object.module !== null) {
+      message.module = object.module;
+    }
+    return message;
+  },
+  toAmino(message: MigrateFromInfo): MigrateFromInfoAmino {
+    const obj: any = {};
+    obj.module = message.module === "" ? undefined : message.module;
+    return obj;
+  },
+  fromAminoMsg(object: MigrateFromInfoAminoMsg): MigrateFromInfo {
+    return MigrateFromInfo.fromAmino(object.value);
+  },
+  toAminoMsg(message: MigrateFromInfo): MigrateFromInfoAminoMsg {
+    return {
+      type: "cosmos-sdk/MigrateFromInfo",
+      value: MigrateFromInfo.toAmino(message),
+    };
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Timestamp } from "../../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
@@ -69,6 +70,23 @@ export const ConfigRequest = {
   fromPartial<I extends Exact<DeepPartial<ConfigRequest>, I>>(_: I): ConfigRequest {
     const message = createBaseConfigRequest();
     return message;
+  },
+  fromAmino(_: ConfigRequestAmino): ConfigRequest {
+    const message = createBaseConfigRequest();
+    return message;
+  },
+  toAmino(_: ConfigRequest): ConfigRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: ConfigRequestAminoMsg): ConfigRequest {
+    return ConfigRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: ConfigRequest): ConfigRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/ConfigRequest",
+      value: ConfigRequest.toAmino(message),
+    };
   },
 };
 function createBaseConfigResponse(): ConfigResponse {
@@ -148,6 +166,39 @@ export const ConfigResponse = {
     }
     return message;
   },
+  fromAmino(object: ConfigResponseAmino): ConfigResponse {
+    const message = createBaseConfigResponse();
+    if (object.minimum_gas_price !== undefined && object.minimum_gas_price !== null) {
+      message.minimumGasPrice = object.minimum_gas_price;
+    }
+    if (object.pruning_keep_recent !== undefined && object.pruning_keep_recent !== null) {
+      message.pruningKeepRecent = object.pruning_keep_recent;
+    }
+    if (object.pruning_interval !== undefined && object.pruning_interval !== null) {
+      message.pruningInterval = object.pruning_interval;
+    }
+    if (object.halt_height !== undefined && object.halt_height !== null) {
+      message.haltHeight = BigInt(object.halt_height);
+    }
+    return message;
+  },
+  toAmino(message: ConfigResponse): ConfigResponseAmino {
+    const obj: any = {};
+    obj.minimum_gas_price = message.minimumGasPrice === "" ? undefined : message.minimumGasPrice;
+    obj.pruning_keep_recent = message.pruningKeepRecent === "" ? undefined : message.pruningKeepRecent;
+    obj.pruning_interval = message.pruningInterval === "" ? undefined : message.pruningInterval;
+    obj.halt_height = message.haltHeight !== BigInt(0) ? message.haltHeight?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ConfigResponseAminoMsg): ConfigResponse {
+    return ConfigResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: ConfigResponse): ConfigResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/ConfigResponse",
+      value: ConfigResponse.toAmino(message),
+    };
+  },
 };
 function createBaseStatusRequest(): StatusRequest {
   return {};
@@ -182,6 +233,23 @@ export const StatusRequest = {
   fromPartial<I extends Exact<DeepPartial<StatusRequest>, I>>(_: I): StatusRequest {
     const message = createBaseStatusRequest();
     return message;
+  },
+  fromAmino(_: StatusRequestAmino): StatusRequest {
+    const message = createBaseStatusRequest();
+    return message;
+  },
+  toAmino(_: StatusRequest): StatusRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: StatusRequestAminoMsg): StatusRequest {
+    return StatusRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: StatusRequest): StatusRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/StatusRequest",
+      value: StatusRequest.toAmino(message),
+    };
   },
 };
 function createBaseStatusResponse(): StatusResponse {
@@ -280,5 +348,43 @@ export const StatusResponse = {
     message.appHash = object.appHash ?? new Uint8Array();
     message.validatorHash = object.validatorHash ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: StatusResponseAmino): StatusResponse {
+    const message = createBaseStatusResponse();
+    if (object.earliest_store_height !== undefined && object.earliest_store_height !== null) {
+      message.earliestStoreHeight = BigInt(object.earliest_store_height);
+    }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Timestamp.fromAmino(object.timestamp);
+    }
+    if (object.app_hash !== undefined && object.app_hash !== null) {
+      message.appHash = bytesFromBase64(object.app_hash);
+    }
+    if (object.validator_hash !== undefined && object.validator_hash !== null) {
+      message.validatorHash = bytesFromBase64(object.validator_hash);
+    }
+    return message;
+  },
+  toAmino(message: StatusResponse): StatusResponseAmino {
+    const obj: any = {};
+    obj.earliest_store_height =
+      message.earliestStoreHeight !== BigInt(0) ? message.earliestStoreHeight?.toString() : undefined;
+    obj.height = message.height !== BigInt(0) ? message.height?.toString() : undefined;
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
+    obj.app_hash = message.appHash ? base64FromBytes(message.appHash) : undefined;
+    obj.validator_hash = message.validatorHash ? base64FromBytes(message.validatorHash) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: StatusResponseAminoMsg): StatusResponse {
+    return StatusResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: StatusResponse): StatusResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/StatusResponse",
+      value: StatusResponse.toAmino(message),
+    };
   },
 };

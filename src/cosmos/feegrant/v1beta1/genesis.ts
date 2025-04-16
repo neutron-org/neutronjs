@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Grant } from "./feegrant";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -57,5 +58,28 @@ export const GenesisState = {
     const message = createBaseGenesisState();
     message.allowances = object.allowances?.map((e) => Grant.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    const message = createBaseGenesisState();
+    message.allowances = object.allowances?.map((e) => Grant.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    if (message.allowances) {
+      obj.allowances = message.allowances.map((e) => (e ? Grant.toAmino(e) : undefined));
+    } else {
+      obj.allowances = message.allowances;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
@@ -75,5 +76,26 @@ export const Params = {
     message.marketAuthorities = object.marketAuthorities?.map((e) => e) || [];
     message.admin = object.admin ?? "";
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    message.marketAuthorities = object.market_authorities?.map((e) => e) || [];
+    if (object.admin !== undefined && object.admin !== null) {
+      message.admin = object.admin;
+    }
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.marketAuthorities) {
+      obj.market_authorities = message.marketAuthorities.map((e) => e);
+    } else {
+      obj.market_authorities = message.marketAuthorities;
+    }
+    obj.admin = message.admin === "" ? undefined : message.admin;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
 import { Any } from "../../../google/protobuf/any";
@@ -101,6 +102,31 @@ export const QueryEvidenceRequest = {
     message.hash = object.hash ?? "";
     return message;
   },
+  fromAmino(object: QueryEvidenceRequestAmino): QueryEvidenceRequest {
+    const message = createBaseQueryEvidenceRequest();
+    if (object.evidence_hash !== undefined && object.evidence_hash !== null) {
+      message.evidenceHash = bytesFromBase64(object.evidence_hash);
+    }
+    if (object.hash !== undefined && object.hash !== null) {
+      message.hash = object.hash;
+    }
+    return message;
+  },
+  toAmino(message: QueryEvidenceRequest): QueryEvidenceRequestAmino {
+    const obj: any = {};
+    obj.evidence_hash = message.evidenceHash ? base64FromBytes(message.evidenceHash) : undefined;
+    obj.hash = message.hash === "" ? undefined : message.hash;
+    return obj;
+  },
+  fromAminoMsg(object: QueryEvidenceRequestAminoMsg): QueryEvidenceRequest {
+    return QueryEvidenceRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryEvidenceRequest): QueryEvidenceRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryEvidenceRequest",
+      value: QueryEvidenceRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryEvidenceResponse(): QueryEvidenceResponse {
   return {
@@ -150,6 +176,27 @@ export const QueryEvidenceResponse = {
     }
     return message;
   },
+  fromAmino(object: QueryEvidenceResponseAmino): QueryEvidenceResponse {
+    const message = createBaseQueryEvidenceResponse();
+    if (object.evidence !== undefined && object.evidence !== null) {
+      message.evidence = Any.fromAmino(object.evidence);
+    }
+    return message;
+  },
+  toAmino(message: QueryEvidenceResponse): QueryEvidenceResponseAmino {
+    const obj: any = {};
+    obj.evidence = message.evidence ? Any.toAmino(message.evidence) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryEvidenceResponseAminoMsg): QueryEvidenceResponse {
+    return QueryEvidenceResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryEvidenceResponse): QueryEvidenceResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryEvidenceResponse",
+      value: QueryEvidenceResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryAllEvidenceRequest(): QueryAllEvidenceRequest {
   return {
@@ -198,6 +245,27 @@ export const QueryAllEvidenceRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
+  },
+  fromAmino(object: QueryAllEvidenceRequestAmino): QueryAllEvidenceRequest {
+    const message = createBaseQueryAllEvidenceRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryAllEvidenceRequest): QueryAllEvidenceRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllEvidenceRequestAminoMsg): QueryAllEvidenceRequest {
+    return QueryAllEvidenceRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAllEvidenceRequest): QueryAllEvidenceRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAllEvidenceRequest",
+      value: QueryAllEvidenceRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryAllEvidenceResponse(): QueryAllEvidenceResponse {
@@ -263,5 +331,32 @@ export const QueryAllEvidenceResponse = {
       message.pagination = PageResponse.fromPartial(object.pagination);
     }
     return message;
+  },
+  fromAmino(object: QueryAllEvidenceResponseAmino): QueryAllEvidenceResponse {
+    const message = createBaseQueryAllEvidenceResponse();
+    message.evidence = object.evidence?.map((e) => Any.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryAllEvidenceResponse): QueryAllEvidenceResponseAmino {
+    const obj: any = {};
+    if (message.evidence) {
+      obj.evidence = message.evidence.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.evidence = message.evidence;
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllEvidenceResponseAminoMsg): QueryAllEvidenceResponse {
+    return QueryAllEvidenceResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAllEvidenceResponse): QueryAllEvidenceResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryAllEvidenceResponse",
+      value: QueryAllEvidenceResponse.toAmino(message),
+    };
   },
 };

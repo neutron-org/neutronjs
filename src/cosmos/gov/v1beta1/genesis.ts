@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Deposit, Vote, Proposal, DepositParams, VotingParams, TallyParams } from "./gov";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -151,5 +152,63 @@ export const GenesisState = {
       message.tallyParams = TallyParams.fromPartial(object.tallyParams);
     }
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    const message = createBaseGenesisState();
+    if (object.starting_proposal_id !== undefined && object.starting_proposal_id !== null) {
+      message.startingProposalId = BigInt(object.starting_proposal_id);
+    }
+    message.deposits = object.deposits?.map((e) => Deposit.fromAmino(e)) || [];
+    message.votes = object.votes?.map((e) => Vote.fromAmino(e)) || [];
+    message.proposals = object.proposals?.map((e) => Proposal.fromAmino(e)) || [];
+    if (object.deposit_params !== undefined && object.deposit_params !== null) {
+      message.depositParams = DepositParams.fromAmino(object.deposit_params);
+    }
+    if (object.voting_params !== undefined && object.voting_params !== null) {
+      message.votingParams = VotingParams.fromAmino(object.voting_params);
+    }
+    if (object.tally_params !== undefined && object.tally_params !== null) {
+      message.tallyParams = TallyParams.fromAmino(object.tally_params);
+    }
+    return message;
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.starting_proposal_id =
+      message.startingProposalId !== BigInt(0) ? message.startingProposalId?.toString() : undefined;
+    if (message.deposits) {
+      obj.deposits = message.deposits.map((e) => (e ? Deposit.toAmino(e) : undefined));
+    } else {
+      obj.deposits = message.deposits;
+    }
+    if (message.votes) {
+      obj.votes = message.votes.map((e) => (e ? Vote.toAmino(e) : undefined));
+    } else {
+      obj.votes = message.votes;
+    }
+    if (message.proposals) {
+      obj.proposals = message.proposals.map((e) => (e ? Proposal.toAmino(e) : undefined));
+    } else {
+      obj.proposals = message.proposals;
+    }
+    obj.deposit_params = message.depositParams
+      ? DepositParams.toAmino(message.depositParams)
+      : DepositParams.toAmino(DepositParams.fromPartial({}));
+    obj.voting_params = message.votingParams
+      ? VotingParams.toAmino(message.votingParams)
+      : VotingParams.toAmino(VotingParams.fromPartial({}));
+    obj.tally_params = message.tallyParams
+      ? TallyParams.toAmino(message.tallyParams)
+      : TallyParams.toAmino(TallyParams.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { TradePairID } from "./trade_pair_id";
 import { Timestamp } from "../../google/protobuf/timestamp";
@@ -99,6 +100,30 @@ export const LimitOrderTrancheKey = {
     }
     message.trancheKey = object.trancheKey ?? "";
     return message;
+  },
+  fromAmino(object: LimitOrderTrancheKeyAmino): LimitOrderTrancheKey {
+    const message = createBaseLimitOrderTrancheKey();
+    if (object.trade_pair_id !== undefined && object.trade_pair_id !== null) {
+      message.tradePairId = TradePairID.fromAmino(object.trade_pair_id);
+    }
+    if (object.tick_index_taker_to_maker !== undefined && object.tick_index_taker_to_maker !== null) {
+      message.tickIndexTakerToMaker = BigInt(object.tick_index_taker_to_maker);
+    }
+    if (object.tranche_key !== undefined && object.tranche_key !== null) {
+      message.trancheKey = object.tranche_key;
+    }
+    return message;
+  },
+  toAmino(message: LimitOrderTrancheKey): LimitOrderTrancheKeyAmino {
+    const obj: any = {};
+    obj.trade_pair_id = message.tradePairId ? TradePairID.toAmino(message.tradePairId) : undefined;
+    obj.tick_index_taker_to_maker =
+      message.tickIndexTakerToMaker !== BigInt(0) ? message.tickIndexTakerToMaker?.toString() : undefined;
+    obj.tranche_key = message.trancheKey === "" ? undefined : message.trancheKey;
+    return obj;
+  },
+  fromAminoMsg(object: LimitOrderTrancheKeyAminoMsg): LimitOrderTrancheKey {
+    return LimitOrderTrancheKey.fromAmino(object.value);
   },
 };
 function createBaseLimitOrderTranche(): LimitOrderTranche {
@@ -221,5 +246,48 @@ export const LimitOrderTranche = {
     message.priceTakerToMaker = object.priceTakerToMaker ?? "";
     message.makerPrice = object.makerPrice ?? "";
     return message;
+  },
+  fromAmino(object: LimitOrderTrancheAmino): LimitOrderTranche {
+    const message = createBaseLimitOrderTranche();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = LimitOrderTrancheKey.fromAmino(object.key);
+    }
+    if (object.reserves_maker_denom !== undefined && object.reserves_maker_denom !== null) {
+      message.reservesMakerDenom = object.reserves_maker_denom;
+    }
+    if (object.reserves_taker_denom !== undefined && object.reserves_taker_denom !== null) {
+      message.reservesTakerDenom = object.reserves_taker_denom;
+    }
+    if (object.total_maker_denom !== undefined && object.total_maker_denom !== null) {
+      message.totalMakerDenom = object.total_maker_denom;
+    }
+    if (object.total_taker_denom !== undefined && object.total_taker_denom !== null) {
+      message.totalTakerDenom = object.total_taker_denom;
+    }
+    if (object.expiration_time !== undefined && object.expiration_time !== null) {
+      message.expirationTime = Timestamp.fromAmino(object.expiration_time);
+    }
+    if (object.price_taker_to_maker !== undefined && object.price_taker_to_maker !== null) {
+      message.priceTakerToMaker = object.price_taker_to_maker;
+    }
+    if (object.maker_price !== undefined && object.maker_price !== null) {
+      message.makerPrice = object.maker_price;
+    }
+    return message;
+  },
+  toAmino(message: LimitOrderTranche): LimitOrderTrancheAmino {
+    const obj: any = {};
+    obj.key = message.key ? LimitOrderTrancheKey.toAmino(message.key) : undefined;
+    obj.reserves_maker_denom = message.reservesMakerDenom ?? "";
+    obj.reserves_taker_denom = message.reservesTakerDenom ?? "";
+    obj.total_maker_denom = message.totalMakerDenom ?? "";
+    obj.total_taker_denom = message.totalTakerDenom ?? "";
+    obj.expiration_time = message.expirationTime ? Timestamp.toAmino(message.expirationTime) : undefined;
+    obj.price_taker_to_maker = message.priceTakerToMaker ?? "";
+    obj.maker_price = message.makerPrice ?? "";
+    return obj;
+  },
+  fromAminoMsg(object: LimitOrderTrancheAminoMsg): LimitOrderTranche {
+    return LimitOrderTranche.fromAmino(object.value);
   },
 };

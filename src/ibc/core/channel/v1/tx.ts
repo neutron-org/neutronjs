@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Channel, Packet, State, stateFromJSON, stateToJSON } from "./channel";
 import { Height, Params } from "../../client/v1/client";
@@ -392,6 +393,35 @@ export const MsgChannelOpenInit = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelOpenInitAmino): MsgChannelOpenInit {
+    const message = createBaseMsgChannelOpenInit();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel !== undefined && object.channel !== null) {
+      message.channel = Channel.fromAmino(object.channel);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelOpenInit): MsgChannelOpenInitAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel = message.channel ? Channel.toAmino(message.channel) : undefined;
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenInitAminoMsg): MsgChannelOpenInit {
+    return MsgChannelOpenInit.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenInit): MsgChannelOpenInitAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenInit",
+      value: MsgChannelOpenInit.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelOpenInitResponse(): MsgChannelOpenInitResponse {
   return {
@@ -449,6 +479,31 @@ export const MsgChannelOpenInitResponse = {
     message.channelId = object.channelId ?? "";
     message.version = object.version ?? "";
     return message;
+  },
+  fromAmino(object: MsgChannelOpenInitResponseAmino): MsgChannelOpenInitResponse {
+    const message = createBaseMsgChannelOpenInitResponse();
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelOpenInitResponse): MsgChannelOpenInitResponseAmino {
+    const obj: any = {};
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.version = message.version === "" ? undefined : message.version;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenInitResponseAminoMsg): MsgChannelOpenInitResponse {
+    return MsgChannelOpenInitResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenInitResponse): MsgChannelOpenInitResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenInitResponse",
+      value: MsgChannelOpenInitResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelOpenTry(): MsgChannelOpenTry {
@@ -565,6 +620,51 @@ export const MsgChannelOpenTry = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelOpenTryAmino): MsgChannelOpenTry {
+    const message = createBaseMsgChannelOpenTry();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.previous_channel_id !== undefined && object.previous_channel_id !== null) {
+      message.previousChannelId = object.previous_channel_id;
+    }
+    if (object.channel !== undefined && object.channel !== null) {
+      message.channel = Channel.fromAmino(object.channel);
+    }
+    if (object.counterparty_version !== undefined && object.counterparty_version !== null) {
+      message.counterpartyVersion = object.counterparty_version;
+    }
+    if (object.proof_init !== undefined && object.proof_init !== null) {
+      message.proofInit = bytesFromBase64(object.proof_init);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelOpenTry): MsgChannelOpenTryAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.previous_channel_id = message.previousChannelId === "" ? undefined : message.previousChannelId;
+    obj.channel = message.channel ? Channel.toAmino(message.channel) : undefined;
+    obj.counterparty_version = message.counterpartyVersion === "" ? undefined : message.counterpartyVersion;
+    obj.proof_init = message.proofInit ? base64FromBytes(message.proofInit) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenTryAminoMsg): MsgChannelOpenTry {
+    return MsgChannelOpenTry.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenTry): MsgChannelOpenTryAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenTry",
+      value: MsgChannelOpenTry.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelOpenTryResponse(): MsgChannelOpenTryResponse {
   return {
@@ -622,6 +722,31 @@ export const MsgChannelOpenTryResponse = {
     message.version = object.version ?? "";
     message.channelId = object.channelId ?? "";
     return message;
+  },
+  fromAmino(object: MsgChannelOpenTryResponseAmino): MsgChannelOpenTryResponse {
+    const message = createBaseMsgChannelOpenTryResponse();
+    if (object.version !== undefined && object.version !== null) {
+      message.version = object.version;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelOpenTryResponse): MsgChannelOpenTryResponseAmino {
+    const obj: any = {};
+    obj.version = message.version === "" ? undefined : message.version;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenTryResponseAminoMsg): MsgChannelOpenTryResponse {
+    return MsgChannelOpenTryResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenTryResponse): MsgChannelOpenTryResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenTryResponse",
+      value: MsgChannelOpenTryResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelOpenAck(): MsgChannelOpenAck {
@@ -734,6 +859,52 @@ export const MsgChannelOpenAck = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelOpenAckAmino): MsgChannelOpenAck {
+    const message = createBaseMsgChannelOpenAck();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.counterparty_channel_id !== undefined && object.counterparty_channel_id !== null) {
+      message.counterpartyChannelId = object.counterparty_channel_id;
+    }
+    if (object.counterparty_version !== undefined && object.counterparty_version !== null) {
+      message.counterpartyVersion = object.counterparty_version;
+    }
+    if (object.proof_try !== undefined && object.proof_try !== null) {
+      message.proofTry = bytesFromBase64(object.proof_try);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelOpenAck): MsgChannelOpenAckAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.counterparty_channel_id =
+      message.counterpartyChannelId === "" ? undefined : message.counterpartyChannelId;
+    obj.counterparty_version = message.counterpartyVersion === "" ? undefined : message.counterpartyVersion;
+    obj.proof_try = message.proofTry ? base64FromBytes(message.proofTry) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenAckAminoMsg): MsgChannelOpenAck {
+    return MsgChannelOpenAck.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenAck): MsgChannelOpenAckAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenAck",
+      value: MsgChannelOpenAck.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelOpenAckResponse(): MsgChannelOpenAckResponse {
   return {};
@@ -768,6 +939,23 @@ export const MsgChannelOpenAckResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgChannelOpenAckResponse>, I>>(_: I): MsgChannelOpenAckResponse {
     const message = createBaseMsgChannelOpenAckResponse();
     return message;
+  },
+  fromAmino(_: MsgChannelOpenAckResponseAmino): MsgChannelOpenAckResponse {
+    const message = createBaseMsgChannelOpenAckResponse();
+    return message;
+  },
+  toAmino(_: MsgChannelOpenAckResponse): MsgChannelOpenAckResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenAckResponseAminoMsg): MsgChannelOpenAckResponse {
+    return MsgChannelOpenAckResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenAckResponse): MsgChannelOpenAckResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenAckResponse",
+      value: MsgChannelOpenAckResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelOpenConfirm(): MsgChannelOpenConfirm {
@@ -859,6 +1047,43 @@ export const MsgChannelOpenConfirm = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelOpenConfirmAmino): MsgChannelOpenConfirm {
+    const message = createBaseMsgChannelOpenConfirm();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.proof_ack !== undefined && object.proof_ack !== null) {
+      message.proofAck = bytesFromBase64(object.proof_ack);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelOpenConfirm): MsgChannelOpenConfirmAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.proof_ack = message.proofAck ? base64FromBytes(message.proofAck) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenConfirmAminoMsg): MsgChannelOpenConfirm {
+    return MsgChannelOpenConfirm.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenConfirm): MsgChannelOpenConfirmAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenConfirm",
+      value: MsgChannelOpenConfirm.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelOpenConfirmResponse(): MsgChannelOpenConfirmResponse {
   return {};
@@ -895,6 +1120,23 @@ export const MsgChannelOpenConfirmResponse = {
   ): MsgChannelOpenConfirmResponse {
     const message = createBaseMsgChannelOpenConfirmResponse();
     return message;
+  },
+  fromAmino(_: MsgChannelOpenConfirmResponseAmino): MsgChannelOpenConfirmResponse {
+    const message = createBaseMsgChannelOpenConfirmResponse();
+    return message;
+  },
+  toAmino(_: MsgChannelOpenConfirmResponse): MsgChannelOpenConfirmResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelOpenConfirmResponseAminoMsg): MsgChannelOpenConfirmResponse {
+    return MsgChannelOpenConfirmResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelOpenConfirmResponse): MsgChannelOpenConfirmResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelOpenConfirmResponse",
+      value: MsgChannelOpenConfirmResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelCloseInit(): MsgChannelCloseInit {
@@ -962,6 +1204,35 @@ export const MsgChannelCloseInit = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelCloseInitAmino): MsgChannelCloseInit {
+    const message = createBaseMsgChannelCloseInit();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelCloseInit): MsgChannelCloseInitAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelCloseInitAminoMsg): MsgChannelCloseInit {
+    return MsgChannelCloseInit.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelCloseInit): MsgChannelCloseInitAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelCloseInit",
+      value: MsgChannelCloseInit.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelCloseInitResponse(): MsgChannelCloseInitResponse {
   return {};
@@ -998,6 +1269,23 @@ export const MsgChannelCloseInitResponse = {
   ): MsgChannelCloseInitResponse {
     const message = createBaseMsgChannelCloseInitResponse();
     return message;
+  },
+  fromAmino(_: MsgChannelCloseInitResponseAmino): MsgChannelCloseInitResponse {
+    const message = createBaseMsgChannelCloseInitResponse();
+    return message;
+  },
+  toAmino(_: MsgChannelCloseInitResponse): MsgChannelCloseInitResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelCloseInitResponseAminoMsg): MsgChannelCloseInitResponse {
+    return MsgChannelCloseInitResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelCloseInitResponse): MsgChannelCloseInitResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelCloseInitResponse",
+      value: MsgChannelCloseInitResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelCloseConfirm(): MsgChannelCloseConfirm {
@@ -1105,6 +1393,50 @@ export const MsgChannelCloseConfirm = {
     }
     return message;
   },
+  fromAmino(object: MsgChannelCloseConfirmAmino): MsgChannelCloseConfirm {
+    const message = createBaseMsgChannelCloseConfirm();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.proof_init !== undefined && object.proof_init !== null) {
+      message.proofInit = bytesFromBase64(object.proof_init);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    if (object.counterparty_upgrade_sequence !== undefined && object.counterparty_upgrade_sequence !== null) {
+      message.counterpartyUpgradeSequence = BigInt(object.counterparty_upgrade_sequence);
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelCloseConfirm): MsgChannelCloseConfirmAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.proof_init = message.proofInit ? base64FromBytes(message.proofInit) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    obj.counterparty_upgrade_sequence =
+      message.counterpartyUpgradeSequence !== BigInt(0)
+        ? message.counterpartyUpgradeSequence?.toString()
+        : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelCloseConfirmAminoMsg): MsgChannelCloseConfirm {
+    return MsgChannelCloseConfirm.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelCloseConfirm): MsgChannelCloseConfirmAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelCloseConfirm",
+      value: MsgChannelCloseConfirm.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelCloseConfirmResponse(): MsgChannelCloseConfirmResponse {
   return {};
@@ -1141,6 +1473,23 @@ export const MsgChannelCloseConfirmResponse = {
   ): MsgChannelCloseConfirmResponse {
     const message = createBaseMsgChannelCloseConfirmResponse();
     return message;
+  },
+  fromAmino(_: MsgChannelCloseConfirmResponseAmino): MsgChannelCloseConfirmResponse {
+    const message = createBaseMsgChannelCloseConfirmResponse();
+    return message;
+  },
+  toAmino(_: MsgChannelCloseConfirmResponse): MsgChannelCloseConfirmResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelCloseConfirmResponseAminoMsg): MsgChannelCloseConfirmResponse {
+    return MsgChannelCloseConfirmResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelCloseConfirmResponse): MsgChannelCloseConfirmResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelCloseConfirmResponse",
+      value: MsgChannelCloseConfirmResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgRecvPacket(): MsgRecvPacket {
@@ -1226,6 +1575,39 @@ export const MsgRecvPacket = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgRecvPacketAmino): MsgRecvPacket {
+    const message = createBaseMsgRecvPacket();
+    if (object.packet !== undefined && object.packet !== null) {
+      message.packet = Packet.fromAmino(object.packet);
+    }
+    if (object.proof_commitment !== undefined && object.proof_commitment !== null) {
+      message.proofCommitment = bytesFromBase64(object.proof_commitment);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgRecvPacket): MsgRecvPacketAmino {
+    const obj: any = {};
+    obj.packet = message.packet ? Packet.toAmino(message.packet) : undefined;
+    obj.proof_commitment = message.proofCommitment ? base64FromBytes(message.proofCommitment) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRecvPacketAminoMsg): MsgRecvPacket {
+    return MsgRecvPacket.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRecvPacket): MsgRecvPacketAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRecvPacket",
+      value: MsgRecvPacket.toAmino(message),
+    };
+  },
 };
 function createBaseMsgRecvPacketResponse(): MsgRecvPacketResponse {
   return {
@@ -1271,6 +1653,27 @@ export const MsgRecvPacketResponse = {
     const message = createBaseMsgRecvPacketResponse();
     message.result = object.result ?? 0;
     return message;
+  },
+  fromAmino(object: MsgRecvPacketResponseAmino): MsgRecvPacketResponse {
+    const message = createBaseMsgRecvPacketResponse();
+    if (object.result !== undefined && object.result !== null) {
+      message.result = object.result;
+    }
+    return message;
+  },
+  toAmino(message: MsgRecvPacketResponse): MsgRecvPacketResponseAmino {
+    const obj: any = {};
+    obj.result = message.result === 0 ? undefined : message.result;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRecvPacketResponseAminoMsg): MsgRecvPacketResponse {
+    return MsgRecvPacketResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRecvPacketResponse): MsgRecvPacketResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRecvPacketResponse",
+      value: MsgRecvPacketResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgTimeout(): MsgTimeout {
@@ -1369,6 +1772,44 @@ export const MsgTimeout = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgTimeoutAmino): MsgTimeout {
+    const message = createBaseMsgTimeout();
+    if (object.packet !== undefined && object.packet !== null) {
+      message.packet = Packet.fromAmino(object.packet);
+    }
+    if (object.proof_unreceived !== undefined && object.proof_unreceived !== null) {
+      message.proofUnreceived = bytesFromBase64(object.proof_unreceived);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.next_sequence_recv !== undefined && object.next_sequence_recv !== null) {
+      message.nextSequenceRecv = BigInt(object.next_sequence_recv);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgTimeout): MsgTimeoutAmino {
+    const obj: any = {};
+    obj.packet = message.packet ? Packet.toAmino(message.packet) : undefined;
+    obj.proof_unreceived = message.proofUnreceived ? base64FromBytes(message.proofUnreceived) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.next_sequence_recv =
+      message.nextSequenceRecv !== BigInt(0) ? message.nextSequenceRecv?.toString() : undefined;
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgTimeoutAminoMsg): MsgTimeout {
+    return MsgTimeout.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgTimeout): MsgTimeoutAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgTimeout",
+      value: MsgTimeout.toAmino(message),
+    };
+  },
 };
 function createBaseMsgTimeoutResponse(): MsgTimeoutResponse {
   return {
@@ -1414,6 +1855,27 @@ export const MsgTimeoutResponse = {
     const message = createBaseMsgTimeoutResponse();
     message.result = object.result ?? 0;
     return message;
+  },
+  fromAmino(object: MsgTimeoutResponseAmino): MsgTimeoutResponse {
+    const message = createBaseMsgTimeoutResponse();
+    if (object.result !== undefined && object.result !== null) {
+      message.result = object.result;
+    }
+    return message;
+  },
+  toAmino(message: MsgTimeoutResponse): MsgTimeoutResponseAmino {
+    const obj: any = {};
+    obj.result = message.result === 0 ? undefined : message.result;
+    return obj;
+  },
+  fromAminoMsg(object: MsgTimeoutResponseAminoMsg): MsgTimeoutResponse {
+    return MsgTimeoutResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgTimeoutResponse): MsgTimeoutResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgTimeoutResponse",
+      value: MsgTimeoutResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgTimeoutOnClose(): MsgTimeoutOnClose {
@@ -1539,6 +2001,55 @@ export const MsgTimeoutOnClose = {
     }
     return message;
   },
+  fromAmino(object: MsgTimeoutOnCloseAmino): MsgTimeoutOnClose {
+    const message = createBaseMsgTimeoutOnClose();
+    if (object.packet !== undefined && object.packet !== null) {
+      message.packet = Packet.fromAmino(object.packet);
+    }
+    if (object.proof_unreceived !== undefined && object.proof_unreceived !== null) {
+      message.proofUnreceived = bytesFromBase64(object.proof_unreceived);
+    }
+    if (object.proof_close !== undefined && object.proof_close !== null) {
+      message.proofClose = bytesFromBase64(object.proof_close);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.next_sequence_recv !== undefined && object.next_sequence_recv !== null) {
+      message.nextSequenceRecv = BigInt(object.next_sequence_recv);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    if (object.counterparty_upgrade_sequence !== undefined && object.counterparty_upgrade_sequence !== null) {
+      message.counterpartyUpgradeSequence = BigInt(object.counterparty_upgrade_sequence);
+    }
+    return message;
+  },
+  toAmino(message: MsgTimeoutOnClose): MsgTimeoutOnCloseAmino {
+    const obj: any = {};
+    obj.packet = message.packet ? Packet.toAmino(message.packet) : undefined;
+    obj.proof_unreceived = message.proofUnreceived ? base64FromBytes(message.proofUnreceived) : undefined;
+    obj.proof_close = message.proofClose ? base64FromBytes(message.proofClose) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.next_sequence_recv =
+      message.nextSequenceRecv !== BigInt(0) ? message.nextSequenceRecv?.toString() : undefined;
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    obj.counterparty_upgrade_sequence =
+      message.counterpartyUpgradeSequence !== BigInt(0)
+        ? message.counterpartyUpgradeSequence?.toString()
+        : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgTimeoutOnCloseAminoMsg): MsgTimeoutOnClose {
+    return MsgTimeoutOnClose.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgTimeoutOnClose): MsgTimeoutOnCloseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgTimeoutOnClose",
+      value: MsgTimeoutOnClose.toAmino(message),
+    };
+  },
 };
 function createBaseMsgTimeoutOnCloseResponse(): MsgTimeoutOnCloseResponse {
   return {
@@ -1586,6 +2097,27 @@ export const MsgTimeoutOnCloseResponse = {
     const message = createBaseMsgTimeoutOnCloseResponse();
     message.result = object.result ?? 0;
     return message;
+  },
+  fromAmino(object: MsgTimeoutOnCloseResponseAmino): MsgTimeoutOnCloseResponse {
+    const message = createBaseMsgTimeoutOnCloseResponse();
+    if (object.result !== undefined && object.result !== null) {
+      message.result = object.result;
+    }
+    return message;
+  },
+  toAmino(message: MsgTimeoutOnCloseResponse): MsgTimeoutOnCloseResponseAmino {
+    const obj: any = {};
+    obj.result = message.result === 0 ? undefined : message.result;
+    return obj;
+  },
+  fromAminoMsg(object: MsgTimeoutOnCloseResponseAminoMsg): MsgTimeoutOnCloseResponse {
+    return MsgTimeoutOnCloseResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgTimeoutOnCloseResponse): MsgTimeoutOnCloseResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgTimeoutOnCloseResponse",
+      value: MsgTimeoutOnCloseResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgAcknowledgement(): MsgAcknowledgement {
@@ -1684,6 +2216,43 @@ export const MsgAcknowledgement = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgAcknowledgementAmino): MsgAcknowledgement {
+    const message = createBaseMsgAcknowledgement();
+    if (object.packet !== undefined && object.packet !== null) {
+      message.packet = Packet.fromAmino(object.packet);
+    }
+    if (object.acknowledgement !== undefined && object.acknowledgement !== null) {
+      message.acknowledgement = bytesFromBase64(object.acknowledgement);
+    }
+    if (object.proof_acked !== undefined && object.proof_acked !== null) {
+      message.proofAcked = bytesFromBase64(object.proof_acked);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgAcknowledgement): MsgAcknowledgementAmino {
+    const obj: any = {};
+    obj.packet = message.packet ? Packet.toAmino(message.packet) : undefined;
+    obj.acknowledgement = message.acknowledgement ? base64FromBytes(message.acknowledgement) : undefined;
+    obj.proof_acked = message.proofAcked ? base64FromBytes(message.proofAcked) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgAcknowledgementAminoMsg): MsgAcknowledgement {
+    return MsgAcknowledgement.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgAcknowledgement): MsgAcknowledgementAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgAcknowledgement",
+      value: MsgAcknowledgement.toAmino(message),
+    };
+  },
 };
 function createBaseMsgAcknowledgementResponse(): MsgAcknowledgementResponse {
   return {
@@ -1731,6 +2300,27 @@ export const MsgAcknowledgementResponse = {
     const message = createBaseMsgAcknowledgementResponse();
     message.result = object.result ?? 0;
     return message;
+  },
+  fromAmino(object: MsgAcknowledgementResponseAmino): MsgAcknowledgementResponse {
+    const message = createBaseMsgAcknowledgementResponse();
+    if (object.result !== undefined && object.result !== null) {
+      message.result = object.result;
+    }
+    return message;
+  },
+  toAmino(message: MsgAcknowledgementResponse): MsgAcknowledgementResponseAmino {
+    const obj: any = {};
+    obj.result = message.result === 0 ? undefined : message.result;
+    return obj;
+  },
+  fromAminoMsg(object: MsgAcknowledgementResponseAminoMsg): MsgAcknowledgementResponse {
+    return MsgAcknowledgementResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgAcknowledgementResponse): MsgAcknowledgementResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgAcknowledgementResponse",
+      value: MsgAcknowledgementResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelUpgradeInit(): MsgChannelUpgradeInit {
@@ -1811,6 +2401,39 @@ export const MsgChannelUpgradeInit = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelUpgradeInitAmino): MsgChannelUpgradeInit {
+    const message = createBaseMsgChannelUpgradeInit();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.fields !== undefined && object.fields !== null) {
+      message.fields = UpgradeFields.fromAmino(object.fields);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelUpgradeInit): MsgChannelUpgradeInitAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.fields = message.fields ? UpgradeFields.toAmino(message.fields) : undefined;
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeInitAminoMsg): MsgChannelUpgradeInit {
+    return MsgChannelUpgradeInit.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeInit): MsgChannelUpgradeInitAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeInit",
+      value: MsgChannelUpgradeInit.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelUpgradeInitResponse(): MsgChannelUpgradeInitResponse {
   return {
@@ -1874,6 +2497,32 @@ export const MsgChannelUpgradeInitResponse = {
       message.upgradeSequence = BigInt(object.upgradeSequence.toString());
     }
     return message;
+  },
+  fromAmino(object: MsgChannelUpgradeInitResponseAmino): MsgChannelUpgradeInitResponse {
+    const message = createBaseMsgChannelUpgradeInitResponse();
+    if (object.upgrade !== undefined && object.upgrade !== null) {
+      message.upgrade = Upgrade.fromAmino(object.upgrade);
+    }
+    if (object.upgrade_sequence !== undefined && object.upgrade_sequence !== null) {
+      message.upgradeSequence = BigInt(object.upgrade_sequence);
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelUpgradeInitResponse): MsgChannelUpgradeInitResponseAmino {
+    const obj: any = {};
+    obj.upgrade = message.upgrade ? Upgrade.toAmino(message.upgrade) : undefined;
+    obj.upgrade_sequence =
+      message.upgradeSequence !== BigInt(0) ? message.upgradeSequence?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeInitResponseAminoMsg): MsgChannelUpgradeInitResponse {
+    return MsgChannelUpgradeInitResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeInitResponse): MsgChannelUpgradeInitResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeInitResponse",
+      value: MsgChannelUpgradeInitResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelUpgradeTry(): MsgChannelUpgradeTry {
@@ -2025,6 +2674,66 @@ export const MsgChannelUpgradeTry = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelUpgradeTryAmino): MsgChannelUpgradeTry {
+    const message = createBaseMsgChannelUpgradeTry();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    message.proposedUpgradeConnectionHops = object.proposed_upgrade_connection_hops?.map((e) => e) || [];
+    if (object.counterparty_upgrade_fields !== undefined && object.counterparty_upgrade_fields !== null) {
+      message.counterpartyUpgradeFields = UpgradeFields.fromAmino(object.counterparty_upgrade_fields);
+    }
+    if (object.counterparty_upgrade_sequence !== undefined && object.counterparty_upgrade_sequence !== null) {
+      message.counterpartyUpgradeSequence = BigInt(object.counterparty_upgrade_sequence);
+    }
+    if (object.proof_channel !== undefined && object.proof_channel !== null) {
+      message.proofChannel = bytesFromBase64(object.proof_channel);
+    }
+    if (object.proof_upgrade !== undefined && object.proof_upgrade !== null) {
+      message.proofUpgrade = bytesFromBase64(object.proof_upgrade);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelUpgradeTry): MsgChannelUpgradeTryAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    if (message.proposedUpgradeConnectionHops) {
+      obj.proposed_upgrade_connection_hops = message.proposedUpgradeConnectionHops.map((e) => e);
+    } else {
+      obj.proposed_upgrade_connection_hops = message.proposedUpgradeConnectionHops;
+    }
+    obj.counterparty_upgrade_fields = message.counterpartyUpgradeFields
+      ? UpgradeFields.toAmino(message.counterpartyUpgradeFields)
+      : undefined;
+    obj.counterparty_upgrade_sequence =
+      message.counterpartyUpgradeSequence !== BigInt(0)
+        ? message.counterpartyUpgradeSequence?.toString()
+        : undefined;
+    obj.proof_channel = message.proofChannel ? base64FromBytes(message.proofChannel) : undefined;
+    obj.proof_upgrade = message.proofUpgrade ? base64FromBytes(message.proofUpgrade) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeTryAminoMsg): MsgChannelUpgradeTry {
+    return MsgChannelUpgradeTry.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeTry): MsgChannelUpgradeTryAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeTry",
+      value: MsgChannelUpgradeTry.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelUpgradeTryResponse(): MsgChannelUpgradeTryResponse {
   return {
@@ -2098,6 +2807,36 @@ export const MsgChannelUpgradeTryResponse = {
     }
     message.result = object.result ?? 0;
     return message;
+  },
+  fromAmino(object: MsgChannelUpgradeTryResponseAmino): MsgChannelUpgradeTryResponse {
+    const message = createBaseMsgChannelUpgradeTryResponse();
+    if (object.upgrade !== undefined && object.upgrade !== null) {
+      message.upgrade = Upgrade.fromAmino(object.upgrade);
+    }
+    if (object.upgrade_sequence !== undefined && object.upgrade_sequence !== null) {
+      message.upgradeSequence = BigInt(object.upgrade_sequence);
+    }
+    if (object.result !== undefined && object.result !== null) {
+      message.result = object.result;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelUpgradeTryResponse): MsgChannelUpgradeTryResponseAmino {
+    const obj: any = {};
+    obj.upgrade = message.upgrade ? Upgrade.toAmino(message.upgrade) : undefined;
+    obj.upgrade_sequence =
+      message.upgradeSequence !== BigInt(0) ? message.upgradeSequence?.toString() : undefined;
+    obj.result = message.result === 0 ? undefined : message.result;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeTryResponseAminoMsg): MsgChannelUpgradeTryResponse {
+    return MsgChannelUpgradeTryResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeTryResponse): MsgChannelUpgradeTryResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeTryResponse",
+      value: MsgChannelUpgradeTryResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelUpgradeAck(): MsgChannelUpgradeAck {
@@ -2220,6 +2959,53 @@ export const MsgChannelUpgradeAck = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelUpgradeAckAmino): MsgChannelUpgradeAck {
+    const message = createBaseMsgChannelUpgradeAck();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.counterparty_upgrade !== undefined && object.counterparty_upgrade !== null) {
+      message.counterpartyUpgrade = Upgrade.fromAmino(object.counterparty_upgrade);
+    }
+    if (object.proof_channel !== undefined && object.proof_channel !== null) {
+      message.proofChannel = bytesFromBase64(object.proof_channel);
+    }
+    if (object.proof_upgrade !== undefined && object.proof_upgrade !== null) {
+      message.proofUpgrade = bytesFromBase64(object.proof_upgrade);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelUpgradeAck): MsgChannelUpgradeAckAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.counterparty_upgrade = message.counterpartyUpgrade
+      ? Upgrade.toAmino(message.counterpartyUpgrade)
+      : undefined;
+    obj.proof_channel = message.proofChannel ? base64FromBytes(message.proofChannel) : undefined;
+    obj.proof_upgrade = message.proofUpgrade ? base64FromBytes(message.proofUpgrade) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeAckAminoMsg): MsgChannelUpgradeAck {
+    return MsgChannelUpgradeAck.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeAck): MsgChannelUpgradeAckAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeAck",
+      value: MsgChannelUpgradeAck.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelUpgradeAckResponse(): MsgChannelUpgradeAckResponse {
   return {
@@ -2267,6 +3053,27 @@ export const MsgChannelUpgradeAckResponse = {
     const message = createBaseMsgChannelUpgradeAckResponse();
     message.result = object.result ?? 0;
     return message;
+  },
+  fromAmino(object: MsgChannelUpgradeAckResponseAmino): MsgChannelUpgradeAckResponse {
+    const message = createBaseMsgChannelUpgradeAckResponse();
+    if (object.result !== undefined && object.result !== null) {
+      message.result = object.result;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelUpgradeAckResponse): MsgChannelUpgradeAckResponseAmino {
+    const obj: any = {};
+    obj.result = message.result === 0 ? undefined : message.result;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeAckResponseAminoMsg): MsgChannelUpgradeAckResponse {
+    return MsgChannelUpgradeAckResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeAckResponse): MsgChannelUpgradeAckResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeAckResponse",
+      value: MsgChannelUpgradeAckResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelUpgradeConfirm(): MsgChannelUpgradeConfirm {
@@ -2403,6 +3210,58 @@ export const MsgChannelUpgradeConfirm = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelUpgradeConfirmAmino): MsgChannelUpgradeConfirm {
+    const message = createBaseMsgChannelUpgradeConfirm();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.counterparty_channel_state !== undefined && object.counterparty_channel_state !== null) {
+      message.counterpartyChannelState = object.counterparty_channel_state;
+    }
+    if (object.counterparty_upgrade !== undefined && object.counterparty_upgrade !== null) {
+      message.counterpartyUpgrade = Upgrade.fromAmino(object.counterparty_upgrade);
+    }
+    if (object.proof_channel !== undefined && object.proof_channel !== null) {
+      message.proofChannel = bytesFromBase64(object.proof_channel);
+    }
+    if (object.proof_upgrade !== undefined && object.proof_upgrade !== null) {
+      message.proofUpgrade = bytesFromBase64(object.proof_upgrade);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelUpgradeConfirm): MsgChannelUpgradeConfirmAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.counterparty_channel_state =
+      message.counterpartyChannelState === 0 ? undefined : message.counterpartyChannelState;
+    obj.counterparty_upgrade = message.counterpartyUpgrade
+      ? Upgrade.toAmino(message.counterpartyUpgrade)
+      : undefined;
+    obj.proof_channel = message.proofChannel ? base64FromBytes(message.proofChannel) : undefined;
+    obj.proof_upgrade = message.proofUpgrade ? base64FromBytes(message.proofUpgrade) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeConfirmAminoMsg): MsgChannelUpgradeConfirm {
+    return MsgChannelUpgradeConfirm.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeConfirm): MsgChannelUpgradeConfirmAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeConfirm",
+      value: MsgChannelUpgradeConfirm.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelUpgradeConfirmResponse(): MsgChannelUpgradeConfirmResponse {
   return {
@@ -2453,6 +3312,27 @@ export const MsgChannelUpgradeConfirmResponse = {
     const message = createBaseMsgChannelUpgradeConfirmResponse();
     message.result = object.result ?? 0;
     return message;
+  },
+  fromAmino(object: MsgChannelUpgradeConfirmResponseAmino): MsgChannelUpgradeConfirmResponse {
+    const message = createBaseMsgChannelUpgradeConfirmResponse();
+    if (object.result !== undefined && object.result !== null) {
+      message.result = object.result;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelUpgradeConfirmResponse): MsgChannelUpgradeConfirmResponseAmino {
+    const obj: any = {};
+    obj.result = message.result === 0 ? undefined : message.result;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeConfirmResponseAminoMsg): MsgChannelUpgradeConfirmResponse {
+    return MsgChannelUpgradeConfirmResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeConfirmResponse): MsgChannelUpgradeConfirmResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeConfirmResponse",
+      value: MsgChannelUpgradeConfirmResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelUpgradeOpen(): MsgChannelUpgradeOpen {
@@ -2572,6 +3452,55 @@ export const MsgChannelUpgradeOpen = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelUpgradeOpenAmino): MsgChannelUpgradeOpen {
+    const message = createBaseMsgChannelUpgradeOpen();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.counterparty_channel_state !== undefined && object.counterparty_channel_state !== null) {
+      message.counterpartyChannelState = object.counterparty_channel_state;
+    }
+    if (object.counterparty_upgrade_sequence !== undefined && object.counterparty_upgrade_sequence !== null) {
+      message.counterpartyUpgradeSequence = BigInt(object.counterparty_upgrade_sequence);
+    }
+    if (object.proof_channel !== undefined && object.proof_channel !== null) {
+      message.proofChannel = bytesFromBase64(object.proof_channel);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelUpgradeOpen): MsgChannelUpgradeOpenAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.counterparty_channel_state =
+      message.counterpartyChannelState === 0 ? undefined : message.counterpartyChannelState;
+    obj.counterparty_upgrade_sequence =
+      message.counterpartyUpgradeSequence !== BigInt(0)
+        ? message.counterpartyUpgradeSequence?.toString()
+        : undefined;
+    obj.proof_channel = message.proofChannel ? base64FromBytes(message.proofChannel) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeOpenAminoMsg): MsgChannelUpgradeOpen {
+    return MsgChannelUpgradeOpen.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeOpen): MsgChannelUpgradeOpenAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeOpen",
+      value: MsgChannelUpgradeOpen.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelUpgradeOpenResponse(): MsgChannelUpgradeOpenResponse {
   return {};
@@ -2608,6 +3537,23 @@ export const MsgChannelUpgradeOpenResponse = {
   ): MsgChannelUpgradeOpenResponse {
     const message = createBaseMsgChannelUpgradeOpenResponse();
     return message;
+  },
+  fromAmino(_: MsgChannelUpgradeOpenResponseAmino): MsgChannelUpgradeOpenResponse {
+    const message = createBaseMsgChannelUpgradeOpenResponse();
+    return message;
+  },
+  toAmino(_: MsgChannelUpgradeOpenResponse): MsgChannelUpgradeOpenResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeOpenResponseAminoMsg): MsgChannelUpgradeOpenResponse {
+    return MsgChannelUpgradeOpenResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeOpenResponse): MsgChannelUpgradeOpenResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeOpenResponse",
+      value: MsgChannelUpgradeOpenResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelUpgradeTimeout(): MsgChannelUpgradeTimeout {
@@ -2719,6 +3665,49 @@ export const MsgChannelUpgradeTimeout = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelUpgradeTimeoutAmino): MsgChannelUpgradeTimeout {
+    const message = createBaseMsgChannelUpgradeTimeout();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.counterparty_channel !== undefined && object.counterparty_channel !== null) {
+      message.counterpartyChannel = Channel.fromAmino(object.counterparty_channel);
+    }
+    if (object.proof_channel !== undefined && object.proof_channel !== null) {
+      message.proofChannel = bytesFromBase64(object.proof_channel);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelUpgradeTimeout): MsgChannelUpgradeTimeoutAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.counterparty_channel = message.counterpartyChannel
+      ? Channel.toAmino(message.counterpartyChannel)
+      : undefined;
+    obj.proof_channel = message.proofChannel ? base64FromBytes(message.proofChannel) : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeTimeoutAminoMsg): MsgChannelUpgradeTimeout {
+    return MsgChannelUpgradeTimeout.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeTimeout): MsgChannelUpgradeTimeoutAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeTimeout",
+      value: MsgChannelUpgradeTimeout.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelUpgradeTimeoutResponse(): MsgChannelUpgradeTimeoutResponse {
   return {};
@@ -2755,6 +3744,23 @@ export const MsgChannelUpgradeTimeoutResponse = {
   ): MsgChannelUpgradeTimeoutResponse {
     const message = createBaseMsgChannelUpgradeTimeoutResponse();
     return message;
+  },
+  fromAmino(_: MsgChannelUpgradeTimeoutResponseAmino): MsgChannelUpgradeTimeoutResponse {
+    const message = createBaseMsgChannelUpgradeTimeoutResponse();
+    return message;
+  },
+  toAmino(_: MsgChannelUpgradeTimeoutResponse): MsgChannelUpgradeTimeoutResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeTimeoutResponseAminoMsg): MsgChannelUpgradeTimeoutResponse {
+    return MsgChannelUpgradeTimeoutResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeTimeoutResponse): MsgChannelUpgradeTimeoutResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeTimeoutResponse",
+      value: MsgChannelUpgradeTimeoutResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChannelUpgradeCancel(): MsgChannelUpgradeCancel {
@@ -2861,6 +3867,49 @@ export const MsgChannelUpgradeCancel = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgChannelUpgradeCancelAmino): MsgChannelUpgradeCancel {
+    const message = createBaseMsgChannelUpgradeCancel();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.error_receipt !== undefined && object.error_receipt !== null) {
+      message.errorReceipt = ErrorReceipt.fromAmino(object.error_receipt);
+    }
+    if (object.proof_error_receipt !== undefined && object.proof_error_receipt !== null) {
+      message.proofErrorReceipt = bytesFromBase64(object.proof_error_receipt);
+    }
+    if (object.proof_height !== undefined && object.proof_height !== null) {
+      message.proofHeight = Height.fromAmino(object.proof_height);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgChannelUpgradeCancel): MsgChannelUpgradeCancelAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.error_receipt = message.errorReceipt ? ErrorReceipt.toAmino(message.errorReceipt) : undefined;
+    obj.proof_error_receipt = message.proofErrorReceipt
+      ? base64FromBytes(message.proofErrorReceipt)
+      : undefined;
+    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeCancelAminoMsg): MsgChannelUpgradeCancel {
+    return MsgChannelUpgradeCancel.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeCancel): MsgChannelUpgradeCancelAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeCancel",
+      value: MsgChannelUpgradeCancel.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChannelUpgradeCancelResponse(): MsgChannelUpgradeCancelResponse {
   return {};
@@ -2897,6 +3946,23 @@ export const MsgChannelUpgradeCancelResponse = {
   ): MsgChannelUpgradeCancelResponse {
     const message = createBaseMsgChannelUpgradeCancelResponse();
     return message;
+  },
+  fromAmino(_: MsgChannelUpgradeCancelResponseAmino): MsgChannelUpgradeCancelResponse {
+    const message = createBaseMsgChannelUpgradeCancelResponse();
+    return message;
+  },
+  toAmino(_: MsgChannelUpgradeCancelResponse): MsgChannelUpgradeCancelResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgChannelUpgradeCancelResponseAminoMsg): MsgChannelUpgradeCancelResponse {
+    return MsgChannelUpgradeCancelResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChannelUpgradeCancelResponse): MsgChannelUpgradeCancelResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgChannelUpgradeCancelResponse",
+      value: MsgChannelUpgradeCancelResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -2956,6 +4022,31 @@ export const MsgUpdateParams = {
     }
     return message;
   },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgUpdateParams",
+      value: MsgUpdateParams.toAmino(message),
+    };
+  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -2990,6 +4081,23 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgUpdateParamsResponse",
+      value: MsgUpdateParamsResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgPruneAcknowledgements(): MsgPruneAcknowledgements {
@@ -3071,6 +4179,39 @@ export const MsgPruneAcknowledgements = {
     message.signer = object.signer ?? "";
     return message;
   },
+  fromAmino(object: MsgPruneAcknowledgementsAmino): MsgPruneAcknowledgements {
+    const message = createBaseMsgPruneAcknowledgements();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.limit !== undefined && object.limit !== null) {
+      message.limit = BigInt(object.limit);
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgPruneAcknowledgements): MsgPruneAcknowledgementsAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.limit = message.limit !== BigInt(0) ? message.limit?.toString() : undefined;
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgPruneAcknowledgementsAminoMsg): MsgPruneAcknowledgements {
+    return MsgPruneAcknowledgements.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgPruneAcknowledgements): MsgPruneAcknowledgementsAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgPruneAcknowledgements",
+      value: MsgPruneAcknowledgements.toAmino(message),
+    };
+  },
 };
 function createBaseMsgPruneAcknowledgementsResponse(): MsgPruneAcknowledgementsResponse {
   return {
@@ -3139,5 +4280,32 @@ export const MsgPruneAcknowledgementsResponse = {
       message.totalRemainingSequences = BigInt(object.totalRemainingSequences.toString());
     }
     return message;
+  },
+  fromAmino(object: MsgPruneAcknowledgementsResponseAmino): MsgPruneAcknowledgementsResponse {
+    const message = createBaseMsgPruneAcknowledgementsResponse();
+    if (object.total_pruned_sequences !== undefined && object.total_pruned_sequences !== null) {
+      message.totalPrunedSequences = BigInt(object.total_pruned_sequences);
+    }
+    if (object.total_remaining_sequences !== undefined && object.total_remaining_sequences !== null) {
+      message.totalRemainingSequences = BigInt(object.total_remaining_sequences);
+    }
+    return message;
+  },
+  toAmino(message: MsgPruneAcknowledgementsResponse): MsgPruneAcknowledgementsResponseAmino {
+    const obj: any = {};
+    obj.total_pruned_sequences =
+      message.totalPrunedSequences !== BigInt(0) ? message.totalPrunedSequences?.toString() : undefined;
+    obj.total_remaining_sequences =
+      message.totalRemainingSequences !== BigInt(0) ? message.totalRemainingSequences?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgPruneAcknowledgementsResponseAminoMsg): MsgPruneAcknowledgementsResponse {
+    return MsgPruneAcknowledgementsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgPruneAcknowledgementsResponse): MsgPruneAcknowledgementsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgPruneAcknowledgementsResponse",
+      value: MsgPruneAcknowledgementsResponse.toAmino(message),
+    };
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Metadata, Params } from "../../../cosmos/bank/v1beta1/bank";
@@ -173,6 +174,31 @@ export const MsgCreateDenom = {
     message.subdenom = object.subdenom ?? "";
     return message;
   },
+  fromAmino(object: MsgCreateDenomAmino): MsgCreateDenom {
+    const message = createBaseMsgCreateDenom();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.subdenom !== undefined && object.subdenom !== null) {
+      message.subdenom = object.subdenom;
+    }
+    return message;
+  },
+  toAmino(message: MsgCreateDenom): MsgCreateDenomAmino {
+    const obj: any = {};
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.subdenom = message.subdenom === "" ? undefined : message.subdenom;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateDenomAminoMsg): MsgCreateDenom {
+    return MsgCreateDenom.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCreateDenom): MsgCreateDenomAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/create-denom",
+      value: MsgCreateDenom.toAmino(message),
+    };
+  },
 };
 function createBaseMsgCreateDenomResponse(): MsgCreateDenomResponse {
   return {
@@ -218,6 +244,27 @@ export const MsgCreateDenomResponse = {
     const message = createBaseMsgCreateDenomResponse();
     message.newTokenDenom = object.newTokenDenom ?? "";
     return message;
+  },
+  fromAmino(object: MsgCreateDenomResponseAmino): MsgCreateDenomResponse {
+    const message = createBaseMsgCreateDenomResponse();
+    if (object.new_token_denom !== undefined && object.new_token_denom !== null) {
+      message.newTokenDenom = object.new_token_denom;
+    }
+    return message;
+  },
+  toAmino(message: MsgCreateDenomResponse): MsgCreateDenomResponseAmino {
+    const obj: any = {};
+    obj.new_token_denom = message.newTokenDenom === "" ? undefined : message.newTokenDenom;
+    return obj;
+  },
+  fromAminoMsg(object: MsgCreateDenomResponseAminoMsg): MsgCreateDenomResponse {
+    return MsgCreateDenomResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgCreateDenomResponse): MsgCreateDenomResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/create-denom-response",
+      value: MsgCreateDenomResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgMint(): MsgMint {
@@ -287,6 +334,35 @@ export const MsgMint = {
     message.mintToAddress = object.mintToAddress ?? "";
     return message;
   },
+  fromAmino(object: MsgMintAmino): MsgMint {
+    const message = createBaseMsgMint();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    if (object.mintToAddress !== undefined && object.mintToAddress !== null) {
+      message.mintToAddress = object.mintToAddress;
+    }
+    return message;
+  },
+  toAmino(message: MsgMint): MsgMintAmino {
+    const obj: any = {};
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.mintToAddress = message.mintToAddress === "" ? undefined : message.mintToAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgMintAminoMsg): MsgMint {
+    return MsgMint.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgMint): MsgMintAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/mint",
+      value: MsgMint.toAmino(message),
+    };
+  },
 };
 function createBaseMsgMintResponse(): MsgMintResponse {
   return {};
@@ -321,6 +397,23 @@ export const MsgMintResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgMintResponse>, I>>(_: I): MsgMintResponse {
     const message = createBaseMsgMintResponse();
     return message;
+  },
+  fromAmino(_: MsgMintResponseAmino): MsgMintResponse {
+    const message = createBaseMsgMintResponse();
+    return message;
+  },
+  toAmino(_: MsgMintResponse): MsgMintResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgMintResponseAminoMsg): MsgMintResponse {
+    return MsgMintResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgMintResponse): MsgMintResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/mint-response",
+      value: MsgMintResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgBurn(): MsgBurn {
@@ -390,6 +483,35 @@ export const MsgBurn = {
     message.burnFromAddress = object.burnFromAddress ?? "";
     return message;
   },
+  fromAmino(object: MsgBurnAmino): MsgBurn {
+    const message = createBaseMsgBurn();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    if (object.burnFromAddress !== undefined && object.burnFromAddress !== null) {
+      message.burnFromAddress = object.burnFromAddress;
+    }
+    return message;
+  },
+  toAmino(message: MsgBurn): MsgBurnAmino {
+    const obj: any = {};
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.burnFromAddress = message.burnFromAddress === "" ? undefined : message.burnFromAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgBurnAminoMsg): MsgBurn {
+    return MsgBurn.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgBurn): MsgBurnAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/burn",
+      value: MsgBurn.toAmino(message),
+    };
+  },
 };
 function createBaseMsgBurnResponse(): MsgBurnResponse {
   return {};
@@ -424,6 +546,23 @@ export const MsgBurnResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgBurnResponse>, I>>(_: I): MsgBurnResponse {
     const message = createBaseMsgBurnResponse();
     return message;
+  },
+  fromAmino(_: MsgBurnResponseAmino): MsgBurnResponse {
+    const message = createBaseMsgBurnResponse();
+    return message;
+  },
+  toAmino(_: MsgBurnResponse): MsgBurnResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgBurnResponseAminoMsg): MsgBurnResponse {
+    return MsgBurnResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgBurnResponse): MsgBurnResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/burn-response",
+      value: MsgBurnResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgChangeAdmin(): MsgChangeAdmin {
@@ -491,6 +630,35 @@ export const MsgChangeAdmin = {
     message.newAdmin = object.newAdmin ?? "";
     return message;
   },
+  fromAmino(object: MsgChangeAdminAmino): MsgChangeAdmin {
+    const message = createBaseMsgChangeAdmin();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.new_admin !== undefined && object.new_admin !== null) {
+      message.newAdmin = object.new_admin;
+    }
+    return message;
+  },
+  toAmino(message: MsgChangeAdmin): MsgChangeAdminAmino {
+    const obj: any = {};
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.new_admin = message.newAdmin === "" ? undefined : message.newAdmin;
+    return obj;
+  },
+  fromAminoMsg(object: MsgChangeAdminAminoMsg): MsgChangeAdmin {
+    return MsgChangeAdmin.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChangeAdmin): MsgChangeAdminAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/change-admin",
+      value: MsgChangeAdmin.toAmino(message),
+    };
+  },
 };
 function createBaseMsgChangeAdminResponse(): MsgChangeAdminResponse {
   return {};
@@ -525,6 +693,23 @@ export const MsgChangeAdminResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgChangeAdminResponse>, I>>(_: I): MsgChangeAdminResponse {
     const message = createBaseMsgChangeAdminResponse();
     return message;
+  },
+  fromAmino(_: MsgChangeAdminResponseAmino): MsgChangeAdminResponse {
+    const message = createBaseMsgChangeAdminResponse();
+    return message;
+  },
+  toAmino(_: MsgChangeAdminResponse): MsgChangeAdminResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgChangeAdminResponseAminoMsg): MsgChangeAdminResponse {
+    return MsgChangeAdminResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgChangeAdminResponse): MsgChangeAdminResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/change-admin-response",
+      value: MsgChangeAdminResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgSetBeforeSendHook(): MsgSetBeforeSendHook {
@@ -592,6 +777,35 @@ export const MsgSetBeforeSendHook = {
     message.contractAddr = object.contractAddr ?? "";
     return message;
   },
+  fromAmino(object: MsgSetBeforeSendHookAmino): MsgSetBeforeSendHook {
+    const message = createBaseMsgSetBeforeSendHook();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.contract_addr !== undefined && object.contract_addr !== null) {
+      message.contractAddr = object.contract_addr;
+    }
+    return message;
+  },
+  toAmino(message: MsgSetBeforeSendHook): MsgSetBeforeSendHookAmino {
+    const obj: any = {};
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.contract_addr = message.contractAddr === "" ? undefined : message.contractAddr;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetBeforeSendHookAminoMsg): MsgSetBeforeSendHook {
+    return MsgSetBeforeSendHook.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSetBeforeSendHook): MsgSetBeforeSendHookAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/set-beforesend-hook",
+      value: MsgSetBeforeSendHook.toAmino(message),
+    };
+  },
 };
 function createBaseMsgSetBeforeSendHookResponse(): MsgSetBeforeSendHookResponse {
   return {};
@@ -628,6 +842,23 @@ export const MsgSetBeforeSendHookResponse = {
   ): MsgSetBeforeSendHookResponse {
     const message = createBaseMsgSetBeforeSendHookResponse();
     return message;
+  },
+  fromAmino(_: MsgSetBeforeSendHookResponseAmino): MsgSetBeforeSendHookResponse {
+    const message = createBaseMsgSetBeforeSendHookResponse();
+    return message;
+  },
+  toAmino(_: MsgSetBeforeSendHookResponse): MsgSetBeforeSendHookResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetBeforeSendHookResponseAminoMsg): MsgSetBeforeSendHookResponse {
+    return MsgSetBeforeSendHookResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSetBeforeSendHookResponse): MsgSetBeforeSendHookResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/set-before-send-hook-response",
+      value: MsgSetBeforeSendHookResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgSetDenomMetadata(): MsgSetDenomMetadata {
@@ -688,6 +919,31 @@ export const MsgSetDenomMetadata = {
     }
     return message;
   },
+  fromAmino(object: MsgSetDenomMetadataAmino): MsgSetDenomMetadata {
+    const message = createBaseMsgSetDenomMetadata();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.metadata !== undefined && object.metadata !== null) {
+      message.metadata = Metadata.fromAmino(object.metadata);
+    }
+    return message;
+  },
+  toAmino(message: MsgSetDenomMetadata): MsgSetDenomMetadataAmino {
+    const obj: any = {};
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.metadata = message.metadata ? Metadata.toAmino(message.metadata) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetDenomMetadataAminoMsg): MsgSetDenomMetadata {
+    return MsgSetDenomMetadata.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSetDenomMetadata): MsgSetDenomMetadataAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/set-denom-metadata",
+      value: MsgSetDenomMetadata.toAmino(message),
+    };
+  },
 };
 function createBaseMsgSetDenomMetadataResponse(): MsgSetDenomMetadataResponse {
   return {};
@@ -724,6 +980,23 @@ export const MsgSetDenomMetadataResponse = {
   ): MsgSetDenomMetadataResponse {
     const message = createBaseMsgSetDenomMetadataResponse();
     return message;
+  },
+  fromAmino(_: MsgSetDenomMetadataResponseAmino): MsgSetDenomMetadataResponse {
+    const message = createBaseMsgSetDenomMetadataResponse();
+    return message;
+  },
+  toAmino(_: MsgSetDenomMetadataResponse): MsgSetDenomMetadataResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetDenomMetadataResponseAminoMsg): MsgSetDenomMetadataResponse {
+    return MsgSetDenomMetadataResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSetDenomMetadataResponse): MsgSetDenomMetadataResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/set-denom-metadata-response",
+      value: MsgSetDenomMetadataResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgForceTransfer(): MsgForceTransfer {
@@ -803,6 +1076,39 @@ export const MsgForceTransfer = {
     message.transferToAddress = object.transferToAddress ?? "";
     return message;
   },
+  fromAmino(object: MsgForceTransferAmino): MsgForceTransfer {
+    const message = createBaseMsgForceTransfer();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = Coin.fromAmino(object.amount);
+    }
+    if (object.transferFromAddress !== undefined && object.transferFromAddress !== null) {
+      message.transferFromAddress = object.transferFromAddress;
+    }
+    if (object.transferToAddress !== undefined && object.transferToAddress !== null) {
+      message.transferToAddress = object.transferToAddress;
+    }
+    return message;
+  },
+  toAmino(message: MsgForceTransfer): MsgForceTransferAmino {
+    const obj: any = {};
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.transferFromAddress = message.transferFromAddress === "" ? undefined : message.transferFromAddress;
+    obj.transferToAddress = message.transferToAddress === "" ? undefined : message.transferToAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgForceTransferAminoMsg): MsgForceTransfer {
+    return MsgForceTransfer.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgForceTransfer): MsgForceTransferAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/force-transfer",
+      value: MsgForceTransfer.toAmino(message),
+    };
+  },
 };
 function createBaseMsgForceTransferResponse(): MsgForceTransferResponse {
   return {};
@@ -837,6 +1143,23 @@ export const MsgForceTransferResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgForceTransferResponse>, I>>(_: I): MsgForceTransferResponse {
     const message = createBaseMsgForceTransferResponse();
     return message;
+  },
+  fromAmino(_: MsgForceTransferResponseAmino): MsgForceTransferResponse {
+    const message = createBaseMsgForceTransferResponse();
+    return message;
+  },
+  toAmino(_: MsgForceTransferResponse): MsgForceTransferResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgForceTransferResponseAminoMsg): MsgForceTransferResponse {
+    return MsgForceTransferResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgForceTransferResponse): MsgForceTransferResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/force-transfer-response",
+      value: MsgForceTransferResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -896,6 +1219,31 @@ export const MsgUpdateParams = {
     }
     return message;
   },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
+    return {
+      type: "interchainqueries/MsgUpdateParams",
+      value: MsgUpdateParams.toAmino(message),
+    };
+  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -930,5 +1278,22 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/update-params-response",
+      value: MsgUpdateParamsResponse.toAmino(message),
+    };
   },
 };

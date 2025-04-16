@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { MsgStoreCode, MsgInstantiateContract, MsgExecuteContract } from "./tx";
 import { Params, CodeInfo, ContractInfo, Model, ContractCodeHistoryEntry } from "./types";
@@ -148,6 +149,51 @@ export const GenesisState = {
     message.genMsgs = object.genMsgs?.map((e) => GenesisState_GenMsgs.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.codes = object.codes?.map((e) => Code.fromAmino(e)) || [];
+    message.contracts = object.contracts?.map((e) => Contract.fromAmino(e)) || [];
+    message.sequences = object.sequences?.map((e) => Sequence.fromAmino(e)) || [];
+    message.genMsgs = object.gen_msgs?.map((e) => GenesisState_GenMsgs.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
+    if (message.codes) {
+      obj.codes = message.codes.map((e) => (e ? Code.toAmino(e) : undefined));
+    } else {
+      obj.codes = message.codes;
+    }
+    if (message.contracts) {
+      obj.contracts = message.contracts.map((e) => (e ? Contract.toAmino(e) : undefined));
+    } else {
+      obj.contracts = message.contracts;
+    }
+    if (message.sequences) {
+      obj.sequences = message.sequences.map((e) => (e ? Sequence.toAmino(e) : undefined));
+    } else {
+      obj.sequences = message.sequences;
+    }
+    if (message.genMsgs) {
+      obj.gen_msgs = message.genMsgs.map((e) => (e ? GenesisState_GenMsgs.toAmino(e) : undefined));
+    } else {
+      obj.gen_msgs = message.genMsgs;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "wasm/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
+  },
 };
 function createBaseGenesisState_GenMsgs(): GenesisState_GenMsgs {
   return {
@@ -228,6 +274,39 @@ export const GenesisState_GenMsgs = {
       message.executeContract = MsgExecuteContract.fromPartial(object.executeContract);
     }
     return message;
+  },
+  fromAmino(object: GenesisState_GenMsgsAmino): GenesisState_GenMsgs {
+    const message = createBaseGenesisState_GenMsgs();
+    if (object.store_code !== undefined && object.store_code !== null) {
+      message.storeCode = MsgStoreCode.fromAmino(object.store_code);
+    }
+    if (object.instantiate_contract !== undefined && object.instantiate_contract !== null) {
+      message.instantiateContract = MsgInstantiateContract.fromAmino(object.instantiate_contract);
+    }
+    if (object.execute_contract !== undefined && object.execute_contract !== null) {
+      message.executeContract = MsgExecuteContract.fromAmino(object.execute_contract);
+    }
+    return message;
+  },
+  toAmino(message: GenesisState_GenMsgs): GenesisState_GenMsgsAmino {
+    const obj: any = {};
+    obj.store_code = message.storeCode ? MsgStoreCode.toAmino(message.storeCode) : undefined;
+    obj.instantiate_contract = message.instantiateContract
+      ? MsgInstantiateContract.toAmino(message.instantiateContract)
+      : undefined;
+    obj.execute_contract = message.executeContract
+      ? MsgExecuteContract.toAmino(message.executeContract)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisState_GenMsgsAminoMsg): GenesisState_GenMsgs {
+    return GenesisState_GenMsgs.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState_GenMsgs): GenesisState_GenMsgsAminoMsg {
+    return {
+      type: "wasm/GenMsgs",
+      value: GenesisState_GenMsgs.toAmino(message),
+    };
   },
 };
 function createBaseCode(): Code {
@@ -312,6 +391,41 @@ export const Code = {
     message.codeBytes = object.codeBytes ?? new Uint8Array();
     message.pinned = object.pinned ?? false;
     return message;
+  },
+  fromAmino(object: CodeAmino): Code {
+    const message = createBaseCode();
+    if (object.code_id !== undefined && object.code_id !== null) {
+      message.codeId = BigInt(object.code_id);
+    }
+    if (object.code_info !== undefined && object.code_info !== null) {
+      message.codeInfo = CodeInfo.fromAmino(object.code_info);
+    }
+    if (object.code_bytes !== undefined && object.code_bytes !== null) {
+      message.codeBytes = bytesFromBase64(object.code_bytes);
+    }
+    if (object.pinned !== undefined && object.pinned !== null) {
+      message.pinned = object.pinned;
+    }
+    return message;
+  },
+  toAmino(message: Code): CodeAmino {
+    const obj: any = {};
+    obj.code_id = message.codeId !== BigInt(0) ? message.codeId?.toString() : undefined;
+    obj.code_info = message.codeInfo
+      ? CodeInfo.toAmino(message.codeInfo)
+      : CodeInfo.toAmino(CodeInfo.fromPartial({}));
+    obj.code_bytes = message.codeBytes ? base64FromBytes(message.codeBytes) : undefined;
+    obj.pinned = message.pinned === false ? undefined : message.pinned;
+    return obj;
+  },
+  fromAminoMsg(object: CodeAminoMsg): Code {
+    return Code.fromAmino(object.value);
+  },
+  toAminoMsg(message: Code): CodeAminoMsg {
+    return {
+      type: "wasm/Code",
+      value: Code.toAmino(message),
+    };
   },
 };
 function createBaseContract(): Contract {
@@ -407,6 +521,48 @@ export const Contract = {
       object.contractCodeHistory?.map((e) => ContractCodeHistoryEntry.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ContractAmino): Contract {
+    const message = createBaseContract();
+    if (object.contract_address !== undefined && object.contract_address !== null) {
+      message.contractAddress = object.contract_address;
+    }
+    if (object.contract_info !== undefined && object.contract_info !== null) {
+      message.contractInfo = ContractInfo.fromAmino(object.contract_info);
+    }
+    message.contractState = object.contract_state?.map((e) => Model.fromAmino(e)) || [];
+    message.contractCodeHistory =
+      object.contract_code_history?.map((e) => ContractCodeHistoryEntry.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: Contract): ContractAmino {
+    const obj: any = {};
+    obj.contract_address = message.contractAddress === "" ? undefined : message.contractAddress;
+    obj.contract_info = message.contractInfo
+      ? ContractInfo.toAmino(message.contractInfo)
+      : ContractInfo.toAmino(ContractInfo.fromPartial({}));
+    if (message.contractState) {
+      obj.contract_state = message.contractState.map((e) => (e ? Model.toAmino(e) : undefined));
+    } else {
+      obj.contract_state = message.contractState;
+    }
+    if (message.contractCodeHistory) {
+      obj.contract_code_history = message.contractCodeHistory.map((e) =>
+        e ? ContractCodeHistoryEntry.toAmino(e) : undefined,
+      );
+    } else {
+      obj.contract_code_history = message.contractCodeHistory;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ContractAminoMsg): Contract {
+    return Contract.fromAmino(object.value);
+  },
+  toAminoMsg(message: Contract): ContractAminoMsg {
+    return {
+      type: "wasm/Contract",
+      value: Contract.toAmino(message),
+    };
+  },
 };
 function createBaseSequence(): Sequence {
   return {
@@ -465,5 +621,30 @@ export const Sequence = {
       message.value = BigInt(object.value.toString());
     }
     return message;
+  },
+  fromAmino(object: SequenceAmino): Sequence {
+    const message = createBaseSequence();
+    if (object.id_key !== undefined && object.id_key !== null) {
+      message.idKey = bytesFromBase64(object.id_key);
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = BigInt(object.value);
+    }
+    return message;
+  },
+  toAmino(message: Sequence): SequenceAmino {
+    const obj: any = {};
+    obj.id_key = message.idKey ? base64FromBytes(message.idKey) : undefined;
+    obj.value = message.value !== BigInt(0) ? message.value?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: SequenceAminoMsg): Sequence {
+    return Sequence.fromAmino(object.value);
+  },
+  toAminoMsg(message: Sequence): SequenceAminoMsg {
+    return {
+      type: "wasm/Sequence",
+      value: Sequence.toAmino(message),
+    };
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { JsonSafe } from "../../json-safe";
@@ -1094,6 +1095,23 @@ export const FileDescriptorSet = {
     message.file = object.file?.map((e) => FileDescriptorProto.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: FileDescriptorSetAmino): FileDescriptorSet {
+    const message = createBaseFileDescriptorSet();
+    message.file = object.file?.map((e) => FileDescriptorProto.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: FileDescriptorSet): FileDescriptorSetAmino {
+    const obj: any = {};
+    if (message.file) {
+      obj.file = message.file.map((e) => (e ? FileDescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.file = message.file;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: FileDescriptorSetAminoMsg): FileDescriptorSet {
+    return FileDescriptorSet.fromAmino(object.value);
+  },
 };
 function createBaseFileDescriptorProto(): FileDescriptorProto {
   return {
@@ -1310,6 +1328,81 @@ export const FileDescriptorProto = {
     message.syntax = object.syntax ?? "";
     return message;
   },
+  fromAmino(object: FileDescriptorProtoAmino): FileDescriptorProto {
+    const message = createBaseFileDescriptorProto();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.package !== undefined && object.package !== null) {
+      message.package = object.package;
+    }
+    message.dependency = object.dependency?.map((e) => e) || [];
+    message.publicDependency = object.public_dependency?.map((e) => e) || [];
+    message.weakDependency = object.weak_dependency?.map((e) => e) || [];
+    message.messageType = object.message_type?.map((e) => DescriptorProto.fromAmino(e)) || [];
+    message.enumType = object.enum_type?.map((e) => EnumDescriptorProto.fromAmino(e)) || [];
+    message.service = object.service?.map((e) => ServiceDescriptorProto.fromAmino(e)) || [];
+    message.extension = object.extension?.map((e) => FieldDescriptorProto.fromAmino(e)) || [];
+    if (object.options !== undefined && object.options !== null) {
+      message.options = FileOptions.fromAmino(object.options);
+    }
+    if (object.source_code_info !== undefined && object.source_code_info !== null) {
+      message.sourceCodeInfo = SourceCodeInfo.fromAmino(object.source_code_info);
+    }
+    if (object.syntax !== undefined && object.syntax !== null) {
+      message.syntax = object.syntax;
+    }
+    return message;
+  },
+  toAmino(message: FileDescriptorProto): FileDescriptorProtoAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.package = message.package === "" ? undefined : message.package;
+    if (message.dependency) {
+      obj.dependency = message.dependency.map((e) => e);
+    } else {
+      obj.dependency = message.dependency;
+    }
+    if (message.publicDependency) {
+      obj.public_dependency = message.publicDependency.map((e) => e);
+    } else {
+      obj.public_dependency = message.publicDependency;
+    }
+    if (message.weakDependency) {
+      obj.weak_dependency = message.weakDependency.map((e) => e);
+    } else {
+      obj.weak_dependency = message.weakDependency;
+    }
+    if (message.messageType) {
+      obj.message_type = message.messageType.map((e) => (e ? DescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.message_type = message.messageType;
+    }
+    if (message.enumType) {
+      obj.enum_type = message.enumType.map((e) => (e ? EnumDescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.enum_type = message.enumType;
+    }
+    if (message.service) {
+      obj.service = message.service.map((e) => (e ? ServiceDescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.service = message.service;
+    }
+    if (message.extension) {
+      obj.extension = message.extension.map((e) => (e ? FieldDescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.extension = message.extension;
+    }
+    obj.options = message.options ? FileOptions.toAmino(message.options) : undefined;
+    obj.source_code_info = message.sourceCodeInfo
+      ? SourceCodeInfo.toAmino(message.sourceCodeInfo)
+      : undefined;
+    obj.syntax = message.syntax === "" ? undefined : message.syntax;
+    return obj;
+  },
+  fromAminoMsg(object: FileDescriptorProtoAminoMsg): FileDescriptorProto {
+    return FileDescriptorProto.fromAmino(object.value);
+  },
 };
 function createBaseDescriptorProto(): DescriptorProto {
   return {
@@ -1495,6 +1588,79 @@ export const DescriptorProto = {
     message.reservedName = object.reservedName?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: DescriptorProtoAmino): DescriptorProto {
+    const message = createBaseDescriptorProto();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    message.field = object.field?.map((e) => FieldDescriptorProto.fromAmino(e)) || [];
+    message.extension = object.extension?.map((e) => FieldDescriptorProto.fromAmino(e)) || [];
+    message.nestedType = object.nested_type?.map((e) => DescriptorProto.fromAmino(e)) || [];
+    message.enumType = object.enum_type?.map((e) => EnumDescriptorProto.fromAmino(e)) || [];
+    message.extensionRange =
+      object.extension_range?.map((e) => DescriptorProto_ExtensionRange.fromAmino(e)) || [];
+    message.oneofDecl = object.oneof_decl?.map((e) => OneofDescriptorProto.fromAmino(e)) || [];
+    if (object.options !== undefined && object.options !== null) {
+      message.options = MessageOptions.fromAmino(object.options);
+    }
+    message.reservedRange =
+      object.reserved_range?.map((e) => DescriptorProto_ReservedRange.fromAmino(e)) || [];
+    message.reservedName = object.reserved_name?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: DescriptorProto): DescriptorProtoAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    if (message.field) {
+      obj.field = message.field.map((e) => (e ? FieldDescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.field = message.field;
+    }
+    if (message.extension) {
+      obj.extension = message.extension.map((e) => (e ? FieldDescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.extension = message.extension;
+    }
+    if (message.nestedType) {
+      obj.nested_type = message.nestedType.map((e) => (e ? DescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.nested_type = message.nestedType;
+    }
+    if (message.enumType) {
+      obj.enum_type = message.enumType.map((e) => (e ? EnumDescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.enum_type = message.enumType;
+    }
+    if (message.extensionRange) {
+      obj.extension_range = message.extensionRange.map((e) =>
+        e ? DescriptorProto_ExtensionRange.toAmino(e) : undefined,
+      );
+    } else {
+      obj.extension_range = message.extensionRange;
+    }
+    if (message.oneofDecl) {
+      obj.oneof_decl = message.oneofDecl.map((e) => (e ? OneofDescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.oneof_decl = message.oneofDecl;
+    }
+    obj.options = message.options ? MessageOptions.toAmino(message.options) : undefined;
+    if (message.reservedRange) {
+      obj.reserved_range = message.reservedRange.map((e) =>
+        e ? DescriptorProto_ReservedRange.toAmino(e) : undefined,
+      );
+    } else {
+      obj.reserved_range = message.reservedRange;
+    }
+    if (message.reservedName) {
+      obj.reserved_name = message.reservedName.map((e) => e);
+    } else {
+      obj.reserved_name = message.reservedName;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: DescriptorProtoAminoMsg): DescriptorProto {
+    return DescriptorProto.fromAmino(object.value);
+  },
 };
 function createBaseDescriptorProto_ExtensionRange(): DescriptorProto_ExtensionRange {
   return {
@@ -1569,6 +1735,29 @@ export const DescriptorProto_ExtensionRange = {
     }
     return message;
   },
+  fromAmino(object: DescriptorProto_ExtensionRangeAmino): DescriptorProto_ExtensionRange {
+    const message = createBaseDescriptorProto_ExtensionRange();
+    if (object.start !== undefined && object.start !== null) {
+      message.start = object.start;
+    }
+    if (object.end !== undefined && object.end !== null) {
+      message.end = object.end;
+    }
+    if (object.options !== undefined && object.options !== null) {
+      message.options = ExtensionRangeOptions.fromAmino(object.options);
+    }
+    return message;
+  },
+  toAmino(message: DescriptorProto_ExtensionRange): DescriptorProto_ExtensionRangeAmino {
+    const obj: any = {};
+    obj.start = message.start === 0 ? undefined : message.start;
+    obj.end = message.end === 0 ? undefined : message.end;
+    obj.options = message.options ? ExtensionRangeOptions.toAmino(message.options) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: DescriptorProto_ExtensionRangeAminoMsg): DescriptorProto_ExtensionRange {
+    return DescriptorProto_ExtensionRange.fromAmino(object.value);
+  },
 };
 function createBaseDescriptorProto_ReservedRange(): DescriptorProto_ReservedRange {
   return {
@@ -1627,6 +1816,25 @@ export const DescriptorProto_ReservedRange = {
     message.end = object.end ?? 0;
     return message;
   },
+  fromAmino(object: DescriptorProto_ReservedRangeAmino): DescriptorProto_ReservedRange {
+    const message = createBaseDescriptorProto_ReservedRange();
+    if (object.start !== undefined && object.start !== null) {
+      message.start = object.start;
+    }
+    if (object.end !== undefined && object.end !== null) {
+      message.end = object.end;
+    }
+    return message;
+  },
+  toAmino(message: DescriptorProto_ReservedRange): DescriptorProto_ReservedRangeAmino {
+    const obj: any = {};
+    obj.start = message.start === 0 ? undefined : message.start;
+    obj.end = message.end === 0 ? undefined : message.end;
+    return obj;
+  },
+  fromAminoMsg(object: DescriptorProto_ReservedRangeAminoMsg): DescriptorProto_ReservedRange {
+    return DescriptorProto_ReservedRange.fromAmino(object.value);
+  },
 };
 function createBaseExtensionRangeOptions(): ExtensionRangeOptions {
   return {
@@ -1680,6 +1888,26 @@ export const ExtensionRangeOptions = {
     message.uninterpretedOption =
       object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: ExtensionRangeOptionsAmino): ExtensionRangeOptions {
+    const message = createBaseExtensionRangeOptions();
+    message.uninterpretedOption =
+      object.uninterpreted_option?.map((e) => UninterpretedOption.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: ExtensionRangeOptions): ExtensionRangeOptionsAmino {
+    const obj: any = {};
+    if (message.uninterpretedOption) {
+      obj.uninterpreted_option = message.uninterpretedOption.map((e) =>
+        e ? UninterpretedOption.toAmino(e) : undefined,
+      );
+    } else {
+      obj.uninterpreted_option = message.uninterpretedOption;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ExtensionRangeOptionsAminoMsg): ExtensionRangeOptions {
+    return ExtensionRangeOptions.fromAmino(object.value);
   },
 };
 function createBaseFieldDescriptorProto(): FieldDescriptorProto {
@@ -1820,6 +2048,57 @@ export const FieldDescriptorProto = {
     }
     return message;
   },
+  fromAmino(object: FieldDescriptorProtoAmino): FieldDescriptorProto {
+    const message = createBaseFieldDescriptorProto();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.number !== undefined && object.number !== null) {
+      message.number = object.number;
+    }
+    if (object.label !== undefined && object.label !== null) {
+      message.label = object.label;
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.type_name !== undefined && object.type_name !== null) {
+      message.typeName = object.type_name;
+    }
+    if (object.extendee !== undefined && object.extendee !== null) {
+      message.extendee = object.extendee;
+    }
+    if (object.default_value !== undefined && object.default_value !== null) {
+      message.defaultValue = object.default_value;
+    }
+    if (object.oneof_index !== undefined && object.oneof_index !== null) {
+      message.oneofIndex = object.oneof_index;
+    }
+    if (object.json_name !== undefined && object.json_name !== null) {
+      message.jsonName = object.json_name;
+    }
+    if (object.options !== undefined && object.options !== null) {
+      message.options = FieldOptions.fromAmino(object.options);
+    }
+    return message;
+  },
+  toAmino(message: FieldDescriptorProto): FieldDescriptorProtoAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.number = message.number === 0 ? undefined : message.number;
+    obj.label = message.label === 1 ? undefined : message.label;
+    obj.type = message.type === 1 ? undefined : message.type;
+    obj.type_name = message.typeName === "" ? undefined : message.typeName;
+    obj.extendee = message.extendee === "" ? undefined : message.extendee;
+    obj.default_value = message.defaultValue === "" ? undefined : message.defaultValue;
+    obj.oneof_index = message.oneofIndex === 0 ? undefined : message.oneofIndex;
+    obj.json_name = message.jsonName === "" ? undefined : message.jsonName;
+    obj.options = message.options ? FieldOptions.toAmino(message.options) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: FieldDescriptorProtoAminoMsg): FieldDescriptorProto {
+    return FieldDescriptorProto.fromAmino(object.value);
+  },
 };
 function createBaseOneofDescriptorProto(): OneofDescriptorProto {
   return {
@@ -1878,6 +2157,25 @@ export const OneofDescriptorProto = {
       message.options = OneofOptions.fromPartial(object.options);
     }
     return message;
+  },
+  fromAmino(object: OneofDescriptorProtoAmino): OneofDescriptorProto {
+    const message = createBaseOneofDescriptorProto();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.options !== undefined && object.options !== null) {
+      message.options = OneofOptions.fromAmino(object.options);
+    }
+    return message;
+  },
+  toAmino(message: OneofDescriptorProto): OneofDescriptorProtoAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.options = message.options ? OneofOptions.toAmino(message.options) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: OneofDescriptorProtoAminoMsg): OneofDescriptorProto {
+    return OneofDescriptorProto.fromAmino(object.value);
   },
 };
 function createBaseEnumDescriptorProto(): EnumDescriptorProto {
@@ -1988,6 +2286,46 @@ export const EnumDescriptorProto = {
     message.reservedName = object.reservedName?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: EnumDescriptorProtoAmino): EnumDescriptorProto {
+    const message = createBaseEnumDescriptorProto();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    message.value = object.value?.map((e) => EnumValueDescriptorProto.fromAmino(e)) || [];
+    if (object.options !== undefined && object.options !== null) {
+      message.options = EnumOptions.fromAmino(object.options);
+    }
+    message.reservedRange =
+      object.reserved_range?.map((e) => EnumDescriptorProto_EnumReservedRange.fromAmino(e)) || [];
+    message.reservedName = object.reserved_name?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: EnumDescriptorProto): EnumDescriptorProtoAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    if (message.value) {
+      obj.value = message.value.map((e) => (e ? EnumValueDescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.value = message.value;
+    }
+    obj.options = message.options ? EnumOptions.toAmino(message.options) : undefined;
+    if (message.reservedRange) {
+      obj.reserved_range = message.reservedRange.map((e) =>
+        e ? EnumDescriptorProto_EnumReservedRange.toAmino(e) : undefined,
+      );
+    } else {
+      obj.reserved_range = message.reservedRange;
+    }
+    if (message.reservedName) {
+      obj.reserved_name = message.reservedName.map((e) => e);
+    } else {
+      obj.reserved_name = message.reservedName;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EnumDescriptorProtoAminoMsg): EnumDescriptorProto {
+    return EnumDescriptorProto.fromAmino(object.value);
+  },
 };
 function createBaseEnumDescriptorProto_EnumReservedRange(): EnumDescriptorProto_EnumReservedRange {
   return {
@@ -2048,6 +2386,25 @@ export const EnumDescriptorProto_EnumReservedRange = {
     message.start = object.start ?? 0;
     message.end = object.end ?? 0;
     return message;
+  },
+  fromAmino(object: EnumDescriptorProto_EnumReservedRangeAmino): EnumDescriptorProto_EnumReservedRange {
+    const message = createBaseEnumDescriptorProto_EnumReservedRange();
+    if (object.start !== undefined && object.start !== null) {
+      message.start = object.start;
+    }
+    if (object.end !== undefined && object.end !== null) {
+      message.end = object.end;
+    }
+    return message;
+  },
+  toAmino(message: EnumDescriptorProto_EnumReservedRange): EnumDescriptorProto_EnumReservedRangeAmino {
+    const obj: any = {};
+    obj.start = message.start === 0 ? undefined : message.start;
+    obj.end = message.end === 0 ? undefined : message.end;
+    return obj;
+  },
+  fromAminoMsg(object: EnumDescriptorProto_EnumReservedRangeAminoMsg): EnumDescriptorProto_EnumReservedRange {
+    return EnumDescriptorProto_EnumReservedRange.fromAmino(object.value);
   },
 };
 function createBaseEnumValueDescriptorProto(): EnumValueDescriptorProto {
@@ -2119,6 +2476,29 @@ export const EnumValueDescriptorProto = {
       message.options = EnumValueOptions.fromPartial(object.options);
     }
     return message;
+  },
+  fromAmino(object: EnumValueDescriptorProtoAmino): EnumValueDescriptorProto {
+    const message = createBaseEnumValueDescriptorProto();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.number !== undefined && object.number !== null) {
+      message.number = object.number;
+    }
+    if (object.options !== undefined && object.options !== null) {
+      message.options = EnumValueOptions.fromAmino(object.options);
+    }
+    return message;
+  },
+  toAmino(message: EnumValueDescriptorProto): EnumValueDescriptorProtoAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.number = message.number === 0 ? undefined : message.number;
+    obj.options = message.options ? EnumValueOptions.toAmino(message.options) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EnumValueDescriptorProtoAminoMsg): EnumValueDescriptorProto {
+    return EnumValueDescriptorProto.fromAmino(object.value);
   },
 };
 function createBaseServiceDescriptorProto(): ServiceDescriptorProto {
@@ -2193,6 +2573,31 @@ export const ServiceDescriptorProto = {
       message.options = ServiceOptions.fromPartial(object.options);
     }
     return message;
+  },
+  fromAmino(object: ServiceDescriptorProtoAmino): ServiceDescriptorProto {
+    const message = createBaseServiceDescriptorProto();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    message.method = object.method?.map((e) => MethodDescriptorProto.fromAmino(e)) || [];
+    if (object.options !== undefined && object.options !== null) {
+      message.options = ServiceOptions.fromAmino(object.options);
+    }
+    return message;
+  },
+  toAmino(message: ServiceDescriptorProto): ServiceDescriptorProtoAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    if (message.method) {
+      obj.method = message.method.map((e) => (e ? MethodDescriptorProto.toAmino(e) : undefined));
+    } else {
+      obj.method = message.method;
+    }
+    obj.options = message.options ? ServiceOptions.toAmino(message.options) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ServiceDescriptorProtoAminoMsg): ServiceDescriptorProto {
+    return ServiceDescriptorProto.fromAmino(object.value);
   },
 };
 function createBaseMethodDescriptorProto(): MethodDescriptorProto {
@@ -2292,6 +2697,41 @@ export const MethodDescriptorProto = {
     message.clientStreaming = object.clientStreaming ?? false;
     message.serverStreaming = object.serverStreaming ?? false;
     return message;
+  },
+  fromAmino(object: MethodDescriptorProtoAmino): MethodDescriptorProto {
+    const message = createBaseMethodDescriptorProto();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.input_type !== undefined && object.input_type !== null) {
+      message.inputType = object.input_type;
+    }
+    if (object.output_type !== undefined && object.output_type !== null) {
+      message.outputType = object.output_type;
+    }
+    if (object.options !== undefined && object.options !== null) {
+      message.options = MethodOptions.fromAmino(object.options);
+    }
+    if (object.client_streaming !== undefined && object.client_streaming !== null) {
+      message.clientStreaming = object.client_streaming;
+    }
+    if (object.server_streaming !== undefined && object.server_streaming !== null) {
+      message.serverStreaming = object.server_streaming;
+    }
+    return message;
+  },
+  toAmino(message: MethodDescriptorProto): MethodDescriptorProtoAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.input_type = message.inputType === "" ? undefined : message.inputType;
+    obj.output_type = message.outputType === "" ? undefined : message.outputType;
+    obj.options = message.options ? MethodOptions.toAmino(message.options) : undefined;
+    obj.client_streaming = message.clientStreaming === false ? undefined : message.clientStreaming;
+    obj.server_streaming = message.serverStreaming === false ? undefined : message.serverStreaming;
+    return obj;
+  },
+  fromAminoMsg(object: MethodDescriptorProtoAminoMsg): MethodDescriptorProto {
+    return MethodDescriptorProto.fromAmino(object.value);
   },
 };
 function createBaseFileOptions(): FileOptions {
@@ -2550,6 +2990,110 @@ export const FileOptions = {
       object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: FileOptionsAmino): FileOptions {
+    const message = createBaseFileOptions();
+    if (object.java_package !== undefined && object.java_package !== null) {
+      message.javaPackage = object.java_package;
+    }
+    if (object.java_outer_classname !== undefined && object.java_outer_classname !== null) {
+      message.javaOuterClassname = object.java_outer_classname;
+    }
+    if (object.java_multiple_files !== undefined && object.java_multiple_files !== null) {
+      message.javaMultipleFiles = object.java_multiple_files;
+    }
+    if (object.java_generate_equals_and_hash !== undefined && object.java_generate_equals_and_hash !== null) {
+      message.javaGenerateEqualsAndHash = object.java_generate_equals_and_hash;
+    }
+    if (object.java_string_check_utf8 !== undefined && object.java_string_check_utf8 !== null) {
+      message.javaStringCheckUtf8 = object.java_string_check_utf8;
+    }
+    if (object.optimize_for !== undefined && object.optimize_for !== null) {
+      message.optimizeFor = object.optimize_for;
+    }
+    if (object.go_package !== undefined && object.go_package !== null) {
+      message.goPackage = object.go_package;
+    }
+    if (object.cc_generic_services !== undefined && object.cc_generic_services !== null) {
+      message.ccGenericServices = object.cc_generic_services;
+    }
+    if (object.java_generic_services !== undefined && object.java_generic_services !== null) {
+      message.javaGenericServices = object.java_generic_services;
+    }
+    if (object.py_generic_services !== undefined && object.py_generic_services !== null) {
+      message.pyGenericServices = object.py_generic_services;
+    }
+    if (object.php_generic_services !== undefined && object.php_generic_services !== null) {
+      message.phpGenericServices = object.php_generic_services;
+    }
+    if (object.deprecated !== undefined && object.deprecated !== null) {
+      message.deprecated = object.deprecated;
+    }
+    if (object.cc_enable_arenas !== undefined && object.cc_enable_arenas !== null) {
+      message.ccEnableArenas = object.cc_enable_arenas;
+    }
+    if (object.objc_class_prefix !== undefined && object.objc_class_prefix !== null) {
+      message.objcClassPrefix = object.objc_class_prefix;
+    }
+    if (object.csharp_namespace !== undefined && object.csharp_namespace !== null) {
+      message.csharpNamespace = object.csharp_namespace;
+    }
+    if (object.swift_prefix !== undefined && object.swift_prefix !== null) {
+      message.swiftPrefix = object.swift_prefix;
+    }
+    if (object.php_class_prefix !== undefined && object.php_class_prefix !== null) {
+      message.phpClassPrefix = object.php_class_prefix;
+    }
+    if (object.php_namespace !== undefined && object.php_namespace !== null) {
+      message.phpNamespace = object.php_namespace;
+    }
+    if (object.php_metadata_namespace !== undefined && object.php_metadata_namespace !== null) {
+      message.phpMetadataNamespace = object.php_metadata_namespace;
+    }
+    if (object.ruby_package !== undefined && object.ruby_package !== null) {
+      message.rubyPackage = object.ruby_package;
+    }
+    message.uninterpretedOption =
+      object.uninterpreted_option?.map((e) => UninterpretedOption.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: FileOptions): FileOptionsAmino {
+    const obj: any = {};
+    obj.java_package = message.javaPackage === "" ? undefined : message.javaPackage;
+    obj.java_outer_classname = message.javaOuterClassname === "" ? undefined : message.javaOuterClassname;
+    obj.java_multiple_files = message.javaMultipleFiles === false ? undefined : message.javaMultipleFiles;
+    obj.java_generate_equals_and_hash =
+      message.javaGenerateEqualsAndHash === false ? undefined : message.javaGenerateEqualsAndHash;
+    obj.java_string_check_utf8 =
+      message.javaStringCheckUtf8 === false ? undefined : message.javaStringCheckUtf8;
+    obj.optimize_for = message.optimizeFor === 1 ? undefined : message.optimizeFor;
+    obj.go_package = message.goPackage === "" ? undefined : message.goPackage;
+    obj.cc_generic_services = message.ccGenericServices === false ? undefined : message.ccGenericServices;
+    obj.java_generic_services =
+      message.javaGenericServices === false ? undefined : message.javaGenericServices;
+    obj.py_generic_services = message.pyGenericServices === false ? undefined : message.pyGenericServices;
+    obj.php_generic_services = message.phpGenericServices === false ? undefined : message.phpGenericServices;
+    obj.deprecated = message.deprecated === false ? undefined : message.deprecated;
+    obj.cc_enable_arenas = message.ccEnableArenas === false ? undefined : message.ccEnableArenas;
+    obj.objc_class_prefix = message.objcClassPrefix === "" ? undefined : message.objcClassPrefix;
+    obj.csharp_namespace = message.csharpNamespace === "" ? undefined : message.csharpNamespace;
+    obj.swift_prefix = message.swiftPrefix === "" ? undefined : message.swiftPrefix;
+    obj.php_class_prefix = message.phpClassPrefix === "" ? undefined : message.phpClassPrefix;
+    obj.php_namespace = message.phpNamespace === "" ? undefined : message.phpNamespace;
+    obj.php_metadata_namespace =
+      message.phpMetadataNamespace === "" ? undefined : message.phpMetadataNamespace;
+    obj.ruby_package = message.rubyPackage === "" ? undefined : message.rubyPackage;
+    if (message.uninterpretedOption) {
+      obj.uninterpreted_option = message.uninterpretedOption.map((e) =>
+        e ? UninterpretedOption.toAmino(e) : undefined,
+      );
+    } else {
+      obj.uninterpreted_option = message.uninterpretedOption;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: FileOptionsAminoMsg): FileOptions {
+    return FileOptions.fromAmino(object.value);
+  },
 };
 function createBaseMessageOptions(): MessageOptions {
   return {
@@ -2645,6 +3189,47 @@ export const MessageOptions = {
     message.uninterpretedOption =
       object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MessageOptionsAmino): MessageOptions {
+    const message = createBaseMessageOptions();
+    if (object.message_set_wire_format !== undefined && object.message_set_wire_format !== null) {
+      message.messageSetWireFormat = object.message_set_wire_format;
+    }
+    if (
+      object.no_standard_descriptor_accessor !== undefined &&
+      object.no_standard_descriptor_accessor !== null
+    ) {
+      message.noStandardDescriptorAccessor = object.no_standard_descriptor_accessor;
+    }
+    if (object.deprecated !== undefined && object.deprecated !== null) {
+      message.deprecated = object.deprecated;
+    }
+    if (object.map_entry !== undefined && object.map_entry !== null) {
+      message.mapEntry = object.map_entry;
+    }
+    message.uninterpretedOption =
+      object.uninterpreted_option?.map((e) => UninterpretedOption.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: MessageOptions): MessageOptionsAmino {
+    const obj: any = {};
+    obj.message_set_wire_format =
+      message.messageSetWireFormat === false ? undefined : message.messageSetWireFormat;
+    obj.no_standard_descriptor_accessor =
+      message.noStandardDescriptorAccessor === false ? undefined : message.noStandardDescriptorAccessor;
+    obj.deprecated = message.deprecated === false ? undefined : message.deprecated;
+    obj.map_entry = message.mapEntry === false ? undefined : message.mapEntry;
+    if (message.uninterpretedOption) {
+      obj.uninterpreted_option = message.uninterpretedOption.map((e) =>
+        e ? UninterpretedOption.toAmino(e) : undefined,
+      );
+    } else {
+      obj.uninterpreted_option = message.uninterpretedOption;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MessageOptionsAminoMsg): MessageOptions {
+    return MessageOptions.fromAmino(object.value);
   },
 };
 function createBaseFieldOptions(): FieldOptions {
@@ -2760,6 +3345,50 @@ export const FieldOptions = {
       object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: FieldOptionsAmino): FieldOptions {
+    const message = createBaseFieldOptions();
+    if (object.ctype !== undefined && object.ctype !== null) {
+      message.ctype = object.ctype;
+    }
+    if (object.packed !== undefined && object.packed !== null) {
+      message.packed = object.packed;
+    }
+    if (object.jstype !== undefined && object.jstype !== null) {
+      message.jstype = object.jstype;
+    }
+    if (object.lazy !== undefined && object.lazy !== null) {
+      message.lazy = object.lazy;
+    }
+    if (object.deprecated !== undefined && object.deprecated !== null) {
+      message.deprecated = object.deprecated;
+    }
+    if (object.weak !== undefined && object.weak !== null) {
+      message.weak = object.weak;
+    }
+    message.uninterpretedOption =
+      object.uninterpreted_option?.map((e) => UninterpretedOption.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: FieldOptions): FieldOptionsAmino {
+    const obj: any = {};
+    obj.ctype = message.ctype === 1 ? undefined : message.ctype;
+    obj.packed = message.packed === false ? undefined : message.packed;
+    obj.jstype = message.jstype === 1 ? undefined : message.jstype;
+    obj.lazy = message.lazy === false ? undefined : message.lazy;
+    obj.deprecated = message.deprecated === false ? undefined : message.deprecated;
+    obj.weak = message.weak === false ? undefined : message.weak;
+    if (message.uninterpretedOption) {
+      obj.uninterpreted_option = message.uninterpretedOption.map((e) =>
+        e ? UninterpretedOption.toAmino(e) : undefined,
+      );
+    } else {
+      obj.uninterpreted_option = message.uninterpretedOption;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: FieldOptionsAminoMsg): FieldOptions {
+    return FieldOptions.fromAmino(object.value);
+  },
 };
 function createBaseOneofOptions(): OneofOptions {
   return {
@@ -2813,6 +3442,26 @@ export const OneofOptions = {
     message.uninterpretedOption =
       object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: OneofOptionsAmino): OneofOptions {
+    const message = createBaseOneofOptions();
+    message.uninterpretedOption =
+      object.uninterpreted_option?.map((e) => UninterpretedOption.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: OneofOptions): OneofOptionsAmino {
+    const obj: any = {};
+    if (message.uninterpretedOption) {
+      obj.uninterpreted_option = message.uninterpretedOption.map((e) =>
+        e ? UninterpretedOption.toAmino(e) : undefined,
+      );
+    } else {
+      obj.uninterpreted_option = message.uninterpretedOption;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: OneofOptionsAminoMsg): OneofOptions {
+    return OneofOptions.fromAmino(object.value);
   },
 };
 function createBaseEnumOptions(): EnumOptions {
@@ -2888,6 +3537,34 @@ export const EnumOptions = {
       object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: EnumOptionsAmino): EnumOptions {
+    const message = createBaseEnumOptions();
+    if (object.allow_alias !== undefined && object.allow_alias !== null) {
+      message.allowAlias = object.allow_alias;
+    }
+    if (object.deprecated !== undefined && object.deprecated !== null) {
+      message.deprecated = object.deprecated;
+    }
+    message.uninterpretedOption =
+      object.uninterpreted_option?.map((e) => UninterpretedOption.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: EnumOptions): EnumOptionsAmino {
+    const obj: any = {};
+    obj.allow_alias = message.allowAlias === false ? undefined : message.allowAlias;
+    obj.deprecated = message.deprecated === false ? undefined : message.deprecated;
+    if (message.uninterpretedOption) {
+      obj.uninterpreted_option = message.uninterpretedOption.map((e) =>
+        e ? UninterpretedOption.toAmino(e) : undefined,
+      );
+    } else {
+      obj.uninterpreted_option = message.uninterpretedOption;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EnumOptionsAminoMsg): EnumOptions {
+    return EnumOptions.fromAmino(object.value);
+  },
 };
 function createBaseEnumValueOptions(): EnumValueOptions {
   return {
@@ -2952,6 +3629,30 @@ export const EnumValueOptions = {
       object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: EnumValueOptionsAmino): EnumValueOptions {
+    const message = createBaseEnumValueOptions();
+    if (object.deprecated !== undefined && object.deprecated !== null) {
+      message.deprecated = object.deprecated;
+    }
+    message.uninterpretedOption =
+      object.uninterpreted_option?.map((e) => UninterpretedOption.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: EnumValueOptions): EnumValueOptionsAmino {
+    const obj: any = {};
+    obj.deprecated = message.deprecated === false ? undefined : message.deprecated;
+    if (message.uninterpretedOption) {
+      obj.uninterpreted_option = message.uninterpretedOption.map((e) =>
+        e ? UninterpretedOption.toAmino(e) : undefined,
+      );
+    } else {
+      obj.uninterpreted_option = message.uninterpretedOption;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EnumValueOptionsAminoMsg): EnumValueOptions {
+    return EnumValueOptions.fromAmino(object.value);
+  },
 };
 function createBaseServiceOptions(): ServiceOptions {
   return {
@@ -3015,6 +3716,30 @@ export const ServiceOptions = {
     message.uninterpretedOption =
       object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: ServiceOptionsAmino): ServiceOptions {
+    const message = createBaseServiceOptions();
+    if (object.deprecated !== undefined && object.deprecated !== null) {
+      message.deprecated = object.deprecated;
+    }
+    message.uninterpretedOption =
+      object.uninterpreted_option?.map((e) => UninterpretedOption.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: ServiceOptions): ServiceOptionsAmino {
+    const obj: any = {};
+    obj.deprecated = message.deprecated === false ? undefined : message.deprecated;
+    if (message.uninterpretedOption) {
+      obj.uninterpreted_option = message.uninterpretedOption.map((e) =>
+        e ? UninterpretedOption.toAmino(e) : undefined,
+      );
+    } else {
+      obj.uninterpreted_option = message.uninterpretedOption;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ServiceOptionsAminoMsg): ServiceOptions {
+    return ServiceOptions.fromAmino(object.value);
   },
 };
 function createBaseMethodOptions(): MethodOptions {
@@ -3091,6 +3816,34 @@ export const MethodOptions = {
     message.uninterpretedOption =
       object.uninterpretedOption?.map((e) => UninterpretedOption.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: MethodOptionsAmino): MethodOptions {
+    const message = createBaseMethodOptions();
+    if (object.deprecated !== undefined && object.deprecated !== null) {
+      message.deprecated = object.deprecated;
+    }
+    if (object.idempotency_level !== undefined && object.idempotency_level !== null) {
+      message.idempotencyLevel = object.idempotency_level;
+    }
+    message.uninterpretedOption =
+      object.uninterpreted_option?.map((e) => UninterpretedOption.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: MethodOptions): MethodOptionsAmino {
+    const obj: any = {};
+    obj.deprecated = message.deprecated === false ? undefined : message.deprecated;
+    obj.idempotency_level = message.idempotencyLevel === 1 ? undefined : message.idempotencyLevel;
+    if (message.uninterpretedOption) {
+      obj.uninterpreted_option = message.uninterpretedOption.map((e) =>
+        e ? UninterpretedOption.toAmino(e) : undefined,
+      );
+    } else {
+      obj.uninterpreted_option = message.uninterpretedOption;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MethodOptionsAminoMsg): MethodOptions {
+    return MethodOptions.fromAmino(object.value);
   },
 };
 function createBaseUninterpretedOption(): UninterpretedOption {
@@ -3212,6 +3965,49 @@ export const UninterpretedOption = {
     message.aggregateValue = object.aggregateValue ?? "";
     return message;
   },
+  fromAmino(object: UninterpretedOptionAmino): UninterpretedOption {
+    const message = createBaseUninterpretedOption();
+    message.name = object.name?.map((e) => UninterpretedOption_NamePart.fromAmino(e)) || [];
+    if (object.identifier_value !== undefined && object.identifier_value !== null) {
+      message.identifierValue = object.identifier_value;
+    }
+    if (object.positive_int_value !== undefined && object.positive_int_value !== null) {
+      message.positiveIntValue = BigInt(object.positive_int_value);
+    }
+    if (object.negative_int_value !== undefined && object.negative_int_value !== null) {
+      message.negativeIntValue = BigInt(object.negative_int_value);
+    }
+    if (object.double_value !== undefined && object.double_value !== null) {
+      message.doubleValue = object.double_value;
+    }
+    if (object.string_value !== undefined && object.string_value !== null) {
+      message.stringValue = bytesFromBase64(object.string_value);
+    }
+    if (object.aggregate_value !== undefined && object.aggregate_value !== null) {
+      message.aggregateValue = object.aggregate_value;
+    }
+    return message;
+  },
+  toAmino(message: UninterpretedOption): UninterpretedOptionAmino {
+    const obj: any = {};
+    if (message.name) {
+      obj.name = message.name.map((e) => (e ? UninterpretedOption_NamePart.toAmino(e) : undefined));
+    } else {
+      obj.name = message.name;
+    }
+    obj.identifier_value = message.identifierValue === "" ? undefined : message.identifierValue;
+    obj.positive_int_value =
+      message.positiveIntValue !== BigInt(0) ? message.positiveIntValue?.toString() : undefined;
+    obj.negative_int_value =
+      message.negativeIntValue !== BigInt(0) ? message.negativeIntValue?.toString() : undefined;
+    obj.double_value = message.doubleValue === 0 ? undefined : message.doubleValue;
+    obj.string_value = message.stringValue ? base64FromBytes(message.stringValue) : undefined;
+    obj.aggregate_value = message.aggregateValue === "" ? undefined : message.aggregateValue;
+    return obj;
+  },
+  fromAminoMsg(object: UninterpretedOptionAminoMsg): UninterpretedOption {
+    return UninterpretedOption.fromAmino(object.value);
+  },
 };
 function createBaseUninterpretedOption_NamePart(): UninterpretedOption_NamePart {
   return {
@@ -3270,6 +4066,25 @@ export const UninterpretedOption_NamePart = {
     message.isExtension = object.isExtension ?? false;
     return message;
   },
+  fromAmino(object: UninterpretedOption_NamePartAmino): UninterpretedOption_NamePart {
+    const message = createBaseUninterpretedOption_NamePart();
+    if (object.name_part !== undefined && object.name_part !== null) {
+      message.namePart = object.name_part;
+    }
+    if (object.is_extension !== undefined && object.is_extension !== null) {
+      message.isExtension = object.is_extension;
+    }
+    return message;
+  },
+  toAmino(message: UninterpretedOption_NamePart): UninterpretedOption_NamePartAmino {
+    const obj: any = {};
+    obj.name_part = message.namePart === "" ? undefined : message.namePart;
+    obj.is_extension = message.isExtension === false ? undefined : message.isExtension;
+    return obj;
+  },
+  fromAminoMsg(object: UninterpretedOption_NamePartAminoMsg): UninterpretedOption_NamePart {
+    return UninterpretedOption_NamePart.fromAmino(object.value);
+  },
 };
 function createBaseSourceCodeInfo(): SourceCodeInfo {
   return {
@@ -3320,6 +4135,23 @@ export const SourceCodeInfo = {
     const message = createBaseSourceCodeInfo();
     message.location = object.location?.map((e) => SourceCodeInfo_Location.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: SourceCodeInfoAmino): SourceCodeInfo {
+    const message = createBaseSourceCodeInfo();
+    message.location = object.location?.map((e) => SourceCodeInfo_Location.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: SourceCodeInfo): SourceCodeInfoAmino {
+    const obj: any = {};
+    if (message.location) {
+      obj.location = message.location.map((e) => (e ? SourceCodeInfo_Location.toAmino(e) : undefined));
+    } else {
+      obj.location = message.location;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SourceCodeInfoAminoMsg): SourceCodeInfo {
+    return SourceCodeInfo.fromAmino(object.value);
   },
 };
 function createBaseSourceCodeInfo_Location(): SourceCodeInfo_Location {
@@ -3438,6 +4270,43 @@ export const SourceCodeInfo_Location = {
     message.leadingDetachedComments = object.leadingDetachedComments?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: SourceCodeInfo_LocationAmino): SourceCodeInfo_Location {
+    const message = createBaseSourceCodeInfo_Location();
+    message.path = object.path?.map((e) => e) || [];
+    message.span = object.span?.map((e) => e) || [];
+    if (object.leading_comments !== undefined && object.leading_comments !== null) {
+      message.leadingComments = object.leading_comments;
+    }
+    if (object.trailing_comments !== undefined && object.trailing_comments !== null) {
+      message.trailingComments = object.trailing_comments;
+    }
+    message.leadingDetachedComments = object.leading_detached_comments?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: SourceCodeInfo_Location): SourceCodeInfo_LocationAmino {
+    const obj: any = {};
+    if (message.path) {
+      obj.path = message.path.map((e) => e);
+    } else {
+      obj.path = message.path;
+    }
+    if (message.span) {
+      obj.span = message.span.map((e) => e);
+    } else {
+      obj.span = message.span;
+    }
+    obj.leading_comments = message.leadingComments === "" ? undefined : message.leadingComments;
+    obj.trailing_comments = message.trailingComments === "" ? undefined : message.trailingComments;
+    if (message.leadingDetachedComments) {
+      obj.leading_detached_comments = message.leadingDetachedComments.map((e) => e);
+    } else {
+      obj.leading_detached_comments = message.leadingDetachedComments;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: SourceCodeInfo_LocationAminoMsg): SourceCodeInfo_Location {
+    return SourceCodeInfo_Location.fromAmino(object.value);
+  },
 };
 function createBaseGeneratedCodeInfo(): GeneratedCodeInfo {
   return {
@@ -3490,6 +4359,25 @@ export const GeneratedCodeInfo = {
     const message = createBaseGeneratedCodeInfo();
     message.annotation = object.annotation?.map((e) => GeneratedCodeInfo_Annotation.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GeneratedCodeInfoAmino): GeneratedCodeInfo {
+    const message = createBaseGeneratedCodeInfo();
+    message.annotation = object.annotation?.map((e) => GeneratedCodeInfo_Annotation.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: GeneratedCodeInfo): GeneratedCodeInfoAmino {
+    const obj: any = {};
+    if (message.annotation) {
+      obj.annotation = message.annotation.map((e) =>
+        e ? GeneratedCodeInfo_Annotation.toAmino(e) : undefined,
+      );
+    } else {
+      obj.annotation = message.annotation;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GeneratedCodeInfoAminoMsg): GeneratedCodeInfo {
+    return GeneratedCodeInfo.fromAmino(object.value);
   },
 };
 function createBaseGeneratedCodeInfo_Annotation(): GeneratedCodeInfo_Annotation {
@@ -3581,5 +4469,34 @@ export const GeneratedCodeInfo_Annotation = {
     message.begin = object.begin ?? 0;
     message.end = object.end ?? 0;
     return message;
+  },
+  fromAmino(object: GeneratedCodeInfo_AnnotationAmino): GeneratedCodeInfo_Annotation {
+    const message = createBaseGeneratedCodeInfo_Annotation();
+    message.path = object.path?.map((e) => e) || [];
+    if (object.source_file !== undefined && object.source_file !== null) {
+      message.sourceFile = object.source_file;
+    }
+    if (object.begin !== undefined && object.begin !== null) {
+      message.begin = object.begin;
+    }
+    if (object.end !== undefined && object.end !== null) {
+      message.end = object.end;
+    }
+    return message;
+  },
+  toAmino(message: GeneratedCodeInfo_Annotation): GeneratedCodeInfo_AnnotationAmino {
+    const obj: any = {};
+    if (message.path) {
+      obj.path = message.path.map((e) => e);
+    } else {
+      obj.path = message.path;
+    }
+    obj.source_file = message.sourceFile === "" ? undefined : message.sourceFile;
+    obj.begin = message.begin === 0 ? undefined : message.begin;
+    obj.end = message.end === 0 ? undefined : message.end;
+    return obj;
+  },
+  fromAminoMsg(object: GeneratedCodeInfo_AnnotationAminoMsg): GeneratedCodeInfo_Annotation {
+    return GeneratedCodeInfo_Annotation.fromAmino(object.value);
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { GrantAuthorization } from "./authz";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -57,5 +58,28 @@ export const GenesisState = {
     const message = createBaseGenesisState();
     message.authorization = object.authorization?.map((e) => GrantAuthorization.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    const message = createBaseGenesisState();
+    message.authorization = object.authorization?.map((e) => GrantAuthorization.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    if (message.authorization) {
+      obj.authorization = message.authorization.map((e) => (e ? GrantAuthorization.toAmino(e) : undefined));
+    } else {
+      obj.authorization = message.authorization;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
   },
 };

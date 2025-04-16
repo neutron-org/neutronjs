@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import {
   RequestFinalizeBlock,
@@ -88,6 +89,31 @@ export const ListenFinalizeBlockRequest = {
     }
     return message;
   },
+  fromAmino(object: ListenFinalizeBlockRequestAmino): ListenFinalizeBlockRequest {
+    const message = createBaseListenFinalizeBlockRequest();
+    if (object.req !== undefined && object.req !== null) {
+      message.req = RequestFinalizeBlock.fromAmino(object.req);
+    }
+    if (object.res !== undefined && object.res !== null) {
+      message.res = ResponseFinalizeBlock.fromAmino(object.res);
+    }
+    return message;
+  },
+  toAmino(message: ListenFinalizeBlockRequest): ListenFinalizeBlockRequestAmino {
+    const obj: any = {};
+    obj.req = message.req ? RequestFinalizeBlock.toAmino(message.req) : undefined;
+    obj.res = message.res ? ResponseFinalizeBlock.toAmino(message.res) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ListenFinalizeBlockRequestAminoMsg): ListenFinalizeBlockRequest {
+    return ListenFinalizeBlockRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: ListenFinalizeBlockRequest): ListenFinalizeBlockRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/ListenFinalizeBlockRequest",
+      value: ListenFinalizeBlockRequest.toAmino(message),
+    };
+  },
 };
 function createBaseListenFinalizeBlockResponse(): ListenFinalizeBlockResponse {
   return {};
@@ -124,6 +150,23 @@ export const ListenFinalizeBlockResponse = {
   ): ListenFinalizeBlockResponse {
     const message = createBaseListenFinalizeBlockResponse();
     return message;
+  },
+  fromAmino(_: ListenFinalizeBlockResponseAmino): ListenFinalizeBlockResponse {
+    const message = createBaseListenFinalizeBlockResponse();
+    return message;
+  },
+  toAmino(_: ListenFinalizeBlockResponse): ListenFinalizeBlockResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: ListenFinalizeBlockResponseAminoMsg): ListenFinalizeBlockResponse {
+    return ListenFinalizeBlockResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: ListenFinalizeBlockResponse): ListenFinalizeBlockResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/ListenFinalizeBlockResponse",
+      value: ListenFinalizeBlockResponse.toAmino(message),
+    };
   },
 };
 function createBaseListenCommitRequest(): ListenCommitRequest {
@@ -200,6 +243,37 @@ export const ListenCommitRequest = {
     message.changeSet = object.changeSet?.map((e) => StoreKVPair.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ListenCommitRequestAmino): ListenCommitRequest {
+    const message = createBaseListenCommitRequest();
+    if (object.block_height !== undefined && object.block_height !== null) {
+      message.blockHeight = BigInt(object.block_height);
+    }
+    if (object.res !== undefined && object.res !== null) {
+      message.res = ResponseCommit.fromAmino(object.res);
+    }
+    message.changeSet = object.change_set?.map((e) => StoreKVPair.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: ListenCommitRequest): ListenCommitRequestAmino {
+    const obj: any = {};
+    obj.block_height = message.blockHeight !== BigInt(0) ? message.blockHeight?.toString() : undefined;
+    obj.res = message.res ? ResponseCommit.toAmino(message.res) : undefined;
+    if (message.changeSet) {
+      obj.change_set = message.changeSet.map((e) => (e ? StoreKVPair.toAmino(e) : undefined));
+    } else {
+      obj.change_set = message.changeSet;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ListenCommitRequestAminoMsg): ListenCommitRequest {
+    return ListenCommitRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: ListenCommitRequest): ListenCommitRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/ListenCommitRequest",
+      value: ListenCommitRequest.toAmino(message),
+    };
+  },
 };
 function createBaseListenCommitResponse(): ListenCommitResponse {
   return {};
@@ -234,5 +308,22 @@ export const ListenCommitResponse = {
   fromPartial<I extends Exact<DeepPartial<ListenCommitResponse>, I>>(_: I): ListenCommitResponse {
     const message = createBaseListenCommitResponse();
     return message;
+  },
+  fromAmino(_: ListenCommitResponseAmino): ListenCommitResponse {
+    const message = createBaseListenCommitResponse();
+    return message;
+  },
+  toAmino(_: ListenCommitResponse): ListenCommitResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: ListenCommitResponseAminoMsg): ListenCommitResponse {
+    return ListenCommitResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: ListenCommitResponse): ListenCommitResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/ListenCommitResponse",
+      value: ListenCommitResponse.toAmino(message),
+    };
   },
 };

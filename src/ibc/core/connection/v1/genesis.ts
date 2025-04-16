@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { IdentifiedConnection, ConnectionPaths, Params } from "./connection";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
@@ -105,5 +106,46 @@ export const GenesisState = {
       message.params = Params.fromPartial(object.params);
     }
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    const message = createBaseGenesisState();
+    message.connections = object.connections?.map((e) => IdentifiedConnection.fromAmino(e)) || [];
+    message.clientConnectionPaths =
+      object.client_connection_paths?.map((e) => ConnectionPaths.fromAmino(e)) || [];
+    if (object.next_connection_sequence !== undefined && object.next_connection_sequence !== null) {
+      message.nextConnectionSequence = BigInt(object.next_connection_sequence);
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    if (message.connections) {
+      obj.connections = message.connections.map((e) => (e ? IdentifiedConnection.toAmino(e) : undefined));
+    } else {
+      obj.connections = message.connections;
+    }
+    if (message.clientConnectionPaths) {
+      obj.client_connection_paths = message.clientConnectionPaths.map((e) =>
+        e ? ConnectionPaths.toAmino(e) : undefined,
+      );
+    } else {
+      obj.client_connection_paths = message.clientConnectionPaths;
+    }
+    obj.next_connection_sequence =
+      message.nextConnectionSequence !== BigInt(0) ? message.nextConnectionSequence?.toString() : undefined;
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
   },
 };

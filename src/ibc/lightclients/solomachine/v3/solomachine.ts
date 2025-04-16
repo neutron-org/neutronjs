@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
@@ -157,6 +158,35 @@ export const ClientState = {
     }
     return message;
   },
+  fromAmino(object: ClientStateAmino): ClientState {
+    const message = createBaseClientState();
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = BigInt(object.sequence);
+    }
+    if (object.is_frozen !== undefined && object.is_frozen !== null) {
+      message.isFrozen = object.is_frozen;
+    }
+    if (object.consensus_state !== undefined && object.consensus_state !== null) {
+      message.consensusState = ConsensusState.fromAmino(object.consensus_state);
+    }
+    return message;
+  },
+  toAmino(message: ClientState): ClientStateAmino {
+    const obj: any = {};
+    obj.sequence = message.sequence !== BigInt(0) ? message.sequence?.toString() : undefined;
+    obj.is_frozen = message.isFrozen === false ? undefined : message.isFrozen;
+    obj.consensus_state = message.consensusState ? ConsensusState.toAmino(message.consensusState) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ClientStateAminoMsg): ClientState {
+    return ClientState.fromAmino(object.value);
+  },
+  toAminoMsg(message: ClientState): ClientStateAminoMsg {
+    return {
+      type: "cosmos-sdk/ClientState",
+      value: ClientState.toAmino(message),
+    };
+  },
 };
 function createBaseConsensusState(): ConsensusState {
   return {
@@ -227,6 +257,35 @@ export const ConsensusState = {
       message.timestamp = BigInt(object.timestamp.toString());
     }
     return message;
+  },
+  fromAmino(object: ConsensusStateAmino): ConsensusState {
+    const message = createBaseConsensusState();
+    if (object.public_key !== undefined && object.public_key !== null) {
+      message.publicKey = Any.fromAmino(object.public_key);
+    }
+    if (object.diversifier !== undefined && object.diversifier !== null) {
+      message.diversifier = object.diversifier;
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = BigInt(object.timestamp);
+    }
+    return message;
+  },
+  toAmino(message: ConsensusState): ConsensusStateAmino {
+    const obj: any = {};
+    obj.public_key = message.publicKey ? Any.toAmino(message.publicKey) : undefined;
+    obj.diversifier = message.diversifier === "" ? undefined : message.diversifier;
+    obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ConsensusStateAminoMsg): ConsensusState {
+    return ConsensusState.fromAmino(object.value);
+  },
+  toAminoMsg(message: ConsensusState): ConsensusStateAminoMsg {
+    return {
+      type: "cosmos-sdk/ConsensusState",
+      value: ConsensusState.toAmino(message),
+    };
   },
 };
 function createBaseHeader(): Header {
@@ -312,6 +371,39 @@ export const Header = {
     message.newDiversifier = object.newDiversifier ?? "";
     return message;
   },
+  fromAmino(object: HeaderAmino): Header {
+    const message = createBaseHeader();
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = BigInt(object.timestamp);
+    }
+    if (object.signature !== undefined && object.signature !== null) {
+      message.signature = bytesFromBase64(object.signature);
+    }
+    if (object.new_public_key !== undefined && object.new_public_key !== null) {
+      message.newPublicKey = Any.fromAmino(object.new_public_key);
+    }
+    if (object.new_diversifier !== undefined && object.new_diversifier !== null) {
+      message.newDiversifier = object.new_diversifier;
+    }
+    return message;
+  },
+  toAmino(message: Header): HeaderAmino {
+    const obj: any = {};
+    obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
+    obj.signature = message.signature ? base64FromBytes(message.signature) : undefined;
+    obj.new_public_key = message.newPublicKey ? Any.toAmino(message.newPublicKey) : undefined;
+    obj.new_diversifier = message.newDiversifier === "" ? undefined : message.newDiversifier;
+    return obj;
+  },
+  fromAminoMsg(object: HeaderAminoMsg): Header {
+    return Header.fromAmino(object.value);
+  },
+  toAminoMsg(message: Header): HeaderAminoMsg {
+    return {
+      type: "cosmos-sdk/Header",
+      value: Header.toAmino(message),
+    };
+  },
 };
 function createBaseMisbehaviour(): Misbehaviour {
   return {
@@ -385,6 +477,35 @@ export const Misbehaviour = {
       message.signatureTwo = SignatureAndData.fromPartial(object.signatureTwo);
     }
     return message;
+  },
+  fromAmino(object: MisbehaviourAmino): Misbehaviour {
+    const message = createBaseMisbehaviour();
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = BigInt(object.sequence);
+    }
+    if (object.signature_one !== undefined && object.signature_one !== null) {
+      message.signatureOne = SignatureAndData.fromAmino(object.signature_one);
+    }
+    if (object.signature_two !== undefined && object.signature_two !== null) {
+      message.signatureTwo = SignatureAndData.fromAmino(object.signature_two);
+    }
+    return message;
+  },
+  toAmino(message: Misbehaviour): MisbehaviourAmino {
+    const obj: any = {};
+    obj.sequence = message.sequence !== BigInt(0) ? message.sequence?.toString() : undefined;
+    obj.signature_one = message.signatureOne ? SignatureAndData.toAmino(message.signatureOne) : undefined;
+    obj.signature_two = message.signatureTwo ? SignatureAndData.toAmino(message.signatureTwo) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MisbehaviourAminoMsg): Misbehaviour {
+    return Misbehaviour.fromAmino(object.value);
+  },
+  toAminoMsg(message: Misbehaviour): MisbehaviourAminoMsg {
+    return {
+      type: "cosmos-sdk/Misbehaviour",
+      value: Misbehaviour.toAmino(message),
+    };
   },
 };
 function createBaseSignatureAndData(): SignatureAndData {
@@ -469,6 +590,39 @@ export const SignatureAndData = {
     }
     return message;
   },
+  fromAmino(object: SignatureAndDataAmino): SignatureAndData {
+    const message = createBaseSignatureAndData();
+    if (object.signature !== undefined && object.signature !== null) {
+      message.signature = bytesFromBase64(object.signature);
+    }
+    if (object.path !== undefined && object.path !== null) {
+      message.path = bytesFromBase64(object.path);
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = BigInt(object.timestamp);
+    }
+    return message;
+  },
+  toAmino(message: SignatureAndData): SignatureAndDataAmino {
+    const obj: any = {};
+    obj.signature = message.signature ? base64FromBytes(message.signature) : undefined;
+    obj.path = message.path ? base64FromBytes(message.path) : undefined;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
+    obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: SignatureAndDataAminoMsg): SignatureAndData {
+    return SignatureAndData.fromAmino(object.value);
+  },
+  toAminoMsg(message: SignatureAndData): SignatureAndDataAminoMsg {
+    return {
+      type: "cosmos-sdk/SignatureAndData",
+      value: SignatureAndData.toAmino(message),
+    };
+  },
 };
 function createBaseTimestampedSignatureData(): TimestampedSignatureData {
   return {
@@ -531,6 +685,31 @@ export const TimestampedSignatureData = {
       message.timestamp = BigInt(object.timestamp.toString());
     }
     return message;
+  },
+  fromAmino(object: TimestampedSignatureDataAmino): TimestampedSignatureData {
+    const message = createBaseTimestampedSignatureData();
+    if (object.signature_data !== undefined && object.signature_data !== null) {
+      message.signatureData = bytesFromBase64(object.signature_data);
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = BigInt(object.timestamp);
+    }
+    return message;
+  },
+  toAmino(message: TimestampedSignatureData): TimestampedSignatureDataAmino {
+    const obj: any = {};
+    obj.signature_data = message.signatureData ? base64FromBytes(message.signatureData) : undefined;
+    obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: TimestampedSignatureDataAminoMsg): TimestampedSignatureData {
+    return TimestampedSignatureData.fromAmino(object.value);
+  },
+  toAminoMsg(message: TimestampedSignatureData): TimestampedSignatureDataAminoMsg {
+    return {
+      type: "cosmos-sdk/TimestampedSignatureData",
+      value: TimestampedSignatureData.toAmino(message),
+    };
   },
 };
 function createBaseSignBytes(): SignBytes {
@@ -624,6 +803,43 @@ export const SignBytes = {
     message.data = object.data ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: SignBytesAmino): SignBytes {
+    const message = createBaseSignBytes();
+    if (object.sequence !== undefined && object.sequence !== null) {
+      message.sequence = BigInt(object.sequence);
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = BigInt(object.timestamp);
+    }
+    if (object.diversifier !== undefined && object.diversifier !== null) {
+      message.diversifier = object.diversifier;
+    }
+    if (object.path !== undefined && object.path !== null) {
+      message.path = bytesFromBase64(object.path);
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
+  },
+  toAmino(message: SignBytes): SignBytesAmino {
+    const obj: any = {};
+    obj.sequence = message.sequence !== BigInt(0) ? message.sequence?.toString() : undefined;
+    obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
+    obj.diversifier = message.diversifier === "" ? undefined : message.diversifier;
+    obj.path = message.path ? base64FromBytes(message.path) : undefined;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: SignBytesAminoMsg): SignBytes {
+    return SignBytes.fromAmino(object.value);
+  },
+  toAminoMsg(message: SignBytes): SignBytesAminoMsg {
+    return {
+      type: "cosmos-sdk/SignBytes",
+      value: SignBytes.toAmino(message),
+    };
+  },
 };
 function createBaseHeaderData(): HeaderData {
   return {
@@ -682,5 +898,30 @@ export const HeaderData = {
     }
     message.newDiversifier = object.newDiversifier ?? "";
     return message;
+  },
+  fromAmino(object: HeaderDataAmino): HeaderData {
+    const message = createBaseHeaderData();
+    if (object.new_pub_key !== undefined && object.new_pub_key !== null) {
+      message.newPubKey = Any.fromAmino(object.new_pub_key);
+    }
+    if (object.new_diversifier !== undefined && object.new_diversifier !== null) {
+      message.newDiversifier = object.new_diversifier;
+    }
+    return message;
+  },
+  toAmino(message: HeaderData): HeaderDataAmino {
+    const obj: any = {};
+    obj.new_pub_key = message.newPubKey ? Any.toAmino(message.newPubKey) : undefined;
+    obj.new_diversifier = message.newDiversifier === "" ? undefined : message.newDiversifier;
+    return obj;
+  },
+  fromAminoMsg(object: HeaderDataAminoMsg): HeaderData {
+    return HeaderData.fromAmino(object.value);
+  },
+  toAminoMsg(message: HeaderData): HeaderDataAminoMsg {
+    return {
+      type: "cosmos-sdk/HeaderData",
+      value: HeaderData.toAmino(message),
+    };
   },
 };

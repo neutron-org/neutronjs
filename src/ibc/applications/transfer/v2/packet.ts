@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../../helpers";
@@ -104,5 +105,42 @@ export const FungibleTokenPacketData = {
     message.receiver = object.receiver ?? "";
     message.memo = object.memo ?? "";
     return message;
+  },
+  fromAmino(object: FungibleTokenPacketDataAmino): FungibleTokenPacketData {
+    const message = createBaseFungibleTokenPacketData();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    if (object.memo !== undefined && object.memo !== null) {
+      message.memo = object.memo;
+    }
+    return message;
+  },
+  toAmino(message: FungibleTokenPacketData): FungibleTokenPacketDataAmino {
+    const obj: any = {};
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.amount = message.amount === "" ? undefined : message.amount;
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.receiver = message.receiver === "" ? undefined : message.receiver;
+    obj.memo = message.memo === "" ? undefined : message.memo;
+    return obj;
+  },
+  fromAminoMsg(object: FungibleTokenPacketDataAminoMsg): FungibleTokenPacketData {
+    return FungibleTokenPacketData.fromAmino(object.value);
+  },
+  toAminoMsg(message: FungibleTokenPacketData): FungibleTokenPacketDataAminoMsg {
+    return {
+      type: "cosmos-sdk/FungibleTokenPacketData",
+      value: FungibleTokenPacketData.toAmino(message),
+    };
   },
 };

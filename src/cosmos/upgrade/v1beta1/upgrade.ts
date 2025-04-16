@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Any } from "../../../google/protobuf/any";
@@ -172,6 +173,45 @@ export const Plan = {
     }
     return message;
   },
+  fromAmino(object: PlanAmino): Plan {
+    const message = createBasePlan();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.time !== undefined && object.time !== null) {
+      message.time = Timestamp.fromAmino(object.time);
+    }
+    if (object.height !== undefined && object.height !== null) {
+      message.height = BigInt(object.height);
+    }
+    if (object.info !== undefined && object.info !== null) {
+      message.info = object.info;
+    }
+    if (object.upgraded_client_state !== undefined && object.upgraded_client_state !== null) {
+      message.upgradedClientState = Any.fromAmino(object.upgraded_client_state);
+    }
+    return message;
+  },
+  toAmino(message: Plan): PlanAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.time = message.time ? Timestamp.toAmino(message.time) : Timestamp.toAmino(Timestamp.fromPartial({}));
+    obj.height = message.height !== BigInt(0) ? message.height?.toString() : undefined;
+    obj.info = message.info === "" ? undefined : message.info;
+    obj.upgraded_client_state = message.upgradedClientState
+      ? Any.toAmino(message.upgradedClientState)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: PlanAminoMsg): Plan {
+    return Plan.fromAmino(object.value);
+  },
+  toAminoMsg(message: Plan): PlanAminoMsg {
+    return {
+      type: "cosmos-sdk/Plan",
+      value: Plan.toAmino(message),
+    };
+  },
 };
 function createBaseSoftwareUpgradeProposal(): SoftwareUpgradeProposal {
   return {
@@ -240,6 +280,35 @@ export const SoftwareUpgradeProposal = {
     }
     return message;
   },
+  fromAmino(object: SoftwareUpgradeProposalAmino): SoftwareUpgradeProposal {
+    const message = createBaseSoftwareUpgradeProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    if (object.plan !== undefined && object.plan !== null) {
+      message.plan = Plan.fromAmino(object.plan);
+    }
+    return message;
+  },
+  toAmino(message: SoftwareUpgradeProposal): SoftwareUpgradeProposalAmino {
+    const obj: any = {};
+    obj.title = message.title === "" ? undefined : message.title;
+    obj.description = message.description === "" ? undefined : message.description;
+    obj.plan = message.plan ? Plan.toAmino(message.plan) : Plan.toAmino(Plan.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: SoftwareUpgradeProposalAminoMsg): SoftwareUpgradeProposal {
+    return SoftwareUpgradeProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: SoftwareUpgradeProposal): SoftwareUpgradeProposalAminoMsg {
+    return {
+      type: "cosmos-sdk/SoftwareUpgradeProposal",
+      value: SoftwareUpgradeProposal.toAmino(message),
+    };
+  },
 };
 function createBaseCancelSoftwareUpgradeProposal(): CancelSoftwareUpgradeProposal {
   return {
@@ -298,6 +367,31 @@ export const CancelSoftwareUpgradeProposal = {
     message.description = object.description ?? "";
     return message;
   },
+  fromAmino(object: CancelSoftwareUpgradeProposalAmino): CancelSoftwareUpgradeProposal {
+    const message = createBaseCancelSoftwareUpgradeProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    return message;
+  },
+  toAmino(message: CancelSoftwareUpgradeProposal): CancelSoftwareUpgradeProposalAmino {
+    const obj: any = {};
+    obj.title = message.title === "" ? undefined : message.title;
+    obj.description = message.description === "" ? undefined : message.description;
+    return obj;
+  },
+  fromAminoMsg(object: CancelSoftwareUpgradeProposalAminoMsg): CancelSoftwareUpgradeProposal {
+    return CancelSoftwareUpgradeProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: CancelSoftwareUpgradeProposal): CancelSoftwareUpgradeProposalAminoMsg {
+    return {
+      type: "cosmos-sdk/CancelSoftwareUpgradeProposal",
+      value: CancelSoftwareUpgradeProposal.toAmino(message),
+    };
+  },
 };
 function createBaseModuleVersion(): ModuleVersion {
   return {
@@ -355,5 +449,30 @@ export const ModuleVersion = {
       message.version = BigInt(object.version.toString());
     }
     return message;
+  },
+  fromAmino(object: ModuleVersionAmino): ModuleVersion {
+    const message = createBaseModuleVersion();
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.version !== undefined && object.version !== null) {
+      message.version = BigInt(object.version);
+    }
+    return message;
+  },
+  toAmino(message: ModuleVersion): ModuleVersionAmino {
+    const obj: any = {};
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.version = message.version !== BigInt(0) ? message.version?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ModuleVersionAminoMsg): ModuleVersion {
+    return ModuleVersion.fromAmino(object.value);
+  },
+  toAminoMsg(message: ModuleVersion): ModuleVersionAminoMsg {
+    return {
+      type: "cosmos-sdk/ModuleVersion",
+      value: ModuleVersion.toAmino(message),
+    };
   },
 };

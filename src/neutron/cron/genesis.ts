@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Schedule } from "./schedule";
 import { Params } from "./params";
@@ -71,5 +72,26 @@ export const GenesisState = {
       message.params = Params.fromPartial(object.params);
     }
     return message;
+  },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    const message = createBaseGenesisState();
+    message.scheduleList = object.scheduleList?.map((e) => Schedule.fromAmino(e)) || [];
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    if (message.scheduleList) {
+      obj.scheduleList = message.scheduleList.map((e) => (e ? Schedule.toAmino(e) : undefined));
+    } else {
+      obj.scheduleList = message.scheduleList;
+    }
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
   },
 };

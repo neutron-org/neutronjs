@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { ModuleOptions } from "./options";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -50,6 +51,23 @@ export const AppOptionsRequest = {
   fromPartial<I extends Exact<DeepPartial<AppOptionsRequest>, I>>(_: I): AppOptionsRequest {
     const message = createBaseAppOptionsRequest();
     return message;
+  },
+  fromAmino(_: AppOptionsRequestAmino): AppOptionsRequest {
+    const message = createBaseAppOptionsRequest();
+    return message;
+  },
+  toAmino(_: AppOptionsRequest): AppOptionsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: AppOptionsRequestAminoMsg): AppOptionsRequest {
+    return AppOptionsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: AppOptionsRequest): AppOptionsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/AppOptionsRequest",
+      value: AppOptionsRequest.toAmino(message),
+    };
   },
 };
 function createBaseAppOptionsResponse_ModuleOptionsEntry(): AppOptionsResponse_ModuleOptionsEntry {
@@ -113,6 +131,25 @@ export const AppOptionsResponse_ModuleOptionsEntry = {
       message.value = ModuleOptions.fromPartial(object.value);
     }
     return message;
+  },
+  fromAmino(object: AppOptionsResponse_ModuleOptionsEntryAmino): AppOptionsResponse_ModuleOptionsEntry {
+    const message = createBaseAppOptionsResponse_ModuleOptionsEntry();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = ModuleOptions.fromAmino(object.value);
+    }
+    return message;
+  },
+  toAmino(message: AppOptionsResponse_ModuleOptionsEntry): AppOptionsResponse_ModuleOptionsEntryAmino {
+    const obj: any = {};
+    obj.key = message.key === "" ? undefined : message.key;
+    obj.value = message.value ? ModuleOptions.toAmino(message.value) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: AppOptionsResponse_ModuleOptionsEntryAminoMsg): AppOptionsResponse_ModuleOptionsEntry {
+    return AppOptionsResponse_ModuleOptionsEntry.fromAmino(object.value);
   },
 };
 function createBaseAppOptionsResponse(): AppOptionsResponse {
@@ -186,5 +223,36 @@ export const AppOptionsResponse = {
       return acc;
     }, {});
     return message;
+  },
+  fromAmino(object: AppOptionsResponseAmino): AppOptionsResponse {
+    const message = createBaseAppOptionsResponse();
+    message.moduleOptions = Object.entries(object.module_options ?? {}).reduce<{
+      [key: string]: ModuleOptions;
+    }>((acc, [key, value]) => {
+      if (value !== undefined) {
+        acc[key] = ModuleOptions.fromAmino(value);
+      }
+      return acc;
+    }, {});
+    return message;
+  },
+  toAmino(message: AppOptionsResponse): AppOptionsResponseAmino {
+    const obj: any = {};
+    obj.module_options = {};
+    if (message.moduleOptions) {
+      Object.entries(message.moduleOptions).forEach(([k, v]) => {
+        obj.module_options[k] = ModuleOptions.toAmino(v);
+      });
+    }
+    return obj;
+  },
+  fromAminoMsg(object: AppOptionsResponseAminoMsg): AppOptionsResponse {
+    return AppOptionsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: AppOptionsResponse): AppOptionsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/AppOptionsResponse",
+      value: AppOptionsResponse.toAmino(message),
+    };
   },
 };

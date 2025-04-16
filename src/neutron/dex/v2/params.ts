@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
@@ -75,5 +76,26 @@ export const Params = {
     message.feeTiers = object.feeTiers?.map((e) => BigInt(e.toString())) || [];
     message.maxTrueTakerSpread = object.maxTrueTakerSpread ?? "";
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    message.feeTiers = object.fee_tiers?.map((e) => BigInt(e)) || [];
+    if (object.max_true_taker_spread !== undefined && object.max_true_taker_spread !== null) {
+      message.maxTrueTakerSpread = object.max_true_taker_spread;
+    }
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.feeTiers) {
+      obj.fee_tiers = message.feeTiers.map((e) => e.toString());
+    } else {
+      obj.fee_tiers = message.feeTiers;
+    }
+    obj.max_true_taker_spread = message.maxTrueTakerSpread ?? "";
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
   },
 };

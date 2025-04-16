@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Order, Params, orderFromJSON, orderToJSON } from "../../../ibc/core/channel/v1/channel";
@@ -161,6 +162,39 @@ export const MsgRegisterInterchainAccount = {
     message.ordering = object.ordering ?? 0;
     return message;
   },
+  fromAmino(object: MsgRegisterInterchainAccountAmino): MsgRegisterInterchainAccount {
+    const message = createBaseMsgRegisterInterchainAccount();
+    if (object.from_address !== undefined && object.from_address !== null) {
+      message.fromAddress = object.from_address;
+    }
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    if (object.interchain_account_id !== undefined && object.interchain_account_id !== null) {
+      message.interchainAccountId = object.interchain_account_id;
+    }
+    message.registerFee = object.register_fee?.map((e) => Coin.fromAmino(e)) || [];
+    if (object.ordering !== undefined && object.ordering !== null) {
+      message.ordering = object.ordering;
+    }
+    return message;
+  },
+  toAmino(message: MsgRegisterInterchainAccount): MsgRegisterInterchainAccountAmino {
+    const obj: any = {};
+    obj.from_address = message.fromAddress === "" ? undefined : message.fromAddress;
+    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
+    obj.interchain_account_id = message.interchainAccountId === "" ? undefined : message.interchainAccountId;
+    if (message.registerFee) {
+      obj.register_fee = message.registerFee.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.register_fee = message.registerFee;
+    }
+    obj.ordering = message.ordering === 0 ? undefined : message.ordering;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRegisterInterchainAccountAminoMsg): MsgRegisterInterchainAccount {
+    return MsgRegisterInterchainAccount.fromAmino(object.value);
+  },
 };
 function createBaseMsgRegisterInterchainAccountResponse(): MsgRegisterInterchainAccountResponse {
   return {
@@ -221,6 +255,25 @@ export const MsgRegisterInterchainAccountResponse = {
     message.channelId = object.channelId ?? "";
     message.portId = object.portId ?? "";
     return message;
+  },
+  fromAmino(object: MsgRegisterInterchainAccountResponseAmino): MsgRegisterInterchainAccountResponse {
+    const message = createBaseMsgRegisterInterchainAccountResponse();
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    return message;
+  },
+  toAmino(message: MsgRegisterInterchainAccountResponse): MsgRegisterInterchainAccountResponseAmino {
+    const obj: any = {};
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRegisterInterchainAccountResponseAminoMsg): MsgRegisterInterchainAccountResponse {
+    return MsgRegisterInterchainAccountResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgSubmitTx(): MsgSubmitTx {
@@ -336,6 +389,47 @@ export const MsgSubmitTx = {
     }
     return message;
   },
+  fromAmino(object: MsgSubmitTxAmino): MsgSubmitTx {
+    const message = createBaseMsgSubmitTx();
+    if (object.from_address !== undefined && object.from_address !== null) {
+      message.fromAddress = object.from_address;
+    }
+    if (object.interchain_account_id !== undefined && object.interchain_account_id !== null) {
+      message.interchainAccountId = object.interchain_account_id;
+    }
+    if (object.connection_id !== undefined && object.connection_id !== null) {
+      message.connectionId = object.connection_id;
+    }
+    message.msgs = object.msgs?.map((e) => Any.fromAmino(e)) || [];
+    if (object.memo !== undefined && object.memo !== null) {
+      message.memo = object.memo;
+    }
+    if (object.timeout !== undefined && object.timeout !== null) {
+      message.timeout = BigInt(object.timeout);
+    }
+    if (object.fee !== undefined && object.fee !== null) {
+      message.fee = Fee.fromAmino(object.fee);
+    }
+    return message;
+  },
+  toAmino(message: MsgSubmitTx): MsgSubmitTxAmino {
+    const obj: any = {};
+    obj.from_address = message.fromAddress === "" ? undefined : message.fromAddress;
+    obj.interchain_account_id = message.interchainAccountId === "" ? undefined : message.interchainAccountId;
+    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
+    if (message.msgs) {
+      obj.msgs = message.msgs.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.msgs = message.msgs;
+    }
+    obj.memo = message.memo === "" ? undefined : message.memo;
+    obj.timeout = message.timeout !== BigInt(0) ? message.timeout?.toString() : undefined;
+    obj.fee = message.fee ? Fee.toAmino(message.fee) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSubmitTxAminoMsg): MsgSubmitTx {
+    return MsgSubmitTx.fromAmino(object.value);
+  },
 };
 function createBaseMsgSubmitTxResponse(): MsgSubmitTxResponse {
   return {
@@ -393,6 +487,25 @@ export const MsgSubmitTxResponse = {
     }
     message.channel = object.channel ?? "";
     return message;
+  },
+  fromAmino(object: MsgSubmitTxResponseAmino): MsgSubmitTxResponse {
+    const message = createBaseMsgSubmitTxResponse();
+    if (object.sequence_id !== undefined && object.sequence_id !== null) {
+      message.sequenceId = BigInt(object.sequence_id);
+    }
+    if (object.channel !== undefined && object.channel !== null) {
+      message.channel = object.channel;
+    }
+    return message;
+  },
+  toAmino(message: MsgSubmitTxResponse): MsgSubmitTxResponseAmino {
+    const obj: any = {};
+    obj.sequence_id = message.sequenceId !== BigInt(0) ? message.sequenceId?.toString() : undefined;
+    obj.channel = message.channel === "" ? undefined : message.channel;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSubmitTxResponseAminoMsg): MsgSubmitTxResponse {
+    return MsgSubmitTxResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -452,6 +565,31 @@ export const MsgUpdateParams = {
     }
     return message;
   },
+  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+    const message = createBaseMsgUpdateParams();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+    const obj: any = {};
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+    return MsgUpdateParams.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
+    return {
+      type: "interchaintxs/MsgUpdateParams",
+      value: MsgUpdateParams.toAmino(message),
+    };
+  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -486,5 +624,16 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
+  },
+  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+    const message = createBaseMsgUpdateParamsResponse();
+    return message;
+  },
+  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromAmino(object.value);
   },
 };

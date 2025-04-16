@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./params";
 import { PacketID, Fee } from "./fee";
@@ -76,6 +77,27 @@ export const GenesisState = {
     message.feeInfos = object.feeInfos?.map((e) => FeeInfo.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.feeInfos = object.fee_infos?.map((e) => FeeInfo.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    if (message.feeInfos) {
+      obj.fee_infos = message.feeInfos.map((e) => (e ? FeeInfo.toAmino(e) : undefined));
+    } else {
+      obj.fee_infos = message.feeInfos;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
 };
 function createBaseFeeInfo(): FeeInfo {
   return {
@@ -146,5 +168,28 @@ export const FeeInfo = {
       message.fee = Fee.fromPartial(object.fee);
     }
     return message;
+  },
+  fromAmino(object: FeeInfoAmino): FeeInfo {
+    const message = createBaseFeeInfo();
+    if (object.payer !== undefined && object.payer !== null) {
+      message.payer = object.payer;
+    }
+    if (object.packet_id !== undefined && object.packet_id !== null) {
+      message.packetId = PacketID.fromAmino(object.packet_id);
+    }
+    if (object.fee !== undefined && object.fee !== null) {
+      message.fee = Fee.fromAmino(object.fee);
+    }
+    return message;
+  },
+  toAmino(message: FeeInfo): FeeInfoAmino {
+    const obj: any = {};
+    obj.payer = message.payer === "" ? undefined : message.payer;
+    obj.packet_id = message.packetId ? PacketID.toAmino(message.packetId) : undefined;
+    obj.fee = message.fee ? Fee.toAmino(message.fee) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: FeeInfoAminoMsg): FeeInfo {
+    return FeeInfo.fromAmino(object.value);
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { Timestamp } from "../../../google/protobuf/timestamp";
@@ -86,6 +87,27 @@ export const GenericAuthorization = {
     message.msg = object.msg ?? "";
     return message;
   },
+  fromAmino(object: GenericAuthorizationAmino): GenericAuthorization {
+    const message = createBaseGenericAuthorization();
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = object.msg;
+    }
+    return message;
+  },
+  toAmino(message: GenericAuthorization): GenericAuthorizationAmino {
+    const obj: any = {};
+    obj.msg = message.msg === "" ? undefined : message.msg;
+    return obj;
+  },
+  fromAminoMsg(object: GenericAuthorizationAminoMsg): GenericAuthorization {
+    return GenericAuthorization.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenericAuthorization): GenericAuthorizationAminoMsg {
+    return {
+      type: "cosmos-sdk/GenericAuthorization",
+      value: GenericAuthorization.toAmino(message),
+    };
+  },
 };
 function createBaseGrant(): Grant {
   return {
@@ -146,6 +168,31 @@ export const Grant = {
       message.expiration = Timestamp.fromPartial(object.expiration);
     }
     return message;
+  },
+  fromAmino(object: GrantAmino): Grant {
+    const message = createBaseGrant();
+    if (object.authorization !== undefined && object.authorization !== null) {
+      message.authorization = Any.fromAmino(object.authorization);
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = Timestamp.fromAmino(object.expiration);
+    }
+    return message;
+  },
+  toAmino(message: Grant): GrantAmino {
+    const obj: any = {};
+    obj.authorization = message.authorization ? Any.toAmino(message.authorization) : undefined;
+    obj.expiration = message.expiration ? Timestamp.toAmino(message.expiration) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GrantAminoMsg): Grant {
+    return Grant.fromAmino(object.value);
+  },
+  toAminoMsg(message: Grant): GrantAminoMsg {
+    return {
+      type: "cosmos-sdk/Grant",
+      value: Grant.toAmino(message),
+    };
   },
 };
 function createBaseGrantAuthorization(): GrantAuthorization {
@@ -228,6 +275,39 @@ export const GrantAuthorization = {
     }
     return message;
   },
+  fromAmino(object: GrantAuthorizationAmino): GrantAuthorization {
+    const message = createBaseGrantAuthorization();
+    if (object.granter !== undefined && object.granter !== null) {
+      message.granter = object.granter;
+    }
+    if (object.grantee !== undefined && object.grantee !== null) {
+      message.grantee = object.grantee;
+    }
+    if (object.authorization !== undefined && object.authorization !== null) {
+      message.authorization = Any.fromAmino(object.authorization);
+    }
+    if (object.expiration !== undefined && object.expiration !== null) {
+      message.expiration = Timestamp.fromAmino(object.expiration);
+    }
+    return message;
+  },
+  toAmino(message: GrantAuthorization): GrantAuthorizationAmino {
+    const obj: any = {};
+    obj.granter = message.granter === "" ? undefined : message.granter;
+    obj.grantee = message.grantee === "" ? undefined : message.grantee;
+    obj.authorization = message.authorization ? Any.toAmino(message.authorization) : undefined;
+    obj.expiration = message.expiration ? Timestamp.toAmino(message.expiration) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GrantAuthorizationAminoMsg): GrantAuthorization {
+    return GrantAuthorization.fromAmino(object.value);
+  },
+  toAminoMsg(message: GrantAuthorization): GrantAuthorizationAminoMsg {
+    return {
+      type: "cosmos-sdk/GrantAuthorization",
+      value: GrantAuthorization.toAmino(message),
+    };
+  },
 };
 function createBaseGrantQueueItem(): GrantQueueItem {
   return {
@@ -277,5 +357,28 @@ export const GrantQueueItem = {
     const message = createBaseGrantQueueItem();
     message.msgTypeUrls = object.msgTypeUrls?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: GrantQueueItemAmino): GrantQueueItem {
+    const message = createBaseGrantQueueItem();
+    message.msgTypeUrls = object.msg_type_urls?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: GrantQueueItem): GrantQueueItemAmino {
+    const obj: any = {};
+    if (message.msgTypeUrls) {
+      obj.msg_type_urls = message.msgTypeUrls.map((e) => e);
+    } else {
+      obj.msg_type_urls = message.msgTypeUrls;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GrantQueueItemAminoMsg): GrantQueueItem {
+    return GrantQueueItem.fromAmino(object.value);
+  },
+  toAminoMsg(message: GrantQueueItem): GrantQueueItemAminoMsg {
+    return {
+      type: "cosmos-sdk/GrantQueueItem",
+      value: GrantQueueItem.toAmino(message),
+    };
   },
 };

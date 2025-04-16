@@ -1,8 +1,10 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
+import { toUtf8, fromUtf8 } from "@cosmjs/encoding";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** AccessType permission types */
 export enum AccessType {
@@ -214,6 +216,27 @@ export const AccessTypeParam = {
     message.value = object.value ?? 0;
     return message;
   },
+  fromAmino(object: AccessTypeParamAmino): AccessTypeParam {
+    const message = createBaseAccessTypeParam();
+    if (object.value !== undefined && object.value !== null) {
+      message.value = object.value;
+    }
+    return message;
+  },
+  toAmino(message: AccessTypeParam): AccessTypeParamAmino {
+    const obj: any = {};
+    obj.value = message.value === 0 ? undefined : message.value;
+    return obj;
+  },
+  fromAminoMsg(object: AccessTypeParamAminoMsg): AccessTypeParam {
+    return AccessTypeParam.fromAmino(object.value);
+  },
+  toAminoMsg(message: AccessTypeParam): AccessTypeParamAminoMsg {
+    return {
+      type: "wasm/AccessTypeParam",
+      value: AccessTypeParam.toAmino(message),
+    };
+  },
 };
 function createBaseAccessConfig(): AccessConfig {
   return {
@@ -273,6 +296,33 @@ export const AccessConfig = {
     message.permission = object.permission ?? 0;
     message.addresses = object.addresses?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: AccessConfigAmino): AccessConfig {
+    const message = createBaseAccessConfig();
+    if (object.permission !== undefined && object.permission !== null) {
+      message.permission = object.permission;
+    }
+    message.addresses = object.addresses?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: AccessConfig): AccessConfigAmino {
+    const obj: any = {};
+    obj.permission = message.permission === 0 ? undefined : message.permission;
+    if (message.addresses) {
+      obj.addresses = message.addresses.map((e) => e);
+    } else {
+      obj.addresses = message.addresses;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: AccessConfigAminoMsg): AccessConfig {
+    return AccessConfig.fromAmino(object.value);
+  },
+  toAminoMsg(message: AccessConfig): AccessConfigAminoMsg {
+    return {
+      type: "wasm/AccessConfig",
+      value: AccessConfig.toAmino(message),
+    };
   },
 };
 function createBaseParams(): Params {
@@ -336,6 +386,37 @@ export const Params = {
     }
     message.instantiateDefaultPermission = object.instantiateDefaultPermission ?? 0;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    if (object.code_upload_access !== undefined && object.code_upload_access !== null) {
+      message.codeUploadAccess = AccessConfig.fromAmino(object.code_upload_access);
+    }
+    if (
+      object.instantiate_default_permission !== undefined &&
+      object.instantiate_default_permission !== null
+    ) {
+      message.instantiateDefaultPermission = object.instantiate_default_permission;
+    }
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.code_upload_access = message.codeUploadAccess
+      ? AccessConfig.toAmino(message.codeUploadAccess)
+      : AccessConfig.toAmino(AccessConfig.fromPartial({}));
+    obj.instantiate_default_permission =
+      message.instantiateDefaultPermission === 0 ? undefined : message.instantiateDefaultPermission;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "wasm/Params",
+      value: Params.toAmino(message),
+    };
   },
 };
 function createBaseCodeInfo(): CodeInfo {
@@ -409,6 +490,37 @@ export const CodeInfo = {
       message.instantiateConfig = AccessConfig.fromPartial(object.instantiateConfig);
     }
     return message;
+  },
+  fromAmino(object: CodeInfoAmino): CodeInfo {
+    const message = createBaseCodeInfo();
+    if (object.code_hash !== undefined && object.code_hash !== null) {
+      message.codeHash = bytesFromBase64(object.code_hash);
+    }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.instantiate_config !== undefined && object.instantiate_config !== null) {
+      message.instantiateConfig = AccessConfig.fromAmino(object.instantiate_config);
+    }
+    return message;
+  },
+  toAmino(message: CodeInfo): CodeInfoAmino {
+    const obj: any = {};
+    obj.code_hash = message.codeHash ? base64FromBytes(message.codeHash) : undefined;
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.instantiate_config = message.instantiateConfig
+      ? AccessConfig.toAmino(message.instantiateConfig)
+      : AccessConfig.toAmino(AccessConfig.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: CodeInfoAminoMsg): CodeInfo {
+    return CodeInfo.fromAmino(object.value);
+  },
+  toAminoMsg(message: CodeInfo): CodeInfoAminoMsg {
+    return {
+      type: "wasm/CodeInfo",
+      value: CodeInfo.toAmino(message),
+    };
   },
 };
 function createBaseContractInfo(): ContractInfo {
@@ -524,6 +636,51 @@ export const ContractInfo = {
     }
     return message;
   },
+  fromAmino(object: ContractInfoAmino): ContractInfo {
+    const message = createBaseContractInfo();
+    if (object.code_id !== undefined && object.code_id !== null) {
+      message.codeId = BigInt(object.code_id);
+    }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.admin !== undefined && object.admin !== null) {
+      message.admin = object.admin;
+    }
+    if (object.label !== undefined && object.label !== null) {
+      message.label = object.label;
+    }
+    if (object.created !== undefined && object.created !== null) {
+      message.created = AbsoluteTxPosition.fromAmino(object.created);
+    }
+    if (object.ibc_port_id !== undefined && object.ibc_port_id !== null) {
+      message.ibcPortId = object.ibc_port_id;
+    }
+    if (object.extension !== undefined && object.extension !== null) {
+      message.extension = Any.fromAmino(object.extension);
+    }
+    return message;
+  },
+  toAmino(message: ContractInfo): ContractInfoAmino {
+    const obj: any = {};
+    obj.code_id = message.codeId !== BigInt(0) ? message.codeId?.toString() : undefined;
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.admin = message.admin === "" ? undefined : message.admin;
+    obj.label = message.label === "" ? undefined : message.label;
+    obj.created = message.created ? AbsoluteTxPosition.toAmino(message.created) : undefined;
+    obj.ibc_port_id = message.ibcPortId === "" ? undefined : message.ibcPortId;
+    obj.extension = message.extension ? Any.toAmino(message.extension) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ContractInfoAminoMsg): ContractInfo {
+    return ContractInfo.fromAmino(object.value);
+  },
+  toAminoMsg(message: ContractInfo): ContractInfoAminoMsg {
+    return {
+      type: "wasm/ContractInfo",
+      value: ContractInfo.toAmino(message),
+    };
+  },
 };
 function createBaseContractCodeHistoryEntry(): ContractCodeHistoryEntry {
   return {
@@ -609,6 +766,39 @@ export const ContractCodeHistoryEntry = {
     message.msg = object.msg ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: ContractCodeHistoryEntryAmino): ContractCodeHistoryEntry {
+    const message = createBaseContractCodeHistoryEntry();
+    if (object.operation !== undefined && object.operation !== null) {
+      message.operation = object.operation;
+    }
+    if (object.code_id !== undefined && object.code_id !== null) {
+      message.codeId = BigInt(object.code_id);
+    }
+    if (object.updated !== undefined && object.updated !== null) {
+      message.updated = AbsoluteTxPosition.fromAmino(object.updated);
+    }
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = toUtf8(JSON.stringify(object.msg));
+    }
+    return message;
+  },
+  toAmino(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryAmino {
+    const obj: any = {};
+    obj.operation = message.operation === 0 ? undefined : message.operation;
+    obj.code_id = message.codeId !== BigInt(0) ? message.codeId?.toString() : undefined;
+    obj.updated = message.updated ? AbsoluteTxPosition.toAmino(message.updated) : undefined;
+    obj.msg = message.msg ? JSON.parse(fromUtf8(message.msg)) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ContractCodeHistoryEntryAminoMsg): ContractCodeHistoryEntry {
+    return ContractCodeHistoryEntry.fromAmino(object.value);
+  },
+  toAminoMsg(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryAminoMsg {
+    return {
+      type: "wasm/ContractCodeHistoryEntry",
+      value: ContractCodeHistoryEntry.toAmino(message),
+    };
+  },
 };
 function createBaseAbsoluteTxPosition(): AbsoluteTxPosition {
   return {
@@ -669,6 +859,31 @@ export const AbsoluteTxPosition = {
     }
     return message;
   },
+  fromAmino(object: AbsoluteTxPositionAmino): AbsoluteTxPosition {
+    const message = createBaseAbsoluteTxPosition();
+    if (object.block_height !== undefined && object.block_height !== null) {
+      message.blockHeight = BigInt(object.block_height);
+    }
+    if (object.tx_index !== undefined && object.tx_index !== null) {
+      message.txIndex = BigInt(object.tx_index);
+    }
+    return message;
+  },
+  toAmino(message: AbsoluteTxPosition): AbsoluteTxPositionAmino {
+    const obj: any = {};
+    obj.block_height = message.blockHeight !== BigInt(0) ? message.blockHeight?.toString() : undefined;
+    obj.tx_index = message.txIndex !== BigInt(0) ? message.txIndex?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: AbsoluteTxPositionAminoMsg): AbsoluteTxPosition {
+    return AbsoluteTxPosition.fromAmino(object.value);
+  },
+  toAminoMsg(message: AbsoluteTxPosition): AbsoluteTxPositionAminoMsg {
+    return {
+      type: "wasm/AbsoluteTxPosition",
+      value: AbsoluteTxPosition.toAmino(message),
+    };
+  },
 };
 function createBaseModel(): Model {
   return {
@@ -726,5 +941,30 @@ export const Model = {
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: ModelAmino): Model {
+    const message = createBaseModel();
+    if (object.key !== undefined && object.key !== null) {
+      message.key = bytesFromBase64(object.key);
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = bytesFromBase64(object.value);
+    }
+    return message;
+  },
+  toAmino(message: Model): ModelAmino {
+    const obj: any = {};
+    obj.key = message.key ? base64FromBytes(message.key) : undefined;
+    obj.value = message.value ? base64FromBytes(message.value) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ModelAminoMsg): Model {
+    return Model.fromAmino(object.value);
+  },
+  toAminoMsg(message: Model): ModelAminoMsg {
+    return {
+      type: "wasm/Model",
+      value: Model.toAmino(message),
+    };
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Permissions } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -126,6 +127,35 @@ export const MsgAuthorizeCircuitBreaker = {
     }
     return message;
   },
+  fromAmino(object: MsgAuthorizeCircuitBreakerAmino): MsgAuthorizeCircuitBreaker {
+    const message = createBaseMsgAuthorizeCircuitBreaker();
+    if (object.granter !== undefined && object.granter !== null) {
+      message.granter = object.granter;
+    }
+    if (object.grantee !== undefined && object.grantee !== null) {
+      message.grantee = object.grantee;
+    }
+    if (object.permissions !== undefined && object.permissions !== null) {
+      message.permissions = Permissions.fromAmino(object.permissions);
+    }
+    return message;
+  },
+  toAmino(message: MsgAuthorizeCircuitBreaker): MsgAuthorizeCircuitBreakerAmino {
+    const obj: any = {};
+    obj.granter = message.granter === "" ? undefined : message.granter;
+    obj.grantee = message.grantee === "" ? undefined : message.grantee;
+    obj.permissions = message.permissions ? Permissions.toAmino(message.permissions) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgAuthorizeCircuitBreakerAminoMsg): MsgAuthorizeCircuitBreaker {
+    return MsgAuthorizeCircuitBreaker.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgAuthorizeCircuitBreaker): MsgAuthorizeCircuitBreakerAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgAuthorizeCircuitBreaker",
+      value: MsgAuthorizeCircuitBreaker.toAmino(message),
+    };
+  },
 };
 function createBaseMsgAuthorizeCircuitBreakerResponse(): MsgAuthorizeCircuitBreakerResponse {
   return {
@@ -176,6 +206,27 @@ export const MsgAuthorizeCircuitBreakerResponse = {
     const message = createBaseMsgAuthorizeCircuitBreakerResponse();
     message.success = object.success ?? false;
     return message;
+  },
+  fromAmino(object: MsgAuthorizeCircuitBreakerResponseAmino): MsgAuthorizeCircuitBreakerResponse {
+    const message = createBaseMsgAuthorizeCircuitBreakerResponse();
+    if (object.success !== undefined && object.success !== null) {
+      message.success = object.success;
+    }
+    return message;
+  },
+  toAmino(message: MsgAuthorizeCircuitBreakerResponse): MsgAuthorizeCircuitBreakerResponseAmino {
+    const obj: any = {};
+    obj.success = message.success === false ? undefined : message.success;
+    return obj;
+  },
+  fromAminoMsg(object: MsgAuthorizeCircuitBreakerResponseAminoMsg): MsgAuthorizeCircuitBreakerResponse {
+    return MsgAuthorizeCircuitBreakerResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgAuthorizeCircuitBreakerResponse): MsgAuthorizeCircuitBreakerResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgAuthorizeCircuitBreakerResponse",
+      value: MsgAuthorizeCircuitBreakerResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgTripCircuitBreaker(): MsgTripCircuitBreaker {
@@ -237,6 +288,33 @@ export const MsgTripCircuitBreaker = {
     message.msgTypeUrls = object.msgTypeUrls?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: MsgTripCircuitBreakerAmino): MsgTripCircuitBreaker {
+    const message = createBaseMsgTripCircuitBreaker();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    message.msgTypeUrls = object.msg_type_urls?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: MsgTripCircuitBreaker): MsgTripCircuitBreakerAmino {
+    const obj: any = {};
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    if (message.msgTypeUrls) {
+      obj.msg_type_urls = message.msgTypeUrls.map((e) => e);
+    } else {
+      obj.msg_type_urls = message.msgTypeUrls;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgTripCircuitBreakerAminoMsg): MsgTripCircuitBreaker {
+    return MsgTripCircuitBreaker.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgTripCircuitBreaker): MsgTripCircuitBreakerAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgTripCircuitBreaker",
+      value: MsgTripCircuitBreaker.toAmino(message),
+    };
+  },
 };
 function createBaseMsgTripCircuitBreakerResponse(): MsgTripCircuitBreakerResponse {
   return {
@@ -284,6 +362,27 @@ export const MsgTripCircuitBreakerResponse = {
     const message = createBaseMsgTripCircuitBreakerResponse();
     message.success = object.success ?? false;
     return message;
+  },
+  fromAmino(object: MsgTripCircuitBreakerResponseAmino): MsgTripCircuitBreakerResponse {
+    const message = createBaseMsgTripCircuitBreakerResponse();
+    if (object.success !== undefined && object.success !== null) {
+      message.success = object.success;
+    }
+    return message;
+  },
+  toAmino(message: MsgTripCircuitBreakerResponse): MsgTripCircuitBreakerResponseAmino {
+    const obj: any = {};
+    obj.success = message.success === false ? undefined : message.success;
+    return obj;
+  },
+  fromAminoMsg(object: MsgTripCircuitBreakerResponseAminoMsg): MsgTripCircuitBreakerResponse {
+    return MsgTripCircuitBreakerResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgTripCircuitBreakerResponse): MsgTripCircuitBreakerResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgTripCircuitBreakerResponse",
+      value: MsgTripCircuitBreakerResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgResetCircuitBreaker(): MsgResetCircuitBreaker {
@@ -345,6 +444,33 @@ export const MsgResetCircuitBreaker = {
     message.msgTypeUrls = object.msgTypeUrls?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: MsgResetCircuitBreakerAmino): MsgResetCircuitBreaker {
+    const message = createBaseMsgResetCircuitBreaker();
+    if (object.authority !== undefined && object.authority !== null) {
+      message.authority = object.authority;
+    }
+    message.msgTypeUrls = object.msg_type_urls?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: MsgResetCircuitBreaker): MsgResetCircuitBreakerAmino {
+    const obj: any = {};
+    obj.authority = message.authority === "" ? undefined : message.authority;
+    if (message.msgTypeUrls) {
+      obj.msg_type_urls = message.msgTypeUrls.map((e) => e);
+    } else {
+      obj.msg_type_urls = message.msgTypeUrls;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgResetCircuitBreakerAminoMsg): MsgResetCircuitBreaker {
+    return MsgResetCircuitBreaker.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgResetCircuitBreaker): MsgResetCircuitBreakerAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgResetCircuitBreaker",
+      value: MsgResetCircuitBreaker.toAmino(message),
+    };
+  },
 };
 function createBaseMsgResetCircuitBreakerResponse(): MsgResetCircuitBreakerResponse {
   return {
@@ -395,5 +521,26 @@ export const MsgResetCircuitBreakerResponse = {
     const message = createBaseMsgResetCircuitBreakerResponse();
     message.success = object.success ?? false;
     return message;
+  },
+  fromAmino(object: MsgResetCircuitBreakerResponseAmino): MsgResetCircuitBreakerResponse {
+    const message = createBaseMsgResetCircuitBreakerResponse();
+    if (object.success !== undefined && object.success !== null) {
+      message.success = object.success;
+    }
+    return message;
+  },
+  toAmino(message: MsgResetCircuitBreakerResponse): MsgResetCircuitBreakerResponseAmino {
+    const obj: any = {};
+    obj.success = message.success === false ? undefined : message.success;
+    return obj;
+  },
+  fromAminoMsg(object: MsgResetCircuitBreakerResponseAminoMsg): MsgResetCircuitBreakerResponse {
+    return MsgResetCircuitBreakerResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgResetCircuitBreakerResponse): MsgResetCircuitBreakerResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgResetCircuitBreakerResponse",
+      value: MsgResetCircuitBreakerResponse.toAmino(message),
+    };
   },
 };

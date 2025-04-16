@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../../helpers";
@@ -230,6 +231,77 @@ export const Module = {
     message.prepareCheckStaters = object.prepareCheckStaters?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: ModuleAmino): Module {
+    const message = createBaseModule();
+    if (object.app_name !== undefined && object.app_name !== null) {
+      message.appName = object.app_name;
+    }
+    message.beginBlockers = object.begin_blockers?.map((e) => e) || [];
+    message.endBlockers = object.end_blockers?.map((e) => e) || [];
+    message.initGenesis = object.init_genesis?.map((e) => e) || [];
+    message.exportGenesis = object.export_genesis?.map((e) => e) || [];
+    message.overrideStoreKeys = object.override_store_keys?.map((e) => StoreKeyConfig.fromAmino(e)) || [];
+    message.orderMigrations = object.order_migrations?.map((e) => e) || [];
+    message.precommiters = object.precommiters?.map((e) => e) || [];
+    message.prepareCheckStaters = object.prepare_check_staters?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: Module): ModuleAmino {
+    const obj: any = {};
+    obj.app_name = message.appName === "" ? undefined : message.appName;
+    if (message.beginBlockers) {
+      obj.begin_blockers = message.beginBlockers.map((e) => e);
+    } else {
+      obj.begin_blockers = message.beginBlockers;
+    }
+    if (message.endBlockers) {
+      obj.end_blockers = message.endBlockers.map((e) => e);
+    } else {
+      obj.end_blockers = message.endBlockers;
+    }
+    if (message.initGenesis) {
+      obj.init_genesis = message.initGenesis.map((e) => e);
+    } else {
+      obj.init_genesis = message.initGenesis;
+    }
+    if (message.exportGenesis) {
+      obj.export_genesis = message.exportGenesis.map((e) => e);
+    } else {
+      obj.export_genesis = message.exportGenesis;
+    }
+    if (message.overrideStoreKeys) {
+      obj.override_store_keys = message.overrideStoreKeys.map((e) =>
+        e ? StoreKeyConfig.toAmino(e) : undefined,
+      );
+    } else {
+      obj.override_store_keys = message.overrideStoreKeys;
+    }
+    if (message.orderMigrations) {
+      obj.order_migrations = message.orderMigrations.map((e) => e);
+    } else {
+      obj.order_migrations = message.orderMigrations;
+    }
+    if (message.precommiters) {
+      obj.precommiters = message.precommiters.map((e) => e);
+    } else {
+      obj.precommiters = message.precommiters;
+    }
+    if (message.prepareCheckStaters) {
+      obj.prepare_check_staters = message.prepareCheckStaters.map((e) => e);
+    } else {
+      obj.prepare_check_staters = message.prepareCheckStaters;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ModuleAminoMsg): Module {
+    return Module.fromAmino(object.value);
+  },
+  toAminoMsg(message: Module): ModuleAminoMsg {
+    return {
+      type: "cosmos-sdk/Module",
+      value: Module.toAmino(message),
+    };
+  },
 };
 function createBaseStoreKeyConfig(): StoreKeyConfig {
   return {
@@ -285,5 +357,30 @@ export const StoreKeyConfig = {
     message.moduleName = object.moduleName ?? "";
     message.kvStoreKey = object.kvStoreKey ?? "";
     return message;
+  },
+  fromAmino(object: StoreKeyConfigAmino): StoreKeyConfig {
+    const message = createBaseStoreKeyConfig();
+    if (object.module_name !== undefined && object.module_name !== null) {
+      message.moduleName = object.module_name;
+    }
+    if (object.kv_store_key !== undefined && object.kv_store_key !== null) {
+      message.kvStoreKey = object.kv_store_key;
+    }
+    return message;
+  },
+  toAmino(message: StoreKeyConfig): StoreKeyConfigAmino {
+    const obj: any = {};
+    obj.module_name = message.moduleName === "" ? undefined : message.moduleName;
+    obj.kv_store_key = message.kvStoreKey === "" ? undefined : message.kvStoreKey;
+    return obj;
+  },
+  fromAminoMsg(object: StoreKeyConfigAminoMsg): StoreKeyConfig {
+    return StoreKeyConfig.fromAmino(object.value);
+  },
+  toAminoMsg(message: StoreKeyConfig): StoreKeyConfigAminoMsg {
+    return {
+      type: "cosmos-sdk/StoreKeyConfig",
+      value: StoreKeyConfig.toAmino(message),
+    };
   },
 };

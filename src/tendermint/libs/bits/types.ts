@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
@@ -76,5 +77,26 @@ export const BitArray = {
     }
     message.elems = object.elems?.map((e) => BigInt(e.toString())) || [];
     return message;
+  },
+  fromAmino(object: BitArrayAmino): BitArray {
+    const message = createBaseBitArray();
+    if (object.bits !== undefined && object.bits !== null) {
+      message.bits = BigInt(object.bits);
+    }
+    message.elems = object.elems?.map((e) => BigInt(e)) || [];
+    return message;
+  },
+  toAmino(message: BitArray): BitArrayAmino {
+    const obj: any = {};
+    obj.bits = message.bits !== BigInt(0) ? message.bits?.toString() : undefined;
+    if (message.elems) {
+      obj.elems = message.elems.map((e) => e.toString());
+    } else {
+      obj.elems = message.elems;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: BitArrayAminoMsg): BitArray {
+    return BitArray.fromAmino(object.value);
   },
 };

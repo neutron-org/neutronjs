@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Height } from "../../../core/client/v1/client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
@@ -56,5 +57,26 @@ export const ClientState = {
       message.latestHeight = Height.fromPartial(object.latestHeight);
     }
     return message;
+  },
+  fromAmino(object: ClientStateAmino): ClientState {
+    const message = createBaseClientState();
+    if (object.latest_height !== undefined && object.latest_height !== null) {
+      message.latestHeight = Height.fromAmino(object.latest_height);
+    }
+    return message;
+  },
+  toAmino(message: ClientState): ClientStateAmino {
+    const obj: any = {};
+    obj.latest_height = message.latestHeight ? Height.toAmino(message.latestHeight) : {};
+    return obj;
+  },
+  fromAminoMsg(object: ClientStateAminoMsg): ClientState {
+    return ClientState.fromAmino(object.value);
+  },
+  toAminoMsg(message: ClientState): ClientStateAminoMsg {
+    return {
+      type: "cosmos-sdk/ClientState",
+      value: ClientState.toAmino(message),
+    };
   },
 };

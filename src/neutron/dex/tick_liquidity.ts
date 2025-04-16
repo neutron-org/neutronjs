@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PoolReserves } from "./pool_reserves";
 import { LimitOrderTranche } from "./limit_order_tranche";
@@ -72,5 +73,26 @@ export const TickLiquidity = {
       message.limitOrderTranche = LimitOrderTranche.fromPartial(object.limitOrderTranche);
     }
     return message;
+  },
+  fromAmino(object: TickLiquidityAmino): TickLiquidity {
+    const message = createBaseTickLiquidity();
+    if (object.pool_reserves !== undefined && object.pool_reserves !== null) {
+      message.poolReserves = PoolReserves.fromAmino(object.pool_reserves);
+    }
+    if (object.limit_order_tranche !== undefined && object.limit_order_tranche !== null) {
+      message.limitOrderTranche = LimitOrderTranche.fromAmino(object.limit_order_tranche);
+    }
+    return message;
+  },
+  toAmino(message: TickLiquidity): TickLiquidityAmino {
+    const obj: any = {};
+    obj.pool_reserves = message.poolReserves ? PoolReserves.toAmino(message.poolReserves) : undefined;
+    obj.limit_order_tranche = message.limitOrderTranche
+      ? LimitOrderTranche.toAmino(message.limitOrderTranche)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: TickLiquidityAminoMsg): TickLiquidity {
+    return TickLiquidity.fromAmino(object.value);
   },
 };

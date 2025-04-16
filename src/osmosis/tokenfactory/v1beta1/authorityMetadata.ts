@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
@@ -56,5 +57,26 @@ export const DenomAuthorityMetadata = {
     const message = createBaseDenomAuthorityMetadata();
     message.admin = object.admin ?? "";
     return message;
+  },
+  fromAmino(object: DenomAuthorityMetadataAmino): DenomAuthorityMetadata {
+    const message = createBaseDenomAuthorityMetadata();
+    if (object.Admin !== undefined && object.Admin !== null) {
+      message.admin = object.Admin;
+    }
+    return message;
+  },
+  toAmino(message: DenomAuthorityMetadata): DenomAuthorityMetadataAmino {
+    const obj: any = {};
+    obj.Admin = message.admin === "" ? undefined : message.admin;
+    return obj;
+  },
+  fromAminoMsg(object: DenomAuthorityMetadataAminoMsg): DenomAuthorityMetadata {
+    return DenomAuthorityMetadata.fromAmino(object.value);
+  },
+  toAminoMsg(message: DenomAuthorityMetadata): DenomAuthorityMetadataAminoMsg {
+    return {
+      type: "osmosis/tokenfactory/denom-authority-metadata",
+      value: DenomAuthorityMetadata.toAmino(message),
+    };
   },
 };

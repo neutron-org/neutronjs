@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
@@ -73,6 +74,27 @@ export const QueryChecksumsRequest = {
     }
     return message;
   },
+  fromAmino(object: QueryChecksumsRequestAmino): QueryChecksumsRequest {
+    const message = createBaseQueryChecksumsRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryChecksumsRequest): QueryChecksumsRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryChecksumsRequestAminoMsg): QueryChecksumsRequest {
+    return QueryChecksumsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryChecksumsRequest): QueryChecksumsRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryChecksumsRequest",
+      value: QueryChecksumsRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryChecksumsResponse(): QueryChecksumsResponse {
   return {
@@ -136,6 +158,33 @@ export const QueryChecksumsResponse = {
     }
     return message;
   },
+  fromAmino(object: QueryChecksumsResponseAmino): QueryChecksumsResponse {
+    const message = createBaseQueryChecksumsResponse();
+    message.checksums = object.checksums?.map((e) => e) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryChecksumsResponse): QueryChecksumsResponseAmino {
+    const obj: any = {};
+    if (message.checksums) {
+      obj.checksums = message.checksums.map((e) => e);
+    } else {
+      obj.checksums = message.checksums;
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryChecksumsResponseAminoMsg): QueryChecksumsResponse {
+    return QueryChecksumsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryChecksumsResponse): QueryChecksumsResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryChecksumsResponse",
+      value: QueryChecksumsResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryCodeRequest(): QueryCodeRequest {
   return {
@@ -181,6 +230,27 @@ export const QueryCodeRequest = {
     const message = createBaseQueryCodeRequest();
     message.checksum = object.checksum ?? "";
     return message;
+  },
+  fromAmino(object: QueryCodeRequestAmino): QueryCodeRequest {
+    const message = createBaseQueryCodeRequest();
+    if (object.checksum !== undefined && object.checksum !== null) {
+      message.checksum = object.checksum;
+    }
+    return message;
+  },
+  toAmino(message: QueryCodeRequest): QueryCodeRequestAmino {
+    const obj: any = {};
+    obj.checksum = message.checksum === "" ? undefined : message.checksum;
+    return obj;
+  },
+  fromAminoMsg(object: QueryCodeRequestAminoMsg): QueryCodeRequest {
+    return QueryCodeRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryCodeRequest): QueryCodeRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryCodeRequest",
+      value: QueryCodeRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryCodeResponse(): QueryCodeResponse {
@@ -228,5 +298,26 @@ export const QueryCodeResponse = {
     const message = createBaseQueryCodeResponse();
     message.data = object.data ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: QueryCodeResponseAmino): QueryCodeResponse {
+    const message = createBaseQueryCodeResponse();
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
+  },
+  toAmino(message: QueryCodeResponse): QueryCodeResponseAmino {
+    const obj: any = {};
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryCodeResponseAminoMsg): QueryCodeResponse {
+    return QueryCodeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryCodeResponse): QueryCodeResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryCodeResponse",
+      value: QueryCodeResponse.toAmino(message),
+    };
   },
 };

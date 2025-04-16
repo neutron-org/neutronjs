@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
@@ -118,6 +119,35 @@ export const InterchainAccountPacketData = {
     message.memo = object.memo ?? "";
     return message;
   },
+  fromAmino(object: InterchainAccountPacketDataAmino): InterchainAccountPacketData {
+    const message = createBaseInterchainAccountPacketData();
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    if (object.memo !== undefined && object.memo !== null) {
+      message.memo = object.memo;
+    }
+    return message;
+  },
+  toAmino(message: InterchainAccountPacketData): InterchainAccountPacketDataAmino {
+    const obj: any = {};
+    obj.type = message.type === 0 ? undefined : message.type;
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
+    obj.memo = message.memo === "" ? undefined : message.memo;
+    return obj;
+  },
+  fromAminoMsg(object: InterchainAccountPacketDataAminoMsg): InterchainAccountPacketData {
+    return InterchainAccountPacketData.fromAmino(object.value);
+  },
+  toAminoMsg(message: InterchainAccountPacketData): InterchainAccountPacketDataAminoMsg {
+    return {
+      type: "cosmos-sdk/InterchainAccountPacketData",
+      value: InterchainAccountPacketData.toAmino(message),
+    };
+  },
 };
 function createBaseCosmosTx(): CosmosTx {
   return {
@@ -167,5 +197,28 @@ export const CosmosTx = {
     const message = createBaseCosmosTx();
     message.messages = object.messages?.map((e) => Any.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: CosmosTxAmino): CosmosTx {
+    const message = createBaseCosmosTx();
+    message.messages = object.messages?.map((e) => Any.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: CosmosTx): CosmosTxAmino {
+    const obj: any = {};
+    if (message.messages) {
+      obj.messages = message.messages.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.messages = message.messages;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: CosmosTxAminoMsg): CosmosTx {
+    return CosmosTx.fromAmino(object.value);
+  },
+  toAminoMsg(message: CosmosTx): CosmosTxAminoMsg {
+    return {
+      type: "cosmos-sdk/CosmosTx",
+      value: CosmosTx.toAmino(message),
+    };
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Header } from "../../../tendermint/types/types";
 import { Timestamp } from "../../../google/protobuf/timestamp";
@@ -9,6 +10,7 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 import { Decimal } from "@cosmjs/math";
+import { encodePubkey, decodePubkey } from "@cosmjs/proto-signing";
 export const protobufPackage = "cosmos.staking.v1beta1";
 /** BondStatus is the status of a validator. */
 export enum BondStatus {
@@ -399,6 +401,33 @@ export const HistoricalInfo = {
     message.valset = object.valset?.map((e) => Validator.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: HistoricalInfoAmino): HistoricalInfo {
+    const message = createBaseHistoricalInfo();
+    if (object.header !== undefined && object.header !== null) {
+      message.header = Header.fromAmino(object.header);
+    }
+    message.valset = object.valset?.map((e) => Validator.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: HistoricalInfo): HistoricalInfoAmino {
+    const obj: any = {};
+    obj.header = message.header ? Header.toAmino(message.header) : Header.toAmino(Header.fromPartial({}));
+    if (message.valset) {
+      obj.valset = message.valset.map((e) => (e ? Validator.toAmino(e) : undefined));
+    } else {
+      obj.valset = message.valset;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: HistoricalInfoAminoMsg): HistoricalInfo {
+    return HistoricalInfo.fromAmino(object.value);
+  },
+  toAminoMsg(message: HistoricalInfo): HistoricalInfoAminoMsg {
+    return {
+      type: "cosmos-sdk/HistoricalInfo",
+      value: HistoricalInfo.toAmino(message),
+    };
+  },
 };
 function createBaseCommissionRates(): CommissionRates {
   return {
@@ -465,6 +494,35 @@ export const CommissionRates = {
     message.maxChangeRate = object.maxChangeRate ?? "";
     return message;
   },
+  fromAmino(object: CommissionRatesAmino): CommissionRates {
+    const message = createBaseCommissionRates();
+    if (object.rate !== undefined && object.rate !== null) {
+      message.rate = object.rate;
+    }
+    if (object.max_rate !== undefined && object.max_rate !== null) {
+      message.maxRate = object.max_rate;
+    }
+    if (object.max_change_rate !== undefined && object.max_change_rate !== null) {
+      message.maxChangeRate = object.max_change_rate;
+    }
+    return message;
+  },
+  toAmino(message: CommissionRates): CommissionRatesAmino {
+    const obj: any = {};
+    obj.rate = message.rate ?? "";
+    obj.max_rate = message.maxRate ?? "";
+    obj.max_change_rate = message.maxChangeRate ?? "";
+    return obj;
+  },
+  fromAminoMsg(object: CommissionRatesAminoMsg): CommissionRates {
+    return CommissionRates.fromAmino(object.value);
+  },
+  toAminoMsg(message: CommissionRates): CommissionRatesAminoMsg {
+    return {
+      type: "cosmos-sdk/CommissionRates",
+      value: CommissionRates.toAmino(message),
+    };
+  },
 };
 function createBaseCommission(): Commission {
   return {
@@ -527,6 +585,35 @@ export const Commission = {
       message.updateTime = Timestamp.fromPartial(object.updateTime);
     }
     return message;
+  },
+  fromAmino(object: CommissionAmino): Commission {
+    const message = createBaseCommission();
+    if (object.commission_rates !== undefined && object.commission_rates !== null) {
+      message.commissionRates = CommissionRates.fromAmino(object.commission_rates);
+    }
+    if (object.update_time !== undefined && object.update_time !== null) {
+      message.updateTime = Timestamp.fromAmino(object.update_time);
+    }
+    return message;
+  },
+  toAmino(message: Commission): CommissionAmino {
+    const obj: any = {};
+    obj.commission_rates = message.commissionRates
+      ? CommissionRates.toAmino(message.commissionRates)
+      : CommissionRates.toAmino(CommissionRates.fromPartial({}));
+    obj.update_time = message.updateTime
+      ? Timestamp.toAmino(message.updateTime)
+      : Timestamp.toAmino(Timestamp.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: CommissionAminoMsg): Commission {
+    return Commission.fromAmino(object.value);
+  },
+  toAminoMsg(message: Commission): CommissionAminoMsg {
+    return {
+      type: "cosmos-sdk/Commission",
+      value: Commission.toAmino(message),
+    };
   },
 };
 function createBaseDescription(): Description {
@@ -613,6 +700,43 @@ export const Description = {
     message.securityContact = object.securityContact ?? "";
     message.details = object.details ?? "";
     return message;
+  },
+  fromAmino(object: DescriptionAmino): Description {
+    const message = createBaseDescription();
+    if (object.moniker !== undefined && object.moniker !== null) {
+      message.moniker = object.moniker;
+    }
+    if (object.identity !== undefined && object.identity !== null) {
+      message.identity = object.identity;
+    }
+    if (object.website !== undefined && object.website !== null) {
+      message.website = object.website;
+    }
+    if (object.security_contact !== undefined && object.security_contact !== null) {
+      message.securityContact = object.security_contact;
+    }
+    if (object.details !== undefined && object.details !== null) {
+      message.details = object.details;
+    }
+    return message;
+  },
+  toAmino(message: Description): DescriptionAmino {
+    const obj: any = {};
+    obj.moniker = message.moniker === "" ? undefined : message.moniker;
+    obj.identity = message.identity === "" ? undefined : message.identity;
+    obj.website = message.website === "" ? undefined : message.website;
+    obj.security_contact = message.securityContact === "" ? undefined : message.securityContact;
+    obj.details = message.details === "" ? undefined : message.details;
+    return obj;
+  },
+  fromAminoMsg(object: DescriptionAminoMsg): Description {
+    return Description.fromAmino(object.value);
+  },
+  toAminoMsg(message: Description): DescriptionAminoMsg {
+    return {
+      type: "cosmos-sdk/Description",
+      value: Description.toAmino(message),
+    };
   },
 };
 function createBaseValidator(): Validator {
@@ -813,6 +937,85 @@ export const Validator = {
     message.unbondingIds = object.unbondingIds?.map((e) => BigInt(e.toString())) || [];
     return message;
   },
+  fromAmino(object: ValidatorAmino): Validator {
+    const message = createBaseValidator();
+    if (object.operator_address !== undefined && object.operator_address !== null) {
+      message.operatorAddress = object.operator_address;
+    }
+    if (object.consensus_pubkey !== undefined && object.consensus_pubkey !== null) {
+      message.consensusPubkey = encodePubkey(object.consensus_pubkey);
+    }
+    if (object.jailed !== undefined && object.jailed !== null) {
+      message.jailed = object.jailed;
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = object.status;
+    }
+    if (object.tokens !== undefined && object.tokens !== null) {
+      message.tokens = object.tokens;
+    }
+    if (object.delegator_shares !== undefined && object.delegator_shares !== null) {
+      message.delegatorShares = object.delegator_shares;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = Description.fromAmino(object.description);
+    }
+    if (object.unbonding_height !== undefined && object.unbonding_height !== null) {
+      message.unbondingHeight = BigInt(object.unbonding_height);
+    }
+    if (object.unbonding_time !== undefined && object.unbonding_time !== null) {
+      message.unbondingTime = Timestamp.fromAmino(object.unbonding_time);
+    }
+    if (object.commission !== undefined && object.commission !== null) {
+      message.commission = Commission.fromAmino(object.commission);
+    }
+    if (object.min_self_delegation !== undefined && object.min_self_delegation !== null) {
+      message.minSelfDelegation = object.min_self_delegation;
+    }
+    if (object.unbonding_on_hold_ref_count !== undefined && object.unbonding_on_hold_ref_count !== null) {
+      message.unbondingOnHoldRefCount = BigInt(object.unbonding_on_hold_ref_count);
+    }
+    message.unbondingIds = object.unbonding_ids?.map((e) => BigInt(e)) || [];
+    return message;
+  },
+  toAmino(message: Validator): ValidatorAmino {
+    const obj: any = {};
+    obj.operator_address = message.operatorAddress === "" ? undefined : message.operatorAddress;
+    obj.consensus_pubkey = message.consensusPubkey ? decodePubkey(message.consensusPubkey) : undefined;
+    obj.jailed = message.jailed === false ? undefined : message.jailed;
+    obj.status = message.status === 0 ? undefined : message.status;
+    obj.tokens = message.tokens === "" ? undefined : message.tokens;
+    obj.delegator_shares = message.delegatorShares === "" ? undefined : message.delegatorShares;
+    obj.description = message.description
+      ? Description.toAmino(message.description)
+      : Description.toAmino(Description.fromPartial({}));
+    obj.unbonding_height =
+      message.unbondingHeight !== BigInt(0) ? message.unbondingHeight?.toString() : undefined;
+    obj.unbonding_time = message.unbondingTime
+      ? Timestamp.toAmino(message.unbondingTime)
+      : Timestamp.toAmino(Timestamp.fromPartial({}));
+    obj.commission = message.commission
+      ? Commission.toAmino(message.commission)
+      : Commission.toAmino(Commission.fromPartial({}));
+    obj.min_self_delegation = message.minSelfDelegation === "" ? undefined : message.minSelfDelegation;
+    obj.unbonding_on_hold_ref_count =
+      message.unbondingOnHoldRefCount !== BigInt(0) ? message.unbondingOnHoldRefCount?.toString() : undefined;
+    if (message.unbondingIds) {
+      obj.unbonding_ids = message.unbondingIds.map((e) => e.toString());
+    } else {
+      obj.unbonding_ids = message.unbondingIds;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ValidatorAminoMsg): Validator {
+    return Validator.fromAmino(object.value);
+  },
+  toAminoMsg(message: Validator): ValidatorAminoMsg {
+    return {
+      type: "cosmos-sdk/Validator",
+      value: Validator.toAmino(message),
+    };
+  },
 };
 function createBaseValAddresses(): ValAddresses {
   return {
@@ -862,6 +1065,29 @@ export const ValAddresses = {
     const message = createBaseValAddresses();
     message.addresses = object.addresses?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: ValAddressesAmino): ValAddresses {
+    const message = createBaseValAddresses();
+    message.addresses = object.addresses?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: ValAddresses): ValAddressesAmino {
+    const obj: any = {};
+    if (message.addresses) {
+      obj.addresses = message.addresses.map((e) => e);
+    } else {
+      obj.addresses = message.addresses;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ValAddressesAminoMsg): ValAddresses {
+    return ValAddresses.fromAmino(object.value);
+  },
+  toAminoMsg(message: ValAddresses): ValAddressesAminoMsg {
+    return {
+      type: "cosmos-sdk/ValAddresses",
+      value: ValAddresses.toAmino(message),
+    };
   },
 };
 function createBaseDVPair(): DVPair {
@@ -919,6 +1145,31 @@ export const DVPair = {
     message.validatorAddress = object.validatorAddress ?? "";
     return message;
   },
+  fromAmino(object: DVPairAmino): DVPair {
+    const message = createBaseDVPair();
+    if (object.delegator_address !== undefined && object.delegator_address !== null) {
+      message.delegatorAddress = object.delegator_address;
+    }
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    return message;
+  },
+  toAmino(message: DVPair): DVPairAmino {
+    const obj: any = {};
+    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
+    return obj;
+  },
+  fromAminoMsg(object: DVPairAminoMsg): DVPair {
+    return DVPair.fromAmino(object.value);
+  },
+  toAminoMsg(message: DVPair): DVPairAminoMsg {
+    return {
+      type: "cosmos-sdk/DVPair",
+      value: DVPair.toAmino(message),
+    };
+  },
 };
 function createBaseDVPairs(): DVPairs {
   return {
@@ -968,6 +1219,29 @@ export const DVPairs = {
     const message = createBaseDVPairs();
     message.pairs = object.pairs?.map((e) => DVPair.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: DVPairsAmino): DVPairs {
+    const message = createBaseDVPairs();
+    message.pairs = object.pairs?.map((e) => DVPair.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: DVPairs): DVPairsAmino {
+    const obj: any = {};
+    if (message.pairs) {
+      obj.pairs = message.pairs.map((e) => (e ? DVPair.toAmino(e) : undefined));
+    } else {
+      obj.pairs = message.pairs;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: DVPairsAminoMsg): DVPairs {
+    return DVPairs.fromAmino(object.value);
+  },
+  toAminoMsg(message: DVPairs): DVPairsAminoMsg {
+    return {
+      type: "cosmos-sdk/DVPairs",
+      value: DVPairs.toAmino(message),
+    };
   },
 };
 function createBaseDVVTriplet(): DVVTriplet {
@@ -1035,6 +1309,35 @@ export const DVVTriplet = {
     message.validatorDstAddress = object.validatorDstAddress ?? "";
     return message;
   },
+  fromAmino(object: DVVTripletAmino): DVVTriplet {
+    const message = createBaseDVVTriplet();
+    if (object.delegator_address !== undefined && object.delegator_address !== null) {
+      message.delegatorAddress = object.delegator_address;
+    }
+    if (object.validator_src_address !== undefined && object.validator_src_address !== null) {
+      message.validatorSrcAddress = object.validator_src_address;
+    }
+    if (object.validator_dst_address !== undefined && object.validator_dst_address !== null) {
+      message.validatorDstAddress = object.validator_dst_address;
+    }
+    return message;
+  },
+  toAmino(message: DVVTriplet): DVVTripletAmino {
+    const obj: any = {};
+    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
+    obj.validator_src_address = message.validatorSrcAddress === "" ? undefined : message.validatorSrcAddress;
+    obj.validator_dst_address = message.validatorDstAddress === "" ? undefined : message.validatorDstAddress;
+    return obj;
+  },
+  fromAminoMsg(object: DVVTripletAminoMsg): DVVTriplet {
+    return DVVTriplet.fromAmino(object.value);
+  },
+  toAminoMsg(message: DVVTriplet): DVVTripletAminoMsg {
+    return {
+      type: "cosmos-sdk/DVVTriplet",
+      value: DVVTriplet.toAmino(message),
+    };
+  },
 };
 function createBaseDVVTriplets(): DVVTriplets {
   return {
@@ -1085,6 +1388,29 @@ export const DVVTriplets = {
     const message = createBaseDVVTriplets();
     message.triplets = object.triplets?.map((e) => DVVTriplet.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: DVVTripletsAmino): DVVTriplets {
+    const message = createBaseDVVTriplets();
+    message.triplets = object.triplets?.map((e) => DVVTriplet.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: DVVTriplets): DVVTripletsAmino {
+    const obj: any = {};
+    if (message.triplets) {
+      obj.triplets = message.triplets.map((e) => (e ? DVVTriplet.toAmino(e) : undefined));
+    } else {
+      obj.triplets = message.triplets;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: DVVTripletsAminoMsg): DVVTriplets {
+    return DVVTriplets.fromAmino(object.value);
+  },
+  toAminoMsg(message: DVVTriplets): DVVTripletsAminoMsg {
+    return {
+      type: "cosmos-sdk/DVVTriplets",
+      value: DVVTriplets.toAmino(message),
+    };
   },
 };
 function createBaseDelegation(): Delegation {
@@ -1151,6 +1477,35 @@ export const Delegation = {
     message.validatorAddress = object.validatorAddress ?? "";
     message.shares = object.shares ?? "";
     return message;
+  },
+  fromAmino(object: DelegationAmino): Delegation {
+    const message = createBaseDelegation();
+    if (object.delegator_address !== undefined && object.delegator_address !== null) {
+      message.delegatorAddress = object.delegator_address;
+    }
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    if (object.shares !== undefined && object.shares !== null) {
+      message.shares = object.shares;
+    }
+    return message;
+  },
+  toAmino(message: Delegation): DelegationAmino {
+    const obj: any = {};
+    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
+    obj.shares = message.shares === "" ? undefined : message.shares;
+    return obj;
+  },
+  fromAminoMsg(object: DelegationAminoMsg): Delegation {
+    return Delegation.fromAmino(object.value);
+  },
+  toAminoMsg(message: Delegation): DelegationAminoMsg {
+    return {
+      type: "cosmos-sdk/Delegation",
+      value: Delegation.toAmino(message),
+    };
   },
 };
 function createBaseUnbondingDelegation(): UnbondingDelegation {
@@ -1222,6 +1577,37 @@ export const UnbondingDelegation = {
     message.validatorAddress = object.validatorAddress ?? "";
     message.entries = object.entries?.map((e) => UnbondingDelegationEntry.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: UnbondingDelegationAmino): UnbondingDelegation {
+    const message = createBaseUnbondingDelegation();
+    if (object.delegator_address !== undefined && object.delegator_address !== null) {
+      message.delegatorAddress = object.delegator_address;
+    }
+    if (object.validator_address !== undefined && object.validator_address !== null) {
+      message.validatorAddress = object.validator_address;
+    }
+    message.entries = object.entries?.map((e) => UnbondingDelegationEntry.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: UnbondingDelegation): UnbondingDelegationAmino {
+    const obj: any = {};
+    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
+    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
+    if (message.entries) {
+      obj.entries = message.entries.map((e) => (e ? UnbondingDelegationEntry.toAmino(e) : undefined));
+    } else {
+      obj.entries = message.entries;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: UnbondingDelegationAminoMsg): UnbondingDelegation {
+    return UnbondingDelegation.fromAmino(object.value);
+  },
+  toAminoMsg(message: UnbondingDelegation): UnbondingDelegationAminoMsg {
+    return {
+      type: "cosmos-sdk/UnbondingDelegation",
+      value: UnbondingDelegation.toAmino(message),
+    };
   },
 };
 function createBaseUnbondingDelegationEntry(): UnbondingDelegationEntry {
@@ -1333,6 +1719,51 @@ export const UnbondingDelegationEntry = {
     }
     return message;
   },
+  fromAmino(object: UnbondingDelegationEntryAmino): UnbondingDelegationEntry {
+    const message = createBaseUnbondingDelegationEntry();
+    if (object.creation_height !== undefined && object.creation_height !== null) {
+      message.creationHeight = BigInt(object.creation_height);
+    }
+    if (object.completion_time !== undefined && object.completion_time !== null) {
+      message.completionTime = Timestamp.fromAmino(object.completion_time);
+    }
+    if (object.initial_balance !== undefined && object.initial_balance !== null) {
+      message.initialBalance = object.initial_balance;
+    }
+    if (object.balance !== undefined && object.balance !== null) {
+      message.balance = object.balance;
+    }
+    if (object.unbonding_id !== undefined && object.unbonding_id !== null) {
+      message.unbondingId = BigInt(object.unbonding_id);
+    }
+    if (object.unbonding_on_hold_ref_count !== undefined && object.unbonding_on_hold_ref_count !== null) {
+      message.unbondingOnHoldRefCount = BigInt(object.unbonding_on_hold_ref_count);
+    }
+    return message;
+  },
+  toAmino(message: UnbondingDelegationEntry): UnbondingDelegationEntryAmino {
+    const obj: any = {};
+    obj.creation_height =
+      message.creationHeight !== BigInt(0) ? message.creationHeight?.toString() : undefined;
+    obj.completion_time = message.completionTime
+      ? Timestamp.toAmino(message.completionTime)
+      : Timestamp.toAmino(Timestamp.fromPartial({}));
+    obj.initial_balance = message.initialBalance === "" ? undefined : message.initialBalance;
+    obj.balance = message.balance === "" ? undefined : message.balance;
+    obj.unbonding_id = message.unbondingId !== BigInt(0) ? message.unbondingId?.toString() : undefined;
+    obj.unbonding_on_hold_ref_count =
+      message.unbondingOnHoldRefCount !== BigInt(0) ? message.unbondingOnHoldRefCount?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: UnbondingDelegationEntryAminoMsg): UnbondingDelegationEntry {
+    return UnbondingDelegationEntry.fromAmino(object.value);
+  },
+  toAminoMsg(message: UnbondingDelegationEntry): UnbondingDelegationEntryAminoMsg {
+    return {
+      type: "cosmos-sdk/UnbondingDelegationEntry",
+      value: UnbondingDelegationEntry.toAmino(message),
+    };
+  },
 };
 function createBaseRedelegationEntry(): RedelegationEntry {
   return {
@@ -1441,6 +1872,51 @@ export const RedelegationEntry = {
     }
     return message;
   },
+  fromAmino(object: RedelegationEntryAmino): RedelegationEntry {
+    const message = createBaseRedelegationEntry();
+    if (object.creation_height !== undefined && object.creation_height !== null) {
+      message.creationHeight = BigInt(object.creation_height);
+    }
+    if (object.completion_time !== undefined && object.completion_time !== null) {
+      message.completionTime = Timestamp.fromAmino(object.completion_time);
+    }
+    if (object.initial_balance !== undefined && object.initial_balance !== null) {
+      message.initialBalance = object.initial_balance;
+    }
+    if (object.shares_dst !== undefined && object.shares_dst !== null) {
+      message.sharesDst = object.shares_dst;
+    }
+    if (object.unbonding_id !== undefined && object.unbonding_id !== null) {
+      message.unbondingId = BigInt(object.unbonding_id);
+    }
+    if (object.unbonding_on_hold_ref_count !== undefined && object.unbonding_on_hold_ref_count !== null) {
+      message.unbondingOnHoldRefCount = BigInt(object.unbonding_on_hold_ref_count);
+    }
+    return message;
+  },
+  toAmino(message: RedelegationEntry): RedelegationEntryAmino {
+    const obj: any = {};
+    obj.creation_height =
+      message.creationHeight !== BigInt(0) ? message.creationHeight?.toString() : undefined;
+    obj.completion_time = message.completionTime
+      ? Timestamp.toAmino(message.completionTime)
+      : Timestamp.toAmino(Timestamp.fromPartial({}));
+    obj.initial_balance = message.initialBalance === "" ? undefined : message.initialBalance;
+    obj.shares_dst = message.sharesDst === "" ? undefined : message.sharesDst;
+    obj.unbonding_id = message.unbondingId !== BigInt(0) ? message.unbondingId?.toString() : undefined;
+    obj.unbonding_on_hold_ref_count =
+      message.unbondingOnHoldRefCount !== BigInt(0) ? message.unbondingOnHoldRefCount?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: RedelegationEntryAminoMsg): RedelegationEntry {
+    return RedelegationEntry.fromAmino(object.value);
+  },
+  toAminoMsg(message: RedelegationEntry): RedelegationEntryAminoMsg {
+    return {
+      type: "cosmos-sdk/RedelegationEntry",
+      value: RedelegationEntry.toAmino(message),
+    };
+  },
 };
 function createBaseRedelegation(): Redelegation {
   return {
@@ -1521,6 +1997,41 @@ export const Redelegation = {
     message.validatorDstAddress = object.validatorDstAddress ?? "";
     message.entries = object.entries?.map((e) => RedelegationEntry.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: RedelegationAmino): Redelegation {
+    const message = createBaseRedelegation();
+    if (object.delegator_address !== undefined && object.delegator_address !== null) {
+      message.delegatorAddress = object.delegator_address;
+    }
+    if (object.validator_src_address !== undefined && object.validator_src_address !== null) {
+      message.validatorSrcAddress = object.validator_src_address;
+    }
+    if (object.validator_dst_address !== undefined && object.validator_dst_address !== null) {
+      message.validatorDstAddress = object.validator_dst_address;
+    }
+    message.entries = object.entries?.map((e) => RedelegationEntry.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: Redelegation): RedelegationAmino {
+    const obj: any = {};
+    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
+    obj.validator_src_address = message.validatorSrcAddress === "" ? undefined : message.validatorSrcAddress;
+    obj.validator_dst_address = message.validatorDstAddress === "" ? undefined : message.validatorDstAddress;
+    if (message.entries) {
+      obj.entries = message.entries.map((e) => (e ? RedelegationEntry.toAmino(e) : undefined));
+    } else {
+      obj.entries = message.entries;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: RedelegationAminoMsg): Redelegation {
+    return Redelegation.fromAmino(object.value);
+  },
+  toAminoMsg(message: Redelegation): RedelegationAminoMsg {
+    return {
+      type: "cosmos-sdk/Redelegation",
+      value: Redelegation.toAmino(message),
+    };
   },
 };
 function createBaseParams(): Params {
@@ -1622,6 +2133,49 @@ export const Params = {
     message.minCommissionRate = object.minCommissionRate ?? "";
     return message;
   },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    if (object.unbonding_time !== undefined && object.unbonding_time !== null) {
+      message.unbondingTime = Duration.fromAmino(object.unbonding_time);
+    }
+    if (object.max_validators !== undefined && object.max_validators !== null) {
+      message.maxValidators = object.max_validators;
+    }
+    if (object.max_entries !== undefined && object.max_entries !== null) {
+      message.maxEntries = object.max_entries;
+    }
+    if (object.historical_entries !== undefined && object.historical_entries !== null) {
+      message.historicalEntries = object.historical_entries;
+    }
+    if (object.bond_denom !== undefined && object.bond_denom !== null) {
+      message.bondDenom = object.bond_denom;
+    }
+    if (object.min_commission_rate !== undefined && object.min_commission_rate !== null) {
+      message.minCommissionRate = object.min_commission_rate;
+    }
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.unbonding_time = message.unbondingTime
+      ? Duration.toAmino(message.unbondingTime)
+      : Duration.toAmino(Duration.fromPartial({}));
+    obj.max_validators = message.maxValidators === 0 ? undefined : message.maxValidators;
+    obj.max_entries = message.maxEntries === 0 ? undefined : message.maxEntries;
+    obj.historical_entries = message.historicalEntries === 0 ? undefined : message.historicalEntries;
+    obj.bond_denom = message.bondDenom === "" ? undefined : message.bondDenom;
+    obj.min_commission_rate = message.minCommissionRate ?? "";
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/x/staking/Params",
+      value: Params.toAmino(message),
+    };
+  },
 };
 function createBaseDelegationResponse(): DelegationResponse {
   return {
@@ -1683,6 +2237,33 @@ export const DelegationResponse = {
       message.balance = Coin.fromPartial(object.balance);
     }
     return message;
+  },
+  fromAmino(object: DelegationResponseAmino): DelegationResponse {
+    const message = createBaseDelegationResponse();
+    if (object.delegation !== undefined && object.delegation !== null) {
+      message.delegation = Delegation.fromAmino(object.delegation);
+    }
+    if (object.balance !== undefined && object.balance !== null) {
+      message.balance = Coin.fromAmino(object.balance);
+    }
+    return message;
+  },
+  toAmino(message: DelegationResponse): DelegationResponseAmino {
+    const obj: any = {};
+    obj.delegation = message.delegation
+      ? Delegation.toAmino(message.delegation)
+      : Delegation.toAmino(Delegation.fromPartial({}));
+    obj.balance = message.balance ? Coin.toAmino(message.balance) : Coin.toAmino(Coin.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: DelegationResponseAminoMsg): DelegationResponse {
+    return DelegationResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: DelegationResponse): DelegationResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/DelegationResponse",
+      value: DelegationResponse.toAmino(message),
+    };
   },
 };
 function createBaseRedelegationEntryResponse(): RedelegationEntryResponse {
@@ -1748,6 +2329,33 @@ export const RedelegationEntryResponse = {
     message.balance = object.balance ?? "";
     return message;
   },
+  fromAmino(object: RedelegationEntryResponseAmino): RedelegationEntryResponse {
+    const message = createBaseRedelegationEntryResponse();
+    if (object.redelegation_entry !== undefined && object.redelegation_entry !== null) {
+      message.redelegationEntry = RedelegationEntry.fromAmino(object.redelegation_entry);
+    }
+    if (object.balance !== undefined && object.balance !== null) {
+      message.balance = object.balance;
+    }
+    return message;
+  },
+  toAmino(message: RedelegationEntryResponse): RedelegationEntryResponseAmino {
+    const obj: any = {};
+    obj.redelegation_entry = message.redelegationEntry
+      ? RedelegationEntry.toAmino(message.redelegationEntry)
+      : RedelegationEntry.toAmino(RedelegationEntry.fromPartial({}));
+    obj.balance = message.balance === "" ? undefined : message.balance;
+    return obj;
+  },
+  fromAminoMsg(object: RedelegationEntryResponseAminoMsg): RedelegationEntryResponse {
+    return RedelegationEntryResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: RedelegationEntryResponse): RedelegationEntryResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/RedelegationEntryResponse",
+      value: RedelegationEntryResponse.toAmino(message),
+    };
+  },
 };
 function createBaseRedelegationResponse(): RedelegationResponse {
   return {
@@ -1812,6 +2420,35 @@ export const RedelegationResponse = {
     message.entries = object.entries?.map((e) => RedelegationEntryResponse.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: RedelegationResponseAmino): RedelegationResponse {
+    const message = createBaseRedelegationResponse();
+    if (object.redelegation !== undefined && object.redelegation !== null) {
+      message.redelegation = Redelegation.fromAmino(object.redelegation);
+    }
+    message.entries = object.entries?.map((e) => RedelegationEntryResponse.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: RedelegationResponse): RedelegationResponseAmino {
+    const obj: any = {};
+    obj.redelegation = message.redelegation
+      ? Redelegation.toAmino(message.redelegation)
+      : Redelegation.toAmino(Redelegation.fromPartial({}));
+    if (message.entries) {
+      obj.entries = message.entries.map((e) => (e ? RedelegationEntryResponse.toAmino(e) : undefined));
+    } else {
+      obj.entries = message.entries;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: RedelegationResponseAminoMsg): RedelegationResponse {
+    return RedelegationResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: RedelegationResponse): RedelegationResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/RedelegationResponse",
+      value: RedelegationResponse.toAmino(message),
+    };
+  },
 };
 function createBasePool(): Pool {
   return {
@@ -1868,6 +2505,31 @@ export const Pool = {
     message.bondedTokens = object.bondedTokens ?? "";
     return message;
   },
+  fromAmino(object: PoolAmino): Pool {
+    const message = createBasePool();
+    if (object.not_bonded_tokens !== undefined && object.not_bonded_tokens !== null) {
+      message.notBondedTokens = object.not_bonded_tokens;
+    }
+    if (object.bonded_tokens !== undefined && object.bonded_tokens !== null) {
+      message.bondedTokens = object.bonded_tokens;
+    }
+    return message;
+  },
+  toAmino(message: Pool): PoolAmino {
+    const obj: any = {};
+    obj.not_bonded_tokens = message.notBondedTokens ?? "";
+    obj.bonded_tokens = message.bondedTokens ?? "";
+    return obj;
+  },
+  fromAminoMsg(object: PoolAminoMsg): Pool {
+    return Pool.fromAmino(object.value);
+  },
+  toAminoMsg(message: Pool): PoolAminoMsg {
+    return {
+      type: "cosmos-sdk/Pool",
+      value: Pool.toAmino(message),
+    };
+  },
 };
 function createBaseValidatorUpdates(): ValidatorUpdates {
   return {
@@ -1918,5 +2580,28 @@ export const ValidatorUpdates = {
     const message = createBaseValidatorUpdates();
     message.updates = object.updates?.map((e) => ValidatorUpdate.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: ValidatorUpdatesAmino): ValidatorUpdates {
+    const message = createBaseValidatorUpdates();
+    message.updates = object.updates?.map((e) => ValidatorUpdate.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: ValidatorUpdates): ValidatorUpdatesAmino {
+    const obj: any = {};
+    if (message.updates) {
+      obj.updates = message.updates.map((e) => (e ? ValidatorUpdate.toAmino(e) : undefined));
+    } else {
+      obj.updates = message.updates;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ValidatorUpdatesAminoMsg): ValidatorUpdates {
+    return ValidatorUpdates.fromAmino(object.value);
+  },
+  toAminoMsg(message: ValidatorUpdates): ValidatorUpdatesAminoMsg {
+    return {
+      type: "cosmos-sdk/ValidatorUpdates",
+      value: ValidatorUpdates.toAmino(message),
+    };
   },
 };

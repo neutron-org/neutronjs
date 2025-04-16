@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../helpers";
@@ -173,5 +174,20 @@ export const Any = {
     message.typeUrl = object.typeUrl ?? "";
     message.value = object.value ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: AnyAmino): Any {
+    return {
+      typeUrl: object.type,
+      value: object.value,
+    };
+  },
+  toAmino(message: Any): AnyAmino {
+    const obj: any = {};
+    obj.type = message.typeUrl;
+    obj.value = message.value;
+    return obj;
+  },
+  fromAminoMsg(object: AnyAminoMsg): Any {
+    return Any.fromAmino(object.value);
   },
 };

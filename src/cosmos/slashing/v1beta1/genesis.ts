@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params, ValidatorSigningInfo } from "./slashing";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -120,6 +121,39 @@ export const GenesisState = {
     message.missedBlocks = object.missedBlocks?.map((e) => ValidatorMissedBlocks.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    message.signingInfos = object.signing_infos?.map((e) => SigningInfo.fromAmino(e)) || [];
+    message.missedBlocks = object.missed_blocks?.map((e) => ValidatorMissedBlocks.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
+    if (message.signingInfos) {
+      obj.signing_infos = message.signingInfos.map((e) => (e ? SigningInfo.toAmino(e) : undefined));
+    } else {
+      obj.signing_infos = message.signingInfos;
+    }
+    if (message.missedBlocks) {
+      obj.missed_blocks = message.missedBlocks.map((e) => (e ? ValidatorMissedBlocks.toAmino(e) : undefined));
+    } else {
+      obj.missed_blocks = message.missedBlocks;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
+  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
+    return {
+      type: "cosmos-sdk/GenesisState",
+      value: GenesisState.toAmino(message),
+    };
+  },
 };
 function createBaseSigningInfo(): SigningInfo {
   return {
@@ -182,6 +216,33 @@ export const SigningInfo = {
     }
     return message;
   },
+  fromAmino(object: SigningInfoAmino): SigningInfo {
+    const message = createBaseSigningInfo();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.validator_signing_info !== undefined && object.validator_signing_info !== null) {
+      message.validatorSigningInfo = ValidatorSigningInfo.fromAmino(object.validator_signing_info);
+    }
+    return message;
+  },
+  toAmino(message: SigningInfo): SigningInfoAmino {
+    const obj: any = {};
+    obj.address = message.address === "" ? undefined : message.address;
+    obj.validator_signing_info = message.validatorSigningInfo
+      ? ValidatorSigningInfo.toAmino(message.validatorSigningInfo)
+      : ValidatorSigningInfo.toAmino(ValidatorSigningInfo.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: SigningInfoAminoMsg): SigningInfo {
+    return SigningInfo.fromAmino(object.value);
+  },
+  toAminoMsg(message: SigningInfo): SigningInfoAminoMsg {
+    return {
+      type: "cosmos-sdk/SigningInfo",
+      value: SigningInfo.toAmino(message),
+    };
+  },
 };
 function createBaseValidatorMissedBlocks(): ValidatorMissedBlocks {
   return {
@@ -243,6 +304,33 @@ export const ValidatorMissedBlocks = {
     message.missedBlocks = object.missedBlocks?.map((e) => MissedBlock.fromPartial(e)) || [];
     return message;
   },
+  fromAmino(object: ValidatorMissedBlocksAmino): ValidatorMissedBlocks {
+    const message = createBaseValidatorMissedBlocks();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    message.missedBlocks = object.missed_blocks?.map((e) => MissedBlock.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: ValidatorMissedBlocks): ValidatorMissedBlocksAmino {
+    const obj: any = {};
+    obj.address = message.address === "" ? undefined : message.address;
+    if (message.missedBlocks) {
+      obj.missed_blocks = message.missedBlocks.map((e) => (e ? MissedBlock.toAmino(e) : undefined));
+    } else {
+      obj.missed_blocks = message.missedBlocks;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ValidatorMissedBlocksAminoMsg): ValidatorMissedBlocks {
+    return ValidatorMissedBlocks.fromAmino(object.value);
+  },
+  toAminoMsg(message: ValidatorMissedBlocks): ValidatorMissedBlocksAminoMsg {
+    return {
+      type: "cosmos-sdk/ValidatorMissedBlocks",
+      value: ValidatorMissedBlocks.toAmino(message),
+    };
+  },
 };
 function createBaseMissedBlock(): MissedBlock {
   return {
@@ -300,5 +388,30 @@ export const MissedBlock = {
     }
     message.missed = object.missed ?? false;
     return message;
+  },
+  fromAmino(object: MissedBlockAmino): MissedBlock {
+    const message = createBaseMissedBlock();
+    if (object.index !== undefined && object.index !== null) {
+      message.index = BigInt(object.index);
+    }
+    if (object.missed !== undefined && object.missed !== null) {
+      message.missed = object.missed;
+    }
+    return message;
+  },
+  toAmino(message: MissedBlock): MissedBlockAmino {
+    const obj: any = {};
+    obj.index = message.index !== BigInt(0) ? message.index?.toString() : undefined;
+    obj.missed = message.missed === false ? undefined : message.missed;
+    return obj;
+  },
+  fromAminoMsg(object: MissedBlockAminoMsg): MissedBlock {
+    return MissedBlock.fromAmino(object.value);
+  },
+  toAminoMsg(message: MissedBlock): MissedBlockAminoMsg {
+    return {
+      type: "cosmos-sdk/MissedBlock",
+      value: MissedBlock.toAmino(message),
+    };
   },
 };

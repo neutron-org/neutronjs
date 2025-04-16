@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Vote, LightBlock } from "./types";
 import { Timestamp } from "../../google/protobuf/timestamp";
@@ -98,6 +99,31 @@ export const Evidence = {
     }
     return message;
   },
+  fromAmino(object: EvidenceAmino): Evidence {
+    const message = createBaseEvidence();
+    if (object.duplicate_vote_evidence !== undefined && object.duplicate_vote_evidence !== null) {
+      message.duplicateVoteEvidence = DuplicateVoteEvidence.fromAmino(object.duplicate_vote_evidence);
+    }
+    if (object.light_client_attack_evidence !== undefined && object.light_client_attack_evidence !== null) {
+      message.lightClientAttackEvidence = LightClientAttackEvidence.fromAmino(
+        object.light_client_attack_evidence,
+      );
+    }
+    return message;
+  },
+  toAmino(message: Evidence): EvidenceAmino {
+    const obj: any = {};
+    obj.duplicate_vote_evidence = message.duplicateVoteEvidence
+      ? DuplicateVoteEvidence.toAmino(message.duplicateVoteEvidence)
+      : undefined;
+    obj.light_client_attack_evidence = message.lightClientAttackEvidence
+      ? LightClientAttackEvidence.toAmino(message.lightClientAttackEvidence)
+      : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EvidenceAminoMsg): Evidence {
+    return Evidence.fromAmino(object.value);
+  },
 };
 function createBaseDuplicateVoteEvidence(): DuplicateVoteEvidence {
   return {
@@ -195,6 +221,39 @@ export const DuplicateVoteEvidence = {
       message.timestamp = Timestamp.fromPartial(object.timestamp);
     }
     return message;
+  },
+  fromAmino(object: DuplicateVoteEvidenceAmino): DuplicateVoteEvidence {
+    const message = createBaseDuplicateVoteEvidence();
+    if (object.vote_a !== undefined && object.vote_a !== null) {
+      message.voteA = Vote.fromAmino(object.vote_a);
+    }
+    if (object.vote_b !== undefined && object.vote_b !== null) {
+      message.voteB = Vote.fromAmino(object.vote_b);
+    }
+    if (object.total_voting_power !== undefined && object.total_voting_power !== null) {
+      message.totalVotingPower = BigInt(object.total_voting_power);
+    }
+    if (object.validator_power !== undefined && object.validator_power !== null) {
+      message.validatorPower = BigInt(object.validator_power);
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Timestamp.fromAmino(object.timestamp);
+    }
+    return message;
+  },
+  toAmino(message: DuplicateVoteEvidence): DuplicateVoteEvidenceAmino {
+    const obj: any = {};
+    obj.vote_a = message.voteA ? Vote.toAmino(message.voteA) : undefined;
+    obj.vote_b = message.voteB ? Vote.toAmino(message.voteB) : undefined;
+    obj.total_voting_power =
+      message.totalVotingPower !== BigInt(0) ? message.totalVotingPower?.toString() : undefined;
+    obj.validator_power =
+      message.validatorPower !== BigInt(0) ? message.validatorPower?.toString() : undefined;
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: DuplicateVoteEvidenceAminoMsg): DuplicateVoteEvidence {
+    return DuplicateVoteEvidence.fromAmino(object.value);
   },
 };
 function createBaseLightClientAttackEvidence(): LightClientAttackEvidence {
@@ -301,6 +360,44 @@ export const LightClientAttackEvidence = {
     }
     return message;
   },
+  fromAmino(object: LightClientAttackEvidenceAmino): LightClientAttackEvidence {
+    const message = createBaseLightClientAttackEvidence();
+    if (object.conflicting_block !== undefined && object.conflicting_block !== null) {
+      message.conflictingBlock = LightBlock.fromAmino(object.conflicting_block);
+    }
+    if (object.common_height !== undefined && object.common_height !== null) {
+      message.commonHeight = BigInt(object.common_height);
+    }
+    message.byzantineValidators = object.byzantine_validators?.map((e) => Validator.fromAmino(e)) || [];
+    if (object.total_voting_power !== undefined && object.total_voting_power !== null) {
+      message.totalVotingPower = BigInt(object.total_voting_power);
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Timestamp.fromAmino(object.timestamp);
+    }
+    return message;
+  },
+  toAmino(message: LightClientAttackEvidence): LightClientAttackEvidenceAmino {
+    const obj: any = {};
+    obj.conflicting_block = message.conflictingBlock
+      ? LightBlock.toAmino(message.conflictingBlock)
+      : undefined;
+    obj.common_height = message.commonHeight !== BigInt(0) ? message.commonHeight?.toString() : undefined;
+    if (message.byzantineValidators) {
+      obj.byzantine_validators = message.byzantineValidators.map((e) =>
+        e ? Validator.toAmino(e) : undefined,
+      );
+    } else {
+      obj.byzantine_validators = message.byzantineValidators;
+    }
+    obj.total_voting_power =
+      message.totalVotingPower !== BigInt(0) ? message.totalVotingPower?.toString() : undefined;
+    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: LightClientAttackEvidenceAminoMsg): LightClientAttackEvidence {
+    return LightClientAttackEvidence.fromAmino(object.value);
+  },
 };
 function createBaseEvidenceList(): EvidenceList {
   return {
@@ -350,5 +447,22 @@ export const EvidenceList = {
     const message = createBaseEvidenceList();
     message.evidence = object.evidence?.map((e) => Evidence.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: EvidenceListAmino): EvidenceList {
+    const message = createBaseEvidenceList();
+    message.evidence = object.evidence?.map((e) => Evidence.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: EvidenceList): EvidenceListAmino {
+    const obj: any = {};
+    if (message.evidence) {
+      obj.evidence = message.evidence.map((e) => (e ? Evidence.toAmino(e) : undefined));
+    } else {
+      obj.evidence = message.evidence;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EvidenceListAminoMsg): EvidenceList {
+    return EvidenceList.fromAmino(object.value);
   },
 };

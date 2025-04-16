@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { DecCoin } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -63,5 +64,22 @@ export const Params = {
     const message = createBaseParams();
     message.ntrnPrices = object.ntrnPrices?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    message.ntrnPrices = object.ntrn_prices?.map((e) => DecCoin.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.ntrnPrices) {
+      obj.ntrn_prices = message.ntrnPrices.map((e) => (e ? DecCoin.toAmino(e) : undefined));
+    } else {
+      obj.ntrn_prices = message.ntrnPrices;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
   },
 };

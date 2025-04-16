@@ -1,6 +1,7 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
+import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
 export const protobufPackage = "google.protobuf";
 /**
@@ -158,5 +159,16 @@ export const Timestamp = {
     }
     message.nanos = object.nanos ?? 0;
     return message;
+  },
+  fromAmino(object: TimestampAmino): Timestamp {
+    return fromJsonTimestamp(object);
+  },
+  toAmino(message: Timestamp): TimestampAmino {
+    return fromTimestamp(message)
+      .toISOString()
+      .replace(/\.\d+Z$/, "Z");
+  },
+  fromAminoMsg(object: TimestampAminoMsg): Timestamp {
+    return Timestamp.fromAmino(object.value);
   },
 };

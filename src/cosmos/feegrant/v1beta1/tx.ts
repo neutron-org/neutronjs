@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -110,6 +111,35 @@ export const MsgGrantAllowance = {
     }
     return message;
   },
+  fromAmino(object: MsgGrantAllowanceAmino): MsgGrantAllowance {
+    const message = createBaseMsgGrantAllowance();
+    if (object.granter !== undefined && object.granter !== null) {
+      message.granter = object.granter;
+    }
+    if (object.grantee !== undefined && object.grantee !== null) {
+      message.grantee = object.grantee;
+    }
+    if (object.allowance !== undefined && object.allowance !== null) {
+      message.allowance = Any.fromAmino(object.allowance);
+    }
+    return message;
+  },
+  toAmino(message: MsgGrantAllowance): MsgGrantAllowanceAmino {
+    const obj: any = {};
+    obj.granter = message.granter === "" ? undefined : message.granter;
+    obj.grantee = message.grantee === "" ? undefined : message.grantee;
+    obj.allowance = message.allowance ? Any.toAmino(message.allowance) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgGrantAllowanceAminoMsg): MsgGrantAllowance {
+    return MsgGrantAllowance.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgGrantAllowance): MsgGrantAllowanceAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgGrantAllowance",
+      value: MsgGrantAllowance.toAmino(message),
+    };
+  },
 };
 function createBaseMsgGrantAllowanceResponse(): MsgGrantAllowanceResponse {
   return {};
@@ -144,6 +174,23 @@ export const MsgGrantAllowanceResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgGrantAllowanceResponse>, I>>(_: I): MsgGrantAllowanceResponse {
     const message = createBaseMsgGrantAllowanceResponse();
     return message;
+  },
+  fromAmino(_: MsgGrantAllowanceResponseAmino): MsgGrantAllowanceResponse {
+    const message = createBaseMsgGrantAllowanceResponse();
+    return message;
+  },
+  toAmino(_: MsgGrantAllowanceResponse): MsgGrantAllowanceResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgGrantAllowanceResponseAminoMsg): MsgGrantAllowanceResponse {
+    return MsgGrantAllowanceResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgGrantAllowanceResponse): MsgGrantAllowanceResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgGrantAllowanceResponse",
+      value: MsgGrantAllowanceResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgRevokeAllowance(): MsgRevokeAllowance {
@@ -201,6 +248,31 @@ export const MsgRevokeAllowance = {
     message.grantee = object.grantee ?? "";
     return message;
   },
+  fromAmino(object: MsgRevokeAllowanceAmino): MsgRevokeAllowance {
+    const message = createBaseMsgRevokeAllowance();
+    if (object.granter !== undefined && object.granter !== null) {
+      message.granter = object.granter;
+    }
+    if (object.grantee !== undefined && object.grantee !== null) {
+      message.grantee = object.grantee;
+    }
+    return message;
+  },
+  toAmino(message: MsgRevokeAllowance): MsgRevokeAllowanceAmino {
+    const obj: any = {};
+    obj.granter = message.granter === "" ? undefined : message.granter;
+    obj.grantee = message.grantee === "" ? undefined : message.grantee;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRevokeAllowanceAminoMsg): MsgRevokeAllowance {
+    return MsgRevokeAllowance.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRevokeAllowance): MsgRevokeAllowanceAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRevokeAllowance",
+      value: MsgRevokeAllowance.toAmino(message),
+    };
+  },
 };
 function createBaseMsgRevokeAllowanceResponse(): MsgRevokeAllowanceResponse {
   return {};
@@ -235,6 +307,23 @@ export const MsgRevokeAllowanceResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgRevokeAllowanceResponse>, I>>(_: I): MsgRevokeAllowanceResponse {
     const message = createBaseMsgRevokeAllowanceResponse();
     return message;
+  },
+  fromAmino(_: MsgRevokeAllowanceResponseAmino): MsgRevokeAllowanceResponse {
+    const message = createBaseMsgRevokeAllowanceResponse();
+    return message;
+  },
+  toAmino(_: MsgRevokeAllowanceResponse): MsgRevokeAllowanceResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgRevokeAllowanceResponseAminoMsg): MsgRevokeAllowanceResponse {
+    return MsgRevokeAllowanceResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRevokeAllowanceResponse): MsgRevokeAllowanceResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRevokeAllowanceResponse",
+      value: MsgRevokeAllowanceResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgPruneAllowances(): MsgPruneAllowances {
@@ -282,6 +371,27 @@ export const MsgPruneAllowances = {
     message.pruner = object.pruner ?? "";
     return message;
   },
+  fromAmino(object: MsgPruneAllowancesAmino): MsgPruneAllowances {
+    const message = createBaseMsgPruneAllowances();
+    if (object.pruner !== undefined && object.pruner !== null) {
+      message.pruner = object.pruner;
+    }
+    return message;
+  },
+  toAmino(message: MsgPruneAllowances): MsgPruneAllowancesAmino {
+    const obj: any = {};
+    obj.pruner = message.pruner === "" ? undefined : message.pruner;
+    return obj;
+  },
+  fromAminoMsg(object: MsgPruneAllowancesAminoMsg): MsgPruneAllowances {
+    return MsgPruneAllowances.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgPruneAllowances): MsgPruneAllowancesAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgPruneAllowances",
+      value: MsgPruneAllowances.toAmino(message),
+    };
+  },
 };
 function createBaseMsgPruneAllowancesResponse(): MsgPruneAllowancesResponse {
   return {};
@@ -316,5 +426,22 @@ export const MsgPruneAllowancesResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgPruneAllowancesResponse>, I>>(_: I): MsgPruneAllowancesResponse {
     const message = createBaseMsgPruneAllowancesResponse();
     return message;
+  },
+  fromAmino(_: MsgPruneAllowancesResponseAmino): MsgPruneAllowancesResponse {
+    const message = createBaseMsgPruneAllowancesResponse();
+    return message;
+  },
+  toAmino(_: MsgPruneAllowancesResponse): MsgPruneAllowancesResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgPruneAllowancesResponseAminoMsg): MsgPruneAllowancesResponse {
+    return MsgPruneAllowancesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgPruneAllowancesResponse): MsgPruneAllowancesResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgPruneAllowancesResponse",
+      value: MsgPruneAllowancesResponse.toAmino(message),
+    };
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Coin } from "../../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
@@ -127,6 +128,49 @@ export const Allocation = {
     message.allowedPacketData = object.allowedPacketData?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: AllocationAmino): Allocation {
+    const message = createBaseAllocation();
+    if (object.source_port !== undefined && object.source_port !== null) {
+      message.sourcePort = object.source_port;
+    }
+    if (object.source_channel !== undefined && object.source_channel !== null) {
+      message.sourceChannel = object.source_channel;
+    }
+    message.spendLimit = object.spend_limit?.map((e) => Coin.fromAmino(e)) || [];
+    message.allowList = object.allow_list?.map((e) => e) || [];
+    message.allowedPacketData = object.allowed_packet_data?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: Allocation): AllocationAmino {
+    const obj: any = {};
+    obj.source_port = message.sourcePort === "" ? undefined : message.sourcePort;
+    obj.source_channel = message.sourceChannel === "" ? undefined : message.sourceChannel;
+    if (message.spendLimit) {
+      obj.spend_limit = message.spendLimit.map((e) => (e ? Coin.toAmino(e) : undefined));
+    } else {
+      obj.spend_limit = message.spendLimit;
+    }
+    if (message.allowList) {
+      obj.allow_list = message.allowList.map((e) => e);
+    } else {
+      obj.allow_list = message.allowList;
+    }
+    if (message.allowedPacketData) {
+      obj.allowed_packet_data = message.allowedPacketData.map((e) => e);
+    } else {
+      obj.allowed_packet_data = message.allowedPacketData;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: AllocationAminoMsg): Allocation {
+    return Allocation.fromAmino(object.value);
+  },
+  toAminoMsg(message: Allocation): AllocationAminoMsg {
+    return {
+      type: "cosmos-sdk/Allocation",
+      value: Allocation.toAmino(message),
+    };
+  },
 };
 function createBaseTransferAuthorization(): TransferAuthorization {
   return {
@@ -177,5 +221,28 @@ export const TransferAuthorization = {
     const message = createBaseTransferAuthorization();
     message.allocations = object.allocations?.map((e) => Allocation.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: TransferAuthorizationAmino): TransferAuthorization {
+    const message = createBaseTransferAuthorization();
+    message.allocations = object.allocations?.map((e) => Allocation.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: TransferAuthorization): TransferAuthorizationAmino {
+    const obj: any = {};
+    if (message.allocations) {
+      obj.allocations = message.allocations.map((e) => (e ? Allocation.toAmino(e) : undefined));
+    } else {
+      obj.allocations = message.allocations;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: TransferAuthorizationAminoMsg): TransferAuthorization {
+    return TransferAuthorization.fromAmino(object.value);
+  },
+  toAminoMsg(message: TransferAuthorization): TransferAuthorizationAminoMsg {
+    return {
+      type: "cosmos-sdk/TransferAuthorization",
+      value: TransferAuthorization.toAmino(message),
+    };
   },
 };

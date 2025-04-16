@@ -1,9 +1,11 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { ContractInfo, ContractCodeHistoryEntry, Model, AccessConfig, Params } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
+import { toUtf8, fromUtf8 } from "@cosmjs/encoding";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /**
  * QueryContractInfoRequest is the request type for the Query/ContractInfo RPC
@@ -259,6 +261,27 @@ export const QueryContractInfoRequest = {
     message.address = object.address ?? "";
     return message;
   },
+  fromAmino(object: QueryContractInfoRequestAmino): QueryContractInfoRequest {
+    const message = createBaseQueryContractInfoRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
+  },
+  toAmino(message: QueryContractInfoRequest): QueryContractInfoRequestAmino {
+    const obj: any = {};
+    obj.address = message.address === "" ? undefined : message.address;
+    return obj;
+  },
+  fromAminoMsg(object: QueryContractInfoRequestAminoMsg): QueryContractInfoRequest {
+    return QueryContractInfoRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryContractInfoRequest): QueryContractInfoRequestAminoMsg {
+    return {
+      type: "wasm/QueryContractInfoRequest",
+      value: QueryContractInfoRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryContractInfoResponse(): QueryContractInfoResponse {
   return {
@@ -320,6 +343,33 @@ export const QueryContractInfoResponse = {
     }
     return message;
   },
+  fromAmino(object: QueryContractInfoResponseAmino): QueryContractInfoResponse {
+    const message = createBaseQueryContractInfoResponse();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.contract_info !== undefined && object.contract_info !== null) {
+      message.contractInfo = ContractInfo.fromAmino(object.contract_info);
+    }
+    return message;
+  },
+  toAmino(message: QueryContractInfoResponse): QueryContractInfoResponseAmino {
+    const obj: any = {};
+    obj.address = message.address === "" ? undefined : message.address;
+    obj.contract_info = message.contractInfo
+      ? ContractInfo.toAmino(message.contractInfo)
+      : ContractInfo.toAmino(ContractInfo.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: QueryContractInfoResponseAminoMsg): QueryContractInfoResponse {
+    return QueryContractInfoResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryContractInfoResponse): QueryContractInfoResponseAminoMsg {
+    return {
+      type: "wasm/QueryContractInfoResponse",
+      value: QueryContractInfoResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryContractHistoryRequest(): QueryContractHistoryRequest {
   return {
@@ -380,6 +430,31 @@ export const QueryContractHistoryRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
+  },
+  fromAmino(object: QueryContractHistoryRequestAmino): QueryContractHistoryRequest {
+    const message = createBaseQueryContractHistoryRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryContractHistoryRequest): QueryContractHistoryRequestAmino {
+    const obj: any = {};
+    obj.address = message.address === "" ? undefined : message.address;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryContractHistoryRequestAminoMsg): QueryContractHistoryRequest {
+    return QueryContractHistoryRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryContractHistoryRequest): QueryContractHistoryRequestAminoMsg {
+    return {
+      type: "wasm/QueryContractHistoryRequest",
+      value: QueryContractHistoryRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryContractHistoryResponse(): QueryContractHistoryResponse {
@@ -447,6 +522,33 @@ export const QueryContractHistoryResponse = {
     }
     return message;
   },
+  fromAmino(object: QueryContractHistoryResponseAmino): QueryContractHistoryResponse {
+    const message = createBaseQueryContractHistoryResponse();
+    message.entries = object.entries?.map((e) => ContractCodeHistoryEntry.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryContractHistoryResponse): QueryContractHistoryResponseAmino {
+    const obj: any = {};
+    if (message.entries) {
+      obj.entries = message.entries.map((e) => (e ? ContractCodeHistoryEntry.toAmino(e) : undefined));
+    } else {
+      obj.entries = message.entries;
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryContractHistoryResponseAminoMsg): QueryContractHistoryResponse {
+    return QueryContractHistoryResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryContractHistoryResponse): QueryContractHistoryResponseAminoMsg {
+    return {
+      type: "wasm/QueryContractHistoryResponse",
+      value: QueryContractHistoryResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryContractsByCodeRequest(): QueryContractsByCodeRequest {
   return {
@@ -509,6 +611,31 @@ export const QueryContractsByCodeRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
+  },
+  fromAmino(object: QueryContractsByCodeRequestAmino): QueryContractsByCodeRequest {
+    const message = createBaseQueryContractsByCodeRequest();
+    if (object.code_id !== undefined && object.code_id !== null) {
+      message.codeId = BigInt(object.code_id);
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryContractsByCodeRequest): QueryContractsByCodeRequestAmino {
+    const obj: any = {};
+    obj.code_id = message.codeId !== BigInt(0) ? message.codeId?.toString() : undefined;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryContractsByCodeRequestAminoMsg): QueryContractsByCodeRequest {
+    return QueryContractsByCodeRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryContractsByCodeRequest): QueryContractsByCodeRequestAminoMsg {
+    return {
+      type: "wasm/QueryContractsByCodeRequest",
+      value: QueryContractsByCodeRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryContractsByCodeResponse(): QueryContractsByCodeResponse {
@@ -575,6 +702,33 @@ export const QueryContractsByCodeResponse = {
     }
     return message;
   },
+  fromAmino(object: QueryContractsByCodeResponseAmino): QueryContractsByCodeResponse {
+    const message = createBaseQueryContractsByCodeResponse();
+    message.contracts = object.contracts?.map((e) => e) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryContractsByCodeResponse): QueryContractsByCodeResponseAmino {
+    const obj: any = {};
+    if (message.contracts) {
+      obj.contracts = message.contracts.map((e) => e);
+    } else {
+      obj.contracts = message.contracts;
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryContractsByCodeResponseAminoMsg): QueryContractsByCodeResponse {
+    return QueryContractsByCodeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryContractsByCodeResponse): QueryContractsByCodeResponseAminoMsg {
+    return {
+      type: "wasm/QueryContractsByCodeResponse",
+      value: QueryContractsByCodeResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryAllContractStateRequest(): QueryAllContractStateRequest {
   return {
@@ -635,6 +789,31 @@ export const QueryAllContractStateRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
+  },
+  fromAmino(object: QueryAllContractStateRequestAmino): QueryAllContractStateRequest {
+    const message = createBaseQueryAllContractStateRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryAllContractStateRequest): QueryAllContractStateRequestAmino {
+    const obj: any = {};
+    obj.address = message.address === "" ? undefined : message.address;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllContractStateRequestAminoMsg): QueryAllContractStateRequest {
+    return QueryAllContractStateRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAllContractStateRequest): QueryAllContractStateRequestAminoMsg {
+    return {
+      type: "wasm/QueryAllContractStateRequest",
+      value: QueryAllContractStateRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryAllContractStateResponse(): QueryAllContractStateResponse {
@@ -701,6 +880,33 @@ export const QueryAllContractStateResponse = {
     }
     return message;
   },
+  fromAmino(object: QueryAllContractStateResponseAmino): QueryAllContractStateResponse {
+    const message = createBaseQueryAllContractStateResponse();
+    message.models = object.models?.map((e) => Model.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryAllContractStateResponse): QueryAllContractStateResponseAmino {
+    const obj: any = {};
+    if (message.models) {
+      obj.models = message.models.map((e) => (e ? Model.toAmino(e) : undefined));
+    } else {
+      obj.models = message.models;
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryAllContractStateResponseAminoMsg): QueryAllContractStateResponse {
+    return QueryAllContractStateResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryAllContractStateResponse): QueryAllContractStateResponseAminoMsg {
+    return {
+      type: "wasm/QueryAllContractStateResponse",
+      value: QueryAllContractStateResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryRawContractStateRequest(): QueryRawContractStateRequest {
   return {
@@ -762,6 +968,31 @@ export const QueryRawContractStateRequest = {
     message.queryData = object.queryData ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: QueryRawContractStateRequestAmino): QueryRawContractStateRequest {
+    const message = createBaseQueryRawContractStateRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.query_data !== undefined && object.query_data !== null) {
+      message.queryData = bytesFromBase64(object.query_data);
+    }
+    return message;
+  },
+  toAmino(message: QueryRawContractStateRequest): QueryRawContractStateRequestAmino {
+    const obj: any = {};
+    obj.address = message.address === "" ? undefined : message.address;
+    obj.query_data = message.queryData ? base64FromBytes(message.queryData) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryRawContractStateRequestAminoMsg): QueryRawContractStateRequest {
+    return QueryRawContractStateRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryRawContractStateRequest): QueryRawContractStateRequestAminoMsg {
+    return {
+      type: "wasm/QueryRawContractStateRequest",
+      value: QueryRawContractStateRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryRawContractStateResponse(): QueryRawContractStateResponse {
   return {
@@ -810,6 +1041,27 @@ export const QueryRawContractStateResponse = {
     const message = createBaseQueryRawContractStateResponse();
     message.data = object.data ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: QueryRawContractStateResponseAmino): QueryRawContractStateResponse {
+    const message = createBaseQueryRawContractStateResponse();
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
+  },
+  toAmino(message: QueryRawContractStateResponse): QueryRawContractStateResponseAmino {
+    const obj: any = {};
+    obj.data = message.data ? base64FromBytes(message.data) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryRawContractStateResponseAminoMsg): QueryRawContractStateResponse {
+    return QueryRawContractStateResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryRawContractStateResponse): QueryRawContractStateResponseAminoMsg {
+    return {
+      type: "wasm/QueryRawContractStateResponse",
+      value: QueryRawContractStateResponse.toAmino(message),
+    };
   },
 };
 function createBaseQuerySmartContractStateRequest(): QuerySmartContractStateRequest {
@@ -875,6 +1127,31 @@ export const QuerySmartContractStateRequest = {
     message.queryData = object.queryData ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: QuerySmartContractStateRequestAmino): QuerySmartContractStateRequest {
+    const message = createBaseQuerySmartContractStateRequest();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    if (object.query_data !== undefined && object.query_data !== null) {
+      message.queryData = toUtf8(JSON.stringify(object.query_data));
+    }
+    return message;
+  },
+  toAmino(message: QuerySmartContractStateRequest): QuerySmartContractStateRequestAmino {
+    const obj: any = {};
+    obj.address = message.address === "" ? undefined : message.address;
+    obj.query_data = message.queryData ? JSON.parse(fromUtf8(message.queryData)) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QuerySmartContractStateRequestAminoMsg): QuerySmartContractStateRequest {
+    return QuerySmartContractStateRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QuerySmartContractStateRequest): QuerySmartContractStateRequestAminoMsg {
+    return {
+      type: "wasm/QuerySmartContractStateRequest",
+      value: QuerySmartContractStateRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQuerySmartContractStateResponse(): QuerySmartContractStateResponse {
   return {
@@ -927,6 +1204,27 @@ export const QuerySmartContractStateResponse = {
     message.data = object.data ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: QuerySmartContractStateResponseAmino): QuerySmartContractStateResponse {
+    const message = createBaseQuerySmartContractStateResponse();
+    if (object.data !== undefined && object.data !== null) {
+      message.data = toUtf8(JSON.stringify(object.data));
+    }
+    return message;
+  },
+  toAmino(message: QuerySmartContractStateResponse): QuerySmartContractStateResponseAmino {
+    const obj: any = {};
+    obj.data = message.data ? JSON.parse(fromUtf8(message.data)) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QuerySmartContractStateResponseAminoMsg): QuerySmartContractStateResponse {
+    return QuerySmartContractStateResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QuerySmartContractStateResponse): QuerySmartContractStateResponseAminoMsg {
+    return {
+      type: "wasm/QuerySmartContractStateResponse",
+      value: QuerySmartContractStateResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryCodeRequest(): QueryCodeRequest {
   return {
@@ -974,6 +1272,27 @@ export const QueryCodeRequest = {
       message.codeId = BigInt(object.codeId.toString());
     }
     return message;
+  },
+  fromAmino(object: QueryCodeRequestAmino): QueryCodeRequest {
+    const message = createBaseQueryCodeRequest();
+    if (object.code_id !== undefined && object.code_id !== null) {
+      message.codeId = BigInt(object.code_id);
+    }
+    return message;
+  },
+  toAmino(message: QueryCodeRequest): QueryCodeRequestAmino {
+    const obj: any = {};
+    obj.code_id = message.codeId !== BigInt(0) ? message.codeId?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryCodeRequestAminoMsg): QueryCodeRequest {
+    return QueryCodeRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryCodeRequest): QueryCodeRequestAminoMsg {
+    return {
+      type: "wasm/QueryCodeRequest",
+      value: QueryCodeRequest.toAmino(message),
+    };
   },
 };
 function createBaseCodeInfoResponse(): CodeInfoResponse {
@@ -1060,6 +1379,41 @@ export const CodeInfoResponse = {
     }
     return message;
   },
+  fromAmino(object: CodeInfoResponseAmino): CodeInfoResponse {
+    const message = createBaseCodeInfoResponse();
+    if (object.code_id !== undefined && object.code_id !== null) {
+      message.codeId = BigInt(object.code_id);
+    }
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.data_hash !== undefined && object.data_hash !== null) {
+      message.dataHash = bytesFromBase64(object.data_hash);
+    }
+    if (object.instantiate_permission !== undefined && object.instantiate_permission !== null) {
+      message.instantiatePermission = AccessConfig.fromAmino(object.instantiate_permission);
+    }
+    return message;
+  },
+  toAmino(message: CodeInfoResponse): CodeInfoResponseAmino {
+    const obj: any = {};
+    obj.code_id = message.codeId ? message.codeId?.toString() : "0";
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.data_hash = message.dataHash ? base64FromBytes(message.dataHash) : undefined;
+    obj.instantiate_permission = message.instantiatePermission
+      ? AccessConfig.toAmino(message.instantiatePermission)
+      : AccessConfig.toAmino(AccessConfig.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: CodeInfoResponseAminoMsg): CodeInfoResponse {
+    return CodeInfoResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: CodeInfoResponse): CodeInfoResponseAminoMsg {
+    return {
+      type: "wasm/CodeInfoResponse",
+      value: CodeInfoResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryCodeResponse(): QueryCodeResponse {
   return {
@@ -1120,6 +1474,31 @@ export const QueryCodeResponse = {
     message.data = object.data ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: QueryCodeResponseAmino): QueryCodeResponse {
+    const message = createBaseQueryCodeResponse();
+    if (object.code_info !== undefined && object.code_info !== null) {
+      message.codeInfo = CodeInfoResponse.fromAmino(object.code_info);
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
+  },
+  toAmino(message: QueryCodeResponse): QueryCodeResponseAmino {
+    const obj: any = {};
+    obj.code_info = message.codeInfo ? CodeInfoResponse.toAmino(message.codeInfo) : undefined;
+    obj.data = message.data ? base64FromBytes(message.data) : "";
+    return obj;
+  },
+  fromAminoMsg(object: QueryCodeResponseAminoMsg): QueryCodeResponse {
+    return QueryCodeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryCodeResponse): QueryCodeResponseAminoMsg {
+    return {
+      type: "wasm/QueryCodeResponse",
+      value: QueryCodeResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryCodesRequest(): QueryCodesRequest {
   return {
@@ -1168,6 +1547,27 @@ export const QueryCodesRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
+  },
+  fromAmino(object: QueryCodesRequestAmino): QueryCodesRequest {
+    const message = createBaseQueryCodesRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryCodesRequest): QueryCodesRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryCodesRequestAminoMsg): QueryCodesRequest {
+    return QueryCodesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryCodesRequest): QueryCodesRequestAminoMsg {
+    return {
+      type: "wasm/QueryCodesRequest",
+      value: QueryCodesRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryCodesResponse(): QueryCodesResponse {
@@ -1233,6 +1633,33 @@ export const QueryCodesResponse = {
     }
     return message;
   },
+  fromAmino(object: QueryCodesResponseAmino): QueryCodesResponse {
+    const message = createBaseQueryCodesResponse();
+    message.codeInfos = object.code_infos?.map((e) => CodeInfoResponse.fromAmino(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryCodesResponse): QueryCodesResponseAmino {
+    const obj: any = {};
+    if (message.codeInfos) {
+      obj.code_infos = message.codeInfos.map((e) => (e ? CodeInfoResponse.toAmino(e) : undefined));
+    } else {
+      obj.code_infos = message.codeInfos;
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryCodesResponseAminoMsg): QueryCodesResponse {
+    return QueryCodesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryCodesResponse): QueryCodesResponseAminoMsg {
+    return {
+      type: "wasm/QueryCodesResponse",
+      value: QueryCodesResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryPinnedCodesRequest(): QueryPinnedCodesRequest {
   return {
@@ -1281,6 +1708,27 @@ export const QueryPinnedCodesRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
+  },
+  fromAmino(object: QueryPinnedCodesRequestAmino): QueryPinnedCodesRequest {
+    const message = createBaseQueryPinnedCodesRequest();
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryPinnedCodesRequest): QueryPinnedCodesRequestAmino {
+    const obj: any = {};
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPinnedCodesRequestAminoMsg): QueryPinnedCodesRequest {
+    return QueryPinnedCodesRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryPinnedCodesRequest): QueryPinnedCodesRequestAminoMsg {
+    return {
+      type: "wasm/QueryPinnedCodesRequest",
+      value: QueryPinnedCodesRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryPinnedCodesResponse(): QueryPinnedCodesResponse {
@@ -1356,6 +1804,33 @@ export const QueryPinnedCodesResponse = {
     }
     return message;
   },
+  fromAmino(object: QueryPinnedCodesResponseAmino): QueryPinnedCodesResponse {
+    const message = createBaseQueryPinnedCodesResponse();
+    message.codeIds = object.code_ids?.map((e) => BigInt(e)) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryPinnedCodesResponse): QueryPinnedCodesResponseAmino {
+    const obj: any = {};
+    if (message.codeIds) {
+      obj.code_ids = message.codeIds.map((e) => e.toString());
+    } else {
+      obj.code_ids = message.codeIds;
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryPinnedCodesResponseAminoMsg): QueryPinnedCodesResponse {
+    return QueryPinnedCodesResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryPinnedCodesResponse): QueryPinnedCodesResponseAminoMsg {
+    return {
+      type: "wasm/QueryPinnedCodesResponse",
+      value: QueryPinnedCodesResponse.toAmino(message),
+    };
+  },
 };
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
@@ -1390,6 +1865,23 @@ export const QueryParamsRequest = {
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
+  },
+  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
+    const message = createBaseQueryParamsRequest();
+    return message;
+  },
+  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
+    return QueryParamsRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsRequest): QueryParamsRequestAminoMsg {
+    return {
+      type: "wasm/QueryParamsRequest",
+      value: QueryParamsRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
@@ -1438,6 +1930,27 @@ export const QueryParamsResponse = {
       message.params = Params.fromPartial(object.params);
     }
     return message;
+  },
+  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
+    const message = createBaseQueryParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
+    return QueryParamsResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryParamsResponse): QueryParamsResponseAminoMsg {
+    return {
+      type: "wasm/QueryParamsResponse",
+      value: QueryParamsResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryContractsByCreatorRequest(): QueryContractsByCreatorRequest {
@@ -1502,6 +2015,31 @@ export const QueryContractsByCreatorRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
+  },
+  fromAmino(object: QueryContractsByCreatorRequestAmino): QueryContractsByCreatorRequest {
+    const message = createBaseQueryContractsByCreatorRequest();
+    if (object.creator_address !== undefined && object.creator_address !== null) {
+      message.creatorAddress = object.creator_address;
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryContractsByCreatorRequest): QueryContractsByCreatorRequestAmino {
+    const obj: any = {};
+    obj.creator_address = message.creatorAddress === "" ? undefined : message.creatorAddress;
+    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryContractsByCreatorRequestAminoMsg): QueryContractsByCreatorRequest {
+    return QueryContractsByCreatorRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryContractsByCreatorRequest): QueryContractsByCreatorRequestAminoMsg {
+    return {
+      type: "wasm/QueryContractsByCreatorRequest",
+      value: QueryContractsByCreatorRequest.toAmino(message),
+    };
   },
 };
 function createBaseQueryContractsByCreatorResponse(): QueryContractsByCreatorResponse {
@@ -1571,6 +2109,33 @@ export const QueryContractsByCreatorResponse = {
       message.pagination = PageResponse.fromPartial(object.pagination);
     }
     return message;
+  },
+  fromAmino(object: QueryContractsByCreatorResponseAmino): QueryContractsByCreatorResponse {
+    const message = createBaseQueryContractsByCreatorResponse();
+    message.contractAddresses = object.contract_addresses?.map((e) => e) || [];
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromAmino(object.pagination);
+    }
+    return message;
+  },
+  toAmino(message: QueryContractsByCreatorResponse): QueryContractsByCreatorResponseAmino {
+    const obj: any = {};
+    if (message.contractAddresses) {
+      obj.contract_addresses = message.contractAddresses.map((e) => e);
+    } else {
+      obj.contract_addresses = message.contractAddresses;
+    }
+    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryContractsByCreatorResponseAminoMsg): QueryContractsByCreatorResponse {
+    return QueryContractsByCreatorResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryContractsByCreatorResponse): QueryContractsByCreatorResponseAminoMsg {
+    return {
+      type: "wasm/QueryContractsByCreatorResponse",
+      value: QueryContractsByCreatorResponse.toAmino(message),
+    };
   },
 };
 function createBaseQueryBuildAddressRequest(): QueryBuildAddressRequest {
@@ -1651,6 +2216,39 @@ export const QueryBuildAddressRequest = {
     message.initArgs = object.initArgs ?? new Uint8Array();
     return message;
   },
+  fromAmino(object: QueryBuildAddressRequestAmino): QueryBuildAddressRequest {
+    const message = createBaseQueryBuildAddressRequest();
+    if (object.code_hash !== undefined && object.code_hash !== null) {
+      message.codeHash = object.code_hash;
+    }
+    if (object.creator_address !== undefined && object.creator_address !== null) {
+      message.creatorAddress = object.creator_address;
+    }
+    if (object.salt !== undefined && object.salt !== null) {
+      message.salt = object.salt;
+    }
+    if (object.init_args !== undefined && object.init_args !== null) {
+      message.initArgs = bytesFromBase64(object.init_args);
+    }
+    return message;
+  },
+  toAmino(message: QueryBuildAddressRequest): QueryBuildAddressRequestAmino {
+    const obj: any = {};
+    obj.code_hash = message.codeHash === "" ? undefined : message.codeHash;
+    obj.creator_address = message.creatorAddress === "" ? undefined : message.creatorAddress;
+    obj.salt = message.salt === "" ? undefined : message.salt;
+    obj.init_args = message.initArgs ? base64FromBytes(message.initArgs) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryBuildAddressRequestAminoMsg): QueryBuildAddressRequest {
+    return QueryBuildAddressRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryBuildAddressRequest): QueryBuildAddressRequestAminoMsg {
+    return {
+      type: "wasm/QueryBuildAddressRequest",
+      value: QueryBuildAddressRequest.toAmino(message),
+    };
+  },
 };
 function createBaseQueryBuildAddressResponse(): QueryBuildAddressResponse {
   return {
@@ -1698,5 +2296,26 @@ export const QueryBuildAddressResponse = {
     const message = createBaseQueryBuildAddressResponse();
     message.address = object.address ?? "";
     return message;
+  },
+  fromAmino(object: QueryBuildAddressResponseAmino): QueryBuildAddressResponse {
+    const message = createBaseQueryBuildAddressResponse();
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    }
+    return message;
+  },
+  toAmino(message: QueryBuildAddressResponse): QueryBuildAddressResponseAmino {
+    const obj: any = {};
+    obj.address = message.address === "" ? undefined : message.address;
+    return obj;
+  },
+  fromAminoMsg(object: QueryBuildAddressResponseAminoMsg): QueryBuildAddressResponse {
+    return QueryBuildAddressResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryBuildAddressResponse): QueryBuildAddressResponseAminoMsg {
+    return {
+      type: "wasm/QueryBuildAddressResponse",
+      value: QueryBuildAddressResponse.toAmino(message),
+    };
   },
 };

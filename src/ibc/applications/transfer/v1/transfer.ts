@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../../helpers";
@@ -89,6 +90,31 @@ export const DenomTrace = {
     message.baseDenom = object.baseDenom ?? "";
     return message;
   },
+  fromAmino(object: DenomTraceAmino): DenomTrace {
+    const message = createBaseDenomTrace();
+    if (object.path !== undefined && object.path !== null) {
+      message.path = object.path;
+    }
+    if (object.base_denom !== undefined && object.base_denom !== null) {
+      message.baseDenom = object.base_denom;
+    }
+    return message;
+  },
+  toAmino(message: DenomTrace): DenomTraceAmino {
+    const obj: any = {};
+    obj.path = message.path === "" ? undefined : message.path;
+    obj.base_denom = message.baseDenom === "" ? undefined : message.baseDenom;
+    return obj;
+  },
+  fromAminoMsg(object: DenomTraceAminoMsg): DenomTrace {
+    return DenomTrace.fromAmino(object.value);
+  },
+  toAminoMsg(message: DenomTrace): DenomTraceAminoMsg {
+    return {
+      type: "cosmos-sdk/DenomTrace",
+      value: DenomTrace.toAmino(message),
+    };
+  },
 };
 function createBaseParams(): Params {
   return {
@@ -144,5 +170,30 @@ export const Params = {
     message.sendEnabled = object.sendEnabled ?? false;
     message.receiveEnabled = object.receiveEnabled ?? false;
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    if (object.send_enabled !== undefined && object.send_enabled !== null) {
+      message.sendEnabled = object.send_enabled;
+    }
+    if (object.receive_enabled !== undefined && object.receive_enabled !== null) {
+      message.receiveEnabled = object.receive_enabled;
+    }
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    obj.send_enabled = message.sendEnabled === false ? undefined : message.sendEnabled;
+    obj.receive_enabled = message.receiveEnabled === false ? undefined : message.receiveEnabled;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
+  },
+  toAminoMsg(message: Params): ParamsAminoMsg {
+    return {
+      type: "cosmos-sdk/Params",
+      value: Params.toAmino(message),
+    };
   },
 };

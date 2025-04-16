@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./params";
 import { State } from "./genesis";
@@ -73,6 +74,17 @@ export const ParamsRequest = {
     const message = createBaseParamsRequest();
     return message;
   },
+  fromAmino(_: ParamsRequestAmino): ParamsRequest {
+    const message = createBaseParamsRequest();
+    return message;
+  },
+  toAmino(_: ParamsRequest): ParamsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: ParamsRequestAminoMsg): ParamsRequest {
+    return ParamsRequest.fromAmino(object.value);
+  },
 };
 function createBaseParamsResponse(): ParamsResponse {
   return {
@@ -121,6 +133,21 @@ export const ParamsResponse = {
     }
     return message;
   },
+  fromAmino(object: ParamsResponseAmino): ParamsResponse {
+    const message = createBaseParamsResponse();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    return message;
+  },
+  toAmino(message: ParamsResponse): ParamsResponseAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ParamsResponseAminoMsg): ParamsResponse {
+    return ParamsResponse.fromAmino(object.value);
+  },
 };
 function createBaseStateRequest(): StateRequest {
   return {};
@@ -155,6 +182,17 @@ export const StateRequest = {
   fromPartial<I extends Exact<DeepPartial<StateRequest>, I>>(_: I): StateRequest {
     const message = createBaseStateRequest();
     return message;
+  },
+  fromAmino(_: StateRequestAmino): StateRequest {
+    const message = createBaseStateRequest();
+    return message;
+  },
+  toAmino(_: StateRequest): StateRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: StateRequestAminoMsg): StateRequest {
+    return StateRequest.fromAmino(object.value);
   },
 };
 function createBaseStateResponse(): StateResponse {
@@ -204,6 +242,21 @@ export const StateResponse = {
     }
     return message;
   },
+  fromAmino(object: StateResponseAmino): StateResponse {
+    const message = createBaseStateResponse();
+    if (object.state !== undefined && object.state !== null) {
+      message.state = State.fromAmino(object.state);
+    }
+    return message;
+  },
+  toAmino(message: StateResponse): StateResponseAmino {
+    const obj: any = {};
+    obj.state = message.state ? State.toAmino(message.state) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: StateResponseAminoMsg): StateResponse {
+    return StateResponse.fromAmino(object.value);
+  },
 };
 function createBaseGasPriceRequest(): GasPriceRequest {
   return {
@@ -249,6 +302,21 @@ export const GasPriceRequest = {
     const message = createBaseGasPriceRequest();
     message.denom = object.denom ?? "";
     return message;
+  },
+  fromAmino(object: GasPriceRequestAmino): GasPriceRequest {
+    const message = createBaseGasPriceRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
+  },
+  toAmino(message: GasPriceRequest): GasPriceRequestAmino {
+    const obj: any = {};
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    return obj;
+  },
+  fromAminoMsg(object: GasPriceRequestAminoMsg): GasPriceRequest {
+    return GasPriceRequest.fromAmino(object.value);
   },
 };
 function createBaseGasPriceResponse(): GasPriceResponse {
@@ -298,6 +366,21 @@ export const GasPriceResponse = {
     }
     return message;
   },
+  fromAmino(object: GasPriceResponseAmino): GasPriceResponse {
+    const message = createBaseGasPriceResponse();
+    if (object.price !== undefined && object.price !== null) {
+      message.price = DecCoin.fromAmino(object.price);
+    }
+    return message;
+  },
+  toAmino(message: GasPriceResponse): GasPriceResponseAmino {
+    const obj: any = {};
+    obj.price = message.price ? DecCoin.toAmino(message.price) : DecCoin.toAmino(DecCoin.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: GasPriceResponseAminoMsg): GasPriceResponse {
+    return GasPriceResponse.fromAmino(object.value);
+  },
 };
 function createBaseGasPricesRequest(): GasPricesRequest {
   return {};
@@ -332,6 +415,17 @@ export const GasPricesRequest = {
   fromPartial<I extends Exact<DeepPartial<GasPricesRequest>, I>>(_: I): GasPricesRequest {
     const message = createBaseGasPricesRequest();
     return message;
+  },
+  fromAmino(_: GasPricesRequestAmino): GasPricesRequest {
+    const message = createBaseGasPricesRequest();
+    return message;
+  },
+  toAmino(_: GasPricesRequest): GasPricesRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: GasPricesRequestAminoMsg): GasPricesRequest {
+    return GasPricesRequest.fromAmino(object.value);
   },
 };
 function createBaseGasPricesResponse(): GasPricesResponse {
@@ -382,5 +476,22 @@ export const GasPricesResponse = {
     const message = createBaseGasPricesResponse();
     message.prices = object.prices?.map((e) => DecCoin.fromPartial(e)) || [];
     return message;
+  },
+  fromAmino(object: GasPricesResponseAmino): GasPricesResponse {
+    const message = createBaseGasPricesResponse();
+    message.prices = object.prices?.map((e) => DecCoin.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: GasPricesResponse): GasPricesResponseAmino {
+    const obj: any = {};
+    if (message.prices) {
+      obj.prices = message.prices.map((e) => (e ? DecCoin.toAmino(e) : undefined));
+    } else {
+      obj.prices = message.prices;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: GasPricesResponseAminoMsg): GasPricesResponse {
+    return GasPricesResponse.fromAmino(object.value);
   },
 };

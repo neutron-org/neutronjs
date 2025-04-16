@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Fee, PacketFee } from "./fee";
 import { PacketId } from "../../../core/channel/v1/channel";
@@ -137,6 +138,39 @@ export const MsgRegisterPayee = {
     message.payee = object.payee ?? "";
     return message;
   },
+  fromAmino(object: MsgRegisterPayeeAmino): MsgRegisterPayee {
+    const message = createBaseMsgRegisterPayee();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.relayer !== undefined && object.relayer !== null) {
+      message.relayer = object.relayer;
+    }
+    if (object.payee !== undefined && object.payee !== null) {
+      message.payee = object.payee;
+    }
+    return message;
+  },
+  toAmino(message: MsgRegisterPayee): MsgRegisterPayeeAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.relayer = message.relayer === "" ? undefined : message.relayer;
+    obj.payee = message.payee === "" ? undefined : message.payee;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRegisterPayeeAminoMsg): MsgRegisterPayee {
+    return MsgRegisterPayee.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRegisterPayee): MsgRegisterPayeeAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRegisterPayee",
+      value: MsgRegisterPayee.toAmino(message),
+    };
+  },
 };
 function createBaseMsgRegisterPayeeResponse(): MsgRegisterPayeeResponse {
   return {};
@@ -171,6 +205,23 @@ export const MsgRegisterPayeeResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgRegisterPayeeResponse>, I>>(_: I): MsgRegisterPayeeResponse {
     const message = createBaseMsgRegisterPayeeResponse();
     return message;
+  },
+  fromAmino(_: MsgRegisterPayeeResponseAmino): MsgRegisterPayeeResponse {
+    const message = createBaseMsgRegisterPayeeResponse();
+    return message;
+  },
+  toAmino(_: MsgRegisterPayeeResponse): MsgRegisterPayeeResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgRegisterPayeeResponseAminoMsg): MsgRegisterPayeeResponse {
+    return MsgRegisterPayeeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRegisterPayeeResponse): MsgRegisterPayeeResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRegisterPayeeResponse",
+      value: MsgRegisterPayeeResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgRegisterCounterpartyPayee(): MsgRegisterCounterpartyPayee {
@@ -250,6 +301,39 @@ export const MsgRegisterCounterpartyPayee = {
     message.counterpartyPayee = object.counterpartyPayee ?? "";
     return message;
   },
+  fromAmino(object: MsgRegisterCounterpartyPayeeAmino): MsgRegisterCounterpartyPayee {
+    const message = createBaseMsgRegisterCounterpartyPayee();
+    if (object.port_id !== undefined && object.port_id !== null) {
+      message.portId = object.port_id;
+    }
+    if (object.channel_id !== undefined && object.channel_id !== null) {
+      message.channelId = object.channel_id;
+    }
+    if (object.relayer !== undefined && object.relayer !== null) {
+      message.relayer = object.relayer;
+    }
+    if (object.counterparty_payee !== undefined && object.counterparty_payee !== null) {
+      message.counterpartyPayee = object.counterparty_payee;
+    }
+    return message;
+  },
+  toAmino(message: MsgRegisterCounterpartyPayee): MsgRegisterCounterpartyPayeeAmino {
+    const obj: any = {};
+    obj.port_id = message.portId === "" ? undefined : message.portId;
+    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
+    obj.relayer = message.relayer === "" ? undefined : message.relayer;
+    obj.counterparty_payee = message.counterpartyPayee === "" ? undefined : message.counterpartyPayee;
+    return obj;
+  },
+  fromAminoMsg(object: MsgRegisterCounterpartyPayeeAminoMsg): MsgRegisterCounterpartyPayee {
+    return MsgRegisterCounterpartyPayee.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRegisterCounterpartyPayee): MsgRegisterCounterpartyPayeeAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRegisterCounterpartyPayee",
+      value: MsgRegisterCounterpartyPayee.toAmino(message),
+    };
+  },
 };
 function createBaseMsgRegisterCounterpartyPayeeResponse(): MsgRegisterCounterpartyPayeeResponse {
   return {};
@@ -289,6 +373,23 @@ export const MsgRegisterCounterpartyPayeeResponse = {
   ): MsgRegisterCounterpartyPayeeResponse {
     const message = createBaseMsgRegisterCounterpartyPayeeResponse();
     return message;
+  },
+  fromAmino(_: MsgRegisterCounterpartyPayeeResponseAmino): MsgRegisterCounterpartyPayeeResponse {
+    const message = createBaseMsgRegisterCounterpartyPayeeResponse();
+    return message;
+  },
+  toAmino(_: MsgRegisterCounterpartyPayeeResponse): MsgRegisterCounterpartyPayeeResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgRegisterCounterpartyPayeeResponseAminoMsg): MsgRegisterCounterpartyPayeeResponse {
+    return MsgRegisterCounterpartyPayeeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgRegisterCounterpartyPayeeResponse): MsgRegisterCounterpartyPayeeResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgRegisterCounterpartyPayeeResponse",
+      value: MsgRegisterCounterpartyPayeeResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgPayPacketFee(): MsgPayPacketFee {
@@ -382,6 +483,45 @@ export const MsgPayPacketFee = {
     message.relayers = object.relayers?.map((e) => e) || [];
     return message;
   },
+  fromAmino(object: MsgPayPacketFeeAmino): MsgPayPacketFee {
+    const message = createBaseMsgPayPacketFee();
+    if (object.fee !== undefined && object.fee !== null) {
+      message.fee = Fee.fromAmino(object.fee);
+    }
+    if (object.source_port_id !== undefined && object.source_port_id !== null) {
+      message.sourcePortId = object.source_port_id;
+    }
+    if (object.source_channel_id !== undefined && object.source_channel_id !== null) {
+      message.sourceChannelId = object.source_channel_id;
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    message.relayers = object.relayers?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: MsgPayPacketFee): MsgPayPacketFeeAmino {
+    const obj: any = {};
+    obj.fee = message.fee ? Fee.toAmino(message.fee) : Fee.toAmino(Fee.fromPartial({}));
+    obj.source_port_id = message.sourcePortId === "" ? undefined : message.sourcePortId;
+    obj.source_channel_id = message.sourceChannelId === "" ? undefined : message.sourceChannelId;
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    if (message.relayers) {
+      obj.relayers = message.relayers.map((e) => e);
+    } else {
+      obj.relayers = message.relayers;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgPayPacketFeeAminoMsg): MsgPayPacketFee {
+    return MsgPayPacketFee.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgPayPacketFee): MsgPayPacketFeeAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgPayPacketFee",
+      value: MsgPayPacketFee.toAmino(message),
+    };
+  },
 };
 function createBaseMsgPayPacketFeeResponse(): MsgPayPacketFeeResponse {
   return {};
@@ -416,6 +556,23 @@ export const MsgPayPacketFeeResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgPayPacketFeeResponse>, I>>(_: I): MsgPayPacketFeeResponse {
     const message = createBaseMsgPayPacketFeeResponse();
     return message;
+  },
+  fromAmino(_: MsgPayPacketFeeResponseAmino): MsgPayPacketFeeResponse {
+    const message = createBaseMsgPayPacketFeeResponse();
+    return message;
+  },
+  toAmino(_: MsgPayPacketFeeResponse): MsgPayPacketFeeResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgPayPacketFeeResponseAminoMsg): MsgPayPacketFeeResponse {
+    return MsgPayPacketFeeResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgPayPacketFeeResponse): MsgPayPacketFeeResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgPayPacketFeeResponse",
+      value: MsgPayPacketFeeResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgPayPacketFeeAsync(): MsgPayPacketFeeAsync {
@@ -479,6 +636,35 @@ export const MsgPayPacketFeeAsync = {
     }
     return message;
   },
+  fromAmino(object: MsgPayPacketFeeAsyncAmino): MsgPayPacketFeeAsync {
+    const message = createBaseMsgPayPacketFeeAsync();
+    if (object.packet_id !== undefined && object.packet_id !== null) {
+      message.packetId = PacketId.fromAmino(object.packet_id);
+    }
+    if (object.packet_fee !== undefined && object.packet_fee !== null) {
+      message.packetFee = PacketFee.fromAmino(object.packet_fee);
+    }
+    return message;
+  },
+  toAmino(message: MsgPayPacketFeeAsync): MsgPayPacketFeeAsyncAmino {
+    const obj: any = {};
+    obj.packet_id = message.packetId
+      ? PacketId.toAmino(message.packetId)
+      : PacketId.toAmino(PacketId.fromPartial({}));
+    obj.packet_fee = message.packetFee
+      ? PacketFee.toAmino(message.packetFee)
+      : PacketFee.toAmino(PacketFee.fromPartial({}));
+    return obj;
+  },
+  fromAminoMsg(object: MsgPayPacketFeeAsyncAminoMsg): MsgPayPacketFeeAsync {
+    return MsgPayPacketFeeAsync.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgPayPacketFeeAsync): MsgPayPacketFeeAsyncAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgPayPacketFeeAsync",
+      value: MsgPayPacketFeeAsync.toAmino(message),
+    };
+  },
 };
 function createBaseMsgPayPacketFeeAsyncResponse(): MsgPayPacketFeeAsyncResponse {
   return {};
@@ -515,5 +701,22 @@ export const MsgPayPacketFeeAsyncResponse = {
   ): MsgPayPacketFeeAsyncResponse {
     const message = createBaseMsgPayPacketFeeAsyncResponse();
     return message;
+  },
+  fromAmino(_: MsgPayPacketFeeAsyncResponseAmino): MsgPayPacketFeeAsyncResponse {
+    const message = createBaseMsgPayPacketFeeAsyncResponse();
+    return message;
+  },
+  toAmino(_: MsgPayPacketFeeAsyncResponse): MsgPayPacketFeeAsyncResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgPayPacketFeeAsyncResponseAminoMsg): MsgPayPacketFeeAsyncResponse {
+    return MsgPayPacketFeeAsyncResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgPayPacketFeeAsyncResponse): MsgPayPacketFeeAsyncResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgPayPacketFeeAsyncResponse",
+      value: MsgPayPacketFeeAsyncResponse.toAmino(message),
+    };
   },
 };

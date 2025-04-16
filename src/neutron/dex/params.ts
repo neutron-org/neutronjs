@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact } from "../../helpers";
@@ -124,5 +125,42 @@ export const Params = {
     }
     message.whitelistedLps = object.whitelistedLps?.map((e) => e) || [];
     return message;
+  },
+  fromAmino(object: ParamsAmino): Params {
+    const message = createBaseParams();
+    message.feeTiers = object.fee_tiers?.map((e) => BigInt(e)) || [];
+    if (object.paused !== undefined && object.paused !== null) {
+      message.paused = object.paused;
+    }
+    if (object.max_jits_per_block !== undefined && object.max_jits_per_block !== null) {
+      message.maxJitsPerBlock = BigInt(object.max_jits_per_block);
+    }
+    if (object.good_til_purge_allowance !== undefined && object.good_til_purge_allowance !== null) {
+      message.goodTilPurgeAllowance = BigInt(object.good_til_purge_allowance);
+    }
+    message.whitelistedLps = object.whitelisted_lps?.map((e) => e) || [];
+    return message;
+  },
+  toAmino(message: Params): ParamsAmino {
+    const obj: any = {};
+    if (message.feeTiers) {
+      obj.fee_tiers = message.feeTiers.map((e) => e.toString());
+    } else {
+      obj.fee_tiers = message.feeTiers;
+    }
+    obj.paused = message.paused ?? false;
+    obj.max_jits_per_block =
+      message.maxJitsPerBlock !== BigInt(0) ? message.maxJitsPerBlock?.toString() : undefined;
+    obj.good_til_purge_allowance =
+      message.goodTilPurgeAllowance !== BigInt(0) ? message.goodTilPurgeAllowance?.toString() : undefined;
+    if (message.whitelistedLps) {
+      obj.whitelisted_lps = message.whitelistedLps.map((e) => e);
+    } else {
+      obj.whitelisted_lps = message.whitelistedLps;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: ParamsAminoMsg): Params {
+    return Params.fromAmino(object.value);
   },
 };

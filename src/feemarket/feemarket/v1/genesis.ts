@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -97,6 +98,25 @@ export const GenesisState = {
     }
     return message;
   },
+  fromAmino(object: GenesisStateAmino): GenesisState {
+    const message = createBaseGenesisState();
+    if (object.params !== undefined && object.params !== null) {
+      message.params = Params.fromAmino(object.params);
+    }
+    if (object.state !== undefined && object.state !== null) {
+      message.state = State.fromAmino(object.state);
+    }
+    return message;
+  },
+  toAmino(message: GenesisState): GenesisStateAmino {
+    const obj: any = {};
+    obj.params = message.params ? Params.toAmino(message.params) : undefined;
+    obj.state = message.state ? State.toAmino(message.state) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
+    return GenesisState.fromAmino(object.value);
+  },
 };
 function createBaseState(): State {
   return {
@@ -187,5 +207,34 @@ export const State = {
       message.index = BigInt(object.index.toString());
     }
     return message;
+  },
+  fromAmino(object: StateAmino): State {
+    const message = createBaseState();
+    if (object.base_gas_price !== undefined && object.base_gas_price !== null) {
+      message.baseGasPrice = object.base_gas_price;
+    }
+    if (object.learning_rate !== undefined && object.learning_rate !== null) {
+      message.learningRate = object.learning_rate;
+    }
+    message.window = object.window?.map((e) => BigInt(e)) || [];
+    if (object.index !== undefined && object.index !== null) {
+      message.index = BigInt(object.index);
+    }
+    return message;
+  },
+  toAmino(message: State): StateAmino {
+    const obj: any = {};
+    obj.base_gas_price = message.baseGasPrice === "" ? undefined : message.baseGasPrice;
+    obj.learning_rate = message.learningRate === "" ? undefined : message.learningRate;
+    if (message.window) {
+      obj.window = message.window.map((e) => e.toString());
+    } else {
+      obj.window = message.window;
+    }
+    obj.index = message.index !== BigInt(0) ? message.index?.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: StateAminoMsg): State {
+    return State.fromAmino(object.value);
   },
 };

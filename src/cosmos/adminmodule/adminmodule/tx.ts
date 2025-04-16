@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -94,6 +95,31 @@ export const MsgDeleteAdmin = {
     message.admin = object.admin ?? "";
     return message;
   },
+  fromAmino(object: MsgDeleteAdminAmino): MsgDeleteAdmin {
+    const message = createBaseMsgDeleteAdmin();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.admin !== undefined && object.admin !== null) {
+      message.admin = object.admin;
+    }
+    return message;
+  },
+  toAmino(message: MsgDeleteAdmin): MsgDeleteAdminAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.admin = message.admin === "" ? undefined : message.admin;
+    return obj;
+  },
+  fromAminoMsg(object: MsgDeleteAdminAminoMsg): MsgDeleteAdmin {
+    return MsgDeleteAdmin.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgDeleteAdmin): MsgDeleteAdminAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgDeleteAdmin",
+      value: MsgDeleteAdmin.toAmino(message),
+    };
+  },
 };
 function createBaseMsgDeleteAdminResponse(): MsgDeleteAdminResponse {
   return {};
@@ -128,6 +154,23 @@ export const MsgDeleteAdminResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgDeleteAdminResponse>, I>>(_: I): MsgDeleteAdminResponse {
     const message = createBaseMsgDeleteAdminResponse();
     return message;
+  },
+  fromAmino(_: MsgDeleteAdminResponseAmino): MsgDeleteAdminResponse {
+    const message = createBaseMsgDeleteAdminResponse();
+    return message;
+  },
+  toAmino(_: MsgDeleteAdminResponse): MsgDeleteAdminResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgDeleteAdminResponseAminoMsg): MsgDeleteAdminResponse {
+    return MsgDeleteAdminResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgDeleteAdminResponse): MsgDeleteAdminResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgDeleteAdminResponse",
+      value: MsgDeleteAdminResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgAddAdmin(): MsgAddAdmin {
@@ -185,6 +228,31 @@ export const MsgAddAdmin = {
     message.admin = object.admin ?? "";
     return message;
   },
+  fromAmino(object: MsgAddAdminAmino): MsgAddAdmin {
+    const message = createBaseMsgAddAdmin();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    if (object.admin !== undefined && object.admin !== null) {
+      message.admin = object.admin;
+    }
+    return message;
+  },
+  toAmino(message: MsgAddAdmin): MsgAddAdminAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.admin = message.admin === "" ? undefined : message.admin;
+    return obj;
+  },
+  fromAminoMsg(object: MsgAddAdminAminoMsg): MsgAddAdmin {
+    return MsgAddAdmin.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgAddAdmin): MsgAddAdminAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgAddAdmin",
+      value: MsgAddAdmin.toAmino(message),
+    };
+  },
 };
 function createBaseMsgAddAdminResponse(): MsgAddAdminResponse {
   return {};
@@ -219,6 +287,23 @@ export const MsgAddAdminResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgAddAdminResponse>, I>>(_: I): MsgAddAdminResponse {
     const message = createBaseMsgAddAdminResponse();
     return message;
+  },
+  fromAmino(_: MsgAddAdminResponseAmino): MsgAddAdminResponse {
+    const message = createBaseMsgAddAdminResponse();
+    return message;
+  },
+  toAmino(_: MsgAddAdminResponse): MsgAddAdminResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgAddAdminResponseAminoMsg): MsgAddAdminResponse {
+    return MsgAddAdminResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgAddAdminResponse): MsgAddAdminResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgAddAdminResponse",
+      value: MsgAddAdminResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgSubmitProposalLegacy(): MsgSubmitProposalLegacy {
@@ -279,6 +364,31 @@ export const MsgSubmitProposalLegacy = {
     message.proposer = object.proposer ?? "";
     return message;
   },
+  fromAmino(object: MsgSubmitProposalLegacyAmino): MsgSubmitProposalLegacy {
+    const message = createBaseMsgSubmitProposalLegacy();
+    if (object.content !== undefined && object.content !== null) {
+      message.content = Any.fromAmino(object.content);
+    }
+    if (object.proposer !== undefined && object.proposer !== null) {
+      message.proposer = object.proposer;
+    }
+    return message;
+  },
+  toAmino(message: MsgSubmitProposalLegacy): MsgSubmitProposalLegacyAmino {
+    const obj: any = {};
+    obj.content = message.content ? Any.toAmino(message.content) : undefined;
+    obj.proposer = message.proposer === "" ? undefined : message.proposer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSubmitProposalLegacyAminoMsg): MsgSubmitProposalLegacy {
+    return MsgSubmitProposalLegacy.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSubmitProposalLegacy): MsgSubmitProposalLegacyAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSubmitProposalLegacy",
+      value: MsgSubmitProposalLegacy.toAmino(message),
+    };
+  },
 };
 function createBaseMsgSubmitProposalLegacyResponse(): MsgSubmitProposalLegacyResponse {
   return {
@@ -331,6 +441,27 @@ export const MsgSubmitProposalLegacyResponse = {
       message.proposalId = BigInt(object.proposalId.toString());
     }
     return message;
+  },
+  fromAmino(object: MsgSubmitProposalLegacyResponseAmino): MsgSubmitProposalLegacyResponse {
+    const message = createBaseMsgSubmitProposalLegacyResponse();
+    if (object.proposal_id !== undefined && object.proposal_id !== null) {
+      message.proposalId = BigInt(object.proposal_id);
+    }
+    return message;
+  },
+  toAmino(message: MsgSubmitProposalLegacyResponse): MsgSubmitProposalLegacyResponseAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId?.toString() : "0";
+    return obj;
+  },
+  fromAminoMsg(object: MsgSubmitProposalLegacyResponseAminoMsg): MsgSubmitProposalLegacyResponse {
+    return MsgSubmitProposalLegacyResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSubmitProposalLegacyResponse): MsgSubmitProposalLegacyResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSubmitProposalLegacyResponse",
+      value: MsgSubmitProposalLegacyResponse.toAmino(message),
+    };
   },
 };
 function createBaseMsgSubmitProposal(): MsgSubmitProposal {
@@ -392,6 +523,33 @@ export const MsgSubmitProposal = {
     message.proposer = object.proposer ?? "";
     return message;
   },
+  fromAmino(object: MsgSubmitProposalAmino): MsgSubmitProposal {
+    const message = createBaseMsgSubmitProposal();
+    message.messages = object.messages?.map((e) => Any.fromAmino(e)) || [];
+    if (object.proposer !== undefined && object.proposer !== null) {
+      message.proposer = object.proposer;
+    }
+    return message;
+  },
+  toAmino(message: MsgSubmitProposal): MsgSubmitProposalAmino {
+    const obj: any = {};
+    if (message.messages) {
+      obj.messages = message.messages.map((e) => (e ? Any.toAmino(e) : undefined));
+    } else {
+      obj.messages = message.messages;
+    }
+    obj.proposer = message.proposer === "" ? undefined : message.proposer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSubmitProposalAminoMsg): MsgSubmitProposal {
+    return MsgSubmitProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSubmitProposal): MsgSubmitProposalAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSubmitProposal",
+      value: MsgSubmitProposal.toAmino(message),
+    };
+  },
 };
 function createBaseMsgSubmitProposalResponse(): MsgSubmitProposalResponse {
   return {
@@ -441,5 +599,26 @@ export const MsgSubmitProposalResponse = {
       message.proposalId = BigInt(object.proposalId.toString());
     }
     return message;
+  },
+  fromAmino(object: MsgSubmitProposalResponseAmino): MsgSubmitProposalResponse {
+    const message = createBaseMsgSubmitProposalResponse();
+    if (object.proposal_id !== undefined && object.proposal_id !== null) {
+      message.proposalId = BigInt(object.proposal_id);
+    }
+    return message;
+  },
+  toAmino(message: MsgSubmitProposalResponse): MsgSubmitProposalResponseAmino {
+    const obj: any = {};
+    obj.proposal_id = message.proposalId ? message.proposalId?.toString() : "0";
+    return obj;
+  },
+  fromAminoMsg(object: MsgSubmitProposalResponseAminoMsg): MsgSubmitProposalResponse {
+    return MsgSubmitProposalResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgSubmitProposalResponse): MsgSubmitProposalResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgSubmitProposalResponse",
+      value: MsgSubmitProposalResponse.toAmino(message),
+    };
   },
 };
