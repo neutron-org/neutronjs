@@ -95,6 +95,9 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
       marketmap: {
         v1: (await import("./marketmap/v1/query.rpc.Query")).createRpcQueryExtension(client),
       },
+      oracle: {
+        v1: (await import("./oracle/v1/query.rpc.Query")).createRpcQueryExtension(client),
+      },
     },
   };
 };
