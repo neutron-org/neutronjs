@@ -116,7 +116,7 @@ export const MsgDeleteAdmin = {
   },
   toAminoMsg(message: MsgDeleteAdmin): MsgDeleteAdminAminoMsg {
     return {
-      type: "cosmos-sdk/MsgDeleteAdmin",
+      type: "adminmodule/MsgDeleteAdmin",
       value: MsgDeleteAdmin.toAmino(message),
     };
   },
@@ -249,7 +249,7 @@ export const MsgAddAdmin = {
   },
   toAminoMsg(message: MsgAddAdmin): MsgAddAdminAminoMsg {
     return {
-      type: "cosmos-sdk/MsgAddAdmin",
+      type: "adminmodule/MsgAddAdmin",
       value: MsgAddAdmin.toAmino(message),
     };
   },
@@ -385,7 +385,7 @@ export const MsgSubmitProposalLegacy = {
   },
   toAminoMsg(message: MsgSubmitProposalLegacy): MsgSubmitProposalLegacyAminoMsg {
     return {
-      type: "cosmos-sdk/MsgSubmitProposalLegacy",
+      type: "adminmodule/MsgSubmitProposalLegacy",
       value: MsgSubmitProposalLegacy.toAmino(message),
     };
   },
@@ -546,7 +546,7 @@ export const MsgSubmitProposal = {
   },
   toAminoMsg(message: MsgSubmitProposal): MsgSubmitProposalAminoMsg {
     return {
-      type: "cosmos-sdk/MsgSubmitProposal",
+      type: "adminmodule/MsgSubmitProposal",
       value: MsgSubmitProposal.toAmino(message),
     };
   },
