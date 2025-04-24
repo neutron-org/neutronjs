@@ -37,6 +37,7 @@
     "!cosmos-sdk-*/**/*.md"
   ],
   "scripts": {
+    "precodegen": "./scripts/exports_protos.sh",
     "set-versions": "./scripts/set-versions.sh",
     "format": "prettier --write --log-level warn \"./src/**/*.ts\" \"./scripts/**/*.js\"",
     "codegen": "rm -rf ./src && ./scripts/codegen.js && cp -rf copypaste_files/* ./src/ && npm run format",
