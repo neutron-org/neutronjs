@@ -73,21 +73,6 @@ export const Capability = {
     }
     return message;
   },
-  fromAmino(object: CapabilityAmino): Capability {
-    const message = createBaseCapability();
-    if (object.index !== undefined && object.index !== null) {
-      message.index = BigInt(object.index);
-    }
-    return message;
-  },
-  toAmino(message: Capability): CapabilityAmino {
-    const obj: any = {};
-    obj.index = message.index !== BigInt(0) ? message.index?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: CapabilityAminoMsg): Capability {
-    return Capability.fromAmino(object.value);
-  },
 };
 function createBaseOwner(): Owner {
   return {
@@ -144,25 +129,6 @@ export const Owner = {
     message.name = object.name ?? "";
     return message;
   },
-  fromAmino(object: OwnerAmino): Owner {
-    const message = createBaseOwner();
-    if (object.module !== undefined && object.module !== null) {
-      message.module = object.module;
-    }
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    }
-    return message;
-  },
-  toAmino(message: Owner): OwnerAmino {
-    const obj: any = {};
-    obj.module = message.module === "" ? undefined : message.module;
-    obj.name = message.name === "" ? undefined : message.name;
-    return obj;
-  },
-  fromAminoMsg(object: OwnerAminoMsg): Owner {
-    return Owner.fromAmino(object.value);
-  },
 };
 function createBaseCapabilityOwners(): CapabilityOwners {
   return {
@@ -212,22 +178,5 @@ export const CapabilityOwners = {
     const message = createBaseCapabilityOwners();
     message.owners = object.owners?.map((e) => Owner.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: CapabilityOwnersAmino): CapabilityOwners {
-    const message = createBaseCapabilityOwners();
-    message.owners = object.owners?.map((e) => Owner.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: CapabilityOwners): CapabilityOwnersAmino {
-    const obj: any = {};
-    if (message.owners) {
-      obj.owners = message.owners.map((e) => (e ? Owner.toAmino(e) : undefined));
-    } else {
-      obj.owners = message.owners;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: CapabilityOwnersAminoMsg): CapabilityOwners {
-    return CapabilityOwners.fromAmino(object.value);
   },
 };

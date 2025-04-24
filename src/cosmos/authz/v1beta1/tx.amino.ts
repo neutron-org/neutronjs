@@ -54,13 +54,19 @@ export const AminoConverter = {
       return {
         granter,
         grantee,
-        grant: {
-          authorization: {
-            typeUrl: grant.authorization.type_url,
-            value: grant.authorization.value,
-          },
-          expiration: grant.expiration,
-        },
+        grant:
+          grant == null
+            ? grant
+            : {
+                authorization:
+                  grant.authorization == null
+                    ? grant.authorization
+                    : {
+                        typeUrl: grant.authorization.type_url,
+                        value: grant.authorization.value,
+                      },
+                expiration: grant.expiration,
+              },
       };
     },
   },
@@ -78,7 +84,7 @@ export const AminoConverter = {
     fromAmino: ({ grantee, msgs }: MsgExecAminoType["value"]): MsgExec => {
       return {
         grantee,
-        msgs: msgs.map((el0) => ({
+        msgs: msgs.map?.((el0) => ({
           typeUrl: el0.type_url,
           value: el0.value,
         })),

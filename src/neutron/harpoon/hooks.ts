@@ -173,25 +173,4 @@ export const HookSubscriptions = {
     message.contractAddresses = object.contractAddresses?.map((e) => e) || [];
     return message;
   },
-  fromAmino(object: HookSubscriptionsAmino): HookSubscriptions {
-    const message = createBaseHookSubscriptions();
-    if (object.hook_type !== undefined && object.hook_type !== null) {
-      message.hookType = object.hook_type;
-    }
-    message.contractAddresses = object.contract_addresses?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: HookSubscriptions): HookSubscriptionsAmino {
-    const obj: any = {};
-    obj.hook_type = message.hookType === 0 ? undefined : message.hookType;
-    if (message.contractAddresses) {
-      obj.contract_addresses = message.contractAddresses.map((e) => e);
-    } else {
-      obj.contract_addresses = message.contractAddresses;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: HookSubscriptionsAminoMsg): HookSubscriptions {
-    return HookSubscriptions.fromAmino(object.value);
-  },
 };

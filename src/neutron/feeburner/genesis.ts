@@ -76,27 +76,4 @@ export const GenesisState = {
     }
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    if (object.total_burned_neutrons_amount !== undefined && object.total_burned_neutrons_amount !== null) {
-      message.totalBurnedNeutronsAmount = TotalBurnedNeutronsAmount.fromAmino(
-        object.total_burned_neutrons_amount,
-      );
-    }
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    obj.total_burned_neutrons_amount = message.totalBurnedNeutronsAmount
-      ? TotalBurnedNeutronsAmount.toAmino(message.totalBurnedNeutronsAmount)
-      : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
 };

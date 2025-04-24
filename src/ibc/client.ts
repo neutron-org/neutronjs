@@ -39,11 +39,7 @@ export const ibcProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
   ...ibcCoreConnectionV1TxRegistry.registry,
   ...ibcLightclientsWasmV1TxRegistry.registry,
 ];
-export const getSigningIbcClientOptions = ({
-  defaultTypes = defaultRegistryTypes,
-}: {
-  defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
-} = {}): {
+export const getSigningIbcClientOptions = ({ defaultTypes = defaultRegistryTypes } = {}): {
   registry: Registry;
   aminoTypes: AminoTypes;
 } => {

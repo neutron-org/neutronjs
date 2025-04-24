@@ -11,11 +11,7 @@ export const gaiaAminoConverters = {
 export const gaiaProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
   ...gaiaGlobalfeeV1beta1TxRegistry.registry,
 ];
-export const getSigningGaiaClientOptions = ({
-  defaultTypes = defaultRegistryTypes,
-}: {
-  defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
-} = {}): {
+export const getSigningGaiaClientOptions = ({ defaultTypes = defaultRegistryTypes } = {}): {
   registry: Registry;
   aminoTypes: AminoTypes;
 } => {

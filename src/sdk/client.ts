@@ -9,11 +9,7 @@ export const sdkAminoConverters = {
   ...sdkAuctionV1TxAmino.AminoConverter,
 };
 export const sdkProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...sdkAuctionV1TxRegistry.registry];
-export const getSigningSdkClientOptions = ({
-  defaultTypes = defaultRegistryTypes,
-}: {
-  defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
-} = {}): {
+export const getSigningSdkClientOptions = ({ defaultTypes = defaultRegistryTypes } = {}): {
   registry: Registry;
   aminoTypes: AminoTypes;
 } => {

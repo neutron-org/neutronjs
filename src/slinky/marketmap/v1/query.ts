@@ -103,17 +103,6 @@ export const MarketMapRequest = {
     const message = createBaseMarketMapRequest();
     return message;
   },
-  fromAmino(_: MarketMapRequestAmino): MarketMapRequest {
-    const message = createBaseMarketMapRequest();
-    return message;
-  },
-  toAmino(_: MarketMapRequest): MarketMapRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MarketMapRequestAminoMsg): MarketMapRequest {
-    return MarketMapRequest.fromAmino(object.value);
-  },
 };
 function createBaseMarketMapResponse(): MarketMapResponse {
   return {
@@ -185,29 +174,6 @@ export const MarketMapResponse = {
     message.chainId = object.chainId ?? "";
     return message;
   },
-  fromAmino(object: MarketMapResponseAmino): MarketMapResponse {
-    const message = createBaseMarketMapResponse();
-    if (object.market_map !== undefined && object.market_map !== null) {
-      message.marketMap = MarketMap.fromAmino(object.market_map);
-    }
-    if (object.last_updated !== undefined && object.last_updated !== null) {
-      message.lastUpdated = BigInt(object.last_updated);
-    }
-    if (object.chain_id !== undefined && object.chain_id !== null) {
-      message.chainId = object.chain_id;
-    }
-    return message;
-  },
-  toAmino(message: MarketMapResponse): MarketMapResponseAmino {
-    const obj: any = {};
-    obj.market_map = message.marketMap ? MarketMap.toAmino(message.marketMap) : undefined;
-    obj.last_updated = message.lastUpdated !== BigInt(0) ? message.lastUpdated?.toString() : undefined;
-    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
-    return obj;
-  },
-  fromAminoMsg(object: MarketMapResponseAminoMsg): MarketMapResponse {
-    return MarketMapResponse.fromAmino(object.value);
-  },
 };
 function createBaseMarketsRequest(): MarketsRequest {
   return {};
@@ -242,17 +208,6 @@ export const MarketsRequest = {
   fromPartial<I extends Exact<DeepPartial<MarketsRequest>, I>>(_: I): MarketsRequest {
     const message = createBaseMarketsRequest();
     return message;
-  },
-  fromAmino(_: MarketsRequestAmino): MarketsRequest {
-    const message = createBaseMarketsRequest();
-    return message;
-  },
-  toAmino(_: MarketsRequest): MarketsRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MarketsRequestAminoMsg): MarketsRequest {
-    return MarketsRequest.fromAmino(object.value);
   },
 };
 function createBaseMarketsResponse(): MarketsResponse {
@@ -304,23 +259,6 @@ export const MarketsResponse = {
     message.markets = object.markets?.map((e) => Market.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: MarketsResponseAmino): MarketsResponse {
-    const message = createBaseMarketsResponse();
-    message.markets = object.markets?.map((e) => Market.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: MarketsResponse): MarketsResponseAmino {
-    const obj: any = {};
-    if (message.markets) {
-      obj.markets = message.markets.map((e) => (e ? Market.toAmino(e) : undefined));
-    } else {
-      obj.markets = message.markets;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: MarketsResponseAminoMsg): MarketsResponse {
-    return MarketsResponse.fromAmino(object.value);
-  },
 };
 function createBaseMarketRequest(): MarketRequest {
   return {
@@ -370,21 +308,6 @@ export const MarketRequest = {
     }
     return message;
   },
-  fromAmino(object: MarketRequestAmino): MarketRequest {
-    const message = createBaseMarketRequest();
-    if (object.currency_pair !== undefined && object.currency_pair !== null) {
-      message.currencyPair = CurrencyPair.fromAmino(object.currency_pair);
-    }
-    return message;
-  },
-  toAmino(message: MarketRequest): MarketRequestAmino {
-    const obj: any = {};
-    obj.currency_pair = message.currencyPair ? CurrencyPair.toAmino(message.currencyPair) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MarketRequestAminoMsg): MarketRequest {
-    return MarketRequest.fromAmino(object.value);
-  },
 };
 function createBaseMarketResponse(): MarketResponse {
   return {
@@ -433,21 +356,6 @@ export const MarketResponse = {
     }
     return message;
   },
-  fromAmino(object: MarketResponseAmino): MarketResponse {
-    const message = createBaseMarketResponse();
-    if (object.market !== undefined && object.market !== null) {
-      message.market = Market.fromAmino(object.market);
-    }
-    return message;
-  },
-  toAmino(message: MarketResponse): MarketResponseAmino {
-    const obj: any = {};
-    obj.market = message.market ? Market.toAmino(message.market) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MarketResponseAminoMsg): MarketResponse {
-    return MarketResponse.fromAmino(object.value);
-  },
 };
 function createBaseParamsRequest(): ParamsRequest {
   return {};
@@ -482,17 +390,6 @@ export const ParamsRequest = {
   fromPartial<I extends Exact<DeepPartial<ParamsRequest>, I>>(_: I): ParamsRequest {
     const message = createBaseParamsRequest();
     return message;
-  },
-  fromAmino(_: ParamsRequestAmino): ParamsRequest {
-    const message = createBaseParamsRequest();
-    return message;
-  },
-  toAmino(_: ParamsRequest): ParamsRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: ParamsRequestAminoMsg): ParamsRequest {
-    return ParamsRequest.fromAmino(object.value);
   },
 };
 function createBaseParamsResponse(): ParamsResponse {
@@ -542,21 +439,6 @@ export const ParamsResponse = {
     }
     return message;
   },
-  fromAmino(object: ParamsResponseAmino): ParamsResponse {
-    const message = createBaseParamsResponse();
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: ParamsResponse): ParamsResponseAmino {
-    const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ParamsResponseAminoMsg): ParamsResponse {
-    return ParamsResponse.fromAmino(object.value);
-  },
 };
 function createBaseLastUpdatedRequest(): LastUpdatedRequest {
   return {};
@@ -591,17 +473,6 @@ export const LastUpdatedRequest = {
   fromPartial<I extends Exact<DeepPartial<LastUpdatedRequest>, I>>(_: I): LastUpdatedRequest {
     const message = createBaseLastUpdatedRequest();
     return message;
-  },
-  fromAmino(_: LastUpdatedRequestAmino): LastUpdatedRequest {
-    const message = createBaseLastUpdatedRequest();
-    return message;
-  },
-  toAmino(_: LastUpdatedRequest): LastUpdatedRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: LastUpdatedRequestAminoMsg): LastUpdatedRequest {
-    return LastUpdatedRequest.fromAmino(object.value);
   },
 };
 function createBaseLastUpdatedResponse(): LastUpdatedResponse {
@@ -650,20 +521,5 @@ export const LastUpdatedResponse = {
       message.lastUpdated = BigInt(object.lastUpdated.toString());
     }
     return message;
-  },
-  fromAmino(object: LastUpdatedResponseAmino): LastUpdatedResponse {
-    const message = createBaseLastUpdatedResponse();
-    if (object.last_updated !== undefined && object.last_updated !== null) {
-      message.lastUpdated = BigInt(object.last_updated);
-    }
-    return message;
-  },
-  toAmino(message: LastUpdatedResponse): LastUpdatedResponseAmino {
-    const obj: any = {};
-    obj.last_updated = message.lastUpdated !== BigInt(0) ? message.lastUpdated?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: LastUpdatedResponseAminoMsg): LastUpdatedResponse {
-    return LastUpdatedResponse.fromAmino(object.value);
   },
 };

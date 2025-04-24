@@ -107,35 +107,6 @@ export const ClientState = {
     }
     return message;
   },
-  fromAmino(object: ClientStateAmino): ClientState {
-    const message = createBaseClientState();
-    if (object.data !== undefined && object.data !== null) {
-      message.data = bytesFromBase64(object.data);
-    }
-    if (object.checksum !== undefined && object.checksum !== null) {
-      message.checksum = bytesFromBase64(object.checksum);
-    }
-    if (object.latest_height !== undefined && object.latest_height !== null) {
-      message.latestHeight = Height.fromAmino(object.latest_height);
-    }
-    return message;
-  },
-  toAmino(message: ClientState): ClientStateAmino {
-    const obj: any = {};
-    obj.data = message.data ? base64FromBytes(message.data) : undefined;
-    obj.checksum = message.checksum ? base64FromBytes(message.checksum) : undefined;
-    obj.latest_height = message.latestHeight ? Height.toAmino(message.latestHeight) : {};
-    return obj;
-  },
-  fromAminoMsg(object: ClientStateAminoMsg): ClientState {
-    return ClientState.fromAmino(object.value);
-  },
-  toAminoMsg(message: ClientState): ClientStateAminoMsg {
-    return {
-      type: "cosmos-sdk/ClientState",
-      value: ClientState.toAmino(message),
-    };
-  },
 };
 function createBaseConsensusState(): ConsensusState {
   return {
@@ -183,27 +154,6 @@ export const ConsensusState = {
     message.data = object.data ?? new Uint8Array();
     return message;
   },
-  fromAmino(object: ConsensusStateAmino): ConsensusState {
-    const message = createBaseConsensusState();
-    if (object.data !== undefined && object.data !== null) {
-      message.data = bytesFromBase64(object.data);
-    }
-    return message;
-  },
-  toAmino(message: ConsensusState): ConsensusStateAmino {
-    const obj: any = {};
-    obj.data = message.data ? base64FromBytes(message.data) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ConsensusStateAminoMsg): ConsensusState {
-    return ConsensusState.fromAmino(object.value);
-  },
-  toAminoMsg(message: ConsensusState): ConsensusStateAminoMsg {
-    return {
-      type: "cosmos-sdk/ConsensusState",
-      value: ConsensusState.toAmino(message),
-    };
-  },
 };
 function createBaseClientMessage(): ClientMessage {
   return {
@@ -250,27 +200,6 @@ export const ClientMessage = {
     const message = createBaseClientMessage();
     message.data = object.data ?? new Uint8Array();
     return message;
-  },
-  fromAmino(object: ClientMessageAmino): ClientMessage {
-    const message = createBaseClientMessage();
-    if (object.data !== undefined && object.data !== null) {
-      message.data = bytesFromBase64(object.data);
-    }
-    return message;
-  },
-  toAmino(message: ClientMessage): ClientMessageAmino {
-    const obj: any = {};
-    obj.data = message.data ? base64FromBytes(message.data) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ClientMessageAminoMsg): ClientMessage {
-    return ClientMessage.fromAmino(object.value);
-  },
-  toAminoMsg(message: ClientMessage): ClientMessageAminoMsg {
-    return {
-      type: "cosmos-sdk/ClientMessage",
-      value: ClientMessage.toAmino(message),
-    };
   },
 };
 function createBaseChecksums(): Checksums {
@@ -322,28 +251,5 @@ export const Checksums = {
     const message = createBaseChecksums();
     message.checksums = object.checksums?.map((e) => e) || [];
     return message;
-  },
-  fromAmino(object: ChecksumsAmino): Checksums {
-    const message = createBaseChecksums();
-    message.checksums = object.checksums?.map((e) => bytesFromBase64(e)) || [];
-    return message;
-  },
-  toAmino(message: Checksums): ChecksumsAmino {
-    const obj: any = {};
-    if (message.checksums) {
-      obj.checksums = message.checksums.map((e) => base64FromBytes(e));
-    } else {
-      obj.checksums = message.checksums;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: ChecksumsAminoMsg): Checksums {
-    return Checksums.fromAmino(object.value);
-  },
-  toAminoMsg(message: Checksums): ChecksumsAminoMsg {
-    return {
-      type: "cosmos-sdk/Checksums",
-      value: Checksums.toAmino(message),
-    };
   },
 };

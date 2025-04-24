@@ -53,10 +53,16 @@ export const AminoConverter = {
       return {
         granter,
         grantee,
-        permissions: {
-          level: permissions_LevelFromJSON(permissions.level),
-          limitTypeUrls: permissions.limit_type_urls,
-        },
+        permissions:
+          permissions == null
+            ? permissions
+            : {
+                level:
+                  permissions.level == null
+                    ? permissions.level
+                    : permissions_LevelFromJSON(permissions.level),
+                limitTypeUrls: permissions.limit_type_urls,
+              },
       };
     },
   },

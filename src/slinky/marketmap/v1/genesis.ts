@@ -94,27 +94,4 @@ export const GenesisState = {
     }
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    if (object.market_map !== undefined && object.market_map !== null) {
-      message.marketMap = MarketMap.fromAmino(object.market_map);
-    }
-    if (object.last_updated !== undefined && object.last_updated !== null) {
-      message.lastUpdated = BigInt(object.last_updated);
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    obj.market_map = message.marketMap ? MarketMap.toAmino(message.marketMap) : undefined;
-    obj.last_updated = message.lastUpdated !== BigInt(0) ? message.lastUpdated?.toString() : undefined;
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
 };

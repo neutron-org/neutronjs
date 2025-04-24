@@ -76,26 +76,4 @@ export const Params = {
     message.registerFee = object.registerFee?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: ParamsAmino): Params {
-    const message = createBaseParams();
-    if (object.msg_submit_tx_max_messages !== undefined && object.msg_submit_tx_max_messages !== null) {
-      message.msgSubmitTxMaxMessages = BigInt(object.msg_submit_tx_max_messages);
-    }
-    message.registerFee = object.register_fee?.map((e) => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: Params): ParamsAmino {
-    const obj: any = {};
-    obj.msg_submit_tx_max_messages =
-      message.msgSubmitTxMaxMessages !== BigInt(0) ? message.msgSubmitTxMaxMessages?.toString() : undefined;
-    if (message.registerFee) {
-      obj.register_fee = message.registerFee.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.register_fee = message.registerFee;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: ParamsAminoMsg): Params {
-    return Params.fromAmino(object.value);
-  },
 };

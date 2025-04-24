@@ -81,27 +81,4 @@ export const Params = {
     message.treasuryAddress = object.treasuryAddress ?? "";
     return message;
   },
-  fromAmino(object: ParamsAmino): Params {
-    const message = createBaseParams();
-    if (object.neutron_denom !== undefined && object.neutron_denom !== null) {
-      message.neutronDenom = object.neutron_denom;
-    }
-    if (object.reserve_address !== undefined && object.reserve_address !== null) {
-      message.reserveAddress = object.reserve_address;
-    }
-    if (object.treasury_address !== undefined && object.treasury_address !== null) {
-      message.treasuryAddress = object.treasury_address;
-    }
-    return message;
-  },
-  toAmino(message: Params): ParamsAmino {
-    const obj: any = {};
-    obj.neutron_denom = message.neutronDenom === "" ? undefined : message.neutronDenom;
-    obj.reserve_address = message.reserveAddress === "" ? undefined : message.reserveAddress;
-    obj.treasury_address = message.treasuryAddress === "" ? undefined : message.treasuryAddress;
-    return obj;
-  },
-  fromAminoMsg(object: ParamsAminoMsg): Params {
-    return Params.fromAmino(object.value);
-  },
 };

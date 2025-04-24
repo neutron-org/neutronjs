@@ -63,23 +63,4 @@ export const PairID = {
     message.token1 = object.token1 ?? "";
     return message;
   },
-  fromAmino(object: PairIDAmino): PairID {
-    const message = createBasePairID();
-    if (object.token0 !== undefined && object.token0 !== null) {
-      message.token0 = object.token0;
-    }
-    if (object.token1 !== undefined && object.token1 !== null) {
-      message.token1 = object.token1;
-    }
-    return message;
-  },
-  toAmino(message: PairID): PairIDAmino {
-    const obj: any = {};
-    obj.token0 = message.token0 === "" ? undefined : message.token0;
-    obj.token1 = message.token1 === "" ? undefined : message.token1;
-    return obj;
-  },
-  fromAminoMsg(object: PairIDAminoMsg): PairID {
-    return PairID.fromAmino(object.value);
-  },
 };

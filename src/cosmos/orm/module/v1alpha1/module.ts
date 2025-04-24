@@ -44,21 +44,4 @@ export const Module = {
     const message = createBaseModule();
     return message;
   },
-  fromAmino(_: ModuleAmino): Module {
-    const message = createBaseModule();
-    return message;
-  },
-  toAmino(_: Module): ModuleAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: ModuleAminoMsg): Module {
-    return Module.fromAmino(object.value);
-  },
-  toAminoMsg(message: Module): ModuleAminoMsg {
-    return {
-      type: "cosmos-sdk/Module",
-      value: Module.toAmino(message),
-    };
-  },
 };

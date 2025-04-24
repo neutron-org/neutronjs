@@ -192,31 +192,6 @@ export const ModuleOptions = {
     }
     return message;
   },
-  fromAmino(object: ModuleOptionsAmino): ModuleOptions {
-    const message = createBaseModuleOptions();
-    if (object.tx !== undefined && object.tx !== null) {
-      message.tx = ServiceCommandDescriptor.fromAmino(object.tx);
-    }
-    if (object.query !== undefined && object.query !== null) {
-      message.query = ServiceCommandDescriptor.fromAmino(object.query);
-    }
-    return message;
-  },
-  toAmino(message: ModuleOptions): ModuleOptionsAmino {
-    const obj: any = {};
-    obj.tx = message.tx ? ServiceCommandDescriptor.toAmino(message.tx) : undefined;
-    obj.query = message.query ? ServiceCommandDescriptor.toAmino(message.query) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ModuleOptionsAminoMsg): ModuleOptions {
-    return ModuleOptions.fromAmino(object.value);
-  },
-  toAminoMsg(message: ModuleOptions): ModuleOptionsAminoMsg {
-    return {
-      type: "cosmos-sdk/ModuleOptions",
-      value: ModuleOptions.toAmino(message),
-    };
-  },
 };
 function createBaseServiceCommandDescriptor_SubCommandsEntry(): ServiceCommandDescriptor_SubCommandsEntry {
   return {
@@ -281,31 +256,6 @@ export const ServiceCommandDescriptor_SubCommandsEntry = {
       message.value = ServiceCommandDescriptor.fromPartial(object.value);
     }
     return message;
-  },
-  fromAmino(
-    object: ServiceCommandDescriptor_SubCommandsEntryAmino,
-  ): ServiceCommandDescriptor_SubCommandsEntry {
-    const message = createBaseServiceCommandDescriptor_SubCommandsEntry();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = object.key;
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = ServiceCommandDescriptor.fromAmino(object.value);
-    }
-    return message;
-  },
-  toAmino(
-    message: ServiceCommandDescriptor_SubCommandsEntry,
-  ): ServiceCommandDescriptor_SubCommandsEntryAmino {
-    const obj: any = {};
-    obj.key = message.key === "" ? undefined : message.key;
-    obj.value = message.value ? ServiceCommandDescriptor.toAmino(message.value) : undefined;
-    return obj;
-  },
-  fromAminoMsg(
-    object: ServiceCommandDescriptor_SubCommandsEntryAminoMsg,
-  ): ServiceCommandDescriptor_SubCommandsEntry {
-    return ServiceCommandDescriptor_SubCommandsEntry.fromAmino(object.value);
   },
 };
 function createBaseServiceCommandDescriptor(): ServiceCommandDescriptor {
@@ -409,49 +359,6 @@ export const ServiceCommandDescriptor = {
     }, {});
     return message;
   },
-  fromAmino(object: ServiceCommandDescriptorAmino): ServiceCommandDescriptor {
-    const message = createBaseServiceCommandDescriptor();
-    if (object.service !== undefined && object.service !== null) {
-      message.service = object.service;
-    }
-    message.rpcCommandOptions = object.rpc_command_options?.map((e) => RpcCommandOptions.fromAmino(e)) || [];
-    message.subCommands = Object.entries(object.sub_commands ?? {}).reduce<{
-      [key: string]: ServiceCommandDescriptor;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = ServiceCommandDescriptor.fromAmino(value);
-      }
-      return acc;
-    }, {});
-    return message;
-  },
-  toAmino(message: ServiceCommandDescriptor): ServiceCommandDescriptorAmino {
-    const obj: any = {};
-    obj.service = message.service === "" ? undefined : message.service;
-    if (message.rpcCommandOptions) {
-      obj.rpc_command_options = message.rpcCommandOptions.map((e) =>
-        e ? RpcCommandOptions.toAmino(e) : undefined,
-      );
-    } else {
-      obj.rpc_command_options = message.rpcCommandOptions;
-    }
-    obj.sub_commands = {};
-    if (message.subCommands) {
-      Object.entries(message.subCommands).forEach(([k, v]) => {
-        obj.sub_commands[k] = ServiceCommandDescriptor.toAmino(v);
-      });
-    }
-    return obj;
-  },
-  fromAminoMsg(object: ServiceCommandDescriptorAminoMsg): ServiceCommandDescriptor {
-    return ServiceCommandDescriptor.fromAmino(object.value);
-  },
-  toAminoMsg(message: ServiceCommandDescriptor): ServiceCommandDescriptorAminoMsg {
-    return {
-      type: "cosmos-sdk/ServiceCommandDescriptor",
-      value: ServiceCommandDescriptor.toAmino(message),
-    };
-  },
 };
 function createBaseRpcCommandOptions_FlagOptionsEntry(): RpcCommandOptions_FlagOptionsEntry {
   return {
@@ -514,25 +421,6 @@ export const RpcCommandOptions_FlagOptionsEntry = {
       message.value = FlagOptions.fromPartial(object.value);
     }
     return message;
-  },
-  fromAmino(object: RpcCommandOptions_FlagOptionsEntryAmino): RpcCommandOptions_FlagOptionsEntry {
-    const message = createBaseRpcCommandOptions_FlagOptionsEntry();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = object.key;
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = FlagOptions.fromAmino(object.value);
-    }
-    return message;
-  },
-  toAmino(message: RpcCommandOptions_FlagOptionsEntry): RpcCommandOptions_FlagOptionsEntryAmino {
-    const obj: any = {};
-    obj.key = message.key === "" ? undefined : message.key;
-    obj.value = message.value ? FlagOptions.toAmino(message.value) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: RpcCommandOptions_FlagOptionsEntryAminoMsg): RpcCommandOptions_FlagOptionsEntry {
-    return RpcCommandOptions_FlagOptionsEntry.fromAmino(object.value);
   },
 };
 function createBaseRpcCommandOptions(): RpcCommandOptions {
@@ -732,89 +620,6 @@ export const RpcCommandOptions = {
     message.skip = object.skip ?? false;
     return message;
   },
-  fromAmino(object: RpcCommandOptionsAmino): RpcCommandOptions {
-    const message = createBaseRpcCommandOptions();
-    if (object.rpc_method !== undefined && object.rpc_method !== null) {
-      message.rpcMethod = object.rpc_method;
-    }
-    if (object.use !== undefined && object.use !== null) {
-      message.use = object.use;
-    }
-    if (object.long !== undefined && object.long !== null) {
-      message.long = object.long;
-    }
-    if (object.short !== undefined && object.short !== null) {
-      message.short = object.short;
-    }
-    if (object.example !== undefined && object.example !== null) {
-      message.example = object.example;
-    }
-    message.alias = object.alias?.map((e) => e) || [];
-    message.suggestFor = object.suggest_for?.map((e) => e) || [];
-    if (object.deprecated !== undefined && object.deprecated !== null) {
-      message.deprecated = object.deprecated;
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = object.version;
-    }
-    message.flagOptions = Object.entries(object.flag_options ?? {}).reduce<{
-      [key: string]: FlagOptions;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = FlagOptions.fromAmino(value);
-      }
-      return acc;
-    }, {});
-    message.positionalArgs = object.positional_args?.map((e) => PositionalArgDescriptor.fromAmino(e)) || [];
-    if (object.skip !== undefined && object.skip !== null) {
-      message.skip = object.skip;
-    }
-    return message;
-  },
-  toAmino(message: RpcCommandOptions): RpcCommandOptionsAmino {
-    const obj: any = {};
-    obj.rpc_method = message.rpcMethod === "" ? undefined : message.rpcMethod;
-    obj.use = message.use === "" ? undefined : message.use;
-    obj.long = message.long === "" ? undefined : message.long;
-    obj.short = message.short === "" ? undefined : message.short;
-    obj.example = message.example === "" ? undefined : message.example;
-    if (message.alias) {
-      obj.alias = message.alias.map((e) => e);
-    } else {
-      obj.alias = message.alias;
-    }
-    if (message.suggestFor) {
-      obj.suggest_for = message.suggestFor.map((e) => e);
-    } else {
-      obj.suggest_for = message.suggestFor;
-    }
-    obj.deprecated = message.deprecated === "" ? undefined : message.deprecated;
-    obj.version = message.version === "" ? undefined : message.version;
-    obj.flag_options = {};
-    if (message.flagOptions) {
-      Object.entries(message.flagOptions).forEach(([k, v]) => {
-        obj.flag_options[k] = FlagOptions.toAmino(v);
-      });
-    }
-    if (message.positionalArgs) {
-      obj.positional_args = message.positionalArgs.map((e) =>
-        e ? PositionalArgDescriptor.toAmino(e) : undefined,
-      );
-    } else {
-      obj.positional_args = message.positionalArgs;
-    }
-    obj.skip = message.skip === false ? undefined : message.skip;
-    return obj;
-  },
-  fromAminoMsg(object: RpcCommandOptionsAminoMsg): RpcCommandOptions {
-    return RpcCommandOptions.fromAmino(object.value);
-  },
-  toAminoMsg(message: RpcCommandOptions): RpcCommandOptionsAminoMsg {
-    return {
-      type: "cosmos-sdk/RpcCommandOptions",
-      value: RpcCommandOptions.toAmino(message),
-    };
-  },
 };
 function createBaseFlagOptions(): FlagOptions {
   return {
@@ -921,51 +726,6 @@ export const FlagOptions = {
     message.hidden = object.hidden ?? false;
     return message;
   },
-  fromAmino(object: FlagOptionsAmino): FlagOptions {
-    const message = createBaseFlagOptions();
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    }
-    if (object.shorthand !== undefined && object.shorthand !== null) {
-      message.shorthand = object.shorthand;
-    }
-    if (object.usage !== undefined && object.usage !== null) {
-      message.usage = object.usage;
-    }
-    if (object.default_value !== undefined && object.default_value !== null) {
-      message.defaultValue = object.default_value;
-    }
-    if (object.deprecated !== undefined && object.deprecated !== null) {
-      message.deprecated = object.deprecated;
-    }
-    if (object.shorthand_deprecated !== undefined && object.shorthand_deprecated !== null) {
-      message.shorthandDeprecated = object.shorthand_deprecated;
-    }
-    if (object.hidden !== undefined && object.hidden !== null) {
-      message.hidden = object.hidden;
-    }
-    return message;
-  },
-  toAmino(message: FlagOptions): FlagOptionsAmino {
-    const obj: any = {};
-    obj.name = message.name === "" ? undefined : message.name;
-    obj.shorthand = message.shorthand === "" ? undefined : message.shorthand;
-    obj.usage = message.usage === "" ? undefined : message.usage;
-    obj.default_value = message.defaultValue === "" ? undefined : message.defaultValue;
-    obj.deprecated = message.deprecated === "" ? undefined : message.deprecated;
-    obj.shorthand_deprecated = message.shorthandDeprecated === "" ? undefined : message.shorthandDeprecated;
-    obj.hidden = message.hidden === false ? undefined : message.hidden;
-    return obj;
-  },
-  fromAminoMsg(object: FlagOptionsAminoMsg): FlagOptions {
-    return FlagOptions.fromAmino(object.value);
-  },
-  toAminoMsg(message: FlagOptions): FlagOptionsAminoMsg {
-    return {
-      type: "cosmos-sdk/FlagOptions",
-      value: FlagOptions.toAmino(message),
-    };
-  },
 };
 function createBasePositionalArgDescriptor(): PositionalArgDescriptor {
   return {
@@ -1021,30 +781,5 @@ export const PositionalArgDescriptor = {
     message.protoField = object.protoField ?? "";
     message.varargs = object.varargs ?? false;
     return message;
-  },
-  fromAmino(object: PositionalArgDescriptorAmino): PositionalArgDescriptor {
-    const message = createBasePositionalArgDescriptor();
-    if (object.proto_field !== undefined && object.proto_field !== null) {
-      message.protoField = object.proto_field;
-    }
-    if (object.varargs !== undefined && object.varargs !== null) {
-      message.varargs = object.varargs;
-    }
-    return message;
-  },
-  toAmino(message: PositionalArgDescriptor): PositionalArgDescriptorAmino {
-    const obj: any = {};
-    obj.proto_field = message.protoField === "" ? undefined : message.protoField;
-    obj.varargs = message.varargs === false ? undefined : message.varargs;
-    return obj;
-  },
-  fromAminoMsg(object: PositionalArgDescriptorAminoMsg): PositionalArgDescriptor {
-    return PositionalArgDescriptor.fromAmino(object.value);
-  },
-  toAminoMsg(message: PositionalArgDescriptor): PositionalArgDescriptorAminoMsg {
-    return {
-      type: "cosmos-sdk/PositionalArgDescriptor",
-      value: PositionalArgDescriptor.toAmino(message),
-    };
   },
 };

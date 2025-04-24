@@ -157,33 +157,6 @@ export const GenesisState = {
     message.validators = object.validators?.map((e) => ValidatorInfo.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    if (object.payment_schedule !== undefined && object.payment_schedule !== null) {
-      message.paymentSchedule = PaymentSchedule.fromAmino(object.payment_schedule);
-    }
-    message.validators = object.validators?.map((e) => ValidatorInfo.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    obj.payment_schedule = message.paymentSchedule
-      ? PaymentSchedule.toAmino(message.paymentSchedule)
-      : undefined;
-    if (message.validators) {
-      obj.validators = message.validators.map((e) => (e ? ValidatorInfo.toAmino(e) : undefined));
-    } else {
-      obj.validators = message.validators;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
 };
 function createBasePaymentSchedule(): PaymentSchedule {
   return {
@@ -269,37 +242,6 @@ export const PaymentSchedule = {
       message.emptyPaymentSchedule = EmptyPaymentSchedule.fromPartial(object.emptyPaymentSchedule);
     }
     return message;
-  },
-  fromAmino(object: PaymentScheduleAmino): PaymentSchedule {
-    const message = createBasePaymentSchedule();
-    if (object.monthly_payment_schedule !== undefined && object.monthly_payment_schedule !== null) {
-      message.monthlyPaymentSchedule = MonthlyPaymentSchedule.fromAmino(object.monthly_payment_schedule);
-    }
-    if (object.block_based_payment_schedule !== undefined && object.block_based_payment_schedule !== null) {
-      message.blockBasedPaymentSchedule = BlockBasedPaymentSchedule.fromAmino(
-        object.block_based_payment_schedule,
-      );
-    }
-    if (object.empty_payment_schedule !== undefined && object.empty_payment_schedule !== null) {
-      message.emptyPaymentSchedule = EmptyPaymentSchedule.fromAmino(object.empty_payment_schedule);
-    }
-    return message;
-  },
-  toAmino(message: PaymentSchedule): PaymentScheduleAmino {
-    const obj: any = {};
-    obj.monthly_payment_schedule = message.monthlyPaymentSchedule
-      ? MonthlyPaymentSchedule.toAmino(message.monthlyPaymentSchedule)
-      : undefined;
-    obj.block_based_payment_schedule = message.blockBasedPaymentSchedule
-      ? BlockBasedPaymentSchedule.toAmino(message.blockBasedPaymentSchedule)
-      : undefined;
-    obj.empty_payment_schedule = message.emptyPaymentSchedule
-      ? EmptyPaymentSchedule.toAmino(message.emptyPaymentSchedule)
-      : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: PaymentScheduleAminoMsg): PaymentSchedule {
-    return PaymentSchedule.fromAmino(object.value);
   },
 };
 function createBaseValidatorInfo(): ValidatorInfo {
@@ -394,46 +336,6 @@ export const ValidatorInfo = {
     }
     return message;
   },
-  fromAmino(object: ValidatorInfoAmino): ValidatorInfo {
-    const message = createBaseValidatorInfo();
-    if (object.val_oper_address !== undefined && object.val_oper_address !== null) {
-      message.valOperAddress = object.val_oper_address;
-    }
-    if (object.commited_blocks_in_period !== undefined && object.commited_blocks_in_period !== null) {
-      message.commitedBlocksInPeriod = BigInt(object.commited_blocks_in_period);
-    }
-    if (
-      object.commited_oracle_votes_in_period !== undefined &&
-      object.commited_oracle_votes_in_period !== null
-    ) {
-      message.commitedOracleVotesInPeriod = BigInt(object.commited_oracle_votes_in_period);
-    }
-    if (
-      object.in_active_valset_for_blocks_in_period !== undefined &&
-      object.in_active_valset_for_blocks_in_period !== null
-    ) {
-      message.inActiveValsetForBlocksInPeriod = BigInt(object.in_active_valset_for_blocks_in_period);
-    }
-    return message;
-  },
-  toAmino(message: ValidatorInfo): ValidatorInfoAmino {
-    const obj: any = {};
-    obj.val_oper_address = message.valOperAddress === "" ? undefined : message.valOperAddress;
-    obj.commited_blocks_in_period =
-      message.commitedBlocksInPeriod !== BigInt(0) ? message.commitedBlocksInPeriod?.toString() : undefined;
-    obj.commited_oracle_votes_in_period =
-      message.commitedOracleVotesInPeriod !== BigInt(0)
-        ? message.commitedOracleVotesInPeriod?.toString()
-        : undefined;
-    obj.in_active_valset_for_blocks_in_period =
-      message.inActiveValsetForBlocksInPeriod !== BigInt(0)
-        ? message.inActiveValsetForBlocksInPeriod?.toString()
-        : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ValidatorInfoAminoMsg): ValidatorInfo {
-    return ValidatorInfo.fromAmino(object.value);
-  },
 };
 function createBaseMonthlyPaymentSchedule(): MonthlyPaymentSchedule {
   return {
@@ -497,29 +399,6 @@ export const MonthlyPaymentSchedule = {
       message.currentMonthStartBlockTs = BigInt(object.currentMonthStartBlockTs.toString());
     }
     return message;
-  },
-  fromAmino(object: MonthlyPaymentScheduleAmino): MonthlyPaymentSchedule {
-    const message = createBaseMonthlyPaymentSchedule();
-    if (object.current_month_start_block !== undefined && object.current_month_start_block !== null) {
-      message.currentMonthStartBlock = BigInt(object.current_month_start_block);
-    }
-    if (object.current_month_start_block_ts !== undefined && object.current_month_start_block_ts !== null) {
-      message.currentMonthStartBlockTs = BigInt(object.current_month_start_block_ts);
-    }
-    return message;
-  },
-  toAmino(message: MonthlyPaymentSchedule): MonthlyPaymentScheduleAmino {
-    const obj: any = {};
-    obj.current_month_start_block =
-      message.currentMonthStartBlock !== BigInt(0) ? message.currentMonthStartBlock?.toString() : undefined;
-    obj.current_month_start_block_ts =
-      message.currentMonthStartBlockTs !== BigInt(0)
-        ? message.currentMonthStartBlockTs?.toString()
-        : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MonthlyPaymentScheduleAminoMsg): MonthlyPaymentSchedule {
-    return MonthlyPaymentSchedule.fromAmino(object.value);
   },
 };
 function createBaseBlockBasedPaymentSchedule(): BlockBasedPaymentSchedule {
@@ -586,27 +465,6 @@ export const BlockBasedPaymentSchedule = {
     }
     return message;
   },
-  fromAmino(object: BlockBasedPaymentScheduleAmino): BlockBasedPaymentSchedule {
-    const message = createBaseBlockBasedPaymentSchedule();
-    if (object.blocks_per_period !== undefined && object.blocks_per_period !== null) {
-      message.blocksPerPeriod = BigInt(object.blocks_per_period);
-    }
-    if (object.current_period_start_block !== undefined && object.current_period_start_block !== null) {
-      message.currentPeriodStartBlock = BigInt(object.current_period_start_block);
-    }
-    return message;
-  },
-  toAmino(message: BlockBasedPaymentSchedule): BlockBasedPaymentScheduleAmino {
-    const obj: any = {};
-    obj.blocks_per_period =
-      message.blocksPerPeriod !== BigInt(0) ? message.blocksPerPeriod?.toString() : undefined;
-    obj.current_period_start_block =
-      message.currentPeriodStartBlock !== BigInt(0) ? message.currentPeriodStartBlock?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: BlockBasedPaymentScheduleAminoMsg): BlockBasedPaymentSchedule {
-    return BlockBasedPaymentSchedule.fromAmino(object.value);
-  },
 };
 function createBaseEmptyPaymentSchedule(): EmptyPaymentSchedule {
   return {};
@@ -641,17 +499,6 @@ export const EmptyPaymentSchedule = {
   fromPartial<I extends Exact<DeepPartial<EmptyPaymentSchedule>, I>>(_: I): EmptyPaymentSchedule {
     const message = createBaseEmptyPaymentSchedule();
     return message;
-  },
-  fromAmino(_: EmptyPaymentScheduleAmino): EmptyPaymentSchedule {
-    const message = createBaseEmptyPaymentSchedule();
-    return message;
-  },
-  toAmino(_: EmptyPaymentSchedule): EmptyPaymentScheduleAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: EmptyPaymentScheduleAminoMsg): EmptyPaymentSchedule {
-    return EmptyPaymentSchedule.fromAmino(object.value);
   },
 };
 function createBaseRewardAssetPrice(): RewardAssetPrice {
@@ -720,28 +567,5 @@ export const RewardAssetPrice = {
       message.timestamp = BigInt(object.timestamp.toString());
     }
     return message;
-  },
-  fromAmino(object: RewardAssetPriceAmino): RewardAssetPrice {
-    const message = createBaseRewardAssetPrice();
-    if (object.cumulative_price !== undefined && object.cumulative_price !== null) {
-      message.cumulativePrice = object.cumulative_price;
-    }
-    if (object.absolute_price !== undefined && object.absolute_price !== null) {
-      message.absolutePrice = object.absolute_price;
-    }
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = BigInt(object.timestamp);
-    }
-    return message;
-  },
-  toAmino(message: RewardAssetPrice): RewardAssetPriceAmino {
-    const obj: any = {};
-    obj.cumulative_price = message.cumulativePrice === "" ? undefined : message.cumulativePrice;
-    obj.absolute_price = message.absolutePrice === "" ? undefined : message.absolutePrice;
-    obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: RewardAssetPriceAminoMsg): RewardAssetPrice {
-    return RewardAssetPrice.fromAmino(object.value);
   },
 };

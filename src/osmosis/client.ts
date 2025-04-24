@@ -11,11 +11,7 @@ export const osmosisAminoConverters = {
 export const osmosisProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
   ...osmosisTokenfactoryV1beta1TxRegistry.registry,
 ];
-export const getSigningOsmosisClientOptions = ({
-  defaultTypes = defaultRegistryTypes,
-}: {
-  defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
-} = {}): {
+export const getSigningOsmosisClientOptions = ({ defaultTypes = defaultRegistryTypes } = {}): {
   registry: Registry;
   aminoTypes: AminoTypes;
 } => {

@@ -70,17 +70,6 @@ export const QueryParamsRequest = {
     const message = createBaseQueryParamsRequest();
     return message;
   },
-  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    const message = createBaseQueryParamsRequest();
-    return message;
-  },
-  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
-    return QueryParamsRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
@@ -128,21 +117,6 @@ export const QueryParamsResponse = {
       message.params = Params.fromPartial(object.params);
     }
     return message;
-  },
-  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    const message = createBaseQueryParamsResponse();
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
-    const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
-    return QueryParamsResponse.fromAmino(object.value);
   },
 };
 function createBaseQueryFailuresRequest(): QueryFailuresRequest {
@@ -203,25 +177,6 @@ export const QueryFailuresRequest = {
     }
     return message;
   },
-  fromAmino(object: QueryFailuresRequestAmino): QueryFailuresRequest {
-    const message = createBaseQueryFailuresRequest();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryFailuresRequest): QueryFailuresRequestAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryFailuresRequestAminoMsg): QueryFailuresRequest {
-    return QueryFailuresRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryFailureRequest(): QueryFailureRequest {
   return {
@@ -280,25 +235,6 @@ export const QueryFailureRequest = {
     }
     return message;
   },
-  fromAmino(object: QueryFailureRequestAmino): QueryFailureRequest {
-    const message = createBaseQueryFailureRequest();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.failure_id !== undefined && object.failure_id !== null) {
-      message.failureId = BigInt(object.failure_id);
-    }
-    return message;
-  },
-  toAmino(message: QueryFailureRequest): QueryFailureRequestAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.failure_id = message.failureId !== BigInt(0) ? message.failureId?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryFailureRequestAminoMsg): QueryFailureRequest {
-    return QueryFailureRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryFailureResponse(): QueryFailureResponse {
   return {
@@ -347,21 +283,6 @@ export const QueryFailureResponse = {
       message.failure = Failure.fromPartial(object.failure);
     }
     return message;
-  },
-  fromAmino(object: QueryFailureResponseAmino): QueryFailureResponse {
-    const message = createBaseQueryFailureResponse();
-    if (object.failure !== undefined && object.failure !== null) {
-      message.failure = Failure.fromAmino(object.failure);
-    }
-    return message;
-  },
-  toAmino(message: QueryFailureResponse): QueryFailureResponseAmino {
-    const obj: any = {};
-    obj.failure = message.failure ? Failure.toAmino(message.failure) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryFailureResponseAminoMsg): QueryFailureResponse {
-    return QueryFailureResponse.fromAmino(object.value);
   },
 };
 function createBaseQueryFailuresResponse(): QueryFailuresResponse {
@@ -425,26 +346,5 @@ export const QueryFailuresResponse = {
       message.pagination = PageResponse.fromPartial(object.pagination);
     }
     return message;
-  },
-  fromAmino(object: QueryFailuresResponseAmino): QueryFailuresResponse {
-    const message = createBaseQueryFailuresResponse();
-    message.failures = object.failures?.map((e) => Failure.fromAmino(e)) || [];
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryFailuresResponse): QueryFailuresResponseAmino {
-    const obj: any = {};
-    if (message.failures) {
-      obj.failures = message.failures.map((e) => (e ? Failure.toAmino(e) : undefined));
-    } else {
-      obj.failures = message.failures;
-    }
-    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryFailuresResponseAminoMsg): QueryFailuresResponse {
-    return QueryFailuresResponse.fromAmino(object.value);
   },
 };

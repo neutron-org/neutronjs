@@ -94,31 +94,4 @@ export const PoolMetadata = {
     }
     return message;
   },
-  fromAmino(object: PoolMetadataAmino): PoolMetadata {
-    const message = createBasePoolMetadata();
-    if (object.id !== undefined && object.id !== null) {
-      message.id = BigInt(object.id);
-    }
-    if (object.tick !== undefined && object.tick !== null) {
-      message.tick = BigInt(object.tick);
-    }
-    if (object.fee !== undefined && object.fee !== null) {
-      message.fee = BigInt(object.fee);
-    }
-    if (object.pair_id !== undefined && object.pair_id !== null) {
-      message.pairId = PairID.fromAmino(object.pair_id);
-    }
-    return message;
-  },
-  toAmino(message: PoolMetadata): PoolMetadataAmino {
-    const obj: any = {};
-    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
-    obj.tick = message.tick !== BigInt(0) ? message.tick?.toString() : undefined;
-    obj.fee = message.fee !== BigInt(0) ? message.fee?.toString() : undefined;
-    obj.pair_id = message.pairId ? PairID.toAmino(message.pairId) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: PoolMetadataAminoMsg): PoolMetadata {
-    return PoolMetadata.fromAmino(object.value);
-  },
 };

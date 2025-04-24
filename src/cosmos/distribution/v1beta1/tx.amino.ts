@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../helpers";
 import {
   MsgSetWithdrawAddress,
   MsgWithdrawDelegatorReward,
@@ -147,7 +148,7 @@ export const AminoConverter = {
     },
     fromAmino: ({ amount, depositor }: MsgFundCommunityPoolAminoType["value"]): MsgFundCommunityPool => {
       return {
-        amount: amount.map((el0) => ({
+        amount: amount.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),
@@ -164,19 +165,22 @@ export const AminoConverter = {
           community_tax: params.communityTax,
           base_proposer_reward: params.baseProposerReward,
           bonus_proposer_reward: params.bonusProposerReward,
-          withdraw_addr_enabled: params.withdrawAddrEnabled,
+          withdraw_addr_enabled: omitDefault(params.withdrawAddrEnabled),
         },
       };
     },
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          communityTax: params.community_tax,
-          baseProposerReward: params.base_proposer_reward,
-          bonusProposerReward: params.bonus_proposer_reward,
-          withdrawAddrEnabled: params.withdraw_addr_enabled,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                communityTax: params.community_tax,
+                baseProposerReward: params.base_proposer_reward,
+                bonusProposerReward: params.bonus_proposer_reward,
+                withdrawAddrEnabled: params.withdraw_addr_enabled,
+              },
       };
     },
   },
@@ -204,7 +208,7 @@ export const AminoConverter = {
       return {
         authority,
         recipient,
-        amount: amount.map((el0) => ({
+        amount: amount.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),
@@ -235,7 +239,7 @@ export const AminoConverter = {
       return {
         depositor,
         validatorAddress: validator_address,
-        amount: amount.map((el0) => ({
+        amount: amount.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),

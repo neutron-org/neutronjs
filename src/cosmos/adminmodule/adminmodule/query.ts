@@ -55,23 +55,6 @@ export const QueryAdminsRequest = {
     const message = createBaseQueryAdminsRequest();
     return message;
   },
-  fromAmino(_: QueryAdminsRequestAmino): QueryAdminsRequest {
-    const message = createBaseQueryAdminsRequest();
-    return message;
-  },
-  toAmino(_: QueryAdminsRequest): QueryAdminsRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: QueryAdminsRequestAminoMsg): QueryAdminsRequest {
-    return QueryAdminsRequest.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryAdminsRequest): QueryAdminsRequestAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryAdminsRequest",
-      value: QueryAdminsRequest.toAmino(message),
-    };
-  },
 };
 function createBaseQueryAdminsResponse(): QueryAdminsResponse {
   return {
@@ -122,29 +105,6 @@ export const QueryAdminsResponse = {
     message.admins = object.admins?.map((e) => e) || [];
     return message;
   },
-  fromAmino(object: QueryAdminsResponseAmino): QueryAdminsResponse {
-    const message = createBaseQueryAdminsResponse();
-    message.admins = object.admins?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: QueryAdminsResponse): QueryAdminsResponseAmino {
-    const obj: any = {};
-    if (message.admins) {
-      obj.admins = message.admins.map((e) => e);
-    } else {
-      obj.admins = message.admins;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: QueryAdminsResponseAminoMsg): QueryAdminsResponse {
-    return QueryAdminsResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryAdminsResponse): QueryAdminsResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryAdminsResponse",
-      value: QueryAdminsResponse.toAmino(message),
-    };
-  },
 };
 function createBaseQueryArchivedProposalsRequest(): QueryArchivedProposalsRequest {
   return {};
@@ -182,23 +142,6 @@ export const QueryArchivedProposalsRequest = {
     const message = createBaseQueryArchivedProposalsRequest();
     return message;
   },
-  fromAmino(_: QueryArchivedProposalsRequestAmino): QueryArchivedProposalsRequest {
-    const message = createBaseQueryArchivedProposalsRequest();
-    return message;
-  },
-  toAmino(_: QueryArchivedProposalsRequest): QueryArchivedProposalsRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: QueryArchivedProposalsRequestAminoMsg): QueryArchivedProposalsRequest {
-    return QueryArchivedProposalsRequest.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryArchivedProposalsRequest): QueryArchivedProposalsRequestAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryArchivedProposalsRequest",
-      value: QueryArchivedProposalsRequest.toAmino(message),
-    };
-  },
 };
 function createBaseQueryArchivedProposalsLegacyRequest(): QueryArchivedProposalsLegacyRequest {
   return {};
@@ -235,23 +178,6 @@ export const QueryArchivedProposalsLegacyRequest = {
   ): QueryArchivedProposalsLegacyRequest {
     const message = createBaseQueryArchivedProposalsLegacyRequest();
     return message;
-  },
-  fromAmino(_: QueryArchivedProposalsLegacyRequestAmino): QueryArchivedProposalsLegacyRequest {
-    const message = createBaseQueryArchivedProposalsLegacyRequest();
-    return message;
-  },
-  toAmino(_: QueryArchivedProposalsLegacyRequest): QueryArchivedProposalsLegacyRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: QueryArchivedProposalsLegacyRequestAminoMsg): QueryArchivedProposalsLegacyRequest {
-    return QueryArchivedProposalsLegacyRequest.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryArchivedProposalsLegacyRequest): QueryArchivedProposalsLegacyRequestAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryArchivedProposalsLegacyRequest",
-      value: QueryArchivedProposalsLegacyRequest.toAmino(message),
-    };
   },
 };
 function createBaseQueryProposalsResponse(): QueryProposalsResponse {
@@ -303,29 +229,6 @@ export const QueryProposalsResponse = {
     const message = createBaseQueryProposalsResponse();
     message.proposals = object.proposals?.map((e) => Proposal1.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: QueryProposalsResponseAmino): QueryProposalsResponse {
-    const message = createBaseQueryProposalsResponse();
-    message.proposals = object.proposals?.map((e) => Proposal1.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: QueryProposalsResponse): QueryProposalsResponseAmino {
-    const obj: any = {};
-    if (message.proposals) {
-      obj.proposals = message.proposals.map((e) => (e ? Proposal1.toAmino(e) : undefined));
-    } else {
-      obj.proposals = message.proposals;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: QueryProposalsResponseAminoMsg): QueryProposalsResponse {
-    return QueryProposalsResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryProposalsResponse): QueryProposalsResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryProposalsResponse",
-      value: QueryProposalsResponse.toAmino(message),
-    };
   },
 };
 function createBaseQueryArchivedProposalsResponse(): QueryArchivedProposalsResponse {
@@ -383,29 +286,6 @@ export const QueryArchivedProposalsResponse = {
     message.proposals = object.proposals?.map((e) => Proposal1.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: QueryArchivedProposalsResponseAmino): QueryArchivedProposalsResponse {
-    const message = createBaseQueryArchivedProposalsResponse();
-    message.proposals = object.proposals?.map((e) => Proposal1.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: QueryArchivedProposalsResponse): QueryArchivedProposalsResponseAmino {
-    const obj: any = {};
-    if (message.proposals) {
-      obj.proposals = message.proposals.map((e) => (e ? Proposal1.toAmino(e) : undefined));
-    } else {
-      obj.proposals = message.proposals;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: QueryArchivedProposalsResponseAminoMsg): QueryArchivedProposalsResponse {
-    return QueryArchivedProposalsResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryArchivedProposalsResponse): QueryArchivedProposalsResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryArchivedProposalsResponse",
-      value: QueryArchivedProposalsResponse.toAmino(message),
-    };
-  },
 };
 function createBaseQueryArchivedProposalsLegacyResponse(): QueryArchivedProposalsLegacyResponse {
   return {
@@ -461,28 +341,5 @@ export const QueryArchivedProposalsLegacyResponse = {
     const message = createBaseQueryArchivedProposalsLegacyResponse();
     message.proposalsLegacy = object.proposalsLegacy?.map((e) => Proposal2.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: QueryArchivedProposalsLegacyResponseAmino): QueryArchivedProposalsLegacyResponse {
-    const message = createBaseQueryArchivedProposalsLegacyResponse();
-    message.proposalsLegacy = object.proposalsLegacy?.map((e) => Proposal2.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: QueryArchivedProposalsLegacyResponse): QueryArchivedProposalsLegacyResponseAmino {
-    const obj: any = {};
-    if (message.proposalsLegacy) {
-      obj.proposalsLegacy = message.proposalsLegacy.map((e) => (e ? Proposal2.toAmino(e) : undefined));
-    } else {
-      obj.proposalsLegacy = message.proposalsLegacy;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: QueryArchivedProposalsLegacyResponseAminoMsg): QueryArchivedProposalsLegacyResponse {
-    return QueryArchivedProposalsLegacyResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryArchivedProposalsLegacyResponse): QueryArchivedProposalsLegacyResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryArchivedProposalsLegacyResponse",
-      value: QueryArchivedProposalsLegacyResponse.toAmino(message),
-    };
   },
 };

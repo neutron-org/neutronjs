@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../helpers";
 import { MsgUpdateParams } from "./tx";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "globalfee/MsgUpdateParams";
@@ -28,21 +29,29 @@ export const AminoConverter = {
             amount: el0.amount,
           })),
           bypass_min_fee_msg_types: params.bypassMinFeeMsgTypes,
-          max_total_bypass_min_fee_msg_gas_usage: params.maxTotalBypassMinFeeMsgGasUsage.toString(),
+          max_total_bypass_min_fee_msg_gas_usage: omitDefault(
+            params.maxTotalBypassMinFeeMsgGasUsage,
+          )?.toString?.(),
         },
       };
     },
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          minimumGasPrices: params.minimum_gas_prices.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-          bypassMinFeeMsgTypes: params.bypass_min_fee_msg_types,
-          maxTotalBypassMinFeeMsgGasUsage: BigInt(params.max_total_bypass_min_fee_msg_gas_usage),
-        },
+        params:
+          params == null
+            ? params
+            : {
+                minimumGasPrices: params.minimum_gas_prices.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+                bypassMinFeeMsgTypes: params.bypass_min_fee_msg_types,
+                maxTotalBypassMinFeeMsgGasUsage:
+                  params.max_total_bypass_min_fee_msg_gas_usage == null
+                    ? params.max_total_bypass_min_fee_msg_gas_usage
+                    : BigInt(params.max_total_bypass_min_fee_msg_gas_usage),
+              },
       };
     },
   },

@@ -65,21 +65,6 @@ export const QuerySubscribedContractsRequest = {
     message.hookType = object.hookType ?? 0;
     return message;
   },
-  fromAmino(object: QuerySubscribedContractsRequestAmino): QuerySubscribedContractsRequest {
-    const message = createBaseQuerySubscribedContractsRequest();
-    if (object.hook_type !== undefined && object.hook_type !== null) {
-      message.hookType = object.hook_type;
-    }
-    return message;
-  },
-  toAmino(message: QuerySubscribedContractsRequest): QuerySubscribedContractsRequestAmino {
-    const obj: any = {};
-    obj.hook_type = message.hookType === 0 ? undefined : message.hookType;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySubscribedContractsRequestAminoMsg): QuerySubscribedContractsRequest {
-    return QuerySubscribedContractsRequest.fromAmino(object.value);
-  },
 };
 function createBaseQuerySubscribedContractsResponse(): QuerySubscribedContractsResponse {
   return {
@@ -135,22 +120,5 @@ export const QuerySubscribedContractsResponse = {
     const message = createBaseQuerySubscribedContractsResponse();
     message.contractAddresses = object.contractAddresses?.map((e) => e) || [];
     return message;
-  },
-  fromAmino(object: QuerySubscribedContractsResponseAmino): QuerySubscribedContractsResponse {
-    const message = createBaseQuerySubscribedContractsResponse();
-    message.contractAddresses = object.contract_addresses?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: QuerySubscribedContractsResponse): QuerySubscribedContractsResponseAmino {
-    const obj: any = {};
-    if (message.contractAddresses) {
-      obj.contract_addresses = message.contractAddresses.map((e) => e);
-    } else {
-      obj.contract_addresses = message.contractAddresses;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: QuerySubscribedContractsResponseAminoMsg): QuerySubscribedContractsResponse {
-    return QuerySubscribedContractsResponse.fromAmino(object.value);
   },
 };

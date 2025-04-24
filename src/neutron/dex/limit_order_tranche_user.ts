@@ -139,48 +139,4 @@ export const LimitOrderTrancheUser = {
     message.orderType = object.orderType ?? 0;
     return message;
   },
-  fromAmino(object: LimitOrderTrancheUserAmino): LimitOrderTrancheUser {
-    const message = createBaseLimitOrderTrancheUser();
-    if (object.trade_pair_id !== undefined && object.trade_pair_id !== null) {
-      message.tradePairId = TradePairID.fromAmino(object.trade_pair_id);
-    }
-    if (object.tick_index_taker_to_maker !== undefined && object.tick_index_taker_to_maker !== null) {
-      message.tickIndexTakerToMaker = BigInt(object.tick_index_taker_to_maker);
-    }
-    if (object.tranche_key !== undefined && object.tranche_key !== null) {
-      message.trancheKey = object.tranche_key;
-    }
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.shares_owned !== undefined && object.shares_owned !== null) {
-      message.sharesOwned = object.shares_owned;
-    }
-    if (object.shares_withdrawn !== undefined && object.shares_withdrawn !== null) {
-      message.sharesWithdrawn = object.shares_withdrawn;
-    }
-    if (object.shares_cancelled !== undefined && object.shares_cancelled !== null) {
-      message.sharesCancelled = object.shares_cancelled;
-    }
-    if (object.order_type !== undefined && object.order_type !== null) {
-      message.orderType = object.order_type;
-    }
-    return message;
-  },
-  toAmino(message: LimitOrderTrancheUser): LimitOrderTrancheUserAmino {
-    const obj: any = {};
-    obj.trade_pair_id = message.tradePairId ? TradePairID.toAmino(message.tradePairId) : undefined;
-    obj.tick_index_taker_to_maker =
-      message.tickIndexTakerToMaker !== BigInt(0) ? message.tickIndexTakerToMaker?.toString() : undefined;
-    obj.tranche_key = message.trancheKey === "" ? undefined : message.trancheKey;
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.shares_owned = message.sharesOwned ?? "";
-    obj.shares_withdrawn = message.sharesWithdrawn ?? "";
-    obj.shares_cancelled = message.sharesCancelled ?? "";
-    obj.order_type = message.orderType === 0 ? undefined : message.orderType;
-    return obj;
-  },
-  fromAminoMsg(object: LimitOrderTrancheUserAminoMsg): LimitOrderTrancheUser {
-    return LimitOrderTrancheUser.fromAmino(object.value);
-  },
 };

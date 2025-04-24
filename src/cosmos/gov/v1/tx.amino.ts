@@ -2,6 +2,7 @@
 /* eslint-disable */
 import { voteOptionFromJSON } from "./gov";
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../helpers";
 import {
   MsgSubmitProposal,
   MsgExecLegacyContent,
@@ -141,7 +142,7 @@ export const AminoConverter = {
         metadata,
         title,
         summary,
-        expedited,
+        expedited: omitDefault(expedited),
       };
     },
     fromAmino: ({
@@ -154,11 +155,11 @@ export const AminoConverter = {
       expedited,
     }: MsgSubmitProposalAminoType["value"]): MsgSubmitProposal => {
       return {
-        messages: messages.map((el0) => ({
+        messages: messages.map?.((el0) => ({
           typeUrl: el0.type_url,
           value: el0.value,
         })),
-        initialDeposit: initial_deposit.map((el0) => ({
+        initialDeposit: initial_deposit.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),
@@ -183,10 +184,13 @@ export const AminoConverter = {
     },
     fromAmino: ({ content, authority }: MsgExecLegacyContentAminoType["value"]): MsgExecLegacyContent => {
       return {
-        content: {
-          typeUrl: content.type_url,
-          value: content.value,
-        },
+        content:
+          content == null
+            ? content
+            : {
+                typeUrl: content.type_url,
+                value: content.value,
+              },
         authority,
       };
     },
@@ -195,7 +199,7 @@ export const AminoConverter = {
     aminoType: "cosmos-sdk/v1/MsgVote",
     toAmino: ({ proposalId, voter, option, metadata }: MsgVote): MsgVoteAminoType["value"] => {
       return {
-        proposal_id: proposalId.toString(),
+        proposal_id: proposalId?.toString?.(),
         voter,
         option,
         metadata,
@@ -203,9 +207,9 @@ export const AminoConverter = {
     },
     fromAmino: ({ proposal_id, voter, option, metadata }: MsgVoteAminoType["value"]): MsgVote => {
       return {
-        proposalId: BigInt(proposal_id),
+        proposalId: proposal_id == null ? proposal_id : BigInt(proposal_id),
         voter,
-        option: voteOptionFromJSON(option),
+        option: option == null ? option : voteOptionFromJSON(option),
         metadata,
       };
     },
@@ -219,7 +223,7 @@ export const AminoConverter = {
       metadata,
     }: MsgVoteWeighted): MsgVoteWeightedAminoType["value"] => {
       return {
-        proposal_id: proposalId.toString(),
+        proposal_id: proposalId?.toString?.(),
         voter,
         options: options.map((el0) => ({
           option: el0.option,
@@ -235,10 +239,10 @@ export const AminoConverter = {
       metadata,
     }: MsgVoteWeightedAminoType["value"]): MsgVoteWeighted => {
       return {
-        proposalId: BigInt(proposal_id),
+        proposalId: proposal_id == null ? proposal_id : BigInt(proposal_id),
         voter,
-        options: options.map((el0) => ({
-          option: voteOptionFromJSON(el0.option),
+        options: options.map?.((el0) => ({
+          option: el0.option == null ? el0.option : voteOptionFromJSON(el0.option),
           weight: el0.weight,
         })),
         metadata,
@@ -249,7 +253,7 @@ export const AminoConverter = {
     aminoType: "cosmos-sdk/v1/MsgDeposit",
     toAmino: ({ proposalId, depositor, amount }: MsgDeposit): MsgDepositAminoType["value"] => {
       return {
-        proposal_id: proposalId.toString(),
+        proposal_id: proposalId?.toString?.(),
         depositor,
         amount: amount.map((el0) => ({
           denom: el0.denom,
@@ -259,9 +263,9 @@ export const AminoConverter = {
     },
     fromAmino: ({ proposal_id, depositor, amount }: MsgDepositAminoType["value"]): MsgDeposit => {
       return {
-        proposalId: BigInt(proposal_id),
+        proposalId: proposal_id == null ? proposal_id : BigInt(proposal_id),
         depositor,
-        amount: amount.map((el0) => ({
+        amount: amount.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),
@@ -292,47 +296,59 @@ export const AminoConverter = {
             denom: el0.denom,
             amount: el0.amount,
           })),
-          burn_vote_quorum: params.burnVoteQuorum,
-          burn_proposal_deposit_prevote: params.burnProposalDepositPrevote,
-          burn_vote_veto: params.burnVoteVeto,
+          burn_vote_quorum: omitDefault(params.burnVoteQuorum),
+          burn_proposal_deposit_prevote: omitDefault(params.burnProposalDepositPrevote),
+          burn_vote_veto: omitDefault(params.burnVoteVeto),
         },
       };
     },
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          minDeposit: params.min_deposit.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-          maxDepositPeriod: {
-            seconds: BigInt(Math.floor(parseInt(params.max_deposit_period) / 1_000_000_000)),
-            nanos: parseInt(params.max_deposit_period) % 1_000_000_000,
-          },
-          votingPeriod: {
-            seconds: BigInt(Math.floor(parseInt(params.voting_period) / 1_000_000_000)),
-            nanos: parseInt(params.voting_period) % 1_000_000_000,
-          },
-          quorum: params.quorum,
-          threshold: params.threshold,
-          vetoThreshold: params.veto_threshold,
-          minInitialDepositRatio: params.min_initial_deposit_ratio,
-          proposalCancelRatio: params.proposal_cancel_ratio,
-          proposalCancelDest: params.proposal_cancel_dest,
-          expeditedVotingPeriod: {
-            seconds: BigInt(Math.floor(parseInt(params.expedited_voting_period) / 1_000_000_000)),
-            nanos: parseInt(params.expedited_voting_period) % 1_000_000_000,
-          },
-          expeditedThreshold: params.expedited_threshold,
-          expeditedMinDeposit: params.expedited_min_deposit.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-          burnVoteQuorum: params.burn_vote_quorum,
-          burnProposalDepositPrevote: params.burn_proposal_deposit_prevote,
-          burnVoteVeto: params.burn_vote_veto,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                minDeposit: params.min_deposit.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+                maxDepositPeriod:
+                  params.max_deposit_period == null
+                    ? params.max_deposit_period
+                    : {
+                        seconds: BigInt(Math.floor(parseInt(params.max_deposit_period) / 1_000_000_000)),
+                        nanos: parseInt(params.max_deposit_period) % 1_000_000_000,
+                      },
+                votingPeriod:
+                  params.voting_period == null
+                    ? params.voting_period
+                    : {
+                        seconds: BigInt(Math.floor(parseInt(params.voting_period) / 1_000_000_000)),
+                        nanos: parseInt(params.voting_period) % 1_000_000_000,
+                      },
+                quorum: params.quorum,
+                threshold: params.threshold,
+                vetoThreshold: params.veto_threshold,
+                minInitialDepositRatio: params.min_initial_deposit_ratio,
+                proposalCancelRatio: params.proposal_cancel_ratio,
+                proposalCancelDest: params.proposal_cancel_dest,
+                expeditedVotingPeriod:
+                  params.expedited_voting_period == null
+                    ? params.expedited_voting_period
+                    : {
+                        seconds: BigInt(Math.floor(parseInt(params.expedited_voting_period) / 1_000_000_000)),
+                        nanos: parseInt(params.expedited_voting_period) % 1_000_000_000,
+                      },
+                expeditedThreshold: params.expedited_threshold,
+                expeditedMinDeposit: params.expedited_min_deposit.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+                burnVoteQuorum: params.burn_vote_quorum,
+                burnProposalDepositPrevote: params.burn_proposal_deposit_prevote,
+                burnVoteVeto: params.burn_vote_veto,
+              },
       };
     },
   },
@@ -340,13 +356,13 @@ export const AminoConverter = {
     aminoType: "cosmos-sdk/v1/MsgCancelProposal",
     toAmino: ({ proposalId, proposer }: MsgCancelProposal): MsgCancelProposalAminoType["value"] => {
       return {
-        proposal_id: proposalId.toString(),
+        proposal_id: proposalId?.toString?.(),
         proposer,
       };
     },
     fromAmino: ({ proposal_id, proposer }: MsgCancelProposalAminoType["value"]): MsgCancelProposal => {
       return {
-        proposalId: BigInt(proposal_id),
+        proposalId: proposal_id == null ? proposal_id : BigInt(proposal_id),
         proposer,
       };
     },

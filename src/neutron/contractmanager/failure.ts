@@ -100,31 +100,4 @@ export const Failure = {
     message.error = object.error ?? "";
     return message;
   },
-  fromAmino(object: FailureAmino): Failure {
-    const message = createBaseFailure();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = BigInt(object.id);
-    }
-    if (object.sudo_payload !== undefined && object.sudo_payload !== null) {
-      message.sudoPayload = bytesFromBase64(object.sudo_payload);
-    }
-    if (object.error !== undefined && object.error !== null) {
-      message.error = object.error;
-    }
-    return message;
-  },
-  toAmino(message: Failure): FailureAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
-    obj.sudo_payload = message.sudoPayload ? base64FromBytes(message.sudoPayload) : undefined;
-    obj.error = message.error === "" ? undefined : message.error;
-    return obj;
-  },
-  fromAminoMsg(object: FailureAminoMsg): Failure {
-    return Failure.fromAmino(object.value);
-  },
 };

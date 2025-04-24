@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../../helpers";
 import { MsgRegisterPayee, MsgRegisterCounterpartyPayee, MsgPayPacketFee, MsgPayPacketFeeAsync } from "./tx";
 export interface MsgRegisterPayeeAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgRegisterPayee";
@@ -168,20 +169,23 @@ export const AminoConverter = {
       relayers,
     }: MsgPayPacketFeeAminoType["value"]): MsgPayPacketFee => {
       return {
-        fee: {
-          recvFee: fee.recv_fee.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-          ackFee: fee.ack_fee.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-          timeoutFee: fee.timeout_fee.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-        },
+        fee:
+          fee == null
+            ? fee
+            : {
+                recvFee: fee.recv_fee.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+                ackFee: fee.ack_fee.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+                timeoutFee: fee.timeout_fee.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+              },
         sourcePortId: source_port_id,
         sourceChannelId: source_channel_id,
         signer,
@@ -196,7 +200,7 @@ export const AminoConverter = {
         packet_id: {
           port_id: packetId.portId,
           channel_id: packetId.channelId,
-          sequence: packetId.sequence.toString(),
+          sequence: omitDefault(packetId.sequence)?.toString?.(),
         },
         packet_fee: {
           fee: {
@@ -220,29 +224,38 @@ export const AminoConverter = {
     },
     fromAmino: ({ packet_id, packet_fee }: MsgPayPacketFeeAsyncAminoType["value"]): MsgPayPacketFeeAsync => {
       return {
-        packetId: {
-          portId: packet_id.port_id,
-          channelId: packet_id.channel_id,
-          sequence: BigInt(packet_id.sequence),
-        },
-        packetFee: {
-          fee: {
-            recvFee: packet_fee.fee.recv_fee.map((el2) => ({
-              denom: el2.denom,
-              amount: el2.amount,
-            })),
-            ackFee: packet_fee.fee.ack_fee.map((el2) => ({
-              denom: el2.denom,
-              amount: el2.amount,
-            })),
-            timeoutFee: packet_fee.fee.timeout_fee.map((el2) => ({
-              denom: el2.denom,
-              amount: el2.amount,
-            })),
-          },
-          refundAddress: packet_fee.refund_address,
-          relayers: packet_fee.relayers,
-        },
+        packetId:
+          packet_id == null
+            ? packet_id
+            : {
+                portId: packet_id.port_id,
+                channelId: packet_id.channel_id,
+                sequence: packet_id.sequence == null ? packet_id.sequence : BigInt(packet_id.sequence),
+              },
+        packetFee:
+          packet_fee == null
+            ? packet_fee
+            : {
+                fee:
+                  packet_fee.fee == null
+                    ? packet_fee.fee
+                    : {
+                        recvFee: packet_fee.fee.recv_fee.map?.((el2) => ({
+                          denom: el2.denom,
+                          amount: el2.amount,
+                        })),
+                        ackFee: packet_fee.fee.ack_fee.map?.((el2) => ({
+                          denom: el2.denom,
+                          amount: el2.amount,
+                        })),
+                        timeoutFee: packet_fee.fee.timeout_fee.map?.((el2) => ({
+                          denom: el2.denom,
+                          amount: el2.amount,
+                        })),
+                      },
+                refundAddress: packet_fee.refund_address,
+                relayers: packet_fee.relayers,
+              },
       };
     },
   },

@@ -187,37 +187,6 @@ export const ConsensusParams = {
     }
     return message;
   },
-  fromAmino(object: ConsensusParamsAmino): ConsensusParams {
-    const message = createBaseConsensusParams();
-    if (object.block !== undefined && object.block !== null) {
-      message.block = BlockParams.fromAmino(object.block);
-    }
-    if (object.evidence !== undefined && object.evidence !== null) {
-      message.evidence = EvidenceParams.fromAmino(object.evidence);
-    }
-    if (object.validator !== undefined && object.validator !== null) {
-      message.validator = ValidatorParams.fromAmino(object.validator);
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = VersionParams.fromAmino(object.version);
-    }
-    if (object.abci !== undefined && object.abci !== null) {
-      message.abci = ABCIParams.fromAmino(object.abci);
-    }
-    return message;
-  },
-  toAmino(message: ConsensusParams): ConsensusParamsAmino {
-    const obj: any = {};
-    obj.block = message.block ? BlockParams.toAmino(message.block) : undefined;
-    obj.evidence = message.evidence ? EvidenceParams.toAmino(message.evidence) : undefined;
-    obj.validator = message.validator ? ValidatorParams.toAmino(message.validator) : undefined;
-    obj.version = message.version ? VersionParams.toAmino(message.version) : undefined;
-    obj.abci = message.abci ? ABCIParams.toAmino(message.abci) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ConsensusParamsAminoMsg): ConsensusParams {
-    return ConsensusParams.fromAmino(object.value);
-  },
 };
 function createBaseBlockParams(): BlockParams {
   return {
@@ -277,25 +246,6 @@ export const BlockParams = {
       message.maxGas = BigInt(object.maxGas.toString());
     }
     return message;
-  },
-  fromAmino(object: BlockParamsAmino): BlockParams {
-    const message = createBaseBlockParams();
-    if (object.max_bytes !== undefined && object.max_bytes !== null) {
-      message.maxBytes = BigInt(object.max_bytes);
-    }
-    if (object.max_gas !== undefined && object.max_gas !== null) {
-      message.maxGas = BigInt(object.max_gas);
-    }
-    return message;
-  },
-  toAmino(message: BlockParams): BlockParamsAmino {
-    const obj: any = {};
-    obj.max_bytes = message.maxBytes !== BigInt(0) ? message.maxBytes?.toString() : undefined;
-    obj.max_gas = message.maxGas !== BigInt(0) ? message.maxGas?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: BlockParamsAminoMsg): BlockParams {
-    return BlockParams.fromAmino(object.value);
   },
 };
 function createBaseEvidenceParams(): EvidenceParams {
@@ -371,30 +321,6 @@ export const EvidenceParams = {
     }
     return message;
   },
-  fromAmino(object: EvidenceParamsAmino): EvidenceParams {
-    const message = createBaseEvidenceParams();
-    if (object.max_age_num_blocks !== undefined && object.max_age_num_blocks !== null) {
-      message.maxAgeNumBlocks = BigInt(object.max_age_num_blocks);
-    }
-    if (object.max_age_duration !== undefined && object.max_age_duration !== null) {
-      message.maxAgeDuration = Duration.fromAmino(object.max_age_duration);
-    }
-    if (object.max_bytes !== undefined && object.max_bytes !== null) {
-      message.maxBytes = BigInt(object.max_bytes);
-    }
-    return message;
-  },
-  toAmino(message: EvidenceParams): EvidenceParamsAmino {
-    const obj: any = {};
-    obj.max_age_num_blocks =
-      message.maxAgeNumBlocks !== BigInt(0) ? message.maxAgeNumBlocks?.toString() : undefined;
-    obj.max_age_duration = message.maxAgeDuration ? Duration.toAmino(message.maxAgeDuration) : undefined;
-    obj.max_bytes = message.maxBytes !== BigInt(0) ? message.maxBytes?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: EvidenceParamsAminoMsg): EvidenceParams {
-    return EvidenceParams.fromAmino(object.value);
-  },
 };
 function createBaseValidatorParams(): ValidatorParams {
   return {
@@ -445,23 +371,6 @@ export const ValidatorParams = {
     message.pubKeyTypes = object.pubKeyTypes?.map((e) => e) || [];
     return message;
   },
-  fromAmino(object: ValidatorParamsAmino): ValidatorParams {
-    const message = createBaseValidatorParams();
-    message.pubKeyTypes = object.pub_key_types?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: ValidatorParams): ValidatorParamsAmino {
-    const obj: any = {};
-    if (message.pubKeyTypes) {
-      obj.pub_key_types = message.pubKeyTypes.map((e) => e);
-    } else {
-      obj.pub_key_types = message.pubKeyTypes;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: ValidatorParamsAminoMsg): ValidatorParams {
-    return ValidatorParams.fromAmino(object.value);
-  },
 };
 function createBaseVersionParams(): VersionParams {
   return {
@@ -509,21 +418,6 @@ export const VersionParams = {
       message.app = BigInt(object.app.toString());
     }
     return message;
-  },
-  fromAmino(object: VersionParamsAmino): VersionParams {
-    const message = createBaseVersionParams();
-    if (object.app !== undefined && object.app !== null) {
-      message.app = BigInt(object.app);
-    }
-    return message;
-  },
-  toAmino(message: VersionParams): VersionParamsAmino {
-    const obj: any = {};
-    obj.app = message.app !== BigInt(0) ? message.app?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: VersionParamsAminoMsg): VersionParams {
-    return VersionParams.fromAmino(object.value);
   },
 };
 function createBaseHashedParams(): HashedParams {
@@ -586,25 +480,6 @@ export const HashedParams = {
     }
     return message;
   },
-  fromAmino(object: HashedParamsAmino): HashedParams {
-    const message = createBaseHashedParams();
-    if (object.block_max_bytes !== undefined && object.block_max_bytes !== null) {
-      message.blockMaxBytes = BigInt(object.block_max_bytes);
-    }
-    if (object.block_max_gas !== undefined && object.block_max_gas !== null) {
-      message.blockMaxGas = BigInt(object.block_max_gas);
-    }
-    return message;
-  },
-  toAmino(message: HashedParams): HashedParamsAmino {
-    const obj: any = {};
-    obj.block_max_bytes = message.blockMaxBytes !== BigInt(0) ? message.blockMaxBytes?.toString() : undefined;
-    obj.block_max_gas = message.blockMaxGas !== BigInt(0) ? message.blockMaxGas?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: HashedParamsAminoMsg): HashedParams {
-    return HashedParams.fromAmino(object.value);
-  },
 };
 function createBaseABCIParams(): ABCIParams {
   return {
@@ -654,23 +529,5 @@ export const ABCIParams = {
       message.voteExtensionsEnableHeight = BigInt(object.voteExtensionsEnableHeight.toString());
     }
     return message;
-  },
-  fromAmino(object: ABCIParamsAmino): ABCIParams {
-    const message = createBaseABCIParams();
-    if (object.vote_extensions_enable_height !== undefined && object.vote_extensions_enable_height !== null) {
-      message.voteExtensionsEnableHeight = BigInt(object.vote_extensions_enable_height);
-    }
-    return message;
-  },
-  toAmino(message: ABCIParams): ABCIParamsAmino {
-    const obj: any = {};
-    obj.vote_extensions_enable_height =
-      message.voteExtensionsEnableHeight !== BigInt(0)
-        ? message.voteExtensionsEnableHeight?.toString()
-        : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ABCIParamsAminoMsg): ABCIParams {
-    return ABCIParams.fromAmino(object.value);
   },
 };

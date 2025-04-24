@@ -82,32 +82,4 @@ export const Module = {
     }
     return message;
   },
-  fromAmino(object: ModuleAmino): Module {
-    const message = createBaseModule();
-    if (object.max_execution_period !== undefined && object.max_execution_period !== null) {
-      message.maxExecutionPeriod = Duration.fromAmino(object.max_execution_period);
-    }
-    if (object.max_metadata_len !== undefined && object.max_metadata_len !== null) {
-      message.maxMetadataLen = BigInt(object.max_metadata_len);
-    }
-    return message;
-  },
-  toAmino(message: Module): ModuleAmino {
-    const obj: any = {};
-    obj.max_execution_period = message.maxExecutionPeriod
-      ? Duration.toAmino(message.maxExecutionPeriod)
-      : Duration.toAmino(Duration.fromPartial({}));
-    obj.max_metadata_len =
-      message.maxMetadataLen !== BigInt(0) ? message.maxMetadataLen?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ModuleAminoMsg): Module {
-    return Module.fromAmino(object.value);
-  },
-  toAminoMsg(message: Module): ModuleAminoMsg {
-    return {
-      type: "cosmos-sdk/Module",
-      value: Module.toAmino(message),
-    };
-  },
 };

@@ -58,25 +58,4 @@ export const ClientState = {
     }
     return message;
   },
-  fromAmino(object: ClientStateAmino): ClientState {
-    const message = createBaseClientState();
-    if (object.latest_height !== undefined && object.latest_height !== null) {
-      message.latestHeight = Height.fromAmino(object.latest_height);
-    }
-    return message;
-  },
-  toAmino(message: ClientState): ClientStateAmino {
-    const obj: any = {};
-    obj.latest_height = message.latestHeight ? Height.toAmino(message.latestHeight) : {};
-    return obj;
-  },
-  fromAminoMsg(object: ClientStateAminoMsg): ClientState {
-    return ClientState.fromAmino(object.value);
-  },
-  toAminoMsg(message: ClientState): ClientStateAminoMsg {
-    return {
-      type: "cosmos-sdk/ClientState",
-      value: ClientState.toAmino(message),
-    };
-  },
 };

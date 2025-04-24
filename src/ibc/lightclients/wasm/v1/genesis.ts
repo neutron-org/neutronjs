@@ -64,29 +64,6 @@ export const GenesisState = {
     message.contracts = object.contracts?.map((e) => Contract.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    message.contracts = object.contracts?.map((e) => Contract.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    if (message.contracts) {
-      obj.contracts = message.contracts.map((e) => (e ? Contract.toAmino(e) : undefined));
-    } else {
-      obj.contracts = message.contracts;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisState",
-      value: GenesisState.toAmino(message),
-    };
-  },
 };
 function createBaseContract(): Contract {
   return {
@@ -135,26 +112,5 @@ export const Contract = {
     const message = createBaseContract();
     message.codeBytes = object.codeBytes ?? new Uint8Array();
     return message;
-  },
-  fromAmino(object: ContractAmino): Contract {
-    const message = createBaseContract();
-    if (object.code_bytes !== undefined && object.code_bytes !== null) {
-      message.codeBytes = bytesFromBase64(object.code_bytes);
-    }
-    return message;
-  },
-  toAmino(message: Contract): ContractAmino {
-    const obj: any = {};
-    obj.code_bytes = message.codeBytes ? base64FromBytes(message.codeBytes) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ContractAminoMsg): Contract {
-    return Contract.fromAmino(object.value);
-  },
-  toAminoMsg(message: Contract): ContractAminoMsg {
-    return {
-      type: "cosmos-sdk/Contract",
-      value: Contract.toAmino(message),
-    };
   },
 };

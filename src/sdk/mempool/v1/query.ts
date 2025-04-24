@@ -57,17 +57,6 @@ export const GetTxDistributionRequest = {
     const message = createBaseGetTxDistributionRequest();
     return message;
   },
-  fromAmino(_: GetTxDistributionRequestAmino): GetTxDistributionRequest {
-    const message = createBaseGetTxDistributionRequest();
-    return message;
-  },
-  toAmino(_: GetTxDistributionRequest): GetTxDistributionRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: GetTxDistributionRequestAminoMsg): GetTxDistributionRequest {
-    return GetTxDistributionRequest.fromAmino(object.value);
-  },
 };
 function createBaseGetTxDistributionResponse_DistributionEntry(): GetTxDistributionResponse_DistributionEntry {
   return {
@@ -131,31 +120,6 @@ export const GetTxDistributionResponse_DistributionEntry = {
       message.value = BigInt(object.value.toString());
     }
     return message;
-  },
-  fromAmino(
-    object: GetTxDistributionResponse_DistributionEntryAmino,
-  ): GetTxDistributionResponse_DistributionEntry {
-    const message = createBaseGetTxDistributionResponse_DistributionEntry();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = object.key;
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = BigInt(object.value);
-    }
-    return message;
-  },
-  toAmino(
-    message: GetTxDistributionResponse_DistributionEntry,
-  ): GetTxDistributionResponse_DistributionEntryAmino {
-    const obj: any = {};
-    obj.key = message.key === "" ? undefined : message.key;
-    obj.value = message.value !== BigInt(0) ? message.value?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(
-    object: GetTxDistributionResponse_DistributionEntryAminoMsg,
-  ): GetTxDistributionResponse_DistributionEntry {
-    return GetTxDistributionResponse_DistributionEntry.fromAmino(object.value);
   },
 };
 function createBaseGetTxDistributionResponse(): GetTxDistributionResponse {
@@ -231,30 +195,5 @@ export const GetTxDistributionResponse = {
       return acc;
     }, {});
     return message;
-  },
-  fromAmino(object: GetTxDistributionResponseAmino): GetTxDistributionResponse {
-    const message = createBaseGetTxDistributionResponse();
-    message.distribution = Object.entries(object.distribution ?? {}).reduce<{
-      [key: string]: bigint;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = BigInt(value.toString());
-      }
-      return acc;
-    }, {});
-    return message;
-  },
-  toAmino(message: GetTxDistributionResponse): GetTxDistributionResponseAmino {
-    const obj: any = {};
-    obj.distribution = {};
-    if (message.distribution) {
-      Object.entries(message.distribution).forEach(([k, v]) => {
-        obj.distribution[k] = v.toString();
-      });
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GetTxDistributionResponseAminoMsg): GetTxDistributionResponse {
-    return GetTxDistributionResponse.fromAmino(object.value);
   },
 };

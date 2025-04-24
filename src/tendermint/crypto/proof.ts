@@ -119,35 +119,6 @@ export const Proof = {
     message.aunts = object.aunts?.map((e) => e) || [];
     return message;
   },
-  fromAmino(object: ProofAmino): Proof {
-    const message = createBaseProof();
-    if (object.total !== undefined && object.total !== null) {
-      message.total = BigInt(object.total);
-    }
-    if (object.index !== undefined && object.index !== null) {
-      message.index = BigInt(object.index);
-    }
-    if (object.leaf_hash !== undefined && object.leaf_hash !== null) {
-      message.leafHash = bytesFromBase64(object.leaf_hash);
-    }
-    message.aunts = object.aunts?.map((e) => bytesFromBase64(e)) || [];
-    return message;
-  },
-  toAmino(message: Proof): ProofAmino {
-    const obj: any = {};
-    obj.total = message.total !== BigInt(0) ? message.total?.toString() : undefined;
-    obj.index = message.index !== BigInt(0) ? message.index?.toString() : undefined;
-    obj.leaf_hash = message.leafHash ? base64FromBytes(message.leafHash) : undefined;
-    if (message.aunts) {
-      obj.aunts = message.aunts.map((e) => base64FromBytes(e));
-    } else {
-      obj.aunts = message.aunts;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: ProofAminoMsg): Proof {
-    return Proof.fromAmino(object.value);
-  },
 };
 function createBaseValueOp(): ValueOp {
   return {
@@ -206,25 +177,6 @@ export const ValueOp = {
       message.proof = Proof.fromPartial(object.proof);
     }
     return message;
-  },
-  fromAmino(object: ValueOpAmino): ValueOp {
-    const message = createBaseValueOp();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
-    if (object.proof !== undefined && object.proof !== null) {
-      message.proof = Proof.fromAmino(object.proof);
-    }
-    return message;
-  },
-  toAmino(message: ValueOp): ValueOpAmino {
-    const obj: any = {};
-    obj.key = message.key ? base64FromBytes(message.key) : undefined;
-    obj.proof = message.proof ? Proof.toAmino(message.proof) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ValueOpAminoMsg): ValueOp {
-    return ValueOp.fromAmino(object.value);
   },
 };
 function createBaseDominoOp(): DominoOp {
@@ -291,29 +243,6 @@ export const DominoOp = {
     message.input = object.input ?? "";
     message.output = object.output ?? "";
     return message;
-  },
-  fromAmino(object: DominoOpAmino): DominoOp {
-    const message = createBaseDominoOp();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = object.key;
-    }
-    if (object.input !== undefined && object.input !== null) {
-      message.input = object.input;
-    }
-    if (object.output !== undefined && object.output !== null) {
-      message.output = object.output;
-    }
-    return message;
-  },
-  toAmino(message: DominoOp): DominoOpAmino {
-    const obj: any = {};
-    obj.key = message.key === "" ? undefined : message.key;
-    obj.input = message.input === "" ? undefined : message.input;
-    obj.output = message.output === "" ? undefined : message.output;
-    return obj;
-  },
-  fromAminoMsg(object: DominoOpAminoMsg): DominoOp {
-    return DominoOp.fromAmino(object.value);
   },
 };
 function createBaseProofOp(): ProofOp {
@@ -383,29 +312,6 @@ export const ProofOp = {
     message.data = object.data ?? new Uint8Array();
     return message;
   },
-  fromAmino(object: ProofOpAmino): ProofOp {
-    const message = createBaseProofOp();
-    if (object.type !== undefined && object.type !== null) {
-      message.type = object.type;
-    }
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
-    if (object.data !== undefined && object.data !== null) {
-      message.data = bytesFromBase64(object.data);
-    }
-    return message;
-  },
-  toAmino(message: ProofOp): ProofOpAmino {
-    const obj: any = {};
-    obj.type = message.type === "" ? undefined : message.type;
-    obj.key = message.key ? base64FromBytes(message.key) : undefined;
-    obj.data = message.data ? base64FromBytes(message.data) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ProofOpAminoMsg): ProofOp {
-    return ProofOp.fromAmino(object.value);
-  },
 };
 function createBaseProofOps(): ProofOps {
   return {
@@ -455,22 +361,5 @@ export const ProofOps = {
     const message = createBaseProofOps();
     message.ops = object.ops?.map((e) => ProofOp.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: ProofOpsAmino): ProofOps {
-    const message = createBaseProofOps();
-    message.ops = object.ops?.map((e) => ProofOp.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: ProofOps): ProofOpsAmino {
-    const obj: any = {};
-    if (message.ops) {
-      obj.ops = message.ops.map((e) => (e ? ProofOp.toAmino(e) : undefined));
-    } else {
-      obj.ops = message.ops;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: ProofOpsAminoMsg): ProofOps {
-    return ProofOps.fromAmino(object.value);
   },
 };

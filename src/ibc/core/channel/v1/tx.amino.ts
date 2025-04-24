@@ -340,7 +340,7 @@ export const AminoConverter = {
           },
           connection_hops: channel.connectionHops,
           version: channel.version,
-          upgrade_sequence: channel.upgradeSequence.toString(),
+          upgrade_sequence: omitDefault(channel.upgradeSequence)?.toString?.(),
         },
         signer,
       };
@@ -348,17 +348,26 @@ export const AminoConverter = {
     fromAmino: ({ port_id, channel, signer }: MsgChannelOpenInitAminoType["value"]): MsgChannelOpenInit => {
       return {
         portId: port_id,
-        channel: {
-          state: stateFromJSON(channel.state),
-          ordering: orderFromJSON(channel.ordering),
-          counterparty: {
-            portId: channel.counterparty.port_id,
-            channelId: channel.counterparty.channel_id,
-          },
-          connectionHops: channel.connection_hops,
-          version: channel.version,
-          upgradeSequence: BigInt(channel.upgrade_sequence),
-        },
+        channel:
+          channel == null
+            ? channel
+            : {
+                state: channel.state == null ? channel.state : stateFromJSON(channel.state),
+                ordering: channel.ordering == null ? channel.ordering : orderFromJSON(channel.ordering),
+                counterparty:
+                  channel.counterparty == null
+                    ? channel.counterparty
+                    : {
+                        portId: channel.counterparty.port_id,
+                        channelId: channel.counterparty.channel_id,
+                      },
+                connectionHops: channel.connection_hops,
+                version: channel.version,
+                upgradeSequence:
+                  channel.upgrade_sequence == null
+                    ? channel.upgrade_sequence
+                    : BigInt(channel.upgrade_sequence),
+              },
         signer,
       };
     },
@@ -386,7 +395,7 @@ export const AminoConverter = {
           },
           connection_hops: channel.connectionHops,
           version: channel.version,
-          upgrade_sequence: channel.upgradeSequence.toString(),
+          upgrade_sequence: omitDefault(channel.upgradeSequence)?.toString?.(),
         },
         counterparty_version: counterpartyVersion,
         proof_init: proofInit,
@@ -411,17 +420,26 @@ export const AminoConverter = {
       return {
         portId: port_id,
         previousChannelId: previous_channel_id,
-        channel: {
-          state: stateFromJSON(channel.state),
-          ordering: orderFromJSON(channel.ordering),
-          counterparty: {
-            portId: channel.counterparty.port_id,
-            channelId: channel.counterparty.channel_id,
-          },
-          connectionHops: channel.connection_hops,
-          version: channel.version,
-          upgradeSequence: BigInt(channel.upgrade_sequence),
-        },
+        channel:
+          channel == null
+            ? channel
+            : {
+                state: channel.state == null ? channel.state : stateFromJSON(channel.state),
+                ordering: channel.ordering == null ? channel.ordering : orderFromJSON(channel.ordering),
+                counterparty:
+                  channel.counterparty == null
+                    ? channel.counterparty
+                    : {
+                        portId: channel.counterparty.port_id,
+                        channelId: channel.counterparty.channel_id,
+                      },
+                connectionHops: channel.connection_hops,
+                version: channel.version,
+                upgradeSequence:
+                  channel.upgrade_sequence == null
+                    ? channel.upgrade_sequence
+                    : BigInt(channel.upgrade_sequence),
+              },
         counterpartyVersion: counterparty_version,
         proofInit: proof_init,
         proofHeight: proof_height
@@ -570,7 +588,7 @@ export const AminoConverter = {
             }
           : {},
         signer,
-        counterparty_upgrade_sequence: counterpartyUpgradeSequence.toString(),
+        counterparty_upgrade_sequence: omitDefault(counterpartyUpgradeSequence)?.toString?.(),
       };
     },
     fromAmino: ({
@@ -592,7 +610,10 @@ export const AminoConverter = {
             }
           : undefined,
         signer,
-        counterpartyUpgradeSequence: BigInt(counterparty_upgrade_sequence),
+        counterpartyUpgradeSequence:
+          counterparty_upgrade_sequence == null
+            ? counterparty_upgrade_sequence
+            : BigInt(counterparty_upgrade_sequence),
       };
     },
   },
@@ -606,7 +627,7 @@ export const AminoConverter = {
     }: MsgRecvPacket): MsgRecvPacketAminoType["value"] => {
       return {
         packet: {
-          sequence: packet.sequence.toString(),
+          sequence: omitDefault(packet.sequence)?.toString?.(),
           source_port: packet.sourcePort,
           source_channel: packet.sourceChannel,
           destination_port: packet.destinationPort,
@@ -618,7 +639,7 @@ export const AminoConverter = {
                 revision_number: omitDefault(packet.timeoutHeight.revisionNumber)?.toString(),
               }
             : {},
-          timeout_timestamp: packet.timeoutTimestamp.toString(),
+          timeout_timestamp: omitDefault(packet.timeoutTimestamp)?.toString?.(),
         },
         proof_commitment: proofCommitment,
         proof_height: proofHeight
@@ -637,21 +658,27 @@ export const AminoConverter = {
       signer,
     }: MsgRecvPacketAminoType["value"]): MsgRecvPacket => {
       return {
-        packet: {
-          sequence: BigInt(packet.sequence),
-          sourcePort: packet.source_port,
-          sourceChannel: packet.source_channel,
-          destinationPort: packet.destination_port,
-          destinationChannel: packet.destination_channel,
-          data: packet.data,
-          timeoutHeight: packet.timeout_height
-            ? {
-                revisionHeight: BigInt(packet.timeout_height.revision_height || "0"),
-                revisionNumber: BigInt(packet.timeout_height.revision_number || "0"),
-              }
-            : undefined,
-          timeoutTimestamp: BigInt(packet.timeout_timestamp),
-        },
+        packet:
+          packet == null
+            ? packet
+            : {
+                sequence: packet.sequence == null ? packet.sequence : BigInt(packet.sequence),
+                sourcePort: packet.source_port,
+                sourceChannel: packet.source_channel,
+                destinationPort: packet.destination_port,
+                destinationChannel: packet.destination_channel,
+                data: packet.data,
+                timeoutHeight: packet.timeout_height
+                  ? {
+                      revisionHeight: BigInt(packet.timeout_height.revision_height || "0"),
+                      revisionNumber: BigInt(packet.timeout_height.revision_number || "0"),
+                    }
+                  : undefined,
+                timeoutTimestamp:
+                  packet.timeout_timestamp == null
+                    ? packet.timeout_timestamp
+                    : BigInt(packet.timeout_timestamp),
+              },
         proofCommitment: proof_commitment,
         proofHeight: proof_height
           ? {
@@ -674,7 +701,7 @@ export const AminoConverter = {
     }: MsgTimeout): MsgTimeoutAminoType["value"] => {
       return {
         packet: {
-          sequence: packet.sequence.toString(),
+          sequence: omitDefault(packet.sequence)?.toString?.(),
           source_port: packet.sourcePort,
           source_channel: packet.sourceChannel,
           destination_port: packet.destinationPort,
@@ -686,7 +713,7 @@ export const AminoConverter = {
                 revision_number: omitDefault(packet.timeoutHeight.revisionNumber)?.toString(),
               }
             : {},
-          timeout_timestamp: packet.timeoutTimestamp.toString(),
+          timeout_timestamp: omitDefault(packet.timeoutTimestamp)?.toString?.(),
         },
         proof_unreceived: proofUnreceived,
         proof_height: proofHeight
@@ -695,7 +722,7 @@ export const AminoConverter = {
               revision_number: omitDefault(proofHeight.revisionNumber)?.toString(),
             }
           : {},
-        next_sequence_recv: nextSequenceRecv.toString(),
+        next_sequence_recv: omitDefault(nextSequenceRecv)?.toString?.(),
         signer,
       };
     },
@@ -707,21 +734,27 @@ export const AminoConverter = {
       signer,
     }: MsgTimeoutAminoType["value"]): MsgTimeout => {
       return {
-        packet: {
-          sequence: BigInt(packet.sequence),
-          sourcePort: packet.source_port,
-          sourceChannel: packet.source_channel,
-          destinationPort: packet.destination_port,
-          destinationChannel: packet.destination_channel,
-          data: packet.data,
-          timeoutHeight: packet.timeout_height
-            ? {
-                revisionHeight: BigInt(packet.timeout_height.revision_height || "0"),
-                revisionNumber: BigInt(packet.timeout_height.revision_number || "0"),
-              }
-            : undefined,
-          timeoutTimestamp: BigInt(packet.timeout_timestamp),
-        },
+        packet:
+          packet == null
+            ? packet
+            : {
+                sequence: packet.sequence == null ? packet.sequence : BigInt(packet.sequence),
+                sourcePort: packet.source_port,
+                sourceChannel: packet.source_channel,
+                destinationPort: packet.destination_port,
+                destinationChannel: packet.destination_channel,
+                data: packet.data,
+                timeoutHeight: packet.timeout_height
+                  ? {
+                      revisionHeight: BigInt(packet.timeout_height.revision_height || "0"),
+                      revisionNumber: BigInt(packet.timeout_height.revision_number || "0"),
+                    }
+                  : undefined,
+                timeoutTimestamp:
+                  packet.timeout_timestamp == null
+                    ? packet.timeout_timestamp
+                    : BigInt(packet.timeout_timestamp),
+              },
         proofUnreceived: proof_unreceived,
         proofHeight: proof_height
           ? {
@@ -729,7 +762,7 @@ export const AminoConverter = {
               revisionNumber: BigInt(proof_height.revision_number || "0"),
             }
           : undefined,
-        nextSequenceRecv: BigInt(next_sequence_recv),
+        nextSequenceRecv: next_sequence_recv == null ? next_sequence_recv : BigInt(next_sequence_recv),
         signer,
       };
     },
@@ -747,7 +780,7 @@ export const AminoConverter = {
     }: MsgTimeoutOnClose): MsgTimeoutOnCloseAminoType["value"] => {
       return {
         packet: {
-          sequence: packet.sequence.toString(),
+          sequence: omitDefault(packet.sequence)?.toString?.(),
           source_port: packet.sourcePort,
           source_channel: packet.sourceChannel,
           destination_port: packet.destinationPort,
@@ -759,7 +792,7 @@ export const AminoConverter = {
                 revision_number: omitDefault(packet.timeoutHeight.revisionNumber)?.toString(),
               }
             : {},
-          timeout_timestamp: packet.timeoutTimestamp.toString(),
+          timeout_timestamp: omitDefault(packet.timeoutTimestamp)?.toString?.(),
         },
         proof_unreceived: proofUnreceived,
         proof_close: proofClose,
@@ -769,9 +802,9 @@ export const AminoConverter = {
               revision_number: omitDefault(proofHeight.revisionNumber)?.toString(),
             }
           : {},
-        next_sequence_recv: nextSequenceRecv.toString(),
+        next_sequence_recv: omitDefault(nextSequenceRecv)?.toString?.(),
         signer,
-        counterparty_upgrade_sequence: counterpartyUpgradeSequence.toString(),
+        counterparty_upgrade_sequence: omitDefault(counterpartyUpgradeSequence)?.toString?.(),
       };
     },
     fromAmino: ({
@@ -784,21 +817,27 @@ export const AminoConverter = {
       counterparty_upgrade_sequence,
     }: MsgTimeoutOnCloseAminoType["value"]): MsgTimeoutOnClose => {
       return {
-        packet: {
-          sequence: BigInt(packet.sequence),
-          sourcePort: packet.source_port,
-          sourceChannel: packet.source_channel,
-          destinationPort: packet.destination_port,
-          destinationChannel: packet.destination_channel,
-          data: packet.data,
-          timeoutHeight: packet.timeout_height
-            ? {
-                revisionHeight: BigInt(packet.timeout_height.revision_height || "0"),
-                revisionNumber: BigInt(packet.timeout_height.revision_number || "0"),
-              }
-            : undefined,
-          timeoutTimestamp: BigInt(packet.timeout_timestamp),
-        },
+        packet:
+          packet == null
+            ? packet
+            : {
+                sequence: packet.sequence == null ? packet.sequence : BigInt(packet.sequence),
+                sourcePort: packet.source_port,
+                sourceChannel: packet.source_channel,
+                destinationPort: packet.destination_port,
+                destinationChannel: packet.destination_channel,
+                data: packet.data,
+                timeoutHeight: packet.timeout_height
+                  ? {
+                      revisionHeight: BigInt(packet.timeout_height.revision_height || "0"),
+                      revisionNumber: BigInt(packet.timeout_height.revision_number || "0"),
+                    }
+                  : undefined,
+                timeoutTimestamp:
+                  packet.timeout_timestamp == null
+                    ? packet.timeout_timestamp
+                    : BigInt(packet.timeout_timestamp),
+              },
         proofUnreceived: proof_unreceived,
         proofClose: proof_close,
         proofHeight: proof_height
@@ -807,9 +846,12 @@ export const AminoConverter = {
               revisionNumber: BigInt(proof_height.revision_number || "0"),
             }
           : undefined,
-        nextSequenceRecv: BigInt(next_sequence_recv),
+        nextSequenceRecv: next_sequence_recv == null ? next_sequence_recv : BigInt(next_sequence_recv),
         signer,
-        counterpartyUpgradeSequence: BigInt(counterparty_upgrade_sequence),
+        counterpartyUpgradeSequence:
+          counterparty_upgrade_sequence == null
+            ? counterparty_upgrade_sequence
+            : BigInt(counterparty_upgrade_sequence),
       };
     },
   },
@@ -824,7 +866,7 @@ export const AminoConverter = {
     }: MsgAcknowledgement): MsgAcknowledgementAminoType["value"] => {
       return {
         packet: {
-          sequence: packet.sequence.toString(),
+          sequence: omitDefault(packet.sequence)?.toString?.(),
           source_port: packet.sourcePort,
           source_channel: packet.sourceChannel,
           destination_port: packet.destinationPort,
@@ -836,7 +878,7 @@ export const AminoConverter = {
                 revision_number: omitDefault(packet.timeoutHeight.revisionNumber)?.toString(),
               }
             : {},
-          timeout_timestamp: packet.timeoutTimestamp.toString(),
+          timeout_timestamp: omitDefault(packet.timeoutTimestamp)?.toString?.(),
         },
         acknowledgement,
         proof_acked: proofAcked,
@@ -857,21 +899,27 @@ export const AminoConverter = {
       signer,
     }: MsgAcknowledgementAminoType["value"]): MsgAcknowledgement => {
       return {
-        packet: {
-          sequence: BigInt(packet.sequence),
-          sourcePort: packet.source_port,
-          sourceChannel: packet.source_channel,
-          destinationPort: packet.destination_port,
-          destinationChannel: packet.destination_channel,
-          data: packet.data,
-          timeoutHeight: packet.timeout_height
-            ? {
-                revisionHeight: BigInt(packet.timeout_height.revision_height || "0"),
-                revisionNumber: BigInt(packet.timeout_height.revision_number || "0"),
-              }
-            : undefined,
-          timeoutTimestamp: BigInt(packet.timeout_timestamp),
-        },
+        packet:
+          packet == null
+            ? packet
+            : {
+                sequence: packet.sequence == null ? packet.sequence : BigInt(packet.sequence),
+                sourcePort: packet.source_port,
+                sourceChannel: packet.source_channel,
+                destinationPort: packet.destination_port,
+                destinationChannel: packet.destination_channel,
+                data: packet.data,
+                timeoutHeight: packet.timeout_height
+                  ? {
+                      revisionHeight: BigInt(packet.timeout_height.revision_height || "0"),
+                      revisionNumber: BigInt(packet.timeout_height.revision_number || "0"),
+                    }
+                  : undefined,
+                timeoutTimestamp:
+                  packet.timeout_timestamp == null
+                    ? packet.timeout_timestamp
+                    : BigInt(packet.timeout_timestamp),
+              },
         acknowledgement,
         proofAcked: proof_acked,
         proofHeight: proof_height
@@ -912,11 +960,14 @@ export const AminoConverter = {
       return {
         portId: port_id,
         channelId: channel_id,
-        fields: {
-          ordering: orderFromJSON(fields.ordering),
-          connectionHops: fields.connection_hops,
-          version: fields.version,
-        },
+        fields:
+          fields == null
+            ? fields
+            : {
+                ordering: fields.ordering == null ? fields.ordering : orderFromJSON(fields.ordering),
+                connectionHops: fields.connection_hops,
+                version: fields.version,
+              },
         signer,
       };
     },
@@ -943,7 +994,7 @@ export const AminoConverter = {
           connection_hops: counterpartyUpgradeFields.connectionHops,
           version: counterpartyUpgradeFields.version,
         },
-        counterparty_upgrade_sequence: counterpartyUpgradeSequence.toString(),
+        counterparty_upgrade_sequence: omitDefault(counterpartyUpgradeSequence)?.toString?.(),
         proof_channel: proofChannel,
         proof_upgrade: proofUpgrade,
         proof_height: proofHeight
@@ -970,12 +1021,21 @@ export const AminoConverter = {
         portId: port_id,
         channelId: channel_id,
         proposedUpgradeConnectionHops: proposed_upgrade_connection_hops,
-        counterpartyUpgradeFields: {
-          ordering: orderFromJSON(counterparty_upgrade_fields.ordering),
-          connectionHops: counterparty_upgrade_fields.connection_hops,
-          version: counterparty_upgrade_fields.version,
-        },
-        counterpartyUpgradeSequence: BigInt(counterparty_upgrade_sequence),
+        counterpartyUpgradeFields:
+          counterparty_upgrade_fields == null
+            ? counterparty_upgrade_fields
+            : {
+                ordering:
+                  counterparty_upgrade_fields.ordering == null
+                    ? counterparty_upgrade_fields.ordering
+                    : orderFromJSON(counterparty_upgrade_fields.ordering),
+                connectionHops: counterparty_upgrade_fields.connection_hops,
+                version: counterparty_upgrade_fields.version,
+              },
+        counterpartyUpgradeSequence:
+          counterparty_upgrade_sequence == null
+            ? counterparty_upgrade_sequence
+            : BigInt(counterparty_upgrade_sequence),
         proofChannel: proof_channel,
         proofUpgrade: proof_upgrade,
         proofHeight: proof_height
@@ -1015,9 +1075,9 @@ export const AminoConverter = {
                   revision_number: omitDefault(counterpartyUpgrade.timeout.height.revisionNumber)?.toString(),
                 }
               : {},
-            timestamp: counterpartyUpgrade.timeout.timestamp.toString(),
+            timestamp: omitDefault(counterpartyUpgrade.timeout.timestamp)?.toString?.(),
           },
-          next_sequence_send: counterpartyUpgrade.nextSequenceSend.toString(),
+          next_sequence_send: omitDefault(counterpartyUpgrade.nextSequenceSend)?.toString?.(),
         },
         proof_channel: proofChannel,
         proof_upgrade: proofUpgrade,
@@ -1042,23 +1102,45 @@ export const AminoConverter = {
       return {
         portId: port_id,
         channelId: channel_id,
-        counterpartyUpgrade: {
-          fields: {
-            ordering: orderFromJSON(counterparty_upgrade.fields.ordering),
-            connectionHops: counterparty_upgrade.fields.connection_hops,
-            version: counterparty_upgrade.fields.version,
-          },
-          timeout: {
-            height: counterparty_upgrade.timeout.height
-              ? {
-                  revisionHeight: BigInt(counterparty_upgrade.timeout.height.revision_height || "0"),
-                  revisionNumber: BigInt(counterparty_upgrade.timeout.height.revision_number || "0"),
-                }
-              : undefined,
-            timestamp: BigInt(counterparty_upgrade.timeout.timestamp),
-          },
-          nextSequenceSend: BigInt(counterparty_upgrade.next_sequence_send),
-        },
+        counterpartyUpgrade:
+          counterparty_upgrade == null
+            ? counterparty_upgrade
+            : {
+                fields:
+                  counterparty_upgrade.fields == null
+                    ? counterparty_upgrade.fields
+                    : {
+                        ordering:
+                          counterparty_upgrade.fields.ordering == null
+                            ? counterparty_upgrade.fields.ordering
+                            : orderFromJSON(counterparty_upgrade.fields.ordering),
+                        connectionHops: counterparty_upgrade.fields.connection_hops,
+                        version: counterparty_upgrade.fields.version,
+                      },
+                timeout:
+                  counterparty_upgrade.timeout == null
+                    ? counterparty_upgrade.timeout
+                    : {
+                        height: counterparty_upgrade.timeout.height
+                          ? {
+                              revisionHeight: BigInt(
+                                counterparty_upgrade.timeout.height.revision_height || "0",
+                              ),
+                              revisionNumber: BigInt(
+                                counterparty_upgrade.timeout.height.revision_number || "0",
+                              ),
+                            }
+                          : undefined,
+                        timestamp:
+                          counterparty_upgrade.timeout.timestamp == null
+                            ? counterparty_upgrade.timeout.timestamp
+                            : BigInt(counterparty_upgrade.timeout.timestamp),
+                      },
+                nextSequenceSend:
+                  counterparty_upgrade.next_sequence_send == null
+                    ? counterparty_upgrade.next_sequence_send
+                    : BigInt(counterparty_upgrade.next_sequence_send),
+              },
         proofChannel: proof_channel,
         proofUpgrade: proof_upgrade,
         proofHeight: proof_height
@@ -1100,9 +1182,9 @@ export const AminoConverter = {
                   revision_number: omitDefault(counterpartyUpgrade.timeout.height.revisionNumber)?.toString(),
                 }
               : {},
-            timestamp: counterpartyUpgrade.timeout.timestamp.toString(),
+            timestamp: omitDefault(counterpartyUpgrade.timeout.timestamp)?.toString?.(),
           },
-          next_sequence_send: counterpartyUpgrade.nextSequenceSend.toString(),
+          next_sequence_send: omitDefault(counterpartyUpgrade.nextSequenceSend)?.toString?.(),
         },
         proof_channel: proofChannel,
         proof_upgrade: proofUpgrade,
@@ -1128,24 +1210,49 @@ export const AminoConverter = {
       return {
         portId: port_id,
         channelId: channel_id,
-        counterpartyChannelState: stateFromJSON(counterparty_channel_state),
-        counterpartyUpgrade: {
-          fields: {
-            ordering: orderFromJSON(counterparty_upgrade.fields.ordering),
-            connectionHops: counterparty_upgrade.fields.connection_hops,
-            version: counterparty_upgrade.fields.version,
-          },
-          timeout: {
-            height: counterparty_upgrade.timeout.height
-              ? {
-                  revisionHeight: BigInt(counterparty_upgrade.timeout.height.revision_height || "0"),
-                  revisionNumber: BigInt(counterparty_upgrade.timeout.height.revision_number || "0"),
-                }
-              : undefined,
-            timestamp: BigInt(counterparty_upgrade.timeout.timestamp),
-          },
-          nextSequenceSend: BigInt(counterparty_upgrade.next_sequence_send),
-        },
+        counterpartyChannelState:
+          counterparty_channel_state == null
+            ? counterparty_channel_state
+            : stateFromJSON(counterparty_channel_state),
+        counterpartyUpgrade:
+          counterparty_upgrade == null
+            ? counterparty_upgrade
+            : {
+                fields:
+                  counterparty_upgrade.fields == null
+                    ? counterparty_upgrade.fields
+                    : {
+                        ordering:
+                          counterparty_upgrade.fields.ordering == null
+                            ? counterparty_upgrade.fields.ordering
+                            : orderFromJSON(counterparty_upgrade.fields.ordering),
+                        connectionHops: counterparty_upgrade.fields.connection_hops,
+                        version: counterparty_upgrade.fields.version,
+                      },
+                timeout:
+                  counterparty_upgrade.timeout == null
+                    ? counterparty_upgrade.timeout
+                    : {
+                        height: counterparty_upgrade.timeout.height
+                          ? {
+                              revisionHeight: BigInt(
+                                counterparty_upgrade.timeout.height.revision_height || "0",
+                              ),
+                              revisionNumber: BigInt(
+                                counterparty_upgrade.timeout.height.revision_number || "0",
+                              ),
+                            }
+                          : undefined,
+                        timestamp:
+                          counterparty_upgrade.timeout.timestamp == null
+                            ? counterparty_upgrade.timeout.timestamp
+                            : BigInt(counterparty_upgrade.timeout.timestamp),
+                      },
+                nextSequenceSend:
+                  counterparty_upgrade.next_sequence_send == null
+                    ? counterparty_upgrade.next_sequence_send
+                    : BigInt(counterparty_upgrade.next_sequence_send),
+              },
         proofChannel: proof_channel,
         proofUpgrade: proof_upgrade,
         proofHeight: proof_height
@@ -1173,7 +1280,7 @@ export const AminoConverter = {
         port_id: portId,
         channel_id: channelId,
         counterparty_channel_state: counterpartyChannelState,
-        counterparty_upgrade_sequence: counterpartyUpgradeSequence.toString(),
+        counterparty_upgrade_sequence: omitDefault(counterpartyUpgradeSequence)?.toString?.(),
         proof_channel: proofChannel,
         proof_height: proofHeight
           ? {
@@ -1196,8 +1303,14 @@ export const AminoConverter = {
       return {
         portId: port_id,
         channelId: channel_id,
-        counterpartyChannelState: stateFromJSON(counterparty_channel_state),
-        counterpartyUpgradeSequence: BigInt(counterparty_upgrade_sequence),
+        counterpartyChannelState:
+          counterparty_channel_state == null
+            ? counterparty_channel_state
+            : stateFromJSON(counterparty_channel_state),
+        counterpartyUpgradeSequence:
+          counterparty_upgrade_sequence == null
+            ? counterparty_upgrade_sequence
+            : BigInt(counterparty_upgrade_sequence),
         proofChannel: proof_channel,
         proofHeight: proof_height
           ? {
@@ -1231,7 +1344,7 @@ export const AminoConverter = {
           },
           connection_hops: counterpartyChannel.connectionHops,
           version: counterpartyChannel.version,
-          upgrade_sequence: counterpartyChannel.upgradeSequence.toString(),
+          upgrade_sequence: omitDefault(counterpartyChannel.upgradeSequence)?.toString?.(),
         },
         proof_channel: proofChannel,
         proof_height: proofHeight
@@ -1254,17 +1367,32 @@ export const AminoConverter = {
       return {
         portId: port_id,
         channelId: channel_id,
-        counterpartyChannel: {
-          state: stateFromJSON(counterparty_channel.state),
-          ordering: orderFromJSON(counterparty_channel.ordering),
-          counterparty: {
-            portId: counterparty_channel.counterparty.port_id,
-            channelId: counterparty_channel.counterparty.channel_id,
-          },
-          connectionHops: counterparty_channel.connection_hops,
-          version: counterparty_channel.version,
-          upgradeSequence: BigInt(counterparty_channel.upgrade_sequence),
-        },
+        counterpartyChannel:
+          counterparty_channel == null
+            ? counterparty_channel
+            : {
+                state:
+                  counterparty_channel.state == null
+                    ? counterparty_channel.state
+                    : stateFromJSON(counterparty_channel.state),
+                ordering:
+                  counterparty_channel.ordering == null
+                    ? counterparty_channel.ordering
+                    : orderFromJSON(counterparty_channel.ordering),
+                counterparty:
+                  counterparty_channel.counterparty == null
+                    ? counterparty_channel.counterparty
+                    : {
+                        portId: counterparty_channel.counterparty.port_id,
+                        channelId: counterparty_channel.counterparty.channel_id,
+                      },
+                connectionHops: counterparty_channel.connection_hops,
+                version: counterparty_channel.version,
+                upgradeSequence:
+                  counterparty_channel.upgrade_sequence == null
+                    ? counterparty_channel.upgrade_sequence
+                    : BigInt(counterparty_channel.upgrade_sequence),
+              },
         proofChannel: proof_channel,
         proofHeight: proof_height
           ? {
@@ -1290,7 +1418,7 @@ export const AminoConverter = {
         port_id: portId,
         channel_id: channelId,
         error_receipt: {
-          sequence: errorReceipt.sequence.toString(),
+          sequence: omitDefault(errorReceipt.sequence)?.toString?.(),
           message: errorReceipt.message,
         },
         proof_error_receipt: proofErrorReceipt,
@@ -1314,10 +1442,14 @@ export const AminoConverter = {
       return {
         portId: port_id,
         channelId: channel_id,
-        errorReceipt: {
-          sequence: BigInt(error_receipt.sequence),
-          message: error_receipt.message,
-        },
+        errorReceipt:
+          error_receipt == null
+            ? error_receipt
+            : {
+                sequence:
+                  error_receipt.sequence == null ? error_receipt.sequence : BigInt(error_receipt.sequence),
+                message: error_receipt.message,
+              },
         proofErrorReceipt: proof_error_receipt,
         proofHeight: proof_height
           ? {
@@ -1342,9 +1474,12 @@ export const AminoConverter = {
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          allowedClients: params.allowed_clients,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                allowedClients: params.allowed_clients,
+              },
       };
     },
   },
@@ -1359,7 +1494,7 @@ export const AminoConverter = {
       return {
         port_id: portId,
         channel_id: channelId,
-        limit: limit.toString(),
+        limit: omitDefault(limit)?.toString?.(),
         signer,
       };
     },
@@ -1372,7 +1507,7 @@ export const AminoConverter = {
       return {
         portId: port_id,
         channelId: channel_id,
-        limit: BigInt(limit),
+        limit: limit == null ? limit : BigInt(limit),
         signer,
       };
     },

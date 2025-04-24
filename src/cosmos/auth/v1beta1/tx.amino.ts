@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../helpers";
 import { MsgUpdateParams } from "./tx";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "cosmos-sdk/x/auth/MsgUpdateParams";
@@ -22,24 +23,39 @@ export const AminoConverter = {
       return {
         authority,
         params: {
-          max_memo_characters: params.maxMemoCharacters.toString(),
-          tx_sig_limit: params.txSigLimit.toString(),
-          tx_size_cost_per_byte: params.txSizeCostPerByte.toString(),
-          sig_verify_cost_ed25519: params.sigVerifyCostEd25519.toString(),
-          sig_verify_cost_secp256k1: params.sigVerifyCostSecp256k1.toString(),
+          max_memo_characters: omitDefault(params.maxMemoCharacters)?.toString?.(),
+          tx_sig_limit: omitDefault(params.txSigLimit)?.toString?.(),
+          tx_size_cost_per_byte: omitDefault(params.txSizeCostPerByte)?.toString?.(),
+          sig_verify_cost_ed25519: omitDefault(params.sigVerifyCostEd25519)?.toString?.(),
+          sig_verify_cost_secp256k1: omitDefault(params.sigVerifyCostSecp256k1)?.toString?.(),
         },
       };
     },
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          maxMemoCharacters: BigInt(params.max_memo_characters),
-          txSigLimit: BigInt(params.tx_sig_limit),
-          txSizeCostPerByte: BigInt(params.tx_size_cost_per_byte),
-          sigVerifyCostEd25519: BigInt(params.sig_verify_cost_ed25519),
-          sigVerifyCostSecp256k1: BigInt(params.sig_verify_cost_secp256k1),
-        },
+        params:
+          params == null
+            ? params
+            : {
+                maxMemoCharacters:
+                  params.max_memo_characters == null
+                    ? params.max_memo_characters
+                    : BigInt(params.max_memo_characters),
+                txSigLimit: params.tx_sig_limit == null ? params.tx_sig_limit : BigInt(params.tx_sig_limit),
+                txSizeCostPerByte:
+                  params.tx_size_cost_per_byte == null
+                    ? params.tx_size_cost_per_byte
+                    : BigInt(params.tx_size_cost_per_byte),
+                sigVerifyCostEd25519:
+                  params.sig_verify_cost_ed25519 == null
+                    ? params.sig_verify_cost_ed25519
+                    : BigInt(params.sig_verify_cost_ed25519),
+                sigVerifyCostSecp256k1:
+                  params.sig_verify_cost_secp256k1 == null
+                    ? params.sig_verify_cost_secp256k1
+                    : BigInt(params.sig_verify_cost_secp256k1),
+              },
       };
     },
   },

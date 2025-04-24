@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../helpers";
 import { MsgUpdateParams, MsgResubmitFailure } from "./tx";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "contractmanager/MsgUpdateParams";
@@ -25,16 +26,22 @@ export const AminoConverter = {
       return {
         authority,
         params: {
-          sudo_call_gas_limit: params.sudoCallGasLimit.toString(),
+          sudo_call_gas_limit: omitDefault(params.sudoCallGasLimit)?.toString?.(),
         },
       };
     },
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          sudoCallGasLimit: BigInt(params.sudo_call_gas_limit),
-        },
+        params:
+          params == null
+            ? params
+            : {
+                sudoCallGasLimit:
+                  params.sudo_call_gas_limit == null
+                    ? params.sudo_call_gas_limit
+                    : BigInt(params.sudo_call_gas_limit),
+              },
       };
     },
   },
@@ -43,13 +50,13 @@ export const AminoConverter = {
     toAmino: ({ sender, failureId }: MsgResubmitFailure): MsgResubmitFailureAminoType["value"] => {
       return {
         sender,
-        failure_id: failureId.toString(),
+        failure_id: omitDefault(failureId)?.toString?.(),
       };
     },
     fromAmino: ({ sender, failure_id }: MsgResubmitFailureAminoType["value"]): MsgResubmitFailure => {
       return {
         sender,
-        failureId: BigInt(failure_id),
+        failureId: failure_id == null ? failure_id : BigInt(failure_id),
       };
     },
   },

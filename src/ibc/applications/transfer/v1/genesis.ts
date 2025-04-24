@@ -104,41 +104,4 @@ export const GenesisState = {
     message.totalEscrowed = object.totalEscrowed?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    if (object.port_id !== undefined && object.port_id !== null) {
-      message.portId = object.port_id;
-    }
-    message.denomTraces = object.denom_traces?.map((e) => DenomTrace.fromAmino(e)) || [];
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    message.totalEscrowed = object.total_escrowed?.map((e) => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    obj.port_id = message.portId === "" ? undefined : message.portId;
-    if (message.denomTraces) {
-      obj.denom_traces = message.denomTraces.map((e) => (e ? DenomTrace.toAmino(e) : undefined));
-    } else {
-      obj.denom_traces = message.denomTraces;
-    }
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    if (message.totalEscrowed) {
-      obj.total_escrowed = message.totalEscrowed.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.total_escrowed = message.totalEscrowed;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisState",
-      value: GenesisState.toAmino(message),
-    };
-  },
 };

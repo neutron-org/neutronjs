@@ -87,21 +87,6 @@ export const GenesisState = {
     }
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
 };
 function createBaseParams(): Params {
   return {
@@ -209,53 +194,5 @@ export const Params = {
     message.frontRunningProtection = object.frontRunningProtection ?? false;
     message.proposerFee = object.proposerFee ?? "";
     return message;
-  },
-  fromAmino(object: ParamsAmino): Params {
-    const message = createBaseParams();
-    if (object.max_bundle_size !== undefined && object.max_bundle_size !== null) {
-      message.maxBundleSize = object.max_bundle_size;
-    }
-    if (object.escrow_account_address !== undefined && object.escrow_account_address !== null) {
-      message.escrowAccountAddress = bytesFromBase64(object.escrow_account_address);
-    }
-    if (object.reserve_fee !== undefined && object.reserve_fee !== null) {
-      message.reserveFee = Coin.fromAmino(object.reserve_fee);
-    }
-    if (object.min_bid_increment !== undefined && object.min_bid_increment !== null) {
-      message.minBidIncrement = Coin.fromAmino(object.min_bid_increment);
-    }
-    if (object.front_running_protection !== undefined && object.front_running_protection !== null) {
-      message.frontRunningProtection = object.front_running_protection;
-    }
-    if (object.proposer_fee !== undefined && object.proposer_fee !== null) {
-      message.proposerFee = object.proposer_fee;
-    }
-    return message;
-  },
-  toAmino(message: Params): ParamsAmino {
-    const obj: any = {};
-    obj.max_bundle_size = message.maxBundleSize === 0 ? undefined : message.maxBundleSize;
-    obj.escrow_account_address = message.escrowAccountAddress
-      ? base64FromBytes(message.escrowAccountAddress)
-      : undefined;
-    obj.reserve_fee = message.reserveFee
-      ? Coin.toAmino(message.reserveFee)
-      : Coin.toAmino(Coin.fromPartial({}));
-    obj.min_bid_increment = message.minBidIncrement
-      ? Coin.toAmino(message.minBidIncrement)
-      : Coin.toAmino(Coin.fromPartial({}));
-    obj.front_running_protection =
-      message.frontRunningProtection === false ? undefined : message.frontRunningProtection;
-    obj.proposer_fee = message.proposerFee ?? "";
-    return obj;
-  },
-  fromAminoMsg(object: ParamsAminoMsg): Params {
-    return Params.fromAmino(object.value);
-  },
-  toAminoMsg(message: Params): ParamsAminoMsg {
-    return {
-      type: "block-sdk/x/auction/Params",
-      value: Params.toAmino(message),
-    };
   },
 };

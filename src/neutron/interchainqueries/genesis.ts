@@ -261,81 +261,6 @@ export const RegisteredQuery = {
     }
     return message;
   },
-  fromAmino(object: RegisteredQueryAmino): RegisteredQuery {
-    const message = createBaseRegisteredQuery();
-    if (object.id !== undefined && object.id !== null) {
-      message.id = BigInt(object.id);
-    }
-    if (object.owner !== undefined && object.owner !== null) {
-      message.owner = object.owner;
-    }
-    if (object.query_type !== undefined && object.query_type !== null) {
-      message.queryType = object.query_type;
-    }
-    message.keys = object.keys?.map((e) => KVKey.fromAmino(e)) || [];
-    if (object.transactions_filter !== undefined && object.transactions_filter !== null) {
-      message.transactionsFilter = object.transactions_filter;
-    }
-    if (object.connection_id !== undefined && object.connection_id !== null) {
-      message.connectionId = object.connection_id;
-    }
-    if (object.update_period !== undefined && object.update_period !== null) {
-      message.updatePeriod = BigInt(object.update_period);
-    }
-    if (
-      object.last_submitted_result_local_height !== undefined &&
-      object.last_submitted_result_local_height !== null
-    ) {
-      message.lastSubmittedResultLocalHeight = BigInt(object.last_submitted_result_local_height);
-    }
-    if (
-      object.last_submitted_result_remote_height !== undefined &&
-      object.last_submitted_result_remote_height !== null
-    ) {
-      message.lastSubmittedResultRemoteHeight = Height.fromAmino(object.last_submitted_result_remote_height);
-    }
-    message.deposit = object.deposit?.map((e) => Coin.fromAmino(e)) || [];
-    if (object.submit_timeout !== undefined && object.submit_timeout !== null) {
-      message.submitTimeout = BigInt(object.submit_timeout);
-    }
-    if (object.registered_at_height !== undefined && object.registered_at_height !== null) {
-      message.registeredAtHeight = BigInt(object.registered_at_height);
-    }
-    return message;
-  },
-  toAmino(message: RegisteredQuery): RegisteredQueryAmino {
-    const obj: any = {};
-    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
-    obj.owner = message.owner === "" ? undefined : message.owner;
-    obj.query_type = message.queryType === "" ? undefined : message.queryType;
-    if (message.keys) {
-      obj.keys = message.keys.map((e) => (e ? KVKey.toAmino(e) : undefined));
-    } else {
-      obj.keys = message.keys;
-    }
-    obj.transactions_filter = message.transactionsFilter === "" ? undefined : message.transactionsFilter;
-    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
-    obj.update_period = message.updatePeriod !== BigInt(0) ? message.updatePeriod?.toString() : undefined;
-    obj.last_submitted_result_local_height =
-      message.lastSubmittedResultLocalHeight !== BigInt(0)
-        ? message.lastSubmittedResultLocalHeight?.toString()
-        : undefined;
-    obj.last_submitted_result_remote_height = message.lastSubmittedResultRemoteHeight
-      ? Height.toAmino(message.lastSubmittedResultRemoteHeight)
-      : {};
-    if (message.deposit) {
-      obj.deposit = message.deposit.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.deposit = message.deposit;
-    }
-    obj.submit_timeout = message.submitTimeout !== BigInt(0) ? message.submitTimeout?.toString() : undefined;
-    obj.registered_at_height =
-      message.registeredAtHeight !== BigInt(0) ? message.registeredAtHeight?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: RegisteredQueryAminoMsg): RegisteredQuery {
-    return RegisteredQuery.fromAmino(object.value);
-  },
 };
 function createBaseKVKey(): KVKey {
   return {
@@ -392,25 +317,6 @@ export const KVKey = {
     message.path = object.path ?? "";
     message.key = object.key ?? new Uint8Array();
     return message;
-  },
-  fromAmino(object: KVKeyAmino): KVKey {
-    const message = createBaseKVKey();
-    if (object.path !== undefined && object.path !== null) {
-      message.path = object.path;
-    }
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
-    return message;
-  },
-  toAmino(message: KVKey): KVKeyAmino {
-    const obj: any = {};
-    obj.path = message.path === "" ? undefined : message.path;
-    obj.key = message.key ? base64FromBytes(message.key) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: KVKeyAminoMsg): KVKey {
-    return KVKey.fromAmino(object.value);
   },
 };
 function createBaseGenesisState(): GenesisState {
@@ -476,28 +382,5 @@ export const GenesisState = {
     }
     message.registeredQueries = object.registeredQueries?.map((e) => RegisteredQuery.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    message.registeredQueries = object.registered_queries?.map((e) => RegisteredQuery.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    if (message.registeredQueries) {
-      obj.registered_queries = message.registeredQueries.map((e) =>
-        e ? RegisteredQuery.toAmino(e) : undefined,
-      );
-    } else {
-      obj.registered_queries = message.registeredQueries;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
   },
 };

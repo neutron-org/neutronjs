@@ -163,59 +163,6 @@ export const GenesisState = {
     }
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    message.clients = object.clients?.map((e) => IdentifiedClientState.fromAmino(e)) || [];
-    message.clientsConsensus = object.clients_consensus?.map((e) => ClientConsensusStates.fromAmino(e)) || [];
-    message.clientsMetadata =
-      object.clients_metadata?.map((e) => IdentifiedGenesisMetadata.fromAmino(e)) || [];
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    if (object.create_localhost !== undefined && object.create_localhost !== null) {
-      message.createLocalhost = object.create_localhost;
-    }
-    if (object.next_client_sequence !== undefined && object.next_client_sequence !== null) {
-      message.nextClientSequence = BigInt(object.next_client_sequence);
-    }
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    if (message.clients) {
-      obj.clients = message.clients.map((e) => (e ? IdentifiedClientState.toAmino(e) : undefined));
-    } else {
-      obj.clients = message.clients;
-    }
-    if (message.clientsConsensus) {
-      obj.clients_consensus = message.clientsConsensus.map((e) =>
-        e ? ClientConsensusStates.toAmino(e) : undefined,
-      );
-    } else {
-      obj.clients_consensus = message.clientsConsensus;
-    }
-    if (message.clientsMetadata) {
-      obj.clients_metadata = message.clientsMetadata.map((e) =>
-        e ? IdentifiedGenesisMetadata.toAmino(e) : undefined,
-      );
-    } else {
-      obj.clients_metadata = message.clientsMetadata;
-    }
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    obj.create_localhost = message.createLocalhost === false ? undefined : message.createLocalhost;
-    obj.next_client_sequence =
-      message.nextClientSequence !== BigInt(0) ? message.nextClientSequence?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisState",
-      value: GenesisState.toAmino(message),
-    };
-  },
 };
 function createBaseGenesisMetadata(): GenesisMetadata {
   return {
@@ -273,31 +220,6 @@ export const GenesisMetadata = {
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
     return message;
-  },
-  fromAmino(object: GenesisMetadataAmino): GenesisMetadata {
-    const message = createBaseGenesisMetadata();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = bytesFromBase64(object.value);
-    }
-    return message;
-  },
-  toAmino(message: GenesisMetadata): GenesisMetadataAmino {
-    const obj: any = {};
-    obj.key = message.key ? base64FromBytes(message.key) : undefined;
-    obj.value = message.value ? base64FromBytes(message.value) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: GenesisMetadataAminoMsg): GenesisMetadata {
-    return GenesisMetadata.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisMetadata): GenesisMetadataAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisMetadata",
-      value: GenesisMetadata.toAmino(message),
-    };
   },
 };
 function createBaseIdentifiedGenesisMetadata(): IdentifiedGenesisMetadata {
@@ -361,32 +283,5 @@ export const IdentifiedGenesisMetadata = {
     message.clientId = object.clientId ?? "";
     message.clientMetadata = object.clientMetadata?.map((e) => GenesisMetadata.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: IdentifiedGenesisMetadataAmino): IdentifiedGenesisMetadata {
-    const message = createBaseIdentifiedGenesisMetadata();
-    if (object.client_id !== undefined && object.client_id !== null) {
-      message.clientId = object.client_id;
-    }
-    message.clientMetadata = object.client_metadata?.map((e) => GenesisMetadata.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: IdentifiedGenesisMetadata): IdentifiedGenesisMetadataAmino {
-    const obj: any = {};
-    obj.client_id = message.clientId === "" ? undefined : message.clientId;
-    if (message.clientMetadata) {
-      obj.client_metadata = message.clientMetadata.map((e) => (e ? GenesisMetadata.toAmino(e) : undefined));
-    } else {
-      obj.client_metadata = message.clientMetadata;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: IdentifiedGenesisMetadataAminoMsg): IdentifiedGenesisMetadata {
-    return IdentifiedGenesisMetadata.fromAmino(object.value);
-  },
-  toAminoMsg(message: IdentifiedGenesisMetadata): IdentifiedGenesisMetadataAminoMsg {
-    return {
-      type: "cosmos-sdk/IdentifiedGenesisMetadata",
-      value: IdentifiedGenesisMetadata.toAmino(message),
-    };
   },
 };

@@ -61,27 +61,4 @@ export const GenesisState = {
     }
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    if (object.constant_fee !== undefined && object.constant_fee !== null) {
-      message.constantFee = Coin.fromAmino(object.constant_fee);
-    }
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    obj.constant_fee = message.constantFee
-      ? Coin.toAmino(message.constantFee)
-      : Coin.toAmino(Coin.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisState",
-      value: GenesisState.toAmino(message),
-    };
-  },
 };

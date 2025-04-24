@@ -89,31 +89,6 @@ export const MsgUpdateParams = {
     }
     return message;
   },
-  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    const message = createBaseMsgUpdateParams();
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
-    const obj: any = {};
-    obj.signer = message.signer === "" ? undefined : message.signer;
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
-    return MsgUpdateParams.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateParams",
-      value: MsgUpdateParams.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -148,23 +123,6 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    const message = createBaseMsgUpdateParamsResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
-    return MsgUpdateParamsResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateParamsResponse",
-      value: MsgUpdateParamsResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgModuleQuerySafe(): MsgModuleQuerySafe {
@@ -226,33 +184,6 @@ export const MsgModuleQuerySafe = {
     message.signer = object.signer ?? "";
     message.requests = object.requests?.map((e) => QueryRequest.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: MsgModuleQuerySafeAmino): MsgModuleQuerySafe {
-    const message = createBaseMsgModuleQuerySafe();
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    }
-    message.requests = object.requests?.map((e) => QueryRequest.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: MsgModuleQuerySafe): MsgModuleQuerySafeAmino {
-    const obj: any = {};
-    obj.signer = message.signer === "" ? undefined : message.signer;
-    if (message.requests) {
-      obj.requests = message.requests.map((e) => (e ? QueryRequest.toAmino(e) : undefined));
-    } else {
-      obj.requests = message.requests;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: MsgModuleQuerySafeAminoMsg): MsgModuleQuerySafe {
-    return MsgModuleQuerySafe.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgModuleQuerySafe): MsgModuleQuerySafeAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgModuleQuerySafe",
-      value: MsgModuleQuerySafe.toAmino(message),
-    };
   },
 };
 function createBaseMsgModuleQuerySafeResponse(): MsgModuleQuerySafeResponse {
@@ -318,32 +249,5 @@ export const MsgModuleQuerySafeResponse = {
     }
     message.responses = object.responses?.map((e) => e) || [];
     return message;
-  },
-  fromAmino(object: MsgModuleQuerySafeResponseAmino): MsgModuleQuerySafeResponse {
-    const message = createBaseMsgModuleQuerySafeResponse();
-    if (object.height !== undefined && object.height !== null) {
-      message.height = BigInt(object.height);
-    }
-    message.responses = object.responses?.map((e) => bytesFromBase64(e)) || [];
-    return message;
-  },
-  toAmino(message: MsgModuleQuerySafeResponse): MsgModuleQuerySafeResponseAmino {
-    const obj: any = {};
-    obj.height = message.height !== BigInt(0) ? message.height?.toString() : undefined;
-    if (message.responses) {
-      obj.responses = message.responses.map((e) => base64FromBytes(e));
-    } else {
-      obj.responses = message.responses;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: MsgModuleQuerySafeResponseAminoMsg): MsgModuleQuerySafeResponse {
-    return MsgModuleQuerySafeResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgModuleQuerySafeResponse): MsgModuleQuerySafeResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgModuleQuerySafeResponse",
-      value: MsgModuleQuerySafeResponse.toAmino(message),
-    };
   },
 };

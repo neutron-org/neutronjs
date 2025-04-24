@@ -74,31 +74,4 @@ export const LegacyAminoPubKey = {
     message.publicKeys = object.publicKeys?.map((e) => Any.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: LegacyAminoPubKeyAmino): LegacyAminoPubKey {
-    const message = createBaseLegacyAminoPubKey();
-    if (object.threshold !== undefined && object.threshold !== null) {
-      message.threshold = object.threshold;
-    }
-    message.publicKeys = object.public_keys?.map((e) => Any.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: LegacyAminoPubKey): LegacyAminoPubKeyAmino {
-    const obj: any = {};
-    obj.threshold = message.threshold === 0 ? undefined : message.threshold;
-    if (message.publicKeys) {
-      obj.public_keys = message.publicKeys.map((e) => (e ? Any.toAmino(e) : undefined));
-    } else {
-      obj.public_keys = message.publicKeys;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: LegacyAminoPubKeyAminoMsg): LegacyAminoPubKey {
-    return LegacyAminoPubKey.fromAmino(object.value);
-  },
-  toAminoMsg(message: LegacyAminoPubKey): LegacyAminoPubKeyAminoMsg {
-    return {
-      type: "tendermint/PubKeyMultisigThreshold",
-      value: LegacyAminoPubKey.toAmino(message),
-    };
-  },
 };

@@ -3,6 +3,7 @@
 import { orderFromJSON } from "../../../../core/channel/v1/channel";
 import { typeFromJSON } from "../../v1/packet";
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../../../helpers";
 import { MsgRegisterInterchainAccount, MsgSendTx, MsgUpdateParams } from "./tx";
 export interface MsgRegisterInterchainAccountAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgRegisterInterchainAccount";
@@ -61,7 +62,7 @@ export const AminoConverter = {
         owner,
         connectionId: connection_id,
         version,
-        ordering: orderFromJSON(ordering),
+        ordering: ordering == null ? ordering : orderFromJSON(ordering),
       };
     },
   },
@@ -81,7 +82,7 @@ export const AminoConverter = {
           data: packetData.data,
           memo: packetData.memo,
         },
-        relative_timeout: relativeTimeout.toString(),
+        relative_timeout: omitDefault(relativeTimeout)?.toString?.(),
       };
     },
     fromAmino: ({
@@ -93,12 +94,15 @@ export const AminoConverter = {
       return {
         owner,
         connectionId: connection_id,
-        packetData: {
-          type: typeFromJSON(packet_data.type),
-          data: packet_data.data,
-          memo: packet_data.memo,
-        },
-        relativeTimeout: BigInt(relative_timeout),
+        packetData:
+          packet_data == null
+            ? packet_data
+            : {
+                type: packet_data.type == null ? packet_data.type : typeFromJSON(packet_data.type),
+                data: packet_data.data,
+                memo: packet_data.memo,
+              },
+        relativeTimeout: relative_timeout == null ? relative_timeout : BigInt(relative_timeout),
       };
     },
   },
@@ -108,16 +112,19 @@ export const AminoConverter = {
       return {
         signer,
         params: {
-          controller_enabled: params.controllerEnabled,
+          controller_enabled: omitDefault(params.controllerEnabled),
         },
       };
     },
     fromAmino: ({ signer, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         signer,
-        params: {
-          controllerEnabled: params.controller_enabled,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                controllerEnabled: params.controller_enabled,
+              },
       };
     },
   },

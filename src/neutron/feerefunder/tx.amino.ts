@@ -51,22 +51,28 @@ export const AminoConverter = {
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          minFee: {
-            recvFee: params.min_fee.recv_fee.map((el2) => ({
-              denom: el2.denom,
-              amount: el2.amount,
-            })),
-            ackFee: params.min_fee.ack_fee.map((el2) => ({
-              denom: el2.denom,
-              amount: el2.amount,
-            })),
-            timeoutFee: params.min_fee.timeout_fee.map((el2) => ({
-              denom: el2.denom,
-              amount: el2.amount,
-            })),
-          },
-        },
+        params:
+          params == null
+            ? params
+            : {
+                minFee:
+                  params.min_fee == null
+                    ? params.min_fee
+                    : {
+                        recvFee: params.min_fee.recv_fee.map?.((el2) => ({
+                          denom: el2.denom,
+                          amount: el2.amount,
+                        })),
+                        ackFee: params.min_fee.ack_fee.map?.((el2) => ({
+                          denom: el2.denom,
+                          amount: el2.amount,
+                        })),
+                        timeoutFee: params.min_fee.timeout_fee.map?.((el2) => ({
+                          denom: el2.denom,
+                          amount: el2.amount,
+                        })),
+                      },
+              },
       };
     },
   },

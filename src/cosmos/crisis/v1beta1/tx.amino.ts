@@ -60,10 +60,13 @@ export const AminoConverter = {
     fromAmino: ({ authority, constant_fee }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        constantFee: {
-          denom: constant_fee.denom,
-          amount: constant_fee.amount,
-        },
+        constantFee:
+          constant_fee == null
+            ? constant_fee
+            : {
+                denom: constant_fee.denom,
+                amount: constant_fee.amount,
+              },
       };
     },
   },

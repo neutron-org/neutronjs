@@ -79,23 +79,4 @@ export const LimitOrderExpiration = {
     message.trancheRef = object.trancheRef ?? new Uint8Array();
     return message;
   },
-  fromAmino(object: LimitOrderExpirationAmino): LimitOrderExpiration {
-    const message = createBaseLimitOrderExpiration();
-    if (object.expiration_time !== undefined && object.expiration_time !== null) {
-      message.expirationTime = Timestamp.fromAmino(object.expiration_time);
-    }
-    if (object.tranche_ref !== undefined && object.tranche_ref !== null) {
-      message.trancheRef = bytesFromBase64(object.tranche_ref);
-    }
-    return message;
-  },
-  toAmino(message: LimitOrderExpiration): LimitOrderExpirationAmino {
-    const obj: any = {};
-    obj.expiration_time = message.expirationTime ? Timestamp.toAmino(message.expirationTime) : undefined;
-    obj.tranche_ref = message.trancheRef ? base64FromBytes(message.trancheRef) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: LimitOrderExpirationAminoMsg): LimitOrderExpiration {
-    return LimitOrderExpiration.fromAmino(object.value);
-  },
 };

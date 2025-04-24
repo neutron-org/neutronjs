@@ -193,54 +193,6 @@ export const MsgTransfer = {
     }
     return message;
   },
-  fromAmino(object: MsgTransferAmino): MsgTransfer {
-    const message = createBaseMsgTransfer();
-    if (object.source_port !== undefined && object.source_port !== null) {
-      message.sourcePort = object.source_port;
-    }
-    if (object.source_channel !== undefined && object.source_channel !== null) {
-      message.sourceChannel = object.source_channel;
-    }
-    if (object.token !== undefined && object.token !== null) {
-      message.token = Coin.fromAmino(object.token);
-    }
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    }
-    if (object.receiver !== undefined && object.receiver !== null) {
-      message.receiver = object.receiver;
-    }
-    if (object.timeout_height !== undefined && object.timeout_height !== null) {
-      message.timeoutHeight = Height.fromAmino(object.timeout_height);
-    }
-    if (object.timeout_timestamp !== undefined && object.timeout_timestamp !== null) {
-      message.timeoutTimestamp = BigInt(object.timeout_timestamp);
-    }
-    if (object.memo !== undefined && object.memo !== null) {
-      message.memo = object.memo;
-    }
-    if (object.fee !== undefined && object.fee !== null) {
-      message.fee = Fee.fromAmino(object.fee);
-    }
-    return message;
-  },
-  toAmino(message: MsgTransfer): MsgTransferAmino {
-    const obj: any = {};
-    obj.source_port = message.sourcePort === "" ? undefined : message.sourcePort;
-    obj.source_channel = message.sourceChannel === "" ? undefined : message.sourceChannel;
-    obj.token = message.token ? Coin.toAmino(message.token) : undefined;
-    obj.sender = message.sender === "" ? undefined : message.sender;
-    obj.receiver = message.receiver === "" ? undefined : message.receiver;
-    obj.timeout_height = message.timeoutHeight ? Height.toAmino(message.timeoutHeight) : {};
-    obj.timeout_timestamp =
-      message.timeoutTimestamp !== BigInt(0) ? message.timeoutTimestamp?.toString() : undefined;
-    obj.memo = message.memo === "" ? undefined : message.memo;
-    obj.fee = message.fee ? Fee.toAmino(message.fee) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgTransferAminoMsg): MsgTransfer {
-    return MsgTransfer.fromAmino(object.value);
-  },
 };
 function createBaseMsgTransferResponse(): MsgTransferResponse {
   return {
@@ -298,25 +250,6 @@ export const MsgTransferResponse = {
     }
     message.channel = object.channel ?? "";
     return message;
-  },
-  fromAmino(object: MsgTransferResponseAmino): MsgTransferResponse {
-    const message = createBaseMsgTransferResponse();
-    if (object.sequence_id !== undefined && object.sequence_id !== null) {
-      message.sequenceId = BigInt(object.sequence_id);
-    }
-    if (object.channel !== undefined && object.channel !== null) {
-      message.channel = object.channel;
-    }
-    return message;
-  },
-  toAmino(message: MsgTransferResponse): MsgTransferResponseAmino {
-    const obj: any = {};
-    obj.sequence_id = message.sequenceId !== BigInt(0) ? message.sequenceId?.toString() : undefined;
-    obj.channel = message.channel === "" ? undefined : message.channel;
-    return obj;
-  },
-  fromAminoMsg(object: MsgTransferResponseAminoMsg): MsgTransferResponse {
-    return MsgTransferResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -376,25 +309,6 @@ export const MsgUpdateParams = {
     }
     return message;
   },
-  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    const message = createBaseMsgUpdateParams();
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
-    const obj: any = {};
-    obj.signer = message.signer === "" ? undefined : message.signer;
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
-    return MsgUpdateParams.fromAmino(object.value);
-  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -429,16 +343,5 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    const message = createBaseMsgUpdateParamsResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
-    return MsgUpdateParamsResponse.fromAmino(object.value);
   },
 };

@@ -94,31 +94,6 @@ export const MsgSoftwareUpgrade = {
     }
     return message;
   },
-  fromAmino(object: MsgSoftwareUpgradeAmino): MsgSoftwareUpgrade {
-    const message = createBaseMsgSoftwareUpgrade();
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    if (object.plan !== undefined && object.plan !== null) {
-      message.plan = Plan.fromAmino(object.plan);
-    }
-    return message;
-  },
-  toAmino(message: MsgSoftwareUpgrade): MsgSoftwareUpgradeAmino {
-    const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.plan = message.plan ? Plan.toAmino(message.plan) : Plan.toAmino(Plan.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: MsgSoftwareUpgradeAminoMsg): MsgSoftwareUpgrade {
-    return MsgSoftwareUpgrade.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgSoftwareUpgrade): MsgSoftwareUpgradeAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgSoftwareUpgrade",
-      value: MsgSoftwareUpgrade.toAmino(message),
-    };
-  },
 };
 function createBaseMsgSoftwareUpgradeResponse(): MsgSoftwareUpgradeResponse {
   return {};
@@ -153,23 +128,6 @@ export const MsgSoftwareUpgradeResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgSoftwareUpgradeResponse>, I>>(_: I): MsgSoftwareUpgradeResponse {
     const message = createBaseMsgSoftwareUpgradeResponse();
     return message;
-  },
-  fromAmino(_: MsgSoftwareUpgradeResponseAmino): MsgSoftwareUpgradeResponse {
-    const message = createBaseMsgSoftwareUpgradeResponse();
-    return message;
-  },
-  toAmino(_: MsgSoftwareUpgradeResponse): MsgSoftwareUpgradeResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgSoftwareUpgradeResponseAminoMsg): MsgSoftwareUpgradeResponse {
-    return MsgSoftwareUpgradeResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgSoftwareUpgradeResponse): MsgSoftwareUpgradeResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgSoftwareUpgradeResponse",
-      value: MsgSoftwareUpgradeResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgCancelUpgrade(): MsgCancelUpgrade {
@@ -217,27 +175,6 @@ export const MsgCancelUpgrade = {
     message.authority = object.authority ?? "";
     return message;
   },
-  fromAmino(object: MsgCancelUpgradeAmino): MsgCancelUpgrade {
-    const message = createBaseMsgCancelUpgrade();
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    return message;
-  },
-  toAmino(message: MsgCancelUpgrade): MsgCancelUpgradeAmino {
-    const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    return obj;
-  },
-  fromAminoMsg(object: MsgCancelUpgradeAminoMsg): MsgCancelUpgrade {
-    return MsgCancelUpgrade.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgCancelUpgrade): MsgCancelUpgradeAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgCancelUpgrade",
-      value: MsgCancelUpgrade.toAmino(message),
-    };
-  },
 };
 function createBaseMsgCancelUpgradeResponse(): MsgCancelUpgradeResponse {
   return {};
@@ -272,22 +209,5 @@ export const MsgCancelUpgradeResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgCancelUpgradeResponse>, I>>(_: I): MsgCancelUpgradeResponse {
     const message = createBaseMsgCancelUpgradeResponse();
     return message;
-  },
-  fromAmino(_: MsgCancelUpgradeResponseAmino): MsgCancelUpgradeResponse {
-    const message = createBaseMsgCancelUpgradeResponse();
-    return message;
-  },
-  toAmino(_: MsgCancelUpgradeResponse): MsgCancelUpgradeResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgCancelUpgradeResponseAminoMsg): MsgCancelUpgradeResponse {
-    return MsgCancelUpgradeResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgCancelUpgradeResponse): MsgCancelUpgradeResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgCancelUpgradeResponse",
-      value: MsgCancelUpgradeResponse.toAmino(message),
-    };
   },
 };

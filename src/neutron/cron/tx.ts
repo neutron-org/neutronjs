@@ -143,45 +143,6 @@ export const MsgAddSchedule = {
     message.executionStage = object.executionStage ?? 0;
     return message;
   },
-  fromAmino(object: MsgAddScheduleAmino): MsgAddSchedule {
-    const message = createBaseMsgAddSchedule();
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    }
-    if (object.period !== undefined && object.period !== null) {
-      message.period = BigInt(object.period);
-    }
-    message.msgs = object.msgs?.map((e) => MsgExecuteContract.fromAmino(e)) || [];
-    if (object.execution_stage !== undefined && object.execution_stage !== null) {
-      message.executionStage = object.execution_stage;
-    }
-    return message;
-  },
-  toAmino(message: MsgAddSchedule): MsgAddScheduleAmino {
-    const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.name = message.name === "" ? undefined : message.name;
-    obj.period = message.period !== BigInt(0) ? message.period?.toString() : undefined;
-    if (message.msgs) {
-      obj.msgs = message.msgs.map((e) => (e ? MsgExecuteContract.toAmino(e) : undefined));
-    } else {
-      obj.msgs = message.msgs;
-    }
-    obj.execution_stage = message.executionStage === 0 ? undefined : message.executionStage;
-    return obj;
-  },
-  fromAminoMsg(object: MsgAddScheduleAminoMsg): MsgAddSchedule {
-    return MsgAddSchedule.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgAddSchedule): MsgAddScheduleAminoMsg {
-    return {
-      type: "cron/MsgAddSchedule",
-      value: MsgAddSchedule.toAmino(message),
-    };
-  },
 };
 function createBaseMsgAddScheduleResponse(): MsgAddScheduleResponse {
   return {};
@@ -216,17 +177,6 @@ export const MsgAddScheduleResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgAddScheduleResponse>, I>>(_: I): MsgAddScheduleResponse {
     const message = createBaseMsgAddScheduleResponse();
     return message;
-  },
-  fromAmino(_: MsgAddScheduleResponseAmino): MsgAddScheduleResponse {
-    const message = createBaseMsgAddScheduleResponse();
-    return message;
-  },
-  toAmino(_: MsgAddScheduleResponse): MsgAddScheduleResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgAddScheduleResponseAminoMsg): MsgAddScheduleResponse {
-    return MsgAddScheduleResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgRemoveSchedule(): MsgRemoveSchedule {
@@ -284,31 +234,6 @@ export const MsgRemoveSchedule = {
     message.name = object.name ?? "";
     return message;
   },
-  fromAmino(object: MsgRemoveScheduleAmino): MsgRemoveSchedule {
-    const message = createBaseMsgRemoveSchedule();
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    }
-    return message;
-  },
-  toAmino(message: MsgRemoveSchedule): MsgRemoveScheduleAmino {
-    const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.name = message.name === "" ? undefined : message.name;
-    return obj;
-  },
-  fromAminoMsg(object: MsgRemoveScheduleAminoMsg): MsgRemoveSchedule {
-    return MsgRemoveSchedule.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgRemoveSchedule): MsgRemoveScheduleAminoMsg {
-    return {
-      type: "cron/MsgRemoveSchedule",
-      value: MsgRemoveSchedule.toAmino(message),
-    };
-  },
 };
 function createBaseMsgRemoveScheduleResponse(): MsgRemoveScheduleResponse {
   return {};
@@ -343,17 +268,6 @@ export const MsgRemoveScheduleResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgRemoveScheduleResponse>, I>>(_: I): MsgRemoveScheduleResponse {
     const message = createBaseMsgRemoveScheduleResponse();
     return message;
-  },
-  fromAmino(_: MsgRemoveScheduleResponseAmino): MsgRemoveScheduleResponse {
-    const message = createBaseMsgRemoveScheduleResponse();
-    return message;
-  },
-  toAmino(_: MsgRemoveScheduleResponse): MsgRemoveScheduleResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgRemoveScheduleResponseAminoMsg): MsgRemoveScheduleResponse {
-    return MsgRemoveScheduleResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -413,31 +327,6 @@ export const MsgUpdateParams = {
     }
     return message;
   },
-  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    const message = createBaseMsgUpdateParams();
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
-    const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
-    return MsgUpdateParams.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
-    return {
-      type: "cron/MsgUpdateParams",
-      value: MsgUpdateParams.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -472,16 +361,5 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    const message = createBaseMsgUpdateParamsResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
-    return MsgUpdateParamsResponse.fromAmino(object.value);
   },
 };

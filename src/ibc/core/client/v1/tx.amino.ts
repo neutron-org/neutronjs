@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../../helpers";
 import {
   MsgCreateClient,
   MsgUpdateClient,
@@ -126,14 +127,20 @@ export const AminoConverter = {
       signer,
     }: MsgCreateClientAminoType["value"]): MsgCreateClient => {
       return {
-        clientState: {
-          typeUrl: client_state.type_url,
-          value: client_state.value,
-        },
-        consensusState: {
-          typeUrl: consensus_state.type_url,
-          value: consensus_state.value,
-        },
+        clientState:
+          client_state == null
+            ? client_state
+            : {
+                typeUrl: client_state.type_url,
+                value: client_state.value,
+              },
+        consensusState:
+          consensus_state == null
+            ? consensus_state
+            : {
+                typeUrl: consensus_state.type_url,
+                value: consensus_state.value,
+              },
         signer,
       };
     },
@@ -157,10 +164,13 @@ export const AminoConverter = {
     }: MsgUpdateClientAminoType["value"]): MsgUpdateClient => {
       return {
         clientId: client_id,
-        clientMessage: {
-          typeUrl: client_message.type_url,
-          value: client_message.value,
-        },
+        clientMessage:
+          client_message == null
+            ? client_message
+            : {
+                typeUrl: client_message.type_url,
+                value: client_message.value,
+              },
         signer,
       };
     },
@@ -200,14 +210,20 @@ export const AminoConverter = {
     }: MsgUpgradeClientAminoType["value"]): MsgUpgradeClient => {
       return {
         clientId: client_id,
-        clientState: {
-          typeUrl: client_state.type_url,
-          value: client_state.value,
-        },
-        consensusState: {
-          typeUrl: consensus_state.type_url,
-          value: consensus_state.value,
-        },
+        clientState:
+          client_state == null
+            ? client_state
+            : {
+                typeUrl: client_state.type_url,
+                value: client_state.value,
+              },
+        consensusState:
+          consensus_state == null
+            ? consensus_state
+            : {
+                typeUrl: consensus_state.type_url,
+                value: consensus_state.value,
+              },
         proofUpgradeClient: proof_upgrade_client,
         proofUpgradeConsensusState: proof_upgrade_consensus_state,
         signer,
@@ -237,10 +253,13 @@ export const AminoConverter = {
     }: MsgSubmitMisbehaviourAminoType["value"]): MsgSubmitMisbehaviour => {
       return {
         clientId: client_id,
-        misbehaviour: {
-          typeUrl: misbehaviour.type_url,
-          value: misbehaviour.value,
-        },
+        misbehaviour:
+          misbehaviour == null
+            ? misbehaviour
+            : {
+                typeUrl: misbehaviour.type_url,
+                value: misbehaviour.value,
+              },
         signer,
       };
     },
@@ -281,7 +300,7 @@ export const AminoConverter = {
         plan: {
           name: plan.name,
           time: plan.time,
-          height: plan.height.toString(),
+          height: omitDefault(plan.height)?.toString?.(),
           info: plan.info,
           upgraded_client_state: {
             type_url: plan.upgradedClientState.typeUrl,
@@ -301,20 +320,29 @@ export const AminoConverter = {
       signer,
     }: MsgIBCSoftwareUpgradeAminoType["value"]): MsgIBCSoftwareUpgrade => {
       return {
-        plan: {
-          name: plan.name,
-          time: plan.time,
-          height: BigInt(plan.height),
-          info: plan.info,
-          upgradedClientState: {
-            typeUrl: plan.upgraded_client_state.type_url,
-            value: plan.upgraded_client_state.value,
-          },
-        },
-        upgradedClientState: {
-          typeUrl: upgraded_client_state.type_url,
-          value: upgraded_client_state.value,
-        },
+        plan:
+          plan == null
+            ? plan
+            : {
+                name: plan.name,
+                time: plan.time,
+                height: plan.height == null ? plan.height : BigInt(plan.height),
+                info: plan.info,
+                upgradedClientState:
+                  plan.upgraded_client_state == null
+                    ? plan.upgraded_client_state
+                    : {
+                        typeUrl: plan.upgraded_client_state.type_url,
+                        value: plan.upgraded_client_state.value,
+                      },
+              },
+        upgradedClientState:
+          upgraded_client_state == null
+            ? upgraded_client_state
+            : {
+                typeUrl: upgraded_client_state.type_url,
+                value: upgraded_client_state.value,
+              },
         signer,
       };
     },
@@ -332,9 +360,12 @@ export const AminoConverter = {
     fromAmino: ({ signer, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         signer,
-        params: {
-          allowedClients: params.allowed_clients,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                allowedClients: params.allowed_clients,
+              },
       };
     },
   },

@@ -84,33 +84,6 @@ export const MsgManageHookSubscription = {
     }
     return message;
   },
-  fromAmino(object: MsgManageHookSubscriptionAmino): MsgManageHookSubscription {
-    const message = createBaseMsgManageHookSubscription();
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    if (object.hook_subscription !== undefined && object.hook_subscription !== null) {
-      message.hookSubscription = HookSubscription.fromAmino(object.hook_subscription);
-    }
-    return message;
-  },
-  toAmino(message: MsgManageHookSubscription): MsgManageHookSubscriptionAmino {
-    const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.hook_subscription = message.hookSubscription
-      ? HookSubscription.toAmino(message.hookSubscription)
-      : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgManageHookSubscriptionAminoMsg): MsgManageHookSubscription {
-    return MsgManageHookSubscription.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgManageHookSubscription): MsgManageHookSubscriptionAminoMsg {
-    return {
-      type: "harpoon/MsgManageHookSubscription",
-      value: MsgManageHookSubscription.toAmino(message),
-    };
-  },
 };
 function createBaseMsgManageHookSubscriptionResponse(): MsgManageHookSubscriptionResponse {
   return {};
@@ -147,17 +120,6 @@ export const MsgManageHookSubscriptionResponse = {
   ): MsgManageHookSubscriptionResponse {
     const message = createBaseMsgManageHookSubscriptionResponse();
     return message;
-  },
-  fromAmino(_: MsgManageHookSubscriptionResponseAmino): MsgManageHookSubscriptionResponse {
-    const message = createBaseMsgManageHookSubscriptionResponse();
-    return message;
-  },
-  toAmino(_: MsgManageHookSubscriptionResponse): MsgManageHookSubscriptionResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgManageHookSubscriptionResponseAminoMsg): MsgManageHookSubscriptionResponse {
-    return MsgManageHookSubscriptionResponse.fromAmino(object.value);
   },
 };
 function createBaseHookSubscription(): HookSubscription {
@@ -227,26 +189,5 @@ export const HookSubscription = {
     message.contractAddress = object.contractAddress ?? "";
     message.hooks = object.hooks?.map((e) => e) || [];
     return message;
-  },
-  fromAmino(object: HookSubscriptionAmino): HookSubscription {
-    const message = createBaseHookSubscription();
-    if (object.contract_address !== undefined && object.contract_address !== null) {
-      message.contractAddress = object.contract_address;
-    }
-    message.hooks = object.hooks?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: HookSubscription): HookSubscriptionAmino {
-    const obj: any = {};
-    obj.contract_address = message.contractAddress === "" ? undefined : message.contractAddress;
-    if (message.hooks) {
-      obj.hooks = message.hooks.map((e) => e);
-    } else {
-      obj.hooks = message.hooks;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: HookSubscriptionAminoMsg): HookSubscription {
-    return HookSubscription.fromAmino(object.value);
   },
 };

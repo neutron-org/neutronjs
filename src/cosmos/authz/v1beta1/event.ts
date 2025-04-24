@@ -87,35 +87,6 @@ export const EventGrant = {
     message.grantee = object.grantee ?? "";
     return message;
   },
-  fromAmino(object: EventGrantAmino): EventGrant {
-    const message = createBaseEventGrant();
-    if (object.msg_type_url !== undefined && object.msg_type_url !== null) {
-      message.msgTypeUrl = object.msg_type_url;
-    }
-    if (object.granter !== undefined && object.granter !== null) {
-      message.granter = object.granter;
-    }
-    if (object.grantee !== undefined && object.grantee !== null) {
-      message.grantee = object.grantee;
-    }
-    return message;
-  },
-  toAmino(message: EventGrant): EventGrantAmino {
-    const obj: any = {};
-    obj.msg_type_url = message.msgTypeUrl === "" ? undefined : message.msgTypeUrl;
-    obj.granter = message.granter === "" ? undefined : message.granter;
-    obj.grantee = message.grantee === "" ? undefined : message.grantee;
-    return obj;
-  },
-  fromAminoMsg(object: EventGrantAminoMsg): EventGrant {
-    return EventGrant.fromAmino(object.value);
-  },
-  toAminoMsg(message: EventGrant): EventGrantAminoMsg {
-    return {
-      type: "cosmos-sdk/EventGrant",
-      value: EventGrant.toAmino(message),
-    };
-  },
 };
 function createBaseEventRevoke(): EventRevoke {
   return {
@@ -181,34 +152,5 @@ export const EventRevoke = {
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
     return message;
-  },
-  fromAmino(object: EventRevokeAmino): EventRevoke {
-    const message = createBaseEventRevoke();
-    if (object.msg_type_url !== undefined && object.msg_type_url !== null) {
-      message.msgTypeUrl = object.msg_type_url;
-    }
-    if (object.granter !== undefined && object.granter !== null) {
-      message.granter = object.granter;
-    }
-    if (object.grantee !== undefined && object.grantee !== null) {
-      message.grantee = object.grantee;
-    }
-    return message;
-  },
-  toAmino(message: EventRevoke): EventRevokeAmino {
-    const obj: any = {};
-    obj.msg_type_url = message.msgTypeUrl === "" ? undefined : message.msgTypeUrl;
-    obj.granter = message.granter === "" ? undefined : message.granter;
-    obj.grantee = message.grantee === "" ? undefined : message.grantee;
-    return obj;
-  },
-  fromAminoMsg(object: EventRevokeAminoMsg): EventRevoke {
-    return EventRevoke.fromAmino(object.value);
-  },
-  toAminoMsg(message: EventRevoke): EventRevokeAminoMsg {
-    return {
-      type: "cosmos-sdk/EventRevoke",
-      value: EventRevoke.toAmino(message),
-    };
   },
 };

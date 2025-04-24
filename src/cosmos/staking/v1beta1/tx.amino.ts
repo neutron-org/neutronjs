@@ -2,6 +2,7 @@
 /* eslint-disable */
 import { AminoMsg, Pubkey } from "@cosmjs/amino";
 import { decodePubkey, encodePubkey } from "@cosmjs/proto-signing";
+import { omitDefault } from "../../../helpers";
 import {
   MsgCreateValidator,
   MsgEditValidator,
@@ -159,26 +160,35 @@ export const AminoConverter = {
       value,
     }: MsgCreateValidatorAminoType["value"]): MsgCreateValidator => {
       return {
-        description: {
-          moniker: description.moniker,
-          identity: description.identity,
-          website: description.website,
-          securityContact: description.security_contact,
-          details: description.details,
-        },
-        commission: {
-          rate: commission.rate,
-          maxRate: commission.max_rate,
-          maxChangeRate: commission.max_change_rate,
-        },
+        description:
+          description == null
+            ? description
+            : {
+                moniker: description.moniker,
+                identity: description.identity,
+                website: description.website,
+                securityContact: description.security_contact,
+                details: description.details,
+              },
+        commission:
+          commission == null
+            ? commission
+            : {
+                rate: commission.rate,
+                maxRate: commission.max_rate,
+                maxChangeRate: commission.max_change_rate,
+              },
         minSelfDelegation: min_self_delegation,
         delegatorAddress: delegator_address,
         validatorAddress: validator_address,
         pubkey: encodePubkey(pubkey),
-        value: {
-          denom: value.denom,
-          amount: value.amount,
-        },
+        value:
+          value == null
+            ? value
+            : {
+                denom: value.denom,
+                amount: value.amount,
+              },
       };
     },
   },
@@ -210,13 +220,16 @@ export const AminoConverter = {
       min_self_delegation,
     }: MsgEditValidatorAminoType["value"]): MsgEditValidator => {
       return {
-        description: {
-          moniker: description.moniker,
-          identity: description.identity,
-          website: description.website,
-          securityContact: description.security_contact,
-          details: description.details,
-        },
+        description:
+          description == null
+            ? description
+            : {
+                moniker: description.moniker,
+                identity: description.identity,
+                website: description.website,
+                securityContact: description.security_contact,
+                details: description.details,
+              },
         validatorAddress: validator_address,
         commissionRate: commission_rate,
         minSelfDelegation: min_self_delegation,
@@ -243,10 +256,13 @@ export const AminoConverter = {
       return {
         delegatorAddress: delegator_address,
         validatorAddress: validator_address,
-        amount: {
-          denom: amount.denom,
-          amount: amount.amount,
-        },
+        amount:
+          amount == null
+            ? amount
+            : {
+                denom: amount.denom,
+                amount: amount.amount,
+              },
       };
     },
   },
@@ -278,10 +294,13 @@ export const AminoConverter = {
         delegatorAddress: delegator_address,
         validatorSrcAddress: validator_src_address,
         validatorDstAddress: validator_dst_address,
-        amount: {
-          denom: amount.denom,
-          amount: amount.amount,
-        },
+        amount:
+          amount == null
+            ? amount
+            : {
+                denom: amount.denom,
+                amount: amount.amount,
+              },
       };
     },
   },
@@ -309,10 +328,13 @@ export const AminoConverter = {
       return {
         delegatorAddress: delegator_address,
         validatorAddress: validator_address,
-        amount: {
-          denom: amount.denom,
-          amount: amount.amount,
-        },
+        amount:
+          amount == null
+            ? amount
+            : {
+                denom: amount.denom,
+                amount: amount.amount,
+              },
       };
     },
   },
@@ -331,7 +353,7 @@ export const AminoConverter = {
           denom: amount.denom,
           amount: amount.amount,
         },
-        creation_height: creationHeight.toString(),
+        creation_height: omitDefault(creationHeight)?.toString?.(),
       };
     },
     fromAmino: ({
@@ -343,11 +365,14 @@ export const AminoConverter = {
       return {
         delegatorAddress: delegator_address,
         validatorAddress: validator_address,
-        amount: {
-          denom: amount.denom,
-          amount: amount.amount,
-        },
-        creationHeight: BigInt(creation_height),
+        amount:
+          amount == null
+            ? amount
+            : {
+                denom: amount.denom,
+                amount: amount.amount,
+              },
+        creationHeight: creation_height == null ? creation_height : BigInt(creation_height),
       };
     },
   },
@@ -358,9 +383,9 @@ export const AminoConverter = {
         authority,
         params: {
           unbonding_time: (params.unbondingTime * 1_000_000_000).toString(),
-          max_validators: params.maxValidators,
-          max_entries: params.maxEntries,
-          historical_entries: params.historicalEntries,
+          max_validators: omitDefault(params.maxValidators),
+          max_entries: omitDefault(params.maxEntries),
+          historical_entries: omitDefault(params.historicalEntries),
           bond_denom: params.bondDenom,
           min_commission_rate: params.minCommissionRate,
         },
@@ -369,17 +394,23 @@ export const AminoConverter = {
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          unbondingTime: {
-            seconds: BigInt(Math.floor(parseInt(params.unbonding_time) / 1_000_000_000)),
-            nanos: parseInt(params.unbonding_time) % 1_000_000_000,
-          },
-          maxValidators: params.max_validators,
-          maxEntries: params.max_entries,
-          historicalEntries: params.historical_entries,
-          bondDenom: params.bond_denom,
-          minCommissionRate: params.min_commission_rate,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                unbondingTime:
+                  params.unbonding_time == null
+                    ? params.unbonding_time
+                    : {
+                        seconds: BigInt(Math.floor(parseInt(params.unbonding_time) / 1_000_000_000)),
+                        nanos: parseInt(params.unbonding_time) % 1_000_000_000,
+                      },
+                maxValidators: params.max_validators,
+                maxEntries: params.max_entries,
+                historicalEntries: params.historical_entries,
+                bondDenom: params.bond_denom,
+                minCommissionRate: params.min_commission_rate,
+              },
       };
     },
   },

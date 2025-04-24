@@ -101,17 +101,6 @@ export const QueryParamsRequest = {
     const message = createBaseQueryParamsRequest();
     return message;
   },
-  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    const message = createBaseQueryParamsRequest();
-    return message;
-  },
-  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
-    return QueryParamsRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
@@ -160,21 +149,6 @@ export const QueryParamsResponse = {
     }
     return message;
   },
-  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    const message = createBaseQueryParamsResponse();
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
-    const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
-    return QueryParamsResponse.fromAmino(object.value);
-  },
 };
 function createBaseQueryPaymentInfoRequest(): QueryPaymentInfoRequest {
   return {};
@@ -209,17 +183,6 @@ export const QueryPaymentInfoRequest = {
   fromPartial<I extends Exact<DeepPartial<QueryPaymentInfoRequest>, I>>(_: I): QueryPaymentInfoRequest {
     const message = createBaseQueryPaymentInfoRequest();
     return message;
-  },
-  fromAmino(_: QueryPaymentInfoRequestAmino): QueryPaymentInfoRequest {
-    const message = createBaseQueryPaymentInfoRequest();
-    return message;
-  },
-  toAmino(_: QueryPaymentInfoRequest): QueryPaymentInfoRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: QueryPaymentInfoRequestAminoMsg): QueryPaymentInfoRequest {
-    return QueryPaymentInfoRequest.fromAmino(object.value);
   },
 };
 function createBaseQueryPaymentInfoResponse(): QueryPaymentInfoResponse {
@@ -311,36 +274,6 @@ export const QueryPaymentInfoResponse = {
     }
     return message;
   },
-  fromAmino(object: QueryPaymentInfoResponseAmino): QueryPaymentInfoResponse {
-    const message = createBaseQueryPaymentInfoResponse();
-    if (object.payment_schedule !== undefined && object.payment_schedule !== null) {
-      message.paymentSchedule = PaymentSchedule.fromAmino(object.payment_schedule);
-    }
-    if (object.effective_period_progress !== undefined && object.effective_period_progress !== null) {
-      message.effectivePeriodProgress = object.effective_period_progress;
-    }
-    if (object.reward_asset_twap !== undefined && object.reward_asset_twap !== null) {
-      message.rewardAssetTwap = object.reward_asset_twap;
-    }
-    if (object.base_revenue_amount !== undefined && object.base_revenue_amount !== null) {
-      message.baseRevenueAmount = Coin.fromAmino(object.base_revenue_amount);
-    }
-    return message;
-  },
-  toAmino(message: QueryPaymentInfoResponse): QueryPaymentInfoResponseAmino {
-    const obj: any = {};
-    obj.payment_schedule = message.paymentSchedule
-      ? PaymentSchedule.toAmino(message.paymentSchedule)
-      : undefined;
-    obj.effective_period_progress =
-      message.effectivePeriodProgress === "" ? undefined : message.effectivePeriodProgress;
-    obj.reward_asset_twap = message.rewardAssetTwap === "" ? undefined : message.rewardAssetTwap;
-    obj.base_revenue_amount = message.baseRevenueAmount ? Coin.toAmino(message.baseRevenueAmount) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryPaymentInfoResponseAminoMsg): QueryPaymentInfoResponse {
-    return QueryPaymentInfoResponse.fromAmino(object.value);
-  },
 };
 function createBaseQueryValidatorStatsRequest(): QueryValidatorStatsRequest {
   return {
@@ -388,21 +321,6 @@ export const QueryValidatorStatsRequest = {
     const message = createBaseQueryValidatorStatsRequest();
     message.valOperAddress = object.valOperAddress ?? "";
     return message;
-  },
-  fromAmino(object: QueryValidatorStatsRequestAmino): QueryValidatorStatsRequest {
-    const message = createBaseQueryValidatorStatsRequest();
-    if (object.val_oper_address !== undefined && object.val_oper_address !== null) {
-      message.valOperAddress = object.val_oper_address;
-    }
-    return message;
-  },
-  toAmino(message: QueryValidatorStatsRequest): QueryValidatorStatsRequestAmino {
-    const obj: any = {};
-    obj.val_oper_address = message.valOperAddress === "" ? undefined : message.valOperAddress;
-    return obj;
-  },
-  fromAminoMsg(object: QueryValidatorStatsRequestAminoMsg): QueryValidatorStatsRequest {
-    return QueryValidatorStatsRequest.fromAmino(object.value);
   },
 };
 function createBaseQueryValidatorStatsResponse(): QueryValidatorStatsResponse {
@@ -455,21 +373,6 @@ export const QueryValidatorStatsResponse = {
     }
     return message;
   },
-  fromAmino(object: QueryValidatorStatsResponseAmino): QueryValidatorStatsResponse {
-    const message = createBaseQueryValidatorStatsResponse();
-    if (object.stats !== undefined && object.stats !== null) {
-      message.stats = ValidatorStats.fromAmino(object.stats);
-    }
-    return message;
-  },
-  toAmino(message: QueryValidatorStatsResponse): QueryValidatorStatsResponseAmino {
-    const obj: any = {};
-    obj.stats = message.stats ? ValidatorStats.toAmino(message.stats) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryValidatorStatsResponseAminoMsg): QueryValidatorStatsResponse {
-    return QueryValidatorStatsResponse.fromAmino(object.value);
-  },
 };
 function createBaseQueryValidatorsStatsRequest(): QueryValidatorsStatsRequest {
   return {};
@@ -506,17 +409,6 @@ export const QueryValidatorsStatsRequest = {
   ): QueryValidatorsStatsRequest {
     const message = createBaseQueryValidatorsStatsRequest();
     return message;
-  },
-  fromAmino(_: QueryValidatorsStatsRequestAmino): QueryValidatorsStatsRequest {
-    const message = createBaseQueryValidatorsStatsRequest();
-    return message;
-  },
-  toAmino(_: QueryValidatorsStatsRequest): QueryValidatorsStatsRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: QueryValidatorsStatsRequestAminoMsg): QueryValidatorsStatsRequest {
-    return QueryValidatorsStatsRequest.fromAmino(object.value);
   },
 };
 function createBaseQueryValidatorsStatsResponse(): QueryValidatorsStatsResponse {
@@ -569,23 +461,6 @@ export const QueryValidatorsStatsResponse = {
     const message = createBaseQueryValidatorsStatsResponse();
     message.stats = object.stats?.map((e) => ValidatorStats.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: QueryValidatorsStatsResponseAmino): QueryValidatorsStatsResponse {
-    const message = createBaseQueryValidatorsStatsResponse();
-    message.stats = object.stats?.map((e) => ValidatorStats.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: QueryValidatorsStatsResponse): QueryValidatorsStatsResponseAmino {
-    const obj: any = {};
-    if (message.stats) {
-      obj.stats = message.stats.map((e) => (e ? ValidatorStats.toAmino(e) : undefined));
-    } else {
-      obj.stats = message.stats;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: QueryValidatorsStatsResponseAminoMsg): QueryValidatorsStatsResponse {
-    return QueryValidatorsStatsResponse.fromAmino(object.value);
   },
 };
 function createBaseValidatorStats(): ValidatorStats {
@@ -672,38 +547,5 @@ export const ValidatorStats = {
       message.expectedRevenue = Coin.fromPartial(object.expectedRevenue);
     }
     return message;
-  },
-  fromAmino(object: ValidatorStatsAmino): ValidatorStats {
-    const message = createBaseValidatorStats();
-    if (object.validator_info !== undefined && object.validator_info !== null) {
-      message.validatorInfo = ValidatorInfo.fromAmino(object.validator_info);
-    }
-    if (
-      object.total_produced_blocks_in_period !== undefined &&
-      object.total_produced_blocks_in_period !== null
-    ) {
-      message.totalProducedBlocksInPeriod = BigInt(object.total_produced_blocks_in_period);
-    }
-    if (object.performance_rating !== undefined && object.performance_rating !== null) {
-      message.performanceRating = object.performance_rating;
-    }
-    if (object.expected_revenue !== undefined && object.expected_revenue !== null) {
-      message.expectedRevenue = Coin.fromAmino(object.expected_revenue);
-    }
-    return message;
-  },
-  toAmino(message: ValidatorStats): ValidatorStatsAmino {
-    const obj: any = {};
-    obj.validator_info = message.validatorInfo ? ValidatorInfo.toAmino(message.validatorInfo) : undefined;
-    obj.total_produced_blocks_in_period =
-      message.totalProducedBlocksInPeriod !== BigInt(0)
-        ? message.totalProducedBlocksInPeriod?.toString()
-        : undefined;
-    obj.performance_rating = message.performanceRating === "" ? undefined : message.performanceRating;
-    obj.expected_revenue = message.expectedRevenue ? Coin.toAmino(message.expectedRevenue) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ValidatorStatsAminoMsg): ValidatorStats {
-    return ValidatorStats.fromAmino(object.value);
   },
 };

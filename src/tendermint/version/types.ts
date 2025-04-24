@@ -79,25 +79,6 @@ export const App = {
     message.software = object.software ?? "";
     return message;
   },
-  fromAmino(object: AppAmino): App {
-    const message = createBaseApp();
-    if (object.protocol !== undefined && object.protocol !== null) {
-      message.protocol = BigInt(object.protocol);
-    }
-    if (object.software !== undefined && object.software !== null) {
-      message.software = object.software;
-    }
-    return message;
-  },
-  toAmino(message: App): AppAmino {
-    const obj: any = {};
-    obj.protocol = message.protocol !== BigInt(0) ? message.protocol?.toString() : undefined;
-    obj.software = message.software === "" ? undefined : message.software;
-    return obj;
-  },
-  fromAminoMsg(object: AppAminoMsg): App {
-    return App.fromAmino(object.value);
-  },
 };
 function createBaseConsensus(): Consensus {
   return {
@@ -157,24 +138,5 @@ export const Consensus = {
       message.app = BigInt(object.app.toString());
     }
     return message;
-  },
-  fromAmino(object: ConsensusAmino): Consensus {
-    const message = createBaseConsensus();
-    if (object.block !== undefined && object.block !== null) {
-      message.block = BigInt(object.block);
-    }
-    if (object.app !== undefined && object.app !== null) {
-      message.app = BigInt(object.app);
-    }
-    return message;
-  },
-  toAmino(message: Consensus): ConsensusAmino {
-    const obj: any = {};
-    obj.block = message.block !== BigInt(0) ? message.block?.toString() : undefined;
-    obj.app = message.app !== BigInt(0) ? message.app?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ConsensusAminoMsg): Consensus {
-    return Consensus.fromAmino(object.value);
   },
 };

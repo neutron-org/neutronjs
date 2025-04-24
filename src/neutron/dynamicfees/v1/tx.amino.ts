@@ -31,12 +31,15 @@ export const AminoConverter = {
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          ntrnPrices: params.ntrn_prices.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-        },
+        params:
+          params == null
+            ? params
+            : {
+                ntrnPrices: params.ntrn_prices.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+              },
       };
     },
   },

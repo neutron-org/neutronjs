@@ -66,29 +66,4 @@ export const Module = {
     message.authority = object.authority ?? "";
     return message;
   },
-  fromAmino(object: ModuleAmino): Module {
-    const message = createBaseModule();
-    if (object.fee_collector_name !== undefined && object.fee_collector_name !== null) {
-      message.feeCollectorName = object.fee_collector_name;
-    }
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    return message;
-  },
-  toAmino(message: Module): ModuleAmino {
-    const obj: any = {};
-    obj.fee_collector_name = message.feeCollectorName === "" ? undefined : message.feeCollectorName;
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    return obj;
-  },
-  fromAminoMsg(object: ModuleAminoMsg): Module {
-    return Module.fromAmino(object.value);
-  },
-  toAminoMsg(message: Module): ModuleAminoMsg {
-    return {
-      type: "cosmos-sdk/Module",
-      value: Module.toAmino(message),
-    };
-  },
 };

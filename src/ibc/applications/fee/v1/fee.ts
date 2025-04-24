@@ -114,41 +114,6 @@ export const Fee = {
     message.timeoutFee = object.timeoutFee?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: FeeAmino): Fee {
-    const message = createBaseFee();
-    message.recvFee = object.recv_fee?.map((e) => Coin.fromAmino(e)) || [];
-    message.ackFee = object.ack_fee?.map((e) => Coin.fromAmino(e)) || [];
-    message.timeoutFee = object.timeout_fee?.map((e) => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: Fee): FeeAmino {
-    const obj: any = {};
-    if (message.recvFee) {
-      obj.recv_fee = message.recvFee.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.recv_fee = message.recvFee;
-    }
-    if (message.ackFee) {
-      obj.ack_fee = message.ackFee.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.ack_fee = message.ackFee;
-    }
-    if (message.timeoutFee) {
-      obj.timeout_fee = message.timeoutFee.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.timeout_fee = message.timeoutFee;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: FeeAminoMsg): Fee {
-    return Fee.fromAmino(object.value);
-  },
-  toAminoMsg(message: Fee): FeeAminoMsg {
-    return {
-      type: "cosmos-sdk/Fee",
-      value: Fee.toAmino(message),
-    };
-  },
 };
 function createBasePacketFee(): PacketFee {
   return {
@@ -221,37 +186,6 @@ export const PacketFee = {
     message.relayers = object.relayers?.map((e) => e) || [];
     return message;
   },
-  fromAmino(object: PacketFeeAmino): PacketFee {
-    const message = createBasePacketFee();
-    if (object.fee !== undefined && object.fee !== null) {
-      message.fee = Fee.fromAmino(object.fee);
-    }
-    if (object.refund_address !== undefined && object.refund_address !== null) {
-      message.refundAddress = object.refund_address;
-    }
-    message.relayers = object.relayers?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: PacketFee): PacketFeeAmino {
-    const obj: any = {};
-    obj.fee = message.fee ? Fee.toAmino(message.fee) : undefined;
-    obj.refund_address = message.refundAddress === "" ? undefined : message.refundAddress;
-    if (message.relayers) {
-      obj.relayers = message.relayers.map((e) => e);
-    } else {
-      obj.relayers = message.relayers;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: PacketFeeAminoMsg): PacketFee {
-    return PacketFee.fromAmino(object.value);
-  },
-  toAminoMsg(message: PacketFee): PacketFeeAminoMsg {
-    return {
-      type: "cosmos-sdk/PacketFee",
-      value: PacketFee.toAmino(message),
-    };
-  },
 };
 function createBasePacketFees(): PacketFees {
   return {
@@ -302,29 +236,6 @@ export const PacketFees = {
     const message = createBasePacketFees();
     message.packetFees = object.packetFees?.map((e) => PacketFee.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: PacketFeesAmino): PacketFees {
-    const message = createBasePacketFees();
-    message.packetFees = object.packet_fees?.map((e) => PacketFee.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: PacketFees): PacketFeesAmino {
-    const obj: any = {};
-    if (message.packetFees) {
-      obj.packet_fees = message.packetFees.map((e) => (e ? PacketFee.toAmino(e) : undefined));
-    } else {
-      obj.packet_fees = message.packetFees;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: PacketFeesAminoMsg): PacketFees {
-    return PacketFees.fromAmino(object.value);
-  },
-  toAminoMsg(message: PacketFees): PacketFeesAminoMsg {
-    return {
-      type: "cosmos-sdk/PacketFees",
-      value: PacketFees.toAmino(message),
-    };
   },
 };
 function createBaseIdentifiedPacketFees(): IdentifiedPacketFees {
@@ -389,32 +300,5 @@ export const IdentifiedPacketFees = {
     }
     message.packetFees = object.packetFees?.map((e) => PacketFee.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: IdentifiedPacketFeesAmino): IdentifiedPacketFees {
-    const message = createBaseIdentifiedPacketFees();
-    if (object.packet_id !== undefined && object.packet_id !== null) {
-      message.packetId = PacketId.fromAmino(object.packet_id);
-    }
-    message.packetFees = object.packet_fees?.map((e) => PacketFee.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: IdentifiedPacketFees): IdentifiedPacketFeesAmino {
-    const obj: any = {};
-    obj.packet_id = message.packetId ? PacketId.toAmino(message.packetId) : undefined;
-    if (message.packetFees) {
-      obj.packet_fees = message.packetFees.map((e) => (e ? PacketFee.toAmino(e) : undefined));
-    } else {
-      obj.packet_fees = message.packetFees;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: IdentifiedPacketFeesAminoMsg): IdentifiedPacketFees {
-    return IdentifiedPacketFees.fromAmino(object.value);
-  },
-  toAminoMsg(message: IdentifiedPacketFees): IdentifiedPacketFeesAminoMsg {
-    return {
-      type: "cosmos-sdk/IdentifiedPacketFees",
-      value: IdentifiedPacketFees.toAmino(message),
-    };
   },
 };

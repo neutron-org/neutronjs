@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../helpers";
 import {
   MsgCreateDenom,
   MsgMint,
@@ -132,10 +133,13 @@ export const AminoConverter = {
     fromAmino: ({ sender, amount, mintToAddress }: MsgMintAminoType["value"]): MsgMint => {
       return {
         sender,
-        amount: {
-          denom: amount.denom,
-          amount: amount.amount,
-        },
+        amount:
+          amount == null
+            ? amount
+            : {
+                denom: amount.denom,
+                amount: amount.amount,
+              },
         mintToAddress,
       };
     },
@@ -155,10 +159,13 @@ export const AminoConverter = {
     fromAmino: ({ sender, amount, burnFromAddress }: MsgBurnAminoType["value"]): MsgBurn => {
       return {
         sender,
-        amount: {
-          denom: amount.denom,
-          amount: amount.amount,
-        },
+        amount:
+          amount == null
+            ? amount
+            : {
+                denom: amount.denom,
+                amount: amount.amount,
+              },
         burnFromAddress,
       };
     },
@@ -189,7 +196,7 @@ export const AminoConverter = {
           description: metadata.description,
           denom_units: metadata.denomUnits.map((el0) => ({
             denom: el0.denom,
-            exponent: el0.exponent,
+            exponent: omitDefault(el0.exponent),
             aliases: el0.aliases,
           })),
           base: metadata.base,
@@ -204,20 +211,23 @@ export const AminoConverter = {
     fromAmino: ({ sender, metadata }: MsgSetDenomMetadataAminoType["value"]): MsgSetDenomMetadata => {
       return {
         sender,
-        metadata: {
-          description: metadata.description,
-          denomUnits: metadata.denom_units.map((el1) => ({
-            denom: el1.denom,
-            exponent: el1.exponent,
-            aliases: el1.aliases,
-          })),
-          base: metadata.base,
-          display: metadata.display,
-          name: metadata.name,
-          symbol: metadata.symbol,
-          uri: metadata.uri,
-          uriHash: metadata.uri_hash,
-        },
+        metadata:
+          metadata == null
+            ? metadata
+            : {
+                description: metadata.description,
+                denomUnits: metadata.denom_units.map?.((el1) => ({
+                  denom: el1.denom,
+                  exponent: el1.exponent,
+                  aliases: el1.aliases,
+                })),
+                base: metadata.base,
+                display: metadata.display,
+                name: metadata.name,
+                symbol: metadata.symbol,
+                uri: metadata.uri,
+                uriHash: metadata.uri_hash,
+              },
       };
     },
   },
@@ -272,10 +282,13 @@ export const AminoConverter = {
     }: MsgForceTransferAminoType["value"]): MsgForceTransfer => {
       return {
         sender,
-        amount: {
-          denom: amount.denom,
-          amount: amount.amount,
-        },
+        amount:
+          amount == null
+            ? amount
+            : {
+                denom: amount.denom,
+                amount: amount.amount,
+              },
         transferFromAddress,
         transferToAddress,
       };
@@ -289,22 +302,25 @@ export const AminoConverter = {
         params: {
           send_enabled: params.sendEnabled.map((el0) => ({
             denom: el0.denom,
-            enabled: el0.enabled,
+            enabled: omitDefault(el0.enabled),
           })),
-          default_send_enabled: params.defaultSendEnabled,
+          default_send_enabled: omitDefault(params.defaultSendEnabled),
         },
       };
     },
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          sendEnabled: params.send_enabled.map((el1) => ({
-            denom: el1.denom,
-            enabled: el1.enabled,
-          })),
-          defaultSendEnabled: params.default_send_enabled,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                sendEnabled: params.send_enabled.map?.((el1) => ({
+                  denom: el1.denom,
+                  enabled: el1.enabled,
+                })),
+                defaultSendEnabled: params.default_send_enabled,
+              },
       };
     },
   },

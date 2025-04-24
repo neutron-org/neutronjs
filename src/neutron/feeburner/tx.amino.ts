@@ -29,11 +29,14 @@ export const AminoConverter = {
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          neutronDenom: params.neutron_denom,
-          reserveAddress: params.reserve_address,
-          treasuryAddress: params.treasury_address,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                neutronDenom: params.neutron_denom,
+                reserveAddress: params.reserve_address,
+                treasuryAddress: params.treasury_address,
+              },
       };
     },
   },

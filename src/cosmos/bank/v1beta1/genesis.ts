@@ -141,51 +141,6 @@ export const GenesisState = {
     message.sendEnabled = object.sendEnabled?.map((e) => SendEnabled.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    message.balances = object.balances?.map((e) => Balance.fromAmino(e)) || [];
-    message.supply = object.supply?.map((e) => Coin.fromAmino(e)) || [];
-    message.denomMetadata = object.denom_metadata?.map((e) => Metadata.fromAmino(e)) || [];
-    message.sendEnabled = object.send_enabled?.map((e) => SendEnabled.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
-    if (message.balances) {
-      obj.balances = message.balances.map((e) => (e ? Balance.toAmino(e) : undefined));
-    } else {
-      obj.balances = message.balances;
-    }
-    if (message.supply) {
-      obj.supply = message.supply.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.supply = message.supply;
-    }
-    if (message.denomMetadata) {
-      obj.denom_metadata = message.denomMetadata.map((e) => (e ? Metadata.toAmino(e) : undefined));
-    } else {
-      obj.denom_metadata = message.denomMetadata;
-    }
-    if (message.sendEnabled) {
-      obj.send_enabled = message.sendEnabled.map((e) => (e ? SendEnabled.toAmino(e) : undefined));
-    } else {
-      obj.send_enabled = message.sendEnabled;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisState",
-      value: GenesisState.toAmino(message),
-    };
-  },
 };
 function createBaseBalance(): Balance {
   return {
@@ -245,32 +200,5 @@ export const Balance = {
     message.address = object.address ?? "";
     message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: BalanceAmino): Balance {
-    const message = createBaseBalance();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    message.coins = object.coins?.map((e) => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: Balance): BalanceAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    if (message.coins) {
-      obj.coins = message.coins.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.coins = message.coins;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: BalanceAminoMsg): Balance {
-    return Balance.fromAmino(object.value);
-  },
-  toAminoMsg(message: Balance): BalanceAminoMsg {
-    return {
-      type: "cosmos-sdk/Balance",
-      value: Balance.toAmino(message),
-    };
   },
 };

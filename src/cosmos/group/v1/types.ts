@@ -492,41 +492,6 @@ export const Member = {
     }
     return message;
   },
-  fromAmino(object: MemberAmino): Member {
-    const message = createBaseMember();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.weight !== undefined && object.weight !== null) {
-      message.weight = object.weight;
-    }
-    if (object.metadata !== undefined && object.metadata !== null) {
-      message.metadata = object.metadata;
-    }
-    if (object.added_at !== undefined && object.added_at !== null) {
-      message.addedAt = Timestamp.fromAmino(object.added_at);
-    }
-    return message;
-  },
-  toAmino(message: Member): MemberAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.weight = message.weight === "" ? undefined : message.weight;
-    obj.metadata = message.metadata === "" ? undefined : message.metadata;
-    obj.added_at = message.addedAt
-      ? Timestamp.toAmino(message.addedAt)
-      : Timestamp.toAmino(Timestamp.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: MemberAminoMsg): Member {
-    return Member.fromAmino(object.value);
-  },
-  toAminoMsg(message: Member): MemberAminoMsg {
-    return {
-      type: "cosmos-sdk/Member",
-      value: Member.toAmino(message),
-    };
-  },
 };
 function createBaseMemberRequest(): MemberRequest {
   return {
@@ -593,35 +558,6 @@ export const MemberRequest = {
     message.metadata = object.metadata ?? "";
     return message;
   },
-  fromAmino(object: MemberRequestAmino): MemberRequest {
-    const message = createBaseMemberRequest();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.weight !== undefined && object.weight !== null) {
-      message.weight = object.weight;
-    }
-    if (object.metadata !== undefined && object.metadata !== null) {
-      message.metadata = object.metadata;
-    }
-    return message;
-  },
-  toAmino(message: MemberRequest): MemberRequestAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.weight = message.weight === "" ? undefined : message.weight;
-    obj.metadata = message.metadata === "" ? undefined : message.metadata;
-    return obj;
-  },
-  fromAminoMsg(object: MemberRequestAminoMsg): MemberRequest {
-    return MemberRequest.fromAmino(object.value);
-  },
-  toAminoMsg(message: MemberRequest): MemberRequestAminoMsg {
-    return {
-      type: "cosmos-sdk/MemberRequest",
-      value: MemberRequest.toAmino(message),
-    };
-  },
 };
 function createBaseThresholdDecisionPolicy(): ThresholdDecisionPolicy {
   return {
@@ -680,31 +616,6 @@ export const ThresholdDecisionPolicy = {
       message.windows = DecisionPolicyWindows.fromPartial(object.windows);
     }
     return message;
-  },
-  fromAmino(object: ThresholdDecisionPolicyAmino): ThresholdDecisionPolicy {
-    const message = createBaseThresholdDecisionPolicy();
-    if (object.threshold !== undefined && object.threshold !== null) {
-      message.threshold = object.threshold;
-    }
-    if (object.windows !== undefined && object.windows !== null) {
-      message.windows = DecisionPolicyWindows.fromAmino(object.windows);
-    }
-    return message;
-  },
-  toAmino(message: ThresholdDecisionPolicy): ThresholdDecisionPolicyAmino {
-    const obj: any = {};
-    obj.threshold = message.threshold === "" ? undefined : message.threshold;
-    obj.windows = message.windows ? DecisionPolicyWindows.toAmino(message.windows) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ThresholdDecisionPolicyAminoMsg): ThresholdDecisionPolicy {
-    return ThresholdDecisionPolicy.fromAmino(object.value);
-  },
-  toAminoMsg(message: ThresholdDecisionPolicy): ThresholdDecisionPolicyAminoMsg {
-    return {
-      type: "cosmos-sdk/ThresholdDecisionPolicy",
-      value: ThresholdDecisionPolicy.toAmino(message),
-    };
   },
 };
 function createBasePercentageDecisionPolicy(): PercentageDecisionPolicy {
@@ -766,31 +677,6 @@ export const PercentageDecisionPolicy = {
       message.windows = DecisionPolicyWindows.fromPartial(object.windows);
     }
     return message;
-  },
-  fromAmino(object: PercentageDecisionPolicyAmino): PercentageDecisionPolicy {
-    const message = createBasePercentageDecisionPolicy();
-    if (object.percentage !== undefined && object.percentage !== null) {
-      message.percentage = object.percentage;
-    }
-    if (object.windows !== undefined && object.windows !== null) {
-      message.windows = DecisionPolicyWindows.fromAmino(object.windows);
-    }
-    return message;
-  },
-  toAmino(message: PercentageDecisionPolicy): PercentageDecisionPolicyAmino {
-    const obj: any = {};
-    obj.percentage = message.percentage === "" ? undefined : message.percentage;
-    obj.windows = message.windows ? DecisionPolicyWindows.toAmino(message.windows) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: PercentageDecisionPolicyAminoMsg): PercentageDecisionPolicy {
-    return PercentageDecisionPolicy.fromAmino(object.value);
-  },
-  toAminoMsg(message: PercentageDecisionPolicy): PercentageDecisionPolicyAminoMsg {
-    return {
-      type: "cosmos-sdk/PercentageDecisionPolicy",
-      value: PercentageDecisionPolicy.toAmino(message),
-    };
   },
 };
 function createBaseDecisionPolicyWindows(): DecisionPolicyWindows {
@@ -856,35 +742,6 @@ export const DecisionPolicyWindows = {
       message.minExecutionPeriod = Duration.fromPartial(object.minExecutionPeriod);
     }
     return message;
-  },
-  fromAmino(object: DecisionPolicyWindowsAmino): DecisionPolicyWindows {
-    const message = createBaseDecisionPolicyWindows();
-    if (object.voting_period !== undefined && object.voting_period !== null) {
-      message.votingPeriod = Duration.fromAmino(object.voting_period);
-    }
-    if (object.min_execution_period !== undefined && object.min_execution_period !== null) {
-      message.minExecutionPeriod = Duration.fromAmino(object.min_execution_period);
-    }
-    return message;
-  },
-  toAmino(message: DecisionPolicyWindows): DecisionPolicyWindowsAmino {
-    const obj: any = {};
-    obj.voting_period = message.votingPeriod
-      ? Duration.toAmino(message.votingPeriod)
-      : Duration.toAmino(Duration.fromPartial({}));
-    obj.min_execution_period = message.minExecutionPeriod
-      ? Duration.toAmino(message.minExecutionPeriod)
-      : Duration.toAmino(Duration.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: DecisionPolicyWindowsAminoMsg): DecisionPolicyWindows {
-    return DecisionPolicyWindows.fromAmino(object.value);
-  },
-  toAminoMsg(message: DecisionPolicyWindows): DecisionPolicyWindowsAminoMsg {
-    return {
-      type: "cosmos-sdk/DecisionPolicyWindows",
-      value: DecisionPolicyWindows.toAmino(message),
-    };
   },
 };
 function createBaseGroupInfo(): GroupInfo {
@@ -988,49 +845,6 @@ export const GroupInfo = {
     }
     return message;
   },
-  fromAmino(object: GroupInfoAmino): GroupInfo {
-    const message = createBaseGroupInfo();
-    if (object.id !== undefined && object.id !== null) {
-      message.id = BigInt(object.id);
-    }
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    }
-    if (object.metadata !== undefined && object.metadata !== null) {
-      message.metadata = object.metadata;
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = BigInt(object.version);
-    }
-    if (object.total_weight !== undefined && object.total_weight !== null) {
-      message.totalWeight = object.total_weight;
-    }
-    if (object.created_at !== undefined && object.created_at !== null) {
-      message.createdAt = Timestamp.fromAmino(object.created_at);
-    }
-    return message;
-  },
-  toAmino(message: GroupInfo): GroupInfoAmino {
-    const obj: any = {};
-    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
-    obj.admin = message.admin === "" ? undefined : message.admin;
-    obj.metadata = message.metadata === "" ? undefined : message.metadata;
-    obj.version = message.version !== BigInt(0) ? message.version?.toString() : undefined;
-    obj.total_weight = message.totalWeight === "" ? undefined : message.totalWeight;
-    obj.created_at = message.createdAt
-      ? Timestamp.toAmino(message.createdAt)
-      : Timestamp.toAmino(Timestamp.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: GroupInfoAminoMsg): GroupInfo {
-    return GroupInfo.fromAmino(object.value);
-  },
-  toAminoMsg(message: GroupInfo): GroupInfoAminoMsg {
-    return {
-      type: "cosmos-sdk/GroupInfo",
-      value: GroupInfo.toAmino(message),
-    };
-  },
 };
 function createBaseGroupMember(): GroupMember {
   return {
@@ -1090,31 +904,6 @@ export const GroupMember = {
       message.member = Member.fromPartial(object.member);
     }
     return message;
-  },
-  fromAmino(object: GroupMemberAmino): GroupMember {
-    const message = createBaseGroupMember();
-    if (object.group_id !== undefined && object.group_id !== null) {
-      message.groupId = BigInt(object.group_id);
-    }
-    if (object.member !== undefined && object.member !== null) {
-      message.member = Member.fromAmino(object.member);
-    }
-    return message;
-  },
-  toAmino(message: GroupMember): GroupMemberAmino {
-    const obj: any = {};
-    obj.group_id = message.groupId !== BigInt(0) ? message.groupId?.toString() : undefined;
-    obj.member = message.member ? Member.toAmino(message.member) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: GroupMemberAminoMsg): GroupMember {
-    return GroupMember.fromAmino(object.value);
-  },
-  toAminoMsg(message: GroupMember): GroupMemberAminoMsg {
-    return {
-      type: "cosmos-sdk/GroupMember",
-      value: GroupMember.toAmino(message),
-    };
   },
 };
 function createBaseGroupPolicyInfo(): GroupPolicyInfo {
@@ -1230,53 +1019,6 @@ export const GroupPolicyInfo = {
       message.createdAt = Timestamp.fromPartial(object.createdAt);
     }
     return message;
-  },
-  fromAmino(object: GroupPolicyInfoAmino): GroupPolicyInfo {
-    const message = createBaseGroupPolicyInfo();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.group_id !== undefined && object.group_id !== null) {
-      message.groupId = BigInt(object.group_id);
-    }
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    }
-    if (object.metadata !== undefined && object.metadata !== null) {
-      message.metadata = object.metadata;
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = BigInt(object.version);
-    }
-    if (object.decision_policy !== undefined && object.decision_policy !== null) {
-      message.decisionPolicy = Any.fromAmino(object.decision_policy);
-    }
-    if (object.created_at !== undefined && object.created_at !== null) {
-      message.createdAt = Timestamp.fromAmino(object.created_at);
-    }
-    return message;
-  },
-  toAmino(message: GroupPolicyInfo): GroupPolicyInfoAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.group_id = message.groupId !== BigInt(0) ? message.groupId?.toString() : undefined;
-    obj.admin = message.admin === "" ? undefined : message.admin;
-    obj.metadata = message.metadata === "" ? undefined : message.metadata;
-    obj.version = message.version !== BigInt(0) ? message.version?.toString() : undefined;
-    obj.decision_policy = message.decisionPolicy ? Any.toAmino(message.decisionPolicy) : undefined;
-    obj.created_at = message.createdAt
-      ? Timestamp.toAmino(message.createdAt)
-      : Timestamp.toAmino(Timestamp.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: GroupPolicyInfoAminoMsg): GroupPolicyInfo {
-    return GroupPolicyInfo.fromAmino(object.value);
-  },
-  toAminoMsg(message: GroupPolicyInfo): GroupPolicyInfoAminoMsg {
-    return {
-      type: "cosmos-sdk/GroupPolicyInfo",
-      value: GroupPolicyInfo.toAmino(message),
-    };
   },
 };
 function createBaseProposal(): Proposal {
@@ -1482,90 +1224,6 @@ export const Proposal = {
     message.summary = object.summary ?? "";
     return message;
   },
-  fromAmino(object: ProposalAmino): Proposal {
-    const message = createBaseProposal();
-    if (object.id !== undefined && object.id !== null) {
-      message.id = BigInt(object.id);
-    }
-    if (object.group_policy_address !== undefined && object.group_policy_address !== null) {
-      message.groupPolicyAddress = object.group_policy_address;
-    }
-    if (object.metadata !== undefined && object.metadata !== null) {
-      message.metadata = object.metadata;
-    }
-    message.proposers = object.proposers?.map((e) => e) || [];
-    if (object.submit_time !== undefined && object.submit_time !== null) {
-      message.submitTime = Timestamp.fromAmino(object.submit_time);
-    }
-    if (object.group_version !== undefined && object.group_version !== null) {
-      message.groupVersion = BigInt(object.group_version);
-    }
-    if (object.group_policy_version !== undefined && object.group_policy_version !== null) {
-      message.groupPolicyVersion = BigInt(object.group_policy_version);
-    }
-    if (object.status !== undefined && object.status !== null) {
-      message.status = object.status;
-    }
-    if (object.final_tally_result !== undefined && object.final_tally_result !== null) {
-      message.finalTallyResult = TallyResult.fromAmino(object.final_tally_result);
-    }
-    if (object.voting_period_end !== undefined && object.voting_period_end !== null) {
-      message.votingPeriodEnd = Timestamp.fromAmino(object.voting_period_end);
-    }
-    if (object.executor_result !== undefined && object.executor_result !== null) {
-      message.executorResult = object.executor_result;
-    }
-    message.messages = object.messages?.map((e) => Any.fromAmino(e)) || [];
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    }
-    if (object.summary !== undefined && object.summary !== null) {
-      message.summary = object.summary;
-    }
-    return message;
-  },
-  toAmino(message: Proposal): ProposalAmino {
-    const obj: any = {};
-    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
-    obj.group_policy_address = message.groupPolicyAddress === "" ? undefined : message.groupPolicyAddress;
-    obj.metadata = message.metadata === "" ? undefined : message.metadata;
-    if (message.proposers) {
-      obj.proposers = message.proposers.map((e) => e);
-    } else {
-      obj.proposers = message.proposers;
-    }
-    obj.submit_time = message.submitTime
-      ? Timestamp.toAmino(message.submitTime)
-      : Timestamp.toAmino(Timestamp.fromPartial({}));
-    obj.group_version = message.groupVersion !== BigInt(0) ? message.groupVersion?.toString() : undefined;
-    obj.group_policy_version =
-      message.groupPolicyVersion !== BigInt(0) ? message.groupPolicyVersion?.toString() : undefined;
-    obj.status = message.status === 0 ? undefined : message.status;
-    obj.final_tally_result = message.finalTallyResult
-      ? TallyResult.toAmino(message.finalTallyResult)
-      : TallyResult.toAmino(TallyResult.fromPartial({}));
-    obj.voting_period_end = message.votingPeriodEnd
-      ? Timestamp.toAmino(message.votingPeriodEnd)
-      : Timestamp.toAmino(Timestamp.fromPartial({}));
-    obj.executor_result = message.executorResult === 0 ? undefined : message.executorResult;
-    if (message.messages) {
-      obj.messages = message.messages.map((e) => (e ? Any.toAmino(e) : undefined));
-    } else {
-      obj.messages = message.messages;
-    }
-    obj.title = message.title === "" ? undefined : message.title;
-    obj.summary = message.summary === "" ? undefined : message.summary;
-    return obj;
-  },
-  fromAminoMsg(object: ProposalAminoMsg): Proposal {
-    return Proposal.fromAmino(object.value);
-  },
-  toAminoMsg(message: Proposal): ProposalAminoMsg {
-    return {
-      type: "cosmos-sdk/Proposal",
-      value: Proposal.toAmino(message),
-    };
-  },
 };
 function createBaseTallyResult(): TallyResult {
   return {
@@ -1641,39 +1299,6 @@ export const TallyResult = {
     message.noCount = object.noCount ?? "";
     message.noWithVetoCount = object.noWithVetoCount ?? "";
     return message;
-  },
-  fromAmino(object: TallyResultAmino): TallyResult {
-    const message = createBaseTallyResult();
-    if (object.yes_count !== undefined && object.yes_count !== null) {
-      message.yesCount = object.yes_count;
-    }
-    if (object.abstain_count !== undefined && object.abstain_count !== null) {
-      message.abstainCount = object.abstain_count;
-    }
-    if (object.no_count !== undefined && object.no_count !== null) {
-      message.noCount = object.no_count;
-    }
-    if (object.no_with_veto_count !== undefined && object.no_with_veto_count !== null) {
-      message.noWithVetoCount = object.no_with_veto_count;
-    }
-    return message;
-  },
-  toAmino(message: TallyResult): TallyResultAmino {
-    const obj: any = {};
-    obj.yes_count = message.yesCount === "" ? undefined : message.yesCount;
-    obj.abstain_count = message.abstainCount === "" ? undefined : message.abstainCount;
-    obj.no_count = message.noCount === "" ? undefined : message.noCount;
-    obj.no_with_veto_count = message.noWithVetoCount === "" ? undefined : message.noWithVetoCount;
-    return obj;
-  },
-  fromAminoMsg(object: TallyResultAminoMsg): TallyResult {
-    return TallyResult.fromAmino(object.value);
-  },
-  toAminoMsg(message: TallyResult): TallyResultAminoMsg {
-    return {
-      type: "cosmos-sdk/TallyResult",
-      value: TallyResult.toAmino(message),
-    };
   },
 };
 function createBaseVote(): Vote {
@@ -1764,44 +1389,5 @@ export const Vote = {
       message.submitTime = Timestamp.fromPartial(object.submitTime);
     }
     return message;
-  },
-  fromAmino(object: VoteAmino): Vote {
-    const message = createBaseVote();
-    if (object.proposal_id !== undefined && object.proposal_id !== null) {
-      message.proposalId = BigInt(object.proposal_id);
-    }
-    if (object.voter !== undefined && object.voter !== null) {
-      message.voter = object.voter;
-    }
-    if (object.option !== undefined && object.option !== null) {
-      message.option = object.option;
-    }
-    if (object.metadata !== undefined && object.metadata !== null) {
-      message.metadata = object.metadata;
-    }
-    if (object.submit_time !== undefined && object.submit_time !== null) {
-      message.submitTime = Timestamp.fromAmino(object.submit_time);
-    }
-    return message;
-  },
-  toAmino(message: Vote): VoteAmino {
-    const obj: any = {};
-    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId?.toString() : undefined;
-    obj.voter = message.voter === "" ? undefined : message.voter;
-    obj.option = message.option === 0 ? undefined : message.option;
-    obj.metadata = message.metadata === "" ? undefined : message.metadata;
-    obj.submit_time = message.submitTime
-      ? Timestamp.toAmino(message.submitTime)
-      : Timestamp.toAmino(Timestamp.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: VoteAminoMsg): Vote {
-    return Vote.fromAmino(object.value);
-  },
-  toAminoMsg(message: Vote): VoteAminoMsg {
-    return {
-      type: "cosmos-sdk/Vote",
-      value: Vote.toAmino(message),
-    };
   },
 };

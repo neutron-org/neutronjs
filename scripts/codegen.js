@@ -54,8 +54,8 @@ telescope({
         // See https://github.com/cosmos/cosmjs/pull/1329
         fromJSON: true,
         toJSON: true,
-        fromAmino: true,
-        toAmino: true,
+        fromAmino: false,
+        toAmino: false,
         fromProto: false,
         toProto: false,
       },
@@ -82,6 +82,11 @@ telescope({
     aminoEncoding: {
       enabled: true,
       useLegacyInlineEncoding: true,
+      omitEmptyTags: ["dont_omitempty"],
+      legacy: {
+        useOmitEmpty: true,
+        useNullHandling: true,
+      },
     },
   },
 }).then(

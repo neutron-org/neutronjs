@@ -175,31 +175,6 @@ export const MsgSetWithdrawAddress = {
     message.withdrawAddress = object.withdrawAddress ?? "";
     return message;
   },
-  fromAmino(object: MsgSetWithdrawAddressAmino): MsgSetWithdrawAddress {
-    const message = createBaseMsgSetWithdrawAddress();
-    if (object.delegator_address !== undefined && object.delegator_address !== null) {
-      message.delegatorAddress = object.delegator_address;
-    }
-    if (object.withdraw_address !== undefined && object.withdraw_address !== null) {
-      message.withdrawAddress = object.withdraw_address;
-    }
-    return message;
-  },
-  toAmino(message: MsgSetWithdrawAddress): MsgSetWithdrawAddressAmino {
-    const obj: any = {};
-    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
-    obj.withdraw_address = message.withdrawAddress === "" ? undefined : message.withdrawAddress;
-    return obj;
-  },
-  fromAminoMsg(object: MsgSetWithdrawAddressAminoMsg): MsgSetWithdrawAddress {
-    return MsgSetWithdrawAddress.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgSetWithdrawAddress): MsgSetWithdrawAddressAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgModifyWithdrawAddress",
-      value: MsgSetWithdrawAddress.toAmino(message),
-    };
-  },
 };
 function createBaseMsgSetWithdrawAddressResponse(): MsgSetWithdrawAddressResponse {
   return {};
@@ -236,23 +211,6 @@ export const MsgSetWithdrawAddressResponse = {
   ): MsgSetWithdrawAddressResponse {
     const message = createBaseMsgSetWithdrawAddressResponse();
     return message;
-  },
-  fromAmino(_: MsgSetWithdrawAddressResponseAmino): MsgSetWithdrawAddressResponse {
-    const message = createBaseMsgSetWithdrawAddressResponse();
-    return message;
-  },
-  toAmino(_: MsgSetWithdrawAddressResponse): MsgSetWithdrawAddressResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgSetWithdrawAddressResponseAminoMsg): MsgSetWithdrawAddressResponse {
-    return MsgSetWithdrawAddressResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgSetWithdrawAddressResponse): MsgSetWithdrawAddressResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgSetWithdrawAddressResponse",
-      value: MsgSetWithdrawAddressResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgWithdrawDelegatorReward(): MsgWithdrawDelegatorReward {
@@ -312,31 +270,6 @@ export const MsgWithdrawDelegatorReward = {
     message.validatorAddress = object.validatorAddress ?? "";
     return message;
   },
-  fromAmino(object: MsgWithdrawDelegatorRewardAmino): MsgWithdrawDelegatorReward {
-    const message = createBaseMsgWithdrawDelegatorReward();
-    if (object.delegator_address !== undefined && object.delegator_address !== null) {
-      message.delegatorAddress = object.delegator_address;
-    }
-    if (object.validator_address !== undefined && object.validator_address !== null) {
-      message.validatorAddress = object.validator_address;
-    }
-    return message;
-  },
-  toAmino(message: MsgWithdrawDelegatorReward): MsgWithdrawDelegatorRewardAmino {
-    const obj: any = {};
-    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
-    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
-    return obj;
-  },
-  fromAminoMsg(object: MsgWithdrawDelegatorRewardAminoMsg): MsgWithdrawDelegatorReward {
-    return MsgWithdrawDelegatorReward.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgWithdrawDelegatorReward): MsgWithdrawDelegatorRewardAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgWithdrawDelegationReward",
-      value: MsgWithdrawDelegatorReward.toAmino(message),
-    };
-  },
 };
 function createBaseMsgWithdrawDelegatorRewardResponse(): MsgWithdrawDelegatorRewardResponse {
   return {
@@ -392,29 +325,6 @@ export const MsgWithdrawDelegatorRewardResponse = {
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: MsgWithdrawDelegatorRewardResponseAmino): MsgWithdrawDelegatorRewardResponse {
-    const message = createBaseMsgWithdrawDelegatorRewardResponse();
-    message.amount = object.amount?.map((e) => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: MsgWithdrawDelegatorRewardResponse): MsgWithdrawDelegatorRewardResponseAmino {
-    const obj: any = {};
-    if (message.amount) {
-      obj.amount = message.amount.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.amount = message.amount;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: MsgWithdrawDelegatorRewardResponseAminoMsg): MsgWithdrawDelegatorRewardResponse {
-    return MsgWithdrawDelegatorRewardResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgWithdrawDelegatorRewardResponse): MsgWithdrawDelegatorRewardResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgWithdrawDelegatorRewardResponse",
-      value: MsgWithdrawDelegatorRewardResponse.toAmino(message),
-    };
-  },
 };
 function createBaseMsgWithdrawValidatorCommission(): MsgWithdrawValidatorCommission {
   return {
@@ -465,27 +375,6 @@ export const MsgWithdrawValidatorCommission = {
     const message = createBaseMsgWithdrawValidatorCommission();
     message.validatorAddress = object.validatorAddress ?? "";
     return message;
-  },
-  fromAmino(object: MsgWithdrawValidatorCommissionAmino): MsgWithdrawValidatorCommission {
-    const message = createBaseMsgWithdrawValidatorCommission();
-    if (object.validator_address !== undefined && object.validator_address !== null) {
-      message.validatorAddress = object.validator_address;
-    }
-    return message;
-  },
-  toAmino(message: MsgWithdrawValidatorCommission): MsgWithdrawValidatorCommissionAmino {
-    const obj: any = {};
-    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
-    return obj;
-  },
-  fromAminoMsg(object: MsgWithdrawValidatorCommissionAminoMsg): MsgWithdrawValidatorCommission {
-    return MsgWithdrawValidatorCommission.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgWithdrawValidatorCommission): MsgWithdrawValidatorCommissionAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgWithdrawValidatorCommission",
-      value: MsgWithdrawValidatorCommission.toAmino(message),
-    };
   },
 };
 function createBaseMsgWithdrawValidatorCommissionResponse(): MsgWithdrawValidatorCommissionResponse {
@@ -541,33 +430,6 @@ export const MsgWithdrawValidatorCommissionResponse = {
     const message = createBaseMsgWithdrawValidatorCommissionResponse();
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: MsgWithdrawValidatorCommissionResponseAmino): MsgWithdrawValidatorCommissionResponse {
-    const message = createBaseMsgWithdrawValidatorCommissionResponse();
-    message.amount = object.amount?.map((e) => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: MsgWithdrawValidatorCommissionResponse): MsgWithdrawValidatorCommissionResponseAmino {
-    const obj: any = {};
-    if (message.amount) {
-      obj.amount = message.amount.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.amount = message.amount;
-    }
-    return obj;
-  },
-  fromAminoMsg(
-    object: MsgWithdrawValidatorCommissionResponseAminoMsg,
-  ): MsgWithdrawValidatorCommissionResponse {
-    return MsgWithdrawValidatorCommissionResponse.fromAmino(object.value);
-  },
-  toAminoMsg(
-    message: MsgWithdrawValidatorCommissionResponse,
-  ): MsgWithdrawValidatorCommissionResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgWithdrawValidatorCommissionResponse",
-      value: MsgWithdrawValidatorCommissionResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgFundCommunityPool(): MsgFundCommunityPool {
@@ -629,33 +491,6 @@ export const MsgFundCommunityPool = {
     message.depositor = object.depositor ?? "";
     return message;
   },
-  fromAmino(object: MsgFundCommunityPoolAmino): MsgFundCommunityPool {
-    const message = createBaseMsgFundCommunityPool();
-    message.amount = object.amount?.map((e) => Coin.fromAmino(e)) || [];
-    if (object.depositor !== undefined && object.depositor !== null) {
-      message.depositor = object.depositor;
-    }
-    return message;
-  },
-  toAmino(message: MsgFundCommunityPool): MsgFundCommunityPoolAmino {
-    const obj: any = {};
-    if (message.amount) {
-      obj.amount = message.amount.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.amount = message.amount;
-    }
-    obj.depositor = message.depositor === "" ? undefined : message.depositor;
-    return obj;
-  },
-  fromAminoMsg(object: MsgFundCommunityPoolAminoMsg): MsgFundCommunityPool {
-    return MsgFundCommunityPool.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgFundCommunityPool): MsgFundCommunityPoolAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgFundCommunityPool",
-      value: MsgFundCommunityPool.toAmino(message),
-    };
-  },
 };
 function createBaseMsgFundCommunityPoolResponse(): MsgFundCommunityPoolResponse {
   return {};
@@ -692,23 +527,6 @@ export const MsgFundCommunityPoolResponse = {
   ): MsgFundCommunityPoolResponse {
     const message = createBaseMsgFundCommunityPoolResponse();
     return message;
-  },
-  fromAmino(_: MsgFundCommunityPoolResponseAmino): MsgFundCommunityPoolResponse {
-    const message = createBaseMsgFundCommunityPoolResponse();
-    return message;
-  },
-  toAmino(_: MsgFundCommunityPoolResponse): MsgFundCommunityPoolResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgFundCommunityPoolResponseAminoMsg): MsgFundCommunityPoolResponse {
-    return MsgFundCommunityPoolResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgFundCommunityPoolResponse): MsgFundCommunityPoolResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgFundCommunityPoolResponse",
-      value: MsgFundCommunityPoolResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -768,31 +586,6 @@ export const MsgUpdateParams = {
     }
     return message;
   },
-  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    const message = createBaseMsgUpdateParams();
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
-    const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
-    return MsgUpdateParams.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
-    return {
-      type: "cosmos-sdk/distribution/MsgUpdateParams",
-      value: MsgUpdateParams.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -827,23 +620,6 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    const message = createBaseMsgUpdateParamsResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
-    return MsgUpdateParamsResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateParamsResponse",
-      value: MsgUpdateParamsResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgCommunityPoolSpend(): MsgCommunityPoolSpend {
@@ -915,37 +691,6 @@ export const MsgCommunityPoolSpend = {
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: MsgCommunityPoolSpendAmino): MsgCommunityPoolSpend {
-    const message = createBaseMsgCommunityPoolSpend();
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    if (object.recipient !== undefined && object.recipient !== null) {
-      message.recipient = object.recipient;
-    }
-    message.amount = object.amount?.map((e) => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: MsgCommunityPoolSpend): MsgCommunityPoolSpendAmino {
-    const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.recipient = message.recipient === "" ? undefined : message.recipient;
-    if (message.amount) {
-      obj.amount = message.amount.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.amount = message.amount;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: MsgCommunityPoolSpendAminoMsg): MsgCommunityPoolSpend {
-    return MsgCommunityPoolSpend.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgCommunityPoolSpend): MsgCommunityPoolSpendAminoMsg {
-    return {
-      type: "cosmos-sdk/distr/MsgCommunityPoolSpend",
-      value: MsgCommunityPoolSpend.toAmino(message),
-    };
-  },
 };
 function createBaseMsgCommunityPoolSpendResponse(): MsgCommunityPoolSpendResponse {
   return {};
@@ -982,23 +727,6 @@ export const MsgCommunityPoolSpendResponse = {
   ): MsgCommunityPoolSpendResponse {
     const message = createBaseMsgCommunityPoolSpendResponse();
     return message;
-  },
-  fromAmino(_: MsgCommunityPoolSpendResponseAmino): MsgCommunityPoolSpendResponse {
-    const message = createBaseMsgCommunityPoolSpendResponse();
-    return message;
-  },
-  toAmino(_: MsgCommunityPoolSpendResponse): MsgCommunityPoolSpendResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgCommunityPoolSpendResponseAminoMsg): MsgCommunityPoolSpendResponse {
-    return MsgCommunityPoolSpendResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgCommunityPoolSpendResponse): MsgCommunityPoolSpendResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgCommunityPoolSpendResponse",
-      value: MsgCommunityPoolSpendResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgDepositValidatorRewardsPool(): MsgDepositValidatorRewardsPool {
@@ -1075,37 +803,6 @@ export const MsgDepositValidatorRewardsPool = {
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: MsgDepositValidatorRewardsPoolAmino): MsgDepositValidatorRewardsPool {
-    const message = createBaseMsgDepositValidatorRewardsPool();
-    if (object.depositor !== undefined && object.depositor !== null) {
-      message.depositor = object.depositor;
-    }
-    if (object.validator_address !== undefined && object.validator_address !== null) {
-      message.validatorAddress = object.validator_address;
-    }
-    message.amount = object.amount?.map((e) => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: MsgDepositValidatorRewardsPool): MsgDepositValidatorRewardsPoolAmino {
-    const obj: any = {};
-    obj.depositor = message.depositor === "" ? undefined : message.depositor;
-    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
-    if (message.amount) {
-      obj.amount = message.amount.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.amount = message.amount;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: MsgDepositValidatorRewardsPoolAminoMsg): MsgDepositValidatorRewardsPool {
-    return MsgDepositValidatorRewardsPool.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgDepositValidatorRewardsPool): MsgDepositValidatorRewardsPoolAminoMsg {
-    return {
-      type: "cosmos-sdk/distr/MsgDepositValRewards",
-      value: MsgDepositValidatorRewardsPool.toAmino(message),
-    };
-  },
 };
 function createBaseMsgDepositValidatorRewardsPoolResponse(): MsgDepositValidatorRewardsPoolResponse {
   return {};
@@ -1145,26 +842,5 @@ export const MsgDepositValidatorRewardsPoolResponse = {
   ): MsgDepositValidatorRewardsPoolResponse {
     const message = createBaseMsgDepositValidatorRewardsPoolResponse();
     return message;
-  },
-  fromAmino(_: MsgDepositValidatorRewardsPoolResponseAmino): MsgDepositValidatorRewardsPoolResponse {
-    const message = createBaseMsgDepositValidatorRewardsPoolResponse();
-    return message;
-  },
-  toAmino(_: MsgDepositValidatorRewardsPoolResponse): MsgDepositValidatorRewardsPoolResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(
-    object: MsgDepositValidatorRewardsPoolResponseAminoMsg,
-  ): MsgDepositValidatorRewardsPoolResponse {
-    return MsgDepositValidatorRewardsPoolResponse.fromAmino(object.value);
-  },
-  toAminoMsg(
-    message: MsgDepositValidatorRewardsPoolResponse,
-  ): MsgDepositValidatorRewardsPoolResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgDepositValidatorRewardsPoolResponse",
-      value: MsgDepositValidatorRewardsPoolResponse.toAmino(message),
-    };
   },
 };

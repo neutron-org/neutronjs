@@ -121,7 +121,7 @@ export const AminoConverter = {
           identifier: version.identifier,
           features: version.features,
         },
-        delay_period: delayPeriod.toString(),
+        delay_period: omitDefault(delayPeriod)?.toString?.(),
         signer,
       };
     },
@@ -134,18 +134,27 @@ export const AminoConverter = {
     }: MsgConnectionOpenInitAminoType["value"]): MsgConnectionOpenInit => {
       return {
         clientId: client_id,
-        counterparty: {
-          clientId: counterparty.client_id,
-          connectionId: counterparty.connection_id,
-          prefix: {
-            keyPrefix: counterparty.prefix.key_prefix,
-          },
-        },
-        version: {
-          identifier: version.identifier,
-          features: version.features,
-        },
-        delayPeriod: BigInt(delay_period),
+        counterparty:
+          counterparty == null
+            ? counterparty
+            : {
+                clientId: counterparty.client_id,
+                connectionId: counterparty.connection_id,
+                prefix:
+                  counterparty.prefix == null
+                    ? counterparty.prefix
+                    : {
+                        keyPrefix: counterparty.prefix.key_prefix,
+                      },
+              },
+        version:
+          version == null
+            ? version
+            : {
+                identifier: version.identifier,
+                features: version.features,
+              },
+        delayPeriod: delay_period == null ? delay_period : BigInt(delay_period),
         signer,
       };
     },
@@ -181,7 +190,7 @@ export const AminoConverter = {
             key_prefix: counterparty.prefix.keyPrefix,
           },
         },
-        delay_period: delayPeriod.toString(),
+        delay_period: omitDefault(delayPeriod)?.toString?.(),
         counterparty_versions: counterpartyVersions.map((el0) => ({
           identifier: el0.identifier,
           features: el0.features,
@@ -223,19 +232,28 @@ export const AminoConverter = {
       return {
         clientId: client_id,
         previousConnectionId: previous_connection_id,
-        clientState: {
-          typeUrl: client_state.type_url,
-          value: client_state.value,
-        },
-        counterparty: {
-          clientId: counterparty.client_id,
-          connectionId: counterparty.connection_id,
-          prefix: {
-            keyPrefix: counterparty.prefix.key_prefix,
-          },
-        },
-        delayPeriod: BigInt(delay_period),
-        counterpartyVersions: counterparty_versions.map((el0) => ({
+        clientState:
+          client_state == null
+            ? client_state
+            : {
+                typeUrl: client_state.type_url,
+                value: client_state.value,
+              },
+        counterparty:
+          counterparty == null
+            ? counterparty
+            : {
+                clientId: counterparty.client_id,
+                connectionId: counterparty.connection_id,
+                prefix:
+                  counterparty.prefix == null
+                    ? counterparty.prefix
+                    : {
+                        keyPrefix: counterparty.prefix.key_prefix,
+                      },
+              },
+        delayPeriod: delay_period == null ? delay_period : BigInt(delay_period),
+        counterpartyVersions: counterparty_versions.map?.((el0) => ({
           identifier: el0.identifier,
           features: el0.features,
         })),
@@ -320,14 +338,20 @@ export const AminoConverter = {
       return {
         connectionId: connection_id,
         counterpartyConnectionId: counterparty_connection_id,
-        version: {
-          identifier: version.identifier,
-          features: version.features,
-        },
-        clientState: {
-          typeUrl: client_state.type_url,
-          value: client_state.value,
-        },
+        version:
+          version == null
+            ? version
+            : {
+                identifier: version.identifier,
+                features: version.features,
+              },
+        clientState:
+          client_state == null
+            ? client_state
+            : {
+                typeUrl: client_state.type_url,
+                value: client_state.value,
+              },
         proofHeight: proof_height
           ? {
               revisionHeight: BigInt(proof_height.revision_height || "0"),
@@ -400,9 +424,12 @@ export const AminoConverter = {
     fromAmino: ({ signer, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         signer,
-        params: {
-          allowedClients: params.allowed_clients,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                allowedClients: params.allowed_clients,
+              },
       };
     },
   },

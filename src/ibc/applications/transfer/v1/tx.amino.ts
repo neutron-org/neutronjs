@@ -56,7 +56,7 @@ export const AminoConverter = {
               revision_number: omitDefault(timeoutHeight.revisionNumber)?.toString(),
             }
           : {},
-        timeout_timestamp: timeoutTimestamp.toString(),
+        timeout_timestamp: omitDefault(timeoutTimestamp)?.toString?.(),
         memo,
       };
     },
@@ -73,10 +73,13 @@ export const AminoConverter = {
       return {
         sourcePort: source_port,
         sourceChannel: source_channel,
-        token: {
-          denom: token.denom,
-          amount: token.amount,
-        },
+        token:
+          token == null
+            ? token
+            : {
+                denom: token.denom,
+                amount: token.amount,
+              },
         sender,
         receiver,
         timeoutHeight: timeout_height
@@ -85,7 +88,7 @@ export const AminoConverter = {
               revisionNumber: BigInt(timeout_height.revision_number || "0"),
             }
           : undefined,
-        timeoutTimestamp: BigInt(timeout_timestamp),
+        timeoutTimestamp: timeout_timestamp == null ? timeout_timestamp : BigInt(timeout_timestamp),
         memo,
       };
     },
@@ -103,9 +106,12 @@ export const AminoConverter = {
     fromAmino: ({ signer, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         signer,
-        params: {
-          allowedClients: params.allowed_clients,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                allowedClients: params.allowed_clients,
+              },
       };
     },
   },

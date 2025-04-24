@@ -65,17 +65,6 @@ export const QueryParamsRequest = {
     const message = createBaseQueryParamsRequest();
     return message;
   },
-  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    const message = createBaseQueryParamsRequest();
-    return message;
-  },
-  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
-    return QueryParamsRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
@@ -124,21 +113,6 @@ export const QueryParamsResponse = {
     }
     return message;
   },
-  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    const message = createBaseQueryParamsResponse();
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
-    const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
-    return QueryParamsResponse.fromAmino(object.value);
-  },
 };
 function createBaseQueryGetScheduleRequest(): QueryGetScheduleRequest {
   return {
@@ -184,21 +158,6 @@ export const QueryGetScheduleRequest = {
     const message = createBaseQueryGetScheduleRequest();
     message.name = object.name ?? "";
     return message;
-  },
-  fromAmino(object: QueryGetScheduleRequestAmino): QueryGetScheduleRequest {
-    const message = createBaseQueryGetScheduleRequest();
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    }
-    return message;
-  },
-  toAmino(message: QueryGetScheduleRequest): QueryGetScheduleRequestAmino {
-    const obj: any = {};
-    obj.name = message.name === "" ? undefined : message.name;
-    return obj;
-  },
-  fromAminoMsg(object: QueryGetScheduleRequestAminoMsg): QueryGetScheduleRequest {
-    return QueryGetScheduleRequest.fromAmino(object.value);
   },
 };
 function createBaseQueryGetScheduleResponse(): QueryGetScheduleResponse {
@@ -251,21 +210,6 @@ export const QueryGetScheduleResponse = {
     }
     return message;
   },
-  fromAmino(object: QueryGetScheduleResponseAmino): QueryGetScheduleResponse {
-    const message = createBaseQueryGetScheduleResponse();
-    if (object.schedule !== undefined && object.schedule !== null) {
-      message.schedule = Schedule.fromAmino(object.schedule);
-    }
-    return message;
-  },
-  toAmino(message: QueryGetScheduleResponse): QueryGetScheduleResponseAmino {
-    const obj: any = {};
-    obj.schedule = message.schedule ? Schedule.toAmino(message.schedule) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryGetScheduleResponseAminoMsg): QueryGetScheduleResponse {
-    return QueryGetScheduleResponse.fromAmino(object.value);
-  },
 };
 function createBaseQuerySchedulesRequest(): QuerySchedulesRequest {
   return {
@@ -314,21 +258,6 @@ export const QuerySchedulesRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
-  },
-  fromAmino(object: QuerySchedulesRequestAmino): QuerySchedulesRequest {
-    const message = createBaseQuerySchedulesRequest();
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QuerySchedulesRequest): QuerySchedulesRequestAmino {
-    const obj: any = {};
-    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySchedulesRequestAminoMsg): QuerySchedulesRequest {
-    return QuerySchedulesRequest.fromAmino(object.value);
   },
 };
 function createBaseQuerySchedulesResponse(): QuerySchedulesResponse {
@@ -393,26 +322,5 @@ export const QuerySchedulesResponse = {
       message.pagination = PageResponse.fromPartial(object.pagination);
     }
     return message;
-  },
-  fromAmino(object: QuerySchedulesResponseAmino): QuerySchedulesResponse {
-    const message = createBaseQuerySchedulesResponse();
-    message.schedules = object.schedules?.map((e) => Schedule.fromAmino(e)) || [];
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QuerySchedulesResponse): QuerySchedulesResponseAmino {
-    const obj: any = {};
-    if (message.schedules) {
-      obj.schedules = message.schedules.map((e) => (e ? Schedule.toAmino(e) : undefined));
-    } else {
-      obj.schedules = message.schedules;
-    }
-    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySchedulesResponseAminoMsg): QuerySchedulesResponse {
-    return QuerySchedulesResponse.fromAmino(object.value);
   },
 };

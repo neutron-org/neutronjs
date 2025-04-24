@@ -68,23 +68,4 @@ export const Params = {
     }
     return message;
   },
-  fromAmino(object: ParamsAmino): Params {
-    const message = createBaseParams();
-    if (object.security_address !== undefined && object.security_address !== null) {
-      message.securityAddress = object.security_address;
-    }
-    if (object.limit !== undefined && object.limit !== null) {
-      message.limit = BigInt(object.limit);
-    }
-    return message;
-  },
-  toAmino(message: Params): ParamsAmino {
-    const obj: any = {};
-    obj.security_address = message.securityAddress === "" ? undefined : message.securityAddress;
-    obj.limit = message.limit !== BigInt(0) ? message.limit?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ParamsAminoMsg): Params {
-    return Params.fromAmino(object.value);
-  },
 };

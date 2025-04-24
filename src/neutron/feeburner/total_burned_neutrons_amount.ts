@@ -58,19 +58,4 @@ export const TotalBurnedNeutronsAmount = {
     }
     return message;
   },
-  fromAmino(object: TotalBurnedNeutronsAmountAmino): TotalBurnedNeutronsAmount {
-    const message = createBaseTotalBurnedNeutronsAmount();
-    if (object.coin !== undefined && object.coin !== null) {
-      message.coin = Coin.fromAmino(object.coin);
-    }
-    return message;
-  },
-  toAmino(message: TotalBurnedNeutronsAmount): TotalBurnedNeutronsAmountAmino {
-    const obj: any = {};
-    obj.coin = message.coin ? Coin.toAmino(message.coin) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: TotalBurnedNeutronsAmountAminoMsg): TotalBurnedNeutronsAmount {
-    return TotalBurnedNeutronsAmount.fromAmino(object.value);
-  },
 };

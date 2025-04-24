@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../../../helpers";
 import { MsgUpdateParams, MsgModuleQuerySafe } from "./tx";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgUpdateParams";
@@ -29,7 +30,7 @@ export const AminoConverter = {
       return {
         signer,
         params: {
-          host_enabled: params.hostEnabled,
+          host_enabled: omitDefault(params.hostEnabled),
           allow_messages: params.allowMessages,
         },
       };
@@ -37,10 +38,13 @@ export const AminoConverter = {
     fromAmino: ({ signer, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         signer,
-        params: {
-          hostEnabled: params.host_enabled,
-          allowMessages: params.allow_messages,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                hostEnabled: params.host_enabled,
+                allowMessages: params.allow_messages,
+              },
       };
     },
   },
@@ -58,7 +62,7 @@ export const AminoConverter = {
     fromAmino: ({ signer, requests }: MsgModuleQuerySafeAminoType["value"]): MsgModuleQuerySafe => {
       return {
         signer,
-        requests: requests.map((el0) => ({
+        requests: requests.map?.((el0) => ({
           path: el0.path,
           data: el0.data,
         })),

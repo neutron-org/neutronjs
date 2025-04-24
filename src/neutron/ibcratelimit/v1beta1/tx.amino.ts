@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../helpers";
 import { MsgUpdateParams } from "./tx";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "neutron/ibc-rate-limit/MsgUpdateParams";
@@ -24,22 +25,25 @@ export const AminoConverter = {
         params: {
           send_enabled: params.sendEnabled.map((el0) => ({
             denom: el0.denom,
-            enabled: el0.enabled,
+            enabled: omitDefault(el0.enabled),
           })),
-          default_send_enabled: params.defaultSendEnabled,
+          default_send_enabled: omitDefault(params.defaultSendEnabled),
         },
       };
     },
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          sendEnabled: params.send_enabled.map((el1) => ({
-            denom: el1.denom,
-            enabled: el1.enabled,
-          })),
-          defaultSendEnabled: params.default_send_enabled,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                sendEnabled: params.send_enabled.map?.((el1) => ({
+                  denom: el1.denom,
+                  enabled: el1.enabled,
+                })),
+                defaultSendEnabled: params.default_send_enabled,
+              },
       };
     },
   },

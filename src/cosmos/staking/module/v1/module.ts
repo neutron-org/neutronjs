@@ -100,41 +100,4 @@ export const Module = {
     message.bech32PrefixConsensus = object.bech32PrefixConsensus ?? "";
     return message;
   },
-  fromAmino(object: ModuleAmino): Module {
-    const message = createBaseModule();
-    message.hooksOrder = object.hooks_order?.map((e) => e) || [];
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    if (object.bech32_prefix_validator !== undefined && object.bech32_prefix_validator !== null) {
-      message.bech32PrefixValidator = object.bech32_prefix_validator;
-    }
-    if (object.bech32_prefix_consensus !== undefined && object.bech32_prefix_consensus !== null) {
-      message.bech32PrefixConsensus = object.bech32_prefix_consensus;
-    }
-    return message;
-  },
-  toAmino(message: Module): ModuleAmino {
-    const obj: any = {};
-    if (message.hooksOrder) {
-      obj.hooks_order = message.hooksOrder.map((e) => e);
-    } else {
-      obj.hooks_order = message.hooksOrder;
-    }
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.bech32_prefix_validator =
-      message.bech32PrefixValidator === "" ? undefined : message.bech32PrefixValidator;
-    obj.bech32_prefix_consensus =
-      message.bech32PrefixConsensus === "" ? undefined : message.bech32PrefixConsensus;
-    return obj;
-  },
-  fromAminoMsg(object: ModuleAminoMsg): Module {
-    return Module.fromAmino(object.value);
-  },
-  toAminoMsg(message: Module): ModuleAminoMsg {
-    return {
-      type: "cosmos-sdk/Module",
-      value: Module.toAmino(message),
-    };
-  },
 };

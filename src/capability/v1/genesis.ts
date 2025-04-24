@@ -82,27 +82,6 @@ export const GenesisOwners = {
     }
     return message;
   },
-  fromAmino(object: GenesisOwnersAmino): GenesisOwners {
-    const message = createBaseGenesisOwners();
-    if (object.index !== undefined && object.index !== null) {
-      message.index = BigInt(object.index);
-    }
-    if (object.index_owners !== undefined && object.index_owners !== null) {
-      message.indexOwners = CapabilityOwners.fromAmino(object.index_owners);
-    }
-    return message;
-  },
-  toAmino(message: GenesisOwners): GenesisOwnersAmino {
-    const obj: any = {};
-    obj.index = message.index !== BigInt(0) ? message.index?.toString() : undefined;
-    obj.index_owners = message.indexOwners
-      ? CapabilityOwners.toAmino(message.indexOwners)
-      : CapabilityOwners.toAmino(CapabilityOwners.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: GenesisOwnersAminoMsg): GenesisOwners {
-    return GenesisOwners.fromAmino(object.value);
-  },
 };
 function createBaseGenesisState(): GenesisState {
   return {
@@ -164,26 +143,5 @@ export const GenesisState = {
     }
     message.owners = object.owners?.map((e) => GenesisOwners.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    if (object.index !== undefined && object.index !== null) {
-      message.index = BigInt(object.index);
-    }
-    message.owners = object.owners?.map((e) => GenesisOwners.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    obj.index = message.index !== BigInt(0) ? message.index?.toString() : undefined;
-    if (message.owners) {
-      obj.owners = message.owners.map((e) => (e ? GenesisOwners.toAmino(e) : undefined));
-    } else {
-      obj.owners = message.owners;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
   },
 };

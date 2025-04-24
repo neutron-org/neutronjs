@@ -59,27 +59,4 @@ export const GenesisState = {
     message.evidence = object.evidence?.map((e) => Any.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    message.evidence = object.evidence?.map((e) => Any.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    if (message.evidence) {
-      obj.evidence = message.evidence.map((e) => (e ? Any.toAmino(e) : undefined));
-    } else {
-      obj.evidence = message.evidence;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisState",
-      value: GenesisState.toAmino(message),
-    };
-  },
 };

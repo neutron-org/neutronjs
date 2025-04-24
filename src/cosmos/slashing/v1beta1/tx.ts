@@ -78,27 +78,6 @@ export const MsgUnjail = {
     message.validatorAddr = object.validatorAddr ?? "";
     return message;
   },
-  fromAmino(object: MsgUnjailAmino): MsgUnjail {
-    const message = createBaseMsgUnjail();
-    if (object.validator_addr !== undefined && object.validator_addr !== null) {
-      message.validatorAddr = object.validator_addr;
-    }
-    return message;
-  },
-  toAmino(message: MsgUnjail): MsgUnjailAmino {
-    const obj: any = {};
-    obj.validator_addr = message.validatorAddr ?? "";
-    return obj;
-  },
-  fromAminoMsg(object: MsgUnjailAminoMsg): MsgUnjail {
-    return MsgUnjail.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUnjail): MsgUnjailAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUnjail",
-      value: MsgUnjail.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUnjailResponse(): MsgUnjailResponse {
   return {};
@@ -133,23 +112,6 @@ export const MsgUnjailResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUnjailResponse>, I>>(_: I): MsgUnjailResponse {
     const message = createBaseMsgUnjailResponse();
     return message;
-  },
-  fromAmino(_: MsgUnjailResponseAmino): MsgUnjailResponse {
-    const message = createBaseMsgUnjailResponse();
-    return message;
-  },
-  toAmino(_: MsgUnjailResponse): MsgUnjailResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUnjailResponseAminoMsg): MsgUnjailResponse {
-    return MsgUnjailResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUnjailResponse): MsgUnjailResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUnjailResponse",
-      value: MsgUnjailResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -209,31 +171,6 @@ export const MsgUpdateParams = {
     }
     return message;
   },
-  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    const message = createBaseMsgUpdateParams();
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
-    const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
-    return MsgUpdateParams.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
-    return {
-      type: "cosmos-sdk/x/slashing/MsgUpdateParams",
-      value: MsgUpdateParams.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -268,22 +205,5 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    const message = createBaseMsgUpdateParamsResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
-    return MsgUpdateParamsResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateParamsResponse",
-      value: MsgUpdateParamsResponse.toAmino(message),
-    };
   },
 };

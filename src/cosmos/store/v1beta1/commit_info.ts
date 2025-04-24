@@ -112,37 +112,6 @@ export const CommitInfo = {
     }
     return message;
   },
-  fromAmino(object: CommitInfoAmino): CommitInfo {
-    const message = createBaseCommitInfo();
-    if (object.version !== undefined && object.version !== null) {
-      message.version = BigInt(object.version);
-    }
-    message.storeInfos = object.store_infos?.map((e) => StoreInfo.fromAmino(e)) || [];
-    if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = Timestamp.fromAmino(object.timestamp);
-    }
-    return message;
-  },
-  toAmino(message: CommitInfo): CommitInfoAmino {
-    const obj: any = {};
-    obj.version = message.version !== BigInt(0) ? message.version?.toString() : undefined;
-    if (message.storeInfos) {
-      obj.store_infos = message.storeInfos.map((e) => (e ? StoreInfo.toAmino(e) : undefined));
-    } else {
-      obj.store_infos = message.storeInfos;
-    }
-    obj.timestamp = message.timestamp ? Timestamp.toAmino(message.timestamp) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: CommitInfoAminoMsg): CommitInfo {
-    return CommitInfo.fromAmino(object.value);
-  },
-  toAminoMsg(message: CommitInfo): CommitInfoAminoMsg {
-    return {
-      type: "cosmos-sdk/CommitInfo",
-      value: CommitInfo.toAmino(message),
-    };
-  },
 };
 function createBaseStoreInfo(): StoreInfo {
   return {
@@ -202,31 +171,6 @@ export const StoreInfo = {
     }
     return message;
   },
-  fromAmino(object: StoreInfoAmino): StoreInfo {
-    const message = createBaseStoreInfo();
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    }
-    if (object.commit_id !== undefined && object.commit_id !== null) {
-      message.commitId = CommitID.fromAmino(object.commit_id);
-    }
-    return message;
-  },
-  toAmino(message: StoreInfo): StoreInfoAmino {
-    const obj: any = {};
-    obj.name = message.name === "" ? undefined : message.name;
-    obj.commit_id = message.commitId ? CommitID.toAmino(message.commitId) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: StoreInfoAminoMsg): StoreInfo {
-    return StoreInfo.fromAmino(object.value);
-  },
-  toAminoMsg(message: StoreInfo): StoreInfoAminoMsg {
-    return {
-      type: "cosmos-sdk/StoreInfo",
-      value: StoreInfo.toAmino(message),
-    };
-  },
 };
 function createBaseCommitID(): CommitID {
   return {
@@ -285,30 +229,5 @@ export const CommitID = {
     }
     message.hash = object.hash ?? new Uint8Array();
     return message;
-  },
-  fromAmino(object: CommitIDAmino): CommitID {
-    const message = createBaseCommitID();
-    if (object.version !== undefined && object.version !== null) {
-      message.version = BigInt(object.version);
-    }
-    if (object.hash !== undefined && object.hash !== null) {
-      message.hash = bytesFromBase64(object.hash);
-    }
-    return message;
-  },
-  toAmino(message: CommitID): CommitIDAmino {
-    const obj: any = {};
-    obj.version = message.version !== BigInt(0) ? message.version?.toString() : undefined;
-    obj.hash = message.hash ? base64FromBytes(message.hash) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: CommitIDAminoMsg): CommitID {
-    return CommitID.fromAmino(object.value);
-  },
-  toAminoMsg(message: CommitID): CommitIDAminoMsg {
-    return {
-      type: "cosmos-sdk/CommitID",
-      value: CommitID.toAmino(message),
-    };
   },
 };

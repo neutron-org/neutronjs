@@ -107,39 +107,6 @@ export const StoreKVPair = {
     message.value = object.value ?? new Uint8Array();
     return message;
   },
-  fromAmino(object: StoreKVPairAmino): StoreKVPair {
-    const message = createBaseStoreKVPair();
-    if (object.store_key !== undefined && object.store_key !== null) {
-      message.storeKey = object.store_key;
-    }
-    if (object.delete !== undefined && object.delete !== null) {
-      message.delete = object.delete;
-    }
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = bytesFromBase64(object.value);
-    }
-    return message;
-  },
-  toAmino(message: StoreKVPair): StoreKVPairAmino {
-    const obj: any = {};
-    obj.store_key = message.storeKey === "" ? undefined : message.storeKey;
-    obj.delete = message.delete === false ? undefined : message.delete;
-    obj.key = message.key ? base64FromBytes(message.key) : undefined;
-    obj.value = message.value ? base64FromBytes(message.value) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: StoreKVPairAminoMsg): StoreKVPair {
-    return StoreKVPair.fromAmino(object.value);
-  },
-  toAminoMsg(message: StoreKVPair): StoreKVPairAminoMsg {
-    return {
-      type: "cosmos-sdk/StoreKVPair",
-      value: StoreKVPair.toAmino(message),
-    };
-  },
 };
 function createBaseBlockMetadata(): BlockMetadata {
   return {
@@ -222,38 +189,5 @@ export const BlockMetadata = {
       message.responseFinalizeBlock = ResponseFinalizeBlock.fromPartial(object.responseFinalizeBlock);
     }
     return message;
-  },
-  fromAmino(object: BlockMetadataAmino): BlockMetadata {
-    const message = createBaseBlockMetadata();
-    if (object.response_commit !== undefined && object.response_commit !== null) {
-      message.responseCommit = ResponseCommit.fromAmino(object.response_commit);
-    }
-    if (object.request_finalize_block !== undefined && object.request_finalize_block !== null) {
-      message.requestFinalizeBlock = RequestFinalizeBlock.fromAmino(object.request_finalize_block);
-    }
-    if (object.response_finalize_block !== undefined && object.response_finalize_block !== null) {
-      message.responseFinalizeBlock = ResponseFinalizeBlock.fromAmino(object.response_finalize_block);
-    }
-    return message;
-  },
-  toAmino(message: BlockMetadata): BlockMetadataAmino {
-    const obj: any = {};
-    obj.response_commit = message.responseCommit ? ResponseCommit.toAmino(message.responseCommit) : undefined;
-    obj.request_finalize_block = message.requestFinalizeBlock
-      ? RequestFinalizeBlock.toAmino(message.requestFinalizeBlock)
-      : undefined;
-    obj.response_finalize_block = message.responseFinalizeBlock
-      ? ResponseFinalizeBlock.toAmino(message.responseFinalizeBlock)
-      : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: BlockMetadataAminoMsg): BlockMetadata {
-    return BlockMetadata.fromAmino(object.value);
-  },
-  toAminoMsg(message: BlockMetadata): BlockMetadataAminoMsg {
-    return {
-      type: "cosmos-sdk/BlockMetadata",
-      value: BlockMetadata.toAmino(message),
-    };
   },
 };

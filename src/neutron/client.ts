@@ -55,11 +55,7 @@ export const neutronProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
   ...neutronRevenueTxRegistry.registry,
   ...neutronTransferV1TxRegistry.registry,
 ];
-export const getSigningNeutronClientOptions = ({
-  defaultTypes = defaultRegistryTypes,
-}: {
-  defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
-} = {}): {
+export const getSigningNeutronClientOptions = ({ defaultTypes = defaultRegistryTypes } = {}): {
   registry: Registry;
   aminoTypes: AminoTypes;
 } => {

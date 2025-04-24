@@ -37,7 +37,7 @@ export const AminoConverter = {
     }: MsgAddCurrencyPairsAminoType["value"]): MsgAddCurrencyPairs => {
       return {
         authority,
-        currencyPairs: currency_pairs.map((el0) => ({
+        currencyPairs: currency_pairs.map?.((el0) => ({
           base: el0.Base,
           quote: el0.Quote,
         })),

@@ -72,7 +72,7 @@ export const AminoConverter = {
               revision_number: omitDefault(timeoutHeight.revisionNumber)?.toString(),
             }
           : {},
-        timeout_timestamp: timeoutTimestamp.toString(),
+        timeout_timestamp: omitDefault(timeoutTimestamp)?.toString?.(),
         memo,
         fee: {
           recv_fee: fee.recvFee.map((el0) => ({
@@ -104,10 +104,13 @@ export const AminoConverter = {
       return {
         sourcePort: source_port,
         sourceChannel: source_channel,
-        token: {
-          denom: token.denom,
-          amount: token.amount,
-        },
+        token:
+          token == null
+            ? token
+            : {
+                denom: token.denom,
+                amount: token.amount,
+              },
         sender,
         receiver,
         timeoutHeight: timeout_height
@@ -116,22 +119,25 @@ export const AminoConverter = {
               revisionNumber: BigInt(timeout_height.revision_number || "0"),
             }
           : undefined,
-        timeoutTimestamp: BigInt(timeout_timestamp),
+        timeoutTimestamp: timeout_timestamp == null ? timeout_timestamp : BigInt(timeout_timestamp),
         memo,
-        fee: {
-          recvFee: fee.recv_fee.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-          ackFee: fee.ack_fee.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-          timeoutFee: fee.timeout_fee.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-        },
+        fee:
+          fee == null
+            ? fee
+            : {
+                recvFee: fee.recv_fee.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+                ackFee: fee.ack_fee.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+                timeoutFee: fee.timeout_fee.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+              },
       };
     },
   },
@@ -141,18 +147,21 @@ export const AminoConverter = {
       return {
         signer,
         params: {
-          send_enabled: params.sendEnabled,
-          receive_enabled: params.receiveEnabled,
+          send_enabled: omitDefault(params.sendEnabled),
+          receive_enabled: omitDefault(params.receiveEnabled),
         },
       };
     },
     fromAmino: ({ signer, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         signer,
-        params: {
-          sendEnabled: params.send_enabled,
-          receiveEnabled: params.receive_enabled,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                sendEnabled: params.send_enabled,
+                receiveEnabled: params.receive_enabled,
+              },
       };
     },
   },

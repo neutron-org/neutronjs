@@ -99,30 +99,6 @@ export const PoolReservesKey = {
     }
     return message;
   },
-  fromAmino(object: PoolReservesKeyAmino): PoolReservesKey {
-    const message = createBasePoolReservesKey();
-    if (object.trade_pair_id !== undefined && object.trade_pair_id !== null) {
-      message.tradePairId = TradePairID.fromAmino(object.trade_pair_id);
-    }
-    if (object.tick_index_taker_to_maker !== undefined && object.tick_index_taker_to_maker !== null) {
-      message.tickIndexTakerToMaker = BigInt(object.tick_index_taker_to_maker);
-    }
-    if (object.fee !== undefined && object.fee !== null) {
-      message.fee = BigInt(object.fee);
-    }
-    return message;
-  },
-  toAmino(message: PoolReservesKey): PoolReservesKeyAmino {
-    const obj: any = {};
-    obj.trade_pair_id = message.tradePairId ? TradePairID.toAmino(message.tradePairId) : undefined;
-    obj.tick_index_taker_to_maker =
-      message.tickIndexTakerToMaker !== BigInt(0) ? message.tickIndexTakerToMaker?.toString() : undefined;
-    obj.fee = message.fee !== BigInt(0) ? message.fee?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: PoolReservesKeyAminoMsg): PoolReservesKey {
-    return PoolReservesKey.fromAmino(object.value);
-  },
 };
 function createBasePoolReserves(): PoolReserves {
   return {
@@ -212,36 +188,5 @@ export const PoolReserves = {
     message.priceOppositeTakerToMaker = object.priceOppositeTakerToMaker ?? "";
     message.makerPrice = object.makerPrice ?? "";
     return message;
-  },
-  fromAmino(object: PoolReservesAmino): PoolReserves {
-    const message = createBasePoolReserves();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = PoolReservesKey.fromAmino(object.key);
-    }
-    if (object.reserves_maker_denom !== undefined && object.reserves_maker_denom !== null) {
-      message.reservesMakerDenom = object.reserves_maker_denom;
-    }
-    if (object.price_taker_to_maker !== undefined && object.price_taker_to_maker !== null) {
-      message.priceTakerToMaker = object.price_taker_to_maker;
-    }
-    if (object.price_opposite_taker_to_maker !== undefined && object.price_opposite_taker_to_maker !== null) {
-      message.priceOppositeTakerToMaker = object.price_opposite_taker_to_maker;
-    }
-    if (object.maker_price !== undefined && object.maker_price !== null) {
-      message.makerPrice = object.maker_price;
-    }
-    return message;
-  },
-  toAmino(message: PoolReserves): PoolReservesAmino {
-    const obj: any = {};
-    obj.key = message.key ? PoolReservesKey.toAmino(message.key) : undefined;
-    obj.reserves_maker_denom = message.reservesMakerDenom ?? "";
-    obj.price_taker_to_maker = message.priceTakerToMaker ?? "";
-    obj.price_opposite_taker_to_maker = message.priceOppositeTakerToMaker ?? "";
-    obj.maker_price = message.makerPrice ?? "";
-    return obj;
-  },
-  fromAminoMsg(object: PoolReservesAminoMsg): PoolReserves {
-    return PoolReserves.fromAmino(object.value);
   },
 };

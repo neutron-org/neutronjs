@@ -124,39 +124,6 @@ export const MsgRegisterInterchainAccount = {
     message.ordering = object.ordering ?? 0;
     return message;
   },
-  fromAmino(object: MsgRegisterInterchainAccountAmino): MsgRegisterInterchainAccount {
-    const message = createBaseMsgRegisterInterchainAccount();
-    if (object.owner !== undefined && object.owner !== null) {
-      message.owner = object.owner;
-    }
-    if (object.connection_id !== undefined && object.connection_id !== null) {
-      message.connectionId = object.connection_id;
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = object.version;
-    }
-    if (object.ordering !== undefined && object.ordering !== null) {
-      message.ordering = object.ordering;
-    }
-    return message;
-  },
-  toAmino(message: MsgRegisterInterchainAccount): MsgRegisterInterchainAccountAmino {
-    const obj: any = {};
-    obj.owner = message.owner === "" ? undefined : message.owner;
-    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
-    obj.version = message.version === "" ? undefined : message.version;
-    obj.ordering = message.ordering === 0 ? undefined : message.ordering;
-    return obj;
-  },
-  fromAminoMsg(object: MsgRegisterInterchainAccountAminoMsg): MsgRegisterInterchainAccount {
-    return MsgRegisterInterchainAccount.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgRegisterInterchainAccount): MsgRegisterInterchainAccountAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgRegisterInterchainAccount",
-      value: MsgRegisterInterchainAccount.toAmino(message),
-    };
-  },
 };
 function createBaseMsgRegisterInterchainAccountResponse(): MsgRegisterInterchainAccountResponse {
   return {
@@ -217,31 +184,6 @@ export const MsgRegisterInterchainAccountResponse = {
     message.channelId = object.channelId ?? "";
     message.portId = object.portId ?? "";
     return message;
-  },
-  fromAmino(object: MsgRegisterInterchainAccountResponseAmino): MsgRegisterInterchainAccountResponse {
-    const message = createBaseMsgRegisterInterchainAccountResponse();
-    if (object.channel_id !== undefined && object.channel_id !== null) {
-      message.channelId = object.channel_id;
-    }
-    if (object.port_id !== undefined && object.port_id !== null) {
-      message.portId = object.port_id;
-    }
-    return message;
-  },
-  toAmino(message: MsgRegisterInterchainAccountResponse): MsgRegisterInterchainAccountResponseAmino {
-    const obj: any = {};
-    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
-    obj.port_id = message.portId === "" ? undefined : message.portId;
-    return obj;
-  },
-  fromAminoMsg(object: MsgRegisterInterchainAccountResponseAminoMsg): MsgRegisterInterchainAccountResponse {
-    return MsgRegisterInterchainAccountResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgRegisterInterchainAccountResponse): MsgRegisterInterchainAccountResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgRegisterInterchainAccountResponse",
-      value: MsgRegisterInterchainAccountResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgSendTx(): MsgSendTx {
@@ -327,42 +269,6 @@ export const MsgSendTx = {
     }
     return message;
   },
-  fromAmino(object: MsgSendTxAmino): MsgSendTx {
-    const message = createBaseMsgSendTx();
-    if (object.owner !== undefined && object.owner !== null) {
-      message.owner = object.owner;
-    }
-    if (object.connection_id !== undefined && object.connection_id !== null) {
-      message.connectionId = object.connection_id;
-    }
-    if (object.packet_data !== undefined && object.packet_data !== null) {
-      message.packetData = InterchainAccountPacketData.fromAmino(object.packet_data);
-    }
-    if (object.relative_timeout !== undefined && object.relative_timeout !== null) {
-      message.relativeTimeout = BigInt(object.relative_timeout);
-    }
-    return message;
-  },
-  toAmino(message: MsgSendTx): MsgSendTxAmino {
-    const obj: any = {};
-    obj.owner = message.owner === "" ? undefined : message.owner;
-    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
-    obj.packet_data = message.packetData
-      ? InterchainAccountPacketData.toAmino(message.packetData)
-      : undefined;
-    obj.relative_timeout =
-      message.relativeTimeout !== BigInt(0) ? message.relativeTimeout?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgSendTxAminoMsg): MsgSendTx {
-    return MsgSendTx.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgSendTx): MsgSendTxAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgSendTx",
-      value: MsgSendTx.toAmino(message),
-    };
-  },
 };
 function createBaseMsgSendTxResponse(): MsgSendTxResponse {
   return {
@@ -410,27 +316,6 @@ export const MsgSendTxResponse = {
       message.sequence = BigInt(object.sequence.toString());
     }
     return message;
-  },
-  fromAmino(object: MsgSendTxResponseAmino): MsgSendTxResponse {
-    const message = createBaseMsgSendTxResponse();
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = BigInt(object.sequence);
-    }
-    return message;
-  },
-  toAmino(message: MsgSendTxResponse): MsgSendTxResponseAmino {
-    const obj: any = {};
-    obj.sequence = message.sequence !== BigInt(0) ? message.sequence?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgSendTxResponseAminoMsg): MsgSendTxResponse {
-    return MsgSendTxResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgSendTxResponse): MsgSendTxResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgSendTxResponse",
-      value: MsgSendTxResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -490,31 +375,6 @@ export const MsgUpdateParams = {
     }
     return message;
   },
-  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    const message = createBaseMsgUpdateParams();
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
-    const obj: any = {};
-    obj.signer = message.signer === "" ? undefined : message.signer;
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
-    return MsgUpdateParams.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateParams",
-      value: MsgUpdateParams.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -549,22 +409,5 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    const message = createBaseMsgUpdateParamsResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
-    return MsgUpdateParamsResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateParamsResponse",
-      value: MsgUpdateParamsResponse.toAmino(message),
-    };
   },
 };

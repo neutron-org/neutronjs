@@ -188,71 +188,6 @@ export const GenesisState = {
     message.exported = object.exported ?? false;
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    if (object.last_total_power !== undefined && object.last_total_power !== null) {
-      message.lastTotalPower = bytesFromBase64(object.last_total_power);
-    }
-    message.lastValidatorPowers =
-      object.last_validator_powers?.map((e) => LastValidatorPower.fromAmino(e)) || [];
-    message.validators = object.validators?.map((e) => Validator.fromAmino(e)) || [];
-    message.delegations = object.delegations?.map((e) => Delegation.fromAmino(e)) || [];
-    message.unbondingDelegations =
-      object.unbonding_delegations?.map((e) => UnbondingDelegation.fromAmino(e)) || [];
-    message.redelegations = object.redelegations?.map((e) => Redelegation.fromAmino(e)) || [];
-    if (object.exported !== undefined && object.exported !== null) {
-      message.exported = object.exported;
-    }
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
-    obj.last_total_power = message.lastTotalPower ? base64FromBytes(message.lastTotalPower) : "";
-    if (message.lastValidatorPowers) {
-      obj.last_validator_powers = message.lastValidatorPowers.map((e) =>
-        e ? LastValidatorPower.toAmino(e) : undefined,
-      );
-    } else {
-      obj.last_validator_powers = message.lastValidatorPowers;
-    }
-    if (message.validators) {
-      obj.validators = message.validators.map((e) => (e ? Validator.toAmino(e) : undefined));
-    } else {
-      obj.validators = message.validators;
-    }
-    if (message.delegations) {
-      obj.delegations = message.delegations.map((e) => (e ? Delegation.toAmino(e) : undefined));
-    } else {
-      obj.delegations = message.delegations;
-    }
-    if (message.unbondingDelegations) {
-      obj.unbonding_delegations = message.unbondingDelegations.map((e) =>
-        e ? UnbondingDelegation.toAmino(e) : undefined,
-      );
-    } else {
-      obj.unbonding_delegations = message.unbondingDelegations;
-    }
-    if (message.redelegations) {
-      obj.redelegations = message.redelegations.map((e) => (e ? Redelegation.toAmino(e) : undefined));
-    } else {
-      obj.redelegations = message.redelegations;
-    }
-    obj.exported = message.exported === false ? undefined : message.exported;
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisState",
-      value: GenesisState.toAmino(message),
-    };
-  },
 };
 function createBaseLastValidatorPower(): LastValidatorPower {
   return {
@@ -310,30 +245,5 @@ export const LastValidatorPower = {
       message.power = BigInt(object.power.toString());
     }
     return message;
-  },
-  fromAmino(object: LastValidatorPowerAmino): LastValidatorPower {
-    const message = createBaseLastValidatorPower();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.power !== undefined && object.power !== null) {
-      message.power = BigInt(object.power);
-    }
-    return message;
-  },
-  toAmino(message: LastValidatorPower): LastValidatorPowerAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.power = message.power !== BigInt(0) ? message.power?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: LastValidatorPowerAminoMsg): LastValidatorPower {
-    return LastValidatorPower.fromAmino(object.value);
-  },
-  toAminoMsg(message: LastValidatorPower): LastValidatorPowerAminoMsg {
-    return {
-      type: "cosmos-sdk/LastValidatorPower",
-      value: LastValidatorPower.toAmino(message),
-    };
   },
 };

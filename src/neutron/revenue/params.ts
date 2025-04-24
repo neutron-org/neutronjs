@@ -211,57 +211,6 @@ export const Params = {
     }
     return message;
   },
-  fromAmino(object: ParamsAmino): Params {
-    const message = createBaseParams();
-    if (object.reward_asset !== undefined && object.reward_asset !== null) {
-      message.rewardAsset = object.reward_asset;
-    }
-    if (object.reward_quote !== undefined && object.reward_quote !== null) {
-      message.rewardQuote = RewardQuote.fromAmino(object.reward_quote);
-    }
-    if (
-      object.blocks_performance_requirement !== undefined &&
-      object.blocks_performance_requirement !== null
-    ) {
-      message.blocksPerformanceRequirement = PerformanceRequirement.fromAmino(
-        object.blocks_performance_requirement,
-      );
-    }
-    if (
-      object.oracle_votes_performance_requirement !== undefined &&
-      object.oracle_votes_performance_requirement !== null
-    ) {
-      message.oracleVotesPerformanceRequirement = PerformanceRequirement.fromAmino(
-        object.oracle_votes_performance_requirement,
-      );
-    }
-    if (object.payment_schedule_type !== undefined && object.payment_schedule_type !== null) {
-      message.paymentScheduleType = PaymentScheduleType.fromAmino(object.payment_schedule_type);
-    }
-    if (object.twap_window !== undefined && object.twap_window !== null) {
-      message.twapWindow = BigInt(object.twap_window);
-    }
-    return message;
-  },
-  toAmino(message: Params): ParamsAmino {
-    const obj: any = {};
-    obj.reward_asset = message.rewardAsset === "" ? undefined : message.rewardAsset;
-    obj.reward_quote = message.rewardQuote ? RewardQuote.toAmino(message.rewardQuote) : undefined;
-    obj.blocks_performance_requirement = message.blocksPerformanceRequirement
-      ? PerformanceRequirement.toAmino(message.blocksPerformanceRequirement)
-      : undefined;
-    obj.oracle_votes_performance_requirement = message.oracleVotesPerformanceRequirement
-      ? PerformanceRequirement.toAmino(message.oracleVotesPerformanceRequirement)
-      : undefined;
-    obj.payment_schedule_type = message.paymentScheduleType
-      ? PaymentScheduleType.toAmino(message.paymentScheduleType)
-      : undefined;
-    obj.twap_window = message.twapWindow !== BigInt(0) ? message.twapWindow?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ParamsAminoMsg): Params {
-    return Params.fromAmino(object.value);
-  },
 };
 function createBaseRewardQuote(): RewardQuote {
   return {
@@ -319,25 +268,6 @@ export const RewardQuote = {
     }
     message.asset = object.asset ?? "";
     return message;
-  },
-  fromAmino(object: RewardQuoteAmino): RewardQuote {
-    const message = createBaseRewardQuote();
-    if (object.amount !== undefined && object.amount !== null) {
-      message.amount = BigInt(object.amount);
-    }
-    if (object.asset !== undefined && object.asset !== null) {
-      message.asset = object.asset;
-    }
-    return message;
-  },
-  toAmino(message: RewardQuote): RewardQuoteAmino {
-    const obj: any = {};
-    obj.amount = message.amount !== BigInt(0) ? message.amount?.toString() : undefined;
-    obj.asset = message.asset === "" ? undefined : message.asset;
-    return obj;
-  },
-  fromAminoMsg(object: RewardQuoteAminoMsg): RewardQuote {
-    return RewardQuote.fromAmino(object.value);
   },
 };
 function createBasePaymentScheduleType(): PaymentScheduleType {
@@ -440,44 +370,6 @@ export const PaymentScheduleType = {
     }
     return message;
   },
-  fromAmino(object: PaymentScheduleTypeAmino): PaymentScheduleType {
-    const message = createBasePaymentScheduleType();
-    if (object.monthly_payment_schedule_type !== undefined && object.monthly_payment_schedule_type !== null) {
-      message.monthlyPaymentScheduleType = MonthlyPaymentScheduleType.fromAmino(
-        object.monthly_payment_schedule_type,
-      );
-    }
-    if (
-      object.block_based_payment_schedule_type !== undefined &&
-      object.block_based_payment_schedule_type !== null
-    ) {
-      message.blockBasedPaymentScheduleType = BlockBasedPaymentScheduleType.fromAmino(
-        object.block_based_payment_schedule_type,
-      );
-    }
-    if (object.empty_payment_schedule_type !== undefined && object.empty_payment_schedule_type !== null) {
-      message.emptyPaymentScheduleType = EmptyPaymentScheduleType.fromAmino(
-        object.empty_payment_schedule_type,
-      );
-    }
-    return message;
-  },
-  toAmino(message: PaymentScheduleType): PaymentScheduleTypeAmino {
-    const obj: any = {};
-    obj.monthly_payment_schedule_type = message.monthlyPaymentScheduleType
-      ? MonthlyPaymentScheduleType.toAmino(message.monthlyPaymentScheduleType)
-      : undefined;
-    obj.block_based_payment_schedule_type = message.blockBasedPaymentScheduleType
-      ? BlockBasedPaymentScheduleType.toAmino(message.blockBasedPaymentScheduleType)
-      : undefined;
-    obj.empty_payment_schedule_type = message.emptyPaymentScheduleType
-      ? EmptyPaymentScheduleType.toAmino(message.emptyPaymentScheduleType)
-      : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: PaymentScheduleTypeAminoMsg): PaymentScheduleType {
-    return PaymentScheduleType.fromAmino(object.value);
-  },
 };
 function createBaseMonthlyPaymentScheduleType(): MonthlyPaymentScheduleType {
   return {};
@@ -512,17 +404,6 @@ export const MonthlyPaymentScheduleType = {
   fromPartial<I extends Exact<DeepPartial<MonthlyPaymentScheduleType>, I>>(_: I): MonthlyPaymentScheduleType {
     const message = createBaseMonthlyPaymentScheduleType();
     return message;
-  },
-  fromAmino(_: MonthlyPaymentScheduleTypeAmino): MonthlyPaymentScheduleType {
-    const message = createBaseMonthlyPaymentScheduleType();
-    return message;
-  },
-  toAmino(_: MonthlyPaymentScheduleType): MonthlyPaymentScheduleTypeAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MonthlyPaymentScheduleTypeAminoMsg): MonthlyPaymentScheduleType {
-    return MonthlyPaymentScheduleType.fromAmino(object.value);
   },
 };
 function createBaseBlockBasedPaymentScheduleType(): BlockBasedPaymentScheduleType {
@@ -575,22 +456,6 @@ export const BlockBasedPaymentScheduleType = {
     }
     return message;
   },
-  fromAmino(object: BlockBasedPaymentScheduleTypeAmino): BlockBasedPaymentScheduleType {
-    const message = createBaseBlockBasedPaymentScheduleType();
-    if (object.blocks_per_period !== undefined && object.blocks_per_period !== null) {
-      message.blocksPerPeriod = BigInt(object.blocks_per_period);
-    }
-    return message;
-  },
-  toAmino(message: BlockBasedPaymentScheduleType): BlockBasedPaymentScheduleTypeAmino {
-    const obj: any = {};
-    obj.blocks_per_period =
-      message.blocksPerPeriod !== BigInt(0) ? message.blocksPerPeriod?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: BlockBasedPaymentScheduleTypeAminoMsg): BlockBasedPaymentScheduleType {
-    return BlockBasedPaymentScheduleType.fromAmino(object.value);
-  },
 };
 function createBaseEmptyPaymentScheduleType(): EmptyPaymentScheduleType {
   return {};
@@ -625,17 +490,6 @@ export const EmptyPaymentScheduleType = {
   fromPartial<I extends Exact<DeepPartial<EmptyPaymentScheduleType>, I>>(_: I): EmptyPaymentScheduleType {
     const message = createBaseEmptyPaymentScheduleType();
     return message;
-  },
-  fromAmino(_: EmptyPaymentScheduleTypeAmino): EmptyPaymentScheduleType {
-    const message = createBaseEmptyPaymentScheduleType();
-    return message;
-  },
-  toAmino(_: EmptyPaymentScheduleType): EmptyPaymentScheduleTypeAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: EmptyPaymentScheduleTypeAminoMsg): EmptyPaymentScheduleType {
-    return EmptyPaymentScheduleType.fromAmino(object.value);
   },
 };
 function createBasePerformanceRequirement(): PerformanceRequirement {
@@ -692,24 +546,5 @@ export const PerformanceRequirement = {
     message.allowedToMiss = object.allowedToMiss ?? "";
     message.requiredAtLeast = object.requiredAtLeast ?? "";
     return message;
-  },
-  fromAmino(object: PerformanceRequirementAmino): PerformanceRequirement {
-    const message = createBasePerformanceRequirement();
-    if (object.allowed_to_miss !== undefined && object.allowed_to_miss !== null) {
-      message.allowedToMiss = object.allowed_to_miss;
-    }
-    if (object.required_at_least !== undefined && object.required_at_least !== null) {
-      message.requiredAtLeast = object.required_at_least;
-    }
-    return message;
-  },
-  toAmino(message: PerformanceRequirement): PerformanceRequirementAmino {
-    const obj: any = {};
-    obj.allowed_to_miss = message.allowedToMiss === "" ? undefined : message.allowedToMiss;
-    obj.required_at_least = message.requiredAtLeast === "" ? undefined : message.requiredAtLeast;
-    return obj;
-  },
-  fromAminoMsg(object: PerformanceRequirementAminoMsg): PerformanceRequirement {
-    return PerformanceRequirement.fromAmino(object.value);
   },
 };

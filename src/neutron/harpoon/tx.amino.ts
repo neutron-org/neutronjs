@@ -34,10 +34,13 @@ export const AminoConverter = {
     }: MsgManageHookSubscriptionAminoType["value"]): MsgManageHookSubscription => {
       return {
         authority,
-        hookSubscription: {
-          contractAddress: hook_subscription.contract_address,
-          hooks: hook_subscription.hooks.map((el) => hookTypeFromJSON(el)),
-        },
+        hookSubscription:
+          hook_subscription == null
+            ? hook_subscription
+            : {
+                contractAddress: hook_subscription.contract_address,
+                hooks: hook_subscription.hooks.map?.((el) => hookTypeFromJSON(el)),
+              },
       };
     },
   },

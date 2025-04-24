@@ -81,31 +81,6 @@ export const MsgUpdateParams = {
     }
     return message;
   },
-  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    const message = createBaseMsgUpdateParams();
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
-    const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
-    return MsgUpdateParams.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
-    return {
-      type: "revenue/MsgUpdateParams",
-      value: MsgUpdateParams.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -140,17 +115,6 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    const message = createBaseMsgUpdateParamsResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
-    return MsgUpdateParamsResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgFundTreasury(): MsgFundTreasury {
@@ -212,33 +176,6 @@ export const MsgFundTreasury = {
     message.amount = object.amount?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: MsgFundTreasuryAmino): MsgFundTreasury {
-    const message = createBaseMsgFundTreasury();
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    }
-    message.amount = object.amount?.map((e) => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: MsgFundTreasury): MsgFundTreasuryAmino {
-    const obj: any = {};
-    obj.sender = message.sender === "" ? undefined : message.sender;
-    if (message.amount) {
-      obj.amount = message.amount.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.amount = message.amount;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: MsgFundTreasuryAminoMsg): MsgFundTreasury {
-    return MsgFundTreasury.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgFundTreasury): MsgFundTreasuryAminoMsg {
-    return {
-      type: "revenue/MsgFundTreasury",
-      value: MsgFundTreasury.toAmino(message),
-    };
-  },
 };
 function createBaseMsgFundTreasuryResponse(): MsgFundTreasuryResponse {
   return {};
@@ -273,16 +210,5 @@ export const MsgFundTreasuryResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgFundTreasuryResponse>, I>>(_: I): MsgFundTreasuryResponse {
     const message = createBaseMsgFundTreasuryResponse();
     return message;
-  },
-  fromAmino(_: MsgFundTreasuryResponseAmino): MsgFundTreasuryResponse {
-    const message = createBaseMsgFundTreasuryResponse();
-    return message;
-  },
-  toAmino(_: MsgFundTreasuryResponse): MsgFundTreasuryResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgFundTreasuryResponseAminoMsg): MsgFundTreasuryResponse {
-    return MsgFundTreasuryResponse.fromAmino(object.value);
   },
 };

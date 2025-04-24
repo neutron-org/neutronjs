@@ -97,37 +97,4 @@ export const Module = {
     message.restrictionsOrder = object.restrictionsOrder?.map((e) => e) || [];
     return message;
   },
-  fromAmino(object: ModuleAmino): Module {
-    const message = createBaseModule();
-    message.blockedModuleAccountsOverride = object.blocked_module_accounts_override?.map((e) => e) || [];
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    message.restrictionsOrder = object.restrictions_order?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: Module): ModuleAmino {
-    const obj: any = {};
-    if (message.blockedModuleAccountsOverride) {
-      obj.blocked_module_accounts_override = message.blockedModuleAccountsOverride.map((e) => e);
-    } else {
-      obj.blocked_module_accounts_override = message.blockedModuleAccountsOverride;
-    }
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    if (message.restrictionsOrder) {
-      obj.restrictions_order = message.restrictionsOrder.map((e) => e);
-    } else {
-      obj.restrictions_order = message.restrictionsOrder;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: ModuleAminoMsg): Module {
-    return Module.fromAmino(object.value);
-  },
-  toAminoMsg(message: Module): ModuleAminoMsg {
-    return {
-      type: "cosmos-sdk/Module",
-      value: Module.toAmino(message),
-    };
-  },
 };

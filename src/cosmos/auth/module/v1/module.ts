@@ -98,40 +98,6 @@ export const Module = {
     message.authority = object.authority ?? "";
     return message;
   },
-  fromAmino(object: ModuleAmino): Module {
-    const message = createBaseModule();
-    if (object.bech32_prefix !== undefined && object.bech32_prefix !== null) {
-      message.bech32Prefix = object.bech32_prefix;
-    }
-    message.moduleAccountPermissions =
-      object.module_account_permissions?.map((e) => ModuleAccountPermission.fromAmino(e)) || [];
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    return message;
-  },
-  toAmino(message: Module): ModuleAmino {
-    const obj: any = {};
-    obj.bech32_prefix = message.bech32Prefix === "" ? undefined : message.bech32Prefix;
-    if (message.moduleAccountPermissions) {
-      obj.module_account_permissions = message.moduleAccountPermissions.map((e) =>
-        e ? ModuleAccountPermission.toAmino(e) : undefined,
-      );
-    } else {
-      obj.module_account_permissions = message.moduleAccountPermissions;
-    }
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    return obj;
-  },
-  fromAminoMsg(object: ModuleAminoMsg): Module {
-    return Module.fromAmino(object.value);
-  },
-  toAminoMsg(message: Module): ModuleAminoMsg {
-    return {
-      type: "cosmos-sdk/Module",
-      value: Module.toAmino(message),
-    };
-  },
 };
 function createBaseModuleAccountPermission(): ModuleAccountPermission {
   return {
@@ -191,32 +157,5 @@ export const ModuleAccountPermission = {
     message.account = object.account ?? "";
     message.permissions = object.permissions?.map((e) => e) || [];
     return message;
-  },
-  fromAmino(object: ModuleAccountPermissionAmino): ModuleAccountPermission {
-    const message = createBaseModuleAccountPermission();
-    if (object.account !== undefined && object.account !== null) {
-      message.account = object.account;
-    }
-    message.permissions = object.permissions?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: ModuleAccountPermission): ModuleAccountPermissionAmino {
-    const obj: any = {};
-    obj.account = message.account === "" ? undefined : message.account;
-    if (message.permissions) {
-      obj.permissions = message.permissions.map((e) => e);
-    } else {
-      obj.permissions = message.permissions;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: ModuleAccountPermissionAminoMsg): ModuleAccountPermission {
-    return ModuleAccountPermission.fromAmino(object.value);
-  },
-  toAminoMsg(message: ModuleAccountPermission): ModuleAccountPermissionAminoMsg {
-    return {
-      type: "cosmos-sdk/ModuleAccountPermission",
-      value: ModuleAccountPermission.toAmino(message),
-    };
   },
 };

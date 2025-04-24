@@ -97,35 +97,6 @@ export const Fee = {
     message.timeoutFee = object.timeoutFee?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: FeeAmino): Fee {
-    const message = createBaseFee();
-    message.recvFee = object.recv_fee?.map((e) => Coin.fromAmino(e)) || [];
-    message.ackFee = object.ack_fee?.map((e) => Coin.fromAmino(e)) || [];
-    message.timeoutFee = object.timeout_fee?.map((e) => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: Fee): FeeAmino {
-    const obj: any = {};
-    if (message.recvFee) {
-      obj.recv_fee = message.recvFee.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.recv_fee = message.recvFee;
-    }
-    if (message.ackFee) {
-      obj.ack_fee = message.ackFee.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.ack_fee = message.ackFee;
-    }
-    if (message.timeoutFee) {
-      obj.timeout_fee = message.timeoutFee.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.timeout_fee = message.timeoutFee;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: FeeAminoMsg): Fee {
-    return Fee.fromAmino(object.value);
-  },
 };
 function createBasePacketID(): PacketID {
   return {
@@ -193,28 +164,5 @@ export const PacketID = {
       message.sequence = BigInt(object.sequence.toString());
     }
     return message;
-  },
-  fromAmino(object: PacketIDAmino): PacketID {
-    const message = createBasePacketID();
-    if (object.channel_id !== undefined && object.channel_id !== null) {
-      message.channelId = object.channel_id;
-    }
-    if (object.port_id !== undefined && object.port_id !== null) {
-      message.portId = object.port_id;
-    }
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = BigInt(object.sequence);
-    }
-    return message;
-  },
-  toAmino(message: PacketID): PacketIDAmino {
-    const obj: any = {};
-    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
-    obj.port_id = message.portId === "" ? undefined : message.portId;
-    obj.sequence = message.sequence !== BigInt(0) ? message.sequence?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: PacketIDAminoMsg): PacketID {
-    return PacketID.fromAmino(object.value);
   },
 };

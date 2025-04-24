@@ -80,7 +80,7 @@ export const AminoConverter = {
     },
     fromAmino: ({ messages, proposer }: MsgSubmitProposalAminoType["value"]): MsgSubmitProposal => {
       return {
-        messages: messages.map((el0) => ({
+        messages: messages.map?.((el0) => ({
           typeUrl: el0.type_url,
           value: el0.value,
         })),
@@ -104,10 +104,13 @@ export const AminoConverter = {
       proposer,
     }: MsgSubmitProposalLegacyAminoType["value"]): MsgSubmitProposalLegacy => {
       return {
-        content: {
-          typeUrl: content.type_url,
-          value: content.value,
-        },
+        content:
+          content == null
+            ? content
+            : {
+                typeUrl: content.type_url,
+                value: content.value,
+              },
         proposer,
       };
     },

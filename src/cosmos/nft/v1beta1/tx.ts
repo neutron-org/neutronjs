@@ -92,39 +92,6 @@ export const MsgSend = {
     message.receiver = object.receiver ?? "";
     return message;
   },
-  fromAmino(object: MsgSendAmino): MsgSend {
-    const message = createBaseMsgSend();
-    if (object.class_id !== undefined && object.class_id !== null) {
-      message.classId = object.class_id;
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id;
-    }
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    }
-    if (object.receiver !== undefined && object.receiver !== null) {
-      message.receiver = object.receiver;
-    }
-    return message;
-  },
-  toAmino(message: MsgSend): MsgSendAmino {
-    const obj: any = {};
-    obj.class_id = message.classId === "" ? undefined : message.classId;
-    obj.id = message.id === "" ? undefined : message.id;
-    obj.sender = message.sender === "" ? undefined : message.sender;
-    obj.receiver = message.receiver === "" ? undefined : message.receiver;
-    return obj;
-  },
-  fromAminoMsg(object: MsgSendAminoMsg): MsgSend {
-    return MsgSend.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgSend): MsgSendAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgNFTSend",
-      value: MsgSend.toAmino(message),
-    };
-  },
 };
 function createBaseMsgSendResponse(): MsgSendResponse {
   return {};
@@ -159,22 +126,5 @@ export const MsgSendResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgSendResponse>, I>>(_: I): MsgSendResponse {
     const message = createBaseMsgSendResponse();
     return message;
-  },
-  fromAmino(_: MsgSendResponseAmino): MsgSendResponse {
-    const message = createBaseMsgSendResponse();
-    return message;
-  },
-  toAmino(_: MsgSendResponse): MsgSendResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgSendResponseAminoMsg): MsgSendResponse {
-    return MsgSendResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgSendResponse): MsgSendResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgSendResponse",
-      value: MsgSendResponse.toAmino(message),
-    };
   },
 };

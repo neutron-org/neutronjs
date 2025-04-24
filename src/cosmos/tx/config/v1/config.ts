@@ -72,29 +72,4 @@ export const Config = {
     message.skipPostHandler = object.skipPostHandler ?? false;
     return message;
   },
-  fromAmino(object: ConfigAmino): Config {
-    const message = createBaseConfig();
-    if (object.skip_ante_handler !== undefined && object.skip_ante_handler !== null) {
-      message.skipAnteHandler = object.skip_ante_handler;
-    }
-    if (object.skip_post_handler !== undefined && object.skip_post_handler !== null) {
-      message.skipPostHandler = object.skip_post_handler;
-    }
-    return message;
-  },
-  toAmino(message: Config): ConfigAmino {
-    const obj: any = {};
-    obj.skip_ante_handler = message.skipAnteHandler === false ? undefined : message.skipAnteHandler;
-    obj.skip_post_handler = message.skipPostHandler === false ? undefined : message.skipPostHandler;
-    return obj;
-  },
-  fromAminoMsg(object: ConfigAminoMsg): Config {
-    return Config.fromAmino(object.value);
-  },
-  toAminoMsg(message: Config): ConfigAminoMsg {
-    return {
-      type: "cosmos-sdk/Config",
-      value: Config.toAmino(message),
-    };
-  },
 };

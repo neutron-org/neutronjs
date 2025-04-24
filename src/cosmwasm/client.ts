@@ -11,11 +11,7 @@ export const cosmwasmAminoConverters = {
 export const cosmwasmProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
   ...cosmwasmWasmV1TxRegistry.registry,
 ];
-export const getSigningCosmwasmClientOptions = ({
-  defaultTypes = defaultRegistryTypes,
-}: {
-  defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
-} = {}): {
+export const getSigningCosmwasmClientOptions = ({ defaultTypes = defaultRegistryTypes } = {}): {
   registry: Registry;
   aminoTypes: AminoTypes;
 } => {

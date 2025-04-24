@@ -77,25 +77,6 @@ export const MsgParams = {
     message.authority = object.authority ?? "";
     return message;
   },
-  fromAmino(object: MsgParamsAmino): MsgParams {
-    const message = createBaseMsgParams();
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    return message;
-  },
-  toAmino(message: MsgParams): MsgParamsAmino {
-    const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    return obj;
-  },
-  fromAminoMsg(object: MsgParamsAminoMsg): MsgParams {
-    return MsgParams.fromAmino(object.value);
-  },
 };
 function createBaseMsgParamsResponse(): MsgParamsResponse {
   return {};
@@ -130,16 +111,5 @@ export const MsgParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgParamsResponse>, I>>(_: I): MsgParamsResponse {
     const message = createBaseMsgParamsResponse();
     return message;
-  },
-  fromAmino(_: MsgParamsResponseAmino): MsgParamsResponse {
-    const message = createBaseMsgParamsResponse();
-    return message;
-  },
-  toAmino(_: MsgParamsResponse): MsgParamsResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgParamsResponseAminoMsg): MsgParamsResponse {
-    return MsgParamsResponse.fromAmino(object.value);
   },
 };

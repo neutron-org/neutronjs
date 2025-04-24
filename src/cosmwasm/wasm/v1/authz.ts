@@ -6,7 +6,6 @@ import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
 import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { toUtf8, fromUtf8 } from "@cosmjs/encoding";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /**
  * StoreCodeAuthorization defines authorization for wasm code upload.
@@ -165,29 +164,6 @@ export const StoreCodeAuthorization = {
     message.grants = object.grants?.map((e) => CodeGrant.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: StoreCodeAuthorizationAmino): StoreCodeAuthorization {
-    const message = createBaseStoreCodeAuthorization();
-    message.grants = object.grants?.map((e) => CodeGrant.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: StoreCodeAuthorization): StoreCodeAuthorizationAmino {
-    const obj: any = {};
-    if (message.grants) {
-      obj.grants = message.grants.map((e) => (e ? CodeGrant.toAmino(e) : undefined));
-    } else {
-      obj.grants = message.grants;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: StoreCodeAuthorizationAminoMsg): StoreCodeAuthorization {
-    return StoreCodeAuthorization.fromAmino(object.value);
-  },
-  toAminoMsg(message: StoreCodeAuthorization): StoreCodeAuthorizationAminoMsg {
-    return {
-      type: "wasm/StoreCodeAuthorization",
-      value: StoreCodeAuthorization.toAmino(message),
-    };
-  },
 };
 function createBaseContractExecutionAuthorization(): ContractExecutionAuthorization {
   return {
@@ -243,29 +219,6 @@ export const ContractExecutionAuthorization = {
     message.grants = object.grants?.map((e) => ContractGrant.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: ContractExecutionAuthorizationAmino): ContractExecutionAuthorization {
-    const message = createBaseContractExecutionAuthorization();
-    message.grants = object.grants?.map((e) => ContractGrant.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: ContractExecutionAuthorization): ContractExecutionAuthorizationAmino {
-    const obj: any = {};
-    if (message.grants) {
-      obj.grants = message.grants.map((e) => (e ? ContractGrant.toAmino(e) : undefined));
-    } else {
-      obj.grants = message.grants;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: ContractExecutionAuthorizationAminoMsg): ContractExecutionAuthorization {
-    return ContractExecutionAuthorization.fromAmino(object.value);
-  },
-  toAminoMsg(message: ContractExecutionAuthorization): ContractExecutionAuthorizationAminoMsg {
-    return {
-      type: "wasm/ContractExecutionAuthorization",
-      value: ContractExecutionAuthorization.toAmino(message),
-    };
-  },
 };
 function createBaseContractMigrationAuthorization(): ContractMigrationAuthorization {
   return {
@@ -320,29 +273,6 @@ export const ContractMigrationAuthorization = {
     const message = createBaseContractMigrationAuthorization();
     message.grants = object.grants?.map((e) => ContractGrant.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: ContractMigrationAuthorizationAmino): ContractMigrationAuthorization {
-    const message = createBaseContractMigrationAuthorization();
-    message.grants = object.grants?.map((e) => ContractGrant.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: ContractMigrationAuthorization): ContractMigrationAuthorizationAmino {
-    const obj: any = {};
-    if (message.grants) {
-      obj.grants = message.grants.map((e) => (e ? ContractGrant.toAmino(e) : undefined));
-    } else {
-      obj.grants = message.grants;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: ContractMigrationAuthorizationAminoMsg): ContractMigrationAuthorization {
-    return ContractMigrationAuthorization.fromAmino(object.value);
-  },
-  toAminoMsg(message: ContractMigrationAuthorization): ContractMigrationAuthorizationAminoMsg {
-    return {
-      type: "wasm/ContractMigrationAuthorization",
-      value: ContractMigrationAuthorization.toAmino(message),
-    };
   },
 };
 function createBaseCodeGrant(): CodeGrant {
@@ -406,33 +336,6 @@ export const CodeGrant = {
       message.instantiatePermission = AccessConfig.fromPartial(object.instantiatePermission);
     }
     return message;
-  },
-  fromAmino(object: CodeGrantAmino): CodeGrant {
-    const message = createBaseCodeGrant();
-    if (object.code_hash !== undefined && object.code_hash !== null) {
-      message.codeHash = bytesFromBase64(object.code_hash);
-    }
-    if (object.instantiate_permission !== undefined && object.instantiate_permission !== null) {
-      message.instantiatePermission = AccessConfig.fromAmino(object.instantiate_permission);
-    }
-    return message;
-  },
-  toAmino(message: CodeGrant): CodeGrantAmino {
-    const obj: any = {};
-    obj.code_hash = message.codeHash ? base64FromBytes(message.codeHash) : undefined;
-    obj.instantiate_permission = message.instantiatePermission
-      ? AccessConfig.toAmino(message.instantiatePermission)
-      : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: CodeGrantAminoMsg): CodeGrant {
-    return CodeGrant.fromAmino(object.value);
-  },
-  toAminoMsg(message: CodeGrant): CodeGrantAminoMsg {
-    return {
-      type: "wasm/CodeGrant",
-      value: CodeGrant.toAmino(message),
-    };
   },
 };
 function createBaseContractGrant(): ContractGrant {
@@ -504,35 +407,6 @@ export const ContractGrant = {
     }
     return message;
   },
-  fromAmino(object: ContractGrantAmino): ContractGrant {
-    const message = createBaseContractGrant();
-    if (object.contract !== undefined && object.contract !== null) {
-      message.contract = object.contract;
-    }
-    if (object.limit !== undefined && object.limit !== null) {
-      message.limit = Any.fromAmino(object.limit);
-    }
-    if (object.filter !== undefined && object.filter !== null) {
-      message.filter = Any.fromAmino(object.filter);
-    }
-    return message;
-  },
-  toAmino(message: ContractGrant): ContractGrantAmino {
-    const obj: any = {};
-    obj.contract = message.contract === "" ? undefined : message.contract;
-    obj.limit = message.limit ? Any.toAmino(message.limit) : undefined;
-    obj.filter = message.filter ? Any.toAmino(message.filter) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ContractGrantAminoMsg): ContractGrant {
-    return ContractGrant.fromAmino(object.value);
-  },
-  toAminoMsg(message: ContractGrant): ContractGrantAminoMsg {
-    return {
-      type: "wasm/ContractGrant",
-      value: ContractGrant.toAmino(message),
-    };
-  },
 };
 function createBaseMaxCallsLimit(): MaxCallsLimit {
   return {
@@ -580,27 +454,6 @@ export const MaxCallsLimit = {
       message.remaining = BigInt(object.remaining.toString());
     }
     return message;
-  },
-  fromAmino(object: MaxCallsLimitAmino): MaxCallsLimit {
-    const message = createBaseMaxCallsLimit();
-    if (object.remaining !== undefined && object.remaining !== null) {
-      message.remaining = BigInt(object.remaining);
-    }
-    return message;
-  },
-  toAmino(message: MaxCallsLimit): MaxCallsLimitAmino {
-    const obj: any = {};
-    obj.remaining = message.remaining !== BigInt(0) ? message.remaining?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MaxCallsLimitAminoMsg): MaxCallsLimit {
-    return MaxCallsLimit.fromAmino(object.value);
-  },
-  toAminoMsg(message: MaxCallsLimit): MaxCallsLimitAminoMsg {
-    return {
-      type: "wasm/MaxCallsLimit",
-      value: MaxCallsLimit.toAmino(message),
-    };
   },
 };
 function createBaseMaxFundsLimit(): MaxFundsLimit {
@@ -651,29 +504,6 @@ export const MaxFundsLimit = {
     const message = createBaseMaxFundsLimit();
     message.amounts = object.amounts?.map((e) => Coin.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: MaxFundsLimitAmino): MaxFundsLimit {
-    const message = createBaseMaxFundsLimit();
-    message.amounts = object.amounts?.map((e) => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: MaxFundsLimit): MaxFundsLimitAmino {
-    const obj: any = {};
-    if (message.amounts) {
-      obj.amounts = message.amounts.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.amounts = message.amounts;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: MaxFundsLimitAminoMsg): MaxFundsLimit {
-    return MaxFundsLimit.fromAmino(object.value);
-  },
-  toAminoMsg(message: MaxFundsLimit): MaxFundsLimitAminoMsg {
-    return {
-      type: "wasm/MaxFundsLimit",
-      value: MaxFundsLimit.toAmino(message),
-    };
   },
 };
 function createBaseCombinedLimit(): CombinedLimit {
@@ -738,34 +568,6 @@ export const CombinedLimit = {
     message.amounts = object.amounts?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: CombinedLimitAmino): CombinedLimit {
-    const message = createBaseCombinedLimit();
-    if (object.calls_remaining !== undefined && object.calls_remaining !== null) {
-      message.callsRemaining = BigInt(object.calls_remaining);
-    }
-    message.amounts = object.amounts?.map((e) => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: CombinedLimit): CombinedLimitAmino {
-    const obj: any = {};
-    obj.calls_remaining =
-      message.callsRemaining !== BigInt(0) ? message.callsRemaining?.toString() : undefined;
-    if (message.amounts) {
-      obj.amounts = message.amounts.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.amounts = message.amounts;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: CombinedLimitAminoMsg): CombinedLimit {
-    return CombinedLimit.fromAmino(object.value);
-  },
-  toAminoMsg(message: CombinedLimit): CombinedLimitAminoMsg {
-    return {
-      type: "wasm/CombinedLimit",
-      value: CombinedLimit.toAmino(message),
-    };
-  },
 };
 function createBaseAllowAllMessagesFilter(): AllowAllMessagesFilter {
   return {};
@@ -800,23 +602,6 @@ export const AllowAllMessagesFilter = {
   fromPartial<I extends Exact<DeepPartial<AllowAllMessagesFilter>, I>>(_: I): AllowAllMessagesFilter {
     const message = createBaseAllowAllMessagesFilter();
     return message;
-  },
-  fromAmino(_: AllowAllMessagesFilterAmino): AllowAllMessagesFilter {
-    const message = createBaseAllowAllMessagesFilter();
-    return message;
-  },
-  toAmino(_: AllowAllMessagesFilter): AllowAllMessagesFilterAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: AllowAllMessagesFilterAminoMsg): AllowAllMessagesFilter {
-    return AllowAllMessagesFilter.fromAmino(object.value);
-  },
-  toAminoMsg(message: AllowAllMessagesFilter): AllowAllMessagesFilterAminoMsg {
-    return {
-      type: "wasm/AllowAllMessagesFilter",
-      value: AllowAllMessagesFilter.toAmino(message),
-    };
   },
 };
 function createBaseAcceptedMessageKeysFilter(): AcceptedMessageKeysFilter {
@@ -870,29 +655,6 @@ export const AcceptedMessageKeysFilter = {
     message.keys = object.keys?.map((e) => e) || [];
     return message;
   },
-  fromAmino(object: AcceptedMessageKeysFilterAmino): AcceptedMessageKeysFilter {
-    const message = createBaseAcceptedMessageKeysFilter();
-    message.keys = object.keys?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: AcceptedMessageKeysFilter): AcceptedMessageKeysFilterAmino {
-    const obj: any = {};
-    if (message.keys) {
-      obj.keys = message.keys.map((e) => e);
-    } else {
-      obj.keys = message.keys;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: AcceptedMessageKeysFilterAminoMsg): AcceptedMessageKeysFilter {
-    return AcceptedMessageKeysFilter.fromAmino(object.value);
-  },
-  toAminoMsg(message: AcceptedMessageKeysFilter): AcceptedMessageKeysFilterAminoMsg {
-    return {
-      type: "wasm/AcceptedMessageKeysFilter",
-      value: AcceptedMessageKeysFilter.toAmino(message),
-    };
-  },
 };
 function createBaseAcceptedMessagesFilter(): AcceptedMessagesFilter {
   return {
@@ -942,28 +704,5 @@ export const AcceptedMessagesFilter = {
     const message = createBaseAcceptedMessagesFilter();
     message.messages = object.messages?.map((e) => e) || [];
     return message;
-  },
-  fromAmino(object: AcceptedMessagesFilterAmino): AcceptedMessagesFilter {
-    const message = createBaseAcceptedMessagesFilter();
-    message.messages = object.messages?.map((e) => toUtf8(JSON.stringify(e))) || [];
-    return message;
-  },
-  toAmino(message: AcceptedMessagesFilter): AcceptedMessagesFilterAmino {
-    const obj: any = {};
-    if (message.messages) {
-      obj.messages = message.messages.map((e) => JSON.parse(fromUtf8(e)));
-    } else {
-      obj.messages = message.messages;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: AcceptedMessagesFilterAminoMsg): AcceptedMessagesFilter {
-    return AcceptedMessagesFilter.fromAmino(object.value);
-  },
-  toAminoMsg(message: AcceptedMessagesFilter): AcceptedMessagesFilterAminoMsg {
-    return {
-      type: "wasm/AcceptedMessagesFilter",
-      value: AcceptedMessagesFilter.toAmino(message),
-    };
   },
 };

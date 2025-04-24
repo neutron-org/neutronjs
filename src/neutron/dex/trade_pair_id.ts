@@ -63,23 +63,4 @@ export const TradePairID = {
     message.takerDenom = object.takerDenom ?? "";
     return message;
   },
-  fromAmino(object: TradePairIDAmino): TradePairID {
-    const message = createBaseTradePairID();
-    if (object.maker_denom !== undefined && object.maker_denom !== null) {
-      message.makerDenom = object.maker_denom;
-    }
-    if (object.taker_denom !== undefined && object.taker_denom !== null) {
-      message.takerDenom = object.taker_denom;
-    }
-    return message;
-  },
-  toAmino(message: TradePairID): TradePairIDAmino {
-    const obj: any = {};
-    obj.maker_denom = message.makerDenom === "" ? undefined : message.makerDenom;
-    obj.taker_denom = message.takerDenom === "" ? undefined : message.takerDenom;
-    return obj;
-  },
-  fromAminoMsg(object: TradePairIDAminoMsg): TradePairID {
-    return TradePairID.fromAmino(object.value);
-  },
 };

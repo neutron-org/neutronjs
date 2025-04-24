@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../helpers";
 import { MsgUpdateParams, MsgFundTreasury } from "./tx";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "revenue/MsgUpdateParams";
@@ -50,7 +51,7 @@ export const AminoConverter = {
         params: {
           reward_asset: params.rewardAsset,
           reward_quote: {
-            amount: params.rewardQuote.amount.toString(),
+            amount: omitDefault(params.rewardQuote.amount)?.toString?.(),
             asset: params.rewardQuote.asset,
           },
           blocks_performance_requirement: {
@@ -64,43 +65,77 @@ export const AminoConverter = {
           payment_schedule_type: {
             monthly_payment_schedule_type: {},
             block_based_payment_schedule_type: {
-              blocks_per_period:
-                params.paymentScheduleType.blockBasedPaymentScheduleType.blocksPerPeriod.toString(),
+              blocks_per_period: omitDefault(
+                params.paymentScheduleType.blockBasedPaymentScheduleType.blocksPerPeriod,
+              )?.toString?.(),
             },
             empty_payment_schedule_type: {},
           },
-          twap_window: params.twapWindow.toString(),
+          twap_window: omitDefault(params.twapWindow)?.toString?.(),
         },
       };
     },
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          rewardAsset: params.reward_asset,
-          rewardQuote: {
-            amount: BigInt(params.reward_quote.amount),
-            asset: params.reward_quote.asset,
-          },
-          blocksPerformanceRequirement: {
-            allowedToMiss: params.blocks_performance_requirement.allowed_to_miss,
-            requiredAtLeast: params.blocks_performance_requirement.required_at_least,
-          },
-          oracleVotesPerformanceRequirement: {
-            allowedToMiss: params.oracle_votes_performance_requirement.allowed_to_miss,
-            requiredAtLeast: params.oracle_votes_performance_requirement.required_at_least,
-          },
-          paymentScheduleType: {
-            monthlyPaymentScheduleType: {},
-            blockBasedPaymentScheduleType: {
-              blocksPerPeriod: BigInt(
-                params.payment_schedule_type.block_based_payment_schedule_type.blocks_per_period,
-              ),
-            },
-            emptyPaymentScheduleType: {},
-          },
-          twapWindow: BigInt(params.twap_window),
-        },
+        params:
+          params == null
+            ? params
+            : {
+                rewardAsset: params.reward_asset,
+                rewardQuote:
+                  params.reward_quote == null
+                    ? params.reward_quote
+                    : {
+                        amount:
+                          params.reward_quote.amount == null
+                            ? params.reward_quote.amount
+                            : BigInt(params.reward_quote.amount),
+                        asset: params.reward_quote.asset,
+                      },
+                blocksPerformanceRequirement:
+                  params.blocks_performance_requirement == null
+                    ? params.blocks_performance_requirement
+                    : {
+                        allowedToMiss: params.blocks_performance_requirement.allowed_to_miss,
+                        requiredAtLeast: params.blocks_performance_requirement.required_at_least,
+                      },
+                oracleVotesPerformanceRequirement:
+                  params.oracle_votes_performance_requirement == null
+                    ? params.oracle_votes_performance_requirement
+                    : {
+                        allowedToMiss: params.oracle_votes_performance_requirement.allowed_to_miss,
+                        requiredAtLeast: params.oracle_votes_performance_requirement.required_at_least,
+                      },
+                paymentScheduleType:
+                  params.payment_schedule_type == null
+                    ? params.payment_schedule_type
+                    : {
+                        monthlyPaymentScheduleType:
+                          params.payment_schedule_type.monthly_payment_schedule_type == null
+                            ? params.payment_schedule_type.monthly_payment_schedule_type
+                            : {},
+                        blockBasedPaymentScheduleType:
+                          params.payment_schedule_type.block_based_payment_schedule_type == null
+                            ? params.payment_schedule_type.block_based_payment_schedule_type
+                            : {
+                                blocksPerPeriod:
+                                  params.payment_schedule_type.block_based_payment_schedule_type
+                                    .blocks_per_period == null
+                                    ? params.payment_schedule_type.block_based_payment_schedule_type
+                                        .blocks_per_period
+                                    : BigInt(
+                                        params.payment_schedule_type.block_based_payment_schedule_type
+                                          .blocks_per_period,
+                                      ),
+                              },
+                        emptyPaymentScheduleType:
+                          params.payment_schedule_type.empty_payment_schedule_type == null
+                            ? params.payment_schedule_type.empty_payment_schedule_type
+                            : {},
+                      },
+                twapWindow: params.twap_window == null ? params.twap_window : BigInt(params.twap_window),
+              },
       };
     },
   },
@@ -118,7 +153,7 @@ export const AminoConverter = {
     fromAmino: ({ sender, amount }: MsgFundTreasuryAminoType["value"]): MsgFundTreasury => {
       return {
         sender,
-        amount: amount.map((el0) => ({
+        amount: amount.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),

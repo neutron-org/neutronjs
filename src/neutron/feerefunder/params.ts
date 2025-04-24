@@ -56,19 +56,4 @@ export const Params = {
     }
     return message;
   },
-  fromAmino(object: ParamsAmino): Params {
-    const message = createBaseParams();
-    if (object.min_fee !== undefined && object.min_fee !== null) {
-      message.minFee = Fee.fromAmino(object.min_fee);
-    }
-    return message;
-  },
-  toAmino(message: Params): ParamsAmino {
-    const obj: any = {};
-    obj.min_fee = message.minFee ? Fee.toAmino(message.minFee) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ParamsAminoMsg): Params {
-    return Params.fromAmino(object.value);
-  },
 };

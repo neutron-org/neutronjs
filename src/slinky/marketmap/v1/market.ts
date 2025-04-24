@@ -151,27 +151,6 @@ export const Market = {
     message.providerConfigs = object.providerConfigs?.map((e) => ProviderConfig.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: MarketAmino): Market {
-    const message = createBaseMarket();
-    if (object.ticker !== undefined && object.ticker !== null) {
-      message.ticker = Ticker.fromAmino(object.ticker);
-    }
-    message.providerConfigs = object.provider_configs?.map((e) => ProviderConfig.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: Market): MarketAmino {
-    const obj: any = {};
-    obj.ticker = message.ticker ? Ticker.toAmino(message.ticker) : undefined;
-    if (message.providerConfigs) {
-      obj.provider_configs = message.providerConfigs.map((e) => (e ? ProviderConfig.toAmino(e) : undefined));
-    } else {
-      obj.provider_configs = message.providerConfigs;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: MarketAminoMsg): Market {
-    return Market.fromAmino(object.value);
-  },
 };
 function createBaseTicker(): Ticker {
   return {
@@ -266,38 +245,6 @@ export const Ticker = {
     message.metadataJSON = object.metadataJSON ?? "";
     return message;
   },
-  fromAmino(object: TickerAmino): Ticker {
-    const message = createBaseTicker();
-    if (object.currency_pair !== undefined && object.currency_pair !== null) {
-      message.currencyPair = CurrencyPair.fromAmino(object.currency_pair);
-    }
-    if (object.decimals !== undefined && object.decimals !== null) {
-      message.decimals = BigInt(object.decimals);
-    }
-    if (object.min_provider_count !== undefined && object.min_provider_count !== null) {
-      message.minProviderCount = BigInt(object.min_provider_count);
-    }
-    if (object.enabled !== undefined && object.enabled !== null) {
-      message.enabled = object.enabled;
-    }
-    if (object.metadata_JSON !== undefined && object.metadata_JSON !== null) {
-      message.metadataJSON = object.metadata_JSON;
-    }
-    return message;
-  },
-  toAmino(message: Ticker): TickerAmino {
-    const obj: any = {};
-    obj.currency_pair = message.currencyPair ? CurrencyPair.toAmino(message.currencyPair) : undefined;
-    obj.decimals = message.decimals !== BigInt(0) ? message.decimals?.toString() : undefined;
-    obj.min_provider_count =
-      message.minProviderCount !== BigInt(0) ? message.minProviderCount?.toString() : undefined;
-    obj.enabled = message.enabled === false ? undefined : message.enabled;
-    obj.metadata_JSON = message.metadataJSON === "" ? undefined : message.metadataJSON;
-    return obj;
-  },
-  fromAminoMsg(object: TickerAminoMsg): Ticker {
-    return Ticker.fromAmino(object.value);
-  },
 };
 function createBaseProviderConfig(): ProviderConfig {
   return {
@@ -389,39 +336,6 @@ export const ProviderConfig = {
     message.metadataJSON = object.metadataJSON ?? "";
     return message;
   },
-  fromAmino(object: ProviderConfigAmino): ProviderConfig {
-    const message = createBaseProviderConfig();
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    }
-    if (object.off_chain_ticker !== undefined && object.off_chain_ticker !== null) {
-      message.offChainTicker = object.off_chain_ticker;
-    }
-    if (object.normalize_by_pair !== undefined && object.normalize_by_pair !== null) {
-      message.normalizeByPair = CurrencyPair.fromAmino(object.normalize_by_pair);
-    }
-    if (object.invert !== undefined && object.invert !== null) {
-      message.invert = object.invert;
-    }
-    if (object.metadata_JSON !== undefined && object.metadata_JSON !== null) {
-      message.metadataJSON = object.metadata_JSON;
-    }
-    return message;
-  },
-  toAmino(message: ProviderConfig): ProviderConfigAmino {
-    const obj: any = {};
-    obj.name = message.name === "" ? undefined : message.name;
-    obj.off_chain_ticker = message.offChainTicker === "" ? undefined : message.offChainTicker;
-    obj.normalize_by_pair = message.normalizeByPair
-      ? CurrencyPair.toAmino(message.normalizeByPair)
-      : undefined;
-    obj.invert = message.invert === false ? undefined : message.invert;
-    obj.metadata_JSON = message.metadataJSON === "" ? undefined : message.metadataJSON;
-    return obj;
-  },
-  fromAminoMsg(object: ProviderConfigAminoMsg): ProviderConfig {
-    return ProviderConfig.fromAmino(object.value);
-  },
 };
 function createBaseMarketMap_MarketsEntry(): MarketMap_MarketsEntry {
   return {
@@ -478,25 +392,6 @@ export const MarketMap_MarketsEntry = {
       message.value = Market.fromPartial(object.value);
     }
     return message;
-  },
-  fromAmino(object: MarketMap_MarketsEntryAmino): MarketMap_MarketsEntry {
-    const message = createBaseMarketMap_MarketsEntry();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = object.key;
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = Market.fromAmino(object.value);
-    }
-    return message;
-  },
-  toAmino(message: MarketMap_MarketsEntry): MarketMap_MarketsEntryAmino {
-    const obj: any = {};
-    obj.key = message.key === "" ? undefined : message.key;
-    obj.value = message.value ? Market.toAmino(message.value) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MarketMap_MarketsEntryAminoMsg): MarketMap_MarketsEntry {
-    return MarketMap_MarketsEntry.fromAmino(object.value);
   },
 };
 function createBaseMarketMap(): MarketMap {
@@ -570,30 +465,5 @@ export const MarketMap = {
       return acc;
     }, {});
     return message;
-  },
-  fromAmino(object: MarketMapAmino): MarketMap {
-    const message = createBaseMarketMap();
-    message.markets = Object.entries(object.markets ?? {}).reduce<{
-      [key: string]: Market;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = Market.fromAmino(value);
-      }
-      return acc;
-    }, {});
-    return message;
-  },
-  toAmino(message: MarketMap): MarketMapAmino {
-    const obj: any = {};
-    obj.markets = {};
-    if (message.markets) {
-      Object.entries(message.markets).forEach(([k, v]) => {
-        obj.markets[k] = Market.toAmino(v);
-      });
-    }
-    return obj;
-  },
-  fromAminoMsg(object: MarketMapAminoMsg): MarketMap {
-    return MarketMap.fromAmino(object.value);
   },
 };

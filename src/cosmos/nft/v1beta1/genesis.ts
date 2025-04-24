@@ -82,35 +82,6 @@ export const GenesisState = {
     message.entries = object.entries?.map((e) => Entry.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    message.classes = object.classes?.map((e) => Class.fromAmino(e)) || [];
-    message.entries = object.entries?.map((e) => Entry.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    if (message.classes) {
-      obj.classes = message.classes.map((e) => (e ? Class.toAmino(e) : undefined));
-    } else {
-      obj.classes = message.classes;
-    }
-    if (message.entries) {
-      obj.entries = message.entries.map((e) => (e ? Entry.toAmino(e) : undefined));
-    } else {
-      obj.entries = message.entries;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisState",
-      value: GenesisState.toAmino(message),
-    };
-  },
 };
 function createBaseEntry(): Entry {
   return {
@@ -170,32 +141,5 @@ export const Entry = {
     message.owner = object.owner ?? "";
     message.nfts = object.nfts?.map((e) => NFT.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: EntryAmino): Entry {
-    const message = createBaseEntry();
-    if (object.owner !== undefined && object.owner !== null) {
-      message.owner = object.owner;
-    }
-    message.nfts = object.nfts?.map((e) => NFT.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: Entry): EntryAmino {
-    const obj: any = {};
-    obj.owner = message.owner === "" ? undefined : message.owner;
-    if (message.nfts) {
-      obj.nfts = message.nfts.map((e) => (e ? NFT.toAmino(e) : undefined));
-    } else {
-      obj.nfts = message.nfts;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: EntryAminoMsg): Entry {
-    return Entry.fromAmino(object.value);
-  },
-  toAminoMsg(message: Entry): EntryAminoMsg {
-    return {
-      type: "cosmos-sdk/Entry",
-      value: Entry.toAmino(message),
-    };
   },
 };

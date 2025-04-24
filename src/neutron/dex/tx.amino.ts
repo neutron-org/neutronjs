@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../helpers";
 import {
   limitOrderTypeFromJSON,
   MsgDeposit,
@@ -122,10 +123,10 @@ export const AminoConverter = {
         tick_indexes_a_to_b: tickIndexesAToB.map((el0) => el0.toString()),
         fees: fees.map((el0) => el0.toString()),
         options: options.map((el0) => ({
-          disable_autoswap: el0.disableAutoswap,
-          fail_tx_on_bel: el0.failTxOnBel,
-          swap_on_deposit: el0.swapOnDeposit,
-          swap_on_deposit_slop_tolerance_bps: el0.swapOnDepositSlopToleranceBps.toString(),
+          disable_autoswap: omitDefault(el0.disableAutoswap),
+          fail_tx_on_bel: omitDefault(el0.failTxOnBel),
+          swap_on_deposit: omitDefault(el0.swapOnDeposit),
+          swap_on_deposit_slop_tolerance_bps: omitDefault(el0.swapOnDepositSlopToleranceBps)?.toString?.(),
         })),
       };
     },
@@ -147,13 +148,16 @@ export const AminoConverter = {
         tokenB: token_b,
         amountsA: amounts_a,
         amountsB: amounts_b,
-        tickIndexesAToB: tick_indexes_a_to_b.map((el0) => BigInt(el0)),
-        fees: fees.map((el0) => BigInt(el0)),
-        options: options.map((el0) => ({
+        tickIndexesAToB: tick_indexes_a_to_b.map?.((el0) => BigInt(el0)),
+        fees: fees.map?.((el0) => BigInt(el0)),
+        options: options.map?.((el0) => ({
           disableAutoswap: el0.disable_autoswap,
           failTxOnBel: el0.fail_tx_on_bel,
           swapOnDeposit: el0.swap_on_deposit,
-          swapOnDepositSlopToleranceBps: BigInt(el0.swap_on_deposit_slop_tolerance_bps),
+          swapOnDepositSlopToleranceBps:
+            el0.swap_on_deposit_slop_tolerance_bps == null
+              ? el0.swap_on_deposit_slop_tolerance_bps
+              : BigInt(el0.swap_on_deposit_slop_tolerance_bps),
         })),
       };
     },
@@ -194,8 +198,8 @@ export const AminoConverter = {
         tokenA: token_a,
         tokenB: token_b,
         sharesToRemove: shares_to_remove,
-        tickIndexesAToB: tick_indexes_a_to_b.map((el0) => BigInt(el0)),
-        fees: fees.map((el0) => BigInt(el0)),
+        tickIndexesAToB: tick_indexes_a_to_b.map?.((el0) => BigInt(el0)),
+        fees: fees.map?.((el0) => BigInt(el0)),
       };
     },
   },
@@ -219,7 +223,7 @@ export const AminoConverter = {
         receiver,
         token_in: tokenIn,
         token_out: tokenOut,
-        tick_index_in_to_out: tickIndexInToOut.toString(),
+        tick_index_in_to_out: omitDefault(tickIndexInToOut)?.toString?.(),
         amount_in: amountIn,
         order_type: orderType,
         expiration_time: expirationTime,
@@ -246,9 +250,9 @@ export const AminoConverter = {
         receiver,
         tokenIn: token_in,
         tokenOut: token_out,
-        tickIndexInToOut: BigInt(tick_index_in_to_out),
+        tickIndexInToOut: tick_index_in_to_out == null ? tick_index_in_to_out : BigInt(tick_index_in_to_out),
         amountIn: amount_in,
-        orderType: limitOrderTypeFromJSON(order_type),
+        orderType: order_type == null ? order_type : limitOrderTypeFromJSON(order_type),
         expirationTime: expiration_time,
         maxAmountOut: max_amount_out,
         limitSellPrice: limit_sell_price,
@@ -310,7 +314,7 @@ export const AminoConverter = {
         })),
         amount_in: amountIn,
         exit_limit_price: exitLimitPrice,
-        pick_best_route: pickBestRoute,
+        pick_best_route: omitDefault(pickBestRoute),
       };
     },
     fromAmino: ({
@@ -324,7 +328,7 @@ export const AminoConverter = {
       return {
         creator,
         receiver,
-        routes: routes.map((el0) => ({
+        routes: routes.map?.((el0) => ({
           hops: el0.hops,
         })),
         amountIn: amount_in,
@@ -341,8 +345,8 @@ export const AminoConverter = {
         params: {
           fee_tiers: params.feeTiers.map((el0) => el0.toString()),
           paused: params.paused,
-          max_jits_per_block: params.maxJitsPerBlock.toString(),
-          good_til_purge_allowance: params.goodTilPurgeAllowance.toString(),
+          max_jits_per_block: omitDefault(params.maxJitsPerBlock)?.toString?.(),
+          good_til_purge_allowance: omitDefault(params.goodTilPurgeAllowance)?.toString?.(),
           whitelisted_lps: params.whitelistedLps,
         },
       };
@@ -350,13 +354,22 @@ export const AminoConverter = {
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          feeTiers: params.fee_tiers.map((el1) => BigInt(el1)),
-          paused: params.paused,
-          maxJitsPerBlock: BigInt(params.max_jits_per_block),
-          goodTilPurgeAllowance: BigInt(params.good_til_purge_allowance),
-          whitelistedLps: params.whitelisted_lps,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                feeTiers: params.fee_tiers.map?.((el1) => BigInt(el1)),
+                paused: params.paused,
+                maxJitsPerBlock:
+                  params.max_jits_per_block == null
+                    ? params.max_jits_per_block
+                    : BigInt(params.max_jits_per_block),
+                goodTilPurgeAllowance:
+                  params.good_til_purge_allowance == null
+                    ? params.good_til_purge_allowance
+                    : BigInt(params.good_til_purge_allowance),
+                whitelistedLps: params.whitelisted_lps,
+              },
       };
     },
   },

@@ -2,6 +2,7 @@
 /* eslint-disable */
 import { voteOptionFromJSON } from "./gov";
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../helpers";
 import { MsgSubmitProposal, MsgVote, MsgVoteWeighted, MsgDeposit } from "./tx";
 export interface MsgSubmitProposalAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgSubmitProposal";
@@ -73,11 +74,14 @@ export const AminoConverter = {
       proposer,
     }: MsgSubmitProposalAminoType["value"]): MsgSubmitProposal => {
       return {
-        content: {
-          typeUrl: content.type_url,
-          value: content.value,
-        },
-        initialDeposit: initial_deposit.map((el0) => ({
+        content:
+          content == null
+            ? content
+            : {
+                typeUrl: content.type_url,
+                value: content.value,
+              },
+        initialDeposit: initial_deposit.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),
@@ -89,16 +93,16 @@ export const AminoConverter = {
     aminoType: "cosmos-sdk/MsgVote",
     toAmino: ({ proposalId, voter, option }: MsgVote): MsgVoteAminoType["value"] => {
       return {
-        proposal_id: proposalId.toString(),
+        proposal_id: omitDefault(proposalId)?.toString?.(),
         voter,
         option,
       };
     },
     fromAmino: ({ proposal_id, voter, option }: MsgVoteAminoType["value"]): MsgVote => {
       return {
-        proposalId: BigInt(proposal_id),
+        proposalId: proposal_id == null ? proposal_id : BigInt(proposal_id),
         voter,
-        option: voteOptionFromJSON(option),
+        option: option == null ? option : voteOptionFromJSON(option),
       };
     },
   },
@@ -106,7 +110,7 @@ export const AminoConverter = {
     aminoType: "cosmos-sdk/MsgVoteWeighted",
     toAmino: ({ proposalId, voter, options }: MsgVoteWeighted): MsgVoteWeightedAminoType["value"] => {
       return {
-        proposal_id: proposalId.toString(),
+        proposal_id: proposalId?.toString?.(),
         voter,
         options: options.map((el0) => ({
           option: el0.option,
@@ -116,10 +120,10 @@ export const AminoConverter = {
     },
     fromAmino: ({ proposal_id, voter, options }: MsgVoteWeightedAminoType["value"]): MsgVoteWeighted => {
       return {
-        proposalId: BigInt(proposal_id),
+        proposalId: proposal_id == null ? proposal_id : BigInt(proposal_id),
         voter,
-        options: options.map((el0) => ({
-          option: voteOptionFromJSON(el0.option),
+        options: options.map?.((el0) => ({
+          option: el0.option == null ? el0.option : voteOptionFromJSON(el0.option),
           weight: el0.weight,
         })),
       };
@@ -129,7 +133,7 @@ export const AminoConverter = {
     aminoType: "cosmos-sdk/MsgDeposit",
     toAmino: ({ proposalId, depositor, amount }: MsgDeposit): MsgDepositAminoType["value"] => {
       return {
-        proposal_id: proposalId.toString(),
+        proposal_id: proposalId?.toString?.(),
         depositor,
         amount: amount.map((el0) => ({
           denom: el0.denom,
@@ -139,9 +143,9 @@ export const AminoConverter = {
     },
     fromAmino: ({ proposal_id, depositor, amount }: MsgDepositAminoType["value"]): MsgDeposit => {
       return {
-        proposalId: BigInt(proposal_id),
+        proposalId: proposal_id == null ? proposal_id : BigInt(proposal_id),
         depositor,
-        amount: amount.map((el0) => ({
+        amount: amount.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),

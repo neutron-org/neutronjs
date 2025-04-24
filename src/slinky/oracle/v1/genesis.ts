@@ -140,29 +140,6 @@ export const QuotePrice = {
     }
     return message;
   },
-  fromAmino(object: QuotePriceAmino): QuotePrice {
-    const message = createBaseQuotePrice();
-    if (object.price !== undefined && object.price !== null) {
-      message.price = object.price;
-    }
-    if (object.block_timestamp !== undefined && object.block_timestamp !== null) {
-      message.blockTimestamp = Timestamp.fromAmino(object.block_timestamp);
-    }
-    if (object.block_height !== undefined && object.block_height !== null) {
-      message.blockHeight = BigInt(object.block_height);
-    }
-    return message;
-  },
-  toAmino(message: QuotePrice): QuotePriceAmino {
-    const obj: any = {};
-    obj.price = message.price === "" ? undefined : message.price;
-    obj.block_timestamp = message.blockTimestamp ? Timestamp.toAmino(message.blockTimestamp) : undefined;
-    obj.block_height = message.blockHeight !== BigInt(0) ? message.blockHeight?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuotePriceAminoMsg): QuotePrice {
-    return QuotePrice.fromAmino(object.value);
-  },
 };
 function createBaseCurrencyPairState(): CurrencyPairState {
   return {
@@ -234,29 +211,6 @@ export const CurrencyPairState = {
       message.id = BigInt(object.id.toString());
     }
     return message;
-  },
-  fromAmino(object: CurrencyPairStateAmino): CurrencyPairState {
-    const message = createBaseCurrencyPairState();
-    if (object.price !== undefined && object.price !== null) {
-      message.price = QuotePrice.fromAmino(object.price);
-    }
-    if (object.nonce !== undefined && object.nonce !== null) {
-      message.nonce = BigInt(object.nonce);
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = BigInt(object.id);
-    }
-    return message;
-  },
-  toAmino(message: CurrencyPairState): CurrencyPairStateAmino {
-    const obj: any = {};
-    obj.price = message.price ? QuotePrice.toAmino(message.price) : undefined;
-    obj.nonce = message.nonce !== BigInt(0) ? message.nonce?.toString() : undefined;
-    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: CurrencyPairStateAminoMsg): CurrencyPairState {
-    return CurrencyPairState.fromAmino(object.value);
   },
 };
 function createBaseCurrencyPairGenesis(): CurrencyPairGenesis {
@@ -347,35 +301,6 @@ export const CurrencyPairGenesis = {
     }
     return message;
   },
-  fromAmino(object: CurrencyPairGenesisAmino): CurrencyPairGenesis {
-    const message = createBaseCurrencyPairGenesis();
-    if (object.currency_pair !== undefined && object.currency_pair !== null) {
-      message.currencyPair = CurrencyPair.fromAmino(object.currency_pair);
-    }
-    if (object.currency_pair_price !== undefined && object.currency_pair_price !== null) {
-      message.currencyPairPrice = QuotePrice.fromAmino(object.currency_pair_price);
-    }
-    if (object.nonce !== undefined && object.nonce !== null) {
-      message.nonce = BigInt(object.nonce);
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = BigInt(object.id);
-    }
-    return message;
-  },
-  toAmino(message: CurrencyPairGenesis): CurrencyPairGenesisAmino {
-    const obj: any = {};
-    obj.currency_pair = message.currencyPair ? CurrencyPair.toAmino(message.currencyPair) : undefined;
-    obj.currency_pair_price = message.currencyPairPrice
-      ? QuotePrice.toAmino(message.currencyPairPrice)
-      : undefined;
-    obj.nonce = message.nonce !== BigInt(0) ? message.nonce?.toString() : undefined;
-    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: CurrencyPairGenesisAminoMsg): CurrencyPairGenesis {
-    return CurrencyPairGenesis.fromAmino(object.value);
-  },
 };
 function createBaseGenesisState(): GenesisState {
   return {
@@ -441,29 +366,5 @@ export const GenesisState = {
       message.nextId = BigInt(object.nextId.toString());
     }
     return message;
-  },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    message.currencyPairGenesis =
-      object.currency_pair_genesis?.map((e) => CurrencyPairGenesis.fromAmino(e)) || [];
-    if (object.next_id !== undefined && object.next_id !== null) {
-      message.nextId = BigInt(object.next_id);
-    }
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    if (message.currencyPairGenesis) {
-      obj.currency_pair_genesis = message.currencyPairGenesis.map((e) =>
-        e ? CurrencyPairGenesis.toAmino(e) : undefined,
-      );
-    } else {
-      obj.currency_pair_genesis = message.currencyPairGenesis;
-    }
-    obj.next_id = message.nextId !== BigInt(0) ? message.nextId?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
   },
 };

@@ -157,43 +157,6 @@ export const PageRequest = {
     message.reverse = object.reverse ?? false;
     return message;
   },
-  fromAmino(object: PageRequestAmino): PageRequest {
-    const message = createBasePageRequest();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
-    if (object.offset !== undefined && object.offset !== null) {
-      message.offset = BigInt(object.offset);
-    }
-    if (object.limit !== undefined && object.limit !== null) {
-      message.limit = BigInt(object.limit);
-    }
-    if (object.count_total !== undefined && object.count_total !== null) {
-      message.countTotal = object.count_total;
-    }
-    if (object.reverse !== undefined && object.reverse !== null) {
-      message.reverse = object.reverse;
-    }
-    return message;
-  },
-  toAmino(message: PageRequest): PageRequestAmino {
-    const obj: any = {};
-    obj.key = message.key ? base64FromBytes(message.key) : undefined;
-    obj.offset = message.offset !== BigInt(0) ? message.offset?.toString() : undefined;
-    obj.limit = message.limit !== BigInt(0) ? message.limit?.toString() : undefined;
-    obj.count_total = message.countTotal === false ? undefined : message.countTotal;
-    obj.reverse = message.reverse === false ? undefined : message.reverse;
-    return obj;
-  },
-  fromAminoMsg(object: PageRequestAminoMsg): PageRequest {
-    return PageRequest.fromAmino(object.value);
-  },
-  toAminoMsg(message: PageRequest): PageRequestAminoMsg {
-    return {
-      type: "cosmos-sdk/PageRequest",
-      value: PageRequest.toAmino(message),
-    };
-  },
 };
 function createBasePageResponse(): PageResponse {
   return {
@@ -252,30 +215,5 @@ export const PageResponse = {
       message.total = BigInt(object.total.toString());
     }
     return message;
-  },
-  fromAmino(object: PageResponseAmino): PageResponse {
-    const message = createBasePageResponse();
-    if (object.next_key !== undefined && object.next_key !== null) {
-      message.nextKey = bytesFromBase64(object.next_key);
-    }
-    if (object.total !== undefined && object.total !== null) {
-      message.total = BigInt(object.total);
-    }
-    return message;
-  },
-  toAmino(message: PageResponse): PageResponseAmino {
-    const obj: any = {};
-    obj.next_key = message.nextKey ? base64FromBytes(message.nextKey) : undefined;
-    obj.total = message.total !== BigInt(0) ? message.total?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: PageResponseAminoMsg): PageResponse {
-    return PageResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: PageResponse): PageResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/PageResponse",
-      value: PageResponse.toAmino(message),
-    };
   },
 };

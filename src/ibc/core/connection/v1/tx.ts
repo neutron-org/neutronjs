@@ -211,43 +211,6 @@ export const MsgConnectionOpenInit = {
     message.signer = object.signer ?? "";
     return message;
   },
-  fromAmino(object: MsgConnectionOpenInitAmino): MsgConnectionOpenInit {
-    const message = createBaseMsgConnectionOpenInit();
-    if (object.client_id !== undefined && object.client_id !== null) {
-      message.clientId = object.client_id;
-    }
-    if (object.counterparty !== undefined && object.counterparty !== null) {
-      message.counterparty = Counterparty.fromAmino(object.counterparty);
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = Version.fromAmino(object.version);
-    }
-    if (object.delay_period !== undefined && object.delay_period !== null) {
-      message.delayPeriod = BigInt(object.delay_period);
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    }
-    return message;
-  },
-  toAmino(message: MsgConnectionOpenInit): MsgConnectionOpenInitAmino {
-    const obj: any = {};
-    obj.client_id = message.clientId === "" ? undefined : message.clientId;
-    obj.counterparty = message.counterparty ? Counterparty.toAmino(message.counterparty) : undefined;
-    obj.version = message.version ? Version.toAmino(message.version) : undefined;
-    obj.delay_period = message.delayPeriod !== BigInt(0) ? message.delayPeriod?.toString() : undefined;
-    obj.signer = message.signer === "" ? undefined : message.signer;
-    return obj;
-  },
-  fromAminoMsg(object: MsgConnectionOpenInitAminoMsg): MsgConnectionOpenInit {
-    return MsgConnectionOpenInit.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgConnectionOpenInit): MsgConnectionOpenInitAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgConnectionOpenInit",
-      value: MsgConnectionOpenInit.toAmino(message),
-    };
-  },
 };
 function createBaseMsgConnectionOpenInitResponse(): MsgConnectionOpenInitResponse {
   return {};
@@ -284,23 +247,6 @@ export const MsgConnectionOpenInitResponse = {
   ): MsgConnectionOpenInitResponse {
     const message = createBaseMsgConnectionOpenInitResponse();
     return message;
-  },
-  fromAmino(_: MsgConnectionOpenInitResponseAmino): MsgConnectionOpenInitResponse {
-    const message = createBaseMsgConnectionOpenInitResponse();
-    return message;
-  },
-  toAmino(_: MsgConnectionOpenInitResponse): MsgConnectionOpenInitResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgConnectionOpenInitResponseAminoMsg): MsgConnectionOpenInitResponse {
-    return MsgConnectionOpenInitResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgConnectionOpenInitResponse): MsgConnectionOpenInitResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgConnectionOpenInitResponse",
-      value: MsgConnectionOpenInitResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgConnectionOpenTry(): MsgConnectionOpenTry {
@@ -500,82 +446,6 @@ export const MsgConnectionOpenTry = {
     message.hostConsensusStateProof = object.hostConsensusStateProof ?? new Uint8Array();
     return message;
   },
-  fromAmino(object: MsgConnectionOpenTryAmino): MsgConnectionOpenTry {
-    const message = createBaseMsgConnectionOpenTry();
-    if (object.client_id !== undefined && object.client_id !== null) {
-      message.clientId = object.client_id;
-    }
-    if (object.previous_connection_id !== undefined && object.previous_connection_id !== null) {
-      message.previousConnectionId = object.previous_connection_id;
-    }
-    if (object.client_state !== undefined && object.client_state !== null) {
-      message.clientState = Any.fromAmino(object.client_state);
-    }
-    if (object.counterparty !== undefined && object.counterparty !== null) {
-      message.counterparty = Counterparty.fromAmino(object.counterparty);
-    }
-    if (object.delay_period !== undefined && object.delay_period !== null) {
-      message.delayPeriod = BigInt(object.delay_period);
-    }
-    message.counterpartyVersions = object.counterparty_versions?.map((e) => Version.fromAmino(e)) || [];
-    if (object.proof_height !== undefined && object.proof_height !== null) {
-      message.proofHeight = Height.fromAmino(object.proof_height);
-    }
-    if (object.proof_init !== undefined && object.proof_init !== null) {
-      message.proofInit = bytesFromBase64(object.proof_init);
-    }
-    if (object.proof_client !== undefined && object.proof_client !== null) {
-      message.proofClient = bytesFromBase64(object.proof_client);
-    }
-    if (object.proof_consensus !== undefined && object.proof_consensus !== null) {
-      message.proofConsensus = bytesFromBase64(object.proof_consensus);
-    }
-    if (object.consensus_height !== undefined && object.consensus_height !== null) {
-      message.consensusHeight = Height.fromAmino(object.consensus_height);
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    }
-    if (object.host_consensus_state_proof !== undefined && object.host_consensus_state_proof !== null) {
-      message.hostConsensusStateProof = bytesFromBase64(object.host_consensus_state_proof);
-    }
-    return message;
-  },
-  toAmino(message: MsgConnectionOpenTry): MsgConnectionOpenTryAmino {
-    const obj: any = {};
-    obj.client_id = message.clientId === "" ? undefined : message.clientId;
-    obj.previous_connection_id =
-      message.previousConnectionId === "" ? undefined : message.previousConnectionId;
-    obj.client_state = message.clientState ? Any.toAmino(message.clientState) : undefined;
-    obj.counterparty = message.counterparty ? Counterparty.toAmino(message.counterparty) : undefined;
-    obj.delay_period = message.delayPeriod !== BigInt(0) ? message.delayPeriod?.toString() : undefined;
-    if (message.counterpartyVersions) {
-      obj.counterparty_versions = message.counterpartyVersions.map((e) =>
-        e ? Version.toAmino(e) : undefined,
-      );
-    } else {
-      obj.counterparty_versions = message.counterpartyVersions;
-    }
-    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
-    obj.proof_init = message.proofInit ? base64FromBytes(message.proofInit) : undefined;
-    obj.proof_client = message.proofClient ? base64FromBytes(message.proofClient) : undefined;
-    obj.proof_consensus = message.proofConsensus ? base64FromBytes(message.proofConsensus) : undefined;
-    obj.consensus_height = message.consensusHeight ? Height.toAmino(message.consensusHeight) : {};
-    obj.signer = message.signer === "" ? undefined : message.signer;
-    obj.host_consensus_state_proof = message.hostConsensusStateProof
-      ? base64FromBytes(message.hostConsensusStateProof)
-      : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgConnectionOpenTryAminoMsg): MsgConnectionOpenTry {
-    return MsgConnectionOpenTry.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgConnectionOpenTry): MsgConnectionOpenTryAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgConnectionOpenTry",
-      value: MsgConnectionOpenTry.toAmino(message),
-    };
-  },
 };
 function createBaseMsgConnectionOpenTryResponse(): MsgConnectionOpenTryResponse {
   return {};
@@ -612,23 +482,6 @@ export const MsgConnectionOpenTryResponse = {
   ): MsgConnectionOpenTryResponse {
     const message = createBaseMsgConnectionOpenTryResponse();
     return message;
-  },
-  fromAmino(_: MsgConnectionOpenTryResponseAmino): MsgConnectionOpenTryResponse {
-    const message = createBaseMsgConnectionOpenTryResponse();
-    return message;
-  },
-  toAmino(_: MsgConnectionOpenTryResponse): MsgConnectionOpenTryResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgConnectionOpenTryResponseAminoMsg): MsgConnectionOpenTryResponse {
-    return MsgConnectionOpenTryResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgConnectionOpenTryResponse): MsgConnectionOpenTryResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgConnectionOpenTryResponse",
-      value: MsgConnectionOpenTryResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgConnectionOpenAck(): MsgConnectionOpenAck {
@@ -801,70 +654,6 @@ export const MsgConnectionOpenAck = {
     message.hostConsensusStateProof = object.hostConsensusStateProof ?? new Uint8Array();
     return message;
   },
-  fromAmino(object: MsgConnectionOpenAckAmino): MsgConnectionOpenAck {
-    const message = createBaseMsgConnectionOpenAck();
-    if (object.connection_id !== undefined && object.connection_id !== null) {
-      message.connectionId = object.connection_id;
-    }
-    if (object.counterparty_connection_id !== undefined && object.counterparty_connection_id !== null) {
-      message.counterpartyConnectionId = object.counterparty_connection_id;
-    }
-    if (object.version !== undefined && object.version !== null) {
-      message.version = Version.fromAmino(object.version);
-    }
-    if (object.client_state !== undefined && object.client_state !== null) {
-      message.clientState = Any.fromAmino(object.client_state);
-    }
-    if (object.proof_height !== undefined && object.proof_height !== null) {
-      message.proofHeight = Height.fromAmino(object.proof_height);
-    }
-    if (object.proof_try !== undefined && object.proof_try !== null) {
-      message.proofTry = bytesFromBase64(object.proof_try);
-    }
-    if (object.proof_client !== undefined && object.proof_client !== null) {
-      message.proofClient = bytesFromBase64(object.proof_client);
-    }
-    if (object.proof_consensus !== undefined && object.proof_consensus !== null) {
-      message.proofConsensus = bytesFromBase64(object.proof_consensus);
-    }
-    if (object.consensus_height !== undefined && object.consensus_height !== null) {
-      message.consensusHeight = Height.fromAmino(object.consensus_height);
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    }
-    if (object.host_consensus_state_proof !== undefined && object.host_consensus_state_proof !== null) {
-      message.hostConsensusStateProof = bytesFromBase64(object.host_consensus_state_proof);
-    }
-    return message;
-  },
-  toAmino(message: MsgConnectionOpenAck): MsgConnectionOpenAckAmino {
-    const obj: any = {};
-    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
-    obj.counterparty_connection_id =
-      message.counterpartyConnectionId === "" ? undefined : message.counterpartyConnectionId;
-    obj.version = message.version ? Version.toAmino(message.version) : undefined;
-    obj.client_state = message.clientState ? Any.toAmino(message.clientState) : undefined;
-    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
-    obj.proof_try = message.proofTry ? base64FromBytes(message.proofTry) : undefined;
-    obj.proof_client = message.proofClient ? base64FromBytes(message.proofClient) : undefined;
-    obj.proof_consensus = message.proofConsensus ? base64FromBytes(message.proofConsensus) : undefined;
-    obj.consensus_height = message.consensusHeight ? Height.toAmino(message.consensusHeight) : {};
-    obj.signer = message.signer === "" ? undefined : message.signer;
-    obj.host_consensus_state_proof = message.hostConsensusStateProof
-      ? base64FromBytes(message.hostConsensusStateProof)
-      : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgConnectionOpenAckAminoMsg): MsgConnectionOpenAck {
-    return MsgConnectionOpenAck.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgConnectionOpenAck): MsgConnectionOpenAckAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgConnectionOpenAck",
-      value: MsgConnectionOpenAck.toAmino(message),
-    };
-  },
 };
 function createBaseMsgConnectionOpenAckResponse(): MsgConnectionOpenAckResponse {
   return {};
@@ -901,23 +690,6 @@ export const MsgConnectionOpenAckResponse = {
   ): MsgConnectionOpenAckResponse {
     const message = createBaseMsgConnectionOpenAckResponse();
     return message;
-  },
-  fromAmino(_: MsgConnectionOpenAckResponseAmino): MsgConnectionOpenAckResponse {
-    const message = createBaseMsgConnectionOpenAckResponse();
-    return message;
-  },
-  toAmino(_: MsgConnectionOpenAckResponse): MsgConnectionOpenAckResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgConnectionOpenAckResponseAminoMsg): MsgConnectionOpenAckResponse {
-    return MsgConnectionOpenAckResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgConnectionOpenAckResponse): MsgConnectionOpenAckResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgConnectionOpenAckResponse",
-      value: MsgConnectionOpenAckResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgConnectionOpenConfirm(): MsgConnectionOpenConfirm {
@@ -1001,39 +773,6 @@ export const MsgConnectionOpenConfirm = {
     message.signer = object.signer ?? "";
     return message;
   },
-  fromAmino(object: MsgConnectionOpenConfirmAmino): MsgConnectionOpenConfirm {
-    const message = createBaseMsgConnectionOpenConfirm();
-    if (object.connection_id !== undefined && object.connection_id !== null) {
-      message.connectionId = object.connection_id;
-    }
-    if (object.proof_ack !== undefined && object.proof_ack !== null) {
-      message.proofAck = bytesFromBase64(object.proof_ack);
-    }
-    if (object.proof_height !== undefined && object.proof_height !== null) {
-      message.proofHeight = Height.fromAmino(object.proof_height);
-    }
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    }
-    return message;
-  },
-  toAmino(message: MsgConnectionOpenConfirm): MsgConnectionOpenConfirmAmino {
-    const obj: any = {};
-    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
-    obj.proof_ack = message.proofAck ? base64FromBytes(message.proofAck) : undefined;
-    obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
-    obj.signer = message.signer === "" ? undefined : message.signer;
-    return obj;
-  },
-  fromAminoMsg(object: MsgConnectionOpenConfirmAminoMsg): MsgConnectionOpenConfirm {
-    return MsgConnectionOpenConfirm.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgConnectionOpenConfirm): MsgConnectionOpenConfirmAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgConnectionOpenConfirm",
-      value: MsgConnectionOpenConfirm.toAmino(message),
-    };
-  },
 };
 function createBaseMsgConnectionOpenConfirmResponse(): MsgConnectionOpenConfirmResponse {
   return {};
@@ -1070,23 +809,6 @@ export const MsgConnectionOpenConfirmResponse = {
   ): MsgConnectionOpenConfirmResponse {
     const message = createBaseMsgConnectionOpenConfirmResponse();
     return message;
-  },
-  fromAmino(_: MsgConnectionOpenConfirmResponseAmino): MsgConnectionOpenConfirmResponse {
-    const message = createBaseMsgConnectionOpenConfirmResponse();
-    return message;
-  },
-  toAmino(_: MsgConnectionOpenConfirmResponse): MsgConnectionOpenConfirmResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgConnectionOpenConfirmResponseAminoMsg): MsgConnectionOpenConfirmResponse {
-    return MsgConnectionOpenConfirmResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgConnectionOpenConfirmResponse): MsgConnectionOpenConfirmResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgConnectionOpenConfirmResponse",
-      value: MsgConnectionOpenConfirmResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -1146,31 +868,6 @@ export const MsgUpdateParams = {
     }
     return message;
   },
-  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    const message = createBaseMsgUpdateParams();
-    if (object.signer !== undefined && object.signer !== null) {
-      message.signer = object.signer;
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
-    const obj: any = {};
-    obj.signer = message.signer === "" ? undefined : message.signer;
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
-    return MsgUpdateParams.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateParams",
-      value: MsgUpdateParams.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -1205,22 +902,5 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    const message = createBaseMsgUpdateParamsResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
-    return MsgUpdateParamsResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateParamsResponse",
-      value: MsgUpdateParamsResponse.toAmino(message),
-    };
   },
 };

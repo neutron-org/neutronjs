@@ -89,11 +89,11 @@ export const AminoConverter = {
         fromAddress: from_address,
         connectionId: connection_id,
         interchainAccountId: interchain_account_id,
-        registerFee: register_fee.map((el0) => ({
+        registerFee: register_fee.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),
-        ordering: orderFromJSON(ordering),
+        ordering: ordering == null ? ordering : orderFromJSON(ordering),
       };
     },
   },
@@ -117,7 +117,7 @@ export const AminoConverter = {
           value: el0.value,
         })),
         memo,
-        timeout: timeout.toString(),
+        timeout: omitDefault(timeout)?.toString?.(),
         fee: {
           recv_fee: fee.recvFee.map((el0) => ({
             denom: el0.denom,
@@ -147,26 +147,29 @@ export const AminoConverter = {
         fromAddress: from_address,
         interchainAccountId: interchain_account_id,
         connectionId: connection_id,
-        msgs: msgs.map((el0) => ({
+        msgs: msgs.map?.((el0) => ({
           typeUrl: el0.type_url,
           value: el0.value,
         })),
         memo,
-        timeout: BigInt(timeout),
-        fee: {
-          recvFee: fee.recv_fee.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-          ackFee: fee.ack_fee.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-          timeoutFee: fee.timeout_fee.map((el1) => ({
-            denom: el1.denom,
-            amount: el1.amount,
-          })),
-        },
+        timeout: timeout == null ? timeout : BigInt(timeout),
+        fee:
+          fee == null
+            ? fee
+            : {
+                recvFee: fee.recv_fee.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+                ackFee: fee.ack_fee.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+                timeoutFee: fee.timeout_fee.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
+              },
       };
     },
   },
@@ -183,7 +186,7 @@ export const AminoConverter = {
                   revision_number: omitDefault(params.upgradeTimeout.height.revisionNumber)?.toString(),
                 }
               : {},
-            timestamp: params.upgradeTimeout.timestamp.toString(),
+            timestamp: omitDefault(params.upgradeTimeout.timestamp)?.toString?.(),
           },
         },
       };
@@ -191,17 +194,26 @@ export const AminoConverter = {
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          upgradeTimeout: {
-            height: params.upgrade_timeout.height
-              ? {
-                  revisionHeight: BigInt(params.upgrade_timeout.height.revision_height || "0"),
-                  revisionNumber: BigInt(params.upgrade_timeout.height.revision_number || "0"),
-                }
-              : undefined,
-            timestamp: BigInt(params.upgrade_timeout.timestamp),
-          },
-        },
+        params:
+          params == null
+            ? params
+            : {
+                upgradeTimeout:
+                  params.upgrade_timeout == null
+                    ? params.upgrade_timeout
+                    : {
+                        height: params.upgrade_timeout.height
+                          ? {
+                              revisionHeight: BigInt(params.upgrade_timeout.height.revision_height || "0"),
+                              revisionNumber: BigInt(params.upgrade_timeout.height.revision_number || "0"),
+                            }
+                          : undefined,
+                        timestamp:
+                          params.upgrade_timeout.timestamp == null
+                            ? params.upgrade_timeout.timestamp
+                            : BigInt(params.upgrade_timeout.timestamp),
+                      },
+              },
       };
     },
   },

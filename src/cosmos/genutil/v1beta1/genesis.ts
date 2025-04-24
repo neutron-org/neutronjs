@@ -58,27 +58,4 @@ export const GenesisState = {
     message.genTxs = object.genTxs?.map((e) => e) || [];
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    message.genTxs = object.gen_txs?.map((e) => bytesFromBase64(e)) || [];
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    if (message.genTxs) {
-      obj.gen_txs = message.genTxs.map((e) => base64FromBytes(e));
-    } else {
-      obj.gen_txs = message.genTxs;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisState",
-      value: GenesisState.toAmino(message),
-    };
-  },
 };

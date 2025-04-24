@@ -2,6 +2,7 @@
 /* eslint-disable */
 import { executionStageFromJSON } from "./schedule";
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../helpers";
 import { MsgAddSchedule, MsgRemoveSchedule, MsgUpdateParams } from "./tx";
 export interface MsgAddScheduleAminoType extends AminoMsg {
   type: "cron/MsgAddSchedule";
@@ -46,7 +47,7 @@ export const AminoConverter = {
       return {
         authority,
         name,
-        period: period.toString(),
+        period: omitDefault(period)?.toString?.(),
         msgs: msgs.map((el0) => ({
           contract: el0.contract,
           msg: el0.msg,
@@ -64,12 +65,12 @@ export const AminoConverter = {
       return {
         authority,
         name,
-        period: BigInt(period),
-        msgs: msgs.map((el0) => ({
+        period: period == null ? period : BigInt(period),
+        msgs: msgs.map?.((el0) => ({
           contract: el0.contract,
           msg: el0.msg,
         })),
-        executionStage: executionStageFromJSON(execution_stage),
+        executionStage: execution_stage == null ? execution_stage : executionStageFromJSON(execution_stage),
       };
     },
   },
@@ -95,17 +96,20 @@ export const AminoConverter = {
         authority,
         params: {
           security_address: params.securityAddress,
-          limit: params.limit.toString(),
+          limit: omitDefault(params.limit)?.toString?.(),
         },
       };
     },
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          securityAddress: params.security_address,
-          limit: BigInt(params.limit),
-        },
+        params:
+          params == null
+            ? params
+            : {
+                securityAddress: params.security_address,
+                limit: params.limit == null ? params.limit : BigInt(params.limit),
+              },
       };
     },
   },

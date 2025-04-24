@@ -120,27 +120,6 @@ export const EventCreateGroup = {
     }
     return message;
   },
-  fromAmino(object: EventCreateGroupAmino): EventCreateGroup {
-    const message = createBaseEventCreateGroup();
-    if (object.group_id !== undefined && object.group_id !== null) {
-      message.groupId = BigInt(object.group_id);
-    }
-    return message;
-  },
-  toAmino(message: EventCreateGroup): EventCreateGroupAmino {
-    const obj: any = {};
-    obj.group_id = message.groupId !== BigInt(0) ? message.groupId?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: EventCreateGroupAminoMsg): EventCreateGroup {
-    return EventCreateGroup.fromAmino(object.value);
-  },
-  toAminoMsg(message: EventCreateGroup): EventCreateGroupAminoMsg {
-    return {
-      type: "cosmos-sdk/EventCreateGroup",
-      value: EventCreateGroup.toAmino(message),
-    };
-  },
 };
 function createBaseEventUpdateGroup(): EventUpdateGroup {
   return {
@@ -189,27 +168,6 @@ export const EventUpdateGroup = {
     }
     return message;
   },
-  fromAmino(object: EventUpdateGroupAmino): EventUpdateGroup {
-    const message = createBaseEventUpdateGroup();
-    if (object.group_id !== undefined && object.group_id !== null) {
-      message.groupId = BigInt(object.group_id);
-    }
-    return message;
-  },
-  toAmino(message: EventUpdateGroup): EventUpdateGroupAmino {
-    const obj: any = {};
-    obj.group_id = message.groupId !== BigInt(0) ? message.groupId?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: EventUpdateGroupAminoMsg): EventUpdateGroup {
-    return EventUpdateGroup.fromAmino(object.value);
-  },
-  toAminoMsg(message: EventUpdateGroup): EventUpdateGroupAminoMsg {
-    return {
-      type: "cosmos-sdk/EventUpdateGroup",
-      value: EventUpdateGroup.toAmino(message),
-    };
-  },
 };
 function createBaseEventCreateGroupPolicy(): EventCreateGroupPolicy {
   return {
@@ -256,27 +214,6 @@ export const EventCreateGroupPolicy = {
     message.address = object.address ?? "";
     return message;
   },
-  fromAmino(object: EventCreateGroupPolicyAmino): EventCreateGroupPolicy {
-    const message = createBaseEventCreateGroupPolicy();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    return message;
-  },
-  toAmino(message: EventCreateGroupPolicy): EventCreateGroupPolicyAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    return obj;
-  },
-  fromAminoMsg(object: EventCreateGroupPolicyAminoMsg): EventCreateGroupPolicy {
-    return EventCreateGroupPolicy.fromAmino(object.value);
-  },
-  toAminoMsg(message: EventCreateGroupPolicy): EventCreateGroupPolicyAminoMsg {
-    return {
-      type: "cosmos-sdk/EventCreateGroupPolicy",
-      value: EventCreateGroupPolicy.toAmino(message),
-    };
-  },
 };
 function createBaseEventUpdateGroupPolicy(): EventUpdateGroupPolicy {
   return {
@@ -322,27 +259,6 @@ export const EventUpdateGroupPolicy = {
     const message = createBaseEventUpdateGroupPolicy();
     message.address = object.address ?? "";
     return message;
-  },
-  fromAmino(object: EventUpdateGroupPolicyAmino): EventUpdateGroupPolicy {
-    const message = createBaseEventUpdateGroupPolicy();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    return message;
-  },
-  toAmino(message: EventUpdateGroupPolicy): EventUpdateGroupPolicyAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    return obj;
-  },
-  fromAminoMsg(object: EventUpdateGroupPolicyAminoMsg): EventUpdateGroupPolicy {
-    return EventUpdateGroupPolicy.fromAmino(object.value);
-  },
-  toAminoMsg(message: EventUpdateGroupPolicy): EventUpdateGroupPolicyAminoMsg {
-    return {
-      type: "cosmos-sdk/EventUpdateGroupPolicy",
-      value: EventUpdateGroupPolicy.toAmino(message),
-    };
   },
 };
 function createBaseEventSubmitProposal(): EventSubmitProposal {
@@ -392,27 +308,6 @@ export const EventSubmitProposal = {
     }
     return message;
   },
-  fromAmino(object: EventSubmitProposalAmino): EventSubmitProposal {
-    const message = createBaseEventSubmitProposal();
-    if (object.proposal_id !== undefined && object.proposal_id !== null) {
-      message.proposalId = BigInt(object.proposal_id);
-    }
-    return message;
-  },
-  toAmino(message: EventSubmitProposal): EventSubmitProposalAmino {
-    const obj: any = {};
-    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: EventSubmitProposalAminoMsg): EventSubmitProposal {
-    return EventSubmitProposal.fromAmino(object.value);
-  },
-  toAminoMsg(message: EventSubmitProposal): EventSubmitProposalAminoMsg {
-    return {
-      type: "cosmos-sdk/EventSubmitProposal",
-      value: EventSubmitProposal.toAmino(message),
-    };
-  },
 };
 function createBaseEventWithdrawProposal(): EventWithdrawProposal {
   return {
@@ -461,27 +356,6 @@ export const EventWithdrawProposal = {
     }
     return message;
   },
-  fromAmino(object: EventWithdrawProposalAmino): EventWithdrawProposal {
-    const message = createBaseEventWithdrawProposal();
-    if (object.proposal_id !== undefined && object.proposal_id !== null) {
-      message.proposalId = BigInt(object.proposal_id);
-    }
-    return message;
-  },
-  toAmino(message: EventWithdrawProposal): EventWithdrawProposalAmino {
-    const obj: any = {};
-    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: EventWithdrawProposalAminoMsg): EventWithdrawProposal {
-    return EventWithdrawProposal.fromAmino(object.value);
-  },
-  toAminoMsg(message: EventWithdrawProposal): EventWithdrawProposalAminoMsg {
-    return {
-      type: "cosmos-sdk/EventWithdrawProposal",
-      value: EventWithdrawProposal.toAmino(message),
-    };
-  },
 };
 function createBaseEventVote(): EventVote {
   return {
@@ -529,27 +403,6 @@ export const EventVote = {
       message.proposalId = BigInt(object.proposalId.toString());
     }
     return message;
-  },
-  fromAmino(object: EventVoteAmino): EventVote {
-    const message = createBaseEventVote();
-    if (object.proposal_id !== undefined && object.proposal_id !== null) {
-      message.proposalId = BigInt(object.proposal_id);
-    }
-    return message;
-  },
-  toAmino(message: EventVote): EventVoteAmino {
-    const obj: any = {};
-    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: EventVoteAminoMsg): EventVote {
-    return EventVote.fromAmino(object.value);
-  },
-  toAminoMsg(message: EventVote): EventVoteAminoMsg {
-    return {
-      type: "cosmos-sdk/EventVote",
-      value: EventVote.toAmino(message),
-    };
   },
 };
 function createBaseEventExec(): EventExec {
@@ -619,35 +472,6 @@ export const EventExec = {
     message.logs = object.logs ?? "";
     return message;
   },
-  fromAmino(object: EventExecAmino): EventExec {
-    const message = createBaseEventExec();
-    if (object.proposal_id !== undefined && object.proposal_id !== null) {
-      message.proposalId = BigInt(object.proposal_id);
-    }
-    if (object.result !== undefined && object.result !== null) {
-      message.result = object.result;
-    }
-    if (object.logs !== undefined && object.logs !== null) {
-      message.logs = object.logs;
-    }
-    return message;
-  },
-  toAmino(message: EventExec): EventExecAmino {
-    const obj: any = {};
-    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId?.toString() : undefined;
-    obj.result = message.result === 0 ? undefined : message.result;
-    obj.logs = message.logs === "" ? undefined : message.logs;
-    return obj;
-  },
-  fromAminoMsg(object: EventExecAminoMsg): EventExec {
-    return EventExec.fromAmino(object.value);
-  },
-  toAminoMsg(message: EventExec): EventExecAminoMsg {
-    return {
-      type: "cosmos-sdk/EventExec",
-      value: EventExec.toAmino(message),
-    };
-  },
 };
 function createBaseEventLeaveGroup(): EventLeaveGroup {
   return {
@@ -705,31 +529,6 @@ export const EventLeaveGroup = {
     }
     message.address = object.address ?? "";
     return message;
-  },
-  fromAmino(object: EventLeaveGroupAmino): EventLeaveGroup {
-    const message = createBaseEventLeaveGroup();
-    if (object.group_id !== undefined && object.group_id !== null) {
-      message.groupId = BigInt(object.group_id);
-    }
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    return message;
-  },
-  toAmino(message: EventLeaveGroup): EventLeaveGroupAmino {
-    const obj: any = {};
-    obj.group_id = message.groupId !== BigInt(0) ? message.groupId?.toString() : undefined;
-    obj.address = message.address === "" ? undefined : message.address;
-    return obj;
-  },
-  fromAminoMsg(object: EventLeaveGroupAminoMsg): EventLeaveGroup {
-    return EventLeaveGroup.fromAmino(object.value);
-  },
-  toAminoMsg(message: EventLeaveGroup): EventLeaveGroupAminoMsg {
-    return {
-      type: "cosmos-sdk/EventLeaveGroup",
-      value: EventLeaveGroup.toAmino(message),
-    };
   },
 };
 function createBaseEventProposalPruned(): EventProposalPruned {
@@ -801,34 +600,5 @@ export const EventProposalPruned = {
       message.tallyResult = TallyResult.fromPartial(object.tallyResult);
     }
     return message;
-  },
-  fromAmino(object: EventProposalPrunedAmino): EventProposalPruned {
-    const message = createBaseEventProposalPruned();
-    if (object.proposal_id !== undefined && object.proposal_id !== null) {
-      message.proposalId = BigInt(object.proposal_id);
-    }
-    if (object.status !== undefined && object.status !== null) {
-      message.status = object.status;
-    }
-    if (object.tally_result !== undefined && object.tally_result !== null) {
-      message.tallyResult = TallyResult.fromAmino(object.tally_result);
-    }
-    return message;
-  },
-  toAmino(message: EventProposalPruned): EventProposalPrunedAmino {
-    const obj: any = {};
-    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId?.toString() : undefined;
-    obj.status = message.status === 0 ? undefined : message.status;
-    obj.tally_result = message.tallyResult ? TallyResult.toAmino(message.tallyResult) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: EventProposalPrunedAminoMsg): EventProposalPruned {
-    return EventProposalPruned.fromAmino(object.value);
-  },
-  toAminoMsg(message: EventProposalPruned): EventProposalPrunedAminoMsg {
-    return {
-      type: "cosmos-sdk/EventProposalPruned",
-      value: EventProposalPruned.toAmino(message),
-    };
   },
 };

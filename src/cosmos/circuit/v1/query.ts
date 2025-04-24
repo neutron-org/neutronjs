@@ -76,27 +76,6 @@ export const QueryAccountRequest = {
     message.address = object.address ?? "";
     return message;
   },
-  fromAmino(object: QueryAccountRequestAmino): QueryAccountRequest {
-    const message = createBaseQueryAccountRequest();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    return message;
-  },
-  toAmino(message: QueryAccountRequest): QueryAccountRequestAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAccountRequestAminoMsg): QueryAccountRequest {
-    return QueryAccountRequest.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryAccountRequest): QueryAccountRequestAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryAccountRequest",
-      value: QueryAccountRequest.toAmino(message),
-    };
-  },
 };
 function createBaseAccountResponse(): AccountResponse {
   return {
@@ -146,27 +125,6 @@ export const AccountResponse = {
     }
     return message;
   },
-  fromAmino(object: AccountResponseAmino): AccountResponse {
-    const message = createBaseAccountResponse();
-    if (object.permission !== undefined && object.permission !== null) {
-      message.permission = Permissions.fromAmino(object.permission);
-    }
-    return message;
-  },
-  toAmino(message: AccountResponse): AccountResponseAmino {
-    const obj: any = {};
-    obj.permission = message.permission ? Permissions.toAmino(message.permission) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: AccountResponseAminoMsg): AccountResponse {
-    return AccountResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: AccountResponse): AccountResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/AccountResponse",
-      value: AccountResponse.toAmino(message),
-    };
-  },
 };
 function createBaseQueryAccountsRequest(): QueryAccountsRequest {
   return {
@@ -215,27 +173,6 @@ export const QueryAccountsRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
-  },
-  fromAmino(object: QueryAccountsRequestAmino): QueryAccountsRequest {
-    const message = createBaseQueryAccountsRequest();
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAccountsRequest): QueryAccountsRequestAmino {
-    const obj: any = {};
-    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAccountsRequestAminoMsg): QueryAccountsRequest {
-    return QueryAccountsRequest.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryAccountsRequest): QueryAccountsRequestAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryAccountsRequest",
-      value: QueryAccountsRequest.toAmino(message),
-    };
   },
 };
 function createBaseAccountsResponse(): AccountsResponse {
@@ -301,33 +238,6 @@ export const AccountsResponse = {
     }
     return message;
   },
-  fromAmino(object: AccountsResponseAmino): AccountsResponse {
-    const message = createBaseAccountsResponse();
-    message.accounts = object.accounts?.map((e) => GenesisAccountPermissions.fromAmino(e)) || [];
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: AccountsResponse): AccountsResponseAmino {
-    const obj: any = {};
-    if (message.accounts) {
-      obj.accounts = message.accounts.map((e) => (e ? GenesisAccountPermissions.toAmino(e) : undefined));
-    } else {
-      obj.accounts = message.accounts;
-    }
-    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: AccountsResponseAminoMsg): AccountsResponse {
-    return AccountsResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: AccountsResponse): AccountsResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/AccountsResponse",
-      value: AccountsResponse.toAmino(message),
-    };
-  },
 };
 function createBaseQueryDisabledListRequest(): QueryDisabledListRequest {
   return {};
@@ -362,23 +272,6 @@ export const QueryDisabledListRequest = {
   fromPartial<I extends Exact<DeepPartial<QueryDisabledListRequest>, I>>(_: I): QueryDisabledListRequest {
     const message = createBaseQueryDisabledListRequest();
     return message;
-  },
-  fromAmino(_: QueryDisabledListRequestAmino): QueryDisabledListRequest {
-    const message = createBaseQueryDisabledListRequest();
-    return message;
-  },
-  toAmino(_: QueryDisabledListRequest): QueryDisabledListRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: QueryDisabledListRequestAminoMsg): QueryDisabledListRequest {
-    return QueryDisabledListRequest.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryDisabledListRequest): QueryDisabledListRequestAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryDisabledListRequest",
-      value: QueryDisabledListRequest.toAmino(message),
-    };
   },
 };
 function createBaseDisabledListResponse(): DisabledListResponse {
@@ -430,28 +323,5 @@ export const DisabledListResponse = {
     const message = createBaseDisabledListResponse();
     message.disabledList = object.disabledList?.map((e) => e) || [];
     return message;
-  },
-  fromAmino(object: DisabledListResponseAmino): DisabledListResponse {
-    const message = createBaseDisabledListResponse();
-    message.disabledList = object.disabled_list?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: DisabledListResponse): DisabledListResponseAmino {
-    const obj: any = {};
-    if (message.disabledList) {
-      obj.disabled_list = message.disabledList.map((e) => e);
-    } else {
-      obj.disabled_list = message.disabledList;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: DisabledListResponseAminoMsg): DisabledListResponse {
-    return DisabledListResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: DisabledListResponse): DisabledListResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/DisabledListResponse",
-      value: DisabledListResponse.toAmino(message),
-    };
   },
 };

@@ -46,23 +46,6 @@ export const QueryConfigRequest = {
     const message = createBaseQueryConfigRequest();
     return message;
   },
-  fromAmino(_: QueryConfigRequestAmino): QueryConfigRequest {
-    const message = createBaseQueryConfigRequest();
-    return message;
-  },
-  toAmino(_: QueryConfigRequest): QueryConfigRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: QueryConfigRequestAminoMsg): QueryConfigRequest {
-    return QueryConfigRequest.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryConfigRequest): QueryConfigRequestAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryConfigRequest",
-      value: QueryConfigRequest.toAmino(message),
-    };
-  },
 };
 function createBaseQueryConfigResponse(): QueryConfigResponse {
   return {
@@ -110,26 +93,5 @@ export const QueryConfigResponse = {
       message.config = Config.fromPartial(object.config);
     }
     return message;
-  },
-  fromAmino(object: QueryConfigResponseAmino): QueryConfigResponse {
-    const message = createBaseQueryConfigResponse();
-    if (object.config !== undefined && object.config !== null) {
-      message.config = Config.fromAmino(object.config);
-    }
-    return message;
-  },
-  toAmino(message: QueryConfigResponse): QueryConfigResponseAmino {
-    const obj: any = {};
-    obj.config = message.config ? Config.toAmino(message.config) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryConfigResponseAminoMsg): QueryConfigResponse {
-    return QueryConfigResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: QueryConfigResponse): QueryConfigResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/QueryConfigResponse",
-      value: QueryConfigResponse.toAmino(message),
-    };
   },
 };

@@ -149,33 +149,6 @@ export const Permissions = {
     message.limitTypeUrls = object.limitTypeUrls?.map((e) => e) || [];
     return message;
   },
-  fromAmino(object: PermissionsAmino): Permissions {
-    const message = createBasePermissions();
-    if (object.level !== undefined && object.level !== null) {
-      message.level = object.level;
-    }
-    message.limitTypeUrls = object.limit_type_urls?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: Permissions): PermissionsAmino {
-    const obj: any = {};
-    obj.level = message.level === 0 ? undefined : message.level;
-    if (message.limitTypeUrls) {
-      obj.limit_type_urls = message.limitTypeUrls.map((e) => e);
-    } else {
-      obj.limit_type_urls = message.limitTypeUrls;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: PermissionsAminoMsg): Permissions {
-    return Permissions.fromAmino(object.value);
-  },
-  toAminoMsg(message: Permissions): PermissionsAminoMsg {
-    return {
-      type: "cosmos-sdk/Permissions",
-      value: Permissions.toAmino(message),
-    };
-  },
 };
 function createBaseGenesisAccountPermissions(): GenesisAccountPermissions {
   return {
@@ -236,31 +209,6 @@ export const GenesisAccountPermissions = {
       message.permissions = Permissions.fromPartial(object.permissions);
     }
     return message;
-  },
-  fromAmino(object: GenesisAccountPermissionsAmino): GenesisAccountPermissions {
-    const message = createBaseGenesisAccountPermissions();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.permissions !== undefined && object.permissions !== null) {
-      message.permissions = Permissions.fromAmino(object.permissions);
-    }
-    return message;
-  },
-  toAmino(message: GenesisAccountPermissions): GenesisAccountPermissionsAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.permissions = message.permissions ? Permissions.toAmino(message.permissions) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: GenesisAccountPermissionsAminoMsg): GenesisAccountPermissions {
-    return GenesisAccountPermissions.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisAccountPermissions): GenesisAccountPermissionsAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisAccountPermissions",
-      value: GenesisAccountPermissions.toAmino(message),
-    };
   },
 };
 function createBaseGenesisState(): GenesisState {
@@ -332,37 +280,5 @@ export const GenesisState = {
       object.accountPermissions?.map((e) => GenesisAccountPermissions.fromPartial(e)) || [];
     message.disabledTypeUrls = object.disabledTypeUrls?.map((e) => e) || [];
     return message;
-  },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    message.accountPermissions =
-      object.account_permissions?.map((e) => GenesisAccountPermissions.fromAmino(e)) || [];
-    message.disabledTypeUrls = object.disabled_type_urls?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    if (message.accountPermissions) {
-      obj.account_permissions = message.accountPermissions.map((e) =>
-        e ? GenesisAccountPermissions.toAmino(e) : undefined,
-      );
-    } else {
-      obj.account_permissions = message.accountPermissions;
-    }
-    if (message.disabledTypeUrls) {
-      obj.disabled_type_urls = message.disabledTypeUrls.map((e) => e);
-    } else {
-      obj.disabled_type_urls = message.disabledTypeUrls;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisState",
-      value: GenesisState.toAmino(message),
-    };
   },
 };

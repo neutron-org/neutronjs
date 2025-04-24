@@ -334,37 +334,6 @@ export const MsgCreateGroup = {
     message.metadata = object.metadata ?? "";
     return message;
   },
-  fromAmino(object: MsgCreateGroupAmino): MsgCreateGroup {
-    const message = createBaseMsgCreateGroup();
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    }
-    message.members = object.members?.map((e) => MemberRequest.fromAmino(e)) || [];
-    if (object.metadata !== undefined && object.metadata !== null) {
-      message.metadata = object.metadata;
-    }
-    return message;
-  },
-  toAmino(message: MsgCreateGroup): MsgCreateGroupAmino {
-    const obj: any = {};
-    obj.admin = message.admin === "" ? undefined : message.admin;
-    if (message.members) {
-      obj.members = message.members.map((e) => (e ? MemberRequest.toAmino(e) : undefined));
-    } else {
-      obj.members = message.members;
-    }
-    obj.metadata = message.metadata === "" ? undefined : message.metadata;
-    return obj;
-  },
-  fromAminoMsg(object: MsgCreateGroupAminoMsg): MsgCreateGroup {
-    return MsgCreateGroup.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgCreateGroup): MsgCreateGroupAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgCreateGroup",
-      value: MsgCreateGroup.toAmino(message),
-    };
-  },
 };
 function createBaseMsgCreateGroupResponse(): MsgCreateGroupResponse {
   return {
@@ -412,27 +381,6 @@ export const MsgCreateGroupResponse = {
       message.groupId = BigInt(object.groupId.toString());
     }
     return message;
-  },
-  fromAmino(object: MsgCreateGroupResponseAmino): MsgCreateGroupResponse {
-    const message = createBaseMsgCreateGroupResponse();
-    if (object.group_id !== undefined && object.group_id !== null) {
-      message.groupId = BigInt(object.group_id);
-    }
-    return message;
-  },
-  toAmino(message: MsgCreateGroupResponse): MsgCreateGroupResponseAmino {
-    const obj: any = {};
-    obj.group_id = message.groupId !== BigInt(0) ? message.groupId?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgCreateGroupResponseAminoMsg): MsgCreateGroupResponse {
-    return MsgCreateGroupResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgCreateGroupResponse): MsgCreateGroupResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgCreateGroupResponse",
-      value: MsgCreateGroupResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgUpdateGroupMembers(): MsgUpdateGroupMembers {
@@ -507,37 +455,6 @@ export const MsgUpdateGroupMembers = {
     message.memberUpdates = object.memberUpdates?.map((e) => MemberRequest.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: MsgUpdateGroupMembersAmino): MsgUpdateGroupMembers {
-    const message = createBaseMsgUpdateGroupMembers();
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    }
-    if (object.group_id !== undefined && object.group_id !== null) {
-      message.groupId = BigInt(object.group_id);
-    }
-    message.memberUpdates = object.member_updates?.map((e) => MemberRequest.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: MsgUpdateGroupMembers): MsgUpdateGroupMembersAmino {
-    const obj: any = {};
-    obj.admin = message.admin === "" ? undefined : message.admin;
-    obj.group_id = message.groupId !== BigInt(0) ? message.groupId?.toString() : undefined;
-    if (message.memberUpdates) {
-      obj.member_updates = message.memberUpdates.map((e) => (e ? MemberRequest.toAmino(e) : undefined));
-    } else {
-      obj.member_updates = message.memberUpdates;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateGroupMembersAminoMsg): MsgUpdateGroupMembers {
-    return MsgUpdateGroupMembers.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateGroupMembers): MsgUpdateGroupMembersAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateGroupMembers",
-      value: MsgUpdateGroupMembers.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateGroupMembersResponse(): MsgUpdateGroupMembersResponse {
   return {};
@@ -574,23 +491,6 @@ export const MsgUpdateGroupMembersResponse = {
   ): MsgUpdateGroupMembersResponse {
     const message = createBaseMsgUpdateGroupMembersResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateGroupMembersResponseAmino): MsgUpdateGroupMembersResponse {
-    const message = createBaseMsgUpdateGroupMembersResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateGroupMembersResponse): MsgUpdateGroupMembersResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateGroupMembersResponseAminoMsg): MsgUpdateGroupMembersResponse {
-    return MsgUpdateGroupMembersResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateGroupMembersResponse): MsgUpdateGroupMembersResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateGroupMembersResponse",
-      value: MsgUpdateGroupMembersResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgUpdateGroupAdmin(): MsgUpdateGroupAdmin {
@@ -660,35 +560,6 @@ export const MsgUpdateGroupAdmin = {
     message.newAdmin = object.newAdmin ?? "";
     return message;
   },
-  fromAmino(object: MsgUpdateGroupAdminAmino): MsgUpdateGroupAdmin {
-    const message = createBaseMsgUpdateGroupAdmin();
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    }
-    if (object.group_id !== undefined && object.group_id !== null) {
-      message.groupId = BigInt(object.group_id);
-    }
-    if (object.new_admin !== undefined && object.new_admin !== null) {
-      message.newAdmin = object.new_admin;
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateGroupAdmin): MsgUpdateGroupAdminAmino {
-    const obj: any = {};
-    obj.admin = message.admin === "" ? undefined : message.admin;
-    obj.group_id = message.groupId !== BigInt(0) ? message.groupId?.toString() : undefined;
-    obj.new_admin = message.newAdmin === "" ? undefined : message.newAdmin;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateGroupAdminAminoMsg): MsgUpdateGroupAdmin {
-    return MsgUpdateGroupAdmin.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateGroupAdmin): MsgUpdateGroupAdminAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateGroupAdmin",
-      value: MsgUpdateGroupAdmin.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateGroupAdminResponse(): MsgUpdateGroupAdminResponse {
   return {};
@@ -725,23 +596,6 @@ export const MsgUpdateGroupAdminResponse = {
   ): MsgUpdateGroupAdminResponse {
     const message = createBaseMsgUpdateGroupAdminResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateGroupAdminResponseAmino): MsgUpdateGroupAdminResponse {
-    const message = createBaseMsgUpdateGroupAdminResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateGroupAdminResponse): MsgUpdateGroupAdminResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateGroupAdminResponseAminoMsg): MsgUpdateGroupAdminResponse {
-    return MsgUpdateGroupAdminResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateGroupAdminResponse): MsgUpdateGroupAdminResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateGroupAdminResponse",
-      value: MsgUpdateGroupAdminResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgUpdateGroupMetadata(): MsgUpdateGroupMetadata {
@@ -811,35 +665,6 @@ export const MsgUpdateGroupMetadata = {
     message.metadata = object.metadata ?? "";
     return message;
   },
-  fromAmino(object: MsgUpdateGroupMetadataAmino): MsgUpdateGroupMetadata {
-    const message = createBaseMsgUpdateGroupMetadata();
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    }
-    if (object.group_id !== undefined && object.group_id !== null) {
-      message.groupId = BigInt(object.group_id);
-    }
-    if (object.metadata !== undefined && object.metadata !== null) {
-      message.metadata = object.metadata;
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateGroupMetadata): MsgUpdateGroupMetadataAmino {
-    const obj: any = {};
-    obj.admin = message.admin === "" ? undefined : message.admin;
-    obj.group_id = message.groupId !== BigInt(0) ? message.groupId?.toString() : undefined;
-    obj.metadata = message.metadata === "" ? undefined : message.metadata;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateGroupMetadataAminoMsg): MsgUpdateGroupMetadata {
-    return MsgUpdateGroupMetadata.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateGroupMetadata): MsgUpdateGroupMetadataAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateGroupMetadata",
-      value: MsgUpdateGroupMetadata.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateGroupMetadataResponse(): MsgUpdateGroupMetadataResponse {
   return {};
@@ -876,23 +701,6 @@ export const MsgUpdateGroupMetadataResponse = {
   ): MsgUpdateGroupMetadataResponse {
     const message = createBaseMsgUpdateGroupMetadataResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateGroupMetadataResponseAmino): MsgUpdateGroupMetadataResponse {
-    const message = createBaseMsgUpdateGroupMetadataResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateGroupMetadataResponse): MsgUpdateGroupMetadataResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateGroupMetadataResponseAminoMsg): MsgUpdateGroupMetadataResponse {
-    return MsgUpdateGroupMetadataResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateGroupMetadataResponse): MsgUpdateGroupMetadataResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateGroupMetadataResponse",
-      value: MsgUpdateGroupMetadataResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgCreateGroupPolicy(): MsgCreateGroupPolicy {
@@ -975,39 +783,6 @@ export const MsgCreateGroupPolicy = {
     }
     return message;
   },
-  fromAmino(object: MsgCreateGroupPolicyAmino): MsgCreateGroupPolicy {
-    const message = createBaseMsgCreateGroupPolicy();
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    }
-    if (object.group_id !== undefined && object.group_id !== null) {
-      message.groupId = BigInt(object.group_id);
-    }
-    if (object.metadata !== undefined && object.metadata !== null) {
-      message.metadata = object.metadata;
-    }
-    if (object.decision_policy !== undefined && object.decision_policy !== null) {
-      message.decisionPolicy = Any.fromAmino(object.decision_policy);
-    }
-    return message;
-  },
-  toAmino(message: MsgCreateGroupPolicy): MsgCreateGroupPolicyAmino {
-    const obj: any = {};
-    obj.admin = message.admin === "" ? undefined : message.admin;
-    obj.group_id = message.groupId !== BigInt(0) ? message.groupId?.toString() : undefined;
-    obj.metadata = message.metadata === "" ? undefined : message.metadata;
-    obj.decision_policy = message.decisionPolicy ? Any.toAmino(message.decisionPolicy) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgCreateGroupPolicyAminoMsg): MsgCreateGroupPolicy {
-    return MsgCreateGroupPolicy.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgCreateGroupPolicy): MsgCreateGroupPolicyAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgCreateGroupPolicy",
-      value: MsgCreateGroupPolicy.toAmino(message),
-    };
-  },
 };
 function createBaseMsgCreateGroupPolicyResponse(): MsgCreateGroupPolicyResponse {
   return {
@@ -1055,27 +830,6 @@ export const MsgCreateGroupPolicyResponse = {
     const message = createBaseMsgCreateGroupPolicyResponse();
     message.address = object.address ?? "";
     return message;
-  },
-  fromAmino(object: MsgCreateGroupPolicyResponseAmino): MsgCreateGroupPolicyResponse {
-    const message = createBaseMsgCreateGroupPolicyResponse();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    return message;
-  },
-  toAmino(message: MsgCreateGroupPolicyResponse): MsgCreateGroupPolicyResponseAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    return obj;
-  },
-  fromAminoMsg(object: MsgCreateGroupPolicyResponseAminoMsg): MsgCreateGroupPolicyResponse {
-    return MsgCreateGroupPolicyResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgCreateGroupPolicyResponse): MsgCreateGroupPolicyResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgCreateGroupPolicyResponse",
-      value: MsgCreateGroupPolicyResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgUpdateGroupPolicyAdmin(): MsgUpdateGroupPolicyAdmin {
@@ -1145,35 +899,6 @@ export const MsgUpdateGroupPolicyAdmin = {
     message.newAdmin = object.newAdmin ?? "";
     return message;
   },
-  fromAmino(object: MsgUpdateGroupPolicyAdminAmino): MsgUpdateGroupPolicyAdmin {
-    const message = createBaseMsgUpdateGroupPolicyAdmin();
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    }
-    if (object.group_policy_address !== undefined && object.group_policy_address !== null) {
-      message.groupPolicyAddress = object.group_policy_address;
-    }
-    if (object.new_admin !== undefined && object.new_admin !== null) {
-      message.newAdmin = object.new_admin;
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateGroupPolicyAdmin): MsgUpdateGroupPolicyAdminAmino {
-    const obj: any = {};
-    obj.admin = message.admin === "" ? undefined : message.admin;
-    obj.group_policy_address = message.groupPolicyAddress === "" ? undefined : message.groupPolicyAddress;
-    obj.new_admin = message.newAdmin === "" ? undefined : message.newAdmin;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateGroupPolicyAdminAminoMsg): MsgUpdateGroupPolicyAdmin {
-    return MsgUpdateGroupPolicyAdmin.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateGroupPolicyAdmin): MsgUpdateGroupPolicyAdminAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateGroupPolicyAdmin",
-      value: MsgUpdateGroupPolicyAdmin.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateGroupPolicyAdminResponse(): MsgUpdateGroupPolicyAdminResponse {
   return {};
@@ -1210,23 +935,6 @@ export const MsgUpdateGroupPolicyAdminResponse = {
   ): MsgUpdateGroupPolicyAdminResponse {
     const message = createBaseMsgUpdateGroupPolicyAdminResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateGroupPolicyAdminResponseAmino): MsgUpdateGroupPolicyAdminResponse {
-    const message = createBaseMsgUpdateGroupPolicyAdminResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateGroupPolicyAdminResponse): MsgUpdateGroupPolicyAdminResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateGroupPolicyAdminResponseAminoMsg): MsgUpdateGroupPolicyAdminResponse {
-    return MsgUpdateGroupPolicyAdminResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateGroupPolicyAdminResponse): MsgUpdateGroupPolicyAdminResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateGroupPolicyAdminResponse",
-      value: MsgUpdateGroupPolicyAdminResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgCreateGroupWithPolicy(): MsgCreateGroupWithPolicy {
@@ -1334,49 +1042,6 @@ export const MsgCreateGroupWithPolicy = {
     }
     return message;
   },
-  fromAmino(object: MsgCreateGroupWithPolicyAmino): MsgCreateGroupWithPolicy {
-    const message = createBaseMsgCreateGroupWithPolicy();
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    }
-    message.members = object.members?.map((e) => MemberRequest.fromAmino(e)) || [];
-    if (object.group_metadata !== undefined && object.group_metadata !== null) {
-      message.groupMetadata = object.group_metadata;
-    }
-    if (object.group_policy_metadata !== undefined && object.group_policy_metadata !== null) {
-      message.groupPolicyMetadata = object.group_policy_metadata;
-    }
-    if (object.group_policy_as_admin !== undefined && object.group_policy_as_admin !== null) {
-      message.groupPolicyAsAdmin = object.group_policy_as_admin;
-    }
-    if (object.decision_policy !== undefined && object.decision_policy !== null) {
-      message.decisionPolicy = Any.fromAmino(object.decision_policy);
-    }
-    return message;
-  },
-  toAmino(message: MsgCreateGroupWithPolicy): MsgCreateGroupWithPolicyAmino {
-    const obj: any = {};
-    obj.admin = message.admin === "" ? undefined : message.admin;
-    if (message.members) {
-      obj.members = message.members.map((e) => (e ? MemberRequest.toAmino(e) : undefined));
-    } else {
-      obj.members = message.members;
-    }
-    obj.group_metadata = message.groupMetadata === "" ? undefined : message.groupMetadata;
-    obj.group_policy_metadata = message.groupPolicyMetadata === "" ? undefined : message.groupPolicyMetadata;
-    obj.group_policy_as_admin = message.groupPolicyAsAdmin === false ? undefined : message.groupPolicyAsAdmin;
-    obj.decision_policy = message.decisionPolicy ? Any.toAmino(message.decisionPolicy) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgCreateGroupWithPolicyAminoMsg): MsgCreateGroupWithPolicy {
-    return MsgCreateGroupWithPolicy.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgCreateGroupWithPolicy): MsgCreateGroupWithPolicyAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgCreateGroupWithPolicy",
-      value: MsgCreateGroupWithPolicy.toAmino(message),
-    };
-  },
 };
 function createBaseMsgCreateGroupWithPolicyResponse(): MsgCreateGroupWithPolicyResponse {
   return {
@@ -1439,31 +1104,6 @@ export const MsgCreateGroupWithPolicyResponse = {
     }
     message.groupPolicyAddress = object.groupPolicyAddress ?? "";
     return message;
-  },
-  fromAmino(object: MsgCreateGroupWithPolicyResponseAmino): MsgCreateGroupWithPolicyResponse {
-    const message = createBaseMsgCreateGroupWithPolicyResponse();
-    if (object.group_id !== undefined && object.group_id !== null) {
-      message.groupId = BigInt(object.group_id);
-    }
-    if (object.group_policy_address !== undefined && object.group_policy_address !== null) {
-      message.groupPolicyAddress = object.group_policy_address;
-    }
-    return message;
-  },
-  toAmino(message: MsgCreateGroupWithPolicyResponse): MsgCreateGroupWithPolicyResponseAmino {
-    const obj: any = {};
-    obj.group_id = message.groupId !== BigInt(0) ? message.groupId?.toString() : undefined;
-    obj.group_policy_address = message.groupPolicyAddress === "" ? undefined : message.groupPolicyAddress;
-    return obj;
-  },
-  fromAminoMsg(object: MsgCreateGroupWithPolicyResponseAminoMsg): MsgCreateGroupWithPolicyResponse {
-    return MsgCreateGroupWithPolicyResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgCreateGroupWithPolicyResponse): MsgCreateGroupWithPolicyResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgCreateGroupWithPolicyResponse",
-      value: MsgCreateGroupWithPolicyResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgUpdateGroupPolicyDecisionPolicy(): MsgUpdateGroupPolicyDecisionPolicy {
@@ -1539,35 +1179,6 @@ export const MsgUpdateGroupPolicyDecisionPolicy = {
     }
     return message;
   },
-  fromAmino(object: MsgUpdateGroupPolicyDecisionPolicyAmino): MsgUpdateGroupPolicyDecisionPolicy {
-    const message = createBaseMsgUpdateGroupPolicyDecisionPolicy();
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    }
-    if (object.group_policy_address !== undefined && object.group_policy_address !== null) {
-      message.groupPolicyAddress = object.group_policy_address;
-    }
-    if (object.decision_policy !== undefined && object.decision_policy !== null) {
-      message.decisionPolicy = Any.fromAmino(object.decision_policy);
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateGroupPolicyDecisionPolicy): MsgUpdateGroupPolicyDecisionPolicyAmino {
-    const obj: any = {};
-    obj.admin = message.admin === "" ? undefined : message.admin;
-    obj.group_policy_address = message.groupPolicyAddress === "" ? undefined : message.groupPolicyAddress;
-    obj.decision_policy = message.decisionPolicy ? Any.toAmino(message.decisionPolicy) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateGroupPolicyDecisionPolicyAminoMsg): MsgUpdateGroupPolicyDecisionPolicy {
-    return MsgUpdateGroupPolicyDecisionPolicy.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateGroupPolicyDecisionPolicy): MsgUpdateGroupPolicyDecisionPolicyAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateGroupDecisionPolicy",
-      value: MsgUpdateGroupPolicyDecisionPolicy.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateGroupPolicyDecisionPolicyResponse(): MsgUpdateGroupPolicyDecisionPolicyResponse {
   return {};
@@ -1609,27 +1220,6 @@ export const MsgUpdateGroupPolicyDecisionPolicyResponse = {
   ): MsgUpdateGroupPolicyDecisionPolicyResponse {
     const message = createBaseMsgUpdateGroupPolicyDecisionPolicyResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateGroupPolicyDecisionPolicyResponseAmino): MsgUpdateGroupPolicyDecisionPolicyResponse {
-    const message = createBaseMsgUpdateGroupPolicyDecisionPolicyResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateGroupPolicyDecisionPolicyResponse): MsgUpdateGroupPolicyDecisionPolicyResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(
-    object: MsgUpdateGroupPolicyDecisionPolicyResponseAminoMsg,
-  ): MsgUpdateGroupPolicyDecisionPolicyResponse {
-    return MsgUpdateGroupPolicyDecisionPolicyResponse.fromAmino(object.value);
-  },
-  toAminoMsg(
-    message: MsgUpdateGroupPolicyDecisionPolicyResponse,
-  ): MsgUpdateGroupPolicyDecisionPolicyResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateGroupPolicyDecisionPolicyResponse",
-      value: MsgUpdateGroupPolicyDecisionPolicyResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgUpdateGroupPolicyMetadata(): MsgUpdateGroupPolicyMetadata {
@@ -1699,35 +1289,6 @@ export const MsgUpdateGroupPolicyMetadata = {
     message.metadata = object.metadata ?? "";
     return message;
   },
-  fromAmino(object: MsgUpdateGroupPolicyMetadataAmino): MsgUpdateGroupPolicyMetadata {
-    const message = createBaseMsgUpdateGroupPolicyMetadata();
-    if (object.admin !== undefined && object.admin !== null) {
-      message.admin = object.admin;
-    }
-    if (object.group_policy_address !== undefined && object.group_policy_address !== null) {
-      message.groupPolicyAddress = object.group_policy_address;
-    }
-    if (object.metadata !== undefined && object.metadata !== null) {
-      message.metadata = object.metadata;
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateGroupPolicyMetadata): MsgUpdateGroupPolicyMetadataAmino {
-    const obj: any = {};
-    obj.admin = message.admin === "" ? undefined : message.admin;
-    obj.group_policy_address = message.groupPolicyAddress === "" ? undefined : message.groupPolicyAddress;
-    obj.metadata = message.metadata === "" ? undefined : message.metadata;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateGroupPolicyMetadataAminoMsg): MsgUpdateGroupPolicyMetadata {
-    return MsgUpdateGroupPolicyMetadata.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateGroupPolicyMetadata): MsgUpdateGroupPolicyMetadataAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateGroupPolicyMetadata",
-      value: MsgUpdateGroupPolicyMetadata.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateGroupPolicyMetadataResponse(): MsgUpdateGroupPolicyMetadataResponse {
   return {};
@@ -1767,23 +1328,6 @@ export const MsgUpdateGroupPolicyMetadataResponse = {
   ): MsgUpdateGroupPolicyMetadataResponse {
     const message = createBaseMsgUpdateGroupPolicyMetadataResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateGroupPolicyMetadataResponseAmino): MsgUpdateGroupPolicyMetadataResponse {
-    const message = createBaseMsgUpdateGroupPolicyMetadataResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateGroupPolicyMetadataResponse): MsgUpdateGroupPolicyMetadataResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateGroupPolicyMetadataResponseAminoMsg): MsgUpdateGroupPolicyMetadataResponse {
-    return MsgUpdateGroupPolicyMetadataResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateGroupPolicyMetadataResponse): MsgUpdateGroupPolicyMetadataResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgUpdateGroupPolicyMetadataResponse",
-      value: MsgUpdateGroupPolicyMetadataResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgSubmitProposal(): MsgSubmitProposal {
@@ -1899,55 +1443,6 @@ export const MsgSubmitProposal = {
     message.summary = object.summary ?? "";
     return message;
   },
-  fromAmino(object: MsgSubmitProposalAmino): MsgSubmitProposal {
-    const message = createBaseMsgSubmitProposal();
-    if (object.group_policy_address !== undefined && object.group_policy_address !== null) {
-      message.groupPolicyAddress = object.group_policy_address;
-    }
-    message.proposers = object.proposers?.map((e) => e) || [];
-    if (object.metadata !== undefined && object.metadata !== null) {
-      message.metadata = object.metadata;
-    }
-    message.messages = object.messages?.map((e) => Any.fromAmino(e)) || [];
-    if (object.exec !== undefined && object.exec !== null) {
-      message.exec = object.exec;
-    }
-    if (object.title !== undefined && object.title !== null) {
-      message.title = object.title;
-    }
-    if (object.summary !== undefined && object.summary !== null) {
-      message.summary = object.summary;
-    }
-    return message;
-  },
-  toAmino(message: MsgSubmitProposal): MsgSubmitProposalAmino {
-    const obj: any = {};
-    obj.group_policy_address = message.groupPolicyAddress === "" ? undefined : message.groupPolicyAddress;
-    if (message.proposers) {
-      obj.proposers = message.proposers.map((e) => e);
-    } else {
-      obj.proposers = message.proposers;
-    }
-    obj.metadata = message.metadata === "" ? undefined : message.metadata;
-    if (message.messages) {
-      obj.messages = message.messages.map((e) => (e ? Any.toAmino(e) : undefined));
-    } else {
-      obj.messages = message.messages;
-    }
-    obj.exec = message.exec === 0 ? undefined : message.exec;
-    obj.title = message.title === "" ? undefined : message.title;
-    obj.summary = message.summary === "" ? undefined : message.summary;
-    return obj;
-  },
-  fromAminoMsg(object: MsgSubmitProposalAminoMsg): MsgSubmitProposal {
-    return MsgSubmitProposal.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgSubmitProposal): MsgSubmitProposalAminoMsg {
-    return {
-      type: "cosmos-sdk/group/MsgSubmitProposal",
-      value: MsgSubmitProposal.toAmino(message),
-    };
-  },
 };
 function createBaseMsgSubmitProposalResponse(): MsgSubmitProposalResponse {
   return {
@@ -1997,27 +1492,6 @@ export const MsgSubmitProposalResponse = {
       message.proposalId = BigInt(object.proposalId.toString());
     }
     return message;
-  },
-  fromAmino(object: MsgSubmitProposalResponseAmino): MsgSubmitProposalResponse {
-    const message = createBaseMsgSubmitProposalResponse();
-    if (object.proposal_id !== undefined && object.proposal_id !== null) {
-      message.proposalId = BigInt(object.proposal_id);
-    }
-    return message;
-  },
-  toAmino(message: MsgSubmitProposalResponse): MsgSubmitProposalResponseAmino {
-    const obj: any = {};
-    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgSubmitProposalResponseAminoMsg): MsgSubmitProposalResponse {
-    return MsgSubmitProposalResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgSubmitProposalResponse): MsgSubmitProposalResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgSubmitProposalResponse",
-      value: MsgSubmitProposalResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgWithdrawProposal(): MsgWithdrawProposal {
@@ -2077,31 +1551,6 @@ export const MsgWithdrawProposal = {
     message.address = object.address ?? "";
     return message;
   },
-  fromAmino(object: MsgWithdrawProposalAmino): MsgWithdrawProposal {
-    const message = createBaseMsgWithdrawProposal();
-    if (object.proposal_id !== undefined && object.proposal_id !== null) {
-      message.proposalId = BigInt(object.proposal_id);
-    }
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    return message;
-  },
-  toAmino(message: MsgWithdrawProposal): MsgWithdrawProposalAmino {
-    const obj: any = {};
-    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId?.toString() : undefined;
-    obj.address = message.address === "" ? undefined : message.address;
-    return obj;
-  },
-  fromAminoMsg(object: MsgWithdrawProposalAminoMsg): MsgWithdrawProposal {
-    return MsgWithdrawProposal.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgWithdrawProposal): MsgWithdrawProposalAminoMsg {
-    return {
-      type: "cosmos-sdk/group/MsgWithdrawProposal",
-      value: MsgWithdrawProposal.toAmino(message),
-    };
-  },
 };
 function createBaseMsgWithdrawProposalResponse(): MsgWithdrawProposalResponse {
   return {};
@@ -2138,23 +1587,6 @@ export const MsgWithdrawProposalResponse = {
   ): MsgWithdrawProposalResponse {
     const message = createBaseMsgWithdrawProposalResponse();
     return message;
-  },
-  fromAmino(_: MsgWithdrawProposalResponseAmino): MsgWithdrawProposalResponse {
-    const message = createBaseMsgWithdrawProposalResponse();
-    return message;
-  },
-  toAmino(_: MsgWithdrawProposalResponse): MsgWithdrawProposalResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgWithdrawProposalResponseAminoMsg): MsgWithdrawProposalResponse {
-    return MsgWithdrawProposalResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgWithdrawProposalResponse): MsgWithdrawProposalResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgWithdrawProposalResponse",
-      value: MsgWithdrawProposalResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgVote(): MsgVote {
@@ -2244,43 +1676,6 @@ export const MsgVote = {
     message.exec = object.exec ?? 0;
     return message;
   },
-  fromAmino(object: MsgVoteAmino): MsgVote {
-    const message = createBaseMsgVote();
-    if (object.proposal_id !== undefined && object.proposal_id !== null) {
-      message.proposalId = BigInt(object.proposal_id);
-    }
-    if (object.voter !== undefined && object.voter !== null) {
-      message.voter = object.voter;
-    }
-    if (object.option !== undefined && object.option !== null) {
-      message.option = object.option;
-    }
-    if (object.metadata !== undefined && object.metadata !== null) {
-      message.metadata = object.metadata;
-    }
-    if (object.exec !== undefined && object.exec !== null) {
-      message.exec = object.exec;
-    }
-    return message;
-  },
-  toAmino(message: MsgVote): MsgVoteAmino {
-    const obj: any = {};
-    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId?.toString() : undefined;
-    obj.voter = message.voter === "" ? undefined : message.voter;
-    obj.option = message.option === 0 ? undefined : message.option;
-    obj.metadata = message.metadata === "" ? undefined : message.metadata;
-    obj.exec = message.exec === 0 ? undefined : message.exec;
-    return obj;
-  },
-  fromAminoMsg(object: MsgVoteAminoMsg): MsgVote {
-    return MsgVote.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgVote): MsgVoteAminoMsg {
-    return {
-      type: "cosmos-sdk/group/MsgVote",
-      value: MsgVote.toAmino(message),
-    };
-  },
 };
 function createBaseMsgVoteResponse(): MsgVoteResponse {
   return {};
@@ -2315,23 +1710,6 @@ export const MsgVoteResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgVoteResponse>, I>>(_: I): MsgVoteResponse {
     const message = createBaseMsgVoteResponse();
     return message;
-  },
-  fromAmino(_: MsgVoteResponseAmino): MsgVoteResponse {
-    const message = createBaseMsgVoteResponse();
-    return message;
-  },
-  toAmino(_: MsgVoteResponse): MsgVoteResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgVoteResponseAminoMsg): MsgVoteResponse {
-    return MsgVoteResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgVoteResponse): MsgVoteResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgVoteResponse",
-      value: MsgVoteResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgExec(): MsgExec {
@@ -2391,31 +1769,6 @@ export const MsgExec = {
     message.executor = object.executor ?? "";
     return message;
   },
-  fromAmino(object: MsgExecAmino): MsgExec {
-    const message = createBaseMsgExec();
-    if (object.proposal_id !== undefined && object.proposal_id !== null) {
-      message.proposalId = BigInt(object.proposal_id);
-    }
-    if (object.executor !== undefined && object.executor !== null) {
-      message.executor = object.executor;
-    }
-    return message;
-  },
-  toAmino(message: MsgExec): MsgExecAmino {
-    const obj: any = {};
-    obj.proposal_id = message.proposalId !== BigInt(0) ? message.proposalId?.toString() : undefined;
-    obj.executor = message.executor === "" ? undefined : message.executor;
-    return obj;
-  },
-  fromAminoMsg(object: MsgExecAminoMsg): MsgExec {
-    return MsgExec.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgExec): MsgExecAminoMsg {
-    return {
-      type: "cosmos-sdk/group/MsgExec",
-      value: MsgExec.toAmino(message),
-    };
-  },
 };
 function createBaseMsgExecResponse(): MsgExecResponse {
   return {
@@ -2461,27 +1814,6 @@ export const MsgExecResponse = {
     const message = createBaseMsgExecResponse();
     message.result = object.result ?? 0;
     return message;
-  },
-  fromAmino(object: MsgExecResponseAmino): MsgExecResponse {
-    const message = createBaseMsgExecResponse();
-    if (object.result !== undefined && object.result !== null) {
-      message.result = object.result;
-    }
-    return message;
-  },
-  toAmino(message: MsgExecResponse): MsgExecResponseAmino {
-    const obj: any = {};
-    obj.result = message.result === 0 ? undefined : message.result;
-    return obj;
-  },
-  fromAminoMsg(object: MsgExecResponseAminoMsg): MsgExecResponse {
-    return MsgExecResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgExecResponse): MsgExecResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgExecResponse",
-      value: MsgExecResponse.toAmino(message),
-    };
   },
 };
 function createBaseMsgLeaveGroup(): MsgLeaveGroup {
@@ -2541,31 +1873,6 @@ export const MsgLeaveGroup = {
     }
     return message;
   },
-  fromAmino(object: MsgLeaveGroupAmino): MsgLeaveGroup {
-    const message = createBaseMsgLeaveGroup();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.group_id !== undefined && object.group_id !== null) {
-      message.groupId = BigInt(object.group_id);
-    }
-    return message;
-  },
-  toAmino(message: MsgLeaveGroup): MsgLeaveGroupAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.group_id = message.groupId !== BigInt(0) ? message.groupId?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgLeaveGroupAminoMsg): MsgLeaveGroup {
-    return MsgLeaveGroup.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgLeaveGroup): MsgLeaveGroupAminoMsg {
-    return {
-      type: "cosmos-sdk/group/MsgLeaveGroup",
-      value: MsgLeaveGroup.toAmino(message),
-    };
-  },
 };
 function createBaseMsgLeaveGroupResponse(): MsgLeaveGroupResponse {
   return {};
@@ -2600,22 +1907,5 @@ export const MsgLeaveGroupResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgLeaveGroupResponse>, I>>(_: I): MsgLeaveGroupResponse {
     const message = createBaseMsgLeaveGroupResponse();
     return message;
-  },
-  fromAmino(_: MsgLeaveGroupResponseAmino): MsgLeaveGroupResponse {
-    const message = createBaseMsgLeaveGroupResponse();
-    return message;
-  },
-  toAmino(_: MsgLeaveGroupResponse): MsgLeaveGroupResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgLeaveGroupResponseAminoMsg): MsgLeaveGroupResponse {
-    return MsgLeaveGroupResponse.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgLeaveGroupResponse): MsgLeaveGroupResponseAminoMsg {
-    return {
-      type: "cosmos-sdk/MsgLeaveGroupResponse",
-      value: MsgLeaveGroupResponse.toAmino(message),
-    };
   },
 };

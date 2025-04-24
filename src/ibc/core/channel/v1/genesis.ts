@@ -193,74 +193,6 @@ export const GenesisState = {
     }
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    message.channels = object.channels?.map((e) => IdentifiedChannel.fromAmino(e)) || [];
-    message.acknowledgements = object.acknowledgements?.map((e) => PacketState.fromAmino(e)) || [];
-    message.commitments = object.commitments?.map((e) => PacketState.fromAmino(e)) || [];
-    message.receipts = object.receipts?.map((e) => PacketState.fromAmino(e)) || [];
-    message.sendSequences = object.send_sequences?.map((e) => PacketSequence.fromAmino(e)) || [];
-    message.recvSequences = object.recv_sequences?.map((e) => PacketSequence.fromAmino(e)) || [];
-    message.ackSequences = object.ack_sequences?.map((e) => PacketSequence.fromAmino(e)) || [];
-    if (object.next_channel_sequence !== undefined && object.next_channel_sequence !== null) {
-      message.nextChannelSequence = BigInt(object.next_channel_sequence);
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    if (message.channels) {
-      obj.channels = message.channels.map((e) => (e ? IdentifiedChannel.toAmino(e) : undefined));
-    } else {
-      obj.channels = message.channels;
-    }
-    if (message.acknowledgements) {
-      obj.acknowledgements = message.acknowledgements.map((e) => (e ? PacketState.toAmino(e) : undefined));
-    } else {
-      obj.acknowledgements = message.acknowledgements;
-    }
-    if (message.commitments) {
-      obj.commitments = message.commitments.map((e) => (e ? PacketState.toAmino(e) : undefined));
-    } else {
-      obj.commitments = message.commitments;
-    }
-    if (message.receipts) {
-      obj.receipts = message.receipts.map((e) => (e ? PacketState.toAmino(e) : undefined));
-    } else {
-      obj.receipts = message.receipts;
-    }
-    if (message.sendSequences) {
-      obj.send_sequences = message.sendSequences.map((e) => (e ? PacketSequence.toAmino(e) : undefined));
-    } else {
-      obj.send_sequences = message.sendSequences;
-    }
-    if (message.recvSequences) {
-      obj.recv_sequences = message.recvSequences.map((e) => (e ? PacketSequence.toAmino(e) : undefined));
-    } else {
-      obj.recv_sequences = message.recvSequences;
-    }
-    if (message.ackSequences) {
-      obj.ack_sequences = message.ackSequences.map((e) => (e ? PacketSequence.toAmino(e) : undefined));
-    } else {
-      obj.ack_sequences = message.ackSequences;
-    }
-    obj.next_channel_sequence =
-      message.nextChannelSequence !== BigInt(0) ? message.nextChannelSequence?.toString() : undefined;
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
-  toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
-    return {
-      type: "cosmos-sdk/GenesisState",
-      value: GenesisState.toAmino(message),
-    };
-  },
 };
 function createBasePacketSequence(): PacketSequence {
   return {
@@ -328,34 +260,5 @@ export const PacketSequence = {
       message.sequence = BigInt(object.sequence.toString());
     }
     return message;
-  },
-  fromAmino(object: PacketSequenceAmino): PacketSequence {
-    const message = createBasePacketSequence();
-    if (object.port_id !== undefined && object.port_id !== null) {
-      message.portId = object.port_id;
-    }
-    if (object.channel_id !== undefined && object.channel_id !== null) {
-      message.channelId = object.channel_id;
-    }
-    if (object.sequence !== undefined && object.sequence !== null) {
-      message.sequence = BigInt(object.sequence);
-    }
-    return message;
-  },
-  toAmino(message: PacketSequence): PacketSequenceAmino {
-    const obj: any = {};
-    obj.port_id = message.portId === "" ? undefined : message.portId;
-    obj.channel_id = message.channelId === "" ? undefined : message.channelId;
-    obj.sequence = message.sequence !== BigInt(0) ? message.sequence?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: PacketSequenceAminoMsg): PacketSequence {
-    return PacketSequence.fromAmino(object.value);
-  },
-  toAminoMsg(message: PacketSequence): PacketSequenceAminoMsg {
-    return {
-      type: "cosmos-sdk/PacketSequence",
-      value: PacketSequence.toAmino(message),
-    };
   },
 };

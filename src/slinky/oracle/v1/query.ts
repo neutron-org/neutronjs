@@ -123,17 +123,6 @@ export const GetAllCurrencyPairsRequest = {
     const message = createBaseGetAllCurrencyPairsRequest();
     return message;
   },
-  fromAmino(_: GetAllCurrencyPairsRequestAmino): GetAllCurrencyPairsRequest {
-    const message = createBaseGetAllCurrencyPairsRequest();
-    return message;
-  },
-  toAmino(_: GetAllCurrencyPairsRequest): GetAllCurrencyPairsRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: GetAllCurrencyPairsRequestAminoMsg): GetAllCurrencyPairsRequest {
-    return GetAllCurrencyPairsRequest.fromAmino(object.value);
-  },
 };
 function createBaseGetAllCurrencyPairsResponse(): GetAllCurrencyPairsResponse {
   return {
@@ -187,23 +176,6 @@ export const GetAllCurrencyPairsResponse = {
     message.currencyPairs = object.currencyPairs?.map((e) => CurrencyPair.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: GetAllCurrencyPairsResponseAmino): GetAllCurrencyPairsResponse {
-    const message = createBaseGetAllCurrencyPairsResponse();
-    message.currencyPairs = object.currency_pairs?.map((e) => CurrencyPair.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: GetAllCurrencyPairsResponse): GetAllCurrencyPairsResponseAmino {
-    const obj: any = {};
-    if (message.currencyPairs) {
-      obj.currency_pairs = message.currencyPairs.map((e) => (e ? CurrencyPair.toAmino(e) : undefined));
-    } else {
-      obj.currency_pairs = message.currencyPairs;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GetAllCurrencyPairsResponseAminoMsg): GetAllCurrencyPairsResponse {
-    return GetAllCurrencyPairsResponse.fromAmino(object.value);
-  },
 };
 function createBaseGetPriceRequest(): GetPriceRequest {
   return {
@@ -252,21 +224,6 @@ export const GetPriceRequest = {
       message.currencyPair = CurrencyPair.fromPartial(object.currencyPair);
     }
     return message;
-  },
-  fromAmino(object: GetPriceRequestAmino): GetPriceRequest {
-    const message = createBaseGetPriceRequest();
-    if (object.currency_pair !== undefined && object.currency_pair !== null) {
-      message.currencyPair = CurrencyPair.fromAmino(object.currency_pair);
-    }
-    return message;
-  },
-  toAmino(message: GetPriceRequest): GetPriceRequestAmino {
-    const obj: any = {};
-    obj.currency_pair = message.currencyPair ? CurrencyPair.toAmino(message.currencyPair) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: GetPriceRequestAminoMsg): GetPriceRequest {
-    return GetPriceRequest.fromAmino(object.value);
   },
 };
 function createBaseGetPriceResponse(): GetPriceResponse {
@@ -352,33 +309,6 @@ export const GetPriceResponse = {
     }
     return message;
   },
-  fromAmino(object: GetPriceResponseAmino): GetPriceResponse {
-    const message = createBaseGetPriceResponse();
-    if (object.price !== undefined && object.price !== null) {
-      message.price = QuotePrice.fromAmino(object.price);
-    }
-    if (object.nonce !== undefined && object.nonce !== null) {
-      message.nonce = BigInt(object.nonce);
-    }
-    if (object.decimals !== undefined && object.decimals !== null) {
-      message.decimals = BigInt(object.decimals);
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = BigInt(object.id);
-    }
-    return message;
-  },
-  toAmino(message: GetPriceResponse): GetPriceResponseAmino {
-    const obj: any = {};
-    obj.price = message.price ? QuotePrice.toAmino(message.price) : undefined;
-    obj.nonce = message.nonce !== BigInt(0) ? message.nonce?.toString() : undefined;
-    obj.decimals = message.decimals !== BigInt(0) ? message.decimals?.toString() : undefined;
-    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: GetPriceResponseAminoMsg): GetPriceResponse {
-    return GetPriceResponse.fromAmino(object.value);
-  },
 };
 function createBaseGetPricesRequest(): GetPricesRequest {
   return {
@@ -429,23 +359,6 @@ export const GetPricesRequest = {
     const message = createBaseGetPricesRequest();
     message.currencyPairIds = object.currencyPairIds?.map((e) => e) || [];
     return message;
-  },
-  fromAmino(object: GetPricesRequestAmino): GetPricesRequest {
-    const message = createBaseGetPricesRequest();
-    message.currencyPairIds = object.currency_pair_ids?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: GetPricesRequest): GetPricesRequestAmino {
-    const obj: any = {};
-    if (message.currencyPairIds) {
-      obj.currency_pair_ids = message.currencyPairIds.map((e) => e);
-    } else {
-      obj.currency_pair_ids = message.currencyPairIds;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GetPricesRequestAminoMsg): GetPricesRequest {
-    return GetPricesRequest.fromAmino(object.value);
   },
 };
 function createBaseGetPricesResponse(): GetPricesResponse {
@@ -498,23 +411,6 @@ export const GetPricesResponse = {
     message.prices = object.prices?.map((e) => GetPriceResponse.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: GetPricesResponseAmino): GetPricesResponse {
-    const message = createBaseGetPricesResponse();
-    message.prices = object.prices?.map((e) => GetPriceResponse.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: GetPricesResponse): GetPricesResponseAmino {
-    const obj: any = {};
-    if (message.prices) {
-      obj.prices = message.prices.map((e) => (e ? GetPriceResponse.toAmino(e) : undefined));
-    } else {
-      obj.prices = message.prices;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GetPricesResponseAminoMsg): GetPricesResponse {
-    return GetPricesResponse.fromAmino(object.value);
-  },
 };
 function createBaseGetCurrencyPairMappingRequest(): GetCurrencyPairMappingRequest {
   return {};
@@ -551,17 +447,6 @@ export const GetCurrencyPairMappingRequest = {
   ): GetCurrencyPairMappingRequest {
     const message = createBaseGetCurrencyPairMappingRequest();
     return message;
-  },
-  fromAmino(_: GetCurrencyPairMappingRequestAmino): GetCurrencyPairMappingRequest {
-    const message = createBaseGetCurrencyPairMappingRequest();
-    return message;
-  },
-  toAmino(_: GetCurrencyPairMappingRequest): GetCurrencyPairMappingRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: GetCurrencyPairMappingRequestAminoMsg): GetCurrencyPairMappingRequest {
-    return GetCurrencyPairMappingRequest.fromAmino(object.value);
   },
 };
 function createBaseGetCurrencyPairMappingResponse_CurrencyPairMappingEntry(): GetCurrencyPairMappingResponse_CurrencyPairMappingEntry {
@@ -632,31 +517,6 @@ export const GetCurrencyPairMappingResponse_CurrencyPairMappingEntry = {
       message.value = CurrencyPair.fromPartial(object.value);
     }
     return message;
-  },
-  fromAmino(
-    object: GetCurrencyPairMappingResponse_CurrencyPairMappingEntryAmino,
-  ): GetCurrencyPairMappingResponse_CurrencyPairMappingEntry {
-    const message = createBaseGetCurrencyPairMappingResponse_CurrencyPairMappingEntry();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = BigInt(object.key);
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = CurrencyPair.fromAmino(object.value);
-    }
-    return message;
-  },
-  toAmino(
-    message: GetCurrencyPairMappingResponse_CurrencyPairMappingEntry,
-  ): GetCurrencyPairMappingResponse_CurrencyPairMappingEntryAmino {
-    const obj: any = {};
-    obj.key = message.key !== BigInt(0) ? message.key?.toString() : undefined;
-    obj.value = message.value ? CurrencyPair.toAmino(message.value) : undefined;
-    return obj;
-  },
-  fromAminoMsg(
-    object: GetCurrencyPairMappingResponse_CurrencyPairMappingEntryAminoMsg,
-  ): GetCurrencyPairMappingResponse_CurrencyPairMappingEntry {
-    return GetCurrencyPairMappingResponse_CurrencyPairMappingEntry.fromAmino(object.value);
   },
 };
 function createBaseGetCurrencyPairMappingResponse(): GetCurrencyPairMappingResponse {
@@ -739,31 +599,6 @@ export const GetCurrencyPairMappingResponse = {
     }, {});
     return message;
   },
-  fromAmino(object: GetCurrencyPairMappingResponseAmino): GetCurrencyPairMappingResponse {
-    const message = createBaseGetCurrencyPairMappingResponse();
-    message.currencyPairMapping = Object.entries(object.currency_pair_mapping ?? {}).reduce<{
-      [key: bigint]: CurrencyPair;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[Number(key)] = CurrencyPair.fromAmino(value);
-      }
-      return acc;
-    }, {});
-    return message;
-  },
-  toAmino(message: GetCurrencyPairMappingResponse): GetCurrencyPairMappingResponseAmino {
-    const obj: any = {};
-    obj.currency_pair_mapping = {};
-    if (message.currencyPairMapping) {
-      Object.entries(message.currencyPairMapping).forEach(([k, v]) => {
-        obj.currency_pair_mapping[k] = CurrencyPair.toAmino(v);
-      });
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GetCurrencyPairMappingResponseAminoMsg): GetCurrencyPairMappingResponse {
-    return GetCurrencyPairMappingResponse.fromAmino(object.value);
-  },
 };
 function createBaseGetCurrencyPairMappingListRequest(): GetCurrencyPairMappingListRequest {
   return {};
@@ -800,17 +635,6 @@ export const GetCurrencyPairMappingListRequest = {
   ): GetCurrencyPairMappingListRequest {
     const message = createBaseGetCurrencyPairMappingListRequest();
     return message;
-  },
-  fromAmino(_: GetCurrencyPairMappingListRequestAmino): GetCurrencyPairMappingListRequest {
-    const message = createBaseGetCurrencyPairMappingListRequest();
-    return message;
-  },
-  toAmino(_: GetCurrencyPairMappingListRequest): GetCurrencyPairMappingListRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: GetCurrencyPairMappingListRequestAminoMsg): GetCurrencyPairMappingListRequest {
-    return GetCurrencyPairMappingListRequest.fromAmino(object.value);
   },
 };
 function createBaseCurrencyPairMapping(): CurrencyPairMapping {
@@ -873,25 +697,6 @@ export const CurrencyPairMapping = {
     }
     return message;
   },
-  fromAmino(object: CurrencyPairMappingAmino): CurrencyPairMapping {
-    const message = createBaseCurrencyPairMapping();
-    if (object.id !== undefined && object.id !== null) {
-      message.id = BigInt(object.id);
-    }
-    if (object.currency_pair !== undefined && object.currency_pair !== null) {
-      message.currencyPair = CurrencyPair.fromAmino(object.currency_pair);
-    }
-    return message;
-  },
-  toAmino(message: CurrencyPairMapping): CurrencyPairMappingAmino {
-    const obj: any = {};
-    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
-    obj.currency_pair = message.currencyPair ? CurrencyPair.toAmino(message.currencyPair) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: CurrencyPairMappingAminoMsg): CurrencyPairMapping {
-    return CurrencyPairMapping.fromAmino(object.value);
-  },
 };
 function createBaseGetCurrencyPairMappingListResponse(): GetCurrencyPairMappingListResponse {
   return {
@@ -947,22 +752,5 @@ export const GetCurrencyPairMappingListResponse = {
     const message = createBaseGetCurrencyPairMappingListResponse();
     message.mappings = object.mappings?.map((e) => CurrencyPairMapping.fromPartial(e)) || [];
     return message;
-  },
-  fromAmino(object: GetCurrencyPairMappingListResponseAmino): GetCurrencyPairMappingListResponse {
-    const message = createBaseGetCurrencyPairMappingListResponse();
-    message.mappings = object.mappings?.map((e) => CurrencyPairMapping.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: GetCurrencyPairMappingListResponse): GetCurrencyPairMappingListResponseAmino {
-    const obj: any = {};
-    if (message.mappings) {
-      obj.mappings = message.mappings.map((e) => (e ? CurrencyPairMapping.toAmino(e) : undefined));
-    } else {
-      obj.mappings = message.mappings;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GetCurrencyPairMappingListResponseAminoMsg): GetCurrencyPairMappingListResponse {
-    return GetCurrencyPairMappingListResponse.fromAmino(object.value);
   },
 };

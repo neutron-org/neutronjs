@@ -62,23 +62,4 @@ export const GenesisState = {
     message.hookSubscriptions = object.hookSubscriptions?.map((e) => HookSubscriptions.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: GenesisStateAmino): GenesisState {
-    const message = createBaseGenesisState();
-    message.hookSubscriptions = object.hook_subscriptions?.map((e) => HookSubscriptions.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: GenesisState): GenesisStateAmino {
-    const obj: any = {};
-    if (message.hookSubscriptions) {
-      obj.hook_subscriptions = message.hookSubscriptions.map((e) =>
-        e ? HookSubscriptions.toAmino(e) : undefined,
-      );
-    } else {
-      obj.hook_subscriptions = message.hookSubscriptions;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: GenesisStateAminoMsg): GenesisState {
-    return GenesisState.fromAmino(object.value);
-  },
 };

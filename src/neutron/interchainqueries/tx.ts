@@ -286,43 +286,6 @@ export const MsgRegisterInterchainQuery = {
     message.sender = object.sender ?? "";
     return message;
   },
-  fromAmino(object: MsgRegisterInterchainQueryAmino): MsgRegisterInterchainQuery {
-    const message = createBaseMsgRegisterInterchainQuery();
-    if (object.query_type !== undefined && object.query_type !== null) {
-      message.queryType = object.query_type;
-    }
-    message.keys = object.keys?.map((e) => KVKey.fromAmino(e)) || [];
-    if (object.transactions_filter !== undefined && object.transactions_filter !== null) {
-      message.transactionsFilter = object.transactions_filter;
-    }
-    if (object.connection_id !== undefined && object.connection_id !== null) {
-      message.connectionId = object.connection_id;
-    }
-    if (object.update_period !== undefined && object.update_period !== null) {
-      message.updatePeriod = BigInt(object.update_period);
-    }
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    }
-    return message;
-  },
-  toAmino(message: MsgRegisterInterchainQuery): MsgRegisterInterchainQueryAmino {
-    const obj: any = {};
-    obj.query_type = message.queryType === "" ? undefined : message.queryType;
-    if (message.keys) {
-      obj.keys = message.keys.map((e) => (e ? KVKey.toAmino(e) : undefined));
-    } else {
-      obj.keys = message.keys;
-    }
-    obj.transactions_filter = message.transactionsFilter === "" ? undefined : message.transactionsFilter;
-    obj.connection_id = message.connectionId === "" ? undefined : message.connectionId;
-    obj.update_period = message.updatePeriod !== BigInt(0) ? message.updatePeriod?.toString() : undefined;
-    obj.sender = message.sender === "" ? undefined : message.sender;
-    return obj;
-  },
-  fromAminoMsg(object: MsgRegisterInterchainQueryAminoMsg): MsgRegisterInterchainQuery {
-    return MsgRegisterInterchainQuery.fromAmino(object.value);
-  },
 };
 function createBaseMsgRegisterInterchainQueryResponse(): MsgRegisterInterchainQueryResponse {
   return {
@@ -375,21 +338,6 @@ export const MsgRegisterInterchainQueryResponse = {
       message.id = BigInt(object.id.toString());
     }
     return message;
-  },
-  fromAmino(object: MsgRegisterInterchainQueryResponseAmino): MsgRegisterInterchainQueryResponse {
-    const message = createBaseMsgRegisterInterchainQueryResponse();
-    if (object.id !== undefined && object.id !== null) {
-      message.id = BigInt(object.id);
-    }
-    return message;
-  },
-  toAmino(message: MsgRegisterInterchainQueryResponse): MsgRegisterInterchainQueryResponseAmino {
-    const obj: any = {};
-    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgRegisterInterchainQueryResponseAminoMsg): MsgRegisterInterchainQueryResponse {
-    return MsgRegisterInterchainQueryResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgSubmitQueryResult(): MsgSubmitQueryResult {
@@ -471,33 +419,6 @@ export const MsgSubmitQueryResult = {
       message.result = QueryResult.fromPartial(object.result);
     }
     return message;
-  },
-  fromAmino(object: MsgSubmitQueryResultAmino): MsgSubmitQueryResult {
-    const message = createBaseMsgSubmitQueryResult();
-    if (object.query_id !== undefined && object.query_id !== null) {
-      message.queryId = BigInt(object.query_id);
-    }
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    }
-    if (object.client_id !== undefined && object.client_id !== null) {
-      message.clientId = object.client_id;
-    }
-    if (object.result !== undefined && object.result !== null) {
-      message.result = QueryResult.fromAmino(object.result);
-    }
-    return message;
-  },
-  toAmino(message: MsgSubmitQueryResult): MsgSubmitQueryResultAmino {
-    const obj: any = {};
-    obj.query_id = message.queryId !== BigInt(0) ? message.queryId?.toString() : undefined;
-    obj.sender = message.sender === "" ? undefined : message.sender;
-    obj.client_id = message.clientId === "" ? undefined : message.clientId;
-    obj.result = message.result ? QueryResult.toAmino(message.result) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: MsgSubmitQueryResultAminoMsg): MsgSubmitQueryResult {
-    return MsgSubmitQueryResult.fromAmino(object.value);
   },
 };
 function createBaseQueryResult(): QueryResult {
@@ -596,39 +517,6 @@ export const QueryResult = {
     message.allowKvCallbacks = object.allowKvCallbacks ?? false;
     return message;
   },
-  fromAmino(object: QueryResultAmino): QueryResult {
-    const message = createBaseQueryResult();
-    message.kvResults = object.kv_results?.map((e) => StorageValue.fromAmino(e)) || [];
-    if (object.block !== undefined && object.block !== null) {
-      message.block = Block.fromAmino(object.block);
-    }
-    if (object.height !== undefined && object.height !== null) {
-      message.height = BigInt(object.height);
-    }
-    if (object.revision !== undefined && object.revision !== null) {
-      message.revision = BigInt(object.revision);
-    }
-    if (object.allow_kv_callbacks !== undefined && object.allow_kv_callbacks !== null) {
-      message.allowKvCallbacks = object.allow_kv_callbacks;
-    }
-    return message;
-  },
-  toAmino(message: QueryResult): QueryResultAmino {
-    const obj: any = {};
-    if (message.kvResults) {
-      obj.kv_results = message.kvResults.map((e) => (e ? StorageValue.toAmino(e) : undefined));
-    } else {
-      obj.kv_results = message.kvResults;
-    }
-    obj.block = message.block ? Block.toAmino(message.block) : undefined;
-    obj.height = message.height !== BigInt(0) ? message.height?.toString() : undefined;
-    obj.revision = message.revision !== BigInt(0) ? message.revision?.toString() : undefined;
-    obj.allow_kv_callbacks = message.allowKvCallbacks === false ? undefined : message.allowKvCallbacks;
-    return obj;
-  },
-  fromAminoMsg(object: QueryResultAminoMsg): QueryResult {
-    return QueryResult.fromAmino(object.value);
-  },
 };
 function createBaseStorageValue(): StorageValue {
   return {
@@ -709,33 +597,6 @@ export const StorageValue = {
     }
     return message;
   },
-  fromAmino(object: StorageValueAmino): StorageValue {
-    const message = createBaseStorageValue();
-    if (object.storage_prefix !== undefined && object.storage_prefix !== null) {
-      message.storagePrefix = object.storage_prefix;
-    }
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
-    if (object.value !== undefined && object.value !== null) {
-      message.value = bytesFromBase64(object.value);
-    }
-    if (object.Proof !== undefined && object.Proof !== null) {
-      message.proof = ProofOps.fromAmino(object.Proof);
-    }
-    return message;
-  },
-  toAmino(message: StorageValue): StorageValueAmino {
-    const obj: any = {};
-    obj.storage_prefix = message.storagePrefix === "" ? undefined : message.storagePrefix;
-    obj.key = message.key ? base64FromBytes(message.key) : undefined;
-    obj.value = message.value ? base64FromBytes(message.value) : undefined;
-    obj.Proof = message.proof ? ProofOps.toAmino(message.proof) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: StorageValueAminoMsg): StorageValue {
-    return StorageValue.fromAmino(object.value);
-  },
 };
 function createBaseBlock(): Block {
   return {
@@ -808,29 +669,6 @@ export const Block = {
       message.tx = TxValue.fromPartial(object.tx);
     }
     return message;
-  },
-  fromAmino(object: BlockAmino): Block {
-    const message = createBaseBlock();
-    if (object.next_block_header !== undefined && object.next_block_header !== null) {
-      message.nextBlockHeader = Any.fromAmino(object.next_block_header);
-    }
-    if (object.header !== undefined && object.header !== null) {
-      message.header = Any.fromAmino(object.header);
-    }
-    if (object.tx !== undefined && object.tx !== null) {
-      message.tx = TxValue.fromAmino(object.tx);
-    }
-    return message;
-  },
-  toAmino(message: Block): BlockAmino {
-    const obj: any = {};
-    obj.next_block_header = message.nextBlockHeader ? Any.toAmino(message.nextBlockHeader) : undefined;
-    obj.header = message.header ? Any.toAmino(message.header) : undefined;
-    obj.tx = message.tx ? TxValue.toAmino(message.tx) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: BlockAminoMsg): Block {
-    return Block.fromAmino(object.value);
   },
 };
 function createBaseTxValue(): TxValue {
@@ -918,33 +756,6 @@ export const TxValue = {
     message.data = object.data ?? new Uint8Array();
     return message;
   },
-  fromAmino(object: TxValueAmino): TxValue {
-    const message = createBaseTxValue();
-    if (object.response !== undefined && object.response !== null) {
-      message.response = ExecTxResult.fromAmino(object.response);
-    }
-    if (object.delivery_proof !== undefined && object.delivery_proof !== null) {
-      message.deliveryProof = Proof.fromAmino(object.delivery_proof);
-    }
-    if (object.inclusion_proof !== undefined && object.inclusion_proof !== null) {
-      message.inclusionProof = Proof.fromAmino(object.inclusion_proof);
-    }
-    if (object.data !== undefined && object.data !== null) {
-      message.data = bytesFromBase64(object.data);
-    }
-    return message;
-  },
-  toAmino(message: TxValue): TxValueAmino {
-    const obj: any = {};
-    obj.response = message.response ? ExecTxResult.toAmino(message.response) : undefined;
-    obj.delivery_proof = message.deliveryProof ? Proof.toAmino(message.deliveryProof) : undefined;
-    obj.inclusion_proof = message.inclusionProof ? Proof.toAmino(message.inclusionProof) : undefined;
-    obj.data = message.data ? base64FromBytes(message.data) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: TxValueAminoMsg): TxValue {
-    return TxValue.fromAmino(object.value);
-  },
 };
 function createBaseMsgSubmitQueryResultResponse(): MsgSubmitQueryResultResponse {
   return {};
@@ -981,17 +792,6 @@ export const MsgSubmitQueryResultResponse = {
   ): MsgSubmitQueryResultResponse {
     const message = createBaseMsgSubmitQueryResultResponse();
     return message;
-  },
-  fromAmino(_: MsgSubmitQueryResultResponseAmino): MsgSubmitQueryResultResponse {
-    const message = createBaseMsgSubmitQueryResultResponse();
-    return message;
-  },
-  toAmino(_: MsgSubmitQueryResultResponse): MsgSubmitQueryResultResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgSubmitQueryResultResponseAminoMsg): MsgSubmitQueryResultResponse {
-    return MsgSubmitQueryResultResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgRemoveInterchainQueryRequest(): MsgRemoveInterchainQueryRequest {
@@ -1056,25 +856,6 @@ export const MsgRemoveInterchainQueryRequest = {
     message.sender = object.sender ?? "";
     return message;
   },
-  fromAmino(object: MsgRemoveInterchainQueryRequestAmino): MsgRemoveInterchainQueryRequest {
-    const message = createBaseMsgRemoveInterchainQueryRequest();
-    if (object.query_id !== undefined && object.query_id !== null) {
-      message.queryId = BigInt(object.query_id);
-    }
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    }
-    return message;
-  },
-  toAmino(message: MsgRemoveInterchainQueryRequest): MsgRemoveInterchainQueryRequestAmino {
-    const obj: any = {};
-    obj.query_id = message.queryId !== BigInt(0) ? message.queryId?.toString() : undefined;
-    obj.sender = message.sender === "" ? undefined : message.sender;
-    return obj;
-  },
-  fromAminoMsg(object: MsgRemoveInterchainQueryRequestAminoMsg): MsgRemoveInterchainQueryRequest {
-    return MsgRemoveInterchainQueryRequest.fromAmino(object.value);
-  },
 };
 function createBaseMsgRemoveInterchainQueryResponse(): MsgRemoveInterchainQueryResponse {
   return {};
@@ -1111,17 +892,6 @@ export const MsgRemoveInterchainQueryResponse = {
   ): MsgRemoveInterchainQueryResponse {
     const message = createBaseMsgRemoveInterchainQueryResponse();
     return message;
-  },
-  fromAmino(_: MsgRemoveInterchainQueryResponseAmino): MsgRemoveInterchainQueryResponse {
-    const message = createBaseMsgRemoveInterchainQueryResponse();
-    return message;
-  },
-  toAmino(_: MsgRemoveInterchainQueryResponse): MsgRemoveInterchainQueryResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgRemoveInterchainQueryResponseAminoMsg): MsgRemoveInterchainQueryResponse {
-    return MsgRemoveInterchainQueryResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgUpdateInterchainQueryRequest(): MsgUpdateInterchainQueryRequest {
@@ -1224,41 +994,6 @@ export const MsgUpdateInterchainQueryRequest = {
     message.sender = object.sender ?? "";
     return message;
   },
-  fromAmino(object: MsgUpdateInterchainQueryRequestAmino): MsgUpdateInterchainQueryRequest {
-    const message = createBaseMsgUpdateInterchainQueryRequest();
-    if (object.query_id !== undefined && object.query_id !== null) {
-      message.queryId = BigInt(object.query_id);
-    }
-    message.newKeys = object.new_keys?.map((e) => KVKey.fromAmino(e)) || [];
-    if (object.new_update_period !== undefined && object.new_update_period !== null) {
-      message.newUpdatePeriod = BigInt(object.new_update_period);
-    }
-    if (object.new_transactions_filter !== undefined && object.new_transactions_filter !== null) {
-      message.newTransactionsFilter = object.new_transactions_filter;
-    }
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateInterchainQueryRequest): MsgUpdateInterchainQueryRequestAmino {
-    const obj: any = {};
-    obj.query_id = message.queryId !== BigInt(0) ? message.queryId?.toString() : undefined;
-    if (message.newKeys) {
-      obj.new_keys = message.newKeys.map((e) => (e ? KVKey.toAmino(e) : undefined));
-    } else {
-      obj.new_keys = message.newKeys;
-    }
-    obj.new_update_period =
-      message.newUpdatePeriod !== BigInt(0) ? message.newUpdatePeriod?.toString() : undefined;
-    obj.new_transactions_filter =
-      message.newTransactionsFilter === "" ? undefined : message.newTransactionsFilter;
-    obj.sender = message.sender === "" ? undefined : message.sender;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateInterchainQueryRequestAminoMsg): MsgUpdateInterchainQueryRequest {
-    return MsgUpdateInterchainQueryRequest.fromAmino(object.value);
-  },
 };
 function createBaseMsgUpdateInterchainQueryResponse(): MsgUpdateInterchainQueryResponse {
   return {};
@@ -1295,17 +1030,6 @@ export const MsgUpdateInterchainQueryResponse = {
   ): MsgUpdateInterchainQueryResponse {
     const message = createBaseMsgUpdateInterchainQueryResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateInterchainQueryResponseAmino): MsgUpdateInterchainQueryResponse {
-    const message = createBaseMsgUpdateInterchainQueryResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateInterchainQueryResponse): MsgUpdateInterchainQueryResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateInterchainQueryResponseAminoMsg): MsgUpdateInterchainQueryResponse {
-    return MsgUpdateInterchainQueryResponse.fromAmino(object.value);
   },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -1365,31 +1089,6 @@ export const MsgUpdateParams = {
     }
     return message;
   },
-  fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
-    const message = createBaseMsgUpdateParams();
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
-    const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
-    return MsgUpdateParams.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
-    return {
-      type: "interchainqueries/MsgUpdateParams",
-      value: MsgUpdateParams.toAmino(message),
-    };
-  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
@@ -1424,16 +1123,5 @@ export const MsgUpdateParamsResponse = {
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
     const message = createBaseMsgUpdateParamsResponse();
     return message;
-  },
-  fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
-    const message = createBaseMsgUpdateParamsResponse();
-    return message;
-  },
-  toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
-    return MsgUpdateParamsResponse.fromAmino(object.value);
   },
 };

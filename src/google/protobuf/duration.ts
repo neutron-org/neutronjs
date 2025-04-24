@@ -138,17 +138,4 @@ export const Duration = {
     message.nanos = object.nanos ?? 0;
     return message;
   },
-  fromAmino(object: DurationAmino): Duration {
-    const value = BigInt(object);
-    return {
-      seconds: value / BigInt("1000000000"),
-      nanos: Number(value % BigInt("1000000000")),
-    };
-  },
-  toAmino(message: Duration): DurationAmino {
-    return (message.seconds * BigInt("1000000000") + BigInt(message.nanos)).toString();
-  },
-  fromAminoMsg(object: DurationAminoMsg): Duration {
-    return Duration.fromAmino(object.value);
-  },
 };

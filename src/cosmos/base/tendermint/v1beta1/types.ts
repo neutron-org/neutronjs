@@ -143,41 +143,6 @@ export const Block = {
     }
     return message;
   },
-  fromAmino(object: BlockAmino): Block {
-    const message = createBaseBlock();
-    if (object.header !== undefined && object.header !== null) {
-      message.header = Header.fromAmino(object.header);
-    }
-    if (object.data !== undefined && object.data !== null) {
-      message.data = Data.fromAmino(object.data);
-    }
-    if (object.evidence !== undefined && object.evidence !== null) {
-      message.evidence = EvidenceList.fromAmino(object.evidence);
-    }
-    if (object.last_commit !== undefined && object.last_commit !== null) {
-      message.lastCommit = Commit.fromAmino(object.last_commit);
-    }
-    return message;
-  },
-  toAmino(message: Block): BlockAmino {
-    const obj: any = {};
-    obj.header = message.header ? Header.toAmino(message.header) : Header.toAmino(Header.fromPartial({}));
-    obj.data = message.data ? Data.toAmino(message.data) : Data.toAmino(Data.fromPartial({}));
-    obj.evidence = message.evidence
-      ? EvidenceList.toAmino(message.evidence)
-      : EvidenceList.toAmino(EvidenceList.fromPartial({}));
-    obj.last_commit = message.lastCommit ? Commit.toAmino(message.lastCommit) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: BlockAminoMsg): Block {
-    return Block.fromAmino(object.value);
-  },
-  toAminoMsg(message: Block): BlockAminoMsg {
-    return {
-      type: "cosmos-sdk/Block",
-      value: Block.toAmino(message),
-    };
-  },
 };
 function createBaseHeader(): Header {
   return {
@@ -383,84 +348,5 @@ export const Header = {
     message.evidenceHash = object.evidenceHash ?? new Uint8Array();
     message.proposerAddress = object.proposerAddress ?? "";
     return message;
-  },
-  fromAmino(object: HeaderAmino): Header {
-    const message = createBaseHeader();
-    if (object.version !== undefined && object.version !== null) {
-      message.version = Consensus.fromAmino(object.version);
-    }
-    if (object.chain_id !== undefined && object.chain_id !== null) {
-      message.chainId = object.chain_id;
-    }
-    if (object.height !== undefined && object.height !== null) {
-      message.height = BigInt(object.height);
-    }
-    if (object.time !== undefined && object.time !== null) {
-      message.time = Timestamp.fromAmino(object.time);
-    }
-    if (object.last_block_id !== undefined && object.last_block_id !== null) {
-      message.lastBlockId = BlockID.fromAmino(object.last_block_id);
-    }
-    if (object.last_commit_hash !== undefined && object.last_commit_hash !== null) {
-      message.lastCommitHash = bytesFromBase64(object.last_commit_hash);
-    }
-    if (object.data_hash !== undefined && object.data_hash !== null) {
-      message.dataHash = bytesFromBase64(object.data_hash);
-    }
-    if (object.validators_hash !== undefined && object.validators_hash !== null) {
-      message.validatorsHash = bytesFromBase64(object.validators_hash);
-    }
-    if (object.next_validators_hash !== undefined && object.next_validators_hash !== null) {
-      message.nextValidatorsHash = bytesFromBase64(object.next_validators_hash);
-    }
-    if (object.consensus_hash !== undefined && object.consensus_hash !== null) {
-      message.consensusHash = bytesFromBase64(object.consensus_hash);
-    }
-    if (object.app_hash !== undefined && object.app_hash !== null) {
-      message.appHash = bytesFromBase64(object.app_hash);
-    }
-    if (object.last_results_hash !== undefined && object.last_results_hash !== null) {
-      message.lastResultsHash = bytesFromBase64(object.last_results_hash);
-    }
-    if (object.evidence_hash !== undefined && object.evidence_hash !== null) {
-      message.evidenceHash = bytesFromBase64(object.evidence_hash);
-    }
-    if (object.proposer_address !== undefined && object.proposer_address !== null) {
-      message.proposerAddress = object.proposer_address;
-    }
-    return message;
-  },
-  toAmino(message: Header): HeaderAmino {
-    const obj: any = {};
-    obj.version = message.version
-      ? Consensus.toAmino(message.version)
-      : Consensus.toAmino(Consensus.fromPartial({}));
-    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
-    obj.height = message.height !== BigInt(0) ? message.height?.toString() : undefined;
-    obj.time = message.time ? Timestamp.toAmino(message.time) : Timestamp.toAmino(Timestamp.fromPartial({}));
-    obj.last_block_id = message.lastBlockId
-      ? BlockID.toAmino(message.lastBlockId)
-      : BlockID.toAmino(BlockID.fromPartial({}));
-    obj.last_commit_hash = message.lastCommitHash ? base64FromBytes(message.lastCommitHash) : undefined;
-    obj.data_hash = message.dataHash ? base64FromBytes(message.dataHash) : undefined;
-    obj.validators_hash = message.validatorsHash ? base64FromBytes(message.validatorsHash) : undefined;
-    obj.next_validators_hash = message.nextValidatorsHash
-      ? base64FromBytes(message.nextValidatorsHash)
-      : undefined;
-    obj.consensus_hash = message.consensusHash ? base64FromBytes(message.consensusHash) : undefined;
-    obj.app_hash = message.appHash ? base64FromBytes(message.appHash) : undefined;
-    obj.last_results_hash = message.lastResultsHash ? base64FromBytes(message.lastResultsHash) : undefined;
-    obj.evidence_hash = message.evidenceHash ? base64FromBytes(message.evidenceHash) : undefined;
-    obj.proposer_address = message.proposerAddress === "" ? undefined : message.proposerAddress;
-    return obj;
-  },
-  fromAminoMsg(object: HeaderAminoMsg): Header {
-    return Header.fromAmino(object.value);
-  },
-  toAminoMsg(message: Header): HeaderAminoMsg {
-    return {
-      type: "cosmos-sdk/Header",
-      value: Header.toAmino(message),
-    };
   },
 };

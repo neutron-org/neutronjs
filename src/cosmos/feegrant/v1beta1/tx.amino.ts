@@ -43,10 +43,13 @@ export const AminoConverter = {
       return {
         granter,
         grantee,
-        allowance: {
-          typeUrl: allowance.type_url,
-          value: allowance.value,
-        },
+        allowance:
+          allowance == null
+            ? allowance
+            : {
+                typeUrl: allowance.type_url,
+                value: allowance.value,
+              },
       };
     },
   },

@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../helpers";
 import { MsgSend, MsgMultiSend, MsgUpdateParams, MsgSetSendEnabled } from "./tx";
 export interface MsgSendAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgSend";
@@ -73,7 +74,7 @@ export const AminoConverter = {
       return {
         fromAddress: from_address,
         toAddress: to_address,
-        amount: amount.map((el0) => ({
+        amount: amount.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),
@@ -102,16 +103,16 @@ export const AminoConverter = {
     },
     fromAmino: ({ inputs, outputs }: MsgMultiSendAminoType["value"]): MsgMultiSend => {
       return {
-        inputs: inputs.map((el0) => ({
+        inputs: inputs.map?.((el0) => ({
           address: el0.address,
-          coins: el0.coins.map((el1) => ({
+          coins: el0.coins.map?.((el1) => ({
             denom: el1.denom,
             amount: el1.amount,
           })),
         })),
-        outputs: outputs.map((el0) => ({
+        outputs: outputs.map?.((el0) => ({
           address: el0.address,
-          coins: el0.coins.map((el1) => ({
+          coins: el0.coins.map?.((el1) => ({
             denom: el1.denom,
             amount: el1.amount,
           })),
@@ -127,22 +128,25 @@ export const AminoConverter = {
         params: {
           send_enabled: params.sendEnabled.map((el0) => ({
             denom: el0.denom,
-            enabled: el0.enabled,
+            enabled: omitDefault(el0.enabled),
           })),
-          default_send_enabled: params.defaultSendEnabled,
+          default_send_enabled: omitDefault(params.defaultSendEnabled),
         },
       };
     },
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          sendEnabled: params.send_enabled.map((el1) => ({
-            denom: el1.denom,
-            enabled: el1.enabled,
-          })),
-          defaultSendEnabled: params.default_send_enabled,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                sendEnabled: params.send_enabled.map?.((el1) => ({
+                  denom: el1.denom,
+                  enabled: el1.enabled,
+                })),
+                defaultSendEnabled: params.default_send_enabled,
+              },
       };
     },
   },
@@ -157,7 +161,7 @@ export const AminoConverter = {
         authority,
         send_enabled: sendEnabled.map((el0) => ({
           denom: el0.denom,
-          enabled: el0.enabled,
+          enabled: omitDefault(el0.enabled),
         })),
         use_default_for: useDefaultFor,
       };
@@ -169,7 +173,7 @@ export const AminoConverter = {
     }: MsgSetSendEnabledAminoType["value"]): MsgSetSendEnabled => {
       return {
         authority,
-        sendEnabled: send_enabled.map((el0) => ({
+        sendEnabled: send_enabled.map?.((el0) => ({
           denom: el0.denom,
           enabled: el0.enabled,
         })),

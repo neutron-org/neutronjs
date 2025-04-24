@@ -274,17 +274,6 @@ export const QueryParamsRequest = {
     const message = createBaseQueryParamsRequest();
     return message;
   },
-  fromAmino(_: QueryParamsRequestAmino): QueryParamsRequest {
-    const message = createBaseQueryParamsRequest();
-    return message;
-  },
-  toAmino(_: QueryParamsRequest): QueryParamsRequestAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: QueryParamsRequestAminoMsg): QueryParamsRequest {
-    return QueryParamsRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
@@ -332,21 +321,6 @@ export const QueryParamsResponse = {
       message.params = Params.fromPartial(object.params);
     }
     return message;
-  },
-  fromAmino(object: QueryParamsResponseAmino): QueryParamsResponse {
-    const message = createBaseQueryParamsResponse();
-    if (object.params !== undefined && object.params !== null) {
-      message.params = Params.fromAmino(object.params);
-    }
-    return message;
-  },
-  toAmino(message: QueryParamsResponse): QueryParamsResponseAmino {
-    const obj: any = {};
-    obj.params = message.params ? Params.toAmino(message.params) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryParamsResponseAminoMsg): QueryParamsResponse {
-    return QueryParamsResponse.fromAmino(object.value);
   },
 };
 function createBaseQueryGetLimitOrderTrancheUserRequest(): QueryGetLimitOrderTrancheUserRequest {
@@ -421,30 +395,6 @@ export const QueryGetLimitOrderTrancheUserRequest = {
     message.calcWithdrawableShares = object.calcWithdrawableShares ?? false;
     return message;
   },
-  fromAmino(object: QueryGetLimitOrderTrancheUserRequestAmino): QueryGetLimitOrderTrancheUserRequest {
-    const message = createBaseQueryGetLimitOrderTrancheUserRequest();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.tranche_key !== undefined && object.tranche_key !== null) {
-      message.trancheKey = object.tranche_key;
-    }
-    if (object.calc_withdrawable_shares !== undefined && object.calc_withdrawable_shares !== null) {
-      message.calcWithdrawableShares = object.calc_withdrawable_shares;
-    }
-    return message;
-  },
-  toAmino(message: QueryGetLimitOrderTrancheUserRequest): QueryGetLimitOrderTrancheUserRequestAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.tranche_key = message.trancheKey === "" ? undefined : message.trancheKey;
-    obj.calc_withdrawable_shares =
-      message.calcWithdrawableShares === false ? undefined : message.calcWithdrawableShares;
-    return obj;
-  },
-  fromAminoMsg(object: QueryGetLimitOrderTrancheUserRequestAminoMsg): QueryGetLimitOrderTrancheUserRequest {
-    return QueryGetLimitOrderTrancheUserRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryGetLimitOrderTrancheUserResponse(): QueryGetLimitOrderTrancheUserResponse {
   return {
@@ -512,27 +462,6 @@ export const QueryGetLimitOrderTrancheUserResponse = {
     message.withdrawableShares = object.withdrawableShares ?? undefined;
     return message;
   },
-  fromAmino(object: QueryGetLimitOrderTrancheUserResponseAmino): QueryGetLimitOrderTrancheUserResponse {
-    const message = createBaseQueryGetLimitOrderTrancheUserResponse();
-    if (object.limit_order_tranche_user !== undefined && object.limit_order_tranche_user !== null) {
-      message.limitOrderTrancheUser = LimitOrderTrancheUser.fromAmino(object.limit_order_tranche_user);
-    }
-    if (object.withdrawable_shares !== undefined && object.withdrawable_shares !== null) {
-      message.withdrawableShares = object.withdrawable_shares;
-    }
-    return message;
-  },
-  toAmino(message: QueryGetLimitOrderTrancheUserResponse): QueryGetLimitOrderTrancheUserResponseAmino {
-    const obj: any = {};
-    obj.limit_order_tranche_user = message.limitOrderTrancheUser
-      ? LimitOrderTrancheUser.toAmino(message.limitOrderTrancheUser)
-      : undefined;
-    obj.withdrawable_shares = message.withdrawableShares ?? null;
-    return obj;
-  },
-  fromAminoMsg(object: QueryGetLimitOrderTrancheUserResponseAminoMsg): QueryGetLimitOrderTrancheUserResponse {
-    return QueryGetLimitOrderTrancheUserResponse.fromAmino(object.value);
-  },
 };
 function createBaseQueryAllLimitOrderTrancheUserRequest(): QueryAllLimitOrderTrancheUserRequest {
   return {
@@ -586,21 +515,6 @@ export const QueryAllLimitOrderTrancheUserRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
-  },
-  fromAmino(object: QueryAllLimitOrderTrancheUserRequestAmino): QueryAllLimitOrderTrancheUserRequest {
-    const message = createBaseQueryAllLimitOrderTrancheUserRequest();
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAllLimitOrderTrancheUserRequest): QueryAllLimitOrderTrancheUserRequestAmino {
-    const obj: any = {};
-    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAllLimitOrderTrancheUserRequestAminoMsg): QueryAllLimitOrderTrancheUserRequest {
-    return QueryAllLimitOrderTrancheUserRequest.fromAmino(object.value);
   },
 };
 function createBaseQueryAllLimitOrderTrancheUserResponse(): QueryAllLimitOrderTrancheUserResponse {
@@ -675,30 +589,6 @@ export const QueryAllLimitOrderTrancheUserResponse = {
       message.pagination = PageResponse.fromPartial(object.pagination);
     }
     return message;
-  },
-  fromAmino(object: QueryAllLimitOrderTrancheUserResponseAmino): QueryAllLimitOrderTrancheUserResponse {
-    const message = createBaseQueryAllLimitOrderTrancheUserResponse();
-    message.limitOrderTrancheUser =
-      object.limit_order_tranche_user?.map((e) => LimitOrderTrancheUser.fromAmino(e)) || [];
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAllLimitOrderTrancheUserResponse): QueryAllLimitOrderTrancheUserResponseAmino {
-    const obj: any = {};
-    if (message.limitOrderTrancheUser) {
-      obj.limit_order_tranche_user = message.limitOrderTrancheUser.map((e) =>
-        e ? LimitOrderTrancheUser.toAmino(e) : undefined,
-      );
-    } else {
-      obj.limit_order_tranche_user = message.limitOrderTrancheUser;
-    }
-    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAllLimitOrderTrancheUserResponseAminoMsg): QueryAllLimitOrderTrancheUserResponse {
-    return QueryAllLimitOrderTrancheUserResponse.fromAmino(object.value);
   },
 };
 function createBaseQueryGetLimitOrderTrancheRequest(): QueryGetLimitOrderTrancheRequest {
@@ -783,33 +673,6 @@ export const QueryGetLimitOrderTrancheRequest = {
     message.trancheKey = object.trancheKey ?? "";
     return message;
   },
-  fromAmino(object: QueryGetLimitOrderTrancheRequestAmino): QueryGetLimitOrderTrancheRequest {
-    const message = createBaseQueryGetLimitOrderTrancheRequest();
-    if (object.pair_id !== undefined && object.pair_id !== null) {
-      message.pairId = object.pair_id;
-    }
-    if (object.tick_index !== undefined && object.tick_index !== null) {
-      message.tickIndex = BigInt(object.tick_index);
-    }
-    if (object.token_in !== undefined && object.token_in !== null) {
-      message.tokenIn = object.token_in;
-    }
-    if (object.tranche_key !== undefined && object.tranche_key !== null) {
-      message.trancheKey = object.tranche_key;
-    }
-    return message;
-  },
-  toAmino(message: QueryGetLimitOrderTrancheRequest): QueryGetLimitOrderTrancheRequestAmino {
-    const obj: any = {};
-    obj.pair_id = message.pairId === "" ? undefined : message.pairId;
-    obj.tick_index = message.tickIndex !== BigInt(0) ? message.tickIndex?.toString() : undefined;
-    obj.token_in = message.tokenIn === "" ? undefined : message.tokenIn;
-    obj.tranche_key = message.trancheKey === "" ? undefined : message.trancheKey;
-    return obj;
-  },
-  fromAminoMsg(object: QueryGetLimitOrderTrancheRequestAminoMsg): QueryGetLimitOrderTrancheRequest {
-    return QueryGetLimitOrderTrancheRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryGetLimitOrderTrancheResponse(): QueryGetLimitOrderTrancheResponse {
   return {
@@ -866,23 +729,6 @@ export const QueryGetLimitOrderTrancheResponse = {
       message.limitOrderTranche = LimitOrderTranche.fromPartial(object.limitOrderTranche);
     }
     return message;
-  },
-  fromAmino(object: QueryGetLimitOrderTrancheResponseAmino): QueryGetLimitOrderTrancheResponse {
-    const message = createBaseQueryGetLimitOrderTrancheResponse();
-    if (object.limit_order_tranche !== undefined && object.limit_order_tranche !== null) {
-      message.limitOrderTranche = LimitOrderTranche.fromAmino(object.limit_order_tranche);
-    }
-    return message;
-  },
-  toAmino(message: QueryGetLimitOrderTrancheResponse): QueryGetLimitOrderTrancheResponseAmino {
-    const obj: any = {};
-    obj.limit_order_tranche = message.limitOrderTranche
-      ? LimitOrderTranche.toAmino(message.limitOrderTranche)
-      : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryGetLimitOrderTrancheResponseAminoMsg): QueryGetLimitOrderTrancheResponse {
-    return QueryGetLimitOrderTrancheResponse.fromAmino(object.value);
   },
 };
 function createBaseQueryAllLimitOrderTrancheRequest(): QueryAllLimitOrderTrancheRequest {
@@ -958,29 +804,6 @@ export const QueryAllLimitOrderTrancheRequest = {
     }
     return message;
   },
-  fromAmino(object: QueryAllLimitOrderTrancheRequestAmino): QueryAllLimitOrderTrancheRequest {
-    const message = createBaseQueryAllLimitOrderTrancheRequest();
-    if (object.pair_id !== undefined && object.pair_id !== null) {
-      message.pairId = object.pair_id;
-    }
-    if (object.token_in !== undefined && object.token_in !== null) {
-      message.tokenIn = object.token_in;
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAllLimitOrderTrancheRequest): QueryAllLimitOrderTrancheRequestAmino {
-    const obj: any = {};
-    obj.pair_id = message.pairId === "" ? undefined : message.pairId;
-    obj.token_in = message.tokenIn === "" ? undefined : message.tokenIn;
-    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAllLimitOrderTrancheRequestAminoMsg): QueryAllLimitOrderTrancheRequest {
-    return QueryAllLimitOrderTrancheRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryAllLimitOrderTrancheResponse(): QueryAllLimitOrderTrancheResponse {
   return {
@@ -1051,29 +874,6 @@ export const QueryAllLimitOrderTrancheResponse = {
       message.pagination = PageResponse.fromPartial(object.pagination);
     }
     return message;
-  },
-  fromAmino(object: QueryAllLimitOrderTrancheResponseAmino): QueryAllLimitOrderTrancheResponse {
-    const message = createBaseQueryAllLimitOrderTrancheResponse();
-    message.limitOrderTranche = object.limit_order_tranche?.map((e) => LimitOrderTranche.fromAmino(e)) || [];
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAllLimitOrderTrancheResponse): QueryAllLimitOrderTrancheResponseAmino {
-    const obj: any = {};
-    if (message.limitOrderTranche) {
-      obj.limit_order_tranche = message.limitOrderTranche.map((e) =>
-        e ? LimitOrderTranche.toAmino(e) : undefined,
-      );
-    } else {
-      obj.limit_order_tranche = message.limitOrderTranche;
-    }
-    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAllLimitOrderTrancheResponseAminoMsg): QueryAllLimitOrderTrancheResponse {
-    return QueryAllLimitOrderTrancheResponse.fromAmino(object.value);
   },
 };
 function createBaseQueryAllUserDepositsRequest(): QueryAllUserDepositsRequest {
@@ -1146,29 +946,6 @@ export const QueryAllUserDepositsRequest = {
     message.includePoolData = object.includePoolData ?? false;
     return message;
   },
-  fromAmino(object: QueryAllUserDepositsRequestAmino): QueryAllUserDepositsRequest {
-    const message = createBaseQueryAllUserDepositsRequest();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromAmino(object.pagination);
-    }
-    if (object.include_pool_data !== undefined && object.include_pool_data !== null) {
-      message.includePoolData = object.include_pool_data;
-    }
-    return message;
-  },
-  toAmino(message: QueryAllUserDepositsRequest): QueryAllUserDepositsRequestAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
-    obj.include_pool_data = message.includePoolData === false ? undefined : message.includePoolData;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAllUserDepositsRequestAminoMsg): QueryAllUserDepositsRequest {
-    return QueryAllUserDepositsRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryAllUserDepositsResponse(): QueryAllUserDepositsResponse {
   return {
@@ -1235,27 +1012,6 @@ export const QueryAllUserDepositsResponse = {
     }
     return message;
   },
-  fromAmino(object: QueryAllUserDepositsResponseAmino): QueryAllUserDepositsResponse {
-    const message = createBaseQueryAllUserDepositsResponse();
-    message.deposits = object.deposits?.map((e) => DepositRecord.fromAmino(e)) || [];
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAllUserDepositsResponse): QueryAllUserDepositsResponseAmino {
-    const obj: any = {};
-    if (message.deposits) {
-      obj.deposits = message.deposits.map((e) => (e ? DepositRecord.toAmino(e) : undefined));
-    } else {
-      obj.deposits = message.deposits;
-    }
-    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAllUserDepositsResponseAminoMsg): QueryAllUserDepositsResponse {
-    return QueryAllUserDepositsResponse.fromAmino(object.value);
-  },
 };
 function createBaseQueryAllLimitOrderTrancheUserByAddressRequest(): QueryAllLimitOrderTrancheUserByAddressRequest {
   return {
@@ -1321,31 +1077,6 @@ export const QueryAllLimitOrderTrancheUserByAddressRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
-  },
-  fromAmino(
-    object: QueryAllLimitOrderTrancheUserByAddressRequestAmino,
-  ): QueryAllLimitOrderTrancheUserByAddressRequest {
-    const message = createBaseQueryAllLimitOrderTrancheUserByAddressRequest();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(
-    message: QueryAllLimitOrderTrancheUserByAddressRequest,
-  ): QueryAllLimitOrderTrancheUserByAddressRequestAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(
-    object: QueryAllLimitOrderTrancheUserByAddressRequestAminoMsg,
-  ): QueryAllLimitOrderTrancheUserByAddressRequest {
-    return QueryAllLimitOrderTrancheUserByAddressRequest.fromAmino(object.value);
   },
 };
 function createBaseQueryAllLimitOrderTrancheUserByAddressResponse(): QueryAllLimitOrderTrancheUserByAddressResponse {
@@ -1418,33 +1149,6 @@ export const QueryAllLimitOrderTrancheUserByAddressResponse = {
     }
     return message;
   },
-  fromAmino(
-    object: QueryAllLimitOrderTrancheUserByAddressResponseAmino,
-  ): QueryAllLimitOrderTrancheUserByAddressResponse {
-    const message = createBaseQueryAllLimitOrderTrancheUserByAddressResponse();
-    message.limitOrders = object.limit_orders?.map((e) => LimitOrderTrancheUser.fromAmino(e)) || [];
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(
-    message: QueryAllLimitOrderTrancheUserByAddressResponse,
-  ): QueryAllLimitOrderTrancheUserByAddressResponseAmino {
-    const obj: any = {};
-    if (message.limitOrders) {
-      obj.limit_orders = message.limitOrders.map((e) => (e ? LimitOrderTrancheUser.toAmino(e) : undefined));
-    } else {
-      obj.limit_orders = message.limitOrders;
-    }
-    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(
-    object: QueryAllLimitOrderTrancheUserByAddressResponseAminoMsg,
-  ): QueryAllLimitOrderTrancheUserByAddressResponse {
-    return QueryAllLimitOrderTrancheUserByAddressResponse.fromAmino(object.value);
-  },
 };
 function createBaseQueryAllTickLiquidityRequest(): QueryAllTickLiquidityRequest {
   return {
@@ -1516,29 +1220,6 @@ export const QueryAllTickLiquidityRequest = {
     }
     return message;
   },
-  fromAmino(object: QueryAllTickLiquidityRequestAmino): QueryAllTickLiquidityRequest {
-    const message = createBaseQueryAllTickLiquidityRequest();
-    if (object.pair_id !== undefined && object.pair_id !== null) {
-      message.pairId = object.pair_id;
-    }
-    if (object.token_in !== undefined && object.token_in !== null) {
-      message.tokenIn = object.token_in;
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAllTickLiquidityRequest): QueryAllTickLiquidityRequestAmino {
-    const obj: any = {};
-    obj.pair_id = message.pairId === "" ? undefined : message.pairId;
-    obj.token_in = message.tokenIn === "" ? undefined : message.tokenIn;
-    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAllTickLiquidityRequestAminoMsg): QueryAllTickLiquidityRequest {
-    return QueryAllTickLiquidityRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryAllTickLiquidityResponse(): QueryAllTickLiquidityResponse {
   return {
@@ -1604,27 +1285,6 @@ export const QueryAllTickLiquidityResponse = {
       message.pagination = PageResponse.fromPartial(object.pagination);
     }
     return message;
-  },
-  fromAmino(object: QueryAllTickLiquidityResponseAmino): QueryAllTickLiquidityResponse {
-    const message = createBaseQueryAllTickLiquidityResponse();
-    message.tickLiquidity = object.tick_liquidity?.map((e) => TickLiquidity.fromAmino(e)) || [];
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAllTickLiquidityResponse): QueryAllTickLiquidityResponseAmino {
-    const obj: any = {};
-    if (message.tickLiquidity) {
-      obj.tick_liquidity = message.tickLiquidity.map((e) => (e ? TickLiquidity.toAmino(e) : undefined));
-    } else {
-      obj.tick_liquidity = message.tickLiquidity;
-    }
-    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAllTickLiquidityResponseAminoMsg): QueryAllTickLiquidityResponse {
-    return QueryAllTickLiquidityResponse.fromAmino(object.value);
   },
 };
 function createBaseQueryGetInactiveLimitOrderTrancheRequest(): QueryGetInactiveLimitOrderTrancheRequest {
@@ -1711,35 +1371,6 @@ export const QueryGetInactiveLimitOrderTrancheRequest = {
     message.trancheKey = object.trancheKey ?? "";
     return message;
   },
-  fromAmino(object: QueryGetInactiveLimitOrderTrancheRequestAmino): QueryGetInactiveLimitOrderTrancheRequest {
-    const message = createBaseQueryGetInactiveLimitOrderTrancheRequest();
-    if (object.pair_id !== undefined && object.pair_id !== null) {
-      message.pairId = object.pair_id;
-    }
-    if (object.token_in !== undefined && object.token_in !== null) {
-      message.tokenIn = object.token_in;
-    }
-    if (object.tick_index !== undefined && object.tick_index !== null) {
-      message.tickIndex = BigInt(object.tick_index);
-    }
-    if (object.tranche_key !== undefined && object.tranche_key !== null) {
-      message.trancheKey = object.tranche_key;
-    }
-    return message;
-  },
-  toAmino(message: QueryGetInactiveLimitOrderTrancheRequest): QueryGetInactiveLimitOrderTrancheRequestAmino {
-    const obj: any = {};
-    obj.pair_id = message.pairId === "" ? undefined : message.pairId;
-    obj.token_in = message.tokenIn === "" ? undefined : message.tokenIn;
-    obj.tick_index = message.tickIndex !== BigInt(0) ? message.tickIndex?.toString() : undefined;
-    obj.tranche_key = message.trancheKey === "" ? undefined : message.trancheKey;
-    return obj;
-  },
-  fromAminoMsg(
-    object: QueryGetInactiveLimitOrderTrancheRequestAminoMsg,
-  ): QueryGetInactiveLimitOrderTrancheRequest {
-    return QueryGetInactiveLimitOrderTrancheRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryGetInactiveLimitOrderTrancheResponse(): QueryGetInactiveLimitOrderTrancheResponse {
   return {
@@ -1799,29 +1430,6 @@ export const QueryGetInactiveLimitOrderTrancheResponse = {
     }
     return message;
   },
-  fromAmino(
-    object: QueryGetInactiveLimitOrderTrancheResponseAmino,
-  ): QueryGetInactiveLimitOrderTrancheResponse {
-    const message = createBaseQueryGetInactiveLimitOrderTrancheResponse();
-    if (object.inactive_limit_order_tranche !== undefined && object.inactive_limit_order_tranche !== null) {
-      message.inactiveLimitOrderTranche = LimitOrderTranche.fromAmino(object.inactive_limit_order_tranche);
-    }
-    return message;
-  },
-  toAmino(
-    message: QueryGetInactiveLimitOrderTrancheResponse,
-  ): QueryGetInactiveLimitOrderTrancheResponseAmino {
-    const obj: any = {};
-    obj.inactive_limit_order_tranche = message.inactiveLimitOrderTranche
-      ? LimitOrderTranche.toAmino(message.inactiveLimitOrderTranche)
-      : undefined;
-    return obj;
-  },
-  fromAminoMsg(
-    object: QueryGetInactiveLimitOrderTrancheResponseAminoMsg,
-  ): QueryGetInactiveLimitOrderTrancheResponse {
-    return QueryGetInactiveLimitOrderTrancheResponse.fromAmino(object.value);
-  },
 };
 function createBaseQueryAllInactiveLimitOrderTrancheRequest(): QueryAllInactiveLimitOrderTrancheRequest {
   return {
@@ -1877,23 +1485,6 @@ export const QueryAllInactiveLimitOrderTrancheRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
-  },
-  fromAmino(object: QueryAllInactiveLimitOrderTrancheRequestAmino): QueryAllInactiveLimitOrderTrancheRequest {
-    const message = createBaseQueryAllInactiveLimitOrderTrancheRequest();
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAllInactiveLimitOrderTrancheRequest): QueryAllInactiveLimitOrderTrancheRequestAmino {
-    const obj: any = {};
-    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(
-    object: QueryAllInactiveLimitOrderTrancheRequestAminoMsg,
-  ): QueryAllInactiveLimitOrderTrancheRequest {
-    return QueryAllInactiveLimitOrderTrancheRequest.fromAmino(object.value);
   },
 };
 function createBaseQueryAllInactiveLimitOrderTrancheResponse(): QueryAllInactiveLimitOrderTrancheResponse {
@@ -1971,36 +1562,6 @@ export const QueryAllInactiveLimitOrderTrancheResponse = {
     }
     return message;
   },
-  fromAmino(
-    object: QueryAllInactiveLimitOrderTrancheResponseAmino,
-  ): QueryAllInactiveLimitOrderTrancheResponse {
-    const message = createBaseQueryAllInactiveLimitOrderTrancheResponse();
-    message.inactiveLimitOrderTranche =
-      object.inactive_limit_order_tranche?.map((e) => LimitOrderTranche.fromAmino(e)) || [];
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(
-    message: QueryAllInactiveLimitOrderTrancheResponse,
-  ): QueryAllInactiveLimitOrderTrancheResponseAmino {
-    const obj: any = {};
-    if (message.inactiveLimitOrderTranche) {
-      obj.inactive_limit_order_tranche = message.inactiveLimitOrderTranche.map((e) =>
-        e ? LimitOrderTranche.toAmino(e) : undefined,
-      );
-    } else {
-      obj.inactive_limit_order_tranche = message.inactiveLimitOrderTranche;
-    }
-    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(
-    object: QueryAllInactiveLimitOrderTrancheResponseAminoMsg,
-  ): QueryAllInactiveLimitOrderTrancheResponse {
-    return QueryAllInactiveLimitOrderTrancheResponse.fromAmino(object.value);
-  },
 };
 function createBaseQueryAllPoolReservesRequest(): QueryAllPoolReservesRequest {
   return {
@@ -2072,29 +1633,6 @@ export const QueryAllPoolReservesRequest = {
     }
     return message;
   },
-  fromAmino(object: QueryAllPoolReservesRequestAmino): QueryAllPoolReservesRequest {
-    const message = createBaseQueryAllPoolReservesRequest();
-    if (object.pair_id !== undefined && object.pair_id !== null) {
-      message.pairId = object.pair_id;
-    }
-    if (object.token_in !== undefined && object.token_in !== null) {
-      message.tokenIn = object.token_in;
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAllPoolReservesRequest): QueryAllPoolReservesRequestAmino {
-    const obj: any = {};
-    obj.pair_id = message.pairId === "" ? undefined : message.pairId;
-    obj.token_in = message.tokenIn === "" ? undefined : message.tokenIn;
-    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAllPoolReservesRequestAminoMsg): QueryAllPoolReservesRequest {
-    return QueryAllPoolReservesRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryAllPoolReservesResponse(): QueryAllPoolReservesResponse {
   return {
@@ -2160,27 +1698,6 @@ export const QueryAllPoolReservesResponse = {
       message.pagination = PageResponse.fromPartial(object.pagination);
     }
     return message;
-  },
-  fromAmino(object: QueryAllPoolReservesResponseAmino): QueryAllPoolReservesResponse {
-    const message = createBaseQueryAllPoolReservesResponse();
-    message.poolReserves = object.pool_reserves?.map((e) => PoolReserves.fromAmino(e)) || [];
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAllPoolReservesResponse): QueryAllPoolReservesResponseAmino {
-    const obj: any = {};
-    if (message.poolReserves) {
-      obj.pool_reserves = message.poolReserves.map((e) => (e ? PoolReserves.toAmino(e) : undefined));
-    } else {
-      obj.pool_reserves = message.poolReserves;
-    }
-    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAllPoolReservesResponseAminoMsg): QueryAllPoolReservesResponse {
-    return QueryAllPoolReservesResponse.fromAmino(object.value);
   },
 };
 function createBaseQueryGetPoolReservesRequest(): QueryGetPoolReservesRequest {
@@ -2264,33 +1781,6 @@ export const QueryGetPoolReservesRequest = {
     }
     return message;
   },
-  fromAmino(object: QueryGetPoolReservesRequestAmino): QueryGetPoolReservesRequest {
-    const message = createBaseQueryGetPoolReservesRequest();
-    if (object.pair_id !== undefined && object.pair_id !== null) {
-      message.pairId = object.pair_id;
-    }
-    if (object.token_in !== undefined && object.token_in !== null) {
-      message.tokenIn = object.token_in;
-    }
-    if (object.tick_index !== undefined && object.tick_index !== null) {
-      message.tickIndex = BigInt(object.tick_index);
-    }
-    if (object.fee !== undefined && object.fee !== null) {
-      message.fee = BigInt(object.fee);
-    }
-    return message;
-  },
-  toAmino(message: QueryGetPoolReservesRequest): QueryGetPoolReservesRequestAmino {
-    const obj: any = {};
-    obj.pair_id = message.pairId === "" ? undefined : message.pairId;
-    obj.token_in = message.tokenIn === "" ? undefined : message.tokenIn;
-    obj.tick_index = message.tickIndex !== BigInt(0) ? message.tickIndex?.toString() : undefined;
-    obj.fee = message.fee !== BigInt(0) ? message.fee?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryGetPoolReservesRequestAminoMsg): QueryGetPoolReservesRequest {
-    return QueryGetPoolReservesRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryGetPoolReservesResponse(): QueryGetPoolReservesResponse {
   return {
@@ -2341,21 +1831,6 @@ export const QueryGetPoolReservesResponse = {
       message.poolReserves = PoolReserves.fromPartial(object.poolReserves);
     }
     return message;
-  },
-  fromAmino(object: QueryGetPoolReservesResponseAmino): QueryGetPoolReservesResponse {
-    const message = createBaseQueryGetPoolReservesResponse();
-    if (object.pool_reserves !== undefined && object.pool_reserves !== null) {
-      message.poolReserves = PoolReserves.fromAmino(object.pool_reserves);
-    }
-    return message;
-  },
-  toAmino(message: QueryGetPoolReservesResponse): QueryGetPoolReservesResponseAmino {
-    const obj: any = {};
-    obj.pool_reserves = message.poolReserves ? PoolReserves.toAmino(message.poolReserves) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryGetPoolReservesResponseAminoMsg): QueryGetPoolReservesResponse {
-    return QueryGetPoolReservesResponse.fromAmino(object.value);
   },
 };
 function createBaseQueryEstimateMultiHopSwapRequest(): QueryEstimateMultiHopSwapRequest {
@@ -2462,43 +1937,6 @@ export const QueryEstimateMultiHopSwapRequest = {
     message.pickBestRoute = object.pickBestRoute ?? false;
     return message;
   },
-  fromAmino(object: QueryEstimateMultiHopSwapRequestAmino): QueryEstimateMultiHopSwapRequest {
-    const message = createBaseQueryEstimateMultiHopSwapRequest();
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
-    }
-    if (object.receiver !== undefined && object.receiver !== null) {
-      message.receiver = object.receiver;
-    }
-    message.routes = object.routes?.map((e) => MultiHopRoute.fromAmino(e)) || [];
-    if (object.amount_in !== undefined && object.amount_in !== null) {
-      message.amountIn = object.amount_in;
-    }
-    if (object.exit_limit_price !== undefined && object.exit_limit_price !== null) {
-      message.exitLimitPrice = object.exit_limit_price;
-    }
-    if (object.pick_best_route !== undefined && object.pick_best_route !== null) {
-      message.pickBestRoute = object.pick_best_route;
-    }
-    return message;
-  },
-  toAmino(message: QueryEstimateMultiHopSwapRequest): QueryEstimateMultiHopSwapRequestAmino {
-    const obj: any = {};
-    obj.creator = message.creator === "" ? undefined : message.creator;
-    obj.receiver = message.receiver === "" ? undefined : message.receiver;
-    if (message.routes) {
-      obj.routes = message.routes.map((e) => (e ? MultiHopRoute.toAmino(e) : undefined));
-    } else {
-      obj.routes = message.routes;
-    }
-    obj.amount_in = message.amountIn ?? "";
-    obj.exit_limit_price = message.exitLimitPrice ?? "";
-    obj.pick_best_route = message.pickBestRoute === false ? undefined : message.pickBestRoute;
-    return obj;
-  },
-  fromAminoMsg(object: QueryEstimateMultiHopSwapRequestAminoMsg): QueryEstimateMultiHopSwapRequest {
-    return QueryEstimateMultiHopSwapRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryEstimateMultiHopSwapResponse(): QueryEstimateMultiHopSwapResponse {
   return {
@@ -2552,21 +1990,6 @@ export const QueryEstimateMultiHopSwapResponse = {
       message.coinOut = Coin.fromPartial(object.coinOut);
     }
     return message;
-  },
-  fromAmino(object: QueryEstimateMultiHopSwapResponseAmino): QueryEstimateMultiHopSwapResponse {
-    const message = createBaseQueryEstimateMultiHopSwapResponse();
-    if (object.coin_out !== undefined && object.coin_out !== null) {
-      message.coinOut = Coin.fromAmino(object.coin_out);
-    }
-    return message;
-  },
-  toAmino(message: QueryEstimateMultiHopSwapResponse): QueryEstimateMultiHopSwapResponseAmino {
-    const obj: any = {};
-    obj.coin_out = message.coinOut ? Coin.toAmino(message.coinOut) : Coin.toAmino(Coin.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: QueryEstimateMultiHopSwapResponseAminoMsg): QueryEstimateMultiHopSwapResponse {
-    return QueryEstimateMultiHopSwapResponse.fromAmino(object.value);
   },
 };
 function createBaseQueryEstimatePlaceLimitOrderRequest(): QueryEstimatePlaceLimitOrderRequest {
@@ -2705,54 +2128,6 @@ export const QueryEstimatePlaceLimitOrderRequest = {
     message.maxAmountOut = object.maxAmountOut ?? undefined;
     return message;
   },
-  fromAmino(object: QueryEstimatePlaceLimitOrderRequestAmino): QueryEstimatePlaceLimitOrderRequest {
-    const message = createBaseQueryEstimatePlaceLimitOrderRequest();
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
-    }
-    if (object.receiver !== undefined && object.receiver !== null) {
-      message.receiver = object.receiver;
-    }
-    if (object.token_in !== undefined && object.token_in !== null) {
-      message.tokenIn = object.token_in;
-    }
-    if (object.token_out !== undefined && object.token_out !== null) {
-      message.tokenOut = object.token_out;
-    }
-    if (object.tick_index_in_to_out !== undefined && object.tick_index_in_to_out !== null) {
-      message.tickIndexInToOut = BigInt(object.tick_index_in_to_out);
-    }
-    if (object.amount_in !== undefined && object.amount_in !== null) {
-      message.amountIn = object.amount_in;
-    }
-    if (object.order_type !== undefined && object.order_type !== null) {
-      message.orderType = object.order_type;
-    }
-    if (object.expiration_time !== undefined && object.expiration_time !== null) {
-      message.expirationTime = Timestamp.fromAmino(object.expiration_time);
-    }
-    if (object.maxAmount_out !== undefined && object.maxAmount_out !== null) {
-      message.maxAmountOut = object.maxAmount_out;
-    }
-    return message;
-  },
-  toAmino(message: QueryEstimatePlaceLimitOrderRequest): QueryEstimatePlaceLimitOrderRequestAmino {
-    const obj: any = {};
-    obj.creator = message.creator === "" ? undefined : message.creator;
-    obj.receiver = message.receiver === "" ? undefined : message.receiver;
-    obj.token_in = message.tokenIn === "" ? undefined : message.tokenIn;
-    obj.token_out = message.tokenOut === "" ? undefined : message.tokenOut;
-    obj.tick_index_in_to_out =
-      message.tickIndexInToOut !== BigInt(0) ? message.tickIndexInToOut?.toString() : undefined;
-    obj.amount_in = message.amountIn ?? "";
-    obj.order_type = message.orderType === 0 ? undefined : message.orderType;
-    obj.expiration_time = message.expirationTime ? Timestamp.toAmino(message.expirationTime) : undefined;
-    obj.maxAmount_out = message.maxAmountOut ?? null;
-    return obj;
-  },
-  fromAminoMsg(object: QueryEstimatePlaceLimitOrderRequestAminoMsg): QueryEstimatePlaceLimitOrderRequest {
-    return QueryEstimatePlaceLimitOrderRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryEstimatePlaceLimitOrderResponse(): QueryEstimatePlaceLimitOrderResponse {
   return {
@@ -2833,35 +2208,6 @@ export const QueryEstimatePlaceLimitOrderResponse = {
     }
     return message;
   },
-  fromAmino(object: QueryEstimatePlaceLimitOrderResponseAmino): QueryEstimatePlaceLimitOrderResponse {
-    const message = createBaseQueryEstimatePlaceLimitOrderResponse();
-    if (object.total_in_coin !== undefined && object.total_in_coin !== null) {
-      message.totalInCoin = Coin.fromAmino(object.total_in_coin);
-    }
-    if (object.swap_in_coin !== undefined && object.swap_in_coin !== null) {
-      message.swapInCoin = Coin.fromAmino(object.swap_in_coin);
-    }
-    if (object.swap_out_coin !== undefined && object.swap_out_coin !== null) {
-      message.swapOutCoin = Coin.fromAmino(object.swap_out_coin);
-    }
-    return message;
-  },
-  toAmino(message: QueryEstimatePlaceLimitOrderResponse): QueryEstimatePlaceLimitOrderResponseAmino {
-    const obj: any = {};
-    obj.total_in_coin = message.totalInCoin
-      ? Coin.toAmino(message.totalInCoin)
-      : Coin.toAmino(Coin.fromPartial({}));
-    obj.swap_in_coin = message.swapInCoin
-      ? Coin.toAmino(message.swapInCoin)
-      : Coin.toAmino(Coin.fromPartial({}));
-    obj.swap_out_coin = message.swapOutCoin
-      ? Coin.toAmino(message.swapOutCoin)
-      : Coin.toAmino(Coin.fromPartial({}));
-    return obj;
-  },
-  fromAminoMsg(object: QueryEstimatePlaceLimitOrderResponseAminoMsg): QueryEstimatePlaceLimitOrderResponse {
-    return QueryEstimatePlaceLimitOrderResponse.fromAmino(object.value);
-  },
 };
 function createBaseQueryPoolRequest(): QueryPoolRequest {
   return {
@@ -2932,29 +2278,6 @@ export const QueryPoolRequest = {
     }
     return message;
   },
-  fromAmino(object: QueryPoolRequestAmino): QueryPoolRequest {
-    const message = createBaseQueryPoolRequest();
-    if (object.pair_id !== undefined && object.pair_id !== null) {
-      message.pairId = object.pair_id;
-    }
-    if (object.tick_index !== undefined && object.tick_index !== null) {
-      message.tickIndex = BigInt(object.tick_index);
-    }
-    if (object.fee !== undefined && object.fee !== null) {
-      message.fee = BigInt(object.fee);
-    }
-    return message;
-  },
-  toAmino(message: QueryPoolRequest): QueryPoolRequestAmino {
-    const obj: any = {};
-    obj.pair_id = message.pairId === "" ? undefined : message.pairId;
-    obj.tick_index = message.tickIndex !== BigInt(0) ? message.tickIndex?.toString() : undefined;
-    obj.fee = message.fee !== BigInt(0) ? message.fee?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryPoolRequestAminoMsg): QueryPoolRequest {
-    return QueryPoolRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryPoolByIDRequest(): QueryPoolByIDRequest {
   return {
@@ -3003,21 +2326,6 @@ export const QueryPoolByIDRequest = {
     }
     return message;
   },
-  fromAmino(object: QueryPoolByIDRequestAmino): QueryPoolByIDRequest {
-    const message = createBaseQueryPoolByIDRequest();
-    if (object.pool_id !== undefined && object.pool_id !== null) {
-      message.poolId = BigInt(object.pool_id);
-    }
-    return message;
-  },
-  toAmino(message: QueryPoolByIDRequest): QueryPoolByIDRequestAmino {
-    const obj: any = {};
-    obj.pool_id = message.poolId !== BigInt(0) ? message.poolId?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryPoolByIDRequestAminoMsg): QueryPoolByIDRequest {
-    return QueryPoolByIDRequest.fromAmino(object.value);
-  },
 };
 function createBaseQueryPoolResponse(): QueryPoolResponse {
   return {
@@ -3065,21 +2373,6 @@ export const QueryPoolResponse = {
       message.pool = Pool.fromPartial(object.pool);
     }
     return message;
-  },
-  fromAmino(object: QueryPoolResponseAmino): QueryPoolResponse {
-    const message = createBaseQueryPoolResponse();
-    if (object.pool !== undefined && object.pool !== null) {
-      message.pool = Pool.fromAmino(object.pool);
-    }
-    return message;
-  },
-  toAmino(message: QueryPoolResponse): QueryPoolResponseAmino {
-    const obj: any = {};
-    obj.pool = message.pool ? Pool.toAmino(message.pool) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryPoolResponseAminoMsg): QueryPoolResponse {
-    return QueryPoolResponse.fromAmino(object.value);
   },
 };
 function createBaseQueryGetPoolMetadataRequest(): QueryGetPoolMetadataRequest {
@@ -3130,21 +2423,6 @@ export const QueryGetPoolMetadataRequest = {
       message.id = BigInt(object.id.toString());
     }
     return message;
-  },
-  fromAmino(object: QueryGetPoolMetadataRequestAmino): QueryGetPoolMetadataRequest {
-    const message = createBaseQueryGetPoolMetadataRequest();
-    if (object.id !== undefined && object.id !== null) {
-      message.id = BigInt(object.id);
-    }
-    return message;
-  },
-  toAmino(message: QueryGetPoolMetadataRequest): QueryGetPoolMetadataRequestAmino {
-    const obj: any = {};
-    obj.id = message.id !== BigInt(0) ? message.id?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryGetPoolMetadataRequestAminoMsg): QueryGetPoolMetadataRequest {
-    return QueryGetPoolMetadataRequest.fromAmino(object.value);
   },
 };
 function createBaseQueryGetPoolMetadataResponse(): QueryGetPoolMetadataResponse {
@@ -3197,21 +2475,6 @@ export const QueryGetPoolMetadataResponse = {
     }
     return message;
   },
-  fromAmino(object: QueryGetPoolMetadataResponseAmino): QueryGetPoolMetadataResponse {
-    const message = createBaseQueryGetPoolMetadataResponse();
-    if (object.Pool_metadata !== undefined && object.Pool_metadata !== null) {
-      message.poolMetadata = PoolMetadata.fromAmino(object.Pool_metadata);
-    }
-    return message;
-  },
-  toAmino(message: QueryGetPoolMetadataResponse): QueryGetPoolMetadataResponseAmino {
-    const obj: any = {};
-    obj.Pool_metadata = message.poolMetadata ? PoolMetadata.toAmino(message.poolMetadata) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryGetPoolMetadataResponseAminoMsg): QueryGetPoolMetadataResponse {
-    return QueryGetPoolMetadataResponse.fromAmino(object.value);
-  },
 };
 function createBaseQueryAllPoolMetadataRequest(): QueryAllPoolMetadataRequest {
   return {
@@ -3262,21 +2525,6 @@ export const QueryAllPoolMetadataRequest = {
       message.pagination = PageRequest.fromPartial(object.pagination);
     }
     return message;
-  },
-  fromAmino(object: QueryAllPoolMetadataRequestAmino): QueryAllPoolMetadataRequest {
-    const message = createBaseQueryAllPoolMetadataRequest();
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAllPoolMetadataRequest): QueryAllPoolMetadataRequestAmino {
-    const obj: any = {};
-    obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAllPoolMetadataRequestAminoMsg): QueryAllPoolMetadataRequest {
-    return QueryAllPoolMetadataRequest.fromAmino(object.value);
   },
 };
 function createBaseQueryAllPoolMetadataResponse(): QueryAllPoolMetadataResponse {
@@ -3344,27 +2592,6 @@ export const QueryAllPoolMetadataResponse = {
     }
     return message;
   },
-  fromAmino(object: QueryAllPoolMetadataResponseAmino): QueryAllPoolMetadataResponse {
-    const message = createBaseQueryAllPoolMetadataResponse();
-    message.poolMetadata = object.pool_metadata?.map((e) => PoolMetadata.fromAmino(e)) || [];
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromAmino(object.pagination);
-    }
-    return message;
-  },
-  toAmino(message: QueryAllPoolMetadataResponse): QueryAllPoolMetadataResponseAmino {
-    const obj: any = {};
-    if (message.poolMetadata) {
-      obj.pool_metadata = message.poolMetadata.map((e) => (e ? PoolMetadata.toAmino(e) : undefined));
-    } else {
-      obj.pool_metadata = message.poolMetadata;
-    }
-    obj.pagination = message.pagination ? PageResponse.toAmino(message.pagination) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QueryAllPoolMetadataResponseAminoMsg): QueryAllPoolMetadataResponse {
-    return QueryAllPoolMetadataResponse.fromAmino(object.value);
-  },
 };
 function createBaseQuerySimulateDepositRequest(): QuerySimulateDepositRequest {
   return {
@@ -3414,21 +2641,6 @@ export const QuerySimulateDepositRequest = {
       message.msg = MsgDeposit.fromPartial(object.msg);
     }
     return message;
-  },
-  fromAmino(object: QuerySimulateDepositRequestAmino): QuerySimulateDepositRequest {
-    const message = createBaseQuerySimulateDepositRequest();
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = MsgDeposit.fromAmino(object.msg);
-    }
-    return message;
-  },
-  toAmino(message: QuerySimulateDepositRequest): QuerySimulateDepositRequestAmino {
-    const obj: any = {};
-    obj.msg = message.msg ? MsgDeposit.toAmino(message.msg) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySimulateDepositRequestAminoMsg): QuerySimulateDepositRequest {
-    return QuerySimulateDepositRequest.fromAmino(object.value);
   },
 };
 function createBaseQuerySimulateDepositResponse(): QuerySimulateDepositResponse {
@@ -3480,21 +2692,6 @@ export const QuerySimulateDepositResponse = {
       message.resp = MsgDepositResponse.fromPartial(object.resp);
     }
     return message;
-  },
-  fromAmino(object: QuerySimulateDepositResponseAmino): QuerySimulateDepositResponse {
-    const message = createBaseQuerySimulateDepositResponse();
-    if (object.resp !== undefined && object.resp !== null) {
-      message.resp = MsgDepositResponse.fromAmino(object.resp);
-    }
-    return message;
-  },
-  toAmino(message: QuerySimulateDepositResponse): QuerySimulateDepositResponseAmino {
-    const obj: any = {};
-    obj.resp = message.resp ? MsgDepositResponse.toAmino(message.resp) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySimulateDepositResponseAminoMsg): QuerySimulateDepositResponse {
-    return QuerySimulateDepositResponse.fromAmino(object.value);
   },
 };
 function createBaseQuerySimulateWithdrawalRequest(): QuerySimulateWithdrawalRequest {
@@ -3548,21 +2745,6 @@ export const QuerySimulateWithdrawalRequest = {
       message.msg = MsgWithdrawal.fromPartial(object.msg);
     }
     return message;
-  },
-  fromAmino(object: QuerySimulateWithdrawalRequestAmino): QuerySimulateWithdrawalRequest {
-    const message = createBaseQuerySimulateWithdrawalRequest();
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = MsgWithdrawal.fromAmino(object.msg);
-    }
-    return message;
-  },
-  toAmino(message: QuerySimulateWithdrawalRequest): QuerySimulateWithdrawalRequestAmino {
-    const obj: any = {};
-    obj.msg = message.msg ? MsgWithdrawal.toAmino(message.msg) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySimulateWithdrawalRequestAminoMsg): QuerySimulateWithdrawalRequest {
-    return QuerySimulateWithdrawalRequest.fromAmino(object.value);
   },
 };
 function createBaseQuerySimulateWithdrawalResponse(): QuerySimulateWithdrawalResponse {
@@ -3618,21 +2800,6 @@ export const QuerySimulateWithdrawalResponse = {
     }
     return message;
   },
-  fromAmino(object: QuerySimulateWithdrawalResponseAmino): QuerySimulateWithdrawalResponse {
-    const message = createBaseQuerySimulateWithdrawalResponse();
-    if (object.resp !== undefined && object.resp !== null) {
-      message.resp = MsgWithdrawalResponse.fromAmino(object.resp);
-    }
-    return message;
-  },
-  toAmino(message: QuerySimulateWithdrawalResponse): QuerySimulateWithdrawalResponseAmino {
-    const obj: any = {};
-    obj.resp = message.resp ? MsgWithdrawalResponse.toAmino(message.resp) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySimulateWithdrawalResponseAminoMsg): QuerySimulateWithdrawalResponse {
-    return QuerySimulateWithdrawalResponse.fromAmino(object.value);
-  },
 };
 function createBaseQuerySimulatePlaceLimitOrderRequest(): QuerySimulatePlaceLimitOrderRequest {
   return {
@@ -3685,21 +2852,6 @@ export const QuerySimulatePlaceLimitOrderRequest = {
       message.msg = MsgPlaceLimitOrder.fromPartial(object.msg);
     }
     return message;
-  },
-  fromAmino(object: QuerySimulatePlaceLimitOrderRequestAmino): QuerySimulatePlaceLimitOrderRequest {
-    const message = createBaseQuerySimulatePlaceLimitOrderRequest();
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = MsgPlaceLimitOrder.fromAmino(object.msg);
-    }
-    return message;
-  },
-  toAmino(message: QuerySimulatePlaceLimitOrderRequest): QuerySimulatePlaceLimitOrderRequestAmino {
-    const obj: any = {};
-    obj.msg = message.msg ? MsgPlaceLimitOrder.toAmino(message.msg) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySimulatePlaceLimitOrderRequestAminoMsg): QuerySimulatePlaceLimitOrderRequest {
-    return QuerySimulatePlaceLimitOrderRequest.fromAmino(object.value);
   },
 };
 function createBaseQuerySimulatePlaceLimitOrderResponse(): QuerySimulatePlaceLimitOrderResponse {
@@ -3754,21 +2906,6 @@ export const QuerySimulatePlaceLimitOrderResponse = {
       message.resp = MsgPlaceLimitOrderResponse.fromPartial(object.resp);
     }
     return message;
-  },
-  fromAmino(object: QuerySimulatePlaceLimitOrderResponseAmino): QuerySimulatePlaceLimitOrderResponse {
-    const message = createBaseQuerySimulatePlaceLimitOrderResponse();
-    if (object.resp !== undefined && object.resp !== null) {
-      message.resp = MsgPlaceLimitOrderResponse.fromAmino(object.resp);
-    }
-    return message;
-  },
-  toAmino(message: QuerySimulatePlaceLimitOrderResponse): QuerySimulatePlaceLimitOrderResponseAmino {
-    const obj: any = {};
-    obj.resp = message.resp ? MsgPlaceLimitOrderResponse.toAmino(message.resp) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySimulatePlaceLimitOrderResponseAminoMsg): QuerySimulatePlaceLimitOrderResponse {
-    return QuerySimulatePlaceLimitOrderResponse.fromAmino(object.value);
   },
 };
 function createBaseQuerySimulateWithdrawFilledLimitOrderRequest(): QuerySimulateWithdrawFilledLimitOrderRequest {
@@ -3826,27 +2963,6 @@ export const QuerySimulateWithdrawFilledLimitOrderRequest = {
     }
     return message;
   },
-  fromAmino(
-    object: QuerySimulateWithdrawFilledLimitOrderRequestAmino,
-  ): QuerySimulateWithdrawFilledLimitOrderRequest {
-    const message = createBaseQuerySimulateWithdrawFilledLimitOrderRequest();
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = MsgWithdrawFilledLimitOrder.fromAmino(object.msg);
-    }
-    return message;
-  },
-  toAmino(
-    message: QuerySimulateWithdrawFilledLimitOrderRequest,
-  ): QuerySimulateWithdrawFilledLimitOrderRequestAmino {
-    const obj: any = {};
-    obj.msg = message.msg ? MsgWithdrawFilledLimitOrder.toAmino(message.msg) : undefined;
-    return obj;
-  },
-  fromAminoMsg(
-    object: QuerySimulateWithdrawFilledLimitOrderRequestAminoMsg,
-  ): QuerySimulateWithdrawFilledLimitOrderRequest {
-    return QuerySimulateWithdrawFilledLimitOrderRequest.fromAmino(object.value);
-  },
 };
 function createBaseQuerySimulateWithdrawFilledLimitOrderResponse(): QuerySimulateWithdrawFilledLimitOrderResponse {
   return {
@@ -3903,27 +3019,6 @@ export const QuerySimulateWithdrawFilledLimitOrderResponse = {
     }
     return message;
   },
-  fromAmino(
-    object: QuerySimulateWithdrawFilledLimitOrderResponseAmino,
-  ): QuerySimulateWithdrawFilledLimitOrderResponse {
-    const message = createBaseQuerySimulateWithdrawFilledLimitOrderResponse();
-    if (object.resp !== undefined && object.resp !== null) {
-      message.resp = MsgWithdrawFilledLimitOrderResponse.fromAmino(object.resp);
-    }
-    return message;
-  },
-  toAmino(
-    message: QuerySimulateWithdrawFilledLimitOrderResponse,
-  ): QuerySimulateWithdrawFilledLimitOrderResponseAmino {
-    const obj: any = {};
-    obj.resp = message.resp ? MsgWithdrawFilledLimitOrderResponse.toAmino(message.resp) : undefined;
-    return obj;
-  },
-  fromAminoMsg(
-    object: QuerySimulateWithdrawFilledLimitOrderResponseAminoMsg,
-  ): QuerySimulateWithdrawFilledLimitOrderResponse {
-    return QuerySimulateWithdrawFilledLimitOrderResponse.fromAmino(object.value);
-  },
 };
 function createBaseQuerySimulateCancelLimitOrderRequest(): QuerySimulateCancelLimitOrderRequest {
   return {
@@ -3977,21 +3072,6 @@ export const QuerySimulateCancelLimitOrderRequest = {
       message.msg = MsgCancelLimitOrder.fromPartial(object.msg);
     }
     return message;
-  },
-  fromAmino(object: QuerySimulateCancelLimitOrderRequestAmino): QuerySimulateCancelLimitOrderRequest {
-    const message = createBaseQuerySimulateCancelLimitOrderRequest();
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = MsgCancelLimitOrder.fromAmino(object.msg);
-    }
-    return message;
-  },
-  toAmino(message: QuerySimulateCancelLimitOrderRequest): QuerySimulateCancelLimitOrderRequestAmino {
-    const obj: any = {};
-    obj.msg = message.msg ? MsgCancelLimitOrder.toAmino(message.msg) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySimulateCancelLimitOrderRequestAminoMsg): QuerySimulateCancelLimitOrderRequest {
-    return QuerySimulateCancelLimitOrderRequest.fromAmino(object.value);
   },
 };
 function createBaseQuerySimulateCancelLimitOrderResponse(): QuerySimulateCancelLimitOrderResponse {
@@ -4047,21 +3127,6 @@ export const QuerySimulateCancelLimitOrderResponse = {
     }
     return message;
   },
-  fromAmino(object: QuerySimulateCancelLimitOrderResponseAmino): QuerySimulateCancelLimitOrderResponse {
-    const message = createBaseQuerySimulateCancelLimitOrderResponse();
-    if (object.resp !== undefined && object.resp !== null) {
-      message.resp = MsgCancelLimitOrderResponse.fromAmino(object.resp);
-    }
-    return message;
-  },
-  toAmino(message: QuerySimulateCancelLimitOrderResponse): QuerySimulateCancelLimitOrderResponseAmino {
-    const obj: any = {};
-    obj.resp = message.resp ? MsgCancelLimitOrderResponse.toAmino(message.resp) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySimulateCancelLimitOrderResponseAminoMsg): QuerySimulateCancelLimitOrderResponse {
-    return QuerySimulateCancelLimitOrderResponse.fromAmino(object.value);
-  },
 };
 function createBaseQuerySimulateMultiHopSwapRequest(): QuerySimulateMultiHopSwapRequest {
   return {
@@ -4114,21 +3179,6 @@ export const QuerySimulateMultiHopSwapRequest = {
       message.msg = MsgMultiHopSwap.fromPartial(object.msg);
     }
     return message;
-  },
-  fromAmino(object: QuerySimulateMultiHopSwapRequestAmino): QuerySimulateMultiHopSwapRequest {
-    const message = createBaseQuerySimulateMultiHopSwapRequest();
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = MsgMultiHopSwap.fromAmino(object.msg);
-    }
-    return message;
-  },
-  toAmino(message: QuerySimulateMultiHopSwapRequest): QuerySimulateMultiHopSwapRequestAmino {
-    const obj: any = {};
-    obj.msg = message.msg ? MsgMultiHopSwap.toAmino(message.msg) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySimulateMultiHopSwapRequestAminoMsg): QuerySimulateMultiHopSwapRequest {
-    return QuerySimulateMultiHopSwapRequest.fromAmino(object.value);
   },
 };
 function createBaseQuerySimulateMultiHopSwapResponse(): QuerySimulateMultiHopSwapResponse {
@@ -4183,20 +3233,5 @@ export const QuerySimulateMultiHopSwapResponse = {
       message.resp = MsgMultiHopSwapResponse.fromPartial(object.resp);
     }
     return message;
-  },
-  fromAmino(object: QuerySimulateMultiHopSwapResponseAmino): QuerySimulateMultiHopSwapResponse {
-    const message = createBaseQuerySimulateMultiHopSwapResponse();
-    if (object.resp !== undefined && object.resp !== null) {
-      message.resp = MsgMultiHopSwapResponse.fromAmino(object.resp);
-    }
-    return message;
-  },
-  toAmino(message: QuerySimulateMultiHopSwapResponse): QuerySimulateMultiHopSwapResponseAmino {
-    const obj: any = {};
-    obj.resp = message.resp ? MsgMultiHopSwapResponse.toAmino(message.resp) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: QuerySimulateMultiHopSwapResponseAminoMsg): QuerySimulateMultiHopSwapResponse {
-    return QuerySimulateMultiHopSwapResponse.fromAmino(object.value);
   },
 };

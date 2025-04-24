@@ -131,41 +131,4 @@ export const Params = {
     }
     return message;
   },
-  fromAmino(object: ParamsAmino): Params {
-    const message = createBaseParams();
-    if (object.query_submit_timeout !== undefined && object.query_submit_timeout !== null) {
-      message.querySubmitTimeout = BigInt(object.query_submit_timeout);
-    }
-    message.queryDeposit = object.query_deposit?.map((e) => Coin.fromAmino(e)) || [];
-    if (object.tx_query_removal_limit !== undefined && object.tx_query_removal_limit !== null) {
-      message.txQueryRemovalLimit = BigInt(object.tx_query_removal_limit);
-    }
-    if (object.max_kv_query_keys_count !== undefined && object.max_kv_query_keys_count !== null) {
-      message.maxKvQueryKeysCount = BigInt(object.max_kv_query_keys_count);
-    }
-    if (object.max_transactions_filters !== undefined && object.max_transactions_filters !== null) {
-      message.maxTransactionsFilters = BigInt(object.max_transactions_filters);
-    }
-    return message;
-  },
-  toAmino(message: Params): ParamsAmino {
-    const obj: any = {};
-    obj.query_submit_timeout =
-      message.querySubmitTimeout !== BigInt(0) ? message.querySubmitTimeout?.toString() : undefined;
-    if (message.queryDeposit) {
-      obj.query_deposit = message.queryDeposit.map((e) => (e ? Coin.toAmino(e) : undefined));
-    } else {
-      obj.query_deposit = message.queryDeposit;
-    }
-    obj.tx_query_removal_limit =
-      message.txQueryRemovalLimit !== BigInt(0) ? message.txQueryRemovalLimit?.toString() : undefined;
-    obj.max_kv_query_keys_count =
-      message.maxKvQueryKeysCount !== BigInt(0) ? message.maxKvQueryKeysCount?.toString() : undefined;
-    obj.max_transactions_filters =
-      message.maxTransactionsFilters !== BigInt(0) ? message.maxTransactionsFilters?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ParamsAminoMsg): Params {
-    return Params.fromAmino(object.value);
-  },
 };

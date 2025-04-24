@@ -56,20 +56,4 @@ export const Params = {
     }
     return message;
   },
-  fromAmino(object: ParamsAmino): Params {
-    const message = createBaseParams();
-    if (object.sudo_call_gas_limit !== undefined && object.sudo_call_gas_limit !== null) {
-      message.sudoCallGasLimit = BigInt(object.sudo_call_gas_limit);
-    }
-    return message;
-  },
-  toAmino(message: Params): ParamsAmino {
-    const obj: any = {};
-    obj.sudo_call_gas_limit =
-      message.sudoCallGasLimit !== BigInt(0) ? message.sudoCallGasLimit?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ParamsAminoMsg): Params {
-    return Params.fromAmino(object.value);
-  },
 };

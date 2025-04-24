@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../../helpers";
 import { MsgUnjail, MsgUpdateParams } from "./tx";
 export interface MsgUnjailAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgUnjail";
@@ -44,7 +45,7 @@ export const AminoConverter = {
       return {
         authority,
         params: {
-          signed_blocks_window: params.signedBlocksWindow.toString(),
+          signed_blocks_window: omitDefault(params.signedBlocksWindow)?.toString?.(),
           min_signed_per_window: params.minSignedPerWindow,
           downtime_jail_duration: (params.downtimeJailDuration * 1_000_000_000).toString(),
           slash_fraction_double_sign: params.slashFractionDoubleSign,
@@ -55,16 +56,25 @@ export const AminoConverter = {
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          signedBlocksWindow: BigInt(params.signed_blocks_window),
-          minSignedPerWindow: params.min_signed_per_window,
-          downtimeJailDuration: {
-            seconds: BigInt(Math.floor(parseInt(params.downtime_jail_duration) / 1_000_000_000)),
-            nanos: parseInt(params.downtime_jail_duration) % 1_000_000_000,
-          },
-          slashFractionDoubleSign: params.slash_fraction_double_sign,
-          slashFractionDowntime: params.slash_fraction_downtime,
-        },
+        params:
+          params == null
+            ? params
+            : {
+                signedBlocksWindow:
+                  params.signed_blocks_window == null
+                    ? params.signed_blocks_window
+                    : BigInt(params.signed_blocks_window),
+                minSignedPerWindow: params.min_signed_per_window,
+                downtimeJailDuration:
+                  params.downtime_jail_duration == null
+                    ? params.downtime_jail_duration
+                    : {
+                        seconds: BigInt(Math.floor(parseInt(params.downtime_jail_duration) / 1_000_000_000)),
+                        nanos: parseInt(params.downtime_jail_duration) % 1_000_000_000,
+                      },
+                slashFractionDoubleSign: params.slash_fraction_double_sign,
+                slashFractionDowntime: params.slash_fraction_downtime,
+              },
       };
     },
   },

@@ -3,6 +3,7 @@
 import { accessTypeFromJSON } from "./types";
 import { AminoMsg } from "@cosmjs/amino";
 import { toBase64, fromBase64, fromUtf8, toUtf8 } from "@cosmjs/encoding";
+import { omitDefault } from "../../../helpers";
 import {
   MsgStoreCode,
   MsgInstantiateContract,
@@ -226,11 +227,17 @@ export const AminoConverter = {
     }: MsgStoreCodeAminoType["value"]): MsgStoreCode => {
       return {
         sender,
-        wasmByteCode: fromBase64(wasm_byte_code),
-        instantiatePermission: {
-          permission: accessTypeFromJSON(instantiate_permission.permission),
-          addresses: instantiate_permission.addresses,
-        },
+        wasmByteCode: wasm_byte_code == null ? wasm_byte_code : fromBase64(wasm_byte_code),
+        instantiatePermission:
+          instantiate_permission == null
+            ? instantiate_permission
+            : {
+                permission:
+                  instantiate_permission.permission == null
+                    ? instantiate_permission.permission
+                    : accessTypeFromJSON(instantiate_permission.permission),
+                addresses: instantiate_permission.addresses,
+              },
       };
     },
   },
@@ -247,7 +254,7 @@ export const AminoConverter = {
       return {
         sender,
         admin,
-        code_id: codeId.toString(),
+        code_id: omitDefault(codeId)?.toString?.(),
         label,
         msg: JSON.parse(fromUtf8(msg)),
         funds: funds.map((el0) => ({
@@ -267,10 +274,10 @@ export const AminoConverter = {
       return {
         sender,
         admin,
-        codeId: BigInt(code_id),
+        codeId: code_id == null ? code_id : BigInt(code_id),
         label,
-        msg: toUtf8(JSON.stringify(msg)),
-        funds: funds.map((el0) => ({
+        msg: msg == null ? msg : toUtf8(JSON.stringify(msg)),
+        funds: funds.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),
@@ -292,7 +299,7 @@ export const AminoConverter = {
       return {
         sender,
         admin,
-        code_id: codeId.toString(),
+        code_id: omitDefault(codeId)?.toString?.(),
         label,
         msg: JSON.parse(fromUtf8(msg)),
         funds: funds.map((el0) => ({
@@ -300,7 +307,7 @@ export const AminoConverter = {
           amount: el0.amount,
         })),
         salt,
-        fix_msg: fixMsg,
+        fix_msg: omitDefault(fixMsg),
       };
     },
     fromAmino: ({
@@ -316,10 +323,10 @@ export const AminoConverter = {
       return {
         sender,
         admin,
-        codeId: BigInt(code_id),
+        codeId: code_id == null ? code_id : BigInt(code_id),
         label,
-        msg: toUtf8(JSON.stringify(msg)),
-        funds: funds.map((el0) => ({
+        msg: msg == null ? msg : toUtf8(JSON.stringify(msg)),
+        funds: funds.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),
@@ -350,8 +357,8 @@ export const AminoConverter = {
       return {
         sender,
         contract,
-        msg: toUtf8(JSON.stringify(msg)),
-        funds: funds.map((el0) => ({
+        msg: msg == null ? msg : toUtf8(JSON.stringify(msg)),
+        funds: funds.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),
@@ -369,7 +376,7 @@ export const AminoConverter = {
       return {
         sender,
         contract,
-        code_id: codeId.toString(),
+        code_id: omitDefault(codeId)?.toString?.(),
         msg: JSON.parse(fromUtf8(msg)),
       };
     },
@@ -382,8 +389,8 @@ export const AminoConverter = {
       return {
         sender,
         contract,
-        codeId: BigInt(code_id),
-        msg: toUtf8(JSON.stringify(msg)),
+        codeId: code_id == null ? code_id : BigInt(code_id),
+        msg: msg == null ? msg : toUtf8(JSON.stringify(msg)),
       };
     },
   },
@@ -428,7 +435,7 @@ export const AminoConverter = {
     }: MsgUpdateInstantiateConfig): MsgUpdateInstantiateConfigAminoType["value"] => {
       return {
         sender,
-        code_id: codeId.toString(),
+        code_id: omitDefault(codeId)?.toString?.(),
         new_instantiate_permission: {
           permission: newInstantiatePermission.permission,
           addresses: newInstantiatePermission.addresses,
@@ -442,11 +449,17 @@ export const AminoConverter = {
     }: MsgUpdateInstantiateConfigAminoType["value"]): MsgUpdateInstantiateConfig => {
       return {
         sender,
-        codeId: BigInt(code_id),
-        newInstantiatePermission: {
-          permission: accessTypeFromJSON(new_instantiate_permission.permission),
-          addresses: new_instantiate_permission.addresses,
-        },
+        codeId: code_id == null ? code_id : BigInt(code_id),
+        newInstantiatePermission:
+          new_instantiate_permission == null
+            ? new_instantiate_permission
+            : {
+                permission:
+                  new_instantiate_permission.permission == null
+                    ? new_instantiate_permission.permission
+                    : accessTypeFromJSON(new_instantiate_permission.permission),
+                addresses: new_instantiate_permission.addresses,
+              },
       };
     },
   },
@@ -467,13 +480,25 @@ export const AminoConverter = {
     fromAmino: ({ authority, params }: MsgUpdateParamsAminoType["value"]): MsgUpdateParams => {
       return {
         authority,
-        params: {
-          codeUploadAccess: {
-            permission: accessTypeFromJSON(params.code_upload_access.permission),
-            addresses: params.code_upload_access.addresses,
-          },
-          instantiateDefaultPermission: accessTypeFromJSON(params.instantiate_default_permission),
-        },
+        params:
+          params == null
+            ? params
+            : {
+                codeUploadAccess:
+                  params.code_upload_access == null
+                    ? params.code_upload_access
+                    : {
+                        permission:
+                          params.code_upload_access.permission == null
+                            ? params.code_upload_access.permission
+                            : accessTypeFromJSON(params.code_upload_access.permission),
+                        addresses: params.code_upload_access.addresses,
+                      },
+                instantiateDefaultPermission:
+                  params.instantiate_default_permission == null
+                    ? params.instantiate_default_permission
+                    : accessTypeFromJSON(params.instantiate_default_permission),
+              },
       };
     },
   },
@@ -490,7 +515,7 @@ export const AminoConverter = {
       return {
         authority,
         contract,
-        msg: toUtf8(JSON.stringify(msg)),
+        msg: msg == null ? msg : toUtf8(JSON.stringify(msg)),
       };
     },
   },
@@ -505,7 +530,7 @@ export const AminoConverter = {
     fromAmino: ({ authority, code_ids }: MsgPinCodesAminoType["value"]): MsgPinCodes => {
       return {
         authority,
-        codeIds: code_ids.map((el0) => BigInt(el0)),
+        codeIds: code_ids.map?.((el0) => BigInt(el0)),
       };
     },
   },
@@ -520,7 +545,7 @@ export const AminoConverter = {
     fromAmino: ({ authority, code_ids }: MsgUnpinCodesAminoType["value"]): MsgUnpinCodes => {
       return {
         authority,
-        codeIds: code_ids.map((el0) => BigInt(el0)),
+        codeIds: code_ids.map?.((el0) => BigInt(el0)),
       };
     },
   },
@@ -546,7 +571,7 @@ export const AminoConverter = {
           permission: instantiatePermission.permission,
           addresses: instantiatePermission.addresses,
         },
-        unpin_code: unpinCode,
+        unpin_code: omitDefault(unpinCode),
         admin,
         label,
         msg: JSON.parse(fromUtf8(msg)),
@@ -574,16 +599,22 @@ export const AminoConverter = {
     }: MsgStoreAndInstantiateContractAminoType["value"]): MsgStoreAndInstantiateContract => {
       return {
         authority,
-        wasmByteCode: fromBase64(wasm_byte_code),
-        instantiatePermission: {
-          permission: accessTypeFromJSON(instantiate_permission.permission),
-          addresses: instantiate_permission.addresses,
-        },
+        wasmByteCode: wasm_byte_code == null ? wasm_byte_code : fromBase64(wasm_byte_code),
+        instantiatePermission:
+          instantiate_permission == null
+            ? instantiate_permission
+            : {
+                permission:
+                  instantiate_permission.permission == null
+                    ? instantiate_permission.permission
+                    : accessTypeFromJSON(instantiate_permission.permission),
+                addresses: instantiate_permission.addresses,
+              },
         unpinCode: unpin_code,
         admin,
         label,
-        msg: toUtf8(JSON.stringify(msg)),
-        funds: funds.map((el0) => ({
+        msg: msg == null ? msg : toUtf8(JSON.stringify(msg)),
+        funds: funds.map?.((el0) => ({
           denom: el0.denom,
           amount: el0.amount,
         })),
@@ -664,13 +695,19 @@ export const AminoConverter = {
     }: MsgStoreAndMigrateContractAminoType["value"]): MsgStoreAndMigrateContract => {
       return {
         authority,
-        wasmByteCode: fromBase64(wasm_byte_code),
-        instantiatePermission: {
-          permission: accessTypeFromJSON(instantiate_permission.permission),
-          addresses: instantiate_permission.addresses,
-        },
+        wasmByteCode: wasm_byte_code == null ? wasm_byte_code : fromBase64(wasm_byte_code),
+        instantiatePermission:
+          instantiate_permission == null
+            ? instantiate_permission
+            : {
+                permission:
+                  instantiate_permission.permission == null
+                    ? instantiate_permission.permission
+                    : accessTypeFromJSON(instantiate_permission.permission),
+                addresses: instantiate_permission.addresses,
+              },
         contract,
-        msg: toUtf8(JSON.stringify(msg)),
+        msg: msg == null ? msg : toUtf8(JSON.stringify(msg)),
       };
     },
   },

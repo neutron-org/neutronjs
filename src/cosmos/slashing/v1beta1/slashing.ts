@@ -155,50 +155,6 @@ export const ValidatorSigningInfo = {
     }
     return message;
   },
-  fromAmino(object: ValidatorSigningInfoAmino): ValidatorSigningInfo {
-    const message = createBaseValidatorSigningInfo();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
-    }
-    if (object.start_height !== undefined && object.start_height !== null) {
-      message.startHeight = BigInt(object.start_height);
-    }
-    if (object.index_offset !== undefined && object.index_offset !== null) {
-      message.indexOffset = BigInt(object.index_offset);
-    }
-    if (object.jailed_until !== undefined && object.jailed_until !== null) {
-      message.jailedUntil = Timestamp.fromAmino(object.jailed_until);
-    }
-    if (object.tombstoned !== undefined && object.tombstoned !== null) {
-      message.tombstoned = object.tombstoned;
-    }
-    if (object.missed_blocks_counter !== undefined && object.missed_blocks_counter !== null) {
-      message.missedBlocksCounter = BigInt(object.missed_blocks_counter);
-    }
-    return message;
-  },
-  toAmino(message: ValidatorSigningInfo): ValidatorSigningInfoAmino {
-    const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
-    obj.start_height = message.startHeight !== BigInt(0) ? message.startHeight?.toString() : undefined;
-    obj.index_offset = message.indexOffset !== BigInt(0) ? message.indexOffset?.toString() : undefined;
-    obj.jailed_until = message.jailedUntil
-      ? Timestamp.toAmino(message.jailedUntil)
-      : Timestamp.toAmino(Timestamp.fromPartial({}));
-    obj.tombstoned = message.tombstoned === false ? undefined : message.tombstoned;
-    obj.missed_blocks_counter =
-      message.missedBlocksCounter !== BigInt(0) ? message.missedBlocksCounter?.toString() : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ValidatorSigningInfoAminoMsg): ValidatorSigningInfo {
-    return ValidatorSigningInfo.fromAmino(object.value);
-  },
-  toAminoMsg(message: ValidatorSigningInfo): ValidatorSigningInfoAminoMsg {
-    return {
-      type: "cosmos-sdk/ValidatorSigningInfo",
-      value: ValidatorSigningInfo.toAmino(message),
-    };
-  },
 };
 function createBaseParams(): Params {
   return {
@@ -305,49 +261,5 @@ export const Params = {
     message.slashFractionDoubleSign = object.slashFractionDoubleSign ?? new Uint8Array();
     message.slashFractionDowntime = object.slashFractionDowntime ?? new Uint8Array();
     return message;
-  },
-  fromAmino(object: ParamsAmino): Params {
-    const message = createBaseParams();
-    if (object.signed_blocks_window !== undefined && object.signed_blocks_window !== null) {
-      message.signedBlocksWindow = BigInt(object.signed_blocks_window);
-    }
-    if (object.min_signed_per_window !== undefined && object.min_signed_per_window !== null) {
-      message.minSignedPerWindow = bytesFromBase64(object.min_signed_per_window);
-    }
-    if (object.downtime_jail_duration !== undefined && object.downtime_jail_duration !== null) {
-      message.downtimeJailDuration = Duration.fromAmino(object.downtime_jail_duration);
-    }
-    if (object.slash_fraction_double_sign !== undefined && object.slash_fraction_double_sign !== null) {
-      message.slashFractionDoubleSign = bytesFromBase64(object.slash_fraction_double_sign);
-    }
-    if (object.slash_fraction_downtime !== undefined && object.slash_fraction_downtime !== null) {
-      message.slashFractionDowntime = bytesFromBase64(object.slash_fraction_downtime);
-    }
-    return message;
-  },
-  toAmino(message: Params): ParamsAmino {
-    const obj: any = {};
-    obj.signed_blocks_window =
-      message.signedBlocksWindow !== BigInt(0) ? message.signedBlocksWindow?.toString() : undefined;
-    obj.min_signed_per_window = message.minSignedPerWindow ? base64FromBytes(message.minSignedPerWindow) : "";
-    obj.downtime_jail_duration = message.downtimeJailDuration
-      ? Duration.toAmino(message.downtimeJailDuration)
-      : Duration.toAmino(Duration.fromPartial({}));
-    obj.slash_fraction_double_sign = message.slashFractionDoubleSign
-      ? base64FromBytes(message.slashFractionDoubleSign)
-      : "";
-    obj.slash_fraction_downtime = message.slashFractionDowntime
-      ? base64FromBytes(message.slashFractionDowntime)
-      : "";
-    return obj;
-  },
-  fromAminoMsg(object: ParamsAminoMsg): Params {
-    return Params.fromAmino(object.value);
-  },
-  toAminoMsg(message: Params): ParamsAminoMsg {
-    return {
-      type: "cosmos-sdk/x/slashing/Params",
-      value: Params.toAmino(message),
-    };
   },
 };

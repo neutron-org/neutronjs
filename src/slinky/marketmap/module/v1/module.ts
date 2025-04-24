@@ -77,25 +77,4 @@ export const Module = {
     message.hooksOrder = object.hooksOrder?.map((e) => e) || [];
     return message;
   },
-  fromAmino(object: ModuleAmino): Module {
-    const message = createBaseModule();
-    if (object.authority !== undefined && object.authority !== null) {
-      message.authority = object.authority;
-    }
-    message.hooksOrder = object.hooks_order?.map((e) => e) || [];
-    return message;
-  },
-  toAmino(message: Module): ModuleAmino {
-    const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    if (message.hooksOrder) {
-      obj.hooks_order = message.hooksOrder.map((e) => e);
-    } else {
-      obj.hooks_order = message.hooksOrder;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: ModuleAminoMsg): Module {
-    return Module.fromAmino(object.value);
-  },
 };

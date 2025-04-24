@@ -67,27 +67,6 @@ export const PubKey = {
     message.key = object.key ?? new Uint8Array();
     return message;
   },
-  fromAmino(object: PubKeyAmino): PubKey {
-    const message = createBasePubKey();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
-    return message;
-  },
-  toAmino(message: PubKey): PubKeyAmino {
-    const obj: any = {};
-    obj.key = message.key ? base64FromBytes(message.key) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: PubKeyAminoMsg): PubKey {
-    return PubKey.fromAmino(object.value);
-  },
-  toAminoMsg(message: PubKey): PubKeyAminoMsg {
-    return {
-      type: "tendermint/PubKeyEd25519",
-      value: PubKey.toAmino(message),
-    };
-  },
 };
 function createBasePrivKey(): PrivKey {
   return {
@@ -134,26 +113,5 @@ export const PrivKey = {
     const message = createBasePrivKey();
     message.key = object.key ?? new Uint8Array();
     return message;
-  },
-  fromAmino(object: PrivKeyAmino): PrivKey {
-    const message = createBasePrivKey();
-    if (object.key !== undefined && object.key !== null) {
-      message.key = bytesFromBase64(object.key);
-    }
-    return message;
-  },
-  toAmino(message: PrivKey): PrivKeyAmino {
-    const obj: any = {};
-    obj.key = message.key ? base64FromBytes(message.key) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: PrivKeyAminoMsg): PrivKey {
-    return PrivKey.fromAmino(object.value);
-  },
-  toAminoMsg(message: PrivKey): PrivKeyAminoMsg {
-    return {
-      type: "tendermint/PrivKeyEd25519",
-      value: PrivKey.toAmino(message),
-    };
   },
 };
