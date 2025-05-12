@@ -93,9 +93,6 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
     },
     ibc: {
       applications: {
-        fee: {
-          v1: (await import("./applications/fee/v1/query.rpc.Query")).createRpcQueryExtension(client),
-        },
         interchain_accounts: {
           controller: {
             v1: (
@@ -115,9 +112,11 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
       core: {
         channel: {
           v1: (await import("./core/channel/v1/query.rpc.Query")).createRpcQueryExtension(client),
+          v2: (await import("./core/channel/v2/query.rpc.Query")).createRpcQueryExtension(client),
         },
         client: {
           v1: (await import("./core/client/v1/query.rpc.Query")).createRpcQueryExtension(client),
+          v2: (await import("./core/client/v2/query.rpc.Query")).createRpcQueryExtension(client),
         },
         connection: {
           v1: (await import("./core/connection/v1/query.rpc.Query")).createRpcQueryExtension(client),
