@@ -35,11 +35,3 @@ npm run codegen
 # Build .js/.d.ts files
 npm run build
 ```
-
-NOTE:
-for now because slinky/oracle/v1/query.proto has a proto syntax error types have some syntax that codegen cannot recognize,
-flow is like this:
-- yarn run codegen;
-- remove precodegen command from package.json;
-- remove failing `option (google.api.http)` from protos/neutron/slinky/oracle/v1/query.proto;
-- yarn run codegen.

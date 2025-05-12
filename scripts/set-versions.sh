@@ -18,7 +18,7 @@ readonly COSMOS_SDK_REV="v0.50.9-neutron"
 readonly FEEMARKET_REV="v1.1.1"
 readonly IBC_GO_REV="v8.5.1"
 readonly NEUTRON_REV="feat/metamask"
-readonly SLINKY_REV="v1.2.0"
+readonly SLINKY_REV="fix/neutronjs-codegen"
 readonly WASMD_REV="v0.51.2-neutron"
 
 checkout_version () {
