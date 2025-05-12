@@ -12,7 +12,7 @@ readonly NEUTRON_DIR="neutron-src"
 readonly SLINKY_DIR="slinky-src"
 readonly WASMD_DIR="wasmd-src"
 
-readonly ADMIN_MODULE_REV="feat/eth-sign"
+readonly ADMIN_MODULE_REV="v2.0.3"
 readonly BLOCK_SDK_REV="v2.1.5"
 readonly COSMOS_SDK_REV="v0.50.9-neutron"
 readonly FEEMARKET_REV="v1.1.1"
