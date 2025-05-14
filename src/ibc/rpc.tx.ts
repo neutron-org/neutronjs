@@ -60,9 +60,6 @@ export const createRPCMsgClient = async ({ rpc }: { rpc: Rpc }) => ({
   },
   ibc: {
     applications: {
-      fee: {
-        v1: new (await import("./applications/fee/v1/tx.rpc.msg")).MsgClientImpl(rpc),
-      },
       interchain_accounts: {
         controller: {
           v1: new (await import("./applications/interchain_accounts/controller/v1/tx.rpc.msg")).MsgClientImpl(
@@ -80,9 +77,11 @@ export const createRPCMsgClient = async ({ rpc }: { rpc: Rpc }) => ({
     core: {
       channel: {
         v1: new (await import("./core/channel/v1/tx.rpc.msg")).MsgClientImpl(rpc),
+        v2: new (await import("./core/channel/v2/tx.rpc.msg")).MsgClientImpl(rpc),
       },
       client: {
         v1: new (await import("./core/client/v1/tx.rpc.msg")).MsgClientImpl(rpc),
+        v2: new (await import("./core/client/v2/tx.rpc.msg")).MsgClientImpl(rpc),
       },
       connection: {
         v1: new (await import("./core/connection/v1/tx.rpc.msg")).MsgClientImpl(rpc),

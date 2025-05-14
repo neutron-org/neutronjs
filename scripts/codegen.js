@@ -15,7 +15,6 @@ telescope({
     "protos/neutron",
     "protos/slinky",
     "protos/wasmd",
-    "protos/interchain-security",
   ],
   outPath: outPath,
   options: {

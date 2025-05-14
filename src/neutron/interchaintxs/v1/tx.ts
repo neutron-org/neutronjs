@@ -1,8 +1,9 @@
 /* eslint-disable */
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Order, Params, orderFromJSON, orderToJSON } from "../../../ibc/core/channel/v1/channel";
+import { Order, orderFromJSON, orderToJSON } from "../../../ibc/core/channel/v1/channel";
 import { Any } from "../../../google/protobuf/any";
 import { Fee } from "../../feerefunder/fee";
+import { Params } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
