@@ -22,7 +22,6 @@ telescope({
     useSDKTypes: false,
     tsDisable: {
       disableAll: true,
-      files: ["slinky/oracle/v1/query.ts"],
     },
     eslintDisable: {
       disableAll: true,
