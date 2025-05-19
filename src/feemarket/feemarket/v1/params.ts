@@ -67,6 +67,11 @@ export interface Params {
    * distributed to all stakers.
    */
   distributeFees: boolean;
+  /**
+   * SendTipToProposer is a boolean that determines whether the tip is sent to a
+   * proposer or to a module account.
+   */
+  sendTipToProposer: boolean;
 }
 function createBaseParams(): Params {
   return {
@@ -82,6 +87,7 @@ function createBaseParams(): Params {
     feeDenom: "",
     enabled: false,
     distributeFees: false,
+    sendTipToProposer: false,
   };
 }
 export const Params = {
@@ -122,6 +128,9 @@ export const Params = {
     }
     if (message.distributeFees === true) {
       writer.uint32(96).bool(message.distributeFees);
+    }
+    if (message.sendTipToProposer === true) {
+      writer.uint32(104).bool(message.sendTipToProposer);
     }
     return writer;
   },
@@ -168,6 +177,9 @@ export const Params = {
         case 12:
           message.distributeFees = reader.bool();
           break;
+        case 13:
+          message.sendTipToProposer = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -190,6 +202,7 @@ export const Params = {
     if (isSet(object.feeDenom)) obj.feeDenom = String(object.feeDenom);
     if (isSet(object.enabled)) obj.enabled = Boolean(object.enabled);
     if (isSet(object.distributeFees)) obj.distributeFees = Boolean(object.distributeFees);
+    if (isSet(object.sendTipToProposer)) obj.sendTipToProposer = Boolean(object.sendTipToProposer);
     return obj;
   },
   toJSON(message: Params): JsonSafe<Params> {
@@ -207,6 +220,7 @@ export const Params = {
     message.feeDenom !== undefined && (obj.feeDenom = message.feeDenom);
     message.enabled !== undefined && (obj.enabled = message.enabled);
     message.distributeFees !== undefined && (obj.distributeFees = message.distributeFees);
+    message.sendTipToProposer !== undefined && (obj.sendTipToProposer = message.sendTipToProposer);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
@@ -227,6 +241,7 @@ export const Params = {
     message.feeDenom = object.feeDenom ?? "";
     message.enabled = object.enabled ?? false;
     message.distributeFees = object.distributeFees ?? false;
+    message.sendTipToProposer = object.sendTipToProposer ?? false;
     return message;
   },
 };

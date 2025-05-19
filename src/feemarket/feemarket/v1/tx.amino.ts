@@ -19,6 +19,7 @@ export interface MsgParamsAminoType extends AminoMsg {
       fee_denom: string;
       enabled: boolean;
       distribute_fees: boolean;
+      send_tip_to_proposer: boolean;
     };
     authority: string;
   };
@@ -41,6 +42,7 @@ export const AminoConverter = {
           fee_denom: params.feeDenom,
           enabled: omitDefault(params.enabled),
           distribute_fees: omitDefault(params.distributeFees),
+          send_tip_to_proposer: omitDefault(params.sendTipToProposer),
         },
         authority,
       };
@@ -66,6 +68,7 @@ export const AminoConverter = {
                 feeDenom: params.fee_denom,
                 enabled: params.enabled,
                 distributeFees: params.distribute_fees,
+                sendTipToProposer: params.send_tip_to_proposer,
               },
         authority,
       };
