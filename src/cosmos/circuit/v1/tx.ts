@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Permissions } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";

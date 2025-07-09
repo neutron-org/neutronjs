@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { CurrencyPair } from "../../types/v1/currency_pair";

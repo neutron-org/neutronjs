@@ -73,6 +73,22 @@ export interface GetCurrencyPairMappingResponse {
     [key: bigint]: CurrencyPair;
   };
 }
+/** GetCurrencyPairMappingRequest is the GetCurrencyPairMapping request type. */
+export interface GetCurrencyPairMappingListRequest {}
+export interface CurrencyPairMapping {
+  /** ID is the unique identifier for this currency pair string. */
+  id: bigint;
+  /** CurrencyPair is the human-readable representation of the currency pair. */
+  currencyPair: CurrencyPair;
+}
+/** GetCurrencyPairMappingResponse is the GetCurrencyPairMapping response type. */
+export interface GetCurrencyPairMappingListResponse {
+  /**
+   * mappings is a list of the id representing the currency pair
+   * to the currency pair itself.
+   */
+  mappings: CurrencyPairMapping[];
+}
 function createBaseGetAllCurrencyPairsRequest(): GetAllCurrencyPairsRequest {
   return {};
 }
@@ -581,6 +597,160 @@ export const GetCurrencyPairMappingResponse = {
       }
       return acc;
     }, {});
+    return message;
+  },
+};
+function createBaseGetCurrencyPairMappingListRequest(): GetCurrencyPairMappingListRequest {
+  return {};
+}
+export const GetCurrencyPairMappingListRequest = {
+  typeUrl: "/slinky.oracle.v1.GetCurrencyPairMappingListRequest",
+  encode(_: GetCurrencyPairMappingListRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): GetCurrencyPairMappingListRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetCurrencyPairMappingListRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(_: any): GetCurrencyPairMappingListRequest {
+    const obj = createBaseGetCurrencyPairMappingListRequest();
+    return obj;
+  },
+  toJSON(_: GetCurrencyPairMappingListRequest): JsonSafe<GetCurrencyPairMappingListRequest> {
+    const obj: any = {};
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<GetCurrencyPairMappingListRequest>, I>>(
+    _: I,
+  ): GetCurrencyPairMappingListRequest {
+    const message = createBaseGetCurrencyPairMappingListRequest();
+    return message;
+  },
+};
+function createBaseCurrencyPairMapping(): CurrencyPairMapping {
+  return {
+    id: BigInt(0),
+    currencyPair: CurrencyPair.fromPartial({}),
+  };
+}
+export const CurrencyPairMapping = {
+  typeUrl: "/slinky.oracle.v1.CurrencyPairMapping",
+  encode(message: CurrencyPairMapping, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.id !== BigInt(0)) {
+      writer.uint32(8).uint64(message.id);
+    }
+    if (message.currencyPair !== undefined) {
+      CurrencyPair.encode(message.currencyPair, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): CurrencyPairMapping {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCurrencyPairMapping();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = reader.uint64();
+          break;
+        case 2:
+          message.currencyPair = CurrencyPair.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): CurrencyPairMapping {
+    const obj = createBaseCurrencyPairMapping();
+    if (isSet(object.id)) obj.id = BigInt(object.id.toString());
+    if (isSet(object.currencyPair)) obj.currencyPair = CurrencyPair.fromJSON(object.currencyPair);
+    return obj;
+  },
+  toJSON(message: CurrencyPairMapping): JsonSafe<CurrencyPairMapping> {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = (message.id || BigInt(0)).toString());
+    message.currencyPair !== undefined &&
+      (obj.currencyPair = message.currencyPair ? CurrencyPair.toJSON(message.currencyPair) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<CurrencyPairMapping>, I>>(object: I): CurrencyPairMapping {
+    const message = createBaseCurrencyPairMapping();
+    if (object.id !== undefined && object.id !== null) {
+      message.id = BigInt(object.id.toString());
+    }
+    if (object.currencyPair !== undefined && object.currencyPair !== null) {
+      message.currencyPair = CurrencyPair.fromPartial(object.currencyPair);
+    }
+    return message;
+  },
+};
+function createBaseGetCurrencyPairMappingListResponse(): GetCurrencyPairMappingListResponse {
+  return {
+    mappings: [],
+  };
+}
+export const GetCurrencyPairMappingListResponse = {
+  typeUrl: "/slinky.oracle.v1.GetCurrencyPairMappingListResponse",
+  encode(
+    message: GetCurrencyPairMappingListResponse,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
+    for (const v of message.mappings) {
+      CurrencyPairMapping.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): GetCurrencyPairMappingListResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseGetCurrencyPairMappingListResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.mappings.push(CurrencyPairMapping.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): GetCurrencyPairMappingListResponse {
+    const obj = createBaseGetCurrencyPairMappingListResponse();
+    if (Array.isArray(object?.mappings))
+      obj.mappings = object.mappings.map((e: any) => CurrencyPairMapping.fromJSON(e));
+    return obj;
+  },
+  toJSON(message: GetCurrencyPairMappingListResponse): JsonSafe<GetCurrencyPairMappingListResponse> {
+    const obj: any = {};
+    if (message.mappings) {
+      obj.mappings = message.mappings.map((e) => (e ? CurrencyPairMapping.toJSON(e) : undefined));
+    } else {
+      obj.mappings = [];
+    }
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<GetCurrencyPairMappingListResponse>, I>>(
+    object: I,
+  ): GetCurrencyPairMappingListResponse {
+    const message = createBaseGetCurrencyPairMappingListResponse();
+    message.mappings = object.mappings?.map((e) => CurrencyPairMapping.fromPartial(e)) || [];
     return message;
   },
 };

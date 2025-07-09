@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Deposit, Vote, Proposal, DepositParams, VotingParams, TallyParams } from "./gov";
 import { BinaryReader, BinaryWriter } from "../../../binary";

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { FileDescriptorProto } from "../../../google/protobuf/descriptor";
 import { BinaryReader, BinaryWriter } from "../../../binary";

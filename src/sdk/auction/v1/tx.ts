@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Params } from "./genesis";

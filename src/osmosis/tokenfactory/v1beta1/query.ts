@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "../params";
 import { DenomAuthorityMetadata } from "./authorityMetadata";
@@ -35,7 +36,7 @@ export interface QueryDenomsFromCreatorRequest {
   creator: string;
 }
 /**
- * QueryDenomsFromCreatorRequest defines the response structure for the
+ * QueryDenomsFromCreatorResponse defines the response structure for the
  * DenomsFromCreator gRPC query.
  */
 export interface QueryDenomsFromCreatorResponse {

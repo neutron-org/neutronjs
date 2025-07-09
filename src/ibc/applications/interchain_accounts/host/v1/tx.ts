@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params, QueryRequest } from "./host";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";

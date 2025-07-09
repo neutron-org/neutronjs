@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { TradePairID } from "./trade_pair_id";
 import { LimitOrderType, limitOrderTypeFromJSON, limitOrderTypeToJSON } from "./tx";

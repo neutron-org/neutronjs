@@ -37,9 +37,9 @@
     "!cosmos-sdk-*/**/*.md"
   ],
   "scripts": {
+    "precodegen": "./scripts/exports_protos.sh",
     "set-versions": "./scripts/set-versions.sh",
     "format": "prettier --write --log-level warn \"./src/**/*.ts\" \"./scripts/**/*.js\"",
-    "precodegen": "./scripts/exports_protos.sh",
     "codegen": "rm -rf ./src && ./scripts/codegen.js && cp -rf copypaste_files/* ./src/ && npm run format",
     "prepare-publishing": "./scripts/prepare-publishing.sh",
     "clean": "./scripts/clean.sh",
@@ -47,7 +47,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@cosmology/telescope": "^1.5.4",
+    "@cosmology/telescope": "^1.12.12",
     "@types/node": "^15.6.2",
     "@cosmjs/math": "^0.32.4",
     "@cosmjs/stargate": "^0.32.4",

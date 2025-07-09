@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Timestamp } from "../../google/protobuf/timestamp";
 import { Params } from "./params";
@@ -57,6 +58,8 @@ export function limitOrderTypeToJSON(object: LimitOrderType): string {
 export interface DepositOptions {
   disableAutoswap: boolean;
   failTxOnBel: boolean;
+  swapOnDeposit: boolean;
+  swapOnDepositSlopToleranceBps: bigint;
 }
 export interface MsgDeposit {
   creator: string;
@@ -159,7 +162,7 @@ export interface MsgMultiHopSwap {
   exitLimitPrice: string;
   /**
    * If pickBestRoute == true then all routes are run and the route with the
-   * best price is chosen otherwise, the first succesful route is used.
+   * best price is chosen otherwise, the first successful route is used.
    */
   pickBestRoute: boolean;
 }
@@ -185,6 +188,8 @@ function createBaseDepositOptions(): DepositOptions {
   return {
     disableAutoswap: false,
     failTxOnBel: false,
+    swapOnDeposit: false,
+    swapOnDepositSlopToleranceBps: BigInt(0),
   };
 }
 export const DepositOptions = {
@@ -195,6 +200,12 @@ export const DepositOptions = {
     }
     if (message.failTxOnBel === true) {
       writer.uint32(16).bool(message.failTxOnBel);
+    }
+    if (message.swapOnDeposit === true) {
+      writer.uint32(24).bool(message.swapOnDeposit);
+    }
+    if (message.swapOnDepositSlopToleranceBps !== BigInt(0)) {
+      writer.uint32(32).uint64(message.swapOnDepositSlopToleranceBps);
     }
     return writer;
   },
@@ -211,6 +222,12 @@ export const DepositOptions = {
         case 2:
           message.failTxOnBel = reader.bool();
           break;
+        case 3:
+          message.swapOnDeposit = reader.bool();
+          break;
+        case 4:
+          message.swapOnDepositSlopToleranceBps = reader.uint64();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -222,18 +239,28 @@ export const DepositOptions = {
     const obj = createBaseDepositOptions();
     if (isSet(object.disableAutoswap)) obj.disableAutoswap = Boolean(object.disableAutoswap);
     if (isSet(object.failTxOnBel)) obj.failTxOnBel = Boolean(object.failTxOnBel);
+    if (isSet(object.swapOnDeposit)) obj.swapOnDeposit = Boolean(object.swapOnDeposit);
+    if (isSet(object.swapOnDepositSlopToleranceBps))
+      obj.swapOnDepositSlopToleranceBps = BigInt(object.swapOnDepositSlopToleranceBps.toString());
     return obj;
   },
   toJSON(message: DepositOptions): JsonSafe<DepositOptions> {
     const obj: any = {};
     message.disableAutoswap !== undefined && (obj.disableAutoswap = message.disableAutoswap);
     message.failTxOnBel !== undefined && (obj.failTxOnBel = message.failTxOnBel);
+    message.swapOnDeposit !== undefined && (obj.swapOnDeposit = message.swapOnDeposit);
+    message.swapOnDepositSlopToleranceBps !== undefined &&
+      (obj.swapOnDepositSlopToleranceBps = (message.swapOnDepositSlopToleranceBps || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<DepositOptions>, I>>(object: I): DepositOptions {
     const message = createBaseDepositOptions();
     message.disableAutoswap = object.disableAutoswap ?? false;
     message.failTxOnBel = object.failTxOnBel ?? false;
+    message.swapOnDeposit = object.swapOnDeposit ?? false;
+    if (object.swapOnDepositSlopToleranceBps !== undefined && object.swapOnDepositSlopToleranceBps !== null) {
+      message.swapOnDepositSlopToleranceBps = BigInt(object.swapOnDepositSlopToleranceBps.toString());
+    }
     return message;
   },
 };

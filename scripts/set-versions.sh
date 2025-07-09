@@ -11,17 +11,15 @@ readonly IBC_GO_DIR="ibc-go-src"
 readonly NEUTRON_DIR="neutron-src"
 readonly SLINKY_DIR="slinky-src"
 readonly WASMD_DIR="wasmd-src"
-readonly ICS_DIR="interchain-security-src"
 
-readonly ADMIN_MODULE_REV="v2.0.2"
+readonly ADMIN_MODULE_REV="v2.0.3"
 readonly BLOCK_SDK_REV="v2.1.5"
-readonly COSMOS_SDK_REV="v0.50.9-neutron"
-readonly FEEMARKET_REV="v1.1.1"
+readonly COSMOS_SDK_REV="b5afd837c4de"
+readonly FEEMARKET_REV="4ffcf3d43464"
 readonly IBC_GO_REV="v8.5.1"
-readonly NEUTRON_REV="test/move-to-sovereign"
-readonly SLINKY_REV="v1.0.13"
-readonly WASMD_REV="v0.51.2-neutron"
-readonly ICS_REV="v5.1.1"
+readonly NEUTRON_REV="v7.0.0-rc0"
+readonly SLINKY_REV="fix/neutronjs-codegen"
+readonly WASMD_REV="v0.54.0-rc0"
 
 checkout_version () {
    git -C protos/$1 checkout $2
@@ -35,4 +33,3 @@ checkout_version $IBC_GO_DIR $IBC_GO_REV
 checkout_version $NEUTRON_DIR $NEUTRON_REV
 checkout_version $SLINKY_DIR $SLINKY_REV
 checkout_version $WASMD_DIR $WASMD_REV
-checkout_version $ICS_DIR $ICS_REV

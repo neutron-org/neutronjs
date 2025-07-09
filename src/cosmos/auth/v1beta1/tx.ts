@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./auth";
 import { BinaryReader, BinaryWriter } from "../../../binary";

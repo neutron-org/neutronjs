@@ -15,14 +15,13 @@ telescope({
     "protos/neutron",
     "protos/slinky",
     "protos/wasmd",
-    "protos/interchain-security",
   ],
   outPath: outPath,
   options: {
     logLevel: 0,
     useSDKTypes: false,
     tsDisable: {
-      files: ["slinky/oracle/v1/query.ts"],
+      disableAll: true,
     },
     eslintDisable: {
       disableAll: true,
@@ -80,8 +79,13 @@ telescope({
       useConnectComet: true,
     },
     aminoEncoding: {
-      enabled: false,
+      enabled: true,
       useLegacyInlineEncoding: true,
+      omitEmptyTags: ["dont_omitempty"],
+      legacy: {
+        useOmitEmpty: true,
+        useNullHandling: true,
+      },
     },
   },
 }).then(

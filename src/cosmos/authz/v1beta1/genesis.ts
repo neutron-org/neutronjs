@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { GrantAuthorization } from "./authz";
 import { BinaryReader, BinaryWriter } from "../../../binary";

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { ContractInfo, ContractCodeHistoryEntry, Model, AccessConfig, Params } from "./types";
@@ -46,7 +47,7 @@ export interface QueryContractHistoryResponse {
  * RPC method
  */
 export interface QueryContractsByCodeRequest {
-  /** grpc-gateway_out does not support Go style CodID */
+  /** grpc-gateway_out does not support Go style CodeID */
   codeId: bigint;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
@@ -117,8 +118,20 @@ export interface QuerySmartContractStateResponse {
 }
 /** QueryCodeRequest is the request type for the Query/Code RPC method */
 export interface QueryCodeRequest {
-  /** grpc-gateway_out does not support Go style CodID */
+  /** grpc-gateway_out does not support Go style CodeID */
   codeId: bigint;
+}
+/** QueryCodeInfoRequest is the request type for the Query/CodeInfo RPC method */
+export interface QueryCodeInfoRequest {
+  /** grpc-gateway_out does not support Go style CodeID */
+  codeId: bigint;
+}
+/** QueryCodeInfoResponse is the response type for the Query/CodeInfo RPC method */
+export interface QueryCodeInfoResponse {
+  codeId: bigint;
+  creator: string;
+  checksum: Uint8Array;
+  instantiatePermission: AccessConfig;
 }
 /** CodeInfoResponse contains code meta data from CodeInfo */
 export interface CodeInfoResponse {
@@ -186,6 +199,19 @@ export interface QueryContractsByCreatorResponse {
   contractAddresses: string[];
   /** Pagination defines the pagination in the response. */
   pagination?: PageResponse;
+}
+/**
+ * QueryWasmLimitsConfigRequest is the request type for the
+ * Query/WasmLimitsConfig RPC method.
+ */
+export interface QueryWasmLimitsConfigRequest {}
+/**
+ * QueryWasmLimitsConfigResponse is the response type for the
+ * Query/WasmLimitsConfig RPC method. It contains the JSON encoded limits for
+ * static validation of Wasm files.
+ */
+export interface QueryWasmLimitsConfigResponse {
+  config: string;
 }
 /**
  * QueryBuildAddressRequest is the request type for the Query/BuildAddress RPC
@@ -976,6 +1002,139 @@ export const QueryCodeRequest = {
     return message;
   },
 };
+function createBaseQueryCodeInfoRequest(): QueryCodeInfoRequest {
+  return {
+    codeId: BigInt(0),
+  };
+}
+export const QueryCodeInfoRequest = {
+  typeUrl: "/cosmwasm.wasm.v1.QueryCodeInfoRequest",
+  encode(message: QueryCodeInfoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.codeId !== BigInt(0)) {
+      writer.uint32(8).uint64(message.codeId);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryCodeInfoRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryCodeInfoRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.codeId = reader.uint64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QueryCodeInfoRequest {
+    const obj = createBaseQueryCodeInfoRequest();
+    if (isSet(object.codeId)) obj.codeId = BigInt(object.codeId.toString());
+    return obj;
+  },
+  toJSON(message: QueryCodeInfoRequest): JsonSafe<QueryCodeInfoRequest> {
+    const obj: any = {};
+    message.codeId !== undefined && (obj.codeId = (message.codeId || BigInt(0)).toString());
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryCodeInfoRequest>, I>>(object: I): QueryCodeInfoRequest {
+    const message = createBaseQueryCodeInfoRequest();
+    if (object.codeId !== undefined && object.codeId !== null) {
+      message.codeId = BigInt(object.codeId.toString());
+    }
+    return message;
+  },
+};
+function createBaseQueryCodeInfoResponse(): QueryCodeInfoResponse {
+  return {
+    codeId: BigInt(0),
+    creator: "",
+    checksum: new Uint8Array(),
+    instantiatePermission: AccessConfig.fromPartial({}),
+  };
+}
+export const QueryCodeInfoResponse = {
+  typeUrl: "/cosmwasm.wasm.v1.QueryCodeInfoResponse",
+  encode(message: QueryCodeInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.codeId !== BigInt(0)) {
+      writer.uint32(8).uint64(message.codeId);
+    }
+    if (message.creator !== "") {
+      writer.uint32(18).string(message.creator);
+    }
+    if (message.checksum.length !== 0) {
+      writer.uint32(26).bytes(message.checksum);
+    }
+    if (message.instantiatePermission !== undefined) {
+      AccessConfig.encode(message.instantiatePermission, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryCodeInfoResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryCodeInfoResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.codeId = reader.uint64();
+          break;
+        case 2:
+          message.creator = reader.string();
+          break;
+        case 3:
+          message.checksum = reader.bytes();
+          break;
+        case 4:
+          message.instantiatePermission = AccessConfig.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QueryCodeInfoResponse {
+    const obj = createBaseQueryCodeInfoResponse();
+    if (isSet(object.codeId)) obj.codeId = BigInt(object.codeId.toString());
+    if (isSet(object.creator)) obj.creator = String(object.creator);
+    if (isSet(object.checksum)) obj.checksum = bytesFromBase64(object.checksum);
+    if (isSet(object.instantiatePermission))
+      obj.instantiatePermission = AccessConfig.fromJSON(object.instantiatePermission);
+    return obj;
+  },
+  toJSON(message: QueryCodeInfoResponse): JsonSafe<QueryCodeInfoResponse> {
+    const obj: any = {};
+    message.codeId !== undefined && (obj.codeId = (message.codeId || BigInt(0)).toString());
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.checksum !== undefined &&
+      (obj.checksum = base64FromBytes(message.checksum !== undefined ? message.checksum : new Uint8Array()));
+    message.instantiatePermission !== undefined &&
+      (obj.instantiatePermission = message.instantiatePermission
+        ? AccessConfig.toJSON(message.instantiatePermission)
+        : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryCodeInfoResponse>, I>>(object: I): QueryCodeInfoResponse {
+    const message = createBaseQueryCodeInfoResponse();
+    if (object.codeId !== undefined && object.codeId !== null) {
+      message.codeId = BigInt(object.codeId.toString());
+    }
+    message.creator = object.creator ?? "";
+    message.checksum = object.checksum ?? new Uint8Array();
+    if (object.instantiatePermission !== undefined && object.instantiatePermission !== null) {
+      message.instantiatePermission = AccessConfig.fromPartial(object.instantiatePermission);
+    }
+    return message;
+  },
+};
 function createBaseCodeInfoResponse(): CodeInfoResponse {
   return {
     codeId: BigInt(0),
@@ -1570,6 +1729,91 @@ export const QueryContractsByCreatorResponse = {
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageResponse.fromPartial(object.pagination);
     }
+    return message;
+  },
+};
+function createBaseQueryWasmLimitsConfigRequest(): QueryWasmLimitsConfigRequest {
+  return {};
+}
+export const QueryWasmLimitsConfigRequest = {
+  typeUrl: "/cosmwasm.wasm.v1.QueryWasmLimitsConfigRequest",
+  encode(_: QueryWasmLimitsConfigRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryWasmLimitsConfigRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryWasmLimitsConfigRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(_: any): QueryWasmLimitsConfigRequest {
+    const obj = createBaseQueryWasmLimitsConfigRequest();
+    return obj;
+  },
+  toJSON(_: QueryWasmLimitsConfigRequest): JsonSafe<QueryWasmLimitsConfigRequest> {
+    const obj: any = {};
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryWasmLimitsConfigRequest>, I>>(
+    _: I,
+  ): QueryWasmLimitsConfigRequest {
+    const message = createBaseQueryWasmLimitsConfigRequest();
+    return message;
+  },
+};
+function createBaseQueryWasmLimitsConfigResponse(): QueryWasmLimitsConfigResponse {
+  return {
+    config: "",
+  };
+}
+export const QueryWasmLimitsConfigResponse = {
+  typeUrl: "/cosmwasm.wasm.v1.QueryWasmLimitsConfigResponse",
+  encode(message: QueryWasmLimitsConfigResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.config !== "") {
+      writer.uint32(10).string(message.config);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryWasmLimitsConfigResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryWasmLimitsConfigResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.config = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QueryWasmLimitsConfigResponse {
+    const obj = createBaseQueryWasmLimitsConfigResponse();
+    if (isSet(object.config)) obj.config = String(object.config);
+    return obj;
+  },
+  toJSON(message: QueryWasmLimitsConfigResponse): JsonSafe<QueryWasmLimitsConfigResponse> {
+    const obj: any = {};
+    message.config !== undefined && (obj.config = message.config);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QueryWasmLimitsConfigResponse>, I>>(
+    object: I,
+  ): QueryWasmLimitsConfigResponse {
+    const message = createBaseQueryWasmLimitsConfigResponse();
+    message.config = object.config ?? "";
     return message;
   },
 };
