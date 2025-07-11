@@ -1,6 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
+import { omitDefault } from "../../helpers";
 import { MsgUpdateParams } from "./tx";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "feerefunder/MsgUpdateParams";
@@ -21,6 +22,7 @@ export interface MsgUpdateParamsAminoType extends AminoMsg {
           amount: string;
         }[];
       };
+      fee_enabled: boolean;
     };
   };
 }
@@ -45,6 +47,7 @@ export const AminoConverter = {
               amount: el0.amount,
             })),
           },
+          fee_enabled: omitDefault(params.feeEnabled),
         },
       };
     },
@@ -72,6 +75,7 @@ export const AminoConverter = {
                           amount: el2.amount,
                         })),
                       },
+                feeEnabled: params.fee_enabled,
               },
       };
     },
