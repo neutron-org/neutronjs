@@ -17,8 +17,8 @@ readonly BLOCK_SDK_REV="v2.1.5"
 readonly COSMOS_SDK_REV="b5afd837c4de"
 readonly FEEMARKET_REV="4ffcf3d43464"
 readonly IBC_GO_REV="v8.5.1"
-readonly NEUTRON_REV="v7.0.0-rc0"
-readonly SLINKY_REV="fix/neutronjs-codegen"
+readonly NEUTRON_REV="feat/feerefunder-validation-zero"
+readonly SLINKY_REV="neutron"
 readonly WASMD_REV="v0.54.0-rc0"
 
 checkout_version () {
