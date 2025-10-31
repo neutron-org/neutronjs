@@ -5,7 +5,7 @@ import { Metadata, Params } from "../../../cosmos/bank/v1beta1/bank";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
-export const protobufPackage = "osmosis.tokenfactory2.v1beta1";
+export const protobufPackage = "neutron.coinfactory.v1beta1";
 /**
  * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
  * method. It allows an account to create a new denom. It requires a sender
@@ -126,7 +126,7 @@ function createBaseMsgCreateDenom(): MsgCreateDenom {
   };
 }
 export const MsgCreateDenom = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgCreateDenom",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgCreateDenom",
   encode(message: MsgCreateDenom, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
@@ -181,7 +181,7 @@ function createBaseMsgCreateDenomResponse(): MsgCreateDenomResponse {
   };
 }
 export const MsgCreateDenomResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgCreateDenomResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgCreateDenomResponse",
   encode(message: MsgCreateDenomResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.newTokenDenom !== "") {
       writer.uint32(10).string(message.newTokenDenom);
@@ -229,7 +229,7 @@ function createBaseMsgMint(): MsgMint {
   };
 }
 export const MsgMint = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgMint",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgMint",
   encode(message: MsgMint, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
@@ -293,7 +293,7 @@ function createBaseMsgMintResponse(): MsgMintResponse {
   return {};
 }
 export const MsgMintResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgMintResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgMintResponse",
   encode(_: MsgMintResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -332,7 +332,7 @@ function createBaseMsgBurn(): MsgBurn {
   };
 }
 export const MsgBurn = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgBurn",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgBurn",
   encode(message: MsgBurn, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
@@ -396,7 +396,7 @@ function createBaseMsgBurnResponse(): MsgBurnResponse {
   return {};
 }
 export const MsgBurnResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgBurnResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgBurnResponse",
   encode(_: MsgBurnResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -435,7 +435,7 @@ function createBaseMsgChangeAdmin(): MsgChangeAdmin {
   };
 }
 export const MsgChangeAdmin = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgChangeAdmin",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgChangeAdmin",
   encode(message: MsgChangeAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
@@ -497,7 +497,7 @@ function createBaseMsgChangeAdminResponse(): MsgChangeAdminResponse {
   return {};
 }
 export const MsgChangeAdminResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgChangeAdminResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgChangeAdminResponse",
   encode(_: MsgChangeAdminResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -536,7 +536,7 @@ function createBaseMsgSetBeforeSendHook(): MsgSetBeforeSendHook {
   };
 }
 export const MsgSetBeforeSendHook = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetBeforeSendHook",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgSetBeforeSendHook",
   encode(message: MsgSetBeforeSendHook, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
@@ -598,7 +598,7 @@ function createBaseMsgSetBeforeSendHookResponse(): MsgSetBeforeSendHookResponse 
   return {};
 }
 export const MsgSetBeforeSendHookResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetBeforeSendHookResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgSetBeforeSendHookResponse",
   encode(_: MsgSetBeforeSendHookResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -638,7 +638,7 @@ function createBaseMsgSetDenomMetadata(): MsgSetDenomMetadata {
   };
 }
 export const MsgSetDenomMetadata = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetDenomMetadata",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgSetDenomMetadata",
   encode(message: MsgSetDenomMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
@@ -694,7 +694,7 @@ function createBaseMsgSetDenomMetadataResponse(): MsgSetDenomMetadataResponse {
   return {};
 }
 export const MsgSetDenomMetadataResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetDenomMetadataResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgSetDenomMetadataResponse",
   encode(_: MsgSetDenomMetadataResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -736,7 +736,7 @@ function createBaseMsgForceTransfer(): MsgForceTransfer {
   };
 }
 export const MsgForceTransfer = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgForceTransfer",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgForceTransfer",
   encode(message: MsgForceTransfer, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
@@ -809,7 +809,7 @@ function createBaseMsgForceTransferResponse(): MsgForceTransferResponse {
   return {};
 }
 export const MsgForceTransferResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgForceTransferResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgForceTransferResponse",
   encode(_: MsgForceTransferResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -847,7 +847,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
   };
 }
 export const MsgUpdateParams = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgUpdateParams",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
@@ -902,7 +902,7 @@ function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
 export const MsgUpdateParamsResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgUpdateParamsResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },

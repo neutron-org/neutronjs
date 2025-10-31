@@ -5,7 +5,7 @@ import { DenomAuthorityMetadata } from "./authorityMetadata";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
-export const protobufPackage = "osmosis.tokenfactory2.v1beta1";
+export const protobufPackage = "neutron.coinfactory.v1beta1";
 /** GenesisState defines the tokenfactory module's genesis state. */
 export interface GenesisState {
   /** params defines the parameters of the module. */
@@ -29,7 +29,7 @@ function createBaseGenesisState(): GenesisState {
   };
 }
 export const GenesisState = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.GenesisState",
+  typeUrl: "/neutron.coinfactory.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -93,7 +93,7 @@ function createBaseGenesisDenom(): GenesisDenom {
   };
 }
 export const GenesisDenom = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.GenesisDenom",
+  typeUrl: "/neutron.coinfactory.v1beta1.GenesisDenom",
   encode(message: GenesisDenom, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);

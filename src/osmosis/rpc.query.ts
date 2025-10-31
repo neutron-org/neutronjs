@@ -96,9 +96,6 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
       tokenfactory: {
         v1beta1: (await import("./tokenfactory/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
       },
-      tokenfactory2: {
-        v1beta1: (await import("./tokenfactory2/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
-      },
     },
   };
 };

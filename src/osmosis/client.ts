@@ -4,16 +4,12 @@ import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
 import * as osmosisTokenfactoryV1beta1TxRegistry from "./tokenfactory/v1beta1/tx.registry";
-import * as osmosisTokenfactory2V1beta1TxRegistry from "./tokenfactory2/v1beta1/tx.registry";
 import * as osmosisTokenfactoryV1beta1TxAmino from "./tokenfactory/v1beta1/tx.amino";
-import * as osmosisTokenfactory2V1beta1TxAmino from "./tokenfactory2/v1beta1/tx.amino";
 export const osmosisAminoConverters = {
   ...osmosisTokenfactoryV1beta1TxAmino.AminoConverter,
-  ...osmosisTokenfactory2V1beta1TxAmino.AminoConverter,
 };
 export const osmosisProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
   ...osmosisTokenfactoryV1beta1TxRegistry.registry,
-  ...osmosisTokenfactory2V1beta1TxRegistry.registry,
 ];
 export const getSigningOsmosisClientOptions = ({
   defaultTypes = defaultRegistryTypes,

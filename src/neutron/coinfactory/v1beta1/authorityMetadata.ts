@@ -3,14 +3,14 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
-export const protobufPackage = "osmosis.tokenfactory2.v1beta1";
+export const protobufPackage = "neutron.coinfactory.v1beta1";
 /**
  * DenomAuthorityMetadata specifies metadata for addresses that have specific
  * capabilities over a token factory denom. Right now there is only one Admin
  * permission, but is planned to be extended to the future.
  */
 export interface DenomAuthorityMetadata {
-  /** Can be empty for no admin, or a valid osmosis address */
+  /** Can be empty for no admin, or a valid neutron address */
   admin: string;
 }
 function createBaseDenomAuthorityMetadata(): DenomAuthorityMetadata {
@@ -19,7 +19,7 @@ function createBaseDenomAuthorityMetadata(): DenomAuthorityMetadata {
   };
 }
 export const DenomAuthorityMetadata = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.DenomAuthorityMetadata",
+  typeUrl: "/neutron.coinfactory.v1beta1.DenomAuthorityMetadata",
   encode(message: DenomAuthorityMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.admin !== "") {
       writer.uint32(10).string(message.admin);

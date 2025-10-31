@@ -12,14 +12,14 @@ import {
   MsgUpdateParams,
 } from "./tx";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
-  ["/osmosis.tokenfactory2.v1beta1.MsgCreateDenom", MsgCreateDenom],
-  ["/osmosis.tokenfactory2.v1beta1.MsgMint", MsgMint],
-  ["/osmosis.tokenfactory2.v1beta1.MsgBurn", MsgBurn],
-  ["/osmosis.tokenfactory2.v1beta1.MsgChangeAdmin", MsgChangeAdmin],
-  ["/osmosis.tokenfactory2.v1beta1.MsgSetDenomMetadata", MsgSetDenomMetadata],
-  ["/osmosis.tokenfactory2.v1beta1.MsgSetBeforeSendHook", MsgSetBeforeSendHook],
-  ["/osmosis.tokenfactory2.v1beta1.MsgForceTransfer", MsgForceTransfer],
-  ["/osmosis.tokenfactory2.v1beta1.MsgUpdateParams", MsgUpdateParams],
+  ["/neutron.coinfactory.v1beta1.MsgCreateDenom", MsgCreateDenom],
+  ["/neutron.coinfactory.v1beta1.MsgMint", MsgMint],
+  ["/neutron.coinfactory.v1beta1.MsgBurn", MsgBurn],
+  ["/neutron.coinfactory.v1beta1.MsgChangeAdmin", MsgChangeAdmin],
+  ["/neutron.coinfactory.v1beta1.MsgSetDenomMetadata", MsgSetDenomMetadata],
+  ["/neutron.coinfactory.v1beta1.MsgSetBeforeSendHook", MsgSetBeforeSendHook],
+  ["/neutron.coinfactory.v1beta1.MsgForceTransfer", MsgForceTransfer],
+  ["/neutron.coinfactory.v1beta1.MsgUpdateParams", MsgUpdateParams],
 ];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
@@ -30,49 +30,49 @@ export const MessageComposer = {
   encoded: {
     createDenom(value: MsgCreateDenom) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgCreateDenom",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgCreateDenom",
         value: MsgCreateDenom.encode(value).finish(),
       };
     },
     mint(value: MsgMint) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgMint",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgMint",
         value: MsgMint.encode(value).finish(),
       };
     },
     burn(value: MsgBurn) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgBurn",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgBurn",
         value: MsgBurn.encode(value).finish(),
       };
     },
     changeAdmin(value: MsgChangeAdmin) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgChangeAdmin",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgChangeAdmin",
         value: MsgChangeAdmin.encode(value).finish(),
       };
     },
     setDenomMetadata(value: MsgSetDenomMetadata) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetDenomMetadata",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgSetDenomMetadata",
         value: MsgSetDenomMetadata.encode(value).finish(),
       };
     },
     setBeforeSendHook(value: MsgSetBeforeSendHook) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetBeforeSendHook",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgSetBeforeSendHook",
         value: MsgSetBeforeSendHook.encode(value).finish(),
       };
     },
     forceTransfer(value: MsgForceTransfer) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgForceTransfer",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgForceTransfer",
         value: MsgForceTransfer.encode(value).finish(),
       };
     },
     updateParams(value: MsgUpdateParams) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgUpdateParams",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgUpdateParams",
         value: MsgUpdateParams.encode(value).finish(),
       };
     },
@@ -80,49 +80,49 @@ export const MessageComposer = {
   withTypeUrl: {
     createDenom(value: MsgCreateDenom) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgCreateDenom",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgCreateDenom",
         value,
       };
     },
     mint(value: MsgMint) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgMint",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgMint",
         value,
       };
     },
     burn(value: MsgBurn) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgBurn",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgBurn",
         value,
       };
     },
     changeAdmin(value: MsgChangeAdmin) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgChangeAdmin",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgChangeAdmin",
         value,
       };
     },
     setDenomMetadata(value: MsgSetDenomMetadata) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetDenomMetadata",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgSetDenomMetadata",
         value,
       };
     },
     setBeforeSendHook(value: MsgSetBeforeSendHook) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetBeforeSendHook",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgSetBeforeSendHook",
         value,
       };
     },
     forceTransfer(value: MsgForceTransfer) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgForceTransfer",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgForceTransfer",
         value,
       };
     },
     updateParams(value: MsgUpdateParams) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgUpdateParams",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgUpdateParams",
         value,
       };
     },
@@ -130,49 +130,49 @@ export const MessageComposer = {
   toJSON: {
     createDenom(value: MsgCreateDenom) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgCreateDenom",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgCreateDenom",
         value: MsgCreateDenom.toJSON(value),
       };
     },
     mint(value: MsgMint) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgMint",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgMint",
         value: MsgMint.toJSON(value),
       };
     },
     burn(value: MsgBurn) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgBurn",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgBurn",
         value: MsgBurn.toJSON(value),
       };
     },
     changeAdmin(value: MsgChangeAdmin) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgChangeAdmin",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgChangeAdmin",
         value: MsgChangeAdmin.toJSON(value),
       };
     },
     setDenomMetadata(value: MsgSetDenomMetadata) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetDenomMetadata",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgSetDenomMetadata",
         value: MsgSetDenomMetadata.toJSON(value),
       };
     },
     setBeforeSendHook(value: MsgSetBeforeSendHook) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetBeforeSendHook",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgSetBeforeSendHook",
         value: MsgSetBeforeSendHook.toJSON(value),
       };
     },
     forceTransfer(value: MsgForceTransfer) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgForceTransfer",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgForceTransfer",
         value: MsgForceTransfer.toJSON(value),
       };
     },
     updateParams(value: MsgUpdateParams) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgUpdateParams",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgUpdateParams",
         value: MsgUpdateParams.toJSON(value),
       };
     },
@@ -180,49 +180,49 @@ export const MessageComposer = {
   fromJSON: {
     createDenom(value: any) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgCreateDenom",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgCreateDenom",
         value: MsgCreateDenom.fromJSON(value),
       };
     },
     mint(value: any) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgMint",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgMint",
         value: MsgMint.fromJSON(value),
       };
     },
     burn(value: any) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgBurn",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgBurn",
         value: MsgBurn.fromJSON(value),
       };
     },
     changeAdmin(value: any) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgChangeAdmin",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgChangeAdmin",
         value: MsgChangeAdmin.fromJSON(value),
       };
     },
     setDenomMetadata(value: any) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetDenomMetadata",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgSetDenomMetadata",
         value: MsgSetDenomMetadata.fromJSON(value),
       };
     },
     setBeforeSendHook(value: any) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetBeforeSendHook",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgSetBeforeSendHook",
         value: MsgSetBeforeSendHook.fromJSON(value),
       };
     },
     forceTransfer(value: any) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgForceTransfer",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgForceTransfer",
         value: MsgForceTransfer.fromJSON(value),
       };
     },
     updateParams(value: any) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgUpdateParams",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgUpdateParams",
         value: MsgUpdateParams.fromJSON(value),
       };
     },
@@ -230,49 +230,49 @@ export const MessageComposer = {
   fromPartial: {
     createDenom(value: MsgCreateDenom) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgCreateDenom",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgCreateDenom",
         value: MsgCreateDenom.fromPartial(value),
       };
     },
     mint(value: MsgMint) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgMint",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgMint",
         value: MsgMint.fromPartial(value),
       };
     },
     burn(value: MsgBurn) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgBurn",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgBurn",
         value: MsgBurn.fromPartial(value),
       };
     },
     changeAdmin(value: MsgChangeAdmin) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgChangeAdmin",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgChangeAdmin",
         value: MsgChangeAdmin.fromPartial(value),
       };
     },
     setDenomMetadata(value: MsgSetDenomMetadata) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetDenomMetadata",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgSetDenomMetadata",
         value: MsgSetDenomMetadata.fromPartial(value),
       };
     },
     setBeforeSendHook(value: MsgSetBeforeSendHook) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgSetBeforeSendHook",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgSetBeforeSendHook",
         value: MsgSetBeforeSendHook.fromPartial(value),
       };
     },
     forceTransfer(value: MsgForceTransfer) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgForceTransfer",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgForceTransfer",
         value: MsgForceTransfer.fromPartial(value),
       };
     },
     updateParams(value: MsgUpdateParams) {
       return {
-        typeUrl: "/osmosis.tokenfactory2.v1beta1.MsgUpdateParams",
+        typeUrl: "/neutron.coinfactory.v1beta1.MsgUpdateParams",
         value: MsgUpdateParams.fromPartial(value),
       };
     },

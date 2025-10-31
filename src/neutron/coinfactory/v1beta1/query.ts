@@ -5,7 +5,7 @@ import { DenomAuthorityMetadata } from "./authorityMetadata";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { JsonSafe } from "../../../json-safe";
 import { DeepPartial, Exact, isSet } from "../../../helpers";
-export const protobufPackage = "osmosis.tokenfactory2.v1beta1";
+export const protobufPackage = "neutron.coinfactory.v1beta1";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
@@ -76,7 +76,7 @@ function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
 export const QueryParamsRequest = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.QueryParamsRequest",
+  typeUrl: "/neutron.coinfactory.v1beta1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -113,7 +113,7 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
   };
 }
 export const QueryParamsResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.QueryParamsResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -162,7 +162,7 @@ function createBaseQueryDenomAuthorityMetadataRequest(): QueryDenomAuthorityMeta
   };
 }
 export const QueryDenomAuthorityMetadataRequest = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.QueryDenomAuthorityMetadataRequest",
+  typeUrl: "/neutron.coinfactory.v1beta1.QueryDenomAuthorityMetadataRequest",
   encode(
     message: QueryDenomAuthorityMetadataRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -222,7 +222,7 @@ function createBaseQueryDenomAuthorityMetadataResponse(): QueryDenomAuthorityMet
   };
 }
 export const QueryDenomAuthorityMetadataResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.QueryDenomAuthorityMetadataResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.QueryDenomAuthorityMetadataResponse",
   encode(
     message: QueryDenomAuthorityMetadataResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -279,7 +279,7 @@ function createBaseQueryDenomsFromCreatorRequest(): QueryDenomsFromCreatorReques
   };
 }
 export const QueryDenomsFromCreatorRequest = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.QueryDenomsFromCreatorRequest",
+  typeUrl: "/neutron.coinfactory.v1beta1.QueryDenomsFromCreatorRequest",
   encode(message: QueryDenomsFromCreatorRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
@@ -327,7 +327,7 @@ function createBaseQueryDenomsFromCreatorResponse(): QueryDenomsFromCreatorRespo
   };
 }
 export const QueryDenomsFromCreatorResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.QueryDenomsFromCreatorResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.QueryDenomsFromCreatorResponse",
   encode(
     message: QueryDenomsFromCreatorResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -383,7 +383,7 @@ function createBaseQueryBeforeSendHookAddressRequest(): QueryBeforeSendHookAddre
   };
 }
 export const QueryBeforeSendHookAddressRequest = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.QueryBeforeSendHookAddressRequest",
+  typeUrl: "/neutron.coinfactory.v1beta1.QueryBeforeSendHookAddressRequest",
   encode(
     message: QueryBeforeSendHookAddressRequest,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -443,7 +443,7 @@ function createBaseQueryBeforeSendHookAddressResponse(): QueryBeforeSendHookAddr
   };
 }
 export const QueryBeforeSendHookAddressResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.QueryBeforeSendHookAddressResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.QueryBeforeSendHookAddressResponse",
   encode(
     message: QueryBeforeSendHookAddressResponse,
     writer: BinaryWriter = BinaryWriter.create(),
@@ -495,7 +495,7 @@ function createBaseQueryFullDenomRequest(): QueryFullDenomRequest {
   };
 }
 export const QueryFullDenomRequest = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.QueryFullDenomRequest",
+  typeUrl: "/neutron.coinfactory.v1beta1.QueryFullDenomRequest",
   encode(message: QueryFullDenomRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
@@ -550,7 +550,7 @@ function createBaseQueryFullDenomResponse(): QueryFullDenomResponse {
   };
 }
 export const QueryFullDenomResponse = {
-  typeUrl: "/osmosis.tokenfactory2.v1beta1.QueryFullDenomResponse",
+  typeUrl: "/neutron.coinfactory.v1beta1.QueryFullDenomResponse",
   encode(message: QueryFullDenomResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.fullDenom !== "") {
       writer.uint32(10).string(message.fullDenom);

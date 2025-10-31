@@ -13,14 +13,14 @@ import {
   MsgUpdateParams,
 } from "./tx";
 export interface MsgCreateDenomAminoType extends AminoMsg {
-  type: "osmosis/tokenfactory2/create-denom";
+  type: "neutron/coinfactory/create-denom";
   value: {
     sender: string;
     subdenom: string;
   };
 }
 export interface MsgMintAminoType extends AminoMsg {
-  type: "osmosis/tokenfactory2/mint";
+  type: "neutron/coinfactory/mint";
   value: {
     sender: string;
     amount: {
@@ -31,7 +31,7 @@ export interface MsgMintAminoType extends AminoMsg {
   };
 }
 export interface MsgBurnAminoType extends AminoMsg {
-  type: "osmosis/tokenfactory2/burn";
+  type: "neutron/coinfactory/burn";
   value: {
     sender: string;
     amount: {
@@ -42,7 +42,7 @@ export interface MsgBurnAminoType extends AminoMsg {
   };
 }
 export interface MsgChangeAdminAminoType extends AminoMsg {
-  type: "osmosis/tokenfactory2/change-admin";
+  type: "neutron/coinfactory/change-admin";
   value: {
     sender: string;
     denom: string;
@@ -50,7 +50,7 @@ export interface MsgChangeAdminAminoType extends AminoMsg {
   };
 }
 export interface MsgSetDenomMetadataAminoType extends AminoMsg {
-  type: "osmosis/tokenfactory2/set-denom-metadata";
+  type: "/neutron.coinfactory.v1beta1.MsgSetDenomMetadata";
   value: {
     sender: string;
     metadata: {
@@ -70,7 +70,7 @@ export interface MsgSetDenomMetadataAminoType extends AminoMsg {
   };
 }
 export interface MsgSetBeforeSendHookAminoType extends AminoMsg {
-  type: "osmosis/tokenfactory2/set-beforesend-hook";
+  type: "neutron/coinfactory/set-beforesend-hook";
   value: {
     sender: string;
     denom: string;
@@ -78,7 +78,7 @@ export interface MsgSetBeforeSendHookAminoType extends AminoMsg {
   };
 }
 export interface MsgForceTransferAminoType extends AminoMsg {
-  type: "osmosis/tokenfactory2/force-transfer";
+  type: "neutron/coinfactory/force-transfer";
   value: {
     sender: string;
     amount: {
@@ -103,8 +103,8 @@ export interface MsgUpdateParamsAminoType extends AminoMsg {
   };
 }
 export const AminoConverter = {
-  "/osmosis.tokenfactory2.v1beta1.MsgCreateDenom": {
-    aminoType: "osmosis/tokenfactory2/create-denom",
+  "/neutron.coinfactory.v1beta1.MsgCreateDenom": {
+    aminoType: "neutron/coinfactory/create-denom",
     toAmino: ({ sender, subdenom }: MsgCreateDenom): MsgCreateDenomAminoType["value"] => {
       return {
         sender,
@@ -118,8 +118,8 @@ export const AminoConverter = {
       };
     },
   },
-  "/osmosis.tokenfactory2.v1beta1.MsgMint": {
-    aminoType: "osmosis/tokenfactory2/mint",
+  "/neutron.coinfactory.v1beta1.MsgMint": {
+    aminoType: "neutron/coinfactory/mint",
     toAmino: ({ sender, amount, mintToAddress }: MsgMint): MsgMintAminoType["value"] => {
       return {
         sender,
@@ -144,8 +144,8 @@ export const AminoConverter = {
       };
     },
   },
-  "/osmosis.tokenfactory2.v1beta1.MsgBurn": {
-    aminoType: "osmosis/tokenfactory2/burn",
+  "/neutron.coinfactory.v1beta1.MsgBurn": {
+    aminoType: "neutron/coinfactory/burn",
     toAmino: ({ sender, amount, burnFromAddress }: MsgBurn): MsgBurnAminoType["value"] => {
       return {
         sender,
@@ -170,8 +170,8 @@ export const AminoConverter = {
       };
     },
   },
-  "/osmosis.tokenfactory2.v1beta1.MsgChangeAdmin": {
-    aminoType: "osmosis/tokenfactory2/change-admin",
+  "/neutron.coinfactory.v1beta1.MsgChangeAdmin": {
+    aminoType: "neutron/coinfactory/change-admin",
     toAmino: ({ sender, denom, newAdmin }: MsgChangeAdmin): MsgChangeAdminAminoType["value"] => {
       return {
         sender,
@@ -187,8 +187,8 @@ export const AminoConverter = {
       };
     },
   },
-  "/osmosis.tokenfactory2.v1beta1.MsgSetDenomMetadata": {
-    aminoType: "osmosis/tokenfactory2/set-denom-metadata",
+  "/neutron.coinfactory.v1beta1.MsgSetDenomMetadata": {
+    aminoType: "/neutron.coinfactory.v1beta1.MsgSetDenomMetadata",
     toAmino: ({ sender, metadata }: MsgSetDenomMetadata): MsgSetDenomMetadataAminoType["value"] => {
       return {
         sender,
@@ -231,8 +231,8 @@ export const AminoConverter = {
       };
     },
   },
-  "/osmosis.tokenfactory2.v1beta1.MsgSetBeforeSendHook": {
-    aminoType: "osmosis/tokenfactory2/set-beforesend-hook",
+  "/neutron.coinfactory.v1beta1.MsgSetBeforeSendHook": {
+    aminoType: "neutron/coinfactory/set-beforesend-hook",
     toAmino: ({
       sender,
       denom,
@@ -256,8 +256,8 @@ export const AminoConverter = {
       };
     },
   },
-  "/osmosis.tokenfactory2.v1beta1.MsgForceTransfer": {
-    aminoType: "osmosis/tokenfactory2/force-transfer",
+  "/neutron.coinfactory.v1beta1.MsgForceTransfer": {
+    aminoType: "neutron/coinfactory/force-transfer",
     toAmino: ({
       sender,
       amount,
@@ -294,7 +294,7 @@ export const AminoConverter = {
       };
     },
   },
-  "/osmosis.tokenfactory2.v1beta1.MsgUpdateParams": {
+  "/neutron.coinfactory.v1beta1.MsgUpdateParams": {
     aminoType: "interchainqueries/MsgUpdateParams",
     toAmino: ({ authority, params }: MsgUpdateParams): MsgUpdateParamsAminoType["value"] => {
       return {
