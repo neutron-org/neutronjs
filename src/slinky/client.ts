@@ -11,7 +11,11 @@ export const slinkyAminoConverters = {
 export const slinkyProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
   ...slinkyOracleV1TxRegistry.registry,
 ];
-export const getSigningSlinkyClientOptions = ({ defaultTypes = defaultRegistryTypes } = {}): {
+export const getSigningSlinkyClientOptions = ({
+  defaultTypes = defaultRegistryTypes,
+}: {
+  defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
+} = {}): {
   registry: Registry;
   aminoTypes: AminoTypes;
 } => {

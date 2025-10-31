@@ -3,6 +3,7 @@
 import { Timestamp } from "../../google/protobuf/timestamp";
 import { Params } from "./params";
 import { Coin } from "../../cosmos/base/v1beta1/coin";
+import { PrecDecCoin } from "./precdec_coin";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers";
 import { JsonSafe } from "../../json-safe";
@@ -59,6 +60,7 @@ export interface DepositOptions {
   disableAutoswap: boolean;
   failTxOnBel: boolean;
   swapOnDeposit: boolean;
+  /** @deprecated */
   swapOnDepositSlopToleranceBps: bigint;
 }
 export interface MsgDeposit {
@@ -77,10 +79,16 @@ export interface FailedDeposit {
   error: string;
 }
 export interface MsgDepositResponse {
+  /** reserve0_deposited is DEPRECATED */
+  /** @deprecated */
   reserve0Deposited: string[];
+  /** reserve0_deposited is DEPRECATED */
+  /** @deprecated */
   reserve1Deposited: string[];
   failedDeposits: FailedDeposit[];
   sharesIssued: Coin[];
+  decReserve0Deposited: string[];
+  decReserve1Deposited: string[];
 }
 export interface MsgWithdrawal {
   creator: string;
@@ -92,9 +100,15 @@ export interface MsgWithdrawal {
   fees: bigint[];
 }
 export interface MsgWithdrawalResponse {
+  /** reserve0_withdrawn is DEPRECATED */
+  /** @deprecated */
   reserve0Withdrawn: string;
+  /** reserve1_withdrawn is DEPRECATED */
+  /** @deprecated */
   reserve1Withdrawn: string;
   sharesBurned: Coin[];
+  decReserve0Withdrawn: string;
+  decReserve1Withdrawn: string;
 }
 export interface MsgPlaceLimitOrder {
   creator: string;
@@ -110,46 +124,61 @@ export interface MsgPlaceLimitOrder {
   expirationTime?: Timestamp;
   maxAmountOut?: string;
   limitSellPrice?: string;
-  /**
-   * min_average_sell_price is an optional parameter that sets a required minimum average price for the entire trade.
-   * if the min_average_sell_price is not met the trade will fail.
-   * If min_average_sell_price is omitted limit_sell_price will be used instead
-   */
+  /** min_average_sell_price is DEPRECATED */
+  /** @deprecated */
   minAverageSellPrice?: string;
 }
 export interface MsgPlaceLimitOrderResponse {
   trancheKey: string;
   /** Total amount of coin used for the limit order */
   coinIn: Coin;
+  /** taker_coin_out is DEPRECATED */
+  /** @deprecated */
+  takerCoinOut: Coin;
+  /** taker_coin_in is DEPRECATED */
+  /** @deprecated */
+  takerCoinIn: Coin;
   /**
    * Total amount of coin received from the taker portion of the limit order
    * This is the amount of coin immediately available in the users account after
    * executing the limit order. It does not include any future proceeds from the
    * maker portion which will have withdrawn in the future
    */
-  takerCoinOut: Coin;
+  decTakerCoinOut: PrecDecCoin;
   /** Total amount of the token in that was immediately swapped for takerOutCoin */
-  takerCoinIn: Coin;
+  decTakerCoinIn: PrecDecCoin;
 }
 export interface MsgWithdrawFilledLimitOrder {
   creator: string;
   trancheKey: string;
 }
 export interface MsgWithdrawFilledLimitOrderResponse {
-  /** Total amount of taker reserves that were withdrawn */
+  /** taker_coin_out is DEPRECATED */
+  /** @deprecated */
   takerCoinOut: Coin;
-  /** Total amount of maker reserves that were withdrawn --only applies to inactive LimitOrders */
+  /** maker_coin_out is DEPRECATED */
+  /** @deprecated */
   makerCoinOut: Coin;
+  /** Total amount of taker reserves that were withdrawn */
+  decTakerCoinOut: PrecDecCoin;
+  /** Total amount of maker reserves that were withdrawn --only applies to inactive LimitOrders */
+  decMakerCoinOut: PrecDecCoin;
 }
 export interface MsgCancelLimitOrder {
   creator: string;
   trancheKey: string;
 }
 export interface MsgCancelLimitOrderResponse {
-  /** Total amount of taker reserves that were withdrawn */
+  /** taker_coin_out is DEPRECATED */
+  /** @deprecated */
   takerCoinOut: Coin;
-  /** Total amount of maker reserves that were canceled */
+  /** maker_coin_out is DEPRECATED */
+  /** @deprecated */
   makerCoinOut: Coin;
+  /** Total amount of taker reserves that were withdrawn */
+  decTakerCoinOut: PrecDecCoin;
+  /** Total amount of maker reserves that were canceled */
+  decMakerCoinOut: PrecDecCoin;
 }
 export interface MultiHopRoute {
   hops: string[];
@@ -167,9 +196,15 @@ export interface MsgMultiHopSwap {
   pickBestRoute: boolean;
 }
 export interface MsgMultiHopSwapResponse {
+  /** coin_out is DEPRECATED */
+  /** @deprecated */
   coinOut: Coin;
   route?: MultiHopRoute;
+  /** dust is DEPRECATED */
+  /** @deprecated */
   dust: Coin[];
+  decCoinOut: PrecDecCoin;
+  decDust: PrecDecCoin[];
 }
 export interface MsgUpdateParams {
   /** Authority is the address of the governance account. */
@@ -494,6 +529,8 @@ function createBaseMsgDepositResponse(): MsgDepositResponse {
     reserve1Deposited: [],
     failedDeposits: [],
     sharesIssued: [],
+    decReserve0Deposited: [],
+    decReserve1Deposited: [],
   };
 }
 export const MsgDepositResponse = {
@@ -510,6 +547,12 @@ export const MsgDepositResponse = {
     }
     for (const v of message.sharesIssued) {
       Coin.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    for (const v of message.decReserve0Deposited) {
+      writer.uint32(42).string(v!);
+    }
+    for (const v of message.decReserve1Deposited) {
+      writer.uint32(50).string(v!);
     }
     return writer;
   },
@@ -532,6 +575,12 @@ export const MsgDepositResponse = {
         case 4:
           message.sharesIssued.push(Coin.decode(reader, reader.uint32()));
           break;
+        case 5:
+          message.decReserve0Deposited.push(reader.string());
+          break;
+        case 6:
+          message.decReserve1Deposited.push(reader.string());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -549,6 +598,10 @@ export const MsgDepositResponse = {
       obj.failedDeposits = object.failedDeposits.map((e: any) => FailedDeposit.fromJSON(e));
     if (Array.isArray(object?.sharesIssued))
       obj.sharesIssued = object.sharesIssued.map((e: any) => Coin.fromJSON(e));
+    if (Array.isArray(object?.decReserve0Deposited))
+      obj.decReserve0Deposited = object.decReserve0Deposited.map((e: any) => String(e));
+    if (Array.isArray(object?.decReserve1Deposited))
+      obj.decReserve1Deposited = object.decReserve1Deposited.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: MsgDepositResponse): JsonSafe<MsgDepositResponse> {
@@ -573,6 +626,16 @@ export const MsgDepositResponse = {
     } else {
       obj.sharesIssued = [];
     }
+    if (message.decReserve0Deposited) {
+      obj.decReserve0Deposited = message.decReserve0Deposited.map((e) => e);
+    } else {
+      obj.decReserve0Deposited = [];
+    }
+    if (message.decReserve1Deposited) {
+      obj.decReserve1Deposited = message.decReserve1Deposited.map((e) => e);
+    } else {
+      obj.decReserve1Deposited = [];
+    }
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MsgDepositResponse>, I>>(object: I): MsgDepositResponse {
@@ -581,6 +644,8 @@ export const MsgDepositResponse = {
     message.reserve1Deposited = object.reserve1Deposited?.map((e) => e) || [];
     message.failedDeposits = object.failedDeposits?.map((e) => FailedDeposit.fromPartial(e)) || [];
     message.sharesIssued = object.sharesIssued?.map((e) => Coin.fromPartial(e)) || [];
+    message.decReserve0Deposited = object.decReserve0Deposited?.map((e) => e) || [];
+    message.decReserve1Deposited = object.decReserve1Deposited?.map((e) => e) || [];
     return message;
   },
 };
@@ -727,6 +792,8 @@ function createBaseMsgWithdrawalResponse(): MsgWithdrawalResponse {
     reserve0Withdrawn: "",
     reserve1Withdrawn: "",
     sharesBurned: [],
+    decReserve0Withdrawn: "",
+    decReserve1Withdrawn: "",
   };
 }
 export const MsgWithdrawalResponse = {
@@ -740,6 +807,12 @@ export const MsgWithdrawalResponse = {
     }
     for (const v of message.sharesBurned) {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.decReserve0Withdrawn !== "") {
+      writer.uint32(34).string(message.decReserve0Withdrawn);
+    }
+    if (message.decReserve1Withdrawn !== "") {
+      writer.uint32(42).string(message.decReserve1Withdrawn);
     }
     return writer;
   },
@@ -759,6 +832,12 @@ export const MsgWithdrawalResponse = {
         case 3:
           message.sharesBurned.push(Coin.decode(reader, reader.uint32()));
           break;
+        case 4:
+          message.decReserve0Withdrawn = reader.string();
+          break;
+        case 5:
+          message.decReserve1Withdrawn = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -772,6 +851,8 @@ export const MsgWithdrawalResponse = {
     if (isSet(object.reserve1Withdrawn)) obj.reserve1Withdrawn = String(object.reserve1Withdrawn);
     if (Array.isArray(object?.sharesBurned))
       obj.sharesBurned = object.sharesBurned.map((e: any) => Coin.fromJSON(e));
+    if (isSet(object.decReserve0Withdrawn)) obj.decReserve0Withdrawn = String(object.decReserve0Withdrawn);
+    if (isSet(object.decReserve1Withdrawn)) obj.decReserve1Withdrawn = String(object.decReserve1Withdrawn);
     return obj;
   },
   toJSON(message: MsgWithdrawalResponse): JsonSafe<MsgWithdrawalResponse> {
@@ -783,6 +864,8 @@ export const MsgWithdrawalResponse = {
     } else {
       obj.sharesBurned = [];
     }
+    message.decReserve0Withdrawn !== undefined && (obj.decReserve0Withdrawn = message.decReserve0Withdrawn);
+    message.decReserve1Withdrawn !== undefined && (obj.decReserve1Withdrawn = message.decReserve1Withdrawn);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MsgWithdrawalResponse>, I>>(object: I): MsgWithdrawalResponse {
@@ -790,6 +873,8 @@ export const MsgWithdrawalResponse = {
     message.reserve0Withdrawn = object.reserve0Withdrawn ?? "";
     message.reserve1Withdrawn = object.reserve1Withdrawn ?? "";
     message.sharesBurned = object.sharesBurned?.map((e) => Coin.fromPartial(e)) || [];
+    message.decReserve0Withdrawn = object.decReserve0Withdrawn ?? "";
+    message.decReserve1Withdrawn = object.decReserve1Withdrawn ?? "";
     return message;
   },
 };
@@ -951,6 +1036,8 @@ function createBaseMsgPlaceLimitOrderResponse(): MsgPlaceLimitOrderResponse {
     coinIn: Coin.fromPartial({}),
     takerCoinOut: Coin.fromPartial({}),
     takerCoinIn: Coin.fromPartial({}),
+    decTakerCoinOut: PrecDecCoin.fromPartial({}),
+    decTakerCoinIn: PrecDecCoin.fromPartial({}),
   };
 }
 export const MsgPlaceLimitOrderResponse = {
@@ -967,6 +1054,12 @@ export const MsgPlaceLimitOrderResponse = {
     }
     if (message.takerCoinIn !== undefined) {
       Coin.encode(message.takerCoinIn, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.decTakerCoinOut !== undefined) {
+      PrecDecCoin.encode(message.decTakerCoinOut, writer.uint32(42).fork()).ldelim();
+    }
+    if (message.decTakerCoinIn !== undefined) {
+      PrecDecCoin.encode(message.decTakerCoinIn, writer.uint32(50).fork()).ldelim();
     }
     return writer;
   },
@@ -989,6 +1082,12 @@ export const MsgPlaceLimitOrderResponse = {
         case 4:
           message.takerCoinIn = Coin.decode(reader, reader.uint32());
           break;
+        case 5:
+          message.decTakerCoinOut = PrecDecCoin.decode(reader, reader.uint32());
+          break;
+        case 6:
+          message.decTakerCoinIn = PrecDecCoin.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1002,6 +1101,8 @@ export const MsgPlaceLimitOrderResponse = {
     if (isSet(object.coinIn)) obj.coinIn = Coin.fromJSON(object.coinIn);
     if (isSet(object.takerCoinOut)) obj.takerCoinOut = Coin.fromJSON(object.takerCoinOut);
     if (isSet(object.takerCoinIn)) obj.takerCoinIn = Coin.fromJSON(object.takerCoinIn);
+    if (isSet(object.decTakerCoinOut)) obj.decTakerCoinOut = PrecDecCoin.fromJSON(object.decTakerCoinOut);
+    if (isSet(object.decTakerCoinIn)) obj.decTakerCoinIn = PrecDecCoin.fromJSON(object.decTakerCoinIn);
     return obj;
   },
   toJSON(message: MsgPlaceLimitOrderResponse): JsonSafe<MsgPlaceLimitOrderResponse> {
@@ -1012,6 +1113,12 @@ export const MsgPlaceLimitOrderResponse = {
       (obj.takerCoinOut = message.takerCoinOut ? Coin.toJSON(message.takerCoinOut) : undefined);
     message.takerCoinIn !== undefined &&
       (obj.takerCoinIn = message.takerCoinIn ? Coin.toJSON(message.takerCoinIn) : undefined);
+    message.decTakerCoinOut !== undefined &&
+      (obj.decTakerCoinOut = message.decTakerCoinOut
+        ? PrecDecCoin.toJSON(message.decTakerCoinOut)
+        : undefined);
+    message.decTakerCoinIn !== undefined &&
+      (obj.decTakerCoinIn = message.decTakerCoinIn ? PrecDecCoin.toJSON(message.decTakerCoinIn) : undefined);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MsgPlaceLimitOrderResponse>, I>>(
@@ -1027,6 +1134,12 @@ export const MsgPlaceLimitOrderResponse = {
     }
     if (object.takerCoinIn !== undefined && object.takerCoinIn !== null) {
       message.takerCoinIn = Coin.fromPartial(object.takerCoinIn);
+    }
+    if (object.decTakerCoinOut !== undefined && object.decTakerCoinOut !== null) {
+      message.decTakerCoinOut = PrecDecCoin.fromPartial(object.decTakerCoinOut);
+    }
+    if (object.decTakerCoinIn !== undefined && object.decTakerCoinIn !== null) {
+      message.decTakerCoinIn = PrecDecCoin.fromPartial(object.decTakerCoinIn);
     }
     return message;
   },
@@ -1093,6 +1206,8 @@ function createBaseMsgWithdrawFilledLimitOrderResponse(): MsgWithdrawFilledLimit
   return {
     takerCoinOut: Coin.fromPartial({}),
     makerCoinOut: Coin.fromPartial({}),
+    decTakerCoinOut: PrecDecCoin.fromPartial({}),
+    decMakerCoinOut: PrecDecCoin.fromPartial({}),
   };
 }
 export const MsgWithdrawFilledLimitOrderResponse = {
@@ -1106,6 +1221,12 @@ export const MsgWithdrawFilledLimitOrderResponse = {
     }
     if (message.makerCoinOut !== undefined) {
       Coin.encode(message.makerCoinOut, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.decTakerCoinOut !== undefined) {
+      PrecDecCoin.encode(message.decTakerCoinOut, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.decMakerCoinOut !== undefined) {
+      PrecDecCoin.encode(message.decMakerCoinOut, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -1122,6 +1243,12 @@ export const MsgWithdrawFilledLimitOrderResponse = {
         case 2:
           message.makerCoinOut = Coin.decode(reader, reader.uint32());
           break;
+        case 3:
+          message.decTakerCoinOut = PrecDecCoin.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.decMakerCoinOut = PrecDecCoin.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1133,6 +1260,8 @@ export const MsgWithdrawFilledLimitOrderResponse = {
     const obj = createBaseMsgWithdrawFilledLimitOrderResponse();
     if (isSet(object.takerCoinOut)) obj.takerCoinOut = Coin.fromJSON(object.takerCoinOut);
     if (isSet(object.makerCoinOut)) obj.makerCoinOut = Coin.fromJSON(object.makerCoinOut);
+    if (isSet(object.decTakerCoinOut)) obj.decTakerCoinOut = PrecDecCoin.fromJSON(object.decTakerCoinOut);
+    if (isSet(object.decMakerCoinOut)) obj.decMakerCoinOut = PrecDecCoin.fromJSON(object.decMakerCoinOut);
     return obj;
   },
   toJSON(message: MsgWithdrawFilledLimitOrderResponse): JsonSafe<MsgWithdrawFilledLimitOrderResponse> {
@@ -1141,6 +1270,14 @@ export const MsgWithdrawFilledLimitOrderResponse = {
       (obj.takerCoinOut = message.takerCoinOut ? Coin.toJSON(message.takerCoinOut) : undefined);
     message.makerCoinOut !== undefined &&
       (obj.makerCoinOut = message.makerCoinOut ? Coin.toJSON(message.makerCoinOut) : undefined);
+    message.decTakerCoinOut !== undefined &&
+      (obj.decTakerCoinOut = message.decTakerCoinOut
+        ? PrecDecCoin.toJSON(message.decTakerCoinOut)
+        : undefined);
+    message.decMakerCoinOut !== undefined &&
+      (obj.decMakerCoinOut = message.decMakerCoinOut
+        ? PrecDecCoin.toJSON(message.decMakerCoinOut)
+        : undefined);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MsgWithdrawFilledLimitOrderResponse>, I>>(
@@ -1152,6 +1289,12 @@ export const MsgWithdrawFilledLimitOrderResponse = {
     }
     if (object.makerCoinOut !== undefined && object.makerCoinOut !== null) {
       message.makerCoinOut = Coin.fromPartial(object.makerCoinOut);
+    }
+    if (object.decTakerCoinOut !== undefined && object.decTakerCoinOut !== null) {
+      message.decTakerCoinOut = PrecDecCoin.fromPartial(object.decTakerCoinOut);
+    }
+    if (object.decMakerCoinOut !== undefined && object.decMakerCoinOut !== null) {
+      message.decMakerCoinOut = PrecDecCoin.fromPartial(object.decMakerCoinOut);
     }
     return message;
   },
@@ -1216,6 +1359,8 @@ function createBaseMsgCancelLimitOrderResponse(): MsgCancelLimitOrderResponse {
   return {
     takerCoinOut: Coin.fromPartial({}),
     makerCoinOut: Coin.fromPartial({}),
+    decTakerCoinOut: PrecDecCoin.fromPartial({}),
+    decMakerCoinOut: PrecDecCoin.fromPartial({}),
   };
 }
 export const MsgCancelLimitOrderResponse = {
@@ -1226,6 +1371,12 @@ export const MsgCancelLimitOrderResponse = {
     }
     if (message.makerCoinOut !== undefined) {
       Coin.encode(message.makerCoinOut, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.decTakerCoinOut !== undefined) {
+      PrecDecCoin.encode(message.decTakerCoinOut, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.decMakerCoinOut !== undefined) {
+      PrecDecCoin.encode(message.decMakerCoinOut, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -1242,6 +1393,12 @@ export const MsgCancelLimitOrderResponse = {
         case 2:
           message.makerCoinOut = Coin.decode(reader, reader.uint32());
           break;
+        case 3:
+          message.decTakerCoinOut = PrecDecCoin.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.decMakerCoinOut = PrecDecCoin.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1253,6 +1410,8 @@ export const MsgCancelLimitOrderResponse = {
     const obj = createBaseMsgCancelLimitOrderResponse();
     if (isSet(object.takerCoinOut)) obj.takerCoinOut = Coin.fromJSON(object.takerCoinOut);
     if (isSet(object.makerCoinOut)) obj.makerCoinOut = Coin.fromJSON(object.makerCoinOut);
+    if (isSet(object.decTakerCoinOut)) obj.decTakerCoinOut = PrecDecCoin.fromJSON(object.decTakerCoinOut);
+    if (isSet(object.decMakerCoinOut)) obj.decMakerCoinOut = PrecDecCoin.fromJSON(object.decMakerCoinOut);
     return obj;
   },
   toJSON(message: MsgCancelLimitOrderResponse): JsonSafe<MsgCancelLimitOrderResponse> {
@@ -1261,6 +1420,14 @@ export const MsgCancelLimitOrderResponse = {
       (obj.takerCoinOut = message.takerCoinOut ? Coin.toJSON(message.takerCoinOut) : undefined);
     message.makerCoinOut !== undefined &&
       (obj.makerCoinOut = message.makerCoinOut ? Coin.toJSON(message.makerCoinOut) : undefined);
+    message.decTakerCoinOut !== undefined &&
+      (obj.decTakerCoinOut = message.decTakerCoinOut
+        ? PrecDecCoin.toJSON(message.decTakerCoinOut)
+        : undefined);
+    message.decMakerCoinOut !== undefined &&
+      (obj.decMakerCoinOut = message.decMakerCoinOut
+        ? PrecDecCoin.toJSON(message.decMakerCoinOut)
+        : undefined);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MsgCancelLimitOrderResponse>, I>>(
@@ -1272,6 +1439,12 @@ export const MsgCancelLimitOrderResponse = {
     }
     if (object.makerCoinOut !== undefined && object.makerCoinOut !== null) {
       message.makerCoinOut = Coin.fromPartial(object.makerCoinOut);
+    }
+    if (object.decTakerCoinOut !== undefined && object.decTakerCoinOut !== null) {
+      message.decTakerCoinOut = PrecDecCoin.fromPartial(object.decTakerCoinOut);
+    }
+    if (object.decMakerCoinOut !== undefined && object.decMakerCoinOut !== null) {
+      message.decMakerCoinOut = PrecDecCoin.fromPartial(object.decMakerCoinOut);
     }
     return message;
   },
@@ -1431,6 +1604,8 @@ function createBaseMsgMultiHopSwapResponse(): MsgMultiHopSwapResponse {
     coinOut: Coin.fromPartial({}),
     route: undefined,
     dust: [],
+    decCoinOut: PrecDecCoin.fromPartial({}),
+    decDust: [],
   };
 }
 export const MsgMultiHopSwapResponse = {
@@ -1444,6 +1619,12 @@ export const MsgMultiHopSwapResponse = {
     }
     for (const v of message.dust) {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.decCoinOut !== undefined) {
+      PrecDecCoin.encode(message.decCoinOut, writer.uint32(34).fork()).ldelim();
+    }
+    for (const v of message.decDust) {
+      PrecDecCoin.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -1463,6 +1644,12 @@ export const MsgMultiHopSwapResponse = {
         case 3:
           message.dust.push(Coin.decode(reader, reader.uint32()));
           break;
+        case 4:
+          message.decCoinOut = PrecDecCoin.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.decDust.push(PrecDecCoin.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1475,6 +1662,8 @@ export const MsgMultiHopSwapResponse = {
     if (isSet(object.coinOut)) obj.coinOut = Coin.fromJSON(object.coinOut);
     if (isSet(object.route)) obj.route = MultiHopRoute.fromJSON(object.route);
     if (Array.isArray(object?.dust)) obj.dust = object.dust.map((e: any) => Coin.fromJSON(e));
+    if (isSet(object.decCoinOut)) obj.decCoinOut = PrecDecCoin.fromJSON(object.decCoinOut);
+    if (Array.isArray(object?.decDust)) obj.decDust = object.decDust.map((e: any) => PrecDecCoin.fromJSON(e));
     return obj;
   },
   toJSON(message: MsgMultiHopSwapResponse): JsonSafe<MsgMultiHopSwapResponse> {
@@ -1488,6 +1677,13 @@ export const MsgMultiHopSwapResponse = {
     } else {
       obj.dust = [];
     }
+    message.decCoinOut !== undefined &&
+      (obj.decCoinOut = message.decCoinOut ? PrecDecCoin.toJSON(message.decCoinOut) : undefined);
+    if (message.decDust) {
+      obj.decDust = message.decDust.map((e) => (e ? PrecDecCoin.toJSON(e) : undefined));
+    } else {
+      obj.decDust = [];
+    }
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MsgMultiHopSwapResponse>, I>>(object: I): MsgMultiHopSwapResponse {
@@ -1499,6 +1695,10 @@ export const MsgMultiHopSwapResponse = {
       message.route = MultiHopRoute.fromPartial(object.route);
     }
     message.dust = object.dust?.map((e) => Coin.fromPartial(e)) || [];
+    if (object.decCoinOut !== undefined && object.decCoinOut !== null) {
+      message.decCoinOut = PrecDecCoin.fromPartial(object.decCoinOut);
+    }
+    message.decDust = object.decDust?.map((e) => PrecDecCoin.fromPartial(e)) || [];
     return message;
   },
 };

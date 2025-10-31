@@ -63,5 +63,8 @@ export const createRPCMsgClient = async ({ rpc }: { rpc: Rpc }) => ({
     tokenfactory: {
       v1beta1: new (await import("./tokenfactory/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc),
     },
+    tokenfactory2: {
+      v1beta1: new (await import("./tokenfactory2/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc),
+    },
   },
 });

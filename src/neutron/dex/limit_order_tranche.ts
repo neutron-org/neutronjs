@@ -13,9 +13,15 @@ export interface LimitOrderTrancheKey {
 }
 export interface LimitOrderTranche {
   key?: LimitOrderTrancheKey;
+  /** DEPRECATED: reserves_maker_denom will be removed in future release, `dec_reserves_maker_denom` should always be used. */
+  /** @deprecated */
   reservesMakerDenom: string;
+  /** DEPRECATED: reserves_taker_denom will be removed in future release, `dec_reserves_taker_denom` should always be used. */
+  /** @deprecated */
   reservesTakerDenom: string;
   totalMakerDenom: string;
+  /** DEPRECATED: total_taker_denom will be removed in future release, `dec_total_taker_denom` should always be used. */
+  /** @deprecated */
   totalTakerDenom: string;
   /**
    * JIT orders also use expiration_time to handle deletion but represent a special case
@@ -28,6 +34,9 @@ export interface LimitOrderTranche {
   priceTakerToMaker: string;
   /** This is the price of the LimitOrder denominated in the opposite token. (ie. 1 TokenA with a maker_price of 10 is worth 10 TokenB ) */
   makerPrice: string;
+  decReservesMakerDenom: string;
+  decReservesTakerDenom: string;
+  decTotalTakerDenom: string;
 }
 function createBaseLimitOrderTrancheKey(): LimitOrderTrancheKey {
   return {
@@ -112,6 +121,9 @@ function createBaseLimitOrderTranche(): LimitOrderTranche {
     expirationTime: undefined,
     priceTakerToMaker: "",
     makerPrice: "",
+    decReservesMakerDenom: "",
+    decReservesTakerDenom: "",
+    decTotalTakerDenom: "",
   };
 }
 export const LimitOrderTranche = {
@@ -140,6 +152,15 @@ export const LimitOrderTranche = {
     }
     if (message.makerPrice !== "") {
       writer.uint32(66).string(message.makerPrice);
+    }
+    if (message.decReservesMakerDenom !== "") {
+      writer.uint32(74).string(message.decReservesMakerDenom);
+    }
+    if (message.decReservesTakerDenom !== "") {
+      writer.uint32(82).string(message.decReservesTakerDenom);
+    }
+    if (message.decTotalTakerDenom !== "") {
+      writer.uint32(90).string(message.decTotalTakerDenom);
     }
     return writer;
   },
@@ -174,6 +195,15 @@ export const LimitOrderTranche = {
         case 8:
           message.makerPrice = reader.string();
           break;
+        case 9:
+          message.decReservesMakerDenom = reader.string();
+          break;
+        case 10:
+          message.decReservesTakerDenom = reader.string();
+          break;
+        case 11:
+          message.decTotalTakerDenom = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -191,6 +221,9 @@ export const LimitOrderTranche = {
     if (isSet(object.expirationTime)) obj.expirationTime = fromJsonTimestamp(object.expirationTime);
     if (isSet(object.priceTakerToMaker)) obj.priceTakerToMaker = String(object.priceTakerToMaker);
     if (isSet(object.makerPrice)) obj.makerPrice = String(object.makerPrice);
+    if (isSet(object.decReservesMakerDenom)) obj.decReservesMakerDenom = String(object.decReservesMakerDenom);
+    if (isSet(object.decReservesTakerDenom)) obj.decReservesTakerDenom = String(object.decReservesTakerDenom);
+    if (isSet(object.decTotalTakerDenom)) obj.decTotalTakerDenom = String(object.decTotalTakerDenom);
     return obj;
   },
   toJSON(message: LimitOrderTranche): JsonSafe<LimitOrderTranche> {
@@ -205,6 +238,11 @@ export const LimitOrderTranche = {
       (obj.expirationTime = fromTimestamp(message.expirationTime).toISOString());
     message.priceTakerToMaker !== undefined && (obj.priceTakerToMaker = message.priceTakerToMaker);
     message.makerPrice !== undefined && (obj.makerPrice = message.makerPrice);
+    message.decReservesMakerDenom !== undefined &&
+      (obj.decReservesMakerDenom = message.decReservesMakerDenom);
+    message.decReservesTakerDenom !== undefined &&
+      (obj.decReservesTakerDenom = message.decReservesTakerDenom);
+    message.decTotalTakerDenom !== undefined && (obj.decTotalTakerDenom = message.decTotalTakerDenom);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<LimitOrderTranche>, I>>(object: I): LimitOrderTranche {
@@ -221,6 +259,9 @@ export const LimitOrderTranche = {
     }
     message.priceTakerToMaker = object.priceTakerToMaker ?? "";
     message.makerPrice = object.makerPrice ?? "";
+    message.decReservesMakerDenom = object.decReservesMakerDenom ?? "";
+    message.decReservesTakerDenom = object.decReservesTakerDenom ?? "";
+    message.decTotalTakerDenom = object.decTotalTakerDenom ?? "";
     return message;
   },
 };
