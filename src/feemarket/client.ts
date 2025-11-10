@@ -11,7 +11,11 @@ export const feemarketAminoConverters = {
 export const feemarketProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
   ...feemarketFeemarketV1TxRegistry.registry,
 ];
-export const getSigningFeemarketClientOptions = ({ defaultTypes = defaultRegistryTypes } = {}): {
+export const getSigningFeemarketClientOptions = ({
+  defaultTypes = defaultRegistryTypes,
+}: {
+  defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
+} = {}): {
   registry: Registry;
   aminoTypes: AminoTypes;
 } => {
