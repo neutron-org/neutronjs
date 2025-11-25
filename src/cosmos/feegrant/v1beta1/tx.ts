@@ -28,20 +28,12 @@ export interface MsgRevokeAllowance {
 }
 /** MsgRevokeAllowanceResponse defines the Msg/RevokeAllowanceResponse response type. */
 export interface MsgRevokeAllowanceResponse {}
-/**
- * MsgPruneAllowances prunes expired fee allowances.
- *
- * Since cosmos-sdk 0.50
- */
+/** MsgPruneAllowances prunes expired fee allowances. */
 export interface MsgPruneAllowances {
   /** pruner is the address of the user pruning expired allowances. */
   pruner: string;
 }
-/**
- * MsgPruneAllowancesResponse defines the Msg/PruneAllowancesResponse response type.
- *
- * Since cosmos-sdk 0.50
- */
+/** MsgPruneAllowancesResponse defines the Msg/PruneAllowancesResponse response type. */
 export interface MsgPruneAllowancesResponse {}
 function createBaseMsgGrantAllowance(): MsgGrantAllowance {
   return {

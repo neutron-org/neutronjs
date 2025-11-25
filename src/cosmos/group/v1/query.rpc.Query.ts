@@ -70,11 +70,7 @@ export interface Query {
    * proposal itself.
    */
   tallyResult(request: QueryTallyResultRequest): Promise<QueryTallyResultResponse>;
-  /**
-   * Groups queries all groups in state.
-   *
-   * Since: cosmos-sdk 0.47.1
-   */
+  /** Groups queries all groups in state. */
   groups(request?: QueryGroupsRequest): Promise<QueryGroupsResponse>;
 }
 export class QueryClientImpl implements Query {

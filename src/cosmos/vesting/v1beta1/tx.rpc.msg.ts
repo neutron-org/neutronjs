@@ -20,8 +20,6 @@ export interface Msg {
   /**
    * CreatePermanentLockedAccount defines a method that enables creating a permanent
    * locked account.
-   *
-   * Since: cosmos-sdk 0.46
    */
   createPermanentLockedAccount(
     request: MsgCreatePermanentLockedAccount,
@@ -29,8 +27,6 @@ export interface Msg {
   /**
    * CreatePeriodicVestingAccount defines a method that enables creating a
    * periodic vesting account.
-   *
-   * Since: cosmos-sdk 0.46
    */
   createPeriodicVestingAccount(
     request: MsgCreatePeriodicVestingAccount,

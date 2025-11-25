@@ -32,7 +32,6 @@ export interface MsgWithdrawDelegatorReward {
  * response type.
  */
 export interface MsgWithdrawDelegatorRewardResponse {
-  /** Since: cosmos-sdk 0.46 */
   amount: Coin[];
 }
 /**
@@ -47,7 +46,6 @@ export interface MsgWithdrawValidatorCommission {
  * Msg/WithdrawValidatorCommission response type.
  */
 export interface MsgWithdrawValidatorCommissionResponse {
-  /** Since: cosmos-sdk 0.46 */
   amount: Coin[];
 }
 /**
@@ -60,11 +58,7 @@ export interface MsgFundCommunityPool {
 }
 /** MsgFundCommunityPoolResponse defines the Msg/FundCommunityPool response type. */
 export interface MsgFundCommunityPoolResponse {}
-/**
- * MsgUpdateParams is the Msg/UpdateParams request type.
- *
- * Since: cosmos-sdk 0.47
- */
+/** MsgUpdateParams is the Msg/UpdateParams request type. */
 export interface MsgUpdateParams {
   /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority: string;
@@ -78,16 +72,12 @@ export interface MsgUpdateParams {
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
- *
- * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponse {}
 /**
  * MsgCommunityPoolSpend defines a message for sending tokens from the community
  * pool to another account. This message is typically executed via a governance
  * proposal with the governance module being the executing authority.
- *
- * Since: cosmos-sdk 0.47
  */
 export interface MsgCommunityPoolSpend {
   /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
@@ -98,15 +88,11 @@ export interface MsgCommunityPoolSpend {
 /**
  * MsgCommunityPoolSpendResponse defines the response to executing a
  * MsgCommunityPoolSpend message.
- *
- * Since: cosmos-sdk 0.47
  */
 export interface MsgCommunityPoolSpendResponse {}
 /**
  * DepositValidatorRewardsPool defines the request structure to provide
  * additional rewards to delegators from a specific validator.
- *
- * Since: cosmos-sdk 0.50
  */
 export interface MsgDepositValidatorRewardsPool {
   depositor: string;
@@ -116,8 +102,6 @@ export interface MsgDepositValidatorRewardsPool {
 /**
  * MsgDepositValidatorRewardsPoolResponse defines the response to executing a
  * MsgDepositValidatorRewardsPool message.
- *
- * Since: cosmos-sdk 0.50
  */
 export interface MsgDepositValidatorRewardsPoolResponse {}
 function createBaseMsgSetWithdrawAddress(): MsgSetWithdrawAddress {

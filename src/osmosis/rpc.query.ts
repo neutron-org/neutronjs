@@ -45,10 +45,16 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
       consensus: {
         v1: (await import("../cosmos/consensus/v1/query.rpc.Query")).createRpcQueryExtension(client),
       },
+      counter: {
+        v1: (await import("../cosmos/counter/v1/query.rpc.Query")).createRpcQueryExtension(client),
+      },
       distribution: {
         v1beta1: (await import("../cosmos/distribution/v1beta1/query.rpc.Query")).createRpcQueryExtension(
           client,
         ),
+      },
+      epochs: {
+        v1beta1: (await import("../cosmos/epochs/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
       },
       evidence: {
         v1beta1: (await import("../cosmos/evidence/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
@@ -69,15 +75,11 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
       nft: {
         v1beta1: (await import("../cosmos/nft/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
       },
-      orm: {
-        query: {
-          v1alpha1: (await import("../cosmos/orm/query/v1alpha1/query.rpc.Query")).createRpcQueryExtension(
-            client,
-          ),
-        },
-      },
       params: {
         v1beta1: (await import("../cosmos/params/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
+      },
+      protocolpool: {
+        v1: (await import("../cosmos/protocolpool/v1/query.rpc.Query")).createRpcQueryExtension(client),
       },
       slashing: {
         v1beta1: (await import("../cosmos/slashing/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
@@ -95,6 +97,9 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
     osmosis: {
       tokenfactory: {
         v1beta1: (await import("./tokenfactory/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
+      },
+      tokenfactory2: {
+        v1beta1: (await import("./tokenfactory2/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
       },
     },
   };

@@ -3,7 +3,6 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-import * as neutronCoinfactoryV1beta1TxRegistry from "./coinfactory/v1beta1/tx.registry";
 import * as neutronContractmanagerTxRegistry from "./contractmanager/tx.registry";
 import * as neutronCronTxRegistry from "./cron/tx.registry";
 import * as neutronDexTxRegistry from "./dex/tx.registry";
@@ -16,7 +15,6 @@ import * as neutronInterchainqueriesTxRegistry from "./interchainqueries/tx.regi
 import * as neutronInterchaintxsV1TxRegistry from "./interchaintxs/v1/tx.registry";
 import * as neutronRevenueTxRegistry from "./revenue/tx.registry";
 import * as neutronTransferV1TxRegistry from "./transfer/v1/tx.registry";
-import * as neutronCoinfactoryV1beta1TxAmino from "./coinfactory/v1beta1/tx.amino";
 import * as neutronContractmanagerTxAmino from "./contractmanager/tx.amino";
 import * as neutronCronTxAmino from "./cron/tx.amino";
 import * as neutronDexTxAmino from "./dex/tx.amino";
@@ -30,7 +28,6 @@ import * as neutronInterchaintxsV1TxAmino from "./interchaintxs/v1/tx.amino";
 import * as neutronRevenueTxAmino from "./revenue/tx.amino";
 import * as neutronTransferV1TxAmino from "./transfer/v1/tx.amino";
 export const neutronAminoConverters = {
-  ...neutronCoinfactoryV1beta1TxAmino.AminoConverter,
   ...neutronContractmanagerTxAmino.AminoConverter,
   ...neutronCronTxAmino.AminoConverter,
   ...neutronDexTxAmino.AminoConverter,
@@ -45,7 +42,6 @@ export const neutronAminoConverters = {
   ...neutronTransferV1TxAmino.AminoConverter,
 };
 export const neutronProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
-  ...neutronCoinfactoryV1beta1TxRegistry.registry,
   ...neutronContractmanagerTxRegistry.registry,
   ...neutronCronTxRegistry.registry,
   ...neutronDexTxRegistry.registry,

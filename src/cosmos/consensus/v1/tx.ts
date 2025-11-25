@@ -19,7 +19,6 @@ export interface MsgUpdateParams {
   block?: BlockParams;
   evidence?: EvidenceParams;
   validator?: ValidatorParams;
-  /** Since: cosmos-sdk 0.50 */
   abci?: ABCIParams;
 }
 /**

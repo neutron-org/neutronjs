@@ -15,8 +15,6 @@ export interface Msg {
   /**
    * UpdateParams defines a governance operation for updating the x/crisis module
    * parameters. The authority is defined in the keeper.
-   *
-   * Since: cosmos-sdk 0.47
    */
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }

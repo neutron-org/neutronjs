@@ -21,8 +21,6 @@ export interface Msg {
   /**
    * UpdateParams defines a governance operation for updating the x/bank module parameters.
    * The authority is defined in the keeper.
-   *
-   * Since: cosmos-sdk 0.47
    */
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
   /**
@@ -30,8 +28,6 @@ export interface Msg {
    * on any number of Denoms. Only the entries to add or update should be
    * included. Entries that already exist in the store, but that aren't
    * included in this message, will be left unchanged.
-   *
-   * Since: cosmos-sdk 0.47
    */
   setSendEnabled(request: MsgSetSendEnabled): Promise<MsgSetSendEnabledResponse>;
 }
