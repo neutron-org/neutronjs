@@ -28,9 +28,7 @@ npm run set-versions
 ```
 
 Generate updated protos directories in protos/*-src folders:
-```
 npm run precodegen
-```
 
 ### Rebuilding types
 

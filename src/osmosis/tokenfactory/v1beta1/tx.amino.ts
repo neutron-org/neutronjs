@@ -90,7 +90,7 @@ export interface MsgForceTransferAminoType extends AminoMsg {
   };
 }
 export interface MsgUpdateParamsAminoType extends AminoMsg {
-  type: "interchainqueries/MsgUpdateParams";
+  type: "osmosis/tokenfactory/MsgUpdateParams";
   value: {
     authority: string;
     params: {
@@ -295,7 +295,7 @@ export const AminoConverter = {
     },
   },
   "/osmosis.tokenfactory.v1beta1.MsgUpdateParams": {
-    aminoType: "interchainqueries/MsgUpdateParams",
+    aminoType: "osmosis/tokenfactory/MsgUpdateParams",
     toAmino: ({ authority, params }: MsgUpdateParams): MsgUpdateParamsAminoType["value"] => {
       return {
         authority,

@@ -10,6 +10,7 @@ import {
   MsgRecoverClient,
   MsgIBCSoftwareUpgrade,
   MsgUpdateParams,
+  MsgDeleteClientCreator,
 } from "./tx";
 export interface MsgCreateClientAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgCreateClient";
@@ -99,6 +100,13 @@ export interface MsgUpdateParamsAminoType extends AminoMsg {
     params: {
       allowed_clients: string[];
     };
+  };
+}
+export interface MsgDeleteClientCreatorAminoType extends AminoMsg {
+  type: "cosmos-sdk/MsgDeleteClientCreator";
+  value: {
+    client_id: string;
+    signer: string;
   };
 }
 export const AminoConverter = {
@@ -366,6 +374,21 @@ export const AminoConverter = {
             : {
                 allowedClients: params.allowed_clients,
               },
+      };
+    },
+  },
+  "/ibc.core.client.v1.MsgDeleteClientCreator": {
+    aminoType: "cosmos-sdk/MsgDeleteClientCreator",
+    toAmino: ({ clientId, signer }: MsgDeleteClientCreator): MsgDeleteClientCreatorAminoType["value"] => {
+      return {
+        client_id: clientId,
+        signer,
+      };
+    },
+    fromAmino: ({ client_id, signer }: MsgDeleteClientCreatorAminoType["value"]): MsgDeleteClientCreator => {
+      return {
+        clientId: client_id,
+        signer,
       };
     },
   },
