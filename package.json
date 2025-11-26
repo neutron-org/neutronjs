@@ -50,7 +50,7 @@
     "@cosmology/telescope": "^1.12.12",
     "@types/node": "^15.6.2",
     "@cosmjs/math": "^0.32.4",
-    "@cosmjs/stargate": "^0.32.4",
+    "@cosmjs/stargate": "^0.37.0",
     "prettier": "^3.0.3",
     "typescript": "~5.2"
   }
