@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PairID } from "./pair_id";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { PairID } from "./pair_id.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
 export interface PoolMetadata {
   id: bigint;

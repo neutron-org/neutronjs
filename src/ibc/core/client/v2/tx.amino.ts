@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgRegisterCounterparty, MsgUpdateClientConfig } from "./tx";
+import { MsgRegisterCounterparty, MsgUpdateClientConfig } from "./tx.js";
 export interface MsgRegisterCounterpartyAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgRegisterCounterparty";
   value: {

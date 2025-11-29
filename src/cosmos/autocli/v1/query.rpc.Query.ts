@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { AppOptionsRequest, AppOptionsResponse } from "./query";
+import { AppOptionsRequest, AppOptionsResponse } from "./query.js";
 /** RemoteInfoService provides clients with the information they need
  to build dynamically CLI clients for remote chains. */
 export interface Query {

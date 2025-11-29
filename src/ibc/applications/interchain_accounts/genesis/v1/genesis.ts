@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params as Params1 } from "../../controller/v1/controller";
-import { Params as Params2 } from "../../host/v1/host";
-import { BinaryReader, BinaryWriter } from "../../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../../helpers";
-import { JsonSafe } from "../../../../../json-safe";
+import { Params as Params1 } from "../../controller/v1/controller.js";
+import { Params as Params2 } from "../../host/v1/host.js";
+import { BinaryReader, BinaryWriter } from "../../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../../helpers.js";
+import { JsonSafe } from "../../../../../json-safe.js";
 export const protobufPackage = "ibc.applications.interchain_accounts.genesis.v1";
 /** GenesisState defines the interchain accounts genesis state */
 export interface GenesisState {

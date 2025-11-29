@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgIncreaseCounter } from "./tx";
+import { MsgIncreaseCounter } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.counter.v1.MsgIncreaseCounter", MsgIncreaseCounter],
 ];

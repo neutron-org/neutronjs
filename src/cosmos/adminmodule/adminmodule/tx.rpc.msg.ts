@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgDeleteAdmin,
   MsgDeleteAdminResponse,
@@ -11,7 +11,7 @@ import {
   MsgSubmitProposalResponse,
   MsgSubmitProposalLegacy,
   MsgSubmitProposalLegacyResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the Msg service. */
 export interface Msg {
   deleteAdmin(request: MsgDeleteAdmin): Promise<MsgDeleteAdminResponse>;

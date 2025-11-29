@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
-import { MsgParams, MsgParamsResponse } from "./tx";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
+import { MsgParams, MsgParamsResponse } from "./tx.js";
 /** Message service defines the types of messages supported by the feemarket
  module. */
 export interface Msg {

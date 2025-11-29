@@ -1,6 +1,6 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
+import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination.js";
 import {
   MultiHopRoute,
   LimitOrderType,
@@ -18,20 +18,20 @@ import {
   MsgMultiHopSwapResponse,
   limitOrderTypeFromJSON,
   limitOrderTypeToJSON,
-} from "./tx";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { Params } from "./params";
-import { LimitOrderTrancheUser } from "./limit_order_tranche_user";
-import { LimitOrderTranche } from "./limit_order_tranche";
-import { DepositRecord } from "./deposit_record";
-import { TickLiquidity } from "./tick_liquidity";
-import { PoolReserves } from "./pool_reserves";
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { Pool } from "./pool";
-import { PoolMetadata } from "./pool_metadata";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet, fromJsonTimestamp, fromTimestamp } from "../../helpers";
+} from "./tx.js";
+import { Timestamp } from "../../google/protobuf/timestamp.js";
+import { Params } from "./params.js";
+import { LimitOrderTrancheUser } from "./limit_order_tranche_user.js";
+import { LimitOrderTranche } from "./limit_order_tranche.js";
+import { DepositRecord } from "./deposit_record.js";
+import { TickLiquidity } from "./tick_liquidity.js";
+import { PoolReserves } from "./pool_reserves.js";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { Pool } from "./pool.js";
+import { PoolMetadata } from "./pool_metadata.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact, isSet, fromJsonTimestamp, fromTimestamp } from "../../helpers.js";
 export const protobufPackage = "neutron.dex";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}

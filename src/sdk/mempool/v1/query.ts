@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, isObject } from "../../../helpers";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, isObject } from "../../../helpers.js";
 export const protobufPackage = "sdk.mempool.v1";
 /**
  * GetTxDistributionRequest is the request type for the Service.GetTxDistribution

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../helpers";
-import { BinaryReader } from "../../binary";
-import { MsgUpdateParams, MsgUpdateParamsResponse, MsgFundTreasury, MsgFundTreasuryResponse } from "./tx";
+import { Rpc } from "../../helpers.js";
+import { BinaryReader } from "../../binary.js";
+import { MsgUpdateParams, MsgUpdateParamsResponse, MsgFundTreasury, MsgFundTreasuryResponse } from "./tx.js";
 /** Defines the Msg interface of the module. */
 export interface Msg {
   /**

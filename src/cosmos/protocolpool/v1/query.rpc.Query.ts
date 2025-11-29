@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryCommunityPoolRequest,
@@ -12,7 +12,7 @@ import {
   QueryContinuousFundsResponse,
   QueryParamsRequest,
   QueryParamsResponse,
-} from "./query";
+} from "./query.js";
 /** Query defines the gRPC querier service for community pool module. */
 export interface Query {
   /** CommunityPool queries the community pool coins. */

@@ -7,7 +7,7 @@ import {
   MsgCreateContinuousFund,
   MsgCancelContinuousFund,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.protocolpool.v1.MsgFundCommunityPool", MsgFundCommunityPool],
   ["/cosmos.protocolpool.v1.MsgCommunityPoolSpend", MsgCommunityPoolSpend],

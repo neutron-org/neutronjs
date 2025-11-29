@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgSendPacket, MsgRecvPacket, MsgTimeout, MsgAcknowledgement } from "./tx";
+import { MsgSendPacket, MsgRecvPacket, MsgTimeout, MsgAcknowledgement } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/ibc.core.channel.v2.MsgSendPacket", MsgSendPacket],
   ["/ibc.core.channel.v2.MsgRecvPacket", MsgRecvPacket],

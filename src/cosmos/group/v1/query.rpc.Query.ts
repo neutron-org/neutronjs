@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../base/query/v1beta1/pagination";
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { PageRequest } from "../../base/query/v1beta1/pagination.js";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryGroupInfoRequest,
@@ -33,7 +33,7 @@ import {
   QueryTallyResultResponse,
   QueryGroupsRequest,
   QueryGroupsResponse,
-} from "./query";
+} from "./query.js";
 /** Query is the cosmos.group.v1 Query service. */
 export interface Query {
   /** GroupInfo queries group info based on group id. */

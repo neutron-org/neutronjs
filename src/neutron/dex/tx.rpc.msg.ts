@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../helpers";
-import { BinaryReader } from "../../binary";
+import { Rpc } from "../../helpers.js";
+import { BinaryReader } from "../../binary.js";
 import {
   MsgDeposit,
   MsgDepositResponse,
@@ -17,7 +17,7 @@ import {
   MsgMultiHopSwapResponse,
   MsgUpdateParams,
   MsgUpdateParamsResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the Msg service. */
 export interface Msg {
   deposit(request: MsgDeposit): Promise<MsgDepositResponse>;

@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { MarketMap } from "../../marketmap/v1/market";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, isObject, fromJsonTimestamp, fromTimestamp } from "../../../helpers";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { MarketMap } from "../../marketmap/v1/market.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, isObject, fromJsonTimestamp, fromTimestamp } from "../../../helpers.js";
 export const protobufPackage = "slinky.service.v1";
 /** QueryPricesRequest defines the request type for the the Prices method. */
 export interface QueryPricesRequest {}

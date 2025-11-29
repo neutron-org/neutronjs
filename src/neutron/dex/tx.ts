@@ -1,12 +1,12 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { Params } from "./params";
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { PrecDecCoin } from "./precdec_coin";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Timestamp } from "../../google/protobuf/timestamp.js";
+import { Params } from "./params.js";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { PrecDecCoin } from "./precdec_coin.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
 export enum LimitOrderType {
   GOOD_TIL_CANCELLED = 0,

@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timeout, Order, orderFromJSON, orderToJSON } from "./channel";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Timeout, Order, orderFromJSON, orderToJSON } from "./channel.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.channel.v1";
 /**
  * Upgrade is a verifiable type which contains the relevant information

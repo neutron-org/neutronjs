@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../../helpers";
+import { omitDefault } from "../../../../helpers.js";
 import {
   MsgCreateClient,
   MsgUpdateClient,
@@ -11,7 +11,7 @@ import {
   MsgIBCSoftwareUpgrade,
   MsgUpdateParams,
   MsgDeleteClientCreator,
-} from "./tx";
+} from "./tx.js";
 export interface MsgCreateClientAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgCreateClient";
   value: {

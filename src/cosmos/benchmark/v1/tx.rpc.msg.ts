@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
-import { MsgLoadTest, MsgLoadTestResponse } from "./tx";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
+import { MsgLoadTest, MsgLoadTestResponse } from "./tx.js";
 /** Msg defines the benchmark Msg service. */
 export interface Msg {
   /** LoadTest defines a method for executing a sequence of load test operations. */

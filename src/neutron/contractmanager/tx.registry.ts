@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgUpdateParams, MsgResubmitFailure } from "./tx";
+import { MsgUpdateParams, MsgResubmitFailure } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/neutron.contractmanager.MsgUpdateParams", MsgUpdateParams],
   ["/neutron.contractmanager.MsgResubmitFailure", MsgResubmitFailure],

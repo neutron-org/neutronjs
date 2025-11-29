@@ -80,6 +80,7 @@ telescope({
       camelCase: true,
       useConnectComet: true,
     },
+    restoreImportExtension: ".js",
     aminoEncoding: {
       enabled: true,
       useLegacyInlineEncoding: true,

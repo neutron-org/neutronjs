@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { orderFromJSON } from "../../../../core/channel/v1/channel";
-import { typeFromJSON } from "../../v1/packet";
+import { orderFromJSON } from "../../../../core/channel/v1/channel.js";
+import { typeFromJSON } from "../../v1/packet.js";
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../../../helpers";
-import { MsgRegisterInterchainAccount, MsgSendTx, MsgUpdateParams } from "./tx";
+import { omitDefault } from "../../../../../helpers.js";
+import { MsgRegisterInterchainAccount, MsgSendTx, MsgUpdateParams } from "./tx.js";
 export interface MsgRegisterInterchainAccountAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgRegisterInterchainAccount";
   value: {

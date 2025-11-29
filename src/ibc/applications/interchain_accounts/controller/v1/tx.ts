@@ -1,11 +1,11 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Order, orderFromJSON, orderToJSON } from "../../../../core/channel/v1/channel";
-import { InterchainAccountPacketData } from "../../v1/packet";
-import { Params } from "./controller";
-import { BinaryReader, BinaryWriter } from "../../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../../helpers";
-import { JsonSafe } from "../../../../../json-safe";
+import { Order, orderFromJSON, orderToJSON } from "../../../../core/channel/v1/channel.js";
+import { InterchainAccountPacketData } from "../../v1/packet.js";
+import { Params } from "./controller.js";
+import { BinaryReader, BinaryWriter } from "../../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../../helpers.js";
+import { JsonSafe } from "../../../../../json-safe.js";
 export const protobufPackage = "ibc.applications.interchain_accounts.controller.v1";
 /** MsgRegisterInterchainAccount defines the payload for Msg/RegisterAccount */
 export interface MsgRegisterInterchainAccount {

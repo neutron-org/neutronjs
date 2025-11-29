@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { Rpc } from "../../../../helpers.js";
+import { BinaryReader } from "../../../../binary.js";
 import {
   MsgSendPacket,
   MsgSendPacketResponse,
@@ -11,7 +11,7 @@ import {
   MsgTimeoutResponse,
   MsgAcknowledgement,
   MsgAcknowledgementResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the ibc/channel/v2 Msg service. */
 export interface Msg {
   /** SendPacket defines a rpc handler method for MsgSendPacket. */

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgUpdateParams } from "./tx";
+import { omitDefault } from "../../../helpers.js";
+import { MsgUpdateParams } from "./tx.js";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "cosmos-sdk/x/mint/MsgUpdateParams";
   value: {

@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Payload, Packet, Acknowledgement } from "./packet";
-import { Height } from "../../client/v1/client";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Payload, Packet, Acknowledgement } from "./packet.js";
+import { Height } from "../../client/v1/client.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.channel.v2";
 /** ResponseResultType defines the possible outcomes of the execution of a message */
 export enum ResponseResultType {

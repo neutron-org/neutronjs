@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgSubmitProposal,
   MsgSubmitProposalResponse,
@@ -11,7 +11,7 @@ import {
   MsgVoteWeightedResponse,
   MsgDeposit,
   MsgDepositResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the gov Msg service. */
 export interface Msg {
   /** SubmitProposal defines a method to create new proposal given a content. */

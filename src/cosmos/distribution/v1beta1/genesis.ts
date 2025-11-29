@@ -1,6 +1,6 @@
 //@ts-nocheck
 /* eslint-disable */
-import { DecCoin } from "../../base/v1beta1/coin";
+import { DecCoin } from "../../base/v1beta1/coin.js";
 import {
   ValidatorAccumulatedCommission,
   ValidatorHistoricalRewards,
@@ -9,10 +9,10 @@ import {
   ValidatorSlashEvent,
   Params,
   FeePool,
-} from "./distribution";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+} from "./distribution.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.distribution.v1beta1";
 /**
  * DelegatorWithdrawInfo is the address for where distributions rewards are

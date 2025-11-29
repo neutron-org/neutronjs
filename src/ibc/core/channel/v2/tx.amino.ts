@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { AminoHeight, omitDefault } from "../../../../helpers";
-import { MsgSendPacket, MsgRecvPacket, MsgTimeout, MsgAcknowledgement } from "./tx";
+import { AminoHeight, omitDefault } from "../../../../helpers.js";
+import { MsgSendPacket, MsgRecvPacket, MsgTimeout, MsgAcknowledgement } from "./tx.js";
 export interface MsgSendPacketAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgSendPacket";
   value: {

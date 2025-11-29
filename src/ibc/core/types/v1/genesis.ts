@@ -1,13 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GenesisState as GenesisState1 } from "../../client/v1/genesis";
-import { GenesisState as GenesisState2 } from "../../connection/v1/genesis";
-import { GenesisState as GenesisState3 } from "../../channel/v1/genesis";
-import { GenesisState as GenesisState4 } from "../../client/v2/genesis";
-import { GenesisState as GenesisState5 } from "../../channel/v2/genesis";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { GenesisState as GenesisState1 } from "../../client/v1/genesis.js";
+import { GenesisState as GenesisState2 } from "../../connection/v1/genesis.js";
+import { GenesisState as GenesisState3 } from "../../channel/v1/genesis.js";
+import { GenesisState as GenesisState4 } from "../../client/v2/genesis.js";
+import { GenesisState as GenesisState5 } from "../../channel/v2/genesis.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.types.v1";
 /** GenesisState defines the ibc module's genesis state. */
 export interface GenesisState {

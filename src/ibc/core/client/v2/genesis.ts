@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CounterpartyInfo } from "./counterparty";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { CounterpartyInfo } from "./counterparty.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.client.v2";
 /** GenesisCounterpartyInfo defines the state associating a client with a counterparty. */
 export interface GenesisCounterpartyInfo {

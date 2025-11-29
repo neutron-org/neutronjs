@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../helpers";
-import { BinaryReader } from "../../binary";
+import { Rpc } from "../../helpers.js";
+import { BinaryReader } from "../../binary.js";
 import {
   MsgRegisterInterchainQuery,
   MsgRegisterInterchainQueryResponse,
@@ -13,7 +13,7 @@ import {
   MsgUpdateInterchainQueryResponse,
   MsgUpdateParams,
   MsgUpdateParamsResponse,
-} from "./tx";
+} from "./tx.js";
 /** Defines the Msg interface of the module. */
 export interface Msg {
   /**

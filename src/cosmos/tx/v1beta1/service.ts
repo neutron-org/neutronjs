@@ -1,13 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Tx } from "./tx";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { TxResponse, GasInfo, Result } from "../../base/abci/v1beta1/abci";
-import { BlockID } from "../../../tendermint/types/types";
-import { Block } from "../../../tendermint/types/block";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Tx } from "./tx.js";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { TxResponse, GasInfo, Result } from "../../base/abci/v1beta1/abci.js";
+import { BlockID } from "../../../tendermint/types/types.js";
+import { Block } from "../../../tendermint/types/block.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.tx.v1beta1";
 /** OrderBy defines the sorting order */
 export enum OrderBy {

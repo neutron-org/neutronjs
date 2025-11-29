@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgCreateVestingAccount,
   MsgCreateVestingAccountResponse,
@@ -9,7 +9,7 @@ import {
   MsgCreatePermanentLockedAccountResponse,
   MsgCreatePeriodicVestingAccount,
   MsgCreatePeriodicVestingAccountResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the bank Msg service. */
 export interface Msg {
   /**

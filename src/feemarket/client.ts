@@ -3,8 +3,8 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-import * as feemarketFeemarketV1TxRegistry from "./feemarket/v1/tx.registry";
-import * as feemarketFeemarketV1TxAmino from "./feemarket/v1/tx.amino";
+import * as feemarketFeemarketV1TxRegistry from "./feemarket/v1/tx.registry.js";
+import * as feemarketFeemarketV1TxAmino from "./feemarket/v1/tx.amino.js";
 export const feemarketAminoConverters = {
   ...feemarketFeemarketV1TxAmino.AminoConverter,
 };

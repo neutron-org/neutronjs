@@ -1,14 +1,14 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Header } from "../../../tendermint/types/types";
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Any } from "../../../google/protobuf/any";
-import { Duration } from "../../../google/protobuf/duration";
-import { Coin } from "../../base/v1beta1/coin";
-import { ValidatorUpdate } from "../../../tendermint/abci/types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Header } from "../../../tendermint/types/types.js";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { Duration } from "../../../google/protobuf/duration.js";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { ValidatorUpdate } from "../../../tendermint/abci/types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 import { Decimal } from "@cosmjs/math";
 export const protobufPackage = "cosmos.staking.v1beta1";
 /** BondStatus is the status of a validator. */

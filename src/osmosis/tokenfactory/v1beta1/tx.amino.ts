@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
+import { omitDefault } from "../../../helpers.js";
 import {
   MsgCreateDenom,
   MsgMint,
@@ -11,7 +11,7 @@ import {
   MsgSetBeforeSendHook,
   MsgForceTransfer,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export interface MsgCreateDenomAminoType extends AminoMsg {
   type: "osmosis/tokenfactory/create-denom";
   value: {

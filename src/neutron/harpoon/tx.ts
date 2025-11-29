@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { HookType, hookTypeFromJSON, hookTypeToJSON } from "./hooks";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { HookType, hookTypeFromJSON, hookTypeToJSON } from "./hooks.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.harpoon";
 /** Defines the Msg/ManageHookSubscription request type. */
 export interface MsgManageHookSubscription {

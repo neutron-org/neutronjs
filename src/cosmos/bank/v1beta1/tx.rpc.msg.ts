@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgSend,
   MsgSendResponse,
@@ -11,7 +11,7 @@ import {
   MsgUpdateParamsResponse,
   MsgSetSendEnabled,
   MsgSetSendEnabledResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the bank Msg service. */
 export interface Msg {
   /** Send defines a method for sending coins from one account to another account. */

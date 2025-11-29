@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgAuctionBid, MsgUpdateParams } from "./tx";
+import { omitDefault } from "../../../helpers.js";
+import { MsgAuctionBid, MsgUpdateParams } from "./tx.js";
 export interface MsgAuctionBidAminoType extends AminoMsg {
   type: "block-sdk/x/auction/MsgAuctionBid";
   value: {

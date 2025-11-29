@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { hookTypeFromJSON } from "./hooks";
+import { hookTypeFromJSON } from "./hooks.js";
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgManageHookSubscription } from "./tx";
+import { MsgManageHookSubscription } from "./tx.js";
 export interface MsgManageHookSubscriptionAminoType extends AminoMsg {
   type: "harpoon/MsgManageHookSubscription";
   value: {

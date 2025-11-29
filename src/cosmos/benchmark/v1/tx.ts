@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Op } from "./benchmark";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Op } from "./benchmark.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.benchmark.v1";
 /** MsgLoadTestOps defines a message containing a sequence of load test operations. */
 export interface MsgLoadTest {

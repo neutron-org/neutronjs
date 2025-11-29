@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CounterpartyInfo } from "./counterparty";
-import { Config } from "./config";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { CounterpartyInfo } from "./counterparty.js";
+import { Config } from "./config.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.client.v2";
 /**
  * QueryCounterpartyInfoRequest is the request type for the Query/CounterpartyInfo RPC

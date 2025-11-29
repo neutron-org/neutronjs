@@ -10,7 +10,7 @@ import {
   MsgIBCSoftwareUpgrade,
   MsgUpdateParams,
   MsgDeleteClientCreator,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/ibc.core.client.v1.MsgCreateClient", MsgCreateClient],
   ["/ibc.core.client.v1.MsgUpdateClient", MsgUpdateClient],

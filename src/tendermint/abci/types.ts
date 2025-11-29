@@ -1,11 +1,11 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { ConsensusParams } from "../types/params";
-import { ProofOps } from "../crypto/proof";
-import { PublicKey } from "../crypto/keys";
-import { BlockIDFlag, blockIDFlagFromJSON, blockIDFlagToJSON } from "../types/validator";
-import { BinaryReader, BinaryWriter } from "../../binary";
+import { Timestamp } from "../../google/protobuf/timestamp.js";
+import { ConsensusParams } from "../types/params.js";
+import { ProofOps } from "../crypto/proof.js";
+import { PublicKey } from "../crypto/keys.js";
+import { BlockIDFlag, blockIDFlagFromJSON, blockIDFlagToJSON } from "../types/validator.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
 import {
   isSet,
   DeepPartial,
@@ -14,8 +14,8 @@ import {
   bytesFromBase64,
   fromTimestamp,
   base64FromBytes,
-} from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+} from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "tendermint.abci";
 export enum CheckTxType {
   NEW = 0,

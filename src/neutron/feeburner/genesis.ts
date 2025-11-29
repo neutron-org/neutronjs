@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { TotalBurnedNeutronsAmount } from "./total_burned_neutrons_amount";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Params } from "./params.js";
+import { TotalBurnedNeutronsAmount } from "./total_burned_neutrons_amount.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.feeburner";
 /** GenesisState defines the feeburner module's genesis state. */
 export interface GenesisState {

@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   ParamsRequest,
@@ -12,7 +12,7 @@ import {
   GasPriceResponse,
   GasPricesRequest,
   GasPricesResponse,
-} from "./query";
+} from "./query.js";
 /** Query Service for the feemarket module. */
 export interface Query {
   /** Params returns the current feemarket module parameters. */

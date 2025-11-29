@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgRegisterCounterparty, MsgUpdateClientConfig } from "./tx";
+import { MsgRegisterCounterparty, MsgUpdateClientConfig } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/ibc.core.client.v2.MsgRegisterCounterparty", MsgRegisterCounterparty],
   ["/ibc.core.client.v2.MsgUpdateClientConfig", MsgUpdateClientConfig],

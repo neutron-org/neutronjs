@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CurrencyPair } from "../../types/v1/currency_pair";
-import { QuotePrice } from "./genesis";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, isObject } from "../../../helpers";
+import { CurrencyPair } from "../../types/v1/currency_pair.js";
+import { QuotePrice } from "./genesis.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, isObject } from "../../../helpers.js";
 export const protobufPackage = "slinky.oracle.v1";
 export interface GetAllCurrencyPairsRequest {}
 /**

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../base/query/v1beta1/pagination";
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { PageRequest } from "../../base/query/v1beta1/pagination.js";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryAccountsRequest,
@@ -25,7 +25,7 @@ import {
   AddressStringToBytesResponse,
   QueryAccountInfoRequest,
   QueryAccountInfoResponse,
-} from "./query";
+} from "./query.js";
 /** Query defines the gRPC querier service. */
 export interface Query {
   /**

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgParams } from "./tx";
+import { omitDefault } from "../../../helpers.js";
+import { MsgParams } from "./tx.js";
 export interface MsgParamsAminoType extends AminoMsg {
   type: "/feemarket.feemarket.v1.MsgParams";
   value: {

@@ -10,7 +10,7 @@ import {
   MsgSetBeforeSendHook,
   MsgForceTransfer,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/neutron.coinfactory.v1beta1.MsgCreateDenom", MsgCreateDenom],
   ["/neutron.coinfactory.v1beta1.MsgMint", MsgMint],

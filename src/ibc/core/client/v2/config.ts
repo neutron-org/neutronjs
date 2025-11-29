@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { JsonSafe } from "../../../../json-safe";
-import { DeepPartial, Exact } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { JsonSafe } from "../../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../../helpers.js";
 export const protobufPackage = "ibc.core.client.v2";
 /**
  * Config is a **per-client** configuration struct that sets which relayers are allowed to relay v2 IBC messages

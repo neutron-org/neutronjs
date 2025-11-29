@@ -1,13 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgAddCurrencyPairs,
   MsgAddCurrencyPairsResponse,
   MsgRemoveCurrencyPairs,
   MsgRemoveCurrencyPairsResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg is the message service for the x/oracle module. */
 export interface Msg {
   /**

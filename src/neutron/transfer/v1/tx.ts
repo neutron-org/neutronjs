@@ -1,12 +1,12 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Height } from "../../../ibc/core/client/v1/client";
-import { Fee } from "../../feerefunder/fee";
-import { Params } from "../../../ibc/applications/transfer/v1/transfer";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { Height } from "../../../ibc/core/client/v1/client.js";
+import { Fee } from "../../feerefunder/fee.js";
+import { Params } from "../../../ibc/applications/transfer/v1/transfer.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.transfer";
 export interface MsgTransfer {
   /** the port on which the packet will be sent */

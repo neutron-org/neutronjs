@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgIncreaseCounter } from "./tx";
+import { omitDefault } from "../../../helpers.js";
+import { MsgIncreaseCounter } from "./tx.js";
 export interface MsgIncreaseCounterAminoType extends AminoMsg {
   type: "cosmos-sdk/increase_counter";
   value: {

@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { Rpc } from "../../../../helpers.js";
+import { BinaryReader } from "../../../../binary.js";
 import {
   MsgCreateClient,
   MsgCreateClientResponse,
@@ -19,7 +19,7 @@ import {
   MsgUpdateParamsResponse,
   MsgDeleteClientCreator,
   MsgDeleteClientCreatorResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the ibc/client Msg service. */
 export interface Msg {
   /** CreateClient defines a rpc handler method for MsgCreateClient. */

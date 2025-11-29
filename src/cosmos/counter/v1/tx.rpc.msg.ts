@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
-import { MsgIncreaseCounter, MsgIncreaseCountResponse } from "./tx";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
+import { MsgIncreaseCounter, MsgIncreaseCountResponse } from "./tx.js";
 /** Msg defines the counter Msg service. */
 export interface Msg {
   /** IncreaseCount increments the counter by the specified amount. */

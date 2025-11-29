@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Deposit, Vote, Proposal, DepositParams, VotingParams, TallyParams, Params } from "./gov";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Deposit, Vote, Proposal, DepositParams, VotingParams, TallyParams, Params } from "./gov.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.gov.v1";
 /** GenesisState defines the gov module's genesis state. */
 export interface GenesisState {

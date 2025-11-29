@@ -9,7 +9,7 @@ import {
   MsgDeposit,
   MsgUpdateParams,
   MsgCancelProposal,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.gov.v1.MsgSubmitProposal", MsgSubmitProposal],
   ["/cosmos.gov.v1.MsgExecLegacyContent", MsgExecLegacyContent],

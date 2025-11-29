@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { ContinuousFund, Params } from "./types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { ContinuousFund, Params } from "./types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.protocolpool.v1";
 /** GenesisState defines the protocolpool module's genesis state. */
 export interface GenesisState {

@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { AminoMsg, Pubkey } from "@cosmjs/amino";
 import { decodePubkey, encodePubkey } from "@cosmjs/proto-signing";
-import { omitDefault } from "../../../helpers";
+import { omitDefault } from "../../../helpers.js";
 import {
   MsgCreateValidator,
   MsgEditValidator,
@@ -11,7 +11,7 @@ import {
   MsgUndelegate,
   MsgCancelUnbondingDelegation,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export interface MsgCreateValidatorAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgCreateValidator";
   value: {

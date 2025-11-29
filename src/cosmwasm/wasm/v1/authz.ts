@@ -1,11 +1,11 @@
 //@ts-nocheck
 /* eslint-disable */
-import { AccessConfig } from "./types";
-import { Any } from "../../../google/protobuf/any";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { AccessConfig } from "./types.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /**
  * StoreCodeAuthorization defines authorization for wasm code upload.

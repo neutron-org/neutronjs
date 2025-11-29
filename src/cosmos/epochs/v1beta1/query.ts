@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { EpochInfo } from "./genesis";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { EpochInfo } from "./genesis.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "cosmos.epochs.v1beta1";
 /**
  * QueryEpochInfosRequest defines the gRPC request structure for

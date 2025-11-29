@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GroupInfo, GroupMember, GroupPolicyInfo, Proposal, Vote } from "./types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { GroupInfo, GroupMember, GroupPolicyInfo, Proposal, Vote } from "./types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.group.v1";
 /** GenesisState defines the group module's genesis state. */
 export interface GenesisState {

@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgUpdateParams } from "./tx";
+import { MsgUpdateParams } from "./tx.js";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "dynamicfees/MsgUpdateParams";
   value: {
