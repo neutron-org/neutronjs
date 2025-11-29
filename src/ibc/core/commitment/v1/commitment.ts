@@ -1,13 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CommitmentProof } from "../../../../cosmos/ics23/v1/proofs";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { CommitmentProof } from "../../../../cosmos/ics23/v1/proofs.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.commitment.v1";
 /**
  * MerkleRoot defines a merkle root hash.
  * In the Cosmos SDK, the AppHash of a block header becomes the root.
+ * @name MerkleRoot
+ * @package ibc.core.commitment.v1
+ * @see proto type: ibc.core.commitment.v1.MerkleRoot
  */
 export interface MerkleRoot {
   hash: Uint8Array;
@@ -16,6 +19,9 @@ export interface MerkleRoot {
  * MerklePrefix is merkle path prefixed to the key.
  * The constructed key from the Path and the key will be append(Path.KeyPath,
  * append(Path.KeyPrefix, key...))
+ * @name MerklePrefix
+ * @package ibc.core.commitment.v1
+ * @see proto type: ibc.core.commitment.v1.MerklePrefix
  */
 export interface MerklePrefix {
   keyPrefix: Uint8Array;
@@ -26,6 +32,9 @@ export interface MerklePrefix {
  * elements, verifiable in conjunction with a known commitment root. Proofs
  * should be succinct.
  * MerkleProofs are ordered from leaf-to-root
+ * @name MerkleProof
+ * @package ibc.core.commitment.v1
+ * @see proto type: ibc.core.commitment.v1.MerkleProof
  */
 export interface MerkleProof {
   proofs: CommitmentProof[];
@@ -35,6 +44,13 @@ function createBaseMerkleRoot(): MerkleRoot {
     hash: new Uint8Array(),
   };
 }
+/**
+ * MerkleRoot defines a merkle root hash.
+ * In the Cosmos SDK, the AppHash of a block header becomes the root.
+ * @name MerkleRoot
+ * @package ibc.core.commitment.v1
+ * @see proto type: ibc.core.commitment.v1.MerkleRoot
+ */
 export const MerkleRoot = {
   typeUrl: "/ibc.core.commitment.v1.MerkleRoot",
   encode(message: MerkleRoot, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -82,6 +98,14 @@ function createBaseMerklePrefix(): MerklePrefix {
     keyPrefix: new Uint8Array(),
   };
 }
+/**
+ * MerklePrefix is merkle path prefixed to the key.
+ * The constructed key from the Path and the key will be append(Path.KeyPath,
+ * append(Path.KeyPrefix, key...))
+ * @name MerklePrefix
+ * @package ibc.core.commitment.v1
+ * @see proto type: ibc.core.commitment.v1.MerklePrefix
+ */
 export const MerklePrefix = {
   typeUrl: "/ibc.core.commitment.v1.MerklePrefix",
   encode(message: MerklePrefix, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -131,6 +155,16 @@ function createBaseMerkleProof(): MerkleProof {
     proofs: [],
   };
 }
+/**
+ * MerkleProof is a wrapper type over a chain of CommitmentProofs.
+ * It demonstrates membership or non-membership for an element or set of
+ * elements, verifiable in conjunction with a known commitment root. Proofs
+ * should be succinct.
+ * MerkleProofs are ordered from leaf-to-root
+ * @name MerkleProof
+ * @package ibc.core.commitment.v1
+ * @see proto type: ibc.core.commitment.v1.MerkleProof
+ */
 export const MerkleProof = {
   typeUrl: "/ibc.core.commitment.v1.MerkleProof",
   encode(message: MerkleProof, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

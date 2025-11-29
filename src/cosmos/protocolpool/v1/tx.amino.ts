@@ -1,14 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
+import { Decimal } from "@interchainjs/math";
+import { omitDefault } from "../../../helpers.js";
 import {
   MsgFundCommunityPool,
   MsgCommunityPoolSpend,
   MsgCreateContinuousFund,
   MsgCancelContinuousFund,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export interface MsgFundCommunityPoolAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgFundCommunityPool";
   value: {
@@ -120,7 +121,7 @@ export const AminoConverter = {
       return {
         authority,
         recipient,
-        percentage,
+        percentage: Decimal.fromUserInput(percentage, 18).atomics,
         expiry,
       };
     },

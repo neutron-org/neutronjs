@@ -1,18 +1,32 @@
 //@ts-nocheck
 /* eslint-disable */
-import { ConsensusState as ConsensusState1 } from "../../../ibc/lightclients/tendermint/v1/tendermint";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { ConsensusState as ConsensusState1 } from "../../../ibc/lightclients/tendermint/v1/tendermint.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.state_verifier.v1";
-/** Describes a "light" consensus state of the chain at a particular height */
+/**
+ * Describes a "light" consensus state of the chain at a particular height
+ * @name ConsensusState
+ * @package neutron.state_verifier.v1
+ * @see proto type: neutron.state_verifier.v1.ConsensusState
+ */
 export interface ConsensusState {
-  /** Describes a block height for which the consensus height is saved */
+  /**
+   * Describes a block height for which the consensus height is saved
+   */
   height: bigint;
-  /** ConsensusState defines the consensus state from Tendermint */
+  /**
+   * ConsensusState defines the consensus state from Tendermint
+   */
   cs?: ConsensusState1;
 }
-/** Defines the state verifier module's genesis state. */
+/**
+ * Defines the state verifier module's genesis state.
+ * @name GenesisState
+ * @package neutron.state_verifier.v1
+ * @see proto type: neutron.state_verifier.v1.GenesisState
+ */
 export interface GenesisState {
   states: ConsensusState[];
 }
@@ -22,6 +36,12 @@ function createBaseConsensusState(): ConsensusState {
     cs: undefined,
   };
 }
+/**
+ * Describes a "light" consensus state of the chain at a particular height
+ * @name ConsensusState
+ * @package neutron.state_verifier.v1
+ * @see proto type: neutron.state_verifier.v1.ConsensusState
+ */
 export const ConsensusState = {
   typeUrl: "/neutron.state_verifier.v1.ConsensusState",
   encode(message: ConsensusState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -81,6 +101,12 @@ function createBaseGenesisState(): GenesisState {
     states: [],
   };
 }
+/**
+ * Defines the state verifier module's genesis state.
+ * @name GenesisState
+ * @package neutron.state_verifier.v1
+ * @see proto type: neutron.state_verifier.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/neutron.state_verifier.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

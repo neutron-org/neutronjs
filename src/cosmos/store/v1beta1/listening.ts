@@ -1,19 +1,30 @@
 //@ts-nocheck
 /* eslint-disable */
-import { ResponseCommit, RequestFinalizeBlock, ResponseFinalizeBlock } from "../../../tendermint/abci/types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import {
+  ResponseCommit,
+  RequestFinalizeBlock,
+  ResponseFinalizeBlock,
+} from "../../../tendermint/abci/types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.store.v1beta1";
 /**
  * StoreKVPair is a KVStore KVPair used for listening to state changes (Sets and Deletes)
  * It optionally includes the StoreKey for the originating KVStore and a Boolean flag to distinguish between Sets and
  * Deletes
+ * @name StoreKVPair
+ * @package cosmos.store.v1beta1
+ * @see proto type: cosmos.store.v1beta1.StoreKVPair
  */
 export interface StoreKVPair {
-  /** the store key for the KVStore this pair originates from */
+  /**
+   * the store key for the KVStore this pair originates from
+   */
   storeKey: string;
-  /** true indicates a delete operation, false indicates a set operation */
+  /**
+   * true indicates a delete operation, false indicates a set operation
+   */
   delete: boolean;
   key: Uint8Array;
   value: Uint8Array;
@@ -21,11 +32,16 @@ export interface StoreKVPair {
 /**
  * BlockMetadata contains all the abci event data of a block
  * the file streamer dump them into files together with the state changes.
+ * @name BlockMetadata
+ * @package cosmos.store.v1beta1
+ * @see proto type: cosmos.store.v1beta1.BlockMetadata
  */
 export interface BlockMetadata {
   responseCommit?: ResponseCommit;
   requestFinalizeBlock?: RequestFinalizeBlock;
-  /** TODO: should we renumber this? */
+  /**
+   * TODO: should we renumber this?
+   */
   responseFinalizeBlock?: ResponseFinalizeBlock;
 }
 function createBaseStoreKVPair(): StoreKVPair {
@@ -36,6 +52,14 @@ function createBaseStoreKVPair(): StoreKVPair {
     value: new Uint8Array(),
   };
 }
+/**
+ * StoreKVPair is a KVStore KVPair used for listening to state changes (Sets and Deletes)
+ * It optionally includes the StoreKey for the originating KVStore and a Boolean flag to distinguish between Sets and
+ * Deletes
+ * @name StoreKVPair
+ * @package cosmos.store.v1beta1
+ * @see proto type: cosmos.store.v1beta1.StoreKVPair
+ */
 export const StoreKVPair = {
   typeUrl: "/cosmos.store.v1beta1.StoreKVPair",
   encode(message: StoreKVPair, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -113,6 +137,13 @@ function createBaseBlockMetadata(): BlockMetadata {
     responseFinalizeBlock: undefined,
   };
 }
+/**
+ * BlockMetadata contains all the abci event data of a block
+ * the file streamer dump them into files together with the state changes.
+ * @name BlockMetadata
+ * @package cosmos.store.v1beta1
+ * @see proto type: cosmos.store.v1beta1.BlockMetadata
+ */
 export const BlockMetadata = {
   typeUrl: "/cosmos.store.v1beta1.BlockMetadata",
   encode(message: BlockMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

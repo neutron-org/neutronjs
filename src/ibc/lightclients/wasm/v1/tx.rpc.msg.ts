@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { TxRpc } from "../../../../types.js";
+import { BinaryReader } from "../../../../binary.js";
 import {
   MsgStoreCode,
   MsgStoreCodeResponse,
@@ -9,7 +9,7 @@ import {
   MsgRemoveChecksumResponse,
   MsgMigrateContract,
   MsgMigrateContractResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the ibc/08-wasm Msg service. */
 export interface Msg {
   /** StoreCode defines a rpc handler method for MsgStoreCode. */
@@ -20,8 +20,8 @@ export interface Msg {
   migrateContract(request: MsgMigrateContract): Promise<MsgMigrateContractResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.storeCode = this.storeCode.bind(this);
     this.removeChecksum = this.removeChecksum.bind(this);
@@ -43,3 +43,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgMigrateContractResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

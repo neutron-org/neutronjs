@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.dex.v2";
-/** Params defines the parameters for the module. */
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.dex.v2
+ * @see proto type: neutron.dex.v2.Params
+ */
 export interface Params {
   feeTiers: bigint[];
   maxTrueTakerSpread: string;
@@ -15,6 +20,12 @@ function createBaseParams(): Params {
     maxTrueTakerSpread: "",
   };
 }
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.dex.v2
+ * @see proto type: neutron.dex.v2.Params
+ */
 export const Params = {
   typeUrl: "/neutron.dex.v2.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

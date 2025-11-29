@@ -1,6 +1,6 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
+import { TelescopeGeneratedType } from "../../../types.js";
 import {
   MsgCreateGroup,
   MsgUpdateGroupMembers,
@@ -16,8 +16,8 @@ import {
   MsgVote,
   MsgExec,
   MsgLeaveGroup,
-} from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+} from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/cosmos.group.v1.MsgCreateGroup", MsgCreateGroup],
   ["/cosmos.group.v1.MsgUpdateGroupMembers", MsgUpdateGroupMembers],
   ["/cosmos.group.v1.MsgUpdateGroupAdmin", MsgUpdateGroupAdmin],
@@ -33,11 +33,6 @@ export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.group.v1.MsgExec", MsgExec],
   ["/cosmos.group.v1.MsgLeaveGroup", MsgLeaveGroup],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     createGroup(value: MsgCreateGroup) {

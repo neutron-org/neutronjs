@@ -1,45 +1,96 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { MarketMap } from "../../marketmap/v1/market";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, isObject, fromJsonTimestamp, fromTimestamp } from "../../../helpers";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { MarketMap } from "../../marketmap/v1/market.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, isObject, fromJsonTimestamp, fromTimestamp } from "../../../helpers.js";
 export const protobufPackage = "slinky.service.v1";
-/** QueryPricesRequest defines the request type for the the Prices method. */
+/**
+ * QueryPricesRequest defines the request type for the the Prices method.
+ * @name QueryPricesRequest
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.QueryPricesRequest
+ */
 export interface QueryPricesRequest {}
+/**
+ * @name QueryPricesResponse_PricesEntry
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.undefined
+ */
 export interface QueryPricesResponse_PricesEntry {
   key: string;
   value: string;
 }
-/** QueryPricesResponse defines the response type for the Prices method. */
+/**
+ * QueryPricesResponse defines the response type for the Prices method.
+ * @name QueryPricesResponse
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.QueryPricesResponse
+ */
 export interface QueryPricesResponse {
-  /** Prices defines the list of prices. */
+  /**
+   * Prices defines the list of prices.
+   */
   prices: {
     [key: string]: string;
   };
-  /** Timestamp defines the timestamp of the prices. */
+  /**
+   * Timestamp defines the timestamp of the prices.
+   */
   timestamp: Timestamp;
-  /** Version defines the version of the oracle service that provided the prices. */
+  /**
+   * Version defines the version of the oracle service that provided the prices.
+   */
   version: string;
 }
-/** QueryMarketMapRequest defines the request type for the MarketMap method. */
+/**
+ * QueryMarketMapRequest defines the request type for the MarketMap method.
+ * @name QueryMarketMapRequest
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.QueryMarketMapRequest
+ */
 export interface QueryMarketMapRequest {}
-/** QueryMarketMapResponse defines the response type for the MarketMap method. */
+/**
+ * QueryMarketMapResponse defines the response type for the MarketMap method.
+ * @name QueryMarketMapResponse
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.QueryMarketMapResponse
+ */
 export interface QueryMarketMapResponse {
-  /** MarketMap defines the current market map configuration. */
+  /**
+   * MarketMap defines the current market map configuration.
+   */
   marketMap?: MarketMap;
 }
-/** QueryVersionRequest defines the request type for the Version method. */
+/**
+ * QueryVersionRequest defines the request type for the Version method.
+ * @name QueryVersionRequest
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.QueryVersionRequest
+ */
 export interface QueryVersionRequest {}
-/** QueryVersionResponse defines the response type for the Version method. */
+/**
+ * QueryVersionResponse defines the response type for the Version method.
+ * @name QueryVersionResponse
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.QueryVersionResponse
+ */
 export interface QueryVersionResponse {
-  /** Version defines the current version of the oracle service. */
+  /**
+   * Version defines the current version of the oracle service.
+   */
   version: string;
 }
 function createBaseQueryPricesRequest(): QueryPricesRequest {
   return {};
 }
+/**
+ * QueryPricesRequest defines the request type for the the Prices method.
+ * @name QueryPricesRequest
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.QueryPricesRequest
+ */
 export const QueryPricesRequest = {
   typeUrl: "/slinky.service.v1.QueryPricesRequest",
   encode(_: QueryPricesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -78,6 +129,11 @@ function createBaseQueryPricesResponse_PricesEntry(): QueryPricesResponse_Prices
     value: "",
   };
 }
+/**
+ * @name QueryPricesResponse_PricesEntry
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.undefined
+ */
 export const QueryPricesResponse_PricesEntry = {
   encode(
     message: QueryPricesResponse_PricesEntry,
@@ -139,6 +195,12 @@ function createBaseQueryPricesResponse(): QueryPricesResponse {
     version: "",
   };
 }
+/**
+ * QueryPricesResponse defines the response type for the Prices method.
+ * @name QueryPricesResponse
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.QueryPricesResponse
+ */
 export const QueryPricesResponse = {
   typeUrl: "/slinky.service.v1.QueryPricesResponse",
   encode(message: QueryPricesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -230,6 +292,12 @@ export const QueryPricesResponse = {
 function createBaseQueryMarketMapRequest(): QueryMarketMapRequest {
   return {};
 }
+/**
+ * QueryMarketMapRequest defines the request type for the MarketMap method.
+ * @name QueryMarketMapRequest
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.QueryMarketMapRequest
+ */
 export const QueryMarketMapRequest = {
   typeUrl: "/slinky.service.v1.QueryMarketMapRequest",
   encode(_: QueryMarketMapRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -267,6 +335,12 @@ function createBaseQueryMarketMapResponse(): QueryMarketMapResponse {
     marketMap: undefined,
   };
 }
+/**
+ * QueryMarketMapResponse defines the response type for the MarketMap method.
+ * @name QueryMarketMapResponse
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.QueryMarketMapResponse
+ */
 export const QueryMarketMapResponse = {
   typeUrl: "/slinky.service.v1.QueryMarketMapResponse",
   encode(message: QueryMarketMapResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -314,6 +388,12 @@ export const QueryMarketMapResponse = {
 function createBaseQueryVersionRequest(): QueryVersionRequest {
   return {};
 }
+/**
+ * QueryVersionRequest defines the request type for the Version method.
+ * @name QueryVersionRequest
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.QueryVersionRequest
+ */
 export const QueryVersionRequest = {
   typeUrl: "/slinky.service.v1.QueryVersionRequest",
   encode(_: QueryVersionRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -351,6 +431,12 @@ function createBaseQueryVersionResponse(): QueryVersionResponse {
     version: "",
   };
 }
+/**
+ * QueryVersionResponse defines the response type for the Version method.
+ * @name QueryVersionResponse
+ * @package slinky.service.v1
+ * @see proto type: slinky.service.v1.QueryVersionResponse
+ */
 export const QueryVersionResponse = {
   typeUrl: "/slinky.service.v1.QueryVersionResponse",
   encode(message: QueryVersionResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

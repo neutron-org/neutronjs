@@ -1,23 +1,37 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.evidence.v1beta1";
 /**
  * MsgSubmitEvidence represents a message that supports submitting arbitrary
  * Evidence of misbehavior such as equivocation or counterfactual signing.
+ * @name MsgSubmitEvidence
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.MsgSubmitEvidence
  */
 export interface MsgSubmitEvidence {
-  /** submitter is the signer account address of evidence. */
+  /**
+   * submitter is the signer account address of evidence.
+   */
   submitter: string;
-  /** evidence defines the evidence of misbehavior. */
+  /**
+   * evidence defines the evidence of misbehavior.
+   */
   evidence?: Any;
 }
-/** MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type. */
+/**
+ * MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type.
+ * @name MsgSubmitEvidenceResponse
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.MsgSubmitEvidenceResponse
+ */
 export interface MsgSubmitEvidenceResponse {
-  /** hash defines the hash of the evidence. */
+  /**
+   * hash defines the hash of the evidence.
+   */
   hash: Uint8Array;
 }
 function createBaseMsgSubmitEvidence(): MsgSubmitEvidence {
@@ -26,6 +40,13 @@ function createBaseMsgSubmitEvidence(): MsgSubmitEvidence {
     evidence: undefined,
   };
 }
+/**
+ * MsgSubmitEvidence represents a message that supports submitting arbitrary
+ * Evidence of misbehavior such as equivocation or counterfactual signing.
+ * @name MsgSubmitEvidence
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.MsgSubmitEvidence
+ */
 export const MsgSubmitEvidence = {
   typeUrl: "/cosmos.evidence.v1beta1.MsgSubmitEvidence",
   encode(message: MsgSubmitEvidence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -84,6 +105,12 @@ function createBaseMsgSubmitEvidenceResponse(): MsgSubmitEvidenceResponse {
     hash: new Uint8Array(),
   };
 }
+/**
+ * MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type.
+ * @name MsgSubmitEvidenceResponse
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.MsgSubmitEvidenceResponse
+ */
 export const MsgSubmitEvidenceResponse = {
   typeUrl: "/cosmos.evidence.v1beta1.MsgSubmitEvidenceResponse",
   encode(message: MsgSubmitEvidenceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

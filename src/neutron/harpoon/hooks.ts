@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.harpoon";
 /** Hook types that can be subscribed to. */
 export enum HookType {
@@ -106,11 +106,20 @@ export function hookTypeToJSON(object: HookType): string {
       return "UNRECOGNIZED";
   }
 }
-/** Specifies how subscribed contract_addresses are stored in the KV store for each hook type. */
+/**
+ * Specifies how subscribed contract_addresses are stored in the KV store for each hook type.
+ * @name HookSubscriptions
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.HookSubscriptions
+ */
 export interface HookSubscriptions {
-  /** The hook type being subscribed to. */
+  /**
+   * The hook type being subscribed to.
+   */
   hookType: HookType;
-  /** Contract addresses subscribed to this hook type. */
+  /**
+   * Contract addresses subscribed to this hook type.
+   */
   contractAddresses: string[];
 }
 function createBaseHookSubscriptions(): HookSubscriptions {
@@ -119,6 +128,12 @@ function createBaseHookSubscriptions(): HookSubscriptions {
     contractAddresses: [],
   };
 }
+/**
+ * Specifies how subscribed contract_addresses are stored in the KV store for each hook type.
+ * @name HookSubscriptions
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.HookSubscriptions
+ */
 export const HookSubscriptions = {
   typeUrl: "/neutron.harpoon.HookSubscriptions",
   encode(message: HookSubscriptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

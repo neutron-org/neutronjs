@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.staking.module.v1";
-/** Module is the config object of the staking module. */
+/**
+ * Module is the config object of the staking module.
+ * @name Module
+ * @package cosmos.staking.module.v1
+ * @see proto type: cosmos.staking.module.v1.Module
+ */
 export interface Module {
   /**
    * hooks_order specifies the order of staking hooks and should be a list
@@ -12,11 +17,17 @@ export interface Module {
    * provided, then hooks will be applied in alphabetical order of module names.
    */
   hooksOrder: string[];
-  /** authority defines the custom module authority. If not set, defaults to the governance module. */
+  /**
+   * authority defines the custom module authority. If not set, defaults to the governance module.
+   */
   authority: string;
-  /** bech32_prefix_validator is the bech32 validator prefix for the app. */
+  /**
+   * bech32_prefix_validator is the bech32 validator prefix for the app.
+   */
   bech32PrefixValidator: string;
-  /** bech32_prefix_consensus is the bech32 consensus node prefix for the app. */
+  /**
+   * bech32_prefix_consensus is the bech32 consensus node prefix for the app.
+   */
   bech32PrefixConsensus: string;
 }
 function createBaseModule(): Module {
@@ -27,6 +38,12 @@ function createBaseModule(): Module {
     bech32PrefixConsensus: "",
   };
 }
+/**
+ * Module is the config object of the staking module.
+ * @name Module
+ * @package cosmos.staking.module.v1
+ * @see proto type: cosmos.staking.module.v1.Module
+ */
 export const Module = {
   typeUrl: "/cosmos.staking.module.v1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

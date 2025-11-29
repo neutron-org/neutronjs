@@ -12,76 +12,159 @@ import {
   TallyResult,
   proposalStatusFromJSON,
   proposalStatusToJSON,
-} from "./gov";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+} from "./gov.js";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "cosmos.gov.v1";
-/** QueryConstitutionRequest is the request type for the Query/Constitution RPC method */
+/**
+ * QueryConstitutionRequest is the request type for the Query/Constitution RPC method
+ * @name QueryConstitutionRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryConstitutionRequest
+ */
 export interface QueryConstitutionRequest {}
-/** QueryConstitutionResponse is the response type for the Query/Constitution RPC method */
+/**
+ * QueryConstitutionResponse is the response type for the Query/Constitution RPC method
+ * @name QueryConstitutionResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryConstitutionResponse
+ */
 export interface QueryConstitutionResponse {
   constitution: string;
 }
-/** QueryProposalRequest is the request type for the Query/Proposal RPC method. */
+/**
+ * QueryProposalRequest is the request type for the Query/Proposal RPC method.
+ * @name QueryProposalRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryProposalRequest
+ */
 export interface QueryProposalRequest {
-  /** proposal_id defines the unique id of the proposal. */
+  /**
+   * proposal_id defines the unique id of the proposal.
+   */
   proposalId: bigint;
 }
-/** QueryProposalResponse is the response type for the Query/Proposal RPC method. */
+/**
+ * QueryProposalResponse is the response type for the Query/Proposal RPC method.
+ * @name QueryProposalResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryProposalResponse
+ */
 export interface QueryProposalResponse {
-  /** proposal is the requested governance proposal. */
+  /**
+   * proposal is the requested governance proposal.
+   */
   proposal?: Proposal;
 }
-/** QueryProposalsRequest is the request type for the Query/Proposals RPC method. */
+/**
+ * QueryProposalsRequest is the request type for the Query/Proposals RPC method.
+ * @name QueryProposalsRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryProposalsRequest
+ */
 export interface QueryProposalsRequest {
-  /** proposal_status defines the status of the proposals. */
+  /**
+   * proposal_status defines the status of the proposals.
+   */
   proposalStatus: ProposalStatus;
-  /** voter defines the voter address for the proposals. */
+  /**
+   * voter defines the voter address for the proposals.
+   */
   voter: string;
-  /** depositor defines the deposit addresses from the proposals. */
+  /**
+   * depositor defines the deposit addresses from the proposals.
+   */
   depositor: string;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryProposalsResponse is the response type for the Query/Proposals RPC
  * method.
+ * @name QueryProposalsResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryProposalsResponse
  */
 export interface QueryProposalsResponse {
-  /** proposals defines all the requested governance proposals. */
+  /**
+   * proposals defines all the requested governance proposals.
+   */
   proposals: Proposal[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
-/** QueryVoteRequest is the request type for the Query/Vote RPC method. */
+/**
+ * QueryVoteRequest is the request type for the Query/Vote RPC method.
+ * @name QueryVoteRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryVoteRequest
+ */
 export interface QueryVoteRequest {
-  /** proposal_id defines the unique id of the proposal. */
+  /**
+   * proposal_id defines the unique id of the proposal.
+   */
   proposalId: bigint;
-  /** voter defines the voter address for the proposals. */
+  /**
+   * voter defines the voter address for the proposals.
+   */
   voter: string;
 }
-/** QueryVoteResponse is the response type for the Query/Vote RPC method. */
+/**
+ * QueryVoteResponse is the response type for the Query/Vote RPC method.
+ * @name QueryVoteResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryVoteResponse
+ */
 export interface QueryVoteResponse {
-  /** vote defines the queried vote. */
+  /**
+   * vote defines the queried vote.
+   */
   vote?: Vote;
 }
-/** QueryVotesRequest is the request type for the Query/Votes RPC method. */
+/**
+ * QueryVotesRequest is the request type for the Query/Votes RPC method.
+ * @name QueryVotesRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryVotesRequest
+ */
 export interface QueryVotesRequest {
-  /** proposal_id defines the unique id of the proposal. */
+  /**
+   * proposal_id defines the unique id of the proposal.
+   */
   proposalId: bigint;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
-/** QueryVotesResponse is the response type for the Query/Votes RPC method. */
+/**
+ * QueryVotesResponse is the response type for the Query/Votes RPC method.
+ * @name QueryVotesResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryVotesResponse
+ */
 export interface QueryVotesResponse {
-  /** votes defines the queried votes. */
+  /**
+   * votes defines the queried votes.
+   */
   votes: Vote[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {
   /**
    * params_type defines which parameters to query for, can be one of "voting",
@@ -89,68 +172,129 @@ export interface QueryParamsRequest {
    */
   paramsType: string;
 }
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
   /**
    * Deprecated: Prefer to use `params` instead.
    * voting_params defines the parameters related to voting.
+   * @deprecated
    */
-  /** @deprecated */
   votingParams?: VotingParams;
   /**
    * Deprecated: Prefer to use `params` instead.
    * deposit_params defines the parameters related to deposit.
+   * @deprecated
    */
-  /** @deprecated */
   depositParams?: DepositParams;
   /**
    * Deprecated: Prefer to use `params` instead.
    * tally_params defines the parameters related to tally.
+   * @deprecated
    */
-  /** @deprecated */
   tallyParams?: TallyParams;
-  /** params defines all the paramaters of x/gov module. */
+  /**
+   * params defines all the paramaters of x/gov module.
+   */
   params?: Params;
 }
-/** QueryDepositRequest is the request type for the Query/Deposit RPC method. */
+/**
+ * QueryDepositRequest is the request type for the Query/Deposit RPC method.
+ * @name QueryDepositRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryDepositRequest
+ */
 export interface QueryDepositRequest {
-  /** proposal_id defines the unique id of the proposal. */
+  /**
+   * proposal_id defines the unique id of the proposal.
+   */
   proposalId: bigint;
-  /** depositor defines the deposit addresses from the proposals. */
+  /**
+   * depositor defines the deposit addresses from the proposals.
+   */
   depositor: string;
 }
-/** QueryDepositResponse is the response type for the Query/Deposit RPC method. */
+/**
+ * QueryDepositResponse is the response type for the Query/Deposit RPC method.
+ * @name QueryDepositResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryDepositResponse
+ */
 export interface QueryDepositResponse {
-  /** deposit defines the requested deposit. */
+  /**
+   * deposit defines the requested deposit.
+   */
   deposit?: Deposit;
 }
-/** QueryDepositsRequest is the request type for the Query/Deposits RPC method. */
+/**
+ * QueryDepositsRequest is the request type for the Query/Deposits RPC method.
+ * @name QueryDepositsRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryDepositsRequest
+ */
 export interface QueryDepositsRequest {
-  /** proposal_id defines the unique id of the proposal. */
+  /**
+   * proposal_id defines the unique id of the proposal.
+   */
   proposalId: bigint;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
-/** QueryDepositsResponse is the response type for the Query/Deposits RPC method. */
+/**
+ * QueryDepositsResponse is the response type for the Query/Deposits RPC method.
+ * @name QueryDepositsResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryDepositsResponse
+ */
 export interface QueryDepositsResponse {
-  /** deposits defines the requested deposits. */
+  /**
+   * deposits defines the requested deposits.
+   */
   deposits: Deposit[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
-/** QueryTallyResultRequest is the request type for the Query/Tally RPC method. */
+/**
+ * QueryTallyResultRequest is the request type for the Query/Tally RPC method.
+ * @name QueryTallyResultRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryTallyResultRequest
+ */
 export interface QueryTallyResultRequest {
-  /** proposal_id defines the unique id of the proposal. */
+  /**
+   * proposal_id defines the unique id of the proposal.
+   */
   proposalId: bigint;
 }
-/** QueryTallyResultResponse is the response type for the Query/Tally RPC method. */
+/**
+ * QueryTallyResultResponse is the response type for the Query/Tally RPC method.
+ * @name QueryTallyResultResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryTallyResultResponse
+ */
 export interface QueryTallyResultResponse {
-  /** tally defines the requested tally. */
+  /**
+   * tally defines the requested tally.
+   */
   tally?: TallyResult;
 }
 function createBaseQueryConstitutionRequest(): QueryConstitutionRequest {
   return {};
 }
+/**
+ * QueryConstitutionRequest is the request type for the Query/Constitution RPC method
+ * @name QueryConstitutionRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryConstitutionRequest
+ */
 export const QueryConstitutionRequest = {
   typeUrl: "/cosmos.gov.v1.QueryConstitutionRequest",
   encode(_: QueryConstitutionRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -188,6 +332,12 @@ function createBaseQueryConstitutionResponse(): QueryConstitutionResponse {
     constitution: "",
   };
 }
+/**
+ * QueryConstitutionResponse is the response type for the Query/Constitution RPC method
+ * @name QueryConstitutionResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryConstitutionResponse
+ */
 export const QueryConstitutionResponse = {
   typeUrl: "/cosmos.gov.v1.QueryConstitutionResponse",
   encode(message: QueryConstitutionResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -236,6 +386,12 @@ function createBaseQueryProposalRequest(): QueryProposalRequest {
     proposalId: BigInt(0),
   };
 }
+/**
+ * QueryProposalRequest is the request type for the Query/Proposal RPC method.
+ * @name QueryProposalRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryProposalRequest
+ */
 export const QueryProposalRequest = {
   typeUrl: "/cosmos.gov.v1.QueryProposalRequest",
   encode(message: QueryProposalRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -284,6 +440,12 @@ function createBaseQueryProposalResponse(): QueryProposalResponse {
     proposal: undefined,
   };
 }
+/**
+ * QueryProposalResponse is the response type for the Query/Proposal RPC method.
+ * @name QueryProposalResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryProposalResponse
+ */
 export const QueryProposalResponse = {
   typeUrl: "/cosmos.gov.v1.QueryProposalResponse",
   encode(message: QueryProposalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -336,6 +498,12 @@ function createBaseQueryProposalsRequest(): QueryProposalsRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryProposalsRequest is the request type for the Query/Proposals RPC method.
+ * @name QueryProposalsRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryProposalsRequest
+ */
 export const QueryProposalsRequest = {
   typeUrl: "/cosmos.gov.v1.QueryProposalsRequest",
   encode(message: QueryProposalsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -414,6 +582,13 @@ function createBaseQueryProposalsResponse(): QueryProposalsResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryProposalsResponse is the response type for the Query/Proposals RPC
+ * method.
+ * @name QueryProposalsResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryProposalsResponse
+ */
 export const QueryProposalsResponse = {
   typeUrl: "/cosmos.gov.v1.QueryProposalsResponse",
   encode(message: QueryProposalsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -478,6 +653,12 @@ function createBaseQueryVoteRequest(): QueryVoteRequest {
     voter: "",
   };
 }
+/**
+ * QueryVoteRequest is the request type for the Query/Vote RPC method.
+ * @name QueryVoteRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryVoteRequest
+ */
 export const QueryVoteRequest = {
   typeUrl: "/cosmos.gov.v1.QueryVoteRequest",
   encode(message: QueryVoteRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -535,6 +716,12 @@ function createBaseQueryVoteResponse(): QueryVoteResponse {
     vote: undefined,
   };
 }
+/**
+ * QueryVoteResponse is the response type for the Query/Vote RPC method.
+ * @name QueryVoteResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryVoteResponse
+ */
 export const QueryVoteResponse = {
   typeUrl: "/cosmos.gov.v1.QueryVoteResponse",
   encode(message: QueryVoteResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -584,6 +771,12 @@ function createBaseQueryVotesRequest(): QueryVotesRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryVotesRequest is the request type for the Query/Votes RPC method.
+ * @name QueryVotesRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryVotesRequest
+ */
 export const QueryVotesRequest = {
   typeUrl: "/cosmos.gov.v1.QueryVotesRequest",
   encode(message: QueryVotesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -645,6 +838,12 @@ function createBaseQueryVotesResponse(): QueryVotesResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryVotesResponse is the response type for the Query/Votes RPC method.
+ * @name QueryVotesResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryVotesResponse
+ */
 export const QueryVotesResponse = {
   typeUrl: "/cosmos.gov.v1.QueryVotesResponse",
   encode(message: QueryVotesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -707,6 +906,12 @@ function createBaseQueryParamsRequest(): QueryParamsRequest {
     paramsType: "",
   };
 }
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/cosmos.gov.v1.QueryParamsRequest",
   encode(message: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -756,6 +961,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: undefined,
   };
 }
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/cosmos.gov.v1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -841,6 +1052,12 @@ function createBaseQueryDepositRequest(): QueryDepositRequest {
     depositor: "",
   };
 }
+/**
+ * QueryDepositRequest is the request type for the Query/Deposit RPC method.
+ * @name QueryDepositRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryDepositRequest
+ */
 export const QueryDepositRequest = {
   typeUrl: "/cosmos.gov.v1.QueryDepositRequest",
   encode(message: QueryDepositRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -898,6 +1115,12 @@ function createBaseQueryDepositResponse(): QueryDepositResponse {
     deposit: undefined,
   };
 }
+/**
+ * QueryDepositResponse is the response type for the Query/Deposit RPC method.
+ * @name QueryDepositResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryDepositResponse
+ */
 export const QueryDepositResponse = {
   typeUrl: "/cosmos.gov.v1.QueryDepositResponse",
   encode(message: QueryDepositResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -948,6 +1171,12 @@ function createBaseQueryDepositsRequest(): QueryDepositsRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryDepositsRequest is the request type for the Query/Deposits RPC method.
+ * @name QueryDepositsRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryDepositsRequest
+ */
 export const QueryDepositsRequest = {
   typeUrl: "/cosmos.gov.v1.QueryDepositsRequest",
   encode(message: QueryDepositsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1009,6 +1238,12 @@ function createBaseQueryDepositsResponse(): QueryDepositsResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryDepositsResponse is the response type for the Query/Deposits RPC method.
+ * @name QueryDepositsResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryDepositsResponse
+ */
 export const QueryDepositsResponse = {
   typeUrl: "/cosmos.gov.v1.QueryDepositsResponse",
   encode(message: QueryDepositsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1071,6 +1306,12 @@ function createBaseQueryTallyResultRequest(): QueryTallyResultRequest {
     proposalId: BigInt(0),
   };
 }
+/**
+ * QueryTallyResultRequest is the request type for the Query/Tally RPC method.
+ * @name QueryTallyResultRequest
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryTallyResultRequest
+ */
 export const QueryTallyResultRequest = {
   typeUrl: "/cosmos.gov.v1.QueryTallyResultRequest",
   encode(message: QueryTallyResultRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1119,6 +1360,12 @@ function createBaseQueryTallyResultResponse(): QueryTallyResultResponse {
     tally: undefined,
   };
 }
+/**
+ * QueryTallyResultResponse is the response type for the Query/Tally RPC method.
+ * @name QueryTallyResultResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.QueryTallyResultResponse
+ */
 export const QueryTallyResultResponse = {
   typeUrl: "/cosmos.gov.v1.QueryTallyResultResponse",
   encode(message: QueryTallyResultResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

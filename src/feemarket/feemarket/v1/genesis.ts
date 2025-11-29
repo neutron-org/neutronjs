@@ -1,12 +1,17 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
-import { Decimal } from "@cosmjs/math";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { Decimal } from "@interchainjs/math";
 export const protobufPackage = "feemarket.feemarket.v1";
-/** GenesisState defines the feemarket module's genesis state. */
+/**
+ * GenesisState defines the feemarket module's genesis state.
+ * @name GenesisState
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.GenesisState
+ */
 export interface GenesisState {
   /**
    * Params are the parameters for the feemarket module. These parameters
@@ -14,13 +19,18 @@ export interface GenesisState {
    * and the AIMD EIP-1559 fee market.
    */
   params: Params;
-  /** State contains the current state of the AIMD fee market. */
+  /**
+   * State contains the current state of the AIMD fee market.
+   */
   state: State;
 }
 /**
  * State is utilized to track the current state of the fee market. This includes
  * the current base fee, learning rate, and block utilization within the
  * specified AIMD window.
+ * @name State
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.State
  */
 export interface State {
   /**
@@ -28,7 +38,9 @@ export interface State {
    * gas unit.
    */
   baseGasPrice: string;
-  /** LearningRate is the current learning rate. */
+  /**
+   * LearningRate is the current learning rate.
+   */
   learningRate: string;
   /**
    * Window contains a list of the last blocks' utilization values. This is used
@@ -36,7 +48,9 @@ export interface State {
    * consumed per block.
    */
   window: bigint[];
-  /** Index is the index of the current block in the block utilization window. */
+  /**
+   * Index is the index of the current block in the block utilization window.
+   */
   index: bigint;
 }
 function createBaseGenesisState(): GenesisState {
@@ -45,6 +59,12 @@ function createBaseGenesisState(): GenesisState {
     state: State.fromPartial({}),
   };
 }
+/**
+ * GenesisState defines the feemarket module's genesis state.
+ * @name GenesisState
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/feemarket.feemarket.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -107,6 +127,14 @@ function createBaseState(): State {
     index: BigInt(0),
   };
 }
+/**
+ * State is utilized to track the current state of the fee market. This includes
+ * the current base fee, learning rate, and block utilization within the
+ * specified AIMD window.
+ * @name State
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.State
+ */
 export const State = {
   typeUrl: "/feemarket.feemarket.v1.State",
   encode(message: State, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

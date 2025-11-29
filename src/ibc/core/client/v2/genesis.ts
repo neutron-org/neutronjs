@@ -1,20 +1,36 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CounterpartyInfo } from "./counterparty";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { CounterpartyInfo } from "./counterparty.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.client.v2";
-/** GenesisCounterpartyInfo defines the state associating a client with a counterparty. */
+/**
+ * GenesisCounterpartyInfo defines the state associating a client with a counterparty.
+ * @name GenesisCounterpartyInfo
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.GenesisCounterpartyInfo
+ */
 export interface GenesisCounterpartyInfo {
-  /** ClientId is the ID of the given client. */
+  /**
+   * ClientId is the ID of the given client.
+   */
   clientId: string;
-  /** CounterpartyInfo is the counterparty info of the given client. */
+  /**
+   * CounterpartyInfo is the counterparty info of the given client.
+   */
   counterpartyInfo: CounterpartyInfo;
 }
-/** GenesisState defines the ibc client v2 submodule's genesis state. */
+/**
+ * GenesisState defines the ibc client v2 submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.GenesisState
+ */
 export interface GenesisState {
-  /** counterparty info for each client */
+  /**
+   * counterparty info for each client
+   */
   counterpartyInfos: GenesisCounterpartyInfo[];
 }
 function createBaseGenesisCounterpartyInfo(): GenesisCounterpartyInfo {
@@ -23,6 +39,12 @@ function createBaseGenesisCounterpartyInfo(): GenesisCounterpartyInfo {
     counterpartyInfo: CounterpartyInfo.fromPartial({}),
   };
 }
+/**
+ * GenesisCounterpartyInfo defines the state associating a client with a counterparty.
+ * @name GenesisCounterpartyInfo
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.GenesisCounterpartyInfo
+ */
 export const GenesisCounterpartyInfo = {
   typeUrl: "/ibc.core.client.v2.GenesisCounterpartyInfo",
   encode(message: GenesisCounterpartyInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -84,6 +106,12 @@ function createBaseGenesisState(): GenesisState {
     counterpartyInfos: [],
   };
 }
+/**
+ * GenesisState defines the ibc client v2 submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.core.client.v2.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

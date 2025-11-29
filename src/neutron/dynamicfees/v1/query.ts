@@ -1,20 +1,38 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "neutron.dynamicfees.v1";
-/** QueryParamsRequest is request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.dynamicfees.v1
+ * @see proto type: neutron.dynamicfees.v1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** QueryParamsResponse is response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.dynamicfees.v1
+ * @see proto type: neutron.dynamicfees.v1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params holds all the parameters of this module. */
+  /**
+   * params holds all the parameters of this module.
+   */
   params: Params;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.dynamicfees.v1
+ * @see proto type: neutron.dynamicfees.v1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/neutron.dynamicfees.v1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -52,6 +70,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * QueryParamsResponse is response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.dynamicfees.v1
+ * @see proto type: neutron.dynamicfees.v1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/neutron.dynamicfees.v1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

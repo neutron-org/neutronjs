@@ -1,31 +1,61 @@
 //@ts-nocheck
 /* eslint-disable */
-import { StorageValue } from "../../interchainqueries/tx";
-import { ConsensusState } from "./genesis";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { StorageValue } from "../../interchainqueries/tx.js";
+import { ConsensusState } from "./genesis.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.state_verifier.v1";
-/** Describes a structure to verify storage values from the chain state from a particular height in the past */
+/**
+ * Describes a structure to verify storage values from the chain state from a particular height in the past
+ * @name QueryVerifyStateValuesRequest
+ * @package neutron.state_verifier.v1
+ * @see proto type: neutron.state_verifier.v1.QueryVerifyStateValuesRequest
+ */
 export interface QueryVerifyStateValuesRequest {
-  /** Refers to the block height to which the storage values belong. */
+  /**
+   * Refers to the block height to which the storage values belong.
+   */
   height: bigint;
-  /** A slice of neutron.interchainqueries.StorageValue which relate to the specified height and must be verified against */
+  /**
+   * A slice of neutron.interchainqueries.StorageValue which relate to the specified height and must be verified against
+   */
   storageValues: StorageValue[];
 }
-/** Describes a response structure for `VerifyStateValues` query */
+/**
+ * Describes a response structure for `VerifyStateValues` query
+ * @name QueryVerifyStateValuesResponse
+ * @package neutron.state_verifier.v1
+ * @see proto type: neutron.state_verifier.v1.QueryVerifyStateValuesResponse
+ */
 export interface QueryVerifyStateValuesResponse {
-  /** The field describes a validity of all the storage values passed to the request at a specific height */
+  /**
+   * The field describes a validity of all the storage values passed to the request at a specific height
+   */
   valid: boolean;
 }
-/** Describes a structure to query ConsensusState by the specified height */
+/**
+ * Describes a structure to query ConsensusState by the specified height
+ * @name QueryConsensusStateRequest
+ * @package neutron.state_verifier.v1
+ * @see proto type: neutron.state_verifier.v1.QueryConsensusStateRequest
+ */
 export interface QueryConsensusStateRequest {
-  /** Refers to the block height for which you want to query ConsensusState */
+  /**
+   * Refers to the block height for which you want to query ConsensusState
+   */
   height: bigint;
 }
-/** Describes a response structure for `QueryConsensusStateRequest` query */
+/**
+ * Describes a response structure for `QueryConsensusStateRequest` query
+ * @name QueryConsensusStateResponse
+ * @package neutron.state_verifier.v1
+ * @see proto type: neutron.state_verifier.v1.QueryConsensusStateResponse
+ */
 export interface QueryConsensusStateResponse {
-  /** ConsensusState defines the consensus state from the state-verifier module */
+  /**
+   * ConsensusState defines the consensus state from the state-verifier module
+   */
   cs?: ConsensusState;
 }
 function createBaseQueryVerifyStateValuesRequest(): QueryVerifyStateValuesRequest {
@@ -34,6 +64,12 @@ function createBaseQueryVerifyStateValuesRequest(): QueryVerifyStateValuesReques
     storageValues: [],
   };
 }
+/**
+ * Describes a structure to verify storage values from the chain state from a particular height in the past
+ * @name QueryVerifyStateValuesRequest
+ * @package neutron.state_verifier.v1
+ * @see proto type: neutron.state_verifier.v1.QueryVerifyStateValuesRequest
+ */
 export const QueryVerifyStateValuesRequest = {
   typeUrl: "/neutron.state_verifier.v1.QueryVerifyStateValuesRequest",
   encode(message: QueryVerifyStateValuesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -98,6 +134,12 @@ function createBaseQueryVerifyStateValuesResponse(): QueryVerifyStateValuesRespo
     valid: false,
   };
 }
+/**
+ * Describes a response structure for `VerifyStateValues` query
+ * @name QueryVerifyStateValuesResponse
+ * @package neutron.state_verifier.v1
+ * @see proto type: neutron.state_verifier.v1.QueryVerifyStateValuesResponse
+ */
 export const QueryVerifyStateValuesResponse = {
   typeUrl: "/neutron.state_verifier.v1.QueryVerifyStateValuesResponse",
   encode(
@@ -149,6 +191,12 @@ function createBaseQueryConsensusStateRequest(): QueryConsensusStateRequest {
     height: BigInt(0),
   };
 }
+/**
+ * Describes a structure to query ConsensusState by the specified height
+ * @name QueryConsensusStateRequest
+ * @package neutron.state_verifier.v1
+ * @see proto type: neutron.state_verifier.v1.QueryConsensusStateRequest
+ */
 export const QueryConsensusStateRequest = {
   typeUrl: "/neutron.state_verifier.v1.QueryConsensusStateRequest",
   encode(message: QueryConsensusStateRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -199,6 +247,12 @@ function createBaseQueryConsensusStateResponse(): QueryConsensusStateResponse {
     cs: undefined,
   };
 }
+/**
+ * Describes a response structure for `QueryConsensusStateRequest` query
+ * @name QueryConsensusStateResponse
+ * @package neutron.state_verifier.v1
+ * @see proto type: neutron.state_verifier.v1.QueryConsensusStateResponse
+ */
 export const QueryConsensusStateResponse = {
   typeUrl: "/neutron.state_verifier.v1.QueryConsensusStateResponse",
   encode(message: QueryConsensusStateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

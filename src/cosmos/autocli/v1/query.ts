@@ -1,19 +1,36 @@
 //@ts-nocheck
 /* eslint-disable */
-import { ModuleOptions } from "./options";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, isObject } from "../../../helpers";
+import { ModuleOptions } from "./options.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, isObject } from "../../../helpers.js";
 export const protobufPackage = "cosmos.autocli.v1";
-/** AppOptionsRequest is the RemoteInfoService/AppOptions request type. */
+/**
+ * AppOptionsRequest is the RemoteInfoService/AppOptions request type.
+ * @name AppOptionsRequest
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.AppOptionsRequest
+ */
 export interface AppOptionsRequest {}
+/**
+ * @name AppOptionsResponse_ModuleOptionsEntry
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.undefined
+ */
 export interface AppOptionsResponse_ModuleOptionsEntry {
   key: string;
   value?: ModuleOptions;
 }
-/** AppOptionsResponse is the RemoteInfoService/AppOptions response type. */
+/**
+ * AppOptionsResponse is the RemoteInfoService/AppOptions response type.
+ * @name AppOptionsResponse
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.AppOptionsResponse
+ */
 export interface AppOptionsResponse {
-  /** module_options is a map of module name to autocli module options. */
+  /**
+   * module_options is a map of module name to autocli module options.
+   */
   moduleOptions: {
     [key: string]: ModuleOptions;
   };
@@ -21,6 +38,12 @@ export interface AppOptionsResponse {
 function createBaseAppOptionsRequest(): AppOptionsRequest {
   return {};
 }
+/**
+ * AppOptionsRequest is the RemoteInfoService/AppOptions request type.
+ * @name AppOptionsRequest
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.AppOptionsRequest
+ */
 export const AppOptionsRequest = {
   typeUrl: "/cosmos.autocli.v1.AppOptionsRequest",
   encode(_: AppOptionsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -59,6 +82,11 @@ function createBaseAppOptionsResponse_ModuleOptionsEntry(): AppOptionsResponse_M
     value: undefined,
   };
 }
+/**
+ * @name AppOptionsResponse_ModuleOptionsEntry
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.undefined
+ */
 export const AppOptionsResponse_ModuleOptionsEntry = {
   encode(
     message: AppOptionsResponse_ModuleOptionsEntry,
@@ -121,6 +149,12 @@ function createBaseAppOptionsResponse(): AppOptionsResponse {
     moduleOptions: {},
   };
 }
+/**
+ * AppOptionsResponse is the RemoteInfoService/AppOptions response type.
+ * @name AppOptionsResponse
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.AppOptionsResponse
+ */
 export const AppOptionsResponse = {
   typeUrl: "/cosmos.autocli.v1.AppOptionsResponse",
   encode(message: AppOptionsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

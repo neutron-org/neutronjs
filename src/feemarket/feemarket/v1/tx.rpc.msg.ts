@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
-import { MsgParams, MsgParamsResponse } from "./tx";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
+import { MsgParams, MsgParamsResponse } from "./tx.js";
 /** Message service defines the types of messages supported by the feemarket
  module. */
 export interface Msg {
@@ -10,8 +10,8 @@ export interface Msg {
   params(request: MsgParams): Promise<MsgParamsResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.params = this.params.bind(this);
   }
@@ -21,3 +21,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgParamsResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

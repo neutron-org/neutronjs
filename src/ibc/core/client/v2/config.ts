@@ -1,17 +1,22 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { JsonSafe } from "../../../../json-safe";
-import { DeepPartial, Exact } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { JsonSafe } from "../../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../../helpers.js";
 export const protobufPackage = "ibc.core.client.v2";
 /**
  * Config is a **per-client** configuration struct that sets which relayers are allowed to relay v2 IBC messages
  * for a given client.
  * If it is set, then only relayers in the allow list can send v2 messages
  * If it is not set, then the client allows permissionless relaying of v2 messages
+ * @name Config
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.Config
  */
 export interface Config {
-  /** allowed_relayers defines the set of allowed relayers for IBC V2 protocol for the given client */
+  /**
+   * allowed_relayers defines the set of allowed relayers for IBC V2 protocol for the given client
+   */
   allowedRelayers: string[];
 }
 function createBaseConfig(): Config {
@@ -19,6 +24,15 @@ function createBaseConfig(): Config {
     allowedRelayers: [],
   };
 }
+/**
+ * Config is a **per-client** configuration struct that sets which relayers are allowed to relay v2 IBC messages
+ * for a given client.
+ * If it is set, then only relayers in the allow list can send v2 messages
+ * If it is not set, then the client allows permissionless relaying of v2 messages
+ * @name Config
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.Config
+ */
 export const Config = {
   typeUrl: "/ibc.core.client.v2.Config",
   encode(message: Config, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

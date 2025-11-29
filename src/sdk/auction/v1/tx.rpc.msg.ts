@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
-import { MsgAuctionBid, MsgAuctionBidResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
+import { MsgAuctionBid, MsgAuctionBidResponse, MsgUpdateParams, MsgUpdateParamsResponse } from "./tx.js";
 /** Msg defines the x/auction Msg service. */
 export interface Msg {
   /** AuctionBid defines a method for sending bids to the x/auction module. */
@@ -14,8 +14,8 @@ export interface Msg {
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.auctionBid = this.auctionBid.bind(this);
     this.updateParams = this.updateParams.bind(this);
@@ -31,3 +31,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

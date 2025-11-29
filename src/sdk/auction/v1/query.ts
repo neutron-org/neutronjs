@@ -1,15 +1,27 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./genesis";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Params } from "./genesis.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "sdk.auction.v1";
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** Params defines the parameters of the module. */
+  /**
+   * Params defines the parameters of the module.
+   */
   params: Params;
   /**
    * EscrowAddressString is the string representation of the escrow address stored
@@ -20,6 +32,12 @@ export interface QueryParamsResponse {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/sdk.auction.v1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -58,6 +76,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     escrowAddressString: "",
   };
 }
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/sdk.auction.v1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

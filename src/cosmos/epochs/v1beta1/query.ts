@@ -1,18 +1,24 @@
 //@ts-nocheck
 /* eslint-disable */
-import { EpochInfo } from "./genesis";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { EpochInfo } from "./genesis.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "cosmos.epochs.v1beta1";
 /**
  * QueryEpochInfosRequest defines the gRPC request structure for
  * querying all epoch info.
+ * @name QueryEpochInfosRequest
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.QueryEpochInfosRequest
  */
 export interface QueryEpochInfosRequest {}
 /**
  * QueryEpochInfosRequest defines the gRPC response structure for
  * querying all epoch info.
+ * @name QueryEpochInfosResponse
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.QueryEpochInfosResponse
  */
 export interface QueryEpochInfosResponse {
   epochs: EpochInfo[];
@@ -20,6 +26,9 @@ export interface QueryEpochInfosResponse {
 /**
  * QueryCurrentEpochRequest defines the gRPC request structure for
  * querying an epoch by its identifier.
+ * @name QueryCurrentEpochRequest
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.QueryCurrentEpochRequest
  */
 export interface QueryCurrentEpochRequest {
   identifier: string;
@@ -27,6 +36,9 @@ export interface QueryCurrentEpochRequest {
 /**
  * QueryCurrentEpochResponse defines the gRPC response structure for
  * querying an epoch by its identifier.
+ * @name QueryCurrentEpochResponse
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.QueryCurrentEpochResponse
  */
 export interface QueryCurrentEpochResponse {
   currentEpoch: bigint;
@@ -34,6 +46,13 @@ export interface QueryCurrentEpochResponse {
 function createBaseQueryEpochInfosRequest(): QueryEpochInfosRequest {
   return {};
 }
+/**
+ * QueryEpochInfosRequest defines the gRPC request structure for
+ * querying all epoch info.
+ * @name QueryEpochInfosRequest
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.QueryEpochInfosRequest
+ */
 export const QueryEpochInfosRequest = {
   typeUrl: "/cosmos.epochs.v1beta1.QueryEpochInfosRequest",
   encode(_: QueryEpochInfosRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -71,6 +90,13 @@ function createBaseQueryEpochInfosResponse(): QueryEpochInfosResponse {
     epochs: [],
   };
 }
+/**
+ * QueryEpochInfosRequest defines the gRPC response structure for
+ * querying all epoch info.
+ * @name QueryEpochInfosResponse
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.QueryEpochInfosResponse
+ */
 export const QueryEpochInfosResponse = {
   typeUrl: "/cosmos.epochs.v1beta1.QueryEpochInfosResponse",
   encode(message: QueryEpochInfosResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -121,6 +147,13 @@ function createBaseQueryCurrentEpochRequest(): QueryCurrentEpochRequest {
     identifier: "",
   };
 }
+/**
+ * QueryCurrentEpochRequest defines the gRPC request structure for
+ * querying an epoch by its identifier.
+ * @name QueryCurrentEpochRequest
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.QueryCurrentEpochRequest
+ */
 export const QueryCurrentEpochRequest = {
   typeUrl: "/cosmos.epochs.v1beta1.QueryCurrentEpochRequest",
   encode(message: QueryCurrentEpochRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -169,6 +202,13 @@ function createBaseQueryCurrentEpochResponse(): QueryCurrentEpochResponse {
     currentEpoch: BigInt(0),
   };
 }
+/**
+ * QueryCurrentEpochResponse defines the gRPC response structure for
+ * querying an epoch by its identifier.
+ * @name QueryCurrentEpochResponse
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.QueryCurrentEpochResponse
+ */
 export const QueryCurrentEpochResponse = {
   typeUrl: "/cosmos.epochs.v1beta1.QueryCurrentEpochResponse",
   encode(message: QueryCurrentEpochResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

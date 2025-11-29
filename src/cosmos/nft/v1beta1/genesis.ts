@@ -1,22 +1,40 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Class, NFT } from "./nft";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Class, NFT } from "./nft.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "cosmos.nft.v1beta1";
-/** GenesisState defines the nft module's genesis state. */
+/**
+ * GenesisState defines the nft module's genesis state.
+ * @name GenesisState
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** class defines the class of the nft type. */
+  /**
+   * class defines the class of the nft type.
+   */
   classes: Class[];
-  /** entry defines all nft owned by a person. */
+  /**
+   * entry defines all nft owned by a person.
+   */
   entries: Entry[];
 }
-/** Entry Defines all nft owned by a person */
+/**
+ * Entry Defines all nft owned by a person
+ * @name Entry
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.Entry
+ */
 export interface Entry {
-  /** owner is the owner address of the following nft */
+  /**
+   * owner is the owner address of the following nft
+   */
   owner: string;
-  /** nfts is a group of nfts of the same owner */
+  /**
+   * nfts is a group of nfts of the same owner
+   */
   nfts: NFT[];
 }
 function createBaseGenesisState(): GenesisState {
@@ -25,6 +43,12 @@ function createBaseGenesisState(): GenesisState {
     entries: [],
   };
 }
+/**
+ * GenesisState defines the nft module's genesis state.
+ * @name GenesisState
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmos.nft.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -89,6 +113,12 @@ function createBaseEntry(): Entry {
     nfts: [],
   };
 }
+/**
+ * Entry Defines all nft owned by a person
+ * @name Entry
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.Entry
+ */
 export const Entry = {
   typeUrl: "/cosmos.nft.v1beta1.Entry",
   encode(message: Entry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

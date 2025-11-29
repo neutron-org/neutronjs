@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../binary";
+import { Timestamp } from "../../google/protobuf/timestamp.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
 import {
   isSet,
   fromJsonTimestamp,
@@ -10,11 +10,18 @@ import {
   base64FromBytes,
   DeepPartial,
   Exact,
-} from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+} from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
+/**
+ * @name LimitOrderExpiration
+ * @package neutron.dex
+ * @see proto type: neutron.dex.LimitOrderExpiration
+ */
 export interface LimitOrderExpiration {
-  /** see limitOrderTranche.proto for details on expiration_time */
+  /**
+   * see limitOrderTranche.proto for details on expiration_time
+   */
   expirationTime: Timestamp;
   trancheRef: Uint8Array;
 }
@@ -24,6 +31,11 @@ function createBaseLimitOrderExpiration(): LimitOrderExpiration {
     trancheRef: new Uint8Array(),
   };
 }
+/**
+ * @name LimitOrderExpiration
+ * @package neutron.dex
+ * @see proto type: neutron.dex.LimitOrderExpiration
+ */
 export const LimitOrderExpiration = {
   typeUrl: "/neutron.dex.LimitOrderExpiration",
   encode(message: LimitOrderExpiration, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

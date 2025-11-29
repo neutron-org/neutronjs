@@ -1,15 +1,20 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Description, CommissionRates, Params } from "./staking";
-import { Any } from "../../../google/protobuf/any";
-import { Coin } from "../../base/v1beta1/coin";
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
-import { Decimal } from "@cosmjs/math";
+import { Description, CommissionRates, Params } from "./staking.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { Decimal } from "@interchainjs/math";
 export const protobufPackage = "cosmos.staking.v1beta1";
-/** MsgCreateValidator defines a SDK message for creating a new validator. */
+/**
+ * MsgCreateValidator defines a SDK message for creating a new validator.
+ * @name MsgCreateValidator
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgCreateValidator
+ */
 export interface MsgCreateValidator {
   description: Description;
   commission: CommissionRates;
@@ -18,16 +23,26 @@ export interface MsgCreateValidator {
    * Deprecated: Use of Delegator Address in MsgCreateValidator is deprecated.
    * The validator address bytes and delegator address bytes refer to the same account while creating validator (defer
    * only in bech32 notation).
+   * @deprecated
    */
-  /** @deprecated */
   delegatorAddress: string;
   validatorAddress: string;
   pubkey?: Any;
   value: Coin;
 }
-/** MsgCreateValidatorResponse defines the Msg/CreateValidator response type. */
+/**
+ * MsgCreateValidatorResponse defines the Msg/CreateValidator response type.
+ * @name MsgCreateValidatorResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgCreateValidatorResponse
+ */
 export interface MsgCreateValidatorResponse {}
-/** MsgEditValidator defines a SDK message for editing an existing validator. */
+/**
+ * MsgEditValidator defines a SDK message for editing an existing validator.
+ * @name MsgEditValidator
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgEditValidator
+ */
 export interface MsgEditValidator {
   description: Description;
   validatorAddress: string;
@@ -40,22 +55,38 @@ export interface MsgEditValidator {
   commissionRate: string;
   minSelfDelegation: string;
 }
-/** MsgEditValidatorResponse defines the Msg/EditValidator response type. */
+/**
+ * MsgEditValidatorResponse defines the Msg/EditValidator response type.
+ * @name MsgEditValidatorResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgEditValidatorResponse
+ */
 export interface MsgEditValidatorResponse {}
 /**
  * MsgDelegate defines a SDK message for performing a delegation of coins
  * from a delegator to a validator.
+ * @name MsgDelegate
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgDelegate
  */
 export interface MsgDelegate {
   delegatorAddress: string;
   validatorAddress: string;
   amount: Coin;
 }
-/** MsgDelegateResponse defines the Msg/Delegate response type. */
+/**
+ * MsgDelegateResponse defines the Msg/Delegate response type.
+ * @name MsgDelegateResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgDelegateResponse
+ */
 export interface MsgDelegateResponse {}
 /**
  * MsgBeginRedelegate defines a SDK message for performing a redelegation
  * of coins from a delegator and source validator to a destination validator.
+ * @name MsgBeginRedelegate
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgBeginRedelegate
  */
 export interface MsgBeginRedelegate {
   delegatorAddress: string;
@@ -63,39 +94,75 @@ export interface MsgBeginRedelegate {
   validatorDstAddress: string;
   amount: Coin;
 }
-/** MsgBeginRedelegateResponse defines the Msg/BeginRedelegate response type. */
+/**
+ * MsgBeginRedelegateResponse defines the Msg/BeginRedelegate response type.
+ * @name MsgBeginRedelegateResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgBeginRedelegateResponse
+ */
 export interface MsgBeginRedelegateResponse {
   completionTime: Timestamp;
 }
 /**
  * MsgUndelegate defines a SDK message for performing an undelegation from a
  * delegate and a validator.
+ * @name MsgUndelegate
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgUndelegate
  */
 export interface MsgUndelegate {
   delegatorAddress: string;
   validatorAddress: string;
   amount: Coin;
 }
-/** MsgUndelegateResponse defines the Msg/Undelegate response type. */
+/**
+ * MsgUndelegateResponse defines the Msg/Undelegate response type.
+ * @name MsgUndelegateResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgUndelegateResponse
+ */
 export interface MsgUndelegateResponse {
   completionTime: Timestamp;
-  /** amount returns the amount of undelegated coins */
+  /**
+   * amount returns the amount of undelegated coins
+   */
   amount: Coin;
 }
-/** MsgCancelUnbondingDelegation defines the SDK message for performing a cancel unbonding delegation for delegator */
+/**
+ * MsgCancelUnbondingDelegation defines the SDK message for performing a cancel unbonding delegation for delegator
+ * @name MsgCancelUnbondingDelegation
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgCancelUnbondingDelegation
+ */
 export interface MsgCancelUnbondingDelegation {
   delegatorAddress: string;
   validatorAddress: string;
-  /** amount is always less than or equal to unbonding delegation entry balance */
+  /**
+   * amount is always less than or equal to unbonding delegation entry balance
+   */
   amount: Coin;
-  /** creation_height is the height which the unbonding took place. */
+  /**
+   * creation_height is the height which the unbonding took place.
+   */
   creationHeight: bigint;
 }
-/** MsgCancelUnbondingDelegationResponse */
+/**
+ * MsgCancelUnbondingDelegationResponse
+ * @name MsgCancelUnbondingDelegationResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgCancelUnbondingDelegationResponse
+ */
 export interface MsgCancelUnbondingDelegationResponse {}
-/** MsgUpdateParams is the Msg/UpdateParams request type. */
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * @name MsgUpdateParams
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless overwritten).
+   */
   authority: string;
   /**
    * params defines the x/staking parameters to update.
@@ -107,6 +174,9 @@ export interface MsgUpdateParams {
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
+ * @name MsgUpdateParamsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgCreateValidator(): MsgCreateValidator {
@@ -120,6 +190,12 @@ function createBaseMsgCreateValidator(): MsgCreateValidator {
     value: Coin.fromPartial({}),
   };
 }
+/**
+ * MsgCreateValidator defines a SDK message for creating a new validator.
+ * @name MsgCreateValidator
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgCreateValidator
+ */
 export const MsgCreateValidator = {
   typeUrl: "/cosmos.staking.v1beta1.MsgCreateValidator",
   encode(message: MsgCreateValidator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -228,6 +304,12 @@ export const MsgCreateValidator = {
 function createBaseMsgCreateValidatorResponse(): MsgCreateValidatorResponse {
   return {};
 }
+/**
+ * MsgCreateValidatorResponse defines the Msg/CreateValidator response type.
+ * @name MsgCreateValidatorResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgCreateValidatorResponse
+ */
 export const MsgCreateValidatorResponse = {
   typeUrl: "/cosmos.staking.v1beta1.MsgCreateValidatorResponse",
   encode(_: MsgCreateValidatorResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -268,6 +350,12 @@ function createBaseMsgEditValidator(): MsgEditValidator {
     minSelfDelegation: "",
   };
 }
+/**
+ * MsgEditValidator defines a SDK message for editing an existing validator.
+ * @name MsgEditValidator
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgEditValidator
+ */
 export const MsgEditValidator = {
   typeUrl: "/cosmos.staking.v1beta1.MsgEditValidator",
   encode(message: MsgEditValidator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -342,6 +430,12 @@ export const MsgEditValidator = {
 function createBaseMsgEditValidatorResponse(): MsgEditValidatorResponse {
   return {};
 }
+/**
+ * MsgEditValidatorResponse defines the Msg/EditValidator response type.
+ * @name MsgEditValidatorResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgEditValidatorResponse
+ */
 export const MsgEditValidatorResponse = {
   typeUrl: "/cosmos.staking.v1beta1.MsgEditValidatorResponse",
   encode(_: MsgEditValidatorResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -381,6 +475,13 @@ function createBaseMsgDelegate(): MsgDelegate {
     amount: Coin.fromPartial({}),
   };
 }
+/**
+ * MsgDelegate defines a SDK message for performing a delegation of coins
+ * from a delegator to a validator.
+ * @name MsgDelegate
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgDelegate
+ */
 export const MsgDelegate = {
   typeUrl: "/cosmos.staking.v1beta1.MsgDelegate",
   encode(message: MsgDelegate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -445,6 +546,12 @@ export const MsgDelegate = {
 function createBaseMsgDelegateResponse(): MsgDelegateResponse {
   return {};
 }
+/**
+ * MsgDelegateResponse defines the Msg/Delegate response type.
+ * @name MsgDelegateResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgDelegateResponse
+ */
 export const MsgDelegateResponse = {
   typeUrl: "/cosmos.staking.v1beta1.MsgDelegateResponse",
   encode(_: MsgDelegateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -485,6 +592,13 @@ function createBaseMsgBeginRedelegate(): MsgBeginRedelegate {
     amount: Coin.fromPartial({}),
   };
 }
+/**
+ * MsgBeginRedelegate defines a SDK message for performing a redelegation
+ * of coins from a delegator and source validator to a destination validator.
+ * @name MsgBeginRedelegate
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgBeginRedelegate
+ */
 export const MsgBeginRedelegate = {
   typeUrl: "/cosmos.staking.v1beta1.MsgBeginRedelegate",
   encode(message: MsgBeginRedelegate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -560,6 +674,12 @@ function createBaseMsgBeginRedelegateResponse(): MsgBeginRedelegateResponse {
     completionTime: Timestamp.fromPartial({}),
   };
 }
+/**
+ * MsgBeginRedelegateResponse defines the Msg/BeginRedelegate response type.
+ * @name MsgBeginRedelegateResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgBeginRedelegateResponse
+ */
 export const MsgBeginRedelegateResponse = {
   typeUrl: "/cosmos.staking.v1beta1.MsgBeginRedelegateResponse",
   encode(message: MsgBeginRedelegateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -613,6 +733,13 @@ function createBaseMsgUndelegate(): MsgUndelegate {
     amount: Coin.fromPartial({}),
   };
 }
+/**
+ * MsgUndelegate defines a SDK message for performing an undelegation from a
+ * delegate and a validator.
+ * @name MsgUndelegate
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgUndelegate
+ */
 export const MsgUndelegate = {
   typeUrl: "/cosmos.staking.v1beta1.MsgUndelegate",
   encode(message: MsgUndelegate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -680,6 +807,12 @@ function createBaseMsgUndelegateResponse(): MsgUndelegateResponse {
     amount: Coin.fromPartial({}),
   };
 }
+/**
+ * MsgUndelegateResponse defines the Msg/Undelegate response type.
+ * @name MsgUndelegateResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgUndelegateResponse
+ */
 export const MsgUndelegateResponse = {
   typeUrl: "/cosmos.staking.v1beta1.MsgUndelegateResponse",
   encode(message: MsgUndelegateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -743,6 +876,12 @@ function createBaseMsgCancelUnbondingDelegation(): MsgCancelUnbondingDelegation 
     creationHeight: BigInt(0),
   };
 }
+/**
+ * MsgCancelUnbondingDelegation defines the SDK message for performing a cancel unbonding delegation for delegator
+ * @name MsgCancelUnbondingDelegation
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgCancelUnbondingDelegation
+ */
 export const MsgCancelUnbondingDelegation = {
   typeUrl: "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation",
   encode(message: MsgCancelUnbondingDelegation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -821,6 +960,12 @@ export const MsgCancelUnbondingDelegation = {
 function createBaseMsgCancelUnbondingDelegationResponse(): MsgCancelUnbondingDelegationResponse {
   return {};
 }
+/**
+ * MsgCancelUnbondingDelegationResponse
+ * @name MsgCancelUnbondingDelegationResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgCancelUnbondingDelegationResponse
+ */
 export const MsgCancelUnbondingDelegationResponse = {
   typeUrl: "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegationResponse",
   encode(
@@ -864,6 +1009,12 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * @name MsgUpdateParams
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/cosmos.staking.v1beta1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -919,6 +1070,13 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * @name MsgUpdateParamsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/cosmos.staking.v1beta1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

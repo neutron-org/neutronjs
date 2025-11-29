@@ -1,18 +1,25 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Permissions } from "./types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Permissions } from "./types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.circuit.v1";
-/** MsgAuthorizeCircuitBreaker defines the Msg/AuthorizeCircuitBreaker request type. */
+/**
+ * MsgAuthorizeCircuitBreaker defines the Msg/AuthorizeCircuitBreaker request type.
+ * @name MsgAuthorizeCircuitBreaker
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.MsgAuthorizeCircuitBreaker
+ */
 export interface MsgAuthorizeCircuitBreaker {
   /**
    * granter is the granter of the circuit breaker permissions and must have
    * LEVEL_SUPER_ADMIN.
    */
   granter: string;
-  /** grantee is the account authorized with the provided permissions. */
+  /**
+   * grantee is the account authorized with the provided permissions.
+   */
   grantee: string;
   /**
    * permissions are the circuit breaker permissions that the grantee receives.
@@ -21,13 +28,25 @@ export interface MsgAuthorizeCircuitBreaker {
    */
   permissions?: Permissions;
 }
-/** MsgAuthorizeCircuitBreakerResponse defines the Msg/AuthorizeCircuitBreaker response type. */
+/**
+ * MsgAuthorizeCircuitBreakerResponse defines the Msg/AuthorizeCircuitBreaker response type.
+ * @name MsgAuthorizeCircuitBreakerResponse
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.MsgAuthorizeCircuitBreakerResponse
+ */
 export interface MsgAuthorizeCircuitBreakerResponse {
   success: boolean;
 }
-/** MsgTripCircuitBreaker defines the Msg/TripCircuitBreaker request type. */
+/**
+ * MsgTripCircuitBreaker defines the Msg/TripCircuitBreaker request type.
+ * @name MsgTripCircuitBreaker
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.MsgTripCircuitBreaker
+ */
 export interface MsgTripCircuitBreaker {
-  /** authority is the account authorized to trip the circuit breaker. */
+  /**
+   * authority is the account authorized to trip the circuit breaker.
+   */
   authority: string;
   /**
    * msg_type_urls specifies a list of type URLs to immediately stop processing.
@@ -38,13 +57,25 @@ export interface MsgTripCircuitBreaker {
    */
   msgTypeUrls: string[];
 }
-/** MsgTripCircuitBreakerResponse defines the Msg/TripCircuitBreaker response type. */
+/**
+ * MsgTripCircuitBreakerResponse defines the Msg/TripCircuitBreaker response type.
+ * @name MsgTripCircuitBreakerResponse
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.MsgTripCircuitBreakerResponse
+ */
 export interface MsgTripCircuitBreakerResponse {
   success: boolean;
 }
-/** MsgResetCircuitBreaker defines the Msg/ResetCircuitBreaker request type. */
+/**
+ * MsgResetCircuitBreaker defines the Msg/ResetCircuitBreaker request type.
+ * @name MsgResetCircuitBreaker
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.MsgResetCircuitBreaker
+ */
 export interface MsgResetCircuitBreaker {
-  /** authority is the account authorized to trip or reset the circuit breaker. */
+  /**
+   * authority is the account authorized to trip or reset the circuit breaker.
+   */
   authority: string;
   /**
    * msg_type_urls specifies a list of Msg type URLs to resume processing. If
@@ -53,7 +84,12 @@ export interface MsgResetCircuitBreaker {
    */
   msgTypeUrls: string[];
 }
-/** MsgResetCircuitBreakerResponse defines the Msg/ResetCircuitBreaker response type. */
+/**
+ * MsgResetCircuitBreakerResponse defines the Msg/ResetCircuitBreaker response type.
+ * @name MsgResetCircuitBreakerResponse
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.MsgResetCircuitBreakerResponse
+ */
 export interface MsgResetCircuitBreakerResponse {
   success: boolean;
 }
@@ -64,6 +100,12 @@ function createBaseMsgAuthorizeCircuitBreaker(): MsgAuthorizeCircuitBreaker {
     permissions: undefined,
   };
 }
+/**
+ * MsgAuthorizeCircuitBreaker defines the Msg/AuthorizeCircuitBreaker request type.
+ * @name MsgAuthorizeCircuitBreaker
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.MsgAuthorizeCircuitBreaker
+ */
 export const MsgAuthorizeCircuitBreaker = {
   typeUrl: "/cosmos.circuit.v1.MsgAuthorizeCircuitBreaker",
   encode(message: MsgAuthorizeCircuitBreaker, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -133,6 +175,12 @@ function createBaseMsgAuthorizeCircuitBreakerResponse(): MsgAuthorizeCircuitBrea
     success: false,
   };
 }
+/**
+ * MsgAuthorizeCircuitBreakerResponse defines the Msg/AuthorizeCircuitBreaker response type.
+ * @name MsgAuthorizeCircuitBreakerResponse
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.MsgAuthorizeCircuitBreakerResponse
+ */
 export const MsgAuthorizeCircuitBreakerResponse = {
   typeUrl: "/cosmos.circuit.v1.MsgAuthorizeCircuitBreakerResponse",
   encode(
@@ -185,6 +233,12 @@ function createBaseMsgTripCircuitBreaker(): MsgTripCircuitBreaker {
     msgTypeUrls: [],
   };
 }
+/**
+ * MsgTripCircuitBreaker defines the Msg/TripCircuitBreaker request type.
+ * @name MsgTripCircuitBreaker
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.MsgTripCircuitBreaker
+ */
 export const MsgTripCircuitBreaker = {
   typeUrl: "/cosmos.circuit.v1.MsgTripCircuitBreaker",
   encode(message: MsgTripCircuitBreaker, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -244,6 +298,12 @@ function createBaseMsgTripCircuitBreakerResponse(): MsgTripCircuitBreakerRespons
     success: false,
   };
 }
+/**
+ * MsgTripCircuitBreakerResponse defines the Msg/TripCircuitBreaker response type.
+ * @name MsgTripCircuitBreakerResponse
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.MsgTripCircuitBreakerResponse
+ */
 export const MsgTripCircuitBreakerResponse = {
   typeUrl: "/cosmos.circuit.v1.MsgTripCircuitBreakerResponse",
   encode(message: MsgTripCircuitBreakerResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -293,6 +353,12 @@ function createBaseMsgResetCircuitBreaker(): MsgResetCircuitBreaker {
     msgTypeUrls: [],
   };
 }
+/**
+ * MsgResetCircuitBreaker defines the Msg/ResetCircuitBreaker request type.
+ * @name MsgResetCircuitBreaker
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.MsgResetCircuitBreaker
+ */
 export const MsgResetCircuitBreaker = {
   typeUrl: "/cosmos.circuit.v1.MsgResetCircuitBreaker",
   encode(message: MsgResetCircuitBreaker, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -352,6 +418,12 @@ function createBaseMsgResetCircuitBreakerResponse(): MsgResetCircuitBreakerRespo
     success: false,
   };
 }
+/**
+ * MsgResetCircuitBreakerResponse defines the Msg/ResetCircuitBreaker response type.
+ * @name MsgResetCircuitBreakerResponse
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.MsgResetCircuitBreakerResponse
+ */
 export const MsgResetCircuitBreakerResponse = {
   typeUrl: "/cosmos.circuit.v1.MsgResetCircuitBreakerResponse",
   encode(

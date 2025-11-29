@@ -1,42 +1,86 @@
 //@ts-nocheck
 /* eslint-disable */
-import { MsgExecuteContract, ExecutionStage, executionStageFromJSON, executionStageToJSON } from "./schedule";
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import {
+  MsgExecuteContract,
+  ExecutionStage,
+  executionStageFromJSON,
+  executionStageToJSON,
+} from "./schedule.js";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.cron";
-/** The MsgAddSchedule request type. */
+/**
+ * The MsgAddSchedule request type.
+ * @name MsgAddSchedule
+ * @package neutron.cron
+ * @see proto type: neutron.cron.MsgAddSchedule
+ */
 export interface MsgAddSchedule {
-  /** The address of the governance account. */
+  /**
+   * The address of the governance account.
+   */
   authority: string;
-  /** Name of the schedule */
+  /**
+   * Name of the schedule
+   */
   name: string;
-  /** Period in blocks */
+  /**
+   * Period in blocks
+   */
   period: bigint;
-  /** Msgs that will be executed every certain number of blocks, specified in the `period` field */
+  /**
+   * Msgs that will be executed every certain number of blocks, specified in the `period` field
+   */
   msgs: MsgExecuteContract[];
-  /** Stage when messages will be executed */
+  /**
+   * Stage when messages will be executed
+   */
   executionStage: ExecutionStage;
 }
-/** Defines the response structure for executing a MsgAddSchedule message. */
+/**
+ * Defines the response structure for executing a MsgAddSchedule message.
+ * @name MsgAddScheduleResponse
+ * @package neutron.cron
+ * @see proto type: neutron.cron.MsgAddScheduleResponse
+ */
 export interface MsgAddScheduleResponse {}
-/** The MsgRemoveSchedule request type. */
+/**
+ * The MsgRemoveSchedule request type.
+ * @name MsgRemoveSchedule
+ * @package neutron.cron
+ * @see proto type: neutron.cron.MsgRemoveSchedule
+ */
 export interface MsgRemoveSchedule {
-  /** The address of the governance account. */
+  /**
+   * The address of the governance account.
+   */
   authority: string;
-  /** Name of the schedule */
+  /**
+   * Name of the schedule
+   */
   name: string;
 }
-/** Defines the response structure for executing a MsgRemoveSchedule message. */
+/**
+ * Defines the response structure for executing a MsgRemoveSchedule message.
+ * @name MsgRemoveScheduleResponse
+ * @package neutron.cron
+ * @see proto type: neutron.cron.MsgRemoveScheduleResponse
+ */
 export interface MsgRemoveScheduleResponse {}
 /**
  * The MsgUpdateParams request type.
  *
  * Since: 0.47
+ * @name MsgUpdateParams
+ * @package neutron.cron
+ * @see proto type: neutron.cron.MsgUpdateParams
  */
 export interface MsgUpdateParams {
-  /** The address of the governance account. */
+  /**
+   * The address of the governance account.
+   */
   authority: string;
   /**
    * Defines the x/cron parameters to update.
@@ -49,6 +93,9 @@ export interface MsgUpdateParams {
  * Defines the response structure for executing a MsgUpdateParams message.
  *
  * Since: 0.47
+ * @name MsgUpdateParamsResponse
+ * @package neutron.cron
+ * @see proto type: neutron.cron.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgAddSchedule(): MsgAddSchedule {
@@ -60,6 +107,12 @@ function createBaseMsgAddSchedule(): MsgAddSchedule {
     executionStage: 0,
   };
 }
+/**
+ * The MsgAddSchedule request type.
+ * @name MsgAddSchedule
+ * @package neutron.cron
+ * @see proto type: neutron.cron.MsgAddSchedule
+ */
 export const MsgAddSchedule = {
   typeUrl: "/neutron.cron.MsgAddSchedule",
   encode(message: MsgAddSchedule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -147,6 +200,12 @@ export const MsgAddSchedule = {
 function createBaseMsgAddScheduleResponse(): MsgAddScheduleResponse {
   return {};
 }
+/**
+ * Defines the response structure for executing a MsgAddSchedule message.
+ * @name MsgAddScheduleResponse
+ * @package neutron.cron
+ * @see proto type: neutron.cron.MsgAddScheduleResponse
+ */
 export const MsgAddScheduleResponse = {
   typeUrl: "/neutron.cron.MsgAddScheduleResponse",
   encode(_: MsgAddScheduleResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -185,6 +244,12 @@ function createBaseMsgRemoveSchedule(): MsgRemoveSchedule {
     name: "",
   };
 }
+/**
+ * The MsgRemoveSchedule request type.
+ * @name MsgRemoveSchedule
+ * @package neutron.cron
+ * @see proto type: neutron.cron.MsgRemoveSchedule
+ */
 export const MsgRemoveSchedule = {
   typeUrl: "/neutron.cron.MsgRemoveSchedule",
   encode(message: MsgRemoveSchedule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -238,6 +303,12 @@ export const MsgRemoveSchedule = {
 function createBaseMsgRemoveScheduleResponse(): MsgRemoveScheduleResponse {
   return {};
 }
+/**
+ * Defines the response structure for executing a MsgRemoveSchedule message.
+ * @name MsgRemoveScheduleResponse
+ * @package neutron.cron
+ * @see proto type: neutron.cron.MsgRemoveScheduleResponse
+ */
 export const MsgRemoveScheduleResponse = {
   typeUrl: "/neutron.cron.MsgRemoveScheduleResponse",
   encode(_: MsgRemoveScheduleResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -276,6 +347,14 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * The MsgUpdateParams request type.
+ *
+ * Since: 0.47
+ * @name MsgUpdateParams
+ * @package neutron.cron
+ * @see proto type: neutron.cron.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/neutron.cron.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -331,6 +410,14 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * Defines the response structure for executing a MsgUpdateParams message.
+ *
+ * Since: 0.47
+ * @name MsgUpdateParamsResponse
+ * @package neutron.cron
+ * @see proto type: neutron.cron.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/neutron.cron.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

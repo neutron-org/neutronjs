@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { JsonSafe } from "../../../../json-safe";
+import { Timestamp } from "../../../../google/protobuf/timestamp.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { JsonSafe } from "../../../../json-safe.js";
 import {
   DeepPartial,
   Exact,
@@ -11,35 +11,71 @@ import {
   bytesFromBase64,
   fromTimestamp,
   base64FromBytes,
-} from "../../../../helpers";
+} from "../../../../helpers.js";
 export const protobufPackage = "cosmos.base.node.v1beta1";
-/** ConfigRequest defines the request structure for the Config gRPC query. */
+/**
+ * ConfigRequest defines the request structure for the Config gRPC query.
+ * @name ConfigRequest
+ * @package cosmos.base.node.v1beta1
+ * @see proto type: cosmos.base.node.v1beta1.ConfigRequest
+ */
 export interface ConfigRequest {}
-/** ConfigResponse defines the response structure for the Config gRPC query. */
+/**
+ * ConfigResponse defines the response structure for the Config gRPC query.
+ * @name ConfigResponse
+ * @package cosmos.base.node.v1beta1
+ * @see proto type: cosmos.base.node.v1beta1.ConfigResponse
+ */
 export interface ConfigResponse {
   minimumGasPrice: string;
   pruningKeepRecent: string;
   pruningInterval: string;
   haltHeight: bigint;
 }
-/** StateRequest defines the request structure for the status of a node. */
+/**
+ * StateRequest defines the request structure for the status of a node.
+ * @name StatusRequest
+ * @package cosmos.base.node.v1beta1
+ * @see proto type: cosmos.base.node.v1beta1.StatusRequest
+ */
 export interface StatusRequest {}
-/** StateResponse defines the response structure for the status of a node. */
+/**
+ * StateResponse defines the response structure for the status of a node.
+ * @name StatusResponse
+ * @package cosmos.base.node.v1beta1
+ * @see proto type: cosmos.base.node.v1beta1.StatusResponse
+ */
 export interface StatusResponse {
-  /** earliest block height available in the store */
+  /**
+   * earliest block height available in the store
+   */
   earliestStoreHeight: bigint;
-  /** current block height */
+  /**
+   * current block height
+   */
   height: bigint;
-  /** block height timestamp */
+  /**
+   * block height timestamp
+   */
   timestamp?: Timestamp;
-  /** app hash of the current block */
+  /**
+   * app hash of the current block
+   */
   appHash: Uint8Array;
-  /** validator hash provided by the consensus header */
+  /**
+   * validator hash provided by the consensus header
+   */
   validatorHash: Uint8Array;
 }
 function createBaseConfigRequest(): ConfigRequest {
   return {};
 }
+/**
+ * ConfigRequest defines the request structure for the Config gRPC query.
+ * @name ConfigRequest
+ * @package cosmos.base.node.v1beta1
+ * @see proto type: cosmos.base.node.v1beta1.ConfigRequest
+ */
 export const ConfigRequest = {
   typeUrl: "/cosmos.base.node.v1beta1.ConfigRequest",
   encode(_: ConfigRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -80,6 +116,12 @@ function createBaseConfigResponse(): ConfigResponse {
     haltHeight: BigInt(0),
   };
 }
+/**
+ * ConfigResponse defines the response structure for the Config gRPC query.
+ * @name ConfigResponse
+ * @package cosmos.base.node.v1beta1
+ * @see proto type: cosmos.base.node.v1beta1.ConfigResponse
+ */
 export const ConfigResponse = {
   typeUrl: "/cosmos.base.node.v1beta1.ConfigResponse",
   encode(message: ConfigResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -153,6 +195,12 @@ export const ConfigResponse = {
 function createBaseStatusRequest(): StatusRequest {
   return {};
 }
+/**
+ * StateRequest defines the request structure for the status of a node.
+ * @name StatusRequest
+ * @package cosmos.base.node.v1beta1
+ * @see proto type: cosmos.base.node.v1beta1.StatusRequest
+ */
 export const StatusRequest = {
   typeUrl: "/cosmos.base.node.v1beta1.StatusRequest",
   encode(_: StatusRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -194,6 +242,12 @@ function createBaseStatusResponse(): StatusResponse {
     validatorHash: new Uint8Array(),
   };
 }
+/**
+ * StateResponse defines the response structure for the status of a node.
+ * @name StatusResponse
+ * @package cosmos.base.node.v1beta1
+ * @see proto type: cosmos.base.node.v1beta1.StatusResponse
+ */
 export const StatusResponse = {
   typeUrl: "/cosmos.base.node.v1beta1.StatusResponse",
   encode(message: StatusResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

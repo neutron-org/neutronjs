@@ -1,32 +1,64 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
-import { Params } from "./params";
-import { Schedule } from "./schedule";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../helpers";
+import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination.js";
+import { Params } from "./params.js";
+import { Schedule } from "./schedule.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../helpers.js";
 export const protobufPackage = "neutron.cron";
-/** The request type for the Query/Params RPC method. */
+/**
+ * The request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.cron
+ * @see proto type: neutron.cron.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** The response type for the Query/Params RPC method. */
+/**
+ * The response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.cron
+ * @see proto type: neutron.cron.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params holds all the parameters of this module. */
+  /**
+   * params holds all the parameters of this module.
+   */
   params: Params;
 }
-/** The request type for the Query/Schedule RPC method. */
+/**
+ * The request type for the Query/Schedule RPC method.
+ * @name QueryGetScheduleRequest
+ * @package neutron.cron
+ * @see proto type: neutron.cron.QueryGetScheduleRequest
+ */
 export interface QueryGetScheduleRequest {
   name: string;
 }
-/** The response type for the Query/Params RPC method. */
+/**
+ * The response type for the Query/Params RPC method.
+ * @name QueryGetScheduleResponse
+ * @package neutron.cron
+ * @see proto type: neutron.cron.QueryGetScheduleResponse
+ */
 export interface QueryGetScheduleResponse {
   schedule: Schedule;
 }
-/** The request type for the Query/Schedules RPC method. */
+/**
+ * The request type for the Query/Schedules RPC method.
+ * @name QuerySchedulesRequest
+ * @package neutron.cron
+ * @see proto type: neutron.cron.QuerySchedulesRequest
+ */
 export interface QuerySchedulesRequest {
   pagination?: PageRequest;
 }
-/** The response type for the Query/Params RPC method. */
+/**
+ * The response type for the Query/Params RPC method.
+ * @name QuerySchedulesResponse
+ * @package neutron.cron
+ * @see proto type: neutron.cron.QuerySchedulesResponse
+ */
 export interface QuerySchedulesResponse {
   schedules: Schedule[];
   pagination?: PageResponse;
@@ -34,6 +66,12 @@ export interface QuerySchedulesResponse {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * The request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.cron
+ * @see proto type: neutron.cron.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/neutron.cron.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -71,6 +109,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * The response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.cron
+ * @see proto type: neutron.cron.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/neutron.cron.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -119,6 +163,12 @@ function createBaseQueryGetScheduleRequest(): QueryGetScheduleRequest {
     name: "",
   };
 }
+/**
+ * The request type for the Query/Schedule RPC method.
+ * @name QueryGetScheduleRequest
+ * @package neutron.cron
+ * @see proto type: neutron.cron.QueryGetScheduleRequest
+ */
 export const QueryGetScheduleRequest = {
   typeUrl: "/neutron.cron.QueryGetScheduleRequest",
   encode(message: QueryGetScheduleRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -165,6 +215,12 @@ function createBaseQueryGetScheduleResponse(): QueryGetScheduleResponse {
     schedule: Schedule.fromPartial({}),
   };
 }
+/**
+ * The response type for the Query/Params RPC method.
+ * @name QueryGetScheduleResponse
+ * @package neutron.cron
+ * @see proto type: neutron.cron.QueryGetScheduleResponse
+ */
 export const QueryGetScheduleResponse = {
   typeUrl: "/neutron.cron.QueryGetScheduleResponse",
   encode(message: QueryGetScheduleResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -216,6 +272,12 @@ function createBaseQuerySchedulesRequest(): QuerySchedulesRequest {
     pagination: undefined,
   };
 }
+/**
+ * The request type for the Query/Schedules RPC method.
+ * @name QuerySchedulesRequest
+ * @package neutron.cron
+ * @see proto type: neutron.cron.QuerySchedulesRequest
+ */
 export const QuerySchedulesRequest = {
   typeUrl: "/neutron.cron.QuerySchedulesRequest",
   encode(message: QuerySchedulesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -266,6 +328,12 @@ function createBaseQuerySchedulesResponse(): QuerySchedulesResponse {
     pagination: undefined,
   };
 }
+/**
+ * The response type for the Query/Params RPC method.
+ * @name QuerySchedulesResponse
+ * @package neutron.cron
+ * @see proto type: neutron.cron.QuerySchedulesResponse
+ */
 export const QuerySchedulesResponse = {
   typeUrl: "/neutron.cron.QuerySchedulesResponse",
   encode(message: QuerySchedulesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

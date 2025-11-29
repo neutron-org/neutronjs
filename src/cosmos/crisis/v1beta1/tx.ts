@@ -1,31 +1,59 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.crisis.v1beta1";
-/** MsgVerifyInvariant represents a message to verify a particular invariance. */
+/**
+ * MsgVerifyInvariant represents a message to verify a particular invariance.
+ * @name MsgVerifyInvariant
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgVerifyInvariant
+ */
 export interface MsgVerifyInvariant {
-  /** sender is the account address of private key to send coins to fee collector account. */
+  /**
+   * sender is the account address of private key to send coins to fee collector account.
+   */
   sender: string;
-  /** name of the invariant module. */
+  /**
+   * name of the invariant module.
+   */
   invariantModuleName: string;
-  /** invariant_route is the msg's invariant route. */
+  /**
+   * invariant_route is the msg's invariant route.
+   */
   invariantRoute: string;
 }
-/** MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type. */
+/**
+ * MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type.
+ * @name MsgVerifyInvariantResponse
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgVerifyInvariantResponse
+ */
 export interface MsgVerifyInvariantResponse {}
-/** MsgUpdateParams is the Msg/UpdateParams request type. */
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * @name MsgUpdateParams
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless overwritten).
+   */
   authority: string;
-  /** constant_fee defines the x/crisis parameter. */
+  /**
+   * constant_fee defines the x/crisis parameter.
+   */
   constantFee: Coin;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
+ * @name MsgUpdateParamsResponse
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgVerifyInvariant(): MsgVerifyInvariant {
@@ -35,6 +63,12 @@ function createBaseMsgVerifyInvariant(): MsgVerifyInvariant {
     invariantRoute: "",
   };
 }
+/**
+ * MsgVerifyInvariant represents a message to verify a particular invariance.
+ * @name MsgVerifyInvariant
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgVerifyInvariant
+ */
 export const MsgVerifyInvariant = {
   typeUrl: "/cosmos.crisis.v1beta1.MsgVerifyInvariant",
   encode(message: MsgVerifyInvariant, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -97,6 +131,12 @@ export const MsgVerifyInvariant = {
 function createBaseMsgVerifyInvariantResponse(): MsgVerifyInvariantResponse {
   return {};
 }
+/**
+ * MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type.
+ * @name MsgVerifyInvariantResponse
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgVerifyInvariantResponse
+ */
 export const MsgVerifyInvariantResponse = {
   typeUrl: "/cosmos.crisis.v1beta1.MsgVerifyInvariantResponse",
   encode(_: MsgVerifyInvariantResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -135,6 +175,12 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     constantFee: Coin.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * @name MsgUpdateParams
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/cosmos.crisis.v1beta1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -191,6 +237,13 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * @name MsgUpdateParamsResponse
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/cosmos.crisis.v1beta1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

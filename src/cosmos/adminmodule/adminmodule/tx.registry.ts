@@ -1,18 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgDeleteAdmin, MsgAddAdmin, MsgSubmitProposal, MsgSubmitProposalLegacy } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+import { TelescopeGeneratedType } from "../../../types.js";
+import { MsgDeleteAdmin, MsgAddAdmin, MsgSubmitProposal, MsgSubmitProposalLegacy } from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/cosmos.adminmodule.adminmodule.MsgDeleteAdmin", MsgDeleteAdmin],
   ["/cosmos.adminmodule.adminmodule.MsgAddAdmin", MsgAddAdmin],
   ["/cosmos.adminmodule.adminmodule.MsgSubmitProposal", MsgSubmitProposal],
   ["/cosmos.adminmodule.adminmodule.MsgSubmitProposalLegacy", MsgSubmitProposalLegacy],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     deleteAdmin(value: MsgDeleteAdmin) {

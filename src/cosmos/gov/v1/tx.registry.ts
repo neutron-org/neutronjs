@@ -1,6 +1,6 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
+import { TelescopeGeneratedType } from "../../../types.js";
 import {
   MsgSubmitProposal,
   MsgExecLegacyContent,
@@ -9,8 +9,8 @@ import {
   MsgDeposit,
   MsgUpdateParams,
   MsgCancelProposal,
-} from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+} from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/cosmos.gov.v1.MsgSubmitProposal", MsgSubmitProposal],
   ["/cosmos.gov.v1.MsgExecLegacyContent", MsgExecLegacyContent],
   ["/cosmos.gov.v1.MsgVote", MsgVote],
@@ -19,11 +19,6 @@ export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.gov.v1.MsgUpdateParams", MsgUpdateParams],
   ["/cosmos.gov.v1.MsgCancelProposal", MsgCancelProposal],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     submitProposal(value: MsgSubmitProposal) {

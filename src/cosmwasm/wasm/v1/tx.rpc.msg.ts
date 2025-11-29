@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgStoreCode,
   MsgStoreCodeResponse,
@@ -37,7 +37,7 @@ import {
   MsgStoreAndMigrateContractResponse,
   MsgUpdateContractLabel,
   MsgUpdateContractLabelResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the wasm Msg service. */
 export interface Msg {
   /** StoreCode to submit Wasm code to the system */
@@ -130,8 +130,8 @@ export interface Msg {
   updateContractLabel(request: MsgUpdateContractLabel): Promise<MsgUpdateContractLabelResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.storeCode = this.storeCode.bind(this);
     this.instantiateContract = this.instantiateContract.bind(this);
@@ -243,3 +243,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgUpdateContractLabelResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

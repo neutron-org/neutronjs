@@ -1,24 +1,47 @@
 //@ts-nocheck
 /* eslint-disable */
-import { HookType, hookTypeFromJSON, hookTypeToJSON } from "./hooks";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { HookType, hookTypeFromJSON, hookTypeToJSON } from "./hooks.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.harpoon";
-/** Defines the Msg/ManageHookSubscription request type. */
+/**
+ * Defines the Msg/ManageHookSubscription request type.
+ * @name MsgManageHookSubscription
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.MsgManageHookSubscription
+ */
 export interface MsgManageHookSubscription {
-  /** Address of the governance account. */
+  /**
+   * Address of the governance account.
+   */
   authority: string;
-  /** Hook subscription to be updated. */
+  /**
+   * Hook subscription to be updated.
+   */
   hookSubscription?: HookSubscription;
 }
-/** Defines the response structure for executing a MsgManageHookSubscription message. */
+/**
+ * Defines the response structure for executing a MsgManageHookSubscription message.
+ * @name MsgManageHookSubscriptionResponse
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.MsgManageHookSubscriptionResponse
+ */
 export interface MsgManageHookSubscriptionResponse {}
-/** Specifies new hook subscriptions for the contract_address. */
+/**
+ * Specifies new hook subscriptions for the contract_address.
+ * @name HookSubscription
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.HookSubscription
+ */
 export interface HookSubscription {
-  /** Contract address to update subscriptions for. */
+  /**
+   * Contract address to update subscriptions for.
+   */
   contractAddress: string;
-  /** List of hooks to subscribe to. Hooks not listed here will be removed. */
+  /**
+   * List of hooks to subscribe to. Hooks not listed here will be removed.
+   */
   hooks: HookType[];
 }
 function createBaseMsgManageHookSubscription(): MsgManageHookSubscription {
@@ -27,6 +50,12 @@ function createBaseMsgManageHookSubscription(): MsgManageHookSubscription {
     hookSubscription: undefined,
   };
 }
+/**
+ * Defines the Msg/ManageHookSubscription request type.
+ * @name MsgManageHookSubscription
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.MsgManageHookSubscription
+ */
 export const MsgManageHookSubscription = {
   typeUrl: "/neutron.harpoon.MsgManageHookSubscription",
   encode(message: MsgManageHookSubscription, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -88,6 +117,12 @@ export const MsgManageHookSubscription = {
 function createBaseMsgManageHookSubscriptionResponse(): MsgManageHookSubscriptionResponse {
   return {};
 }
+/**
+ * Defines the response structure for executing a MsgManageHookSubscription message.
+ * @name MsgManageHookSubscriptionResponse
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.MsgManageHookSubscriptionResponse
+ */
 export const MsgManageHookSubscriptionResponse = {
   typeUrl: "/neutron.harpoon.MsgManageHookSubscriptionResponse",
   encode(_: MsgManageHookSubscriptionResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -128,6 +163,12 @@ function createBaseHookSubscription(): HookSubscription {
     hooks: [],
   };
 }
+/**
+ * Specifies new hook subscriptions for the contract_address.
+ * @name HookSubscription
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.HookSubscription
+ */
 export const HookSubscription = {
   typeUrl: "/neutron.harpoon.HookSubscription",
   encode(message: HookSubscription, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

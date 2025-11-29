@@ -1,6 +1,6 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
+import { TelescopeGeneratedType } from "../../../types.js";
 import {
   MsgCreateValidator,
   MsgEditValidator,
@@ -9,8 +9,8 @@ import {
   MsgUndelegate,
   MsgCancelUnbondingDelegation,
   MsgUpdateParams,
-} from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+} from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/cosmos.staking.v1beta1.MsgCreateValidator", MsgCreateValidator],
   ["/cosmos.staking.v1beta1.MsgEditValidator", MsgEditValidator],
   ["/cosmos.staking.v1beta1.MsgDelegate", MsgDelegate],
@@ -19,11 +19,6 @@ export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation", MsgCancelUnbondingDelegation],
   ["/cosmos.staking.v1beta1.MsgUpdateParams", MsgUpdateParams],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     createValidator(value: MsgCreateValidator) {

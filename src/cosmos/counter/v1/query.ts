@@ -1,18 +1,34 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "cosmos.counter.v1";
-/** QueryGetCountRequest defines the request type for querying x/mock count. */
+/**
+ * QueryGetCountRequest defines the request type for querying x/mock count.
+ * @name QueryGetCountRequest
+ * @package cosmos.counter.v1
+ * @see proto type: cosmos.counter.v1.QueryGetCountRequest
+ */
 export interface QueryGetCountRequest {}
-/** QueryGetCountResponse defines the response type for querying x/mock count. */
+/**
+ * QueryGetCountResponse defines the response type for querying x/mock count.
+ * @name QueryGetCountResponse
+ * @package cosmos.counter.v1
+ * @see proto type: cosmos.counter.v1.QueryGetCountResponse
+ */
 export interface QueryGetCountResponse {
   totalCount: bigint;
 }
 function createBaseQueryGetCountRequest(): QueryGetCountRequest {
   return {};
 }
+/**
+ * QueryGetCountRequest defines the request type for querying x/mock count.
+ * @name QueryGetCountRequest
+ * @package cosmos.counter.v1
+ * @see proto type: cosmos.counter.v1.QueryGetCountRequest
+ */
 export const QueryGetCountRequest = {
   typeUrl: "/cosmos.counter.v1.QueryGetCountRequest",
   encode(_: QueryGetCountRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -50,6 +66,12 @@ function createBaseQueryGetCountResponse(): QueryGetCountResponse {
     totalCount: BigInt(0),
   };
 }
+/**
+ * QueryGetCountResponse defines the response type for querying x/mock count.
+ * @name QueryGetCountResponse
+ * @package cosmos.counter.v1
+ * @see proto type: cosmos.counter.v1.QueryGetCountResponse
+ */
 export const QueryGetCountResponse = {
   typeUrl: "/cosmos.counter.v1.QueryGetCountResponse",
   encode(message: QueryGetCountResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

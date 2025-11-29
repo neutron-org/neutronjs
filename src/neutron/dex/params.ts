@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
-/** Params defines the parameters for the module. */
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.dex
+ * @see proto type: neutron.dex.Params
+ */
 export interface Params {
   feeTiers: bigint[];
   paused: boolean;
@@ -25,6 +30,12 @@ function createBaseParams(): Params {
     whitelistedLps: [],
   };
 }
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.dex
+ * @see proto type: neutron.dex.Params
+ */
 export const Params = {
   typeUrl: "/neutron.dex.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

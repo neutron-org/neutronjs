@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { DecCoin } from "../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { DecCoin } from "../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "gaia.globalfee.v1beta1";
-/** Params defines the set of module parameters. */
+/**
+ * Params defines the set of module parameters.
+ * @name Params
+ * @package gaia.globalfee.v1beta1
+ * @see proto type: gaia.globalfee.v1beta1.Params
+ */
 export interface Params {
   /**
    * minimum_gas_prices stores the minimum gas price(s) for all TX on the chain.
@@ -34,6 +39,12 @@ function createBaseParams(): Params {
     maxTotalBypassMinFeeMsgGasUsage: BigInt(0),
   };
 }
+/**
+ * Params defines the set of module parameters.
+ * @name Params
+ * @package gaia.globalfee.v1beta1
+ * @see proto type: gaia.globalfee.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/gaia.globalfee.v1beta1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

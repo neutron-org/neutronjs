@@ -1,29 +1,69 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Proposal as Proposal1 } from "../../gov/v1/gov";
-import { Proposal as Proposal2 } from "../../gov/v1beta1/gov";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact } from "../../../helpers";
+import { Proposal as Proposal1 } from "../../gov/v1/gov.js";
+import { Proposal as Proposal2 } from "../../gov/v1beta1/gov.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../helpers.js";
 export const protobufPackage = "cosmos.adminmodule.adminmodule";
+/**
+ * @name QueryAdminsRequest
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryAdminsRequest
+ */
 export interface QueryAdminsRequest {}
+/**
+ * @name QueryAdminsResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryAdminsResponse
+ */
 export interface QueryAdminsResponse {
   admins: string[];
 }
+/**
+ * @name QueryArchivedProposalsRequest
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryArchivedProposalsRequest
+ */
 export interface QueryArchivedProposalsRequest {}
+/**
+ * @name QueryArchivedProposalsLegacyRequest
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryArchivedProposalsLegacyRequest
+ */
 export interface QueryArchivedProposalsLegacyRequest {}
+/**
+ * @name QueryProposalsResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryProposalsResponse
+ */
 export interface QueryProposalsResponse {
   proposals: Proposal1[];
 }
+/**
+ * @name QueryArchivedProposalsResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryArchivedProposalsResponse
+ */
 export interface QueryArchivedProposalsResponse {
   proposals: Proposal1[];
 }
+/**
+ * @name QueryArchivedProposalsLegacyResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryArchivedProposalsLegacyResponse
+ */
 export interface QueryArchivedProposalsLegacyResponse {
   proposalsLegacy: Proposal2[];
 }
 function createBaseQueryAdminsRequest(): QueryAdminsRequest {
   return {};
 }
+/**
+ * @name QueryAdminsRequest
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryAdminsRequest
+ */
 export const QueryAdminsRequest = {
   typeUrl: "/cosmos.adminmodule.adminmodule.QueryAdminsRequest",
   encode(_: QueryAdminsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -61,6 +101,11 @@ function createBaseQueryAdminsResponse(): QueryAdminsResponse {
     admins: [],
   };
 }
+/**
+ * @name QueryAdminsResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryAdminsResponse
+ */
 export const QueryAdminsResponse = {
   typeUrl: "/cosmos.adminmodule.adminmodule.QueryAdminsResponse",
   encode(message: QueryAdminsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -109,6 +154,11 @@ export const QueryAdminsResponse = {
 function createBaseQueryArchivedProposalsRequest(): QueryArchivedProposalsRequest {
   return {};
 }
+/**
+ * @name QueryArchivedProposalsRequest
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryArchivedProposalsRequest
+ */
 export const QueryArchivedProposalsRequest = {
   typeUrl: "/cosmos.adminmodule.adminmodule.QueryArchivedProposalsRequest",
   encode(_: QueryArchivedProposalsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -146,6 +196,11 @@ export const QueryArchivedProposalsRequest = {
 function createBaseQueryArchivedProposalsLegacyRequest(): QueryArchivedProposalsLegacyRequest {
   return {};
 }
+/**
+ * @name QueryArchivedProposalsLegacyRequest
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryArchivedProposalsLegacyRequest
+ */
 export const QueryArchivedProposalsLegacyRequest = {
   typeUrl: "/cosmos.adminmodule.adminmodule.QueryArchivedProposalsLegacyRequest",
   encode(_: QueryArchivedProposalsLegacyRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -185,6 +240,11 @@ function createBaseQueryProposalsResponse(): QueryProposalsResponse {
     proposals: [],
   };
 }
+/**
+ * @name QueryProposalsResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryProposalsResponse
+ */
 export const QueryProposalsResponse = {
   typeUrl: "/cosmos.adminmodule.adminmodule.QueryProposalsResponse",
   encode(message: QueryProposalsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -236,6 +296,11 @@ function createBaseQueryArchivedProposalsResponse(): QueryArchivedProposalsRespo
     proposals: [],
   };
 }
+/**
+ * @name QueryArchivedProposalsResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryArchivedProposalsResponse
+ */
 export const QueryArchivedProposalsResponse = {
   typeUrl: "/cosmos.adminmodule.adminmodule.QueryArchivedProposalsResponse",
   encode(
@@ -292,6 +357,11 @@ function createBaseQueryArchivedProposalsLegacyResponse(): QueryArchivedProposal
     proposalsLegacy: [],
   };
 }
+/**
+ * @name QueryArchivedProposalsLegacyResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.QueryArchivedProposalsLegacyResponse
+ */
 export const QueryArchivedProposalsLegacyResponse = {
   typeUrl: "/cosmos.adminmodule.adminmodule.QueryArchivedProposalsLegacyResponse",
   encode(

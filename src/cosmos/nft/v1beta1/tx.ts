@@ -1,21 +1,39 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.nft.v1beta1";
-/** MsgSend represents a message to send a nft from one account to another account. */
+/**
+ * MsgSend represents a message to send a nft from one account to another account.
+ * @name MsgSend
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.MsgSend
+ */
 export interface MsgSend {
-  /** class_id defines the unique identifier of the nft classification, similar to the contract address of ERC721 */
+  /**
+   * class_id defines the unique identifier of the nft classification, similar to the contract address of ERC721
+   */
   classId: string;
-  /** id defines the unique identification of nft */
+  /**
+   * id defines the unique identification of nft
+   */
   id: string;
-  /** sender is the address of the owner of nft */
+  /**
+   * sender is the address of the owner of nft
+   */
   sender: string;
-  /** receiver is the receiver address of nft */
+  /**
+   * receiver is the receiver address of nft
+   */
   receiver: string;
 }
-/** MsgSendResponse defines the Msg/Send response type. */
+/**
+ * MsgSendResponse defines the Msg/Send response type.
+ * @name MsgSendResponse
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.MsgSendResponse
+ */
 export interface MsgSendResponse {}
 function createBaseMsgSend(): MsgSend {
   return {
@@ -25,6 +43,12 @@ function createBaseMsgSend(): MsgSend {
     receiver: "",
   };
 }
+/**
+ * MsgSend represents a message to send a nft from one account to another account.
+ * @name MsgSend
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.MsgSend
+ */
 export const MsgSend = {
   typeUrl: "/cosmos.nft.v1beta1.MsgSend",
   encode(message: MsgSend, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -96,6 +120,12 @@ export const MsgSend = {
 function createBaseMsgSendResponse(): MsgSendResponse {
   return {};
 }
+/**
+ * MsgSendResponse defines the Msg/Send response type.
+ * @name MsgSendResponse
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.MsgSendResponse
+ */
 export const MsgSendResponse = {
   typeUrl: "/cosmos.nft.v1beta1.MsgSendResponse",
   encode(_: MsgSendResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

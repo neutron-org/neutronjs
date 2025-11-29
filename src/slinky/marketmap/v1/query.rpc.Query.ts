@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   MarketMapRequest,
@@ -14,7 +14,7 @@ import {
   LastUpdatedResponse,
   ParamsRequest,
   ParamsResponse,
-} from "./query";
+} from "./query.js";
 /** Query is the query service for the x/marketmap module. */
 export interface Query {
   /**
@@ -39,8 +39,8 @@ export interface Query {
   params(request?: ParamsRequest): Promise<ParamsResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.marketMap = this.marketMap.bind(this);
     this.markets = this.markets.bind(this);

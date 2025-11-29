@@ -1,20 +1,38 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "neutron.ibcratelimit.v1beta1";
-/** ParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * ParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto type: neutron.ibcratelimit.v1beta1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** aramsResponse is the response type for the Query/Params RPC method. */
+/**
+ * aramsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto type: neutron.ibcratelimit.v1beta1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: Params;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * ParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto type: neutron.ibcratelimit.v1beta1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/neutron.ibcratelimit.v1beta1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -52,6 +70,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * aramsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto type: neutron.ibcratelimit.v1beta1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/neutron.ibcratelimit.v1beta1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

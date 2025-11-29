@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PoolReserves } from "./pool_reserves";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { PoolReserves } from "./pool_reserves.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
+/**
+ * @name Pool
+ * @package neutron.dex
+ * @see proto type: neutron.dex.Pool
+ */
 export interface Pool {
   id: bigint;
   lowerTick0?: PoolReserves;
@@ -17,6 +22,11 @@ function createBasePool(): Pool {
     upperTick1: undefined,
   };
 }
+/**
+ * @name Pool
+ * @package neutron.dex
+ * @see proto type: neutron.dex.Pool
+ */
 export const Pool = {
   typeUrl: "/neutron.dex.Pool",
   encode(message: Pool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

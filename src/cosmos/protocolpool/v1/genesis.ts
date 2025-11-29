@@ -1,13 +1,20 @@
 //@ts-nocheck
 /* eslint-disable */
-import { ContinuousFund, Params } from "./types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { ContinuousFund, Params } from "./types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.protocolpool.v1";
-/** GenesisState defines the protocolpool module's genesis state. */
+/**
+ * GenesisState defines the protocolpool module's genesis state.
+ * @name GenesisState
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.GenesisState
+ */
 export interface GenesisState {
-  /** ContinuousFunds defines the continuous funds at genesis. */
+  /**
+   * ContinuousFunds defines the continuous funds at genesis.
+   */
   continuousFunds: ContinuousFund[];
   /**
    * Params defines the parameters of this module, currently only contains the
@@ -21,6 +28,12 @@ function createBaseGenesisState(): GenesisState {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * GenesisState defines the protocolpool module's genesis state.
+ * @name GenesisState
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmos.protocolpool.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

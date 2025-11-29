@@ -1,17 +1,17 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryConfigRequest, QueryConfigResponse } from "./query";
+import { QueryConfigRequest, QueryConfigResponse } from "./query.js";
 /** Query is the app module query service. */
 export interface Query {
   /** Config returns the current app config. */
   config(request?: QueryConfigRequest): Promise<QueryConfigResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.config = this.config.bind(this);
   }

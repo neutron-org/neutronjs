@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.staking.v1beta1";
 /** AuthorizationType defines the type of staking module authorization type */
 export enum AuthorizationType {
@@ -59,7 +59,12 @@ export function authorizationTypeToJSON(object: AuthorizationType): string {
       return "UNRECOGNIZED";
   }
 }
-/** StakeAuthorization defines authorization for delegate/undelegate/redelegate. */
+/**
+ * StakeAuthorization defines authorization for delegate/undelegate/redelegate.
+ * @name StakeAuthorization
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.StakeAuthorization
+ */
 export interface StakeAuthorization {
   /**
    * max_tokens specifies the maximum amount of tokens can be delegate to a validator. If it is
@@ -71,12 +76,21 @@ export interface StakeAuthorization {
    * account.
    */
   allowList?: StakeAuthorization_Validators;
-  /** deny_list specifies list of validator addresses to whom grantee can not delegate tokens. */
+  /**
+   * deny_list specifies list of validator addresses to whom grantee can not delegate tokens.
+   */
   denyList?: StakeAuthorization_Validators;
-  /** authorization_type defines one of AuthorizationType. */
+  /**
+   * authorization_type defines one of AuthorizationType.
+   */
   authorizationType: AuthorizationType;
 }
-/** Validators defines list of validator addresses. */
+/**
+ * Validators defines list of validator addresses.
+ * @name StakeAuthorization_Validators
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Validators
+ */
 export interface StakeAuthorization_Validators {
   address: string[];
 }
@@ -88,6 +102,12 @@ function createBaseStakeAuthorization(): StakeAuthorization {
     authorizationType: 0,
   };
 }
+/**
+ * StakeAuthorization defines authorization for delegate/undelegate/redelegate.
+ * @name StakeAuthorization
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.StakeAuthorization
+ */
 export const StakeAuthorization = {
   typeUrl: "/cosmos.staking.v1beta1.StakeAuthorization",
   encode(message: StakeAuthorization, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -174,6 +194,12 @@ function createBaseStakeAuthorization_Validators(): StakeAuthorization_Validator
     address: [],
   };
 }
+/**
+ * Validators defines list of validator addresses.
+ * @name StakeAuthorization_Validators
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Validators
+ */
 export const StakeAuthorization_Validators = {
   typeUrl: "/cosmos.staking.v1beta1.Validators",
   encode(message: StakeAuthorization_Validators, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

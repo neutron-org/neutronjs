@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Fee } from "./fee";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Fee } from "./fee.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.feerefunder";
-/** Params defines the parameters for the module. */
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.Params
+ */
 export interface Params {
   minFee: Fee;
   feeEnabled: boolean;
@@ -16,6 +21,12 @@ function createBaseParams(): Params {
     feeEnabled: false,
   };
 }
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.Params
+ */
 export const Params = {
   typeUrl: "/neutron.feerefunder.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

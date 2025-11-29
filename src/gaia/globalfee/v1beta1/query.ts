@@ -1,18 +1,24 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "gaia.globalfee.v1beta1";
 /**
  * QueryMinimumGasPricesRequest is the request type for the
  * Query/MinimumGasPrices RPC method.
+ * @name QueryParamsRequest
+ * @package gaia.globalfee.v1beta1
+ * @see proto type: gaia.globalfee.v1beta1.QueryParamsRequest
  */
 export interface QueryParamsRequest {}
 /**
  * QueryMinimumGasPricesResponse is the response type for the
  * Query/MinimumGasPrices RPC method.
+ * @name QueryParamsResponse
+ * @package gaia.globalfee.v1beta1
+ * @see proto type: gaia.globalfee.v1beta1.QueryParamsResponse
  */
 export interface QueryParamsResponse {
   params: Params;
@@ -20,6 +26,13 @@ export interface QueryParamsResponse {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryMinimumGasPricesRequest is the request type for the
+ * Query/MinimumGasPrices RPC method.
+ * @name QueryParamsRequest
+ * @package gaia.globalfee.v1beta1
+ * @see proto type: gaia.globalfee.v1beta1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/gaia.globalfee.v1beta1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -57,6 +70,13 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * QueryMinimumGasPricesResponse is the response type for the
+ * Query/MinimumGasPrices RPC method.
+ * @name QueryParamsResponse
+ * @package gaia.globalfee.v1beta1
+ * @see proto type: gaia.globalfee.v1beta1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/gaia.globalfee.v1beta1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { AminoHeight, omitDefault } from "../../../helpers";
-import { MsgTransfer, MsgUpdateParams } from "./tx";
+import { AminoHeight, omitDefault } from "../../../helpers.js";
+import { MsgTransfer, MsgUpdateParams } from "./tx.js";
 export interface MsgTransferAminoType extends AminoMsg {
   type: "/neutron.transfer.MsgTransfer";
   value: {

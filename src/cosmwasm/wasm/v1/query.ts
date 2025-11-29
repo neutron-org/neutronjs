@@ -1,214 +1,369 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
-import { ContractInfo, ContractCodeHistoryEntry, Model, AccessConfig, Params } from "./types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination.js";
+import { ContractInfo, ContractCodeHistoryEntry, Model, AccessConfig, Params } from "./types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /**
  * QueryContractInfoRequest is the request type for the Query/ContractInfo RPC
  * method
+ * @name QueryContractInfoRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractInfoRequest
  */
 export interface QueryContractInfoRequest {
-  /** address is the address of the contract to query */
+  /**
+   * address is the address of the contract to query
+   */
   address: string;
 }
 /**
  * QueryContractInfoResponse is the response type for the Query/ContractInfo RPC
  * method
+ * @name QueryContractInfoResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractInfoResponse
  */
 export interface QueryContractInfoResponse {
-  /** address is the address of the contract */
+  /**
+   * address is the address of the contract
+   */
   address: string;
   contractInfo: ContractInfo;
 }
 /**
  * QueryContractHistoryRequest is the request type for the Query/ContractHistory
  * RPC method
+ * @name QueryContractHistoryRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractHistoryRequest
  */
 export interface QueryContractHistoryRequest {
-  /** address is the address of the contract to query */
+  /**
+   * address is the address of the contract to query
+   */
   address: string;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryContractHistoryResponse is the response type for the
  * Query/ContractHistory RPC method
+ * @name QueryContractHistoryResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractHistoryResponse
  */
 export interface QueryContractHistoryResponse {
   entries: ContractCodeHistoryEntry[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 /**
  * QueryContractsByCodeRequest is the request type for the Query/ContractsByCode
  * RPC method
+ * @name QueryContractsByCodeRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractsByCodeRequest
  */
 export interface QueryContractsByCodeRequest {
-  /** grpc-gateway_out does not support Go style CodeID */
+  /**
+   * grpc-gateway_out does not support Go style CodeID
+   */
   codeId: bigint;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryContractsByCodeResponse is the response type for the
  * Query/ContractsByCode RPC method
+ * @name QueryContractsByCodeResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractsByCodeResponse
  */
 export interface QueryContractsByCodeResponse {
-  /** contracts are a set of contract addresses */
+  /**
+   * contracts are a set of contract addresses
+   */
   contracts: string[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 /**
  * QueryAllContractStateRequest is the request type for the
  * Query/AllContractState RPC method
+ * @name QueryAllContractStateRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryAllContractStateRequest
  */
 export interface QueryAllContractStateRequest {
-  /** address is the address of the contract */
+  /**
+   * address is the address of the contract
+   */
   address: string;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryAllContractStateResponse is the response type for the
  * Query/AllContractState RPC method
+ * @name QueryAllContractStateResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryAllContractStateResponse
  */
 export interface QueryAllContractStateResponse {
   models: Model[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 /**
  * QueryRawContractStateRequest is the request type for the
  * Query/RawContractState RPC method
+ * @name QueryRawContractStateRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryRawContractStateRequest
  */
 export interface QueryRawContractStateRequest {
-  /** address is the address of the contract */
+  /**
+   * address is the address of the contract
+   */
   address: string;
   queryData: Uint8Array;
 }
 /**
  * QueryRawContractStateResponse is the response type for the
  * Query/RawContractState RPC method
+ * @name QueryRawContractStateResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryRawContractStateResponse
  */
 export interface QueryRawContractStateResponse {
-  /** Data contains the raw store data */
+  /**
+   * Data contains the raw store data
+   */
   data: Uint8Array;
 }
 /**
  * QuerySmartContractStateRequest is the request type for the
  * Query/SmartContractState RPC method
+ * @name QuerySmartContractStateRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QuerySmartContractStateRequest
  */
 export interface QuerySmartContractStateRequest {
-  /** address is the address of the contract */
+  /**
+   * address is the address of the contract
+   */
   address: string;
-  /** QueryData contains the query data passed to the contract */
+  /**
+   * QueryData contains the query data passed to the contract
+   */
   queryData: Uint8Array;
 }
 /**
  * QuerySmartContractStateResponse is the response type for the
  * Query/SmartContractState RPC method
+ * @name QuerySmartContractStateResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QuerySmartContractStateResponse
  */
 export interface QuerySmartContractStateResponse {
-  /** Data contains the json data returned from the smart contract */
+  /**
+   * Data contains the json data returned from the smart contract
+   */
   data: Uint8Array;
 }
-/** QueryCodeRequest is the request type for the Query/Code RPC method */
+/**
+ * QueryCodeRequest is the request type for the Query/Code RPC method
+ * @name QueryCodeRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryCodeRequest
+ */
 export interface QueryCodeRequest {
-  /** grpc-gateway_out does not support Go style CodeID */
+  /**
+   * grpc-gateway_out does not support Go style CodeID
+   */
   codeId: bigint;
 }
-/** QueryCodeInfoRequest is the request type for the Query/CodeInfo RPC method */
+/**
+ * QueryCodeInfoRequest is the request type for the Query/CodeInfo RPC method
+ * @name QueryCodeInfoRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryCodeInfoRequest
+ */
 export interface QueryCodeInfoRequest {
-  /** grpc-gateway_out does not support Go style CodeID */
+  /**
+   * grpc-gateway_out does not support Go style CodeID
+   */
   codeId: bigint;
 }
-/** QueryCodeInfoResponse is the response type for the Query/CodeInfo RPC method */
+/**
+ * QueryCodeInfoResponse is the response type for the Query/CodeInfo RPC method
+ * @name QueryCodeInfoResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryCodeInfoResponse
+ */
 export interface QueryCodeInfoResponse {
   codeId: bigint;
   creator: string;
   checksum: Uint8Array;
   instantiatePermission: AccessConfig;
 }
-/** CodeInfoResponse contains code meta data from CodeInfo */
+/**
+ * CodeInfoResponse contains code meta data from CodeInfo
+ * @name CodeInfoResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.CodeInfoResponse
+ */
 export interface CodeInfoResponse {
   codeId: bigint;
   creator: string;
   dataHash: Uint8Array;
   instantiatePermission: AccessConfig;
 }
-/** QueryCodeResponse is the response type for the Query/Code RPC method */
+/**
+ * QueryCodeResponse is the response type for the Query/Code RPC method
+ * @name QueryCodeResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryCodeResponse
+ */
 export interface QueryCodeResponse {
   codeInfo?: CodeInfoResponse;
   data: Uint8Array;
 }
-/** QueryCodesRequest is the request type for the Query/Codes RPC method */
+/**
+ * QueryCodesRequest is the request type for the Query/Codes RPC method
+ * @name QueryCodesRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryCodesRequest
+ */
 export interface QueryCodesRequest {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
-/** QueryCodesResponse is the response type for the Query/Codes RPC method */
+/**
+ * QueryCodesResponse is the response type for the Query/Codes RPC method
+ * @name QueryCodesResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryCodesResponse
+ */
 export interface QueryCodesResponse {
   codeInfos: CodeInfoResponse[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 /**
  * QueryPinnedCodesRequest is the request type for the Query/PinnedCodes
  * RPC method
+ * @name QueryPinnedCodesRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryPinnedCodesRequest
  */
 export interface QueryPinnedCodesRequest {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryPinnedCodesResponse is the response type for the
  * Query/PinnedCodes RPC method
+ * @name QueryPinnedCodesResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryPinnedCodesResponse
  */
 export interface QueryPinnedCodesResponse {
   codeIds: bigint[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: Params;
 }
 /**
  * QueryContractsByCreatorRequest is the request type for the
  * Query/ContractsByCreator RPC method.
+ * @name QueryContractsByCreatorRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractsByCreatorRequest
  */
 export interface QueryContractsByCreatorRequest {
-  /** CreatorAddress is the address of contract creator */
+  /**
+   * CreatorAddress is the address of contract creator
+   */
   creatorAddress: string;
-  /** Pagination defines an optional pagination for the request. */
+  /**
+   * Pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryContractsByCreatorResponse is the response type for the
  * Query/ContractsByCreator RPC method.
+ * @name QueryContractsByCreatorResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractsByCreatorResponse
  */
 export interface QueryContractsByCreatorResponse {
-  /** ContractAddresses result set */
+  /**
+   * ContractAddresses result set
+   */
   contractAddresses: string[];
-  /** Pagination defines the pagination in the response. */
+  /**
+   * Pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 /**
  * QueryWasmLimitsConfigRequest is the request type for the
  * Query/WasmLimitsConfig RPC method.
+ * @name QueryWasmLimitsConfigRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryWasmLimitsConfigRequest
  */
 export interface QueryWasmLimitsConfigRequest {}
 /**
  * QueryWasmLimitsConfigResponse is the response type for the
  * Query/WasmLimitsConfig RPC method. It contains the JSON encoded limits for
  * static validation of Wasm files.
+ * @name QueryWasmLimitsConfigResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryWasmLimitsConfigResponse
  */
 export interface QueryWasmLimitsConfigResponse {
   config: string;
@@ -216,13 +371,22 @@ export interface QueryWasmLimitsConfigResponse {
 /**
  * QueryBuildAddressRequest is the request type for the Query/BuildAddress RPC
  * method.
+ * @name QueryBuildAddressRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryBuildAddressRequest
  */
 export interface QueryBuildAddressRequest {
-  /** CodeHash is the hash of the code */
+  /**
+   * CodeHash is the hash of the code
+   */
   codeHash: string;
-  /** CreatorAddress is the address of the contract instantiator */
+  /**
+   * CreatorAddress is the address of the contract instantiator
+   */
   creatorAddress: string;
-  /** Salt is a hex encoded salt */
+  /**
+   * Salt is a hex encoded salt
+   */
   salt: string;
   /**
    * InitArgs are optional json encoded init args to be used in contract address
@@ -233,9 +397,14 @@ export interface QueryBuildAddressRequest {
 /**
  * QueryBuildAddressResponse is the response type for the Query/BuildAddress RPC
  * method.
+ * @name QueryBuildAddressResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryBuildAddressResponse
  */
 export interface QueryBuildAddressResponse {
-  /** Address is the contract address */
+  /**
+   * Address is the contract address
+   */
   address: string;
 }
 function createBaseQueryContractInfoRequest(): QueryContractInfoRequest {
@@ -243,6 +412,13 @@ function createBaseQueryContractInfoRequest(): QueryContractInfoRequest {
     address: "",
   };
 }
+/**
+ * QueryContractInfoRequest is the request type for the Query/ContractInfo RPC
+ * method
+ * @name QueryContractInfoRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractInfoRequest
+ */
 export const QueryContractInfoRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractInfoRequest",
   encode(message: QueryContractInfoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -292,6 +468,13 @@ function createBaseQueryContractInfoResponse(): QueryContractInfoResponse {
     contractInfo: ContractInfo.fromPartial({}),
   };
 }
+/**
+ * QueryContractInfoResponse is the response type for the Query/ContractInfo RPC
+ * method
+ * @name QueryContractInfoResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractInfoResponse
+ */
 export const QueryContractInfoResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractInfoResponse",
   encode(message: QueryContractInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -353,6 +536,13 @@ function createBaseQueryContractHistoryRequest(): QueryContractHistoryRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryContractHistoryRequest is the request type for the Query/ContractHistory
+ * RPC method
+ * @name QueryContractHistoryRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractHistoryRequest
+ */
 export const QueryContractHistoryRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractHistoryRequest",
   encode(message: QueryContractHistoryRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -414,6 +604,13 @@ function createBaseQueryContractHistoryResponse(): QueryContractHistoryResponse 
     pagination: undefined,
   };
 }
+/**
+ * QueryContractHistoryResponse is the response type for the
+ * Query/ContractHistory RPC method
+ * @name QueryContractHistoryResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractHistoryResponse
+ */
 export const QueryContractHistoryResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractHistoryResponse",
   encode(message: QueryContractHistoryResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -480,6 +677,13 @@ function createBaseQueryContractsByCodeRequest(): QueryContractsByCodeRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryContractsByCodeRequest is the request type for the Query/ContractsByCode
+ * RPC method
+ * @name QueryContractsByCodeRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractsByCodeRequest
+ */
 export const QueryContractsByCodeRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCodeRequest",
   encode(message: QueryContractsByCodeRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -543,6 +747,13 @@ function createBaseQueryContractsByCodeResponse(): QueryContractsByCodeResponse 
     pagination: undefined,
   };
 }
+/**
+ * QueryContractsByCodeResponse is the response type for the
+ * Query/ContractsByCode RPC method
+ * @name QueryContractsByCodeResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractsByCodeResponse
+ */
 export const QueryContractsByCodeResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCodeResponse",
   encode(message: QueryContractsByCodeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -608,6 +819,13 @@ function createBaseQueryAllContractStateRequest(): QueryAllContractStateRequest 
     pagination: undefined,
   };
 }
+/**
+ * QueryAllContractStateRequest is the request type for the
+ * Query/AllContractState RPC method
+ * @name QueryAllContractStateRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryAllContractStateRequest
+ */
 export const QueryAllContractStateRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryAllContractStateRequest",
   encode(message: QueryAllContractStateRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -669,6 +887,13 @@ function createBaseQueryAllContractStateResponse(): QueryAllContractStateRespons
     pagination: undefined,
   };
 }
+/**
+ * QueryAllContractStateResponse is the response type for the
+ * Query/AllContractState RPC method
+ * @name QueryAllContractStateResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryAllContractStateResponse
+ */
 export const QueryAllContractStateResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryAllContractStateResponse",
   encode(message: QueryAllContractStateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -734,6 +959,13 @@ function createBaseQueryRawContractStateRequest(): QueryRawContractStateRequest 
     queryData: new Uint8Array(),
   };
 }
+/**
+ * QueryRawContractStateRequest is the request type for the
+ * Query/RawContractState RPC method
+ * @name QueryRawContractStateRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryRawContractStateRequest
+ */
 export const QueryRawContractStateRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryRawContractStateRequest",
   encode(message: QueryRawContractStateRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -794,6 +1026,13 @@ function createBaseQueryRawContractStateResponse(): QueryRawContractStateRespons
     data: new Uint8Array(),
   };
 }
+/**
+ * QueryRawContractStateResponse is the response type for the
+ * Query/RawContractState RPC method
+ * @name QueryRawContractStateResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryRawContractStateResponse
+ */
 export const QueryRawContractStateResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryRawContractStateResponse",
   encode(message: QueryRawContractStateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -844,6 +1083,13 @@ function createBaseQuerySmartContractStateRequest(): QuerySmartContractStateRequ
     queryData: new Uint8Array(),
   };
 }
+/**
+ * QuerySmartContractStateRequest is the request type for the
+ * Query/SmartContractState RPC method
+ * @name QuerySmartContractStateRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QuerySmartContractStateRequest
+ */
 export const QuerySmartContractStateRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QuerySmartContractStateRequest",
   encode(
@@ -907,6 +1153,13 @@ function createBaseQuerySmartContractStateResponse(): QuerySmartContractStateRes
     data: new Uint8Array(),
   };
 }
+/**
+ * QuerySmartContractStateResponse is the response type for the
+ * Query/SmartContractState RPC method
+ * @name QuerySmartContractStateResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QuerySmartContractStateResponse
+ */
 export const QuerySmartContractStateResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QuerySmartContractStateResponse",
   encode(
@@ -959,6 +1212,12 @@ function createBaseQueryCodeRequest(): QueryCodeRequest {
     codeId: BigInt(0),
   };
 }
+/**
+ * QueryCodeRequest is the request type for the Query/Code RPC method
+ * @name QueryCodeRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryCodeRequest
+ */
 export const QueryCodeRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryCodeRequest",
   encode(message: QueryCodeRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1007,6 +1266,12 @@ function createBaseQueryCodeInfoRequest(): QueryCodeInfoRequest {
     codeId: BigInt(0),
   };
 }
+/**
+ * QueryCodeInfoRequest is the request type for the Query/CodeInfo RPC method
+ * @name QueryCodeInfoRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryCodeInfoRequest
+ */
 export const QueryCodeInfoRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryCodeInfoRequest",
   encode(message: QueryCodeInfoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1058,6 +1323,12 @@ function createBaseQueryCodeInfoResponse(): QueryCodeInfoResponse {
     instantiatePermission: AccessConfig.fromPartial({}),
   };
 }
+/**
+ * QueryCodeInfoResponse is the response type for the Query/CodeInfo RPC method
+ * @name QueryCodeInfoResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryCodeInfoResponse
+ */
 export const QueryCodeInfoResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryCodeInfoResponse",
   encode(message: QueryCodeInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1143,6 +1414,12 @@ function createBaseCodeInfoResponse(): CodeInfoResponse {
     instantiatePermission: AccessConfig.fromPartial({}),
   };
 }
+/**
+ * CodeInfoResponse contains code meta data from CodeInfo
+ * @name CodeInfoResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.CodeInfoResponse
+ */
 export const CodeInfoResponse = {
   typeUrl: "/cosmwasm.wasm.v1.CodeInfoResponse",
   encode(message: CodeInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1226,6 +1503,12 @@ function createBaseQueryCodeResponse(): QueryCodeResponse {
     data: new Uint8Array(),
   };
 }
+/**
+ * QueryCodeResponse is the response type for the Query/Code RPC method
+ * @name QueryCodeResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryCodeResponse
+ */
 export const QueryCodeResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryCodeResponse",
   encode(message: QueryCodeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1285,6 +1568,12 @@ function createBaseQueryCodesRequest(): QueryCodesRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryCodesRequest is the request type for the Query/Codes RPC method
+ * @name QueryCodesRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryCodesRequest
+ */
 export const QueryCodesRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryCodesRequest",
   encode(message: QueryCodesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1335,6 +1624,12 @@ function createBaseQueryCodesResponse(): QueryCodesResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryCodesResponse is the response type for the Query/Codes RPC method
+ * @name QueryCodesResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryCodesResponse
+ */
 export const QueryCodesResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryCodesResponse",
   encode(message: QueryCodesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1398,6 +1693,13 @@ function createBaseQueryPinnedCodesRequest(): QueryPinnedCodesRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryPinnedCodesRequest is the request type for the Query/PinnedCodes
+ * RPC method
+ * @name QueryPinnedCodesRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryPinnedCodesRequest
+ */
 export const QueryPinnedCodesRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryPinnedCodesRequest",
   encode(message: QueryPinnedCodesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1448,6 +1750,13 @@ function createBaseQueryPinnedCodesResponse(): QueryPinnedCodesResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryPinnedCodesResponse is the response type for the
+ * Query/PinnedCodes RPC method
+ * @name QueryPinnedCodesResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryPinnedCodesResponse
+ */
 export const QueryPinnedCodesResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryPinnedCodesResponse",
   encode(message: QueryPinnedCodesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1519,6 +1828,12 @@ export const QueryPinnedCodesResponse = {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1556,6 +1871,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1605,6 +1926,13 @@ function createBaseQueryContractsByCreatorRequest(): QueryContractsByCreatorRequ
     pagination: undefined,
   };
 }
+/**
+ * QueryContractsByCreatorRequest is the request type for the
+ * Query/ContractsByCreator RPC method.
+ * @name QueryContractsByCreatorRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractsByCreatorRequest
+ */
 export const QueryContractsByCreatorRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCreatorRequest",
   encode(
@@ -1669,6 +1997,13 @@ function createBaseQueryContractsByCreatorResponse(): QueryContractsByCreatorRes
     pagination: undefined,
   };
 }
+/**
+ * QueryContractsByCreatorResponse is the response type for the
+ * Query/ContractsByCreator RPC method.
+ * @name QueryContractsByCreatorResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryContractsByCreatorResponse
+ */
 export const QueryContractsByCreatorResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCreatorResponse",
   encode(
@@ -1735,6 +2070,13 @@ export const QueryContractsByCreatorResponse = {
 function createBaseQueryWasmLimitsConfigRequest(): QueryWasmLimitsConfigRequest {
   return {};
 }
+/**
+ * QueryWasmLimitsConfigRequest is the request type for the
+ * Query/WasmLimitsConfig RPC method.
+ * @name QueryWasmLimitsConfigRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryWasmLimitsConfigRequest
+ */
 export const QueryWasmLimitsConfigRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryWasmLimitsConfigRequest",
   encode(_: QueryWasmLimitsConfigRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1774,6 +2116,14 @@ function createBaseQueryWasmLimitsConfigResponse(): QueryWasmLimitsConfigRespons
     config: "",
   };
 }
+/**
+ * QueryWasmLimitsConfigResponse is the response type for the
+ * Query/WasmLimitsConfig RPC method. It contains the JSON encoded limits for
+ * static validation of Wasm files.
+ * @name QueryWasmLimitsConfigResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryWasmLimitsConfigResponse
+ */
 export const QueryWasmLimitsConfigResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryWasmLimitsConfigResponse",
   encode(message: QueryWasmLimitsConfigResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1825,6 +2175,13 @@ function createBaseQueryBuildAddressRequest(): QueryBuildAddressRequest {
     initArgs: new Uint8Array(),
   };
 }
+/**
+ * QueryBuildAddressRequest is the request type for the Query/BuildAddress RPC
+ * method.
+ * @name QueryBuildAddressRequest
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryBuildAddressRequest
+ */
 export const QueryBuildAddressRequest = {
   typeUrl: "/cosmwasm.wasm.v1.QueryBuildAddressRequest",
   encode(message: QueryBuildAddressRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1901,6 +2258,13 @@ function createBaseQueryBuildAddressResponse(): QueryBuildAddressResponse {
     address: "",
   };
 }
+/**
+ * QueryBuildAddressResponse is the response type for the Query/BuildAddress RPC
+ * method.
+ * @name QueryBuildAddressResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.QueryBuildAddressResponse
+ */
 export const QueryBuildAddressResponse = {
   typeUrl: "/cosmwasm.wasm.v1.QueryBuildAddressResponse",
   encode(message: QueryBuildAddressResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

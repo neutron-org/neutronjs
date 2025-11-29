@@ -1,15 +1,23 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CurrencyPair } from "../../types/v1/currency_pair";
-import { QuotePrice } from "./genesis";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, isObject } from "../../../helpers";
+import { CurrencyPair } from "../../types/v1/currency_pair.js";
+import { QuotePrice } from "./genesis.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, isObject } from "../../../helpers.js";
 export const protobufPackage = "slinky.oracle.v1";
+/**
+ * @name GetAllCurrencyPairsRequest
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetAllCurrencyPairsRequest
+ */
 export interface GetAllCurrencyPairsRequest {}
 /**
  * GetAllCurrencyPairsResponse returns all CurrencyPairs that the module is
  * currently tracking.
+ * @name GetAllCurrencyPairsResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetAllCurrencyPairsResponse
  */
 export interface GetAllCurrencyPairsResponse {
   currencyPairs: CurrencyPair[];
@@ -17,14 +25,22 @@ export interface GetAllCurrencyPairsResponse {
 /**
  * GetPriceRequest either takes a CurrencyPair, or an identifier for the
  * CurrencyPair in the format base/quote.
+ * @name GetPriceRequest
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetPriceRequest
  */
 export interface GetPriceRequest {
-  /** CurrencyPair represents the pair that the user wishes to query. */
+  /**
+   * CurrencyPair represents the pair that the user wishes to query.
+   */
   currencyPair: CurrencyPair;
 }
 /**
  * GetPriceResponse is the response from the GetPrice grpc method exposed from
  * the x/oracle query service.
+ * @name GetPriceResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetPriceResponse
  */
 export interface GetPriceResponse {
   /**
@@ -32,7 +48,9 @@ export interface GetPriceResponse {
    * GetPriceRequest (possibly nil if no update has been made)
    */
   price?: QuotePrice;
-  /** nonce represents the nonce for the CurrencyPair if it exists in state */
+  /**
+   * nonce represents the nonce for the CurrencyPair if it exists in state
+   */
   nonce: bigint;
   /**
    * decimals represents the number of decimals that the quote-price is
@@ -40,12 +58,17 @@ export interface GetPriceResponse {
    * otherwise it will be 8.
    */
   decimals: bigint;
-  /** ID represents the identifier for the CurrencyPair. */
+  /**
+   * ID represents the identifier for the CurrencyPair.
+   */
   id: bigint;
 }
 /**
  * GetPricesRequest takes an identifier for the CurrencyPair
  * in the format base/quote.
+ * @name GetPricesRequest
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetPricesRequest
  */
 export interface GetPricesRequest {
   currencyPairIds: string[];
@@ -53,17 +76,35 @@ export interface GetPricesRequest {
 /**
  * GetPricesResponse is the response from the GetPrices grpc method exposed from
  * the x/oracle query service.
+ * @name GetPricesResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetPricesResponse
  */
 export interface GetPricesResponse {
   prices: GetPriceResponse[];
 }
-/** GetCurrencyPairMappingRequest is the GetCurrencyPairMapping request type. */
+/**
+ * GetCurrencyPairMappingRequest is the GetCurrencyPairMapping request type.
+ * @name GetCurrencyPairMappingRequest
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetCurrencyPairMappingRequest
+ */
 export interface GetCurrencyPairMappingRequest {}
+/**
+ * @name GetCurrencyPairMappingResponse_CurrencyPairMappingEntry
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.undefined
+ */
 export interface GetCurrencyPairMappingResponse_CurrencyPairMappingEntry {
   key: bigint;
   value?: CurrencyPair;
 }
-/** GetCurrencyPairMappingResponse is the GetCurrencyPairMapping response type. */
+/**
+ * GetCurrencyPairMappingResponse is the GetCurrencyPairMapping response type.
+ * @name GetCurrencyPairMappingResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetCurrencyPairMappingResponse
+ */
 export interface GetCurrencyPairMappingResponse {
   /**
    * currency_pair_mapping is a mapping of the id representing the currency pair
@@ -73,15 +114,34 @@ export interface GetCurrencyPairMappingResponse {
     [key: bigint]: CurrencyPair;
   };
 }
-/** GetCurrencyPairMappingRequest is the GetCurrencyPairMapping request type. */
+/**
+ * GetCurrencyPairMappingRequest is the GetCurrencyPairMapping request type.
+ * @name GetCurrencyPairMappingListRequest
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetCurrencyPairMappingListRequest
+ */
 export interface GetCurrencyPairMappingListRequest {}
+/**
+ * @name CurrencyPairMapping
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.CurrencyPairMapping
+ */
 export interface CurrencyPairMapping {
-  /** ID is the unique identifier for this currency pair string. */
+  /**
+   * ID is the unique identifier for this currency pair string.
+   */
   id: bigint;
-  /** CurrencyPair is the human-readable representation of the currency pair. */
+  /**
+   * CurrencyPair is the human-readable representation of the currency pair.
+   */
   currencyPair: CurrencyPair;
 }
-/** GetCurrencyPairMappingResponse is the GetCurrencyPairMapping response type. */
+/**
+ * GetCurrencyPairMappingResponse is the GetCurrencyPairMapping response type.
+ * @name GetCurrencyPairMappingListResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetCurrencyPairMappingListResponse
+ */
 export interface GetCurrencyPairMappingListResponse {
   /**
    * mappings is a list of the id representing the currency pair
@@ -92,6 +152,11 @@ export interface GetCurrencyPairMappingListResponse {
 function createBaseGetAllCurrencyPairsRequest(): GetAllCurrencyPairsRequest {
   return {};
 }
+/**
+ * @name GetAllCurrencyPairsRequest
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetAllCurrencyPairsRequest
+ */
 export const GetAllCurrencyPairsRequest = {
   typeUrl: "/slinky.oracle.v1.GetAllCurrencyPairsRequest",
   encode(_: GetAllCurrencyPairsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -129,6 +194,13 @@ function createBaseGetAllCurrencyPairsResponse(): GetAllCurrencyPairsResponse {
     currencyPairs: [],
   };
 }
+/**
+ * GetAllCurrencyPairsResponse returns all CurrencyPairs that the module is
+ * currently tracking.
+ * @name GetAllCurrencyPairsResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetAllCurrencyPairsResponse
+ */
 export const GetAllCurrencyPairsResponse = {
   typeUrl: "/slinky.oracle.v1.GetAllCurrencyPairsResponse",
   encode(message: GetAllCurrencyPairsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -182,6 +254,13 @@ function createBaseGetPriceRequest(): GetPriceRequest {
     currencyPair: CurrencyPair.fromPartial({}),
   };
 }
+/**
+ * GetPriceRequest either takes a CurrencyPair, or an identifier for the
+ * CurrencyPair in the format base/quote.
+ * @name GetPriceRequest
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetPriceRequest
+ */
 export const GetPriceRequest = {
   typeUrl: "/slinky.oracle.v1.GetPriceRequest",
   encode(message: GetPriceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -234,6 +313,13 @@ function createBaseGetPriceResponse(): GetPriceResponse {
     id: BigInt(0),
   };
 }
+/**
+ * GetPriceResponse is the response from the GetPrice grpc method exposed from
+ * the x/oracle query service.
+ * @name GetPriceResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetPriceResponse
+ */
 export const GetPriceResponse = {
   typeUrl: "/slinky.oracle.v1.GetPriceResponse",
   encode(message: GetPriceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -315,6 +401,13 @@ function createBaseGetPricesRequest(): GetPricesRequest {
     currencyPairIds: [],
   };
 }
+/**
+ * GetPricesRequest takes an identifier for the CurrencyPair
+ * in the format base/quote.
+ * @name GetPricesRequest
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetPricesRequest
+ */
 export const GetPricesRequest = {
   typeUrl: "/slinky.oracle.v1.GetPricesRequest",
   encode(message: GetPricesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -366,6 +459,13 @@ function createBaseGetPricesResponse(): GetPricesResponse {
     prices: [],
   };
 }
+/**
+ * GetPricesResponse is the response from the GetPrices grpc method exposed from
+ * the x/oracle query service.
+ * @name GetPricesResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetPricesResponse
+ */
 export const GetPricesResponse = {
   typeUrl: "/slinky.oracle.v1.GetPricesResponse",
   encode(message: GetPricesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -415,6 +515,12 @@ export const GetPricesResponse = {
 function createBaseGetCurrencyPairMappingRequest(): GetCurrencyPairMappingRequest {
   return {};
 }
+/**
+ * GetCurrencyPairMappingRequest is the GetCurrencyPairMapping request type.
+ * @name GetCurrencyPairMappingRequest
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetCurrencyPairMappingRequest
+ */
 export const GetCurrencyPairMappingRequest = {
   typeUrl: "/slinky.oracle.v1.GetCurrencyPairMappingRequest",
   encode(_: GetCurrencyPairMappingRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -455,6 +561,11 @@ function createBaseGetCurrencyPairMappingResponse_CurrencyPairMappingEntry(): Ge
     value: undefined,
   };
 }
+/**
+ * @name GetCurrencyPairMappingResponse_CurrencyPairMappingEntry
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.undefined
+ */
 export const GetCurrencyPairMappingResponse_CurrencyPairMappingEntry = {
   encode(
     message: GetCurrencyPairMappingResponse_CurrencyPairMappingEntry,
@@ -524,6 +635,12 @@ function createBaseGetCurrencyPairMappingResponse(): GetCurrencyPairMappingRespo
     currencyPairMapping: {},
   };
 }
+/**
+ * GetCurrencyPairMappingResponse is the GetCurrencyPairMapping response type.
+ * @name GetCurrencyPairMappingResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetCurrencyPairMappingResponse
+ */
 export const GetCurrencyPairMappingResponse = {
   typeUrl: "/slinky.oracle.v1.GetCurrencyPairMappingResponse",
   encode(
@@ -603,6 +720,12 @@ export const GetCurrencyPairMappingResponse = {
 function createBaseGetCurrencyPairMappingListRequest(): GetCurrencyPairMappingListRequest {
   return {};
 }
+/**
+ * GetCurrencyPairMappingRequest is the GetCurrencyPairMapping request type.
+ * @name GetCurrencyPairMappingListRequest
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetCurrencyPairMappingListRequest
+ */
 export const GetCurrencyPairMappingListRequest = {
   typeUrl: "/slinky.oracle.v1.GetCurrencyPairMappingListRequest",
   encode(_: GetCurrencyPairMappingListRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -643,6 +766,11 @@ function createBaseCurrencyPairMapping(): CurrencyPairMapping {
     currencyPair: CurrencyPair.fromPartial({}),
   };
 }
+/**
+ * @name CurrencyPairMapping
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.CurrencyPairMapping
+ */
 export const CurrencyPairMapping = {
   typeUrl: "/slinky.oracle.v1.CurrencyPairMapping",
   encode(message: CurrencyPairMapping, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -703,6 +831,12 @@ function createBaseGetCurrencyPairMappingListResponse(): GetCurrencyPairMappingL
     mappings: [],
   };
 }
+/**
+ * GetCurrencyPairMappingResponse is the GetCurrencyPairMapping response type.
+ * @name GetCurrencyPairMappingListResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GetCurrencyPairMappingListResponse
+ */
 export const GetCurrencyPairMappingListResponse = {
   typeUrl: "/slinky.oracle.v1.GetCurrencyPairMappingListResponse",
   encode(

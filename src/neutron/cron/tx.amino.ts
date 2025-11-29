@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { executionStageFromJSON } from "./schedule";
+import { executionStageFromJSON } from "./schedule.js";
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../helpers";
-import { MsgAddSchedule, MsgRemoveSchedule, MsgUpdateParams } from "./tx";
+import { omitDefault } from "../../helpers.js";
+import { MsgAddSchedule, MsgRemoveSchedule, MsgUpdateParams } from "./tx.js";
 export interface MsgAddScheduleAminoType extends AminoMsg {
   type: "cron/MsgAddSchedule";
   value: {

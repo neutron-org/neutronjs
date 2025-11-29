@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.base.query.v1beta1";
 /**
  * PageRequest is to be embedded in gRPC request messages for efficient
@@ -12,6 +12,9 @@ export const protobufPackage = "cosmos.base.query.v1beta1";
  *          Foo some_parameter = 1;
  *          PageRequest pagination = 2;
  *  }
+ * @name PageRequest
+ * @package cosmos.base.query.v1beta1
+ * @see proto type: cosmos.base.query.v1beta1.PageRequest
  */
 export interface PageRequest {
   /**
@@ -38,7 +41,9 @@ export interface PageRequest {
    * is set.
    */
   countTotal: boolean;
-  /** reverse is set to true if results are to be returned in the descending order. */
+  /**
+   * reverse is set to true if results are to be returned in the descending order.
+   */
   reverse: boolean;
 }
 /**
@@ -49,6 +54,9 @@ export interface PageRequest {
  *          repeated Bar results = 1;
  *          PageResponse page = 2;
  *  }
+ * @name PageResponse
+ * @package cosmos.base.query.v1beta1
+ * @see proto type: cosmos.base.query.v1beta1.PageResponse
  */
 export interface PageResponse {
   /**
@@ -72,6 +80,18 @@ function createBasePageRequest(): PageRequest {
     reverse: false,
   };
 }
+/**
+ * PageRequest is to be embedded in gRPC request messages for efficient
+ * pagination. Ex:
+ *
+ *  message SomeRequest {
+ *          Foo some_parameter = 1;
+ *          PageRequest pagination = 2;
+ *  }
+ * @name PageRequest
+ * @package cosmos.base.query.v1beta1
+ * @see proto type: cosmos.base.query.v1beta1.PageRequest
+ */
 export const PageRequest = {
   typeUrl: "/cosmos.base.query.v1beta1.PageRequest",
   encode(message: PageRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -160,6 +180,18 @@ function createBasePageResponse(): PageResponse {
     total: BigInt(0),
   };
 }
+/**
+ * PageResponse is to be embedded in gRPC response messages where the
+ * corresponding request message has used PageRequest.
+ *
+ *  message SomeResponse {
+ *          repeated Bar results = 1;
+ *          PageResponse page = 2;
+ *  }
+ * @name PageResponse
+ * @package cosmos.base.query.v1beta1
+ * @see proto type: cosmos.base.query.v1beta1.PageResponse
+ */
 export const PageResponse = {
   typeUrl: "/cosmos.base.query.v1beta1.PageResponse",
   encode(message: PageResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

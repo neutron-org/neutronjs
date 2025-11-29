@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Metadata, Params } from "../../../cosmos/bank/v1beta1/bank";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { Metadata, Params } from "../../../cosmos/bank/v1beta1/bank.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.coinfactory.v1beta1";
 /**
  * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
@@ -16,15 +16,23 @@ export const protobufPackage = "neutron.coinfactory.v1beta1";
  * <factory.{creatorAddress}.{subdenom}>. The resulting denom's admin is
  * originally set to be the creator, but this can be changed later. The token
  * denom does not indicate the current admin.
+ * @name MsgCreateDenom
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgCreateDenom
  */
 export interface MsgCreateDenom {
   sender: string;
-  /** subdenom can be up to 44 "alphanumeric" characters long. */
+  /**
+   * subdenom can be up to 44 "alphanumeric" characters long.
+   */
   subdenom: string;
 }
 /**
  * MsgCreateDenomResponse is the return value of MsgCreateDenom
  * It returns the full string of the newly created denom
+ * @name MsgCreateDenomResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgCreateDenomResponse
  */
 export interface MsgCreateDenomResponse {
   newTokenDenom: string;
@@ -32,26 +40,45 @@ export interface MsgCreateDenomResponse {
 /**
  * MsgMint is the sdk.Msg type for allowing an admin account to mint
  * more of a token.  For now, we only support minting to the sender account
+ * @name MsgMint
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgMint
  */
 export interface MsgMint {
   sender: string;
   amount: Coin;
   mintToAddress: string;
 }
+/**
+ * @name MsgMintResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgMintResponse
+ */
 export interface MsgMintResponse {}
 /**
  * MsgBurn is the sdk.Msg type for allowing an admin account to burn
  * a token.  For now, we only support burning from the sender account.
+ * @name MsgBurn
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgBurn
  */
 export interface MsgBurn {
   sender: string;
   amount: Coin;
   burnFromAddress: string;
 }
+/**
+ * @name MsgBurnResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgBurnResponse
+ */
 export interface MsgBurnResponse {}
 /**
  * MsgChangeAdmin is the sdk.Msg type for allowing an admin account to reassign
  * adminship of a denom to a new account
+ * @name MsgChangeAdmin
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgChangeAdmin
  */
 export interface MsgChangeAdmin {
   sender: string;
@@ -61,11 +88,17 @@ export interface MsgChangeAdmin {
 /**
  * MsgChangeAdminResponse defines the response structure for an executed
  * MsgChangeAdmin message.
+ * @name MsgChangeAdminResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgChangeAdminResponse
  */
 export interface MsgChangeAdminResponse {}
 /**
  * MsgSetBeforeSendHook is the sdk.Msg type for allowing an admin account to
  * assign a CosmWasm contract to call with a BeforeSend hook
+ * @name MsgSetBeforeSendHook
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgSetBeforeSendHook
  */
 export interface MsgSetBeforeSendHook {
   sender: string;
@@ -75,11 +108,17 @@ export interface MsgSetBeforeSendHook {
 /**
  * MsgSetBeforeSendHookResponse defines the response structure for an executed
  * MsgSetBeforeSendHook message.
+ * @name MsgSetBeforeSendHookResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgSetBeforeSendHookResponse
  */
 export interface MsgSetBeforeSendHookResponse {}
 /**
  * MsgSetDenomMetadata is the sdk.Msg type for allowing an admin account to set
  * the denom's bank metadata
+ * @name MsgSetDenomMetadata
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgSetDenomMetadata
  */
 export interface MsgSetDenomMetadata {
   sender: string;
@@ -88,22 +127,40 @@ export interface MsgSetDenomMetadata {
 /**
  * MsgSetDenomMetadataResponse defines the response structure for an executed
  * MsgSetDenomMetadata message.
+ * @name MsgSetDenomMetadataResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgSetDenomMetadataResponse
  */
 export interface MsgSetDenomMetadataResponse {}
+/**
+ * @name MsgForceTransfer
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgForceTransfer
+ */
 export interface MsgForceTransfer {
   sender: string;
   amount: Coin;
   transferFromAddress: string;
   transferToAddress: string;
 }
+/**
+ * @name MsgForceTransferResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgForceTransferResponse
+ */
 export interface MsgForceTransferResponse {}
 /**
  * MsgUpdateParams is the MsgUpdateParams request type.
  *
  * Since: 0.47
+ * @name MsgUpdateParams
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgUpdateParams
  */
 export interface MsgUpdateParams {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the x/coinfactory parameters to update.
@@ -117,6 +174,9 @@ export interface MsgUpdateParams {
  * MsgUpdateParams message.
  *
  * Since: 0.47
+ * @name MsgUpdateParamsResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgCreateDenom(): MsgCreateDenom {
@@ -125,6 +185,20 @@ function createBaseMsgCreateDenom(): MsgCreateDenom {
     subdenom: "",
   };
 }
+/**
+ * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
+ * method. It allows an account to create a new denom. It requires a sender
+ * address and a sub denomination. The (sender_address, sub_denomination) tuple
+ * must be unique and cannot be re-used.
+ *
+ * The resulting denom created is defined as
+ * <factory.{creatorAddress}.{subdenom}>. The resulting denom's admin is
+ * originally set to be the creator, but this can be changed later. The token
+ * denom does not indicate the current admin.
+ * @name MsgCreateDenom
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgCreateDenom
+ */
 export const MsgCreateDenom = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgCreateDenom",
   encode(message: MsgCreateDenom, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -180,6 +254,13 @@ function createBaseMsgCreateDenomResponse(): MsgCreateDenomResponse {
     newTokenDenom: "",
   };
 }
+/**
+ * MsgCreateDenomResponse is the return value of MsgCreateDenom
+ * It returns the full string of the newly created denom
+ * @name MsgCreateDenomResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgCreateDenomResponse
+ */
 export const MsgCreateDenomResponse = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgCreateDenomResponse",
   encode(message: MsgCreateDenomResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -228,6 +309,13 @@ function createBaseMsgMint(): MsgMint {
     mintToAddress: "",
   };
 }
+/**
+ * MsgMint is the sdk.Msg type for allowing an admin account to mint
+ * more of a token.  For now, we only support minting to the sender account
+ * @name MsgMint
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgMint
+ */
 export const MsgMint = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgMint",
   encode(message: MsgMint, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -292,6 +380,11 @@ export const MsgMint = {
 function createBaseMsgMintResponse(): MsgMintResponse {
   return {};
 }
+/**
+ * @name MsgMintResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgMintResponse
+ */
 export const MsgMintResponse = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgMintResponse",
   encode(_: MsgMintResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -331,6 +424,13 @@ function createBaseMsgBurn(): MsgBurn {
     burnFromAddress: "",
   };
 }
+/**
+ * MsgBurn is the sdk.Msg type for allowing an admin account to burn
+ * a token.  For now, we only support burning from the sender account.
+ * @name MsgBurn
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgBurn
+ */
 export const MsgBurn = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgBurn",
   encode(message: MsgBurn, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -395,6 +495,11 @@ export const MsgBurn = {
 function createBaseMsgBurnResponse(): MsgBurnResponse {
   return {};
 }
+/**
+ * @name MsgBurnResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgBurnResponse
+ */
 export const MsgBurnResponse = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgBurnResponse",
   encode(_: MsgBurnResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -434,6 +539,13 @@ function createBaseMsgChangeAdmin(): MsgChangeAdmin {
     newAdmin: "",
   };
 }
+/**
+ * MsgChangeAdmin is the sdk.Msg type for allowing an admin account to reassign
+ * adminship of a denom to a new account
+ * @name MsgChangeAdmin
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgChangeAdmin
+ */
 export const MsgChangeAdmin = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgChangeAdmin",
   encode(message: MsgChangeAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -496,6 +608,13 @@ export const MsgChangeAdmin = {
 function createBaseMsgChangeAdminResponse(): MsgChangeAdminResponse {
   return {};
 }
+/**
+ * MsgChangeAdminResponse defines the response structure for an executed
+ * MsgChangeAdmin message.
+ * @name MsgChangeAdminResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgChangeAdminResponse
+ */
 export const MsgChangeAdminResponse = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgChangeAdminResponse",
   encode(_: MsgChangeAdminResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -535,6 +654,13 @@ function createBaseMsgSetBeforeSendHook(): MsgSetBeforeSendHook {
     contractAddr: "",
   };
 }
+/**
+ * MsgSetBeforeSendHook is the sdk.Msg type for allowing an admin account to
+ * assign a CosmWasm contract to call with a BeforeSend hook
+ * @name MsgSetBeforeSendHook
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgSetBeforeSendHook
+ */
 export const MsgSetBeforeSendHook = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgSetBeforeSendHook",
   encode(message: MsgSetBeforeSendHook, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -597,6 +723,13 @@ export const MsgSetBeforeSendHook = {
 function createBaseMsgSetBeforeSendHookResponse(): MsgSetBeforeSendHookResponse {
   return {};
 }
+/**
+ * MsgSetBeforeSendHookResponse defines the response structure for an executed
+ * MsgSetBeforeSendHook message.
+ * @name MsgSetBeforeSendHookResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgSetBeforeSendHookResponse
+ */
 export const MsgSetBeforeSendHookResponse = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgSetBeforeSendHookResponse",
   encode(_: MsgSetBeforeSendHookResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -637,6 +770,13 @@ function createBaseMsgSetDenomMetadata(): MsgSetDenomMetadata {
     metadata: Metadata.fromPartial({}),
   };
 }
+/**
+ * MsgSetDenomMetadata is the sdk.Msg type for allowing an admin account to set
+ * the denom's bank metadata
+ * @name MsgSetDenomMetadata
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgSetDenomMetadata
+ */
 export const MsgSetDenomMetadata = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgSetDenomMetadata",
   encode(message: MsgSetDenomMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -693,6 +833,13 @@ export const MsgSetDenomMetadata = {
 function createBaseMsgSetDenomMetadataResponse(): MsgSetDenomMetadataResponse {
   return {};
 }
+/**
+ * MsgSetDenomMetadataResponse defines the response structure for an executed
+ * MsgSetDenomMetadata message.
+ * @name MsgSetDenomMetadataResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgSetDenomMetadataResponse
+ */
 export const MsgSetDenomMetadataResponse = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgSetDenomMetadataResponse",
   encode(_: MsgSetDenomMetadataResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -735,6 +882,11 @@ function createBaseMsgForceTransfer(): MsgForceTransfer {
     transferToAddress: "",
   };
 }
+/**
+ * @name MsgForceTransfer
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgForceTransfer
+ */
 export const MsgForceTransfer = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgForceTransfer",
   encode(message: MsgForceTransfer, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -808,6 +960,11 @@ export const MsgForceTransfer = {
 function createBaseMsgForceTransferResponse(): MsgForceTransferResponse {
   return {};
 }
+/**
+ * @name MsgForceTransferResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgForceTransferResponse
+ */
 export const MsgForceTransferResponse = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgForceTransferResponse",
   encode(_: MsgForceTransferResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -846,6 +1003,14 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ *
+ * Since: 0.47
+ * @name MsgUpdateParams
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -901,6 +1066,15 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: 0.47
+ * @name MsgUpdateParamsResponse
+ * @package neutron.coinfactory.v1beta1
+ * @see proto type: neutron.coinfactory.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/neutron.coinfactory.v1beta1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

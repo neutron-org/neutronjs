@@ -1,17 +1,12 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgAddSchedule, MsgRemoveSchedule, MsgUpdateParams } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+import { TelescopeGeneratedType } from "../../types.js";
+import { MsgAddSchedule, MsgRemoveSchedule, MsgUpdateParams } from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/neutron.cron.MsgAddSchedule", MsgAddSchedule],
   ["/neutron.cron.MsgRemoveSchedule", MsgRemoveSchedule],
   ["/neutron.cron.MsgUpdateParams", MsgUpdateParams],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     addSchedule(value: MsgAddSchedule) {

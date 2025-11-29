@@ -1,9 +1,14 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
+/**
+ * @name TradePairID
+ * @package neutron.dex
+ * @see proto type: neutron.dex.TradePairID
+ */
 export interface TradePairID {
   makerDenom: string;
   takerDenom: string;
@@ -14,6 +19,11 @@ function createBaseTradePairID(): TradePairID {
     takerDenom: "",
   };
 }
+/**
+ * @name TradePairID
+ * @package neutron.dex
+ * @see proto type: neutron.dex.TradePairID
+ */
 export const TradePairID = {
   typeUrl: "/neutron.dex.TradePairID",
   encode(message: TradePairID, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

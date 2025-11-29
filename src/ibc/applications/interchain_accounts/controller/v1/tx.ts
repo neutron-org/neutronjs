@@ -1,25 +1,40 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Order, orderFromJSON, orderToJSON } from "../../../../core/channel/v1/channel";
-import { InterchainAccountPacketData } from "../../v1/packet";
-import { Params } from "./controller";
-import { BinaryReader, BinaryWriter } from "../../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../../helpers";
-import { JsonSafe } from "../../../../../json-safe";
+import { Order, orderFromJSON, orderToJSON } from "../../../../core/channel/v1/channel.js";
+import { InterchainAccountPacketData } from "../../v1/packet.js";
+import { Params } from "./controller.js";
+import { BinaryReader, BinaryWriter } from "../../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../../helpers.js";
+import { JsonSafe } from "../../../../../json-safe.js";
 export const protobufPackage = "ibc.applications.interchain_accounts.controller.v1";
-/** MsgRegisterInterchainAccount defines the payload for Msg/RegisterAccount */
+/**
+ * MsgRegisterInterchainAccount defines the payload for Msg/RegisterAccount
+ * @name MsgRegisterInterchainAccount
+ * @package ibc.applications.interchain_accounts.controller.v1
+ * @see proto type: ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount
+ */
 export interface MsgRegisterInterchainAccount {
   owner: string;
   connectionId: string;
   version: string;
   ordering: Order;
 }
-/** MsgRegisterInterchainAccountResponse defines the response for Msg/RegisterAccount */
+/**
+ * MsgRegisterInterchainAccountResponse defines the response for Msg/RegisterAccount
+ * @name MsgRegisterInterchainAccountResponse
+ * @package ibc.applications.interchain_accounts.controller.v1
+ * @see proto type: ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse
+ */
 export interface MsgRegisterInterchainAccountResponse {
   channelId: string;
   portId: string;
 }
-/** MsgSendTx defines the payload for Msg/SendTx */
+/**
+ * MsgSendTx defines the payload for Msg/SendTx
+ * @name MsgSendTx
+ * @package ibc.applications.interchain_accounts.controller.v1
+ * @see proto type: ibc.applications.interchain_accounts.controller.v1.MsgSendTx
+ */
 export interface MsgSendTx {
   owner: string;
   connectionId: string;
@@ -30,13 +45,25 @@ export interface MsgSendTx {
    */
   relativeTimeout: bigint;
 }
-/** MsgSendTxResponse defines the response for MsgSendTx */
+/**
+ * MsgSendTxResponse defines the response for MsgSendTx
+ * @name MsgSendTxResponse
+ * @package ibc.applications.interchain_accounts.controller.v1
+ * @see proto type: ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse
+ */
 export interface MsgSendTxResponse {
   sequence: bigint;
 }
-/** MsgUpdateParams defines the payload for Msg/UpdateParams */
+/**
+ * MsgUpdateParams defines the payload for Msg/UpdateParams
+ * @name MsgUpdateParams
+ * @package ibc.applications.interchain_accounts.controller.v1
+ * @see proto type: ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
   /**
    * params defines the 27-interchain-accounts/controller parameters to update.
@@ -45,7 +72,12 @@ export interface MsgUpdateParams {
    */
   params: Params;
 }
-/** MsgUpdateParamsResponse defines the response for Msg/UpdateParams */
+/**
+ * MsgUpdateParamsResponse defines the response for Msg/UpdateParams
+ * @name MsgUpdateParamsResponse
+ * @package ibc.applications.interchain_accounts.controller.v1
+ * @see proto type: ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgRegisterInterchainAccount(): MsgRegisterInterchainAccount {
   return {
@@ -55,6 +87,12 @@ function createBaseMsgRegisterInterchainAccount(): MsgRegisterInterchainAccount 
     ordering: 0,
   };
 }
+/**
+ * MsgRegisterInterchainAccount defines the payload for Msg/RegisterAccount
+ * @name MsgRegisterInterchainAccount
+ * @package ibc.applications.interchain_accounts.controller.v1
+ * @see proto type: ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount
+ */
 export const MsgRegisterInterchainAccount = {
   typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount",
   encode(message: MsgRegisterInterchainAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -131,6 +169,12 @@ function createBaseMsgRegisterInterchainAccountResponse(): MsgRegisterInterchain
     portId: "",
   };
 }
+/**
+ * MsgRegisterInterchainAccountResponse defines the response for Msg/RegisterAccount
+ * @name MsgRegisterInterchainAccountResponse
+ * @package ibc.applications.interchain_accounts.controller.v1
+ * @see proto type: ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse
+ */
 export const MsgRegisterInterchainAccountResponse = {
   typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse",
   encode(
@@ -194,6 +238,12 @@ function createBaseMsgSendTx(): MsgSendTx {
     relativeTimeout: BigInt(0),
   };
 }
+/**
+ * MsgSendTx defines the payload for Msg/SendTx
+ * @name MsgSendTx
+ * @package ibc.applications.interchain_accounts.controller.v1
+ * @see proto type: ibc.applications.interchain_accounts.controller.v1.MsgSendTx
+ */
 export const MsgSendTx = {
   typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgSendTx",
   encode(message: MsgSendTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -275,6 +325,12 @@ function createBaseMsgSendTxResponse(): MsgSendTxResponse {
     sequence: BigInt(0),
   };
 }
+/**
+ * MsgSendTxResponse defines the response for MsgSendTx
+ * @name MsgSendTxResponse
+ * @package ibc.applications.interchain_accounts.controller.v1
+ * @see proto type: ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse
+ */
 export const MsgSendTxResponse = {
   typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse",
   encode(message: MsgSendTxResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -324,6 +380,12 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams defines the payload for Msg/UpdateParams
+ * @name MsgUpdateParams
+ * @package ibc.applications.interchain_accounts.controller.v1
+ * @see proto type: ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -379,6 +441,12 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response for Msg/UpdateParams
+ * @name MsgUpdateParamsResponse
+ * @package ibc.applications.interchain_accounts.controller.v1
+ * @see proto type: ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,15 +1,20 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Order, orderFromJSON, orderToJSON } from "../../../ibc/core/channel/v1/channel";
-import { Any } from "../../../google/protobuf/any";
-import { Fee } from "../../feerefunder/fee";
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { Order, orderFromJSON, orderToJSON } from "../../../ibc/core/channel/v1/channel.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { Fee } from "../../feerefunder/fee.js";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.interchaintxs.v1";
-/** MsgRegisterInterchainAccount is used to register an account on a remote zone. */
+/**
+ * MsgRegisterInterchainAccount is used to register an account on a remote zone.
+ * @name MsgRegisterInterchainAccount
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.MsgRegisterInterchainAccount
+ */
 export interface MsgRegisterInterchainAccount {
   fromAddress: string;
   connectionId: string;
@@ -20,12 +25,20 @@ export interface MsgRegisterInterchainAccount {
 /**
  * MsgRegisterInterchainAccountResponse is the response type for
  * MsgRegisterInterchainAccount.
+ * @name MsgRegisterInterchainAccountResponse
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.MsgRegisterInterchainAccountResponse
  */
 export interface MsgRegisterInterchainAccountResponse {
   channelId: string;
   portId: string;
 }
-/** MsgSubmitTx defines the payload for Msg/SubmitTx */
+/**
+ * MsgSubmitTx defines the payload for Msg/SubmitTx
+ * @name MsgSubmitTx
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.MsgSubmitTx
+ */
 export interface MsgSubmitTx {
   fromAddress: string;
   /**
@@ -38,24 +51,40 @@ export interface MsgSubmitTx {
   connectionId: string;
   msgs: Any[];
   memo: string;
-  /** timeout in seconds after which the packet times out */
+  /**
+   * timeout in seconds after which the packet times out
+   */
   timeout: bigint;
   fee: Fee;
 }
-/** MsgSubmitTxResponse defines the response for Msg/SubmitTx */
+/**
+ * MsgSubmitTxResponse defines the response for Msg/SubmitTx
+ * @name MsgSubmitTxResponse
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.MsgSubmitTxResponse
+ */
 export interface MsgSubmitTxResponse {
-  /** channel's sequence_id for outgoing ibc packet. Unique per a channel. */
+  /**
+   * channel's sequence_id for outgoing ibc packet. Unique per a channel.
+   */
   sequenceId: bigint;
-  /** channel src channel on neutron side transaction was submitted from */
+  /**
+   * channel src channel on neutron side transaction was submitted from
+   */
   channel: string;
 }
 /**
  * MsgUpdateParams is the MsgUpdateParams request type.
  *
  * Since: 0.47
+ * @name MsgUpdateParams
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.MsgUpdateParams
  */
 export interface MsgUpdateParams {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the x/interchaintxs parameters to update.
@@ -69,6 +98,9 @@ export interface MsgUpdateParams {
  * MsgUpdateParams message.
  *
  * Since: 0.47
+ * @name MsgUpdateParamsResponse
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgRegisterInterchainAccount(): MsgRegisterInterchainAccount {
@@ -80,6 +112,12 @@ function createBaseMsgRegisterInterchainAccount(): MsgRegisterInterchainAccount 
     ordering: 0,
   };
 }
+/**
+ * MsgRegisterInterchainAccount is used to register an account on a remote zone.
+ * @name MsgRegisterInterchainAccount
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.MsgRegisterInterchainAccount
+ */
 export const MsgRegisterInterchainAccount = {
   typeUrl: "/neutron.interchaintxs.v1.MsgRegisterInterchainAccount",
   encode(message: MsgRegisterInterchainAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -170,6 +208,13 @@ function createBaseMsgRegisterInterchainAccountResponse(): MsgRegisterInterchain
     portId: "",
   };
 }
+/**
+ * MsgRegisterInterchainAccountResponse is the response type for
+ * MsgRegisterInterchainAccount.
+ * @name MsgRegisterInterchainAccountResponse
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.MsgRegisterInterchainAccountResponse
+ */
 export const MsgRegisterInterchainAccountResponse = {
   typeUrl: "/neutron.interchaintxs.v1.MsgRegisterInterchainAccountResponse",
   encode(
@@ -236,6 +281,12 @@ function createBaseMsgSubmitTx(): MsgSubmitTx {
     fee: Fee.fromPartial({}),
   };
 }
+/**
+ * MsgSubmitTx defines the payload for Msg/SubmitTx
+ * @name MsgSubmitTx
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.MsgSubmitTx
+ */
 export const MsgSubmitTx = {
   typeUrl: "/neutron.interchaintxs.v1.MsgSubmitTx",
   encode(message: MsgSubmitTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -345,6 +396,12 @@ function createBaseMsgSubmitTxResponse(): MsgSubmitTxResponse {
     channel: "",
   };
 }
+/**
+ * MsgSubmitTxResponse defines the response for Msg/SubmitTx
+ * @name MsgSubmitTxResponse
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.MsgSubmitTxResponse
+ */
 export const MsgSubmitTxResponse = {
   typeUrl: "/neutron.interchaintxs.v1.MsgSubmitTxResponse",
   encode(message: MsgSubmitTxResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -403,6 +460,14 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ *
+ * Since: 0.47
+ * @name MsgUpdateParams
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/neutron.interchaintxs.v1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -458,6 +523,15 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: 0.47
+ * @name MsgUpdateParamsResponse
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/neutron.interchaintxs.v1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

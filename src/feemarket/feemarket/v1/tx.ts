@@ -1,16 +1,21 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "feemarket.feemarket.v1";
 /**
  * MsgParams defines the Msg/Params request type. It contains the
  * new parameters for the feemarket module.
+ * @name MsgParams
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.MsgParams
  */
 export interface MsgParams {
-  /** Params defines the new parameters for the feemarket module. */
+  /**
+   * Params defines the new parameters for the feemarket module.
+   */
   params: Params;
   /**
    * Authority defines the authority that is updating the feemarket module
@@ -18,7 +23,12 @@ export interface MsgParams {
    */
   authority: string;
 }
-/** MsgParamsResponse defines the Msg/Params response type. */
+/**
+ * MsgParamsResponse defines the Msg/Params response type.
+ * @name MsgParamsResponse
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.MsgParamsResponse
+ */
 export interface MsgParamsResponse {}
 function createBaseMsgParams(): MsgParams {
   return {
@@ -26,6 +36,13 @@ function createBaseMsgParams(): MsgParams {
     authority: "",
   };
 }
+/**
+ * MsgParams defines the Msg/Params request type. It contains the
+ * new parameters for the feemarket module.
+ * @name MsgParams
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.MsgParams
+ */
 export const MsgParams = {
   typeUrl: "/feemarket.feemarket.v1.MsgParams",
   encode(message: MsgParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -81,6 +98,12 @@ export const MsgParams = {
 function createBaseMsgParamsResponse(): MsgParamsResponse {
   return {};
 }
+/**
+ * MsgParamsResponse defines the Msg/Params response type.
+ * @name MsgParamsResponse
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.MsgParamsResponse
+ */
 export const MsgParamsResponse = {
   typeUrl: "/feemarket.feemarket.v1.MsgParamsResponse",
   encode(_: MsgParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

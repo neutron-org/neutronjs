@@ -1,51 +1,101 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { Grant, GrantAuthorization } from "./authz";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { Grant, GrantAuthorization } from "./authz.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.authz.v1beta1";
-/** QueryGrantsRequest is the request type for the Query/Grants RPC method. */
+/**
+ * QueryGrantsRequest is the request type for the Query/Grants RPC method.
+ * @name QueryGrantsRequest
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.QueryGrantsRequest
+ */
 export interface QueryGrantsRequest {
   granter: string;
   grantee: string;
-  /** Optional, msg_type_url, when set, will query only grants matching given msg type. */
+  /**
+   * Optional, msg_type_url, when set, will query only grants matching given msg type.
+   */
   msgTypeUrl: string;
-  /** pagination defines an pagination for the request. */
+  /**
+   * pagination defines an pagination for the request.
+   */
   pagination?: PageRequest;
 }
-/** QueryGrantsResponse is the response type for the Query/Authorizations RPC method. */
+/**
+ * QueryGrantsResponse is the response type for the Query/Authorizations RPC method.
+ * @name QueryGrantsResponse
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.QueryGrantsResponse
+ */
 export interface QueryGrantsResponse {
-  /** authorizations is a list of grants granted for grantee by granter. */
+  /**
+   * authorizations is a list of grants granted for grantee by granter.
+   */
   grants: Grant[];
-  /** pagination defines an pagination for the response. */
+  /**
+   * pagination defines an pagination for the response.
+   */
   pagination?: PageResponse;
 }
-/** QueryGranterGrantsRequest is the request type for the Query/GranterGrants RPC method. */
+/**
+ * QueryGranterGrantsRequest is the request type for the Query/GranterGrants RPC method.
+ * @name QueryGranterGrantsRequest
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.QueryGranterGrantsRequest
+ */
 export interface QueryGranterGrantsRequest {
   granter: string;
-  /** pagination defines an pagination for the request. */
+  /**
+   * pagination defines an pagination for the request.
+   */
   pagination?: PageRequest;
 }
-/** QueryGranterGrantsResponse is the response type for the Query/GranterGrants RPC method. */
+/**
+ * QueryGranterGrantsResponse is the response type for the Query/GranterGrants RPC method.
+ * @name QueryGranterGrantsResponse
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.QueryGranterGrantsResponse
+ */
 export interface QueryGranterGrantsResponse {
-  /** grants is a list of grants granted by the granter. */
+  /**
+   * grants is a list of grants granted by the granter.
+   */
   grants: GrantAuthorization[];
-  /** pagination defines an pagination for the response. */
+  /**
+   * pagination defines an pagination for the response.
+   */
   pagination?: PageResponse;
 }
-/** QueryGranteeGrantsRequest is the request type for the Query/GranteeGrants RPC method. */
+/**
+ * QueryGranteeGrantsRequest is the request type for the Query/GranteeGrants RPC method.
+ * @name QueryGranteeGrantsRequest
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.QueryGranteeGrantsRequest
+ */
 export interface QueryGranteeGrantsRequest {
   grantee: string;
-  /** pagination defines an pagination for the request. */
+  /**
+   * pagination defines an pagination for the request.
+   */
   pagination?: PageRequest;
 }
-/** QueryGranteeGrantsResponse is the response type for the Query/GranteeGrants RPC method. */
+/**
+ * QueryGranteeGrantsResponse is the response type for the Query/GranteeGrants RPC method.
+ * @name QueryGranteeGrantsResponse
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.QueryGranteeGrantsResponse
+ */
 export interface QueryGranteeGrantsResponse {
-  /** grants is a list of grants granted to the grantee. */
+  /**
+   * grants is a list of grants granted to the grantee.
+   */
   grants: GrantAuthorization[];
-  /** pagination defines an pagination for the response. */
+  /**
+   * pagination defines an pagination for the response.
+   */
   pagination?: PageResponse;
 }
 function createBaseQueryGrantsRequest(): QueryGrantsRequest {
@@ -56,6 +106,12 @@ function createBaseQueryGrantsRequest(): QueryGrantsRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryGrantsRequest is the request type for the Query/Grants RPC method.
+ * @name QueryGrantsRequest
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.QueryGrantsRequest
+ */
 export const QueryGrantsRequest = {
   typeUrl: "/cosmos.authz.v1beta1.QueryGrantsRequest",
   encode(message: QueryGrantsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -133,6 +189,12 @@ function createBaseQueryGrantsResponse(): QueryGrantsResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryGrantsResponse is the response type for the Query/Authorizations RPC method.
+ * @name QueryGrantsResponse
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.QueryGrantsResponse
+ */
 export const QueryGrantsResponse = {
   typeUrl: "/cosmos.authz.v1beta1.QueryGrantsResponse",
   encode(message: QueryGrantsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -196,6 +258,12 @@ function createBaseQueryGranterGrantsRequest(): QueryGranterGrantsRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryGranterGrantsRequest is the request type for the Query/GranterGrants RPC method.
+ * @name QueryGranterGrantsRequest
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.QueryGranterGrantsRequest
+ */
 export const QueryGranterGrantsRequest = {
   typeUrl: "/cosmos.authz.v1beta1.QueryGranterGrantsRequest",
   encode(message: QueryGranterGrantsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -257,6 +325,12 @@ function createBaseQueryGranterGrantsResponse(): QueryGranterGrantsResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryGranterGrantsResponse is the response type for the Query/GranterGrants RPC method.
+ * @name QueryGranterGrantsResponse
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.QueryGranterGrantsResponse
+ */
 export const QueryGranterGrantsResponse = {
   typeUrl: "/cosmos.authz.v1beta1.QueryGranterGrantsResponse",
   encode(message: QueryGranterGrantsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -323,6 +397,12 @@ function createBaseQueryGranteeGrantsRequest(): QueryGranteeGrantsRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryGranteeGrantsRequest is the request type for the Query/GranteeGrants RPC method.
+ * @name QueryGranteeGrantsRequest
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.QueryGranteeGrantsRequest
+ */
 export const QueryGranteeGrantsRequest = {
   typeUrl: "/cosmos.authz.v1beta1.QueryGranteeGrantsRequest",
   encode(message: QueryGranteeGrantsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -384,6 +464,12 @@ function createBaseQueryGranteeGrantsResponse(): QueryGranteeGrantsResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryGranteeGrantsResponse is the response type for the Query/GranteeGrants RPC method.
+ * @name QueryGranteeGrantsResponse
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.QueryGranteeGrantsResponse
+ */
 export const QueryGranteeGrantsResponse = {
   typeUrl: "/cosmos.authz.v1beta1.QueryGranteeGrantsResponse",
   encode(message: QueryGranteeGrantsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

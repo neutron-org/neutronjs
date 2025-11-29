@@ -1,12 +1,12 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { Params } from "./params";
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { PrecDecCoin } from "./precdec_coin";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Timestamp } from "../../google/protobuf/timestamp.js";
+import { Params } from "./params.js";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { PrecDecCoin } from "./precdec_coin.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
 export enum LimitOrderType {
   GOOD_TIL_CANCELLED = 0,
@@ -56,13 +56,25 @@ export function limitOrderTypeToJSON(object: LimitOrderType): string {
       return "UNRECOGNIZED";
   }
 }
+/**
+ * @name DepositOptions
+ * @package neutron.dex
+ * @see proto type: neutron.dex.DepositOptions
+ */
 export interface DepositOptions {
   disableAutoswap: boolean;
   failTxOnBel: boolean;
   swapOnDeposit: boolean;
-  /** @deprecated */
+  /**
+   * @deprecated
+   */
   swapOnDepositSlopToleranceBps: bigint;
 }
+/**
+ * @name MsgDeposit
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgDeposit
+ */
 export interface MsgDeposit {
   creator: string;
   receiver: string;
@@ -74,22 +86,41 @@ export interface MsgDeposit {
   fees: bigint[];
   options: DepositOptions[];
 }
+/**
+ * @name FailedDeposit
+ * @package neutron.dex
+ * @see proto type: neutron.dex.FailedDeposit
+ */
 export interface FailedDeposit {
   depositIdx: bigint;
   error: string;
 }
+/**
+ * @name MsgDepositResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgDepositResponse
+ */
 export interface MsgDepositResponse {
-  /** reserve0_deposited is DEPRECATED */
-  /** @deprecated */
+  /**
+   * reserve0_deposited is DEPRECATED
+   * @deprecated
+   */
   reserve0Deposited: string[];
-  /** reserve0_deposited is DEPRECATED */
-  /** @deprecated */
+  /**
+   * reserve0_deposited is DEPRECATED
+   * @deprecated
+   */
   reserve1Deposited: string[];
   failedDeposits: FailedDeposit[];
   sharesIssued: Coin[];
   decReserve0Deposited: string[];
   decReserve1Deposited: string[];
 }
+/**
+ * @name MsgWithdrawal
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgWithdrawal
+ */
 export interface MsgWithdrawal {
   creator: string;
   receiver: string;
@@ -99,44 +130,75 @@ export interface MsgWithdrawal {
   tickIndexesAToB: bigint[];
   fees: bigint[];
 }
+/**
+ * @name MsgWithdrawalResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgWithdrawalResponse
+ */
 export interface MsgWithdrawalResponse {
-  /** reserve0_withdrawn is DEPRECATED */
-  /** @deprecated */
+  /**
+   * reserve0_withdrawn is DEPRECATED
+   * @deprecated
+   */
   reserve0Withdrawn: string;
-  /** reserve1_withdrawn is DEPRECATED */
-  /** @deprecated */
+  /**
+   * reserve1_withdrawn is DEPRECATED
+   * @deprecated
+   */
   reserve1Withdrawn: string;
   sharesBurned: Coin[];
   decReserve0Withdrawn: string;
   decReserve1Withdrawn: string;
 }
+/**
+ * @name MsgPlaceLimitOrder
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgPlaceLimitOrder
+ */
 export interface MsgPlaceLimitOrder {
   creator: string;
   receiver: string;
   tokenIn: string;
   tokenOut: string;
-  /** DEPRECATED: tick_index_in_to_out will be removed in future release; limit_sell_price should be used instead. */
-  /** @deprecated */
+  /**
+   * DEPRECATED: tick_index_in_to_out will be removed in future release; limit_sell_price should be used instead.
+   * @deprecated
+   */
   tickIndexInToOut: bigint;
   amountIn: string;
   orderType: LimitOrderType;
-  /** expirationTime is only valid iff orderType == GOOD_TIL_TIME. */
+  /**
+   * expirationTime is only valid iff orderType == GOOD_TIL_TIME.
+   */
   expirationTime?: Timestamp;
   maxAmountOut?: string;
   limitSellPrice?: string;
-  /** min_average_sell_price is DEPRECATED */
-  /** @deprecated */
+  /**
+   * min_average_sell_price is DEPRECATED
+   * @deprecated
+   */
   minAverageSellPrice?: string;
 }
+/**
+ * @name MsgPlaceLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgPlaceLimitOrderResponse
+ */
 export interface MsgPlaceLimitOrderResponse {
   trancheKey: string;
-  /** Total amount of coin used for the limit order */
+  /**
+   * Total amount of coin used for the limit order
+   */
   coinIn: Coin;
-  /** taker_coin_out is DEPRECATED */
-  /** @deprecated */
+  /**
+   * taker_coin_out is DEPRECATED
+   * @deprecated
+   */
   takerCoinOut: Coin;
-  /** taker_coin_in is DEPRECATED */
-  /** @deprecated */
+  /**
+   * taker_coin_in is DEPRECATED
+   * @deprecated
+   */
   takerCoinIn: Coin;
   /**
    * Total amount of coin received from the taker portion of the limit order
@@ -145,44 +207,92 @@ export interface MsgPlaceLimitOrderResponse {
    * maker portion which will have withdrawn in the future
    */
   decTakerCoinOut: PrecDecCoin;
-  /** Total amount of the token in that was immediately swapped for takerOutCoin */
+  /**
+   * Total amount of the token in that was immediately swapped for takerOutCoin
+   */
   decTakerCoinIn: PrecDecCoin;
 }
+/**
+ * @name MsgWithdrawFilledLimitOrder
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgWithdrawFilledLimitOrder
+ */
 export interface MsgWithdrawFilledLimitOrder {
   creator: string;
   trancheKey: string;
 }
+/**
+ * @name MsgWithdrawFilledLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgWithdrawFilledLimitOrderResponse
+ */
 export interface MsgWithdrawFilledLimitOrderResponse {
-  /** taker_coin_out is DEPRECATED */
-  /** @deprecated */
+  /**
+   * taker_coin_out is DEPRECATED
+   * @deprecated
+   */
   takerCoinOut: Coin;
-  /** maker_coin_out is DEPRECATED */
-  /** @deprecated */
+  /**
+   * maker_coin_out is DEPRECATED
+   * @deprecated
+   */
   makerCoinOut: Coin;
-  /** Total amount of taker reserves that were withdrawn */
+  /**
+   * Total amount of taker reserves that were withdrawn
+   */
   decTakerCoinOut: PrecDecCoin;
-  /** Total amount of maker reserves that were withdrawn --only applies to inactive LimitOrders */
+  /**
+   * Total amount of maker reserves that were withdrawn --only applies to inactive LimitOrders
+   */
   decMakerCoinOut: PrecDecCoin;
 }
+/**
+ * @name MsgCancelLimitOrder
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgCancelLimitOrder
+ */
 export interface MsgCancelLimitOrder {
   creator: string;
   trancheKey: string;
 }
+/**
+ * @name MsgCancelLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgCancelLimitOrderResponse
+ */
 export interface MsgCancelLimitOrderResponse {
-  /** taker_coin_out is DEPRECATED */
-  /** @deprecated */
+  /**
+   * taker_coin_out is DEPRECATED
+   * @deprecated
+   */
   takerCoinOut: Coin;
-  /** maker_coin_out is DEPRECATED */
-  /** @deprecated */
+  /**
+   * maker_coin_out is DEPRECATED
+   * @deprecated
+   */
   makerCoinOut: Coin;
-  /** Total amount of taker reserves that were withdrawn */
+  /**
+   * Total amount of taker reserves that were withdrawn
+   */
   decTakerCoinOut: PrecDecCoin;
-  /** Total amount of maker reserves that were canceled */
+  /**
+   * Total amount of maker reserves that were canceled
+   */
   decMakerCoinOut: PrecDecCoin;
 }
+/**
+ * @name MultiHopRoute
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MultiHopRoute
+ */
 export interface MultiHopRoute {
   hops: string[];
 }
+/**
+ * @name MsgMultiHopSwap
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgMultiHopSwap
+ */
 export interface MsgMultiHopSwap {
   creator: string;
   receiver: string;
@@ -195,21 +305,39 @@ export interface MsgMultiHopSwap {
    */
   pickBestRoute: boolean;
 }
+/**
+ * @name MsgMultiHopSwapResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgMultiHopSwapResponse
+ */
 export interface MsgMultiHopSwapResponse {
-  /** coin_out is DEPRECATED */
-  /** @deprecated */
+  /**
+   * coin_out is DEPRECATED
+   * @deprecated
+   */
   coinOut: Coin;
   route?: MultiHopRoute;
-  /** dust is DEPRECATED */
-  /** @deprecated */
+  /**
+   * dust is DEPRECATED
+   * @deprecated
+   */
   dust: Coin[];
   decCoinOut: PrecDecCoin;
   decDust: PrecDecCoin[];
 }
+/**
+ * @name MsgUpdateParams
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
-  /** NOTE: All parameters must be supplied. */
+  /**
+   * NOTE: All parameters must be supplied.
+   */
   params: Params;
 }
 /**
@@ -217,6 +345,9 @@ export interface MsgUpdateParams {
  * MsgUpdateParams message.
  *
  * Since: 0.47
+ * @name MsgUpdateParamsResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
 function createBaseDepositOptions(): DepositOptions {
@@ -227,6 +358,11 @@ function createBaseDepositOptions(): DepositOptions {
     swapOnDepositSlopToleranceBps: BigInt(0),
   };
 }
+/**
+ * @name DepositOptions
+ * @package neutron.dex
+ * @see proto type: neutron.dex.DepositOptions
+ */
 export const DepositOptions = {
   typeUrl: "/neutron.dex.DepositOptions",
   encode(message: DepositOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -312,6 +448,11 @@ function createBaseMsgDeposit(): MsgDeposit {
     options: [],
   };
 }
+/**
+ * @name MsgDeposit
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgDeposit
+ */
 export const MsgDeposit = {
   typeUrl: "/neutron.dex.MsgDeposit",
   encode(message: MsgDeposit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -471,6 +612,11 @@ function createBaseFailedDeposit(): FailedDeposit {
     error: "",
   };
 }
+/**
+ * @name FailedDeposit
+ * @package neutron.dex
+ * @see proto type: neutron.dex.FailedDeposit
+ */
 export const FailedDeposit = {
   typeUrl: "/neutron.dex.FailedDeposit",
   encode(message: FailedDeposit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -533,6 +679,11 @@ function createBaseMsgDepositResponse(): MsgDepositResponse {
     decReserve1Deposited: [],
   };
 }
+/**
+ * @name MsgDepositResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgDepositResponse
+ */
 export const MsgDepositResponse = {
   typeUrl: "/neutron.dex.MsgDepositResponse",
   encode(message: MsgDepositResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -660,6 +811,11 @@ function createBaseMsgWithdrawal(): MsgWithdrawal {
     fees: [],
   };
 }
+/**
+ * @name MsgWithdrawal
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgWithdrawal
+ */
 export const MsgWithdrawal = {
   typeUrl: "/neutron.dex.MsgWithdrawal",
   encode(message: MsgWithdrawal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -796,6 +952,11 @@ function createBaseMsgWithdrawalResponse(): MsgWithdrawalResponse {
     decReserve1Withdrawn: "",
   };
 }
+/**
+ * @name MsgWithdrawalResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgWithdrawalResponse
+ */
 export const MsgWithdrawalResponse = {
   typeUrl: "/neutron.dex.MsgWithdrawalResponse",
   encode(message: MsgWithdrawalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -893,6 +1054,11 @@ function createBaseMsgPlaceLimitOrder(): MsgPlaceLimitOrder {
     minAverageSellPrice: undefined,
   };
 }
+/**
+ * @name MsgPlaceLimitOrder
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgPlaceLimitOrder
+ */
 export const MsgPlaceLimitOrder = {
   typeUrl: "/neutron.dex.MsgPlaceLimitOrder",
   encode(message: MsgPlaceLimitOrder, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1040,6 +1206,11 @@ function createBaseMsgPlaceLimitOrderResponse(): MsgPlaceLimitOrderResponse {
     decTakerCoinIn: PrecDecCoin.fromPartial({}),
   };
 }
+/**
+ * @name MsgPlaceLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgPlaceLimitOrderResponse
+ */
 export const MsgPlaceLimitOrderResponse = {
   typeUrl: "/neutron.dex.MsgPlaceLimitOrderResponse",
   encode(message: MsgPlaceLimitOrderResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1150,6 +1321,11 @@ function createBaseMsgWithdrawFilledLimitOrder(): MsgWithdrawFilledLimitOrder {
     trancheKey: "",
   };
 }
+/**
+ * @name MsgWithdrawFilledLimitOrder
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgWithdrawFilledLimitOrder
+ */
 export const MsgWithdrawFilledLimitOrder = {
   typeUrl: "/neutron.dex.MsgWithdrawFilledLimitOrder",
   encode(message: MsgWithdrawFilledLimitOrder, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1210,6 +1386,11 @@ function createBaseMsgWithdrawFilledLimitOrderResponse(): MsgWithdrawFilledLimit
     decMakerCoinOut: PrecDecCoin.fromPartial({}),
   };
 }
+/**
+ * @name MsgWithdrawFilledLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgWithdrawFilledLimitOrderResponse
+ */
 export const MsgWithdrawFilledLimitOrderResponse = {
   typeUrl: "/neutron.dex.MsgWithdrawFilledLimitOrderResponse",
   encode(
@@ -1305,6 +1486,11 @@ function createBaseMsgCancelLimitOrder(): MsgCancelLimitOrder {
     trancheKey: "",
   };
 }
+/**
+ * @name MsgCancelLimitOrder
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgCancelLimitOrder
+ */
 export const MsgCancelLimitOrder = {
   typeUrl: "/neutron.dex.MsgCancelLimitOrder",
   encode(message: MsgCancelLimitOrder, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1363,6 +1549,11 @@ function createBaseMsgCancelLimitOrderResponse(): MsgCancelLimitOrderResponse {
     decMakerCoinOut: PrecDecCoin.fromPartial({}),
   };
 }
+/**
+ * @name MsgCancelLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgCancelLimitOrderResponse
+ */
 export const MsgCancelLimitOrderResponse = {
   typeUrl: "/neutron.dex.MsgCancelLimitOrderResponse",
   encode(message: MsgCancelLimitOrderResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1454,6 +1645,11 @@ function createBaseMultiHopRoute(): MultiHopRoute {
     hops: [],
   };
 }
+/**
+ * @name MultiHopRoute
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MultiHopRoute
+ */
 export const MultiHopRoute = {
   typeUrl: "/neutron.dex.MultiHopRoute",
   encode(message: MultiHopRoute, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1509,6 +1705,11 @@ function createBaseMsgMultiHopSwap(): MsgMultiHopSwap {
     pickBestRoute: false,
   };
 }
+/**
+ * @name MsgMultiHopSwap
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgMultiHopSwap
+ */
 export const MsgMultiHopSwap = {
   typeUrl: "/neutron.dex.MsgMultiHopSwap",
   encode(message: MsgMultiHopSwap, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1608,6 +1809,11 @@ function createBaseMsgMultiHopSwapResponse(): MsgMultiHopSwapResponse {
     decDust: [],
   };
 }
+/**
+ * @name MsgMultiHopSwapResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgMultiHopSwapResponse
+ */
 export const MsgMultiHopSwapResponse = {
   typeUrl: "/neutron.dex.MsgMultiHopSwapResponse",
   encode(message: MsgMultiHopSwapResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1708,6 +1914,11 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * @name MsgUpdateParams
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/neutron.dex.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1763,6 +1974,15 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: 0.47
+ * @name MsgUpdateParamsResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/neutron.dex.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

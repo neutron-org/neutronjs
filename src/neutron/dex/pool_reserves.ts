@@ -1,30 +1,46 @@
 //@ts-nocheck
 /* eslint-disable */
-import { TradePairID } from "./trade_pair_id";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { TradePairID } from "./trade_pair_id.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
+/**
+ * @name PoolReservesKey
+ * @package neutron.dex
+ * @see proto type: neutron.dex.PoolReservesKey
+ */
 export interface PoolReservesKey {
   tradePairId?: TradePairID;
   tickIndexTakerToMaker: bigint;
   fee: bigint;
 }
+/**
+ * @name PoolReserves
+ * @package neutron.dex
+ * @see proto type: neutron.dex.PoolReserves
+ */
 export interface PoolReserves {
   key?: PoolReservesKey;
-  /** DEPRECATED: reserves_maker_denom will be removed in future release, `dec_reserves_maker_denom` should always be used. */
-  /** @deprecated */
+  /**
+   * DEPRECATED: reserves_maker_denom will be removed in future release, `dec_reserves_maker_denom` should always be used.
+   * @deprecated
+   */
   reservesMakerDenom: string;
-  /** DEPRECATED: price_taker_to_maker will be removed in future release, `maker_price` should always be used. */
-  /** @deprecated */
+  /**
+   * DEPRECATED: price_taker_to_maker will be removed in future release, `maker_price` should always be used.
+   * @deprecated
+   */
   priceTakerToMaker: string;
   /**
    * DEPRECATED: price_opposite_taker_maker was an internal implementation detail and will be removed in a future release.
    * It is being kept strictly for backwards compatibility. The actual field value is unused.
+   * @deprecated
    */
-  /** @deprecated */
   priceOppositeTakerToMaker: string;
-  /** This is the price of the PoolReserves denominated in the opposite token. (ie. 1 TokenA with a maker_price of 10 is worth 10 TokenB ) */
+  /**
+   * This is the price of the PoolReserves denominated in the opposite token. (ie. 1 TokenA with a maker_price of 10 is worth 10 TokenB )
+   */
   makerPrice: string;
   decReservesMakerDenom: string;
 }
@@ -35,6 +51,11 @@ function createBasePoolReservesKey(): PoolReservesKey {
     fee: BigInt(0),
   };
 }
+/**
+ * @name PoolReservesKey
+ * @package neutron.dex
+ * @see proto type: neutron.dex.PoolReservesKey
+ */
 export const PoolReservesKey = {
   typeUrl: "/neutron.dex.PoolReservesKey",
   encode(message: PoolReservesKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -113,6 +134,11 @@ function createBasePoolReserves(): PoolReserves {
     decReservesMakerDenom: "",
   };
 }
+/**
+ * @name PoolReserves
+ * @package neutron.dex
+ * @see proto type: neutron.dex.PoolReserves
+ */
 export const PoolReserves = {
   typeUrl: "/neutron.dex.PoolReserves",
   encode(message: PoolReserves, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,18 +1,26 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CurrencyPair } from "../../types/v1/currency_pair";
-import { MarketMap, Market } from "./market";
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { CurrencyPair } from "../../types/v1/currency_pair.js";
+import { MarketMap, Market } from "./market.js";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "slinky.marketmap.v1";
 /**
  * MarketMapRequest is the query request for the MarketMap query.
  * It takes no arguments.
+ * @name MarketMapRequest
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketMapRequest
  */
 export interface MarketMapRequest {}
-/** MarketMapResponse is the query response for the MarketMap query. */
+/**
+ * MarketMapResponse is the query response for the MarketMap query.
+ * @name MarketMapResponse
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketMapResponse
+ */
 export interface MarketMapResponse {
   /**
    * MarketMap defines the global set of market configurations for all providers
@@ -25,19 +33,36 @@ export interface MarketMapResponse {
    * is a new update to the map.
    */
   lastUpdated: bigint;
-  /** ChainId is the chain identifier for the market map. */
+  /**
+   * ChainId is the chain identifier for the market map.
+   */
   chainId: string;
 }
-/** MarketsRequest is the query request for the Market query. */
+/**
+ * MarketsRequest is the query request for the Market query.
+ * @name MarketsRequest
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketsRequest
+ */
 export interface MarketsRequest {}
-/** MarketsResponse is the query response for the Markets query. */
+/**
+ * MarketsResponse is the query response for the Markets query.
+ * @name MarketsResponse
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketsResponse
+ */
 export interface MarketsResponse {
-  /** Markets is a sorted list of all markets in the module. */
+  /**
+   * Markets is a sorted list of all markets in the module.
+   */
   markets: Market[];
 }
 /**
  * MarketRequest is the query request for the Market query.
  * It takes the currency pair of the market as an argument.
+ * @name MarketRequest
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketRequest
  */
 export interface MarketRequest {
   /**
@@ -46,25 +71,48 @@ export interface MarketRequest {
    */
   currencyPair: CurrencyPair;
 }
-/** MarketResponse is the query response for the Market query. */
+/**
+ * MarketResponse is the query response for the Market query.
+ * @name MarketResponse
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketResponse
+ */
 export interface MarketResponse {
-  /** Market is the configuration of a single market to be price-fetched for. */
+  /**
+   * Market is the configuration of a single market to be price-fetched for.
+   */
   market: Market;
 }
-/** ParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * ParamsRequest is the request type for the Query/Params RPC method.
+ * @name ParamsRequest
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.ParamsRequest
+ */
 export interface ParamsRequest {}
-/** ParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * ParamsResponse is the response type for the Query/Params RPC method.
+ * @name ParamsResponse
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.ParamsResponse
+ */
 export interface ParamsResponse {
   params: Params;
 }
 /**
  * LastUpdatedRequest is the request type for the Query/LastUpdated RPC
  * method.
+ * @name LastUpdatedRequest
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.LastUpdatedRequest
  */
 export interface LastUpdatedRequest {}
 /**
  * LastUpdatedResponse is the response type for the Query/LastUpdated RPC
  * method.
+ * @name LastUpdatedResponse
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.LastUpdatedResponse
  */
 export interface LastUpdatedResponse {
   lastUpdated: bigint;
@@ -72,6 +120,13 @@ export interface LastUpdatedResponse {
 function createBaseMarketMapRequest(): MarketMapRequest {
   return {};
 }
+/**
+ * MarketMapRequest is the query request for the MarketMap query.
+ * It takes no arguments.
+ * @name MarketMapRequest
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketMapRequest
+ */
 export const MarketMapRequest = {
   typeUrl: "/slinky.marketmap.v1.MarketMapRequest",
   encode(_: MarketMapRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -111,6 +166,12 @@ function createBaseMarketMapResponse(): MarketMapResponse {
     chainId: "",
   };
 }
+/**
+ * MarketMapResponse is the query response for the MarketMap query.
+ * @name MarketMapResponse
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketMapResponse
+ */
 export const MarketMapResponse = {
   typeUrl: "/slinky.marketmap.v1.MarketMapResponse",
   encode(message: MarketMapResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -178,6 +239,12 @@ export const MarketMapResponse = {
 function createBaseMarketsRequest(): MarketsRequest {
   return {};
 }
+/**
+ * MarketsRequest is the query request for the Market query.
+ * @name MarketsRequest
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketsRequest
+ */
 export const MarketsRequest = {
   typeUrl: "/slinky.marketmap.v1.MarketsRequest",
   encode(_: MarketsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -215,6 +282,12 @@ function createBaseMarketsResponse(): MarketsResponse {
     markets: [],
   };
 }
+/**
+ * MarketsResponse is the query response for the Markets query.
+ * @name MarketsResponse
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketsResponse
+ */
 export const MarketsResponse = {
   typeUrl: "/slinky.marketmap.v1.MarketsResponse",
   encode(message: MarketsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -265,6 +338,13 @@ function createBaseMarketRequest(): MarketRequest {
     currencyPair: CurrencyPair.fromPartial({}),
   };
 }
+/**
+ * MarketRequest is the query request for the Market query.
+ * It takes the currency pair of the market as an argument.
+ * @name MarketRequest
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketRequest
+ */
 export const MarketRequest = {
   typeUrl: "/slinky.marketmap.v1.MarketRequest",
   encode(message: MarketRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -314,6 +394,12 @@ function createBaseMarketResponse(): MarketResponse {
     market: Market.fromPartial({}),
   };
 }
+/**
+ * MarketResponse is the query response for the Market query.
+ * @name MarketResponse
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketResponse
+ */
 export const MarketResponse = {
   typeUrl: "/slinky.marketmap.v1.MarketResponse",
   encode(message: MarketResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -360,6 +446,12 @@ export const MarketResponse = {
 function createBaseParamsRequest(): ParamsRequest {
   return {};
 }
+/**
+ * ParamsRequest is the request type for the Query/Params RPC method.
+ * @name ParamsRequest
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.ParamsRequest
+ */
 export const ParamsRequest = {
   typeUrl: "/slinky.marketmap.v1.ParamsRequest",
   encode(_: ParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -397,6 +489,12 @@ function createBaseParamsResponse(): ParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * ParamsResponse is the response type for the Query/Params RPC method.
+ * @name ParamsResponse
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.ParamsResponse
+ */
 export const ParamsResponse = {
   typeUrl: "/slinky.marketmap.v1.ParamsResponse",
   encode(message: ParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -443,6 +541,13 @@ export const ParamsResponse = {
 function createBaseLastUpdatedRequest(): LastUpdatedRequest {
   return {};
 }
+/**
+ * LastUpdatedRequest is the request type for the Query/LastUpdated RPC
+ * method.
+ * @name LastUpdatedRequest
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.LastUpdatedRequest
+ */
 export const LastUpdatedRequest = {
   typeUrl: "/slinky.marketmap.v1.LastUpdatedRequest",
   encode(_: LastUpdatedRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -480,6 +585,13 @@ function createBaseLastUpdatedResponse(): LastUpdatedResponse {
     lastUpdated: BigInt(0),
   };
 }
+/**
+ * LastUpdatedResponse is the response type for the Query/LastUpdated RPC
+ * method.
+ * @name LastUpdatedResponse
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.LastUpdatedResponse
+ */
 export const LastUpdatedResponse = {
   typeUrl: "/slinky.marketmap.v1.LastUpdatedResponse",
   encode(message: LastUpdatedResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

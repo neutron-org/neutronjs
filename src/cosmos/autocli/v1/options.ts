@@ -1,21 +1,40 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, isObject } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, isObject } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.autocli.v1";
-/** ModuleOptions describes the CLI options for a Cosmos SDK module. */
+/**
+ * ModuleOptions describes the CLI options for a Cosmos SDK module.
+ * @name ModuleOptions
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.ModuleOptions
+ */
 export interface ModuleOptions {
-  /** tx describes the tx commands for the module. */
+  /**
+   * tx describes the tx commands for the module.
+   */
   tx?: ServiceCommandDescriptor;
-  /** query describes the queries commands for the module. */
+  /**
+   * query describes the queries commands for the module.
+   */
   query?: ServiceCommandDescriptor;
 }
+/**
+ * @name ServiceCommandDescriptor_SubCommandsEntry
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.undefined
+ */
 export interface ServiceCommandDescriptor_SubCommandsEntry {
   key: string;
   value?: ServiceCommandDescriptor;
 }
-/** ServiceCommandDescriptor describes a CLI command based on a protobuf service. */
+/**
+ * ServiceCommandDescriptor describes a CLI command based on a protobuf service.
+ * @name ServiceCommandDescriptor
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.ServiceCommandDescriptor
+ */
 export interface ServiceCommandDescriptor {
   /**
    * service is the fully qualified name of the protobuf service to build
@@ -43,9 +62,16 @@ export interface ServiceCommandDescriptor {
    * gRPC. otherwise when a custom command exists, no commands will be generated for the service.
    */
   enhanceCustomCommand: boolean;
-  /** short is an optional parameter used to override the short description of the auto generated command. */
+  /**
+   * short is an optional parameter used to override the short description of the auto generated command.
+   */
   short: string;
 }
+/**
+ * @name RpcCommandOptions_FlagOptionsEntry
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.undefined
+ */
 export interface RpcCommandOptions_FlagOptionsEntry {
   key: string;
   value?: FlagOptions;
@@ -53,6 +79,9 @@ export interface RpcCommandOptions_FlagOptionsEntry {
 /**
  * RpcCommandOptions specifies options for commands generated from protobuf
  * rpc methods.
+ * @name RpcCommandOptions
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.RpcCommandOptions
  */
 export interface RpcCommandOptions {
   /**
@@ -68,20 +97,30 @@ export interface RpcCommandOptions {
    * rpc method.
    */
   use: string;
-  /** long is the long message shown in the 'help <this-command>' output. */
+  /**
+   * long is the long message shown in the 'help <this-command>' output.
+   */
   long: string;
-  /** short is the short description shown in the 'help' output. */
+  /**
+   * short is the short description shown in the 'help' output.
+   */
   short: string;
-  /** example is examples of how to use the command. */
+  /**
+   * example is examples of how to use the command.
+   */
   example: string;
-  /** alias is an array of aliases that can be used instead of the first word in Use. */
+  /**
+   * alias is an array of aliases that can be used instead of the first word in Use.
+   */
   alias: string[];
   /**
    * suggest_for is an array of command names for which this command will be suggested -
    * similar to aliases but only suggests.
    */
   suggestFor: string[];
-  /** deprecated defines, if this command is deprecated and should print this string when used. */
+  /**
+   * deprecated defines, if this command is deprecated and should print this string when used.
+   */
   deprecated: string;
   /**
    * version defines the version for this command. If this value is non-empty and the command does not
@@ -98,9 +137,13 @@ export interface RpcCommandOptions {
   flagOptions: {
     [key: string]: FlagOptions;
   };
-  /** positional_args specifies positional arguments for the command. */
+  /**
+   * positional_args specifies positional arguments for the command.
+   */
   positionalArgs: PositionalArgDescriptor[];
-  /** skip specifies whether to skip this rpc method when generating commands. */
+  /**
+   * skip specifies whether to skip this rpc method when generating commands.
+   */
   skip: boolean;
   /**
    * gov_proposal specifies whether autocli should generate a gov proposal transaction for this rpc method.
@@ -115,24 +158,46 @@ export interface RpcCommandOptions {
  * By default, all request fields are configured as flags based on the
  * kebab-case name of the field. Fields can be turned into positional arguments
  * instead by using RpcCommandOptions.positional_args.
+ * @name FlagOptions
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.FlagOptions
  */
 export interface FlagOptions {
-  /** name is an alternate name to use for the field flag. */
+  /**
+   * name is an alternate name to use for the field flag.
+   */
   name: string;
-  /** shorthand is a one-letter abbreviated flag. */
+  /**
+   * shorthand is a one-letter abbreviated flag.
+   */
   shorthand: string;
-  /** usage is the help message. */
+  /**
+   * usage is the help message.
+   */
   usage: string;
-  /** default_value is the default value as text. */
+  /**
+   * default_value is the default value as text.
+   */
   defaultValue: string;
-  /** deprecated is the usage text to show if this flag is deprecated. */
+  /**
+   * deprecated is the usage text to show if this flag is deprecated.
+   */
   deprecated: string;
-  /** shorthand_deprecated is the usage text to show if the shorthand of this flag is deprecated. */
+  /**
+   * shorthand_deprecated is the usage text to show if the shorthand of this flag is deprecated.
+   */
   shorthandDeprecated: string;
-  /** hidden hides the flag from help/usage text */
+  /**
+   * hidden hides the flag from help/usage text
+   */
   hidden: boolean;
 }
-/** PositionalArgDescriptor describes a positional argument. */
+/**
+ * PositionalArgDescriptor describes a positional argument.
+ * @name PositionalArgDescriptor
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.PositionalArgDescriptor
+ */
 export interface PositionalArgDescriptor {
   /**
    * proto_field specifies the proto field to use as the positional arg. Any
@@ -157,6 +222,12 @@ function createBaseModuleOptions(): ModuleOptions {
     query: undefined,
   };
 }
+/**
+ * ModuleOptions describes the CLI options for a Cosmos SDK module.
+ * @name ModuleOptions
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.ModuleOptions
+ */
 export const ModuleOptions = {
   typeUrl: "/cosmos.autocli.v1.ModuleOptions",
   encode(message: ModuleOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -219,6 +290,11 @@ function createBaseServiceCommandDescriptor_SubCommandsEntry(): ServiceCommandDe
     value: undefined,
   };
 }
+/**
+ * @name ServiceCommandDescriptor_SubCommandsEntry
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.undefined
+ */
 export const ServiceCommandDescriptor_SubCommandsEntry = {
   encode(
     message: ServiceCommandDescriptor_SubCommandsEntry,
@@ -287,6 +363,12 @@ function createBaseServiceCommandDescriptor(): ServiceCommandDescriptor {
     short: "",
   };
 }
+/**
+ * ServiceCommandDescriptor describes a CLI command based on a protobuf service.
+ * @name ServiceCommandDescriptor
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.ServiceCommandDescriptor
+ */
 export const ServiceCommandDescriptor = {
   typeUrl: "/cosmos.autocli.v1.ServiceCommandDescriptor",
   encode(message: ServiceCommandDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -406,6 +488,11 @@ function createBaseRpcCommandOptions_FlagOptionsEntry(): RpcCommandOptions_FlagO
     value: undefined,
   };
 }
+/**
+ * @name RpcCommandOptions_FlagOptionsEntry
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.undefined
+ */
 export const RpcCommandOptions_FlagOptionsEntry = {
   encode(
     message: RpcCommandOptions_FlagOptionsEntry,
@@ -480,6 +567,13 @@ function createBaseRpcCommandOptions(): RpcCommandOptions {
     govProposal: false,
   };
 }
+/**
+ * RpcCommandOptions specifies options for commands generated from protobuf
+ * rpc methods.
+ * @name RpcCommandOptions
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.RpcCommandOptions
+ */
 export const RpcCommandOptions = {
   typeUrl: "/cosmos.autocli.v1.RpcCommandOptions",
   encode(message: RpcCommandOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -682,6 +776,15 @@ function createBaseFlagOptions(): FlagOptions {
     hidden: false,
   };
 }
+/**
+ * FlagOptions are options for flags generated from rpc request fields.
+ * By default, all request fields are configured as flags based on the
+ * kebab-case name of the field. Fields can be turned into positional arguments
+ * instead by using RpcCommandOptions.positional_args.
+ * @name FlagOptions
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.FlagOptions
+ */
 export const FlagOptions = {
   typeUrl: "/cosmos.autocli.v1.FlagOptions",
   encode(message: FlagOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -784,6 +887,12 @@ function createBasePositionalArgDescriptor(): PositionalArgDescriptor {
     optional: false,
   };
 }
+/**
+ * PositionalArgDescriptor describes a positional argument.
+ * @name PositionalArgDescriptor
+ * @package cosmos.autocli.v1
+ * @see proto type: cosmos.autocli.v1.PositionalArgDescriptor
+ */
 export const PositionalArgDescriptor = {
   typeUrl: "/cosmos.autocli.v1.PositionalArgDescriptor",
   encode(message: PositionalArgDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

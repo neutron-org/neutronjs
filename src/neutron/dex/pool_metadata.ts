@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PairID } from "./pair_id";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { PairID } from "./pair_id.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
+/**
+ * @name PoolMetadata
+ * @package neutron.dex
+ * @see proto type: neutron.dex.PoolMetadata
+ */
 export interface PoolMetadata {
   id: bigint;
   tick: bigint;
@@ -19,6 +24,11 @@ function createBasePoolMetadata(): PoolMetadata {
     pairId: undefined,
   };
 }
+/**
+ * @name PoolMetadata
+ * @package neutron.dex
+ * @see proto type: neutron.dex.PoolMetadata
+ */
 export const PoolMetadata = {
   typeUrl: "/neutron.dex.PoolMetadata",
   encode(message: PoolMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

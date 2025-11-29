@@ -1,12 +1,19 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.genutil.v1beta1";
-/** GenesisState defines the raw genesis transaction in JSON. */
+/**
+ * GenesisState defines the raw genesis transaction in JSON.
+ * @name GenesisState
+ * @package cosmos.genutil.v1beta1
+ * @see proto type: cosmos.genutil.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** gen_txs defines the genesis transactions. */
+  /**
+   * gen_txs defines the genesis transactions.
+   */
   genTxs: Uint8Array[];
 }
 function createBaseGenesisState(): GenesisState {
@@ -14,6 +21,12 @@ function createBaseGenesisState(): GenesisState {
     genTxs: [],
   };
 }
+/**
+ * GenesisState defines the raw genesis transaction in JSON.
+ * @name GenesisState
+ * @package cosmos.genutil.v1beta1
+ * @see proto type: cosmos.genutil.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmos.genutil.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

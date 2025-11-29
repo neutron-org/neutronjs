@@ -1,14 +1,14 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryVerifyStateValuesRequest,
   QueryVerifyStateValuesResponse,
   QueryConsensusStateRequest,
   QueryConsensusStateResponse,
-} from "./query";
+} from "./query.js";
 export interface Query {
   /** Verifies the values and returns an error if values cannot be verified. The query returns `QueryVerifyStateValuesResponse` response. */
   verifyStateValues(request: QueryVerifyStateValuesRequest): Promise<QueryVerifyStateValuesResponse>;
@@ -16,8 +16,8 @@ export interface Query {
   queryConsensusState(request: QueryConsensusStateRequest): Promise<QueryConsensusStateResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.verifyStateValues = this.verifyStateValues.bind(this);
     this.queryConsensusState = this.queryConsensusState.bind(this);

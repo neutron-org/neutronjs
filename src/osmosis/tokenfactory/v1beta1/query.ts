@@ -1,21 +1,36 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "../params";
-import { DenomAuthorityMetadata } from "./authorityMetadata";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Params } from "../params.js";
+import { DenomAuthorityMetadata } from "./authorityMetadata.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "osmosis.tokenfactory.v1beta1";
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: Params;
 }
 /**
  * QueryDenomAuthorityMetadataRequest defines the request structure for the
  * DenomAuthorityMetadata gRPC query.
+ * @name QueryDenomAuthorityMetadataRequest
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryDenomAuthorityMetadataRequest
  */
 export interface QueryDenomAuthorityMetadataRequest {
   creator: string;
@@ -24,6 +39,9 @@ export interface QueryDenomAuthorityMetadataRequest {
 /**
  * QueryDenomAuthorityMetadataResponse defines the response structure for the
  * DenomAuthorityMetadata gRPC query.
+ * @name QueryDenomAuthorityMetadataResponse
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryDenomAuthorityMetadataResponse
  */
 export interface QueryDenomAuthorityMetadataResponse {
   authorityMetadata: DenomAuthorityMetadata;
@@ -31,6 +49,9 @@ export interface QueryDenomAuthorityMetadataResponse {
 /**
  * QueryDenomsFromCreatorRequest defines the request structure for the
  * DenomsFromCreator gRPC query.
+ * @name QueryDenomsFromCreatorRequest
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryDenomsFromCreatorRequest
  */
 export interface QueryDenomsFromCreatorRequest {
   creator: string;
@@ -38,6 +59,9 @@ export interface QueryDenomsFromCreatorRequest {
 /**
  * QueryDenomsFromCreatorResponse defines the response structure for the
  * DenomsFromCreator gRPC query.
+ * @name QueryDenomsFromCreatorResponse
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryDenomsFromCreatorResponse
  */
 export interface QueryDenomsFromCreatorResponse {
   denoms: string[];
@@ -45,6 +69,9 @@ export interface QueryDenomsFromCreatorResponse {
 /**
  * QueryBeforeSendHookAddressRequest defines the request structure for the
  * BeforeSendHookAddress gRPC query.
+ * @name QueryBeforeSendHookAddressRequest
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressRequest
  */
 export interface QueryBeforeSendHookAddressRequest {
   creator: string;
@@ -53,6 +80,9 @@ export interface QueryBeforeSendHookAddressRequest {
 /**
  * QueryBeforeSendHookAddressResponse defines the response structure for the
  * BeforeSendHookAddress gRPC query.
+ * @name QueryBeforeSendHookAddressResponse
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressResponse
  */
 export interface QueryBeforeSendHookAddressResponse {
   contractAddr: string;
@@ -60,6 +90,9 @@ export interface QueryBeforeSendHookAddressResponse {
 /**
  * QueryFullDenomRequest defines the request structure for the
  * FullDenom gRPC query.
+ * @name QueryFullDenomRequest
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryFullDenomRequest
  */
 export interface QueryFullDenomRequest {
   creator: string;
@@ -68,6 +101,9 @@ export interface QueryFullDenomRequest {
 /**
  * QueryFullDenomResponse defines the response structure for the
  * FullDenom gRPC query.
+ * @name QueryFullDenomResponse
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryFullDenomResponse
  */
 export interface QueryFullDenomResponse {
   fullDenom: string;
@@ -75,6 +111,12 @@ export interface QueryFullDenomResponse {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -112,6 +154,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -161,6 +209,13 @@ function createBaseQueryDenomAuthorityMetadataRequest(): QueryDenomAuthorityMeta
     subdenom: "",
   };
 }
+/**
+ * QueryDenomAuthorityMetadataRequest defines the request structure for the
+ * DenomAuthorityMetadata gRPC query.
+ * @name QueryDenomAuthorityMetadataRequest
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryDenomAuthorityMetadataRequest
+ */
 export const QueryDenomAuthorityMetadataRequest = {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomAuthorityMetadataRequest",
   encode(
@@ -221,6 +276,13 @@ function createBaseQueryDenomAuthorityMetadataResponse(): QueryDenomAuthorityMet
     authorityMetadata: DenomAuthorityMetadata.fromPartial({}),
   };
 }
+/**
+ * QueryDenomAuthorityMetadataResponse defines the response structure for the
+ * DenomAuthorityMetadata gRPC query.
+ * @name QueryDenomAuthorityMetadataResponse
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryDenomAuthorityMetadataResponse
+ */
 export const QueryDenomAuthorityMetadataResponse = {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomAuthorityMetadataResponse",
   encode(
@@ -278,6 +340,13 @@ function createBaseQueryDenomsFromCreatorRequest(): QueryDenomsFromCreatorReques
     creator: "",
   };
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the request structure for the
+ * DenomsFromCreator gRPC query.
+ * @name QueryDenomsFromCreatorRequest
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryDenomsFromCreatorRequest
+ */
 export const QueryDenomsFromCreatorRequest = {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomsFromCreatorRequest",
   encode(message: QueryDenomsFromCreatorRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -326,6 +395,13 @@ function createBaseQueryDenomsFromCreatorResponse(): QueryDenomsFromCreatorRespo
     denoms: [],
   };
 }
+/**
+ * QueryDenomsFromCreatorResponse defines the response structure for the
+ * DenomsFromCreator gRPC query.
+ * @name QueryDenomsFromCreatorResponse
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryDenomsFromCreatorResponse
+ */
 export const QueryDenomsFromCreatorResponse = {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomsFromCreatorResponse",
   encode(
@@ -382,6 +458,13 @@ function createBaseQueryBeforeSendHookAddressRequest(): QueryBeforeSendHookAddre
     subdenom: "",
   };
 }
+/**
+ * QueryBeforeSendHookAddressRequest defines the request structure for the
+ * BeforeSendHookAddress gRPC query.
+ * @name QueryBeforeSendHookAddressRequest
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressRequest
+ */
 export const QueryBeforeSendHookAddressRequest = {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressRequest",
   encode(
@@ -442,6 +525,13 @@ function createBaseQueryBeforeSendHookAddressResponse(): QueryBeforeSendHookAddr
     contractAddr: "",
   };
 }
+/**
+ * QueryBeforeSendHookAddressResponse defines the response structure for the
+ * BeforeSendHookAddress gRPC query.
+ * @name QueryBeforeSendHookAddressResponse
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressResponse
+ */
 export const QueryBeforeSendHookAddressResponse = {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryBeforeSendHookAddressResponse",
   encode(
@@ -494,6 +584,13 @@ function createBaseQueryFullDenomRequest(): QueryFullDenomRequest {
     subdenom: "",
   };
 }
+/**
+ * QueryFullDenomRequest defines the request structure for the
+ * FullDenom gRPC query.
+ * @name QueryFullDenomRequest
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryFullDenomRequest
+ */
 export const QueryFullDenomRequest = {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryFullDenomRequest",
   encode(message: QueryFullDenomRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -549,6 +646,13 @@ function createBaseQueryFullDenomResponse(): QueryFullDenomResponse {
     fullDenom: "",
   };
 }
+/**
+ * QueryFullDenomResponse defines the response structure for the
+ * FullDenom gRPC query.
+ * @name QueryFullDenomResponse
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.QueryFullDenomResponse
+ */
 export const QueryFullDenomResponse = {
   typeUrl: "/osmosis.tokenfactory.v1beta1.QueryFullDenomResponse",
   encode(message: QueryFullDenomResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

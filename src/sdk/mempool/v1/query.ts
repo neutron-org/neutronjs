@@ -1,14 +1,22 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, isObject } from "../../../helpers";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, isObject } from "../../../helpers.js";
 export const protobufPackage = "sdk.mempool.v1";
 /**
  * GetTxDistributionRequest is the request type for the Service.GetTxDistribution
  * RPC method.
+ * @name GetTxDistributionRequest
+ * @package sdk.mempool.v1
+ * @see proto type: sdk.mempool.v1.GetTxDistributionRequest
  */
 export interface GetTxDistributionRequest {}
+/**
+ * @name GetTxDistributionResponse_DistributionEntry
+ * @package sdk.mempool.v1
+ * @see proto type: sdk.mempool.v1.undefined
+ */
 export interface GetTxDistributionResponse_DistributionEntry {
   key: string;
   value: bigint;
@@ -16,9 +24,14 @@ export interface GetTxDistributionResponse_DistributionEntry {
 /**
  * GetTxDistributionResponse is the response type for the Service.GetTxDistribution
  * RPC method.
+ * @name GetTxDistributionResponse
+ * @package sdk.mempool.v1
+ * @see proto type: sdk.mempool.v1.GetTxDistributionResponse
  */
 export interface GetTxDistributionResponse {
-  /** Distribution is a map of lane to the number of transactions in the mempool for that lane. */
+  /**
+   * Distribution is a map of lane to the number of transactions in the mempool for that lane.
+   */
   distribution: {
     [key: string]: bigint;
   };
@@ -26,6 +39,13 @@ export interface GetTxDistributionResponse {
 function createBaseGetTxDistributionRequest(): GetTxDistributionRequest {
   return {};
 }
+/**
+ * GetTxDistributionRequest is the request type for the Service.GetTxDistribution
+ * RPC method.
+ * @name GetTxDistributionRequest
+ * @package sdk.mempool.v1
+ * @see proto type: sdk.mempool.v1.GetTxDistributionRequest
+ */
 export const GetTxDistributionRequest = {
   typeUrl: "/sdk.mempool.v1.GetTxDistributionRequest",
   encode(_: GetTxDistributionRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -64,6 +84,11 @@ function createBaseGetTxDistributionResponse_DistributionEntry(): GetTxDistribut
     value: BigInt(0),
   };
 }
+/**
+ * @name GetTxDistributionResponse_DistributionEntry
+ * @package sdk.mempool.v1
+ * @see proto type: sdk.mempool.v1.undefined
+ */
 export const GetTxDistributionResponse_DistributionEntry = {
   encode(
     message: GetTxDistributionResponse_DistributionEntry,
@@ -127,6 +152,13 @@ function createBaseGetTxDistributionResponse(): GetTxDistributionResponse {
     distribution: {},
   };
 }
+/**
+ * GetTxDistributionResponse is the response type for the Service.GetTxDistribution
+ * RPC method.
+ * @name GetTxDistributionResponse
+ * @package sdk.mempool.v1
+ * @see proto type: sdk.mempool.v1.GetTxDistributionResponse
+ */
 export const GetTxDistributionResponse = {
   typeUrl: "/sdk.mempool.v1.GetTxDistributionResponse",
   encode(message: GetTxDistributionResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

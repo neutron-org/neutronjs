@@ -1,12 +1,17 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.upgrade.v1beta1";
-/** Plan specifies information about a planned upgrade and when it should occur. */
+/**
+ * Plan specifies information about a planned upgrade and when it should occur.
+ * @name Plan
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.Plan
+ */
 export interface Plan {
   /**
    * Sets the name for the upgrade. This name will be used by the upgraded
@@ -22,10 +27,12 @@ export interface Plan {
    * Deprecated: Time based upgrades have been deprecated. Time based upgrade logic
    * has been removed from the SDK.
    * If this field is not empty, an error will be thrown.
+   * @deprecated
    */
-  /** @deprecated */
   time: Timestamp;
-  /** The height at which the upgrade must be performed. */
+  /**
+   * The height at which the upgrade must be performed.
+   */
   height: bigint;
   /**
    * Any application specific upgrade info to be included on-chain
@@ -36,8 +43,8 @@ export interface Plan {
    * Deprecated: UpgradedClientState field has been deprecated. IBC upgrade logic has been
    * moved to the IBC module in the sub module 02-client.
    * If this field is not empty, an error will be thrown.
+   * @deprecated
    */
-  /** @deprecated */
   upgradedClientState?: Any;
 }
 /**
@@ -45,14 +52,23 @@ export interface Plan {
  * upgrade.
  * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
  * proposals, see MsgSoftwareUpgrade.
+ * @name SoftwareUpgradeProposal
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.SoftwareUpgradeProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface SoftwareUpgradeProposal {
-  /** title of the proposal */
+  /**
+   * title of the proposal
+   */
   title: string;
-  /** description of the proposal */
+  /**
+   * description of the proposal
+   */
   description: string;
-  /** plan of the proposal */
+  /**
+   * plan of the proposal
+   */
   plan: Plan;
 }
 /**
@@ -60,19 +76,35 @@ export interface SoftwareUpgradeProposal {
  * upgrade.
  * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
  * proposals, see MsgCancelUpgrade.
+ * @name CancelSoftwareUpgradeProposal
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface CancelSoftwareUpgradeProposal {
-  /** title of the proposal */
+  /**
+   * title of the proposal
+   */
   title: string;
-  /** description of the proposal */
+  /**
+   * description of the proposal
+   */
   description: string;
 }
-/** ModuleVersion specifies a module and its consensus version. */
+/**
+ * ModuleVersion specifies a module and its consensus version.
+ * @name ModuleVersion
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.ModuleVersion
+ */
 export interface ModuleVersion {
-  /** name of the app module */
+  /**
+   * name of the app module
+   */
   name: string;
-  /** consensus version of the app module */
+  /**
+   * consensus version of the app module
+   */
   version: bigint;
 }
 function createBasePlan(): Plan {
@@ -84,6 +116,12 @@ function createBasePlan(): Plan {
     upgradedClientState: undefined,
   };
 }
+/**
+ * Plan specifies information about a planned upgrade and when it should occur.
+ * @name Plan
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.Plan
+ */
 export const Plan = {
   typeUrl: "/cosmos.upgrade.v1beta1.Plan",
   encode(message: Plan, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -177,6 +215,16 @@ function createBaseSoftwareUpgradeProposal(): SoftwareUpgradeProposal {
     plan: Plan.fromPartial({}),
   };
 }
+/**
+ * SoftwareUpgradeProposal is a gov Content type for initiating a software
+ * upgrade.
+ * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
+ * proposals, see MsgSoftwareUpgrade.
+ * @name SoftwareUpgradeProposal
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.SoftwareUpgradeProposal
+ * @deprecated
+ */
 export const SoftwareUpgradeProposal = {
   typeUrl: "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal",
   encode(message: SoftwareUpgradeProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -244,6 +292,16 @@ function createBaseCancelSoftwareUpgradeProposal(): CancelSoftwareUpgradeProposa
     description: "",
   };
 }
+/**
+ * CancelSoftwareUpgradeProposal is a gov Content type for cancelling a software
+ * upgrade.
+ * Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
+ * proposals, see MsgCancelUpgrade.
+ * @name CancelSoftwareUpgradeProposal
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal
+ * @deprecated
+ */
 export const CancelSoftwareUpgradeProposal = {
   typeUrl: "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal",
   encode(message: CancelSoftwareUpgradeProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -302,6 +360,12 @@ function createBaseModuleVersion(): ModuleVersion {
     version: BigInt(0),
   };
 }
+/**
+ * ModuleVersion specifies a module and its consensus version.
+ * @name ModuleVersion
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.ModuleVersion
+ */
 export const ModuleVersion = {
   typeUrl: "/cosmos.upgrade.v1beta1.ModuleVersion",
   encode(message: ModuleVersion, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

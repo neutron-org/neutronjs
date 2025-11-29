@@ -1,42 +1,80 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.adminmodule.adminmodule";
+/**
+ * @name MsgDeleteAdmin
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgDeleteAdmin
+ */
 export interface MsgDeleteAdmin {
   creator: string;
   admin: string;
 }
+/**
+ * @name MsgDeleteAdminResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgDeleteAdminResponse
+ */
 export interface MsgDeleteAdminResponse {}
+/**
+ * @name MsgAddAdmin
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgAddAdmin
+ */
 export interface MsgAddAdmin {
   creator: string;
   admin: string;
 }
+/**
+ * @name MsgAddAdminResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgAddAdminResponse
+ */
 export interface MsgAddAdminResponse {}
 /**
  * MsgSubmitProposalLegacy defines an sdk.Msg type that supports submitting arbitrary
  * proposal Content.
+ * @name MsgSubmitProposalLegacy
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgSubmitProposalLegacy
  */
 export interface MsgSubmitProposalLegacy {
   content?: Any;
   proposer: string;
 }
-/** MsgSubmitProposalLegacyResponse defines the Msg/SubmitProposalLegacy response type. */
+/**
+ * MsgSubmitProposalLegacyResponse defines the Msg/SubmitProposalLegacy response type.
+ * @name MsgSubmitProposalLegacyResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgSubmitProposalLegacyResponse
+ */
 export interface MsgSubmitProposalLegacyResponse {
   proposalId: bigint;
 }
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
  * proposal Content.
+ * @name MsgSubmitProposal
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgSubmitProposal
  */
 export interface MsgSubmitProposal {
-  /** messages are the arbitrary messages to be executed if proposal passes. */
+  /**
+   * messages are the arbitrary messages to be executed if proposal passes.
+   */
   messages: Any[];
   proposer: string;
 }
-/** MsgSubmitProposalResponse defines the Msg/SubmitProposal response type. */
+/**
+ * MsgSubmitProposalResponse defines the Msg/SubmitProposal response type.
+ * @name MsgSubmitProposalResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgSubmitProposalResponse
+ */
 export interface MsgSubmitProposalResponse {
   proposalId: bigint;
 }
@@ -46,6 +84,11 @@ function createBaseMsgDeleteAdmin(): MsgDeleteAdmin {
     admin: "",
   };
 }
+/**
+ * @name MsgDeleteAdmin
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgDeleteAdmin
+ */
 export const MsgDeleteAdmin = {
   typeUrl: "/cosmos.adminmodule.adminmodule.MsgDeleteAdmin",
   encode(message: MsgDeleteAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -99,6 +142,11 @@ export const MsgDeleteAdmin = {
 function createBaseMsgDeleteAdminResponse(): MsgDeleteAdminResponse {
   return {};
 }
+/**
+ * @name MsgDeleteAdminResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgDeleteAdminResponse
+ */
 export const MsgDeleteAdminResponse = {
   typeUrl: "/cosmos.adminmodule.adminmodule.MsgDeleteAdminResponse",
   encode(_: MsgDeleteAdminResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -137,6 +185,11 @@ function createBaseMsgAddAdmin(): MsgAddAdmin {
     admin: "",
   };
 }
+/**
+ * @name MsgAddAdmin
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgAddAdmin
+ */
 export const MsgAddAdmin = {
   typeUrl: "/cosmos.adminmodule.adminmodule.MsgAddAdmin",
   encode(message: MsgAddAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -190,6 +243,11 @@ export const MsgAddAdmin = {
 function createBaseMsgAddAdminResponse(): MsgAddAdminResponse {
   return {};
 }
+/**
+ * @name MsgAddAdminResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgAddAdminResponse
+ */
 export const MsgAddAdminResponse = {
   typeUrl: "/cosmos.adminmodule.adminmodule.MsgAddAdminResponse",
   encode(_: MsgAddAdminResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -228,6 +286,13 @@ function createBaseMsgSubmitProposalLegacy(): MsgSubmitProposalLegacy {
     proposer: "",
   };
 }
+/**
+ * MsgSubmitProposalLegacy defines an sdk.Msg type that supports submitting arbitrary
+ * proposal Content.
+ * @name MsgSubmitProposalLegacy
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgSubmitProposalLegacy
+ */
 export const MsgSubmitProposalLegacy = {
   typeUrl: "/cosmos.adminmodule.adminmodule.MsgSubmitProposalLegacy",
   encode(message: MsgSubmitProposalLegacy, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -286,6 +351,12 @@ function createBaseMsgSubmitProposalLegacyResponse(): MsgSubmitProposalLegacyRes
     proposalId: BigInt(0),
   };
 }
+/**
+ * MsgSubmitProposalLegacyResponse defines the Msg/SubmitProposalLegacy response type.
+ * @name MsgSubmitProposalLegacyResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgSubmitProposalLegacyResponse
+ */
 export const MsgSubmitProposalLegacyResponse = {
   typeUrl: "/cosmos.adminmodule.adminmodule.MsgSubmitProposalLegacyResponse",
   encode(
@@ -340,6 +411,13 @@ function createBaseMsgSubmitProposal(): MsgSubmitProposal {
     proposer: "",
   };
 }
+/**
+ * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
+ * proposal Content.
+ * @name MsgSubmitProposal
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgSubmitProposal
+ */
 export const MsgSubmitProposal = {
   typeUrl: "/cosmos.adminmodule.adminmodule.MsgSubmitProposal",
   encode(message: MsgSubmitProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -399,6 +477,12 @@ function createBaseMsgSubmitProposalResponse(): MsgSubmitProposalResponse {
     proposalId: BigInt(0),
   };
 }
+/**
+ * MsgSubmitProposalResponse defines the Msg/SubmitProposal response type.
+ * @name MsgSubmitProposalResponse
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.MsgSubmitProposalResponse
+ */
 export const MsgSubmitProposalResponse = {
   typeUrl: "/cosmos.adminmodule.adminmodule.MsgSubmitProposalResponse",
   encode(message: MsgSubmitProposalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

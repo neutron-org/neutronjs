@@ -1,25 +1,40 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GenesisState as GenesisState1 } from "../../client/v1/genesis";
-import { GenesisState as GenesisState2 } from "../../connection/v1/genesis";
-import { GenesisState as GenesisState3 } from "../../channel/v1/genesis";
-import { GenesisState as GenesisState4 } from "../../client/v2/genesis";
-import { GenesisState as GenesisState5 } from "../../channel/v2/genesis";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { GenesisState as GenesisState1 } from "../../client/v1/genesis.js";
+import { GenesisState as GenesisState2 } from "../../connection/v1/genesis.js";
+import { GenesisState as GenesisState3 } from "../../channel/v1/genesis.js";
+import { GenesisState as GenesisState4 } from "../../client/v2/genesis.js";
+import { GenesisState as GenesisState5 } from "../../channel/v2/genesis.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.types.v1";
-/** GenesisState defines the ibc module's genesis state. */
+/**
+ * GenesisState defines the ibc module's genesis state.
+ * @name GenesisState
+ * @package ibc.core.types.v1
+ * @see proto type: ibc.core.types.v1.GenesisState
+ */
 export interface GenesisState {
-  /** ICS002 - Clients genesis state */
+  /**
+   * ICS002 - Clients genesis state
+   */
   clientGenesis: GenesisState1;
-  /** ICS003 - Connections genesis state */
+  /**
+   * ICS003 - Connections genesis state
+   */
   connectionGenesis: GenesisState2;
-  /** ICS004 - Channel genesis state */
+  /**
+   * ICS004 - Channel genesis state
+   */
   channelGenesis: GenesisState3;
-  /** ICS002 - Clients/v2 genesis state */
+  /**
+   * ICS002 - Clients/v2 genesis state
+   */
   clientV2Genesis: GenesisState4;
-  /** ICS004 - Channel/v2 genesis state */
+  /**
+   * ICS004 - Channel/v2 genesis state
+   */
   channelV2Genesis: GenesisState5;
 }
 function createBaseGenesisState(): GenesisState {
@@ -31,6 +46,12 @@ function createBaseGenesisState(): GenesisState {
     channelV2Genesis: GenesisState5.fromPartial({}),
   };
 }
+/**
+ * GenesisState defines the ibc module's genesis state.
+ * @name GenesisState
+ * @package ibc.core.types.v1
+ * @see proto type: ibc.core.types.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.core.types.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,6 +1,6 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
+import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination.js";
 import {
   MultiHopRoute,
   LimitOrderType,
@@ -18,124 +18,253 @@ import {
   MsgMultiHopSwapResponse,
   limitOrderTypeFromJSON,
   limitOrderTypeToJSON,
-} from "./tx";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { Params } from "./params";
-import { LimitOrderTrancheUser } from "./limit_order_tranche_user";
-import { LimitOrderTranche } from "./limit_order_tranche";
-import { DepositRecord } from "./deposit_record";
-import { TickLiquidity } from "./tick_liquidity";
-import { PoolReserves } from "./pool_reserves";
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { Pool } from "./pool";
-import { PoolMetadata } from "./pool_metadata";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet, fromJsonTimestamp, fromTimestamp } from "../../helpers";
+} from "./tx.js";
+import { Timestamp } from "../../google/protobuf/timestamp.js";
+import { Params } from "./params.js";
+import { LimitOrderTrancheUser } from "./limit_order_tranche_user.js";
+import { LimitOrderTranche } from "./limit_order_tranche.js";
+import { DepositRecord } from "./deposit_record.js";
+import { TickLiquidity } from "./tick_liquidity.js";
+import { PoolReserves } from "./pool_reserves.js";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { Pool } from "./pool.js";
+import { PoolMetadata } from "./pool_metadata.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact, isSet, fromJsonTimestamp, fromTimestamp } from "../../helpers.js";
 export const protobufPackage = "neutron.dex";
-/** QueryParamsRequest is request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** QueryParamsResponse is response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params holds all the parameters of this module. */
+  /**
+   * params holds all the parameters of this module.
+   */
   params: Params;
 }
+/**
+ * @name QueryGetLimitOrderTrancheUserRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetLimitOrderTrancheUserRequest
+ */
 export interface QueryGetLimitOrderTrancheUserRequest {
   address: string;
   trancheKey: string;
   calcWithdrawableShares: boolean;
 }
+/**
+ * @name QueryGetLimitOrderTrancheUserResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetLimitOrderTrancheUserResponse
+ */
 export interface QueryGetLimitOrderTrancheUserResponse {
   limitOrderTrancheUser?: LimitOrderTrancheUser;
   withdrawableShares?: string;
 }
+/**
+ * @name QueryAllLimitOrderTrancheUserRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllLimitOrderTrancheUserRequest
+ */
 export interface QueryAllLimitOrderTrancheUserRequest {
   pagination?: PageRequest;
 }
+/**
+ * @name QueryAllLimitOrderTrancheUserResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllLimitOrderTrancheUserResponse
+ */
 export interface QueryAllLimitOrderTrancheUserResponse {
   limitOrderTrancheUser?: LimitOrderTrancheUser[];
   pagination?: PageResponse;
 }
+/**
+ * @name QueryGetLimitOrderTrancheRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetLimitOrderTrancheRequest
+ */
 export interface QueryGetLimitOrderTrancheRequest {
   pairId: string;
   tickIndex: bigint;
   tokenIn: string;
   trancheKey: string;
 }
+/**
+ * @name QueryGetLimitOrderTrancheResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetLimitOrderTrancheResponse
+ */
 export interface QueryGetLimitOrderTrancheResponse {
   limitOrderTranche?: LimitOrderTranche;
 }
+/**
+ * @name QueryAllLimitOrderTrancheRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllLimitOrderTrancheRequest
+ */
 export interface QueryAllLimitOrderTrancheRequest {
   pairId: string;
   tokenIn: string;
   pagination?: PageRequest;
 }
+/**
+ * @name QueryAllLimitOrderTrancheResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllLimitOrderTrancheResponse
+ */
 export interface QueryAllLimitOrderTrancheResponse {
   limitOrderTranche?: LimitOrderTranche[];
   pagination?: PageResponse;
 }
+/**
+ * @name QueryAllUserDepositsRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllUserDepositsRequest
+ */
 export interface QueryAllUserDepositsRequest {
   address: string;
   pagination?: PageRequest;
   includePoolData: boolean;
 }
+/**
+ * @name QueryAllUserDepositsResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllUserDepositsResponse
+ */
 export interface QueryAllUserDepositsResponse {
   deposits?: DepositRecord[];
   pagination?: PageResponse;
 }
+/**
+ * @name QueryAllLimitOrderTrancheUserByAddressRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllLimitOrderTrancheUserByAddressRequest
+ */
 export interface QueryAllLimitOrderTrancheUserByAddressRequest {
   address: string;
   pagination?: PageRequest;
 }
+/**
+ * @name QueryAllLimitOrderTrancheUserByAddressResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllLimitOrderTrancheUserByAddressResponse
+ */
 export interface QueryAllLimitOrderTrancheUserByAddressResponse {
   limitOrders?: LimitOrderTrancheUser[];
   pagination?: PageResponse;
 }
+/**
+ * @name QueryAllTickLiquidityRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllTickLiquidityRequest
+ */
 export interface QueryAllTickLiquidityRequest {
   pairId: string;
   tokenIn: string;
   pagination?: PageRequest;
 }
+/**
+ * @name QueryAllTickLiquidityResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllTickLiquidityResponse
+ */
 export interface QueryAllTickLiquidityResponse {
   tickLiquidity?: TickLiquidity[];
   pagination?: PageResponse;
 }
+/**
+ * @name QueryGetInactiveLimitOrderTrancheRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetInactiveLimitOrderTrancheRequest
+ */
 export interface QueryGetInactiveLimitOrderTrancheRequest {
   pairId: string;
   tokenIn: string;
   tickIndex: bigint;
   trancheKey: string;
 }
+/**
+ * @name QueryGetInactiveLimitOrderTrancheResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetInactiveLimitOrderTrancheResponse
+ */
 export interface QueryGetInactiveLimitOrderTrancheResponse {
   inactiveLimitOrderTranche?: LimitOrderTranche;
 }
+/**
+ * @name QueryAllInactiveLimitOrderTrancheRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllInactiveLimitOrderTrancheRequest
+ */
 export interface QueryAllInactiveLimitOrderTrancheRequest {
   pagination?: PageRequest;
 }
+/**
+ * @name QueryAllInactiveLimitOrderTrancheResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllInactiveLimitOrderTrancheResponse
+ */
 export interface QueryAllInactiveLimitOrderTrancheResponse {
   inactiveLimitOrderTranche?: LimitOrderTranche[];
   pagination?: PageResponse;
 }
+/**
+ * @name QueryAllPoolReservesRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllPoolReservesRequest
+ */
 export interface QueryAllPoolReservesRequest {
   pairId: string;
   tokenIn: string;
   pagination?: PageRequest;
 }
+/**
+ * @name QueryAllPoolReservesResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllPoolReservesResponse
+ */
 export interface QueryAllPoolReservesResponse {
   poolReserves?: PoolReserves[];
   pagination?: PageResponse;
 }
+/**
+ * @name QueryGetPoolReservesRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetPoolReservesRequest
+ */
 export interface QueryGetPoolReservesRequest {
   pairId: string;
   tokenIn: string;
   tickIndex: bigint;
   fee: bigint;
 }
+/**
+ * @name QueryGetPoolReservesResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetPoolReservesResponse
+ */
 export interface QueryGetPoolReservesResponse {
   poolReserves?: PoolReserves;
 }
+/**
+ * @name QueryEstimateMultiHopSwapRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryEstimateMultiHopSwapRequest
+ */
 export interface QueryEstimateMultiHopSwapRequest {
-  /** DEPRECATED: Use QuerySimulateMultiHopSwap */
+  /**
+   * DEPRECATED: Use QuerySimulateMultiHopSwap
+   */
   creator: string;
   receiver: string;
   routes: MultiHopRoute[];
@@ -147,11 +276,23 @@ export interface QueryEstimateMultiHopSwapRequest {
    */
   pickBestRoute: boolean;
 }
+/**
+ * @name QueryEstimateMultiHopSwapResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryEstimateMultiHopSwapResponse
+ */
 export interface QueryEstimateMultiHopSwapResponse {
   coinOut: Coin;
 }
+/**
+ * @name QueryEstimatePlaceLimitOrderRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryEstimatePlaceLimitOrderRequest
+ */
 export interface QueryEstimatePlaceLimitOrderRequest {
-  /** DEPRECATED: Use QuerySimulatePlaceLimitOrder */
+  /**
+   * DEPRECATED: Use QuerySimulatePlaceLimitOrder
+   */
   creator: string;
   receiver: string;
   tokenIn: string;
@@ -159,10 +300,17 @@ export interface QueryEstimatePlaceLimitOrderRequest {
   tickIndexInToOut: bigint;
   amountIn: string;
   orderType: LimitOrderType;
-  /** expirationTime is only valid iff orderType == GOOD_TIL_TIME. */
+  /**
+   * expirationTime is only valid iff orderType == GOOD_TIL_TIME.
+   */
   expirationTime?: Timestamp;
   maxAmountOut?: string;
 }
+/**
+ * @name QueryEstimatePlaceLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryEstimatePlaceLimitOrderResponse
+ */
 export interface QueryEstimatePlaceLimitOrderResponse {
   /**
    * Total amount of coin used for the limit order
@@ -170,7 +318,9 @@ export interface QueryEstimatePlaceLimitOrderResponse {
    * swapInCoin + makerLimitInCoin
    */
   totalInCoin: Coin;
-  /** Total amount of the token in that was immediately swapped for swapOutCoin */
+  /**
+   * Total amount of the token in that was immediately swapped for swapOutCoin
+   */
   swapInCoin: Coin;
   /**
    * Total amount of coin received from the taker portion of the limit order
@@ -180,69 +330,170 @@ export interface QueryEstimatePlaceLimitOrderResponse {
    */
   swapOutCoin: Coin;
 }
+/**
+ * @name QueryPoolRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryPoolRequest
+ */
 export interface QueryPoolRequest {
   pairId: string;
   tickIndex: bigint;
   fee: bigint;
 }
+/**
+ * @name QueryPoolByIDRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryPoolByIDRequest
+ */
 export interface QueryPoolByIDRequest {
   poolId: bigint;
 }
+/**
+ * @name QueryPoolResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryPoolResponse
+ */
 export interface QueryPoolResponse {
   pool?: Pool;
 }
+/**
+ * @name QueryGetPoolMetadataRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetPoolMetadataRequest
+ */
 export interface QueryGetPoolMetadataRequest {
   id: bigint;
 }
+/**
+ * @name QueryGetPoolMetadataResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetPoolMetadataResponse
+ */
 export interface QueryGetPoolMetadataResponse {
   poolMetadata: PoolMetadata;
 }
+/**
+ * @name QueryAllPoolMetadataRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllPoolMetadataRequest
+ */
 export interface QueryAllPoolMetadataRequest {
   pagination?: PageRequest;
 }
+/**
+ * @name QueryAllPoolMetadataResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllPoolMetadataResponse
+ */
 export interface QueryAllPoolMetadataResponse {
   poolMetadata: PoolMetadata[];
   pagination?: PageResponse;
 }
+/**
+ * @name QuerySimulateDepositRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateDepositRequest
+ */
 export interface QuerySimulateDepositRequest {
   msg?: MsgDeposit;
 }
+/**
+ * @name QuerySimulateDepositResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateDepositResponse
+ */
 export interface QuerySimulateDepositResponse {
   resp?: MsgDepositResponse;
 }
+/**
+ * @name QuerySimulateWithdrawalRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateWithdrawalRequest
+ */
 export interface QuerySimulateWithdrawalRequest {
   msg?: MsgWithdrawal;
 }
+/**
+ * @name QuerySimulateWithdrawalResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateWithdrawalResponse
+ */
 export interface QuerySimulateWithdrawalResponse {
   resp?: MsgWithdrawalResponse;
 }
+/**
+ * @name QuerySimulatePlaceLimitOrderRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulatePlaceLimitOrderRequest
+ */
 export interface QuerySimulatePlaceLimitOrderRequest {
   msg?: MsgPlaceLimitOrder;
 }
+/**
+ * @name QuerySimulatePlaceLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulatePlaceLimitOrderResponse
+ */
 export interface QuerySimulatePlaceLimitOrderResponse {
   resp?: MsgPlaceLimitOrderResponse;
 }
+/**
+ * @name QuerySimulateWithdrawFilledLimitOrderRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateWithdrawFilledLimitOrderRequest
+ */
 export interface QuerySimulateWithdrawFilledLimitOrderRequest {
   msg?: MsgWithdrawFilledLimitOrder;
 }
+/**
+ * @name QuerySimulateWithdrawFilledLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateWithdrawFilledLimitOrderResponse
+ */
 export interface QuerySimulateWithdrawFilledLimitOrderResponse {
   resp?: MsgWithdrawFilledLimitOrderResponse;
 }
+/**
+ * @name QuerySimulateCancelLimitOrderRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateCancelLimitOrderRequest
+ */
 export interface QuerySimulateCancelLimitOrderRequest {
   msg?: MsgCancelLimitOrder;
 }
+/**
+ * @name QuerySimulateCancelLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateCancelLimitOrderResponse
+ */
 export interface QuerySimulateCancelLimitOrderResponse {
   resp?: MsgCancelLimitOrderResponse;
 }
+/**
+ * @name QuerySimulateMultiHopSwapRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateMultiHopSwapRequest
+ */
 export interface QuerySimulateMultiHopSwapRequest {
   msg?: MsgMultiHopSwap;
 }
+/**
+ * @name QuerySimulateMultiHopSwapResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateMultiHopSwapResponse
+ */
 export interface QuerySimulateMultiHopSwapResponse {
   resp?: MsgMultiHopSwapResponse;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/neutron.dex.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -280,6 +531,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * QueryParamsResponse is response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/neutron.dex.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -330,6 +587,11 @@ function createBaseQueryGetLimitOrderTrancheUserRequest(): QueryGetLimitOrderTra
     calcWithdrawableShares: false,
   };
 }
+/**
+ * @name QueryGetLimitOrderTrancheUserRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetLimitOrderTrancheUserRequest
+ */
 export const QueryGetLimitOrderTrancheUserRequest = {
   typeUrl: "/neutron.dex.QueryGetLimitOrderTrancheUserRequest",
   encode(
@@ -402,6 +664,11 @@ function createBaseQueryGetLimitOrderTrancheUserResponse(): QueryGetLimitOrderTr
     withdrawableShares: undefined,
   };
 }
+/**
+ * @name QueryGetLimitOrderTrancheUserResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetLimitOrderTrancheUserResponse
+ */
 export const QueryGetLimitOrderTrancheUserResponse = {
   typeUrl: "/neutron.dex.QueryGetLimitOrderTrancheUserResponse",
   encode(
@@ -468,6 +735,11 @@ function createBaseQueryAllLimitOrderTrancheUserRequest(): QueryAllLimitOrderTra
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllLimitOrderTrancheUserRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllLimitOrderTrancheUserRequest
+ */
 export const QueryAllLimitOrderTrancheUserRequest = {
   typeUrl: "/neutron.dex.QueryAllLimitOrderTrancheUserRequest",
   encode(
@@ -523,6 +795,11 @@ function createBaseQueryAllLimitOrderTrancheUserResponse(): QueryAllLimitOrderTr
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllLimitOrderTrancheUserResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllLimitOrderTrancheUserResponse
+ */
 export const QueryAllLimitOrderTrancheUserResponse = {
   typeUrl: "/neutron.dex.QueryAllLimitOrderTrancheUserResponse",
   encode(
@@ -599,6 +876,11 @@ function createBaseQueryGetLimitOrderTrancheRequest(): QueryGetLimitOrderTranche
     trancheKey: "",
   };
 }
+/**
+ * @name QueryGetLimitOrderTrancheRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetLimitOrderTrancheRequest
+ */
 export const QueryGetLimitOrderTrancheRequest = {
   typeUrl: "/neutron.dex.QueryGetLimitOrderTrancheRequest",
   encode(
@@ -679,6 +961,11 @@ function createBaseQueryGetLimitOrderTrancheResponse(): QueryGetLimitOrderTranch
     limitOrderTranche: undefined,
   };
 }
+/**
+ * @name QueryGetLimitOrderTrancheResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetLimitOrderTrancheResponse
+ */
 export const QueryGetLimitOrderTrancheResponse = {
   typeUrl: "/neutron.dex.QueryGetLimitOrderTrancheResponse",
   encode(
@@ -738,6 +1025,11 @@ function createBaseQueryAllLimitOrderTrancheRequest(): QueryAllLimitOrderTranche
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllLimitOrderTrancheRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllLimitOrderTrancheRequest
+ */
 export const QueryAllLimitOrderTrancheRequest = {
   typeUrl: "/neutron.dex.QueryAllLimitOrderTrancheRequest",
   encode(
@@ -811,6 +1103,11 @@ function createBaseQueryAllLimitOrderTrancheResponse(): QueryAllLimitOrderTranch
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllLimitOrderTrancheResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllLimitOrderTrancheResponse
+ */
 export const QueryAllLimitOrderTrancheResponse = {
   typeUrl: "/neutron.dex.QueryAllLimitOrderTrancheResponse",
   encode(
@@ -883,6 +1180,11 @@ function createBaseQueryAllUserDepositsRequest(): QueryAllUserDepositsRequest {
     includePoolData: false,
   };
 }
+/**
+ * @name QueryAllUserDepositsRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllUserDepositsRequest
+ */
 export const QueryAllUserDepositsRequest = {
   typeUrl: "/neutron.dex.QueryAllUserDepositsRequest",
   encode(message: QueryAllUserDepositsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -953,6 +1255,11 @@ function createBaseQueryAllUserDepositsResponse(): QueryAllUserDepositsResponse 
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllUserDepositsResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllUserDepositsResponse
+ */
 export const QueryAllUserDepositsResponse = {
   typeUrl: "/neutron.dex.QueryAllUserDepositsResponse",
   encode(message: QueryAllUserDepositsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1019,6 +1326,11 @@ function createBaseQueryAllLimitOrderTrancheUserByAddressRequest(): QueryAllLimi
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllLimitOrderTrancheUserByAddressRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllLimitOrderTrancheUserByAddressRequest
+ */
 export const QueryAllLimitOrderTrancheUserByAddressRequest = {
   typeUrl: "/neutron.dex.QueryAllLimitOrderTrancheUserByAddressRequest",
   encode(
@@ -1085,6 +1397,11 @@ function createBaseQueryAllLimitOrderTrancheUserByAddressResponse(): QueryAllLim
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllLimitOrderTrancheUserByAddressResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllLimitOrderTrancheUserByAddressResponse
+ */
 export const QueryAllLimitOrderTrancheUserByAddressResponse = {
   typeUrl: "/neutron.dex.QueryAllLimitOrderTrancheUserByAddressResponse",
   encode(
@@ -1157,6 +1474,11 @@ function createBaseQueryAllTickLiquidityRequest(): QueryAllTickLiquidityRequest 
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllTickLiquidityRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllTickLiquidityRequest
+ */
 export const QueryAllTickLiquidityRequest = {
   typeUrl: "/neutron.dex.QueryAllTickLiquidityRequest",
   encode(message: QueryAllTickLiquidityRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1227,6 +1549,11 @@ function createBaseQueryAllTickLiquidityResponse(): QueryAllTickLiquidityRespons
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllTickLiquidityResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllTickLiquidityResponse
+ */
 export const QueryAllTickLiquidityResponse = {
   typeUrl: "/neutron.dex.QueryAllTickLiquidityResponse",
   encode(message: QueryAllTickLiquidityResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1295,6 +1622,11 @@ function createBaseQueryGetInactiveLimitOrderTrancheRequest(): QueryGetInactiveL
     trancheKey: "",
   };
 }
+/**
+ * @name QueryGetInactiveLimitOrderTrancheRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetInactiveLimitOrderTrancheRequest
+ */
 export const QueryGetInactiveLimitOrderTrancheRequest = {
   typeUrl: "/neutron.dex.QueryGetInactiveLimitOrderTrancheRequest",
   encode(
@@ -1377,6 +1709,11 @@ function createBaseQueryGetInactiveLimitOrderTrancheResponse(): QueryGetInactive
     inactiveLimitOrderTranche: undefined,
   };
 }
+/**
+ * @name QueryGetInactiveLimitOrderTrancheResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetInactiveLimitOrderTrancheResponse
+ */
 export const QueryGetInactiveLimitOrderTrancheResponse = {
   typeUrl: "/neutron.dex.QueryGetInactiveLimitOrderTrancheResponse",
   encode(
@@ -1436,6 +1773,11 @@ function createBaseQueryAllInactiveLimitOrderTrancheRequest(): QueryAllInactiveL
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllInactiveLimitOrderTrancheRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllInactiveLimitOrderTrancheRequest
+ */
 export const QueryAllInactiveLimitOrderTrancheRequest = {
   typeUrl: "/neutron.dex.QueryAllInactiveLimitOrderTrancheRequest",
   encode(
@@ -1493,6 +1835,11 @@ function createBaseQueryAllInactiveLimitOrderTrancheResponse(): QueryAllInactive
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllInactiveLimitOrderTrancheResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllInactiveLimitOrderTrancheResponse
+ */
 export const QueryAllInactiveLimitOrderTrancheResponse = {
   typeUrl: "/neutron.dex.QueryAllInactiveLimitOrderTrancheResponse",
   encode(
@@ -1570,6 +1917,11 @@ function createBaseQueryAllPoolReservesRequest(): QueryAllPoolReservesRequest {
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllPoolReservesRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllPoolReservesRequest
+ */
 export const QueryAllPoolReservesRequest = {
   typeUrl: "/neutron.dex.QueryAllPoolReservesRequest",
   encode(message: QueryAllPoolReservesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1640,6 +1992,11 @@ function createBaseQueryAllPoolReservesResponse(): QueryAllPoolReservesResponse 
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllPoolReservesResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllPoolReservesResponse
+ */
 export const QueryAllPoolReservesResponse = {
   typeUrl: "/neutron.dex.QueryAllPoolReservesResponse",
   encode(message: QueryAllPoolReservesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1708,6 +2065,11 @@ function createBaseQueryGetPoolReservesRequest(): QueryGetPoolReservesRequest {
     fee: BigInt(0),
   };
 }
+/**
+ * @name QueryGetPoolReservesRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetPoolReservesRequest
+ */
 export const QueryGetPoolReservesRequest = {
   typeUrl: "/neutron.dex.QueryGetPoolReservesRequest",
   encode(message: QueryGetPoolReservesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1787,6 +2149,11 @@ function createBaseQueryGetPoolReservesResponse(): QueryGetPoolReservesResponse 
     poolReserves: undefined,
   };
 }
+/**
+ * @name QueryGetPoolReservesResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetPoolReservesResponse
+ */
 export const QueryGetPoolReservesResponse = {
   typeUrl: "/neutron.dex.QueryGetPoolReservesResponse",
   encode(message: QueryGetPoolReservesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1843,6 +2210,11 @@ function createBaseQueryEstimateMultiHopSwapRequest(): QueryEstimateMultiHopSwap
     pickBestRoute: false,
   };
 }
+/**
+ * @name QueryEstimateMultiHopSwapRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryEstimateMultiHopSwapRequest
+ */
 export const QueryEstimateMultiHopSwapRequest = {
   typeUrl: "/neutron.dex.QueryEstimateMultiHopSwapRequest",
   encode(
@@ -1943,6 +2315,11 @@ function createBaseQueryEstimateMultiHopSwapResponse(): QueryEstimateMultiHopSwa
     coinOut: Coin.fromPartial({}),
   };
 }
+/**
+ * @name QueryEstimateMultiHopSwapResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryEstimateMultiHopSwapResponse
+ */
 export const QueryEstimateMultiHopSwapResponse = {
   typeUrl: "/neutron.dex.QueryEstimateMultiHopSwapResponse",
   encode(
@@ -2005,6 +2382,11 @@ function createBaseQueryEstimatePlaceLimitOrderRequest(): QueryEstimatePlaceLimi
     maxAmountOut: undefined,
   };
 }
+/**
+ * @name QueryEstimatePlaceLimitOrderRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryEstimatePlaceLimitOrderRequest
+ */
 export const QueryEstimatePlaceLimitOrderRequest = {
   typeUrl: "/neutron.dex.QueryEstimatePlaceLimitOrderRequest",
   encode(
@@ -2136,6 +2518,11 @@ function createBaseQueryEstimatePlaceLimitOrderResponse(): QueryEstimatePlaceLim
     swapOutCoin: Coin.fromPartial({}),
   };
 }
+/**
+ * @name QueryEstimatePlaceLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryEstimatePlaceLimitOrderResponse
+ */
 export const QueryEstimatePlaceLimitOrderResponse = {
   typeUrl: "/neutron.dex.QueryEstimatePlaceLimitOrderResponse",
   encode(
@@ -2216,6 +2603,11 @@ function createBaseQueryPoolRequest(): QueryPoolRequest {
     fee: BigInt(0),
   };
 }
+/**
+ * @name QueryPoolRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryPoolRequest
+ */
 export const QueryPoolRequest = {
   typeUrl: "/neutron.dex.QueryPoolRequest",
   encode(message: QueryPoolRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -2284,6 +2676,11 @@ function createBaseQueryPoolByIDRequest(): QueryPoolByIDRequest {
     poolId: BigInt(0),
   };
 }
+/**
+ * @name QueryPoolByIDRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryPoolByIDRequest
+ */
 export const QueryPoolByIDRequest = {
   typeUrl: "/neutron.dex.QueryPoolByIDRequest",
   encode(message: QueryPoolByIDRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -2332,6 +2729,11 @@ function createBaseQueryPoolResponse(): QueryPoolResponse {
     pool: undefined,
   };
 }
+/**
+ * @name QueryPoolResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryPoolResponse
+ */
 export const QueryPoolResponse = {
   typeUrl: "/neutron.dex.QueryPoolResponse",
   encode(message: QueryPoolResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -2380,6 +2782,11 @@ function createBaseQueryGetPoolMetadataRequest(): QueryGetPoolMetadataRequest {
     id: BigInt(0),
   };
 }
+/**
+ * @name QueryGetPoolMetadataRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetPoolMetadataRequest
+ */
 export const QueryGetPoolMetadataRequest = {
   typeUrl: "/neutron.dex.QueryGetPoolMetadataRequest",
   encode(message: QueryGetPoolMetadataRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -2430,6 +2837,11 @@ function createBaseQueryGetPoolMetadataResponse(): QueryGetPoolMetadataResponse 
     poolMetadata: PoolMetadata.fromPartial({}),
   };
 }
+/**
+ * @name QueryGetPoolMetadataResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryGetPoolMetadataResponse
+ */
 export const QueryGetPoolMetadataResponse = {
   typeUrl: "/neutron.dex.QueryGetPoolMetadataResponse",
   encode(message: QueryGetPoolMetadataResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -2481,6 +2893,11 @@ function createBaseQueryAllPoolMetadataRequest(): QueryAllPoolMetadataRequest {
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllPoolMetadataRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllPoolMetadataRequest
+ */
 export const QueryAllPoolMetadataRequest = {
   typeUrl: "/neutron.dex.QueryAllPoolMetadataRequest",
   encode(message: QueryAllPoolMetadataRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -2533,6 +2950,11 @@ function createBaseQueryAllPoolMetadataResponse(): QueryAllPoolMetadataResponse 
     pagination: undefined,
   };
 }
+/**
+ * @name QueryAllPoolMetadataResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QueryAllPoolMetadataResponse
+ */
 export const QueryAllPoolMetadataResponse = {
   typeUrl: "/neutron.dex.QueryAllPoolMetadataResponse",
   encode(message: QueryAllPoolMetadataResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -2598,6 +3020,11 @@ function createBaseQuerySimulateDepositRequest(): QuerySimulateDepositRequest {
     msg: undefined,
   };
 }
+/**
+ * @name QuerySimulateDepositRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateDepositRequest
+ */
 export const QuerySimulateDepositRequest = {
   typeUrl: "/neutron.dex.QuerySimulateDepositRequest",
   encode(message: QuerySimulateDepositRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -2648,6 +3075,11 @@ function createBaseQuerySimulateDepositResponse(): QuerySimulateDepositResponse 
     resp: undefined,
   };
 }
+/**
+ * @name QuerySimulateDepositResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateDepositResponse
+ */
 export const QuerySimulateDepositResponse = {
   typeUrl: "/neutron.dex.QuerySimulateDepositResponse",
   encode(message: QuerySimulateDepositResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -2699,6 +3131,11 @@ function createBaseQuerySimulateWithdrawalRequest(): QuerySimulateWithdrawalRequ
     msg: undefined,
   };
 }
+/**
+ * @name QuerySimulateWithdrawalRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateWithdrawalRequest
+ */
 export const QuerySimulateWithdrawalRequest = {
   typeUrl: "/neutron.dex.QuerySimulateWithdrawalRequest",
   encode(
@@ -2752,6 +3189,11 @@ function createBaseQuerySimulateWithdrawalResponse(): QuerySimulateWithdrawalRes
     resp: undefined,
   };
 }
+/**
+ * @name QuerySimulateWithdrawalResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateWithdrawalResponse
+ */
 export const QuerySimulateWithdrawalResponse = {
   typeUrl: "/neutron.dex.QuerySimulateWithdrawalResponse",
   encode(
@@ -2806,6 +3248,11 @@ function createBaseQuerySimulatePlaceLimitOrderRequest(): QuerySimulatePlaceLimi
     msg: undefined,
   };
 }
+/**
+ * @name QuerySimulatePlaceLimitOrderRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulatePlaceLimitOrderRequest
+ */
 export const QuerySimulatePlaceLimitOrderRequest = {
   typeUrl: "/neutron.dex.QuerySimulatePlaceLimitOrderRequest",
   encode(
@@ -2859,6 +3306,11 @@ function createBaseQuerySimulatePlaceLimitOrderResponse(): QuerySimulatePlaceLim
     resp: undefined,
   };
 }
+/**
+ * @name QuerySimulatePlaceLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulatePlaceLimitOrderResponse
+ */
 export const QuerySimulatePlaceLimitOrderResponse = {
   typeUrl: "/neutron.dex.QuerySimulatePlaceLimitOrderResponse",
   encode(
@@ -2913,6 +3365,11 @@ function createBaseQuerySimulateWithdrawFilledLimitOrderRequest(): QuerySimulate
     msg: undefined,
   };
 }
+/**
+ * @name QuerySimulateWithdrawFilledLimitOrderRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateWithdrawFilledLimitOrderRequest
+ */
 export const QuerySimulateWithdrawFilledLimitOrderRequest = {
   typeUrl: "/neutron.dex.QuerySimulateWithdrawFilledLimitOrderRequest",
   encode(
@@ -2969,6 +3426,11 @@ function createBaseQuerySimulateWithdrawFilledLimitOrderResponse(): QuerySimulat
     resp: undefined,
   };
 }
+/**
+ * @name QuerySimulateWithdrawFilledLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateWithdrawFilledLimitOrderResponse
+ */
 export const QuerySimulateWithdrawFilledLimitOrderResponse = {
   typeUrl: "/neutron.dex.QuerySimulateWithdrawFilledLimitOrderResponse",
   encode(
@@ -3025,6 +3487,11 @@ function createBaseQuerySimulateCancelLimitOrderRequest(): QuerySimulateCancelLi
     msg: undefined,
   };
 }
+/**
+ * @name QuerySimulateCancelLimitOrderRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateCancelLimitOrderRequest
+ */
 export const QuerySimulateCancelLimitOrderRequest = {
   typeUrl: "/neutron.dex.QuerySimulateCancelLimitOrderRequest",
   encode(
@@ -3079,6 +3546,11 @@ function createBaseQuerySimulateCancelLimitOrderResponse(): QuerySimulateCancelL
     resp: undefined,
   };
 }
+/**
+ * @name QuerySimulateCancelLimitOrderResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateCancelLimitOrderResponse
+ */
 export const QuerySimulateCancelLimitOrderResponse = {
   typeUrl: "/neutron.dex.QuerySimulateCancelLimitOrderResponse",
   encode(
@@ -3133,6 +3605,11 @@ function createBaseQuerySimulateMultiHopSwapRequest(): QuerySimulateMultiHopSwap
     msg: undefined,
   };
 }
+/**
+ * @name QuerySimulateMultiHopSwapRequest
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateMultiHopSwapRequest
+ */
 export const QuerySimulateMultiHopSwapRequest = {
   typeUrl: "/neutron.dex.QuerySimulateMultiHopSwapRequest",
   encode(
@@ -3186,6 +3663,11 @@ function createBaseQuerySimulateMultiHopSwapResponse(): QuerySimulateMultiHopSwa
     resp: undefined,
   };
 }
+/**
+ * @name QuerySimulateMultiHopSwapResponse
+ * @package neutron.dex
+ * @see proto type: neutron.dex.QuerySimulateMultiHopSwapResponse
+ */
 export const QuerySimulateMultiHopSwapResponse = {
   typeUrl: "/neutron.dex.QuerySimulateMultiHopSwapResponse",
   encode(

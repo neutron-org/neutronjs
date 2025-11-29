@@ -1,13 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgVerifyInvariant,
   MsgVerifyInvariantResponse,
   MsgUpdateParams,
   MsgUpdateParamsResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the bank Msg service. */
 export interface Msg {
   /** VerifyInvariant defines a method to verify a particular invariant. */
@@ -19,8 +19,8 @@ export interface Msg {
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.verifyInvariant = this.verifyInvariant.bind(this);
     this.updateParams = this.updateParams.bind(this);
@@ -36,3 +36,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

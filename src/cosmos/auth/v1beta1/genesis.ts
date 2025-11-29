@@ -1,16 +1,25 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./auth";
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Params } from "./auth.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.auth.v1beta1";
-/** GenesisState defines the auth module's genesis state. */
+/**
+ * GenesisState defines the auth module's genesis state.
+ * @name GenesisState
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** params defines all the parameters of the module. */
+  /**
+   * params defines all the parameters of the module.
+   */
   params: Params;
-  /** accounts are the accounts present at genesis. */
+  /**
+   * accounts are the accounts present at genesis.
+   */
   accounts: Any[];
 }
 function createBaseGenesisState(): GenesisState {
@@ -19,6 +28,12 @@ function createBaseGenesisState(): GenesisState {
     accounts: [],
   };
 }
+/**
+ * GenesisState defines the auth module's genesis state.
+ * @name GenesisState
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmos.auth.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

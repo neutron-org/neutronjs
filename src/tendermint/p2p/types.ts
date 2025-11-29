@@ -1,19 +1,34 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "tendermint.p2p";
+/**
+ * @name NetAddress
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.NetAddress
+ */
 export interface NetAddress {
   id: string;
   ip: string;
   port: number;
 }
+/**
+ * @name ProtocolVersion
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.ProtocolVersion
+ */
 export interface ProtocolVersion {
   p2p: bigint;
   block: bigint;
   app: bigint;
 }
+/**
+ * @name DefaultNodeInfo
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.DefaultNodeInfo
+ */
 export interface DefaultNodeInfo {
   protocolVersion: ProtocolVersion;
   defaultNodeId: string;
@@ -24,6 +39,11 @@ export interface DefaultNodeInfo {
   moniker: string;
   other: DefaultNodeInfoOther;
 }
+/**
+ * @name DefaultNodeInfoOther
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.DefaultNodeInfoOther
+ */
 export interface DefaultNodeInfoOther {
   txIndex: string;
   rpcAddress: string;
@@ -35,6 +55,11 @@ function createBaseNetAddress(): NetAddress {
     port: 0,
   };
 }
+/**
+ * @name NetAddress
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.NetAddress
+ */
 export const NetAddress = {
   typeUrl: "/tendermint.p2p.NetAddress",
   encode(message: NetAddress, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -101,6 +126,11 @@ function createBaseProtocolVersion(): ProtocolVersion {
     app: BigInt(0),
   };
 }
+/**
+ * @name ProtocolVersion
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.ProtocolVersion
+ */
 export const ProtocolVersion = {
   typeUrl: "/tendermint.p2p.ProtocolVersion",
   encode(message: ProtocolVersion, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -178,6 +208,11 @@ function createBaseDefaultNodeInfo(): DefaultNodeInfo {
     other: DefaultNodeInfoOther.fromPartial({}),
   };
 }
+/**
+ * @name DefaultNodeInfo
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.DefaultNodeInfo
+ */
 export const DefaultNodeInfo = {
   typeUrl: "/tendermint.p2p.DefaultNodeInfo",
   encode(message: DefaultNodeInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -297,6 +332,11 @@ function createBaseDefaultNodeInfoOther(): DefaultNodeInfoOther {
     rpcAddress: "",
   };
 }
+/**
+ * @name DefaultNodeInfoOther
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.DefaultNodeInfoOther
+ */
 export const DefaultNodeInfoOther = {
   typeUrl: "/tendermint.p2p.DefaultNodeInfoOther",
   encode(message: DefaultNodeInfoOther, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "osmosis.tokenfactory.v1beta1";
-/** Params defines the parameters for the tokenfactory module. */
+/**
+ * Params defines the parameters for the tokenfactory module.
+ * @name Params
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.Params
+ */
 export interface Params {
   /**
    * DenomCreationFee defines the fee to be charged on the creation of a new
@@ -33,6 +38,12 @@ function createBaseParams(): Params {
     feeCollectorAddress: "",
   };
 }
+/**
+ * Params defines the parameters for the tokenfactory module.
+ * @name Params
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/osmosis.tokenfactory.v1beta1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

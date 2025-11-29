@@ -1,90 +1,185 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { Coin } from "../../base/v1beta1/coin";
-import { VoteOption, WeightedVoteOption, Params, voteOptionFromJSON, voteOptionToJSON } from "./gov";
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Any } from "../../../google/protobuf/any.js";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { VoteOption, WeightedVoteOption, Params, voteOptionFromJSON, voteOptionToJSON } from "./gov.js";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.gov.v1";
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
  * proposal Content.
+ * @name MsgSubmitProposal
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgSubmitProposal
  */
 export interface MsgSubmitProposal {
-  /** messages are the arbitrary messages to be executed if proposal passes. */
+  /**
+   * messages are the arbitrary messages to be executed if proposal passes.
+   */
   messages: Any[];
-  /** initial_deposit is the deposit value that must be paid at proposal submission. */
+  /**
+   * initial_deposit is the deposit value that must be paid at proposal submission.
+   */
   initialDeposit: Coin[];
-  /** proposer is the account address of the proposer. */
+  /**
+   * proposer is the account address of the proposer.
+   */
   proposer: string;
-  /** metadata is any arbitrary metadata attached to the proposal. */
+  /**
+   * metadata is any arbitrary metadata attached to the proposal.
+   */
   metadata: string;
-  /** title is the title of the proposal. */
+  /**
+   * title is the title of the proposal.
+   */
   title: string;
-  /** summary is the summary of the proposal */
+  /**
+   * summary is the summary of the proposal
+   */
   summary: string;
-  /** expedited defines if the proposal is expedited or not */
+  /**
+   * expedited defines if the proposal is expedited or not
+   */
   expedited: boolean;
 }
-/** MsgSubmitProposalResponse defines the Msg/SubmitProposal response type. */
+/**
+ * MsgSubmitProposalResponse defines the Msg/SubmitProposal response type.
+ * @name MsgSubmitProposalResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgSubmitProposalResponse
+ */
 export interface MsgSubmitProposalResponse {
-  /** proposal_id defines the unique id of the proposal. */
+  /**
+   * proposal_id defines the unique id of the proposal.
+   */
   proposalId: bigint;
 }
 /**
  * MsgExecLegacyContent is used to wrap the legacy content field into a message.
  * This ensures backwards compatibility with v1beta1.MsgSubmitProposal.
+ * @name MsgExecLegacyContent
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgExecLegacyContent
  */
 export interface MsgExecLegacyContent {
-  /** content is the proposal's content. */
+  /**
+   * content is the proposal's content.
+   */
   content?: Any;
-  /** authority must be the gov module address. */
+  /**
+   * authority must be the gov module address.
+   */
   authority: string;
 }
-/** MsgExecLegacyContentResponse defines the Msg/ExecLegacyContent response type. */
+/**
+ * MsgExecLegacyContentResponse defines the Msg/ExecLegacyContent response type.
+ * @name MsgExecLegacyContentResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgExecLegacyContentResponse
+ */
 export interface MsgExecLegacyContentResponse {}
-/** MsgVote defines a message to cast a vote. */
+/**
+ * MsgVote defines a message to cast a vote.
+ * @name MsgVote
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgVote
+ */
 export interface MsgVote {
-  /** proposal_id defines the unique id of the proposal. */
+  /**
+   * proposal_id defines the unique id of the proposal.
+   */
   proposalId: bigint;
-  /** voter is the voter address for the proposal. */
+  /**
+   * voter is the voter address for the proposal.
+   */
   voter: string;
-  /** option defines the vote option. */
+  /**
+   * option defines the vote option.
+   */
   option: VoteOption;
-  /** metadata is any arbitrary metadata attached to the Vote. */
+  /**
+   * metadata is any arbitrary metadata attached to the Vote.
+   */
   metadata: string;
 }
-/** MsgVoteResponse defines the Msg/Vote response type. */
+/**
+ * MsgVoteResponse defines the Msg/Vote response type.
+ * @name MsgVoteResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgVoteResponse
+ */
 export interface MsgVoteResponse {}
-/** MsgVoteWeighted defines a message to cast a vote. */
+/**
+ * MsgVoteWeighted defines a message to cast a vote.
+ * @name MsgVoteWeighted
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgVoteWeighted
+ */
 export interface MsgVoteWeighted {
-  /** proposal_id defines the unique id of the proposal. */
+  /**
+   * proposal_id defines the unique id of the proposal.
+   */
   proposalId: bigint;
-  /** voter is the voter address for the proposal. */
+  /**
+   * voter is the voter address for the proposal.
+   */
   voter: string;
-  /** options defines the weighted vote options. */
+  /**
+   * options defines the weighted vote options.
+   */
   options: WeightedVoteOption[];
-  /** metadata is any arbitrary metadata attached to the VoteWeighted. */
+  /**
+   * metadata is any arbitrary metadata attached to the VoteWeighted.
+   */
   metadata: string;
 }
-/** MsgVoteWeightedResponse defines the Msg/VoteWeighted response type. */
+/**
+ * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
+ * @name MsgVoteWeightedResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgVoteWeightedResponse
+ */
 export interface MsgVoteWeightedResponse {}
-/** MsgDeposit defines a message to submit a deposit to an existing proposal. */
+/**
+ * MsgDeposit defines a message to submit a deposit to an existing proposal.
+ * @name MsgDeposit
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgDeposit
+ */
 export interface MsgDeposit {
-  /** proposal_id defines the unique id of the proposal. */
+  /**
+   * proposal_id defines the unique id of the proposal.
+   */
   proposalId: bigint;
-  /** depositor defines the deposit addresses from the proposals. */
+  /**
+   * depositor defines the deposit addresses from the proposals.
+   */
   depositor: string;
-  /** amount to be deposited by depositor. */
+  /**
+   * amount to be deposited by depositor.
+   */
   amount: Coin[];
 }
-/** MsgDepositResponse defines the Msg/Deposit response type. */
+/**
+ * MsgDepositResponse defines the Msg/Deposit response type.
+ * @name MsgDepositResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgDepositResponse
+ */
 export interface MsgDepositResponse {}
-/** MsgUpdateParams is the Msg/UpdateParams request type. */
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * @name MsgUpdateParams
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless overwritten).
+   */
   authority: string;
   /**
    * params defines the x/gov parameters to update.
@@ -96,25 +191,46 @@ export interface MsgUpdateParams {
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
+ * @name MsgUpdateParamsResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
-/** MsgCancelProposal is the Msg/CancelProposal request type. */
+/**
+ * MsgCancelProposal is the Msg/CancelProposal request type.
+ * @name MsgCancelProposal
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgCancelProposal
+ */
 export interface MsgCancelProposal {
-  /** proposal_id defines the unique id of the proposal. */
+  /**
+   * proposal_id defines the unique id of the proposal.
+   */
   proposalId: bigint;
-  /** proposer is the account address of the proposer. */
+  /**
+   * proposer is the account address of the proposer.
+   */
   proposer: string;
 }
 /**
  * MsgCancelProposalResponse defines the response structure for executing a
  * MsgCancelProposal message.
+ * @name MsgCancelProposalResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgCancelProposalResponse
  */
 export interface MsgCancelProposalResponse {
-  /** proposal_id defines the unique id of the proposal. */
+  /**
+   * proposal_id defines the unique id of the proposal.
+   */
   proposalId: bigint;
-  /** canceled_time is the time when proposal is canceled. */
+  /**
+   * canceled_time is the time when proposal is canceled.
+   */
   canceledTime: Timestamp;
-  /** canceled_height defines the block height at which the proposal is canceled. */
+  /**
+   * canceled_height defines the block height at which the proposal is canceled.
+   */
   canceledHeight: bigint;
 }
 function createBaseMsgSubmitProposal(): MsgSubmitProposal {
@@ -128,6 +244,13 @@ function createBaseMsgSubmitProposal(): MsgSubmitProposal {
     expedited: false,
   };
 }
+/**
+ * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
+ * proposal Content.
+ * @name MsgSubmitProposal
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgSubmitProposal
+ */
 export const MsgSubmitProposal = {
   typeUrl: "/cosmos.gov.v1.MsgSubmitProposal",
   encode(message: MsgSubmitProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -237,6 +360,12 @@ function createBaseMsgSubmitProposalResponse(): MsgSubmitProposalResponse {
     proposalId: BigInt(0),
   };
 }
+/**
+ * MsgSubmitProposalResponse defines the Msg/SubmitProposal response type.
+ * @name MsgSubmitProposalResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgSubmitProposalResponse
+ */
 export const MsgSubmitProposalResponse = {
   typeUrl: "/cosmos.gov.v1.MsgSubmitProposalResponse",
   encode(message: MsgSubmitProposalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -288,6 +417,13 @@ function createBaseMsgExecLegacyContent(): MsgExecLegacyContent {
     authority: "",
   };
 }
+/**
+ * MsgExecLegacyContent is used to wrap the legacy content field into a message.
+ * This ensures backwards compatibility with v1beta1.MsgSubmitProposal.
+ * @name MsgExecLegacyContent
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgExecLegacyContent
+ */
 export const MsgExecLegacyContent = {
   typeUrl: "/cosmos.gov.v1.MsgExecLegacyContent",
   encode(message: MsgExecLegacyContent, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -344,6 +480,12 @@ export const MsgExecLegacyContent = {
 function createBaseMsgExecLegacyContentResponse(): MsgExecLegacyContentResponse {
   return {};
 }
+/**
+ * MsgExecLegacyContentResponse defines the Msg/ExecLegacyContent response type.
+ * @name MsgExecLegacyContentResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgExecLegacyContentResponse
+ */
 export const MsgExecLegacyContentResponse = {
   typeUrl: "/cosmos.gov.v1.MsgExecLegacyContentResponse",
   encode(_: MsgExecLegacyContentResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -386,6 +528,12 @@ function createBaseMsgVote(): MsgVote {
     metadata: "",
   };
 }
+/**
+ * MsgVote defines a message to cast a vote.
+ * @name MsgVote
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgVote
+ */
 export const MsgVote = {
   typeUrl: "/cosmos.gov.v1.MsgVote",
   encode(message: MsgVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -459,6 +607,12 @@ export const MsgVote = {
 function createBaseMsgVoteResponse(): MsgVoteResponse {
   return {};
 }
+/**
+ * MsgVoteResponse defines the Msg/Vote response type.
+ * @name MsgVoteResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgVoteResponse
+ */
 export const MsgVoteResponse = {
   typeUrl: "/cosmos.gov.v1.MsgVoteResponse",
   encode(_: MsgVoteResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -499,6 +653,12 @@ function createBaseMsgVoteWeighted(): MsgVoteWeighted {
     metadata: "",
   };
 }
+/**
+ * MsgVoteWeighted defines a message to cast a vote.
+ * @name MsgVoteWeighted
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgVoteWeighted
+ */
 export const MsgVoteWeighted = {
   typeUrl: "/cosmos.gov.v1.MsgVoteWeighted",
   encode(message: MsgVoteWeighted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -577,6 +737,12 @@ export const MsgVoteWeighted = {
 function createBaseMsgVoteWeightedResponse(): MsgVoteWeightedResponse {
   return {};
 }
+/**
+ * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
+ * @name MsgVoteWeightedResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgVoteWeightedResponse
+ */
 export const MsgVoteWeightedResponse = {
   typeUrl: "/cosmos.gov.v1.MsgVoteWeightedResponse",
   encode(_: MsgVoteWeightedResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -616,6 +782,12 @@ function createBaseMsgDeposit(): MsgDeposit {
     amount: [],
   };
 }
+/**
+ * MsgDeposit defines a message to submit a deposit to an existing proposal.
+ * @name MsgDeposit
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgDeposit
+ */
 export const MsgDeposit = {
   typeUrl: "/cosmos.gov.v1.MsgDeposit",
   encode(message: MsgDeposit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -684,6 +856,12 @@ export const MsgDeposit = {
 function createBaseMsgDepositResponse(): MsgDepositResponse {
   return {};
 }
+/**
+ * MsgDepositResponse defines the Msg/Deposit response type.
+ * @name MsgDepositResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgDepositResponse
+ */
 export const MsgDepositResponse = {
   typeUrl: "/cosmos.gov.v1.MsgDepositResponse",
   encode(_: MsgDepositResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -722,6 +900,12 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * @name MsgUpdateParams
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/cosmos.gov.v1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -777,6 +961,13 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * @name MsgUpdateParamsResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/cosmos.gov.v1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -815,6 +1006,12 @@ function createBaseMsgCancelProposal(): MsgCancelProposal {
     proposer: "",
   };
 }
+/**
+ * MsgCancelProposal is the Msg/CancelProposal request type.
+ * @name MsgCancelProposal
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgCancelProposal
+ */
 export const MsgCancelProposal = {
   typeUrl: "/cosmos.gov.v1.MsgCancelProposal",
   encode(message: MsgCancelProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -874,6 +1071,13 @@ function createBaseMsgCancelProposalResponse(): MsgCancelProposalResponse {
     canceledHeight: BigInt(0),
   };
 }
+/**
+ * MsgCancelProposalResponse defines the response structure for executing a
+ * MsgCancelProposal message.
+ * @name MsgCancelProposalResponse
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.MsgCancelProposalResponse
+ */
 export const MsgCancelProposalResponse = {
   typeUrl: "/cosmos.gov.v1.MsgCancelProposalResponse",
   encode(message: MsgCancelProposalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

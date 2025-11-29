@@ -1,7 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgUpdateParams } from "./tx";
+import { Decimal } from "@interchainjs/math";
+import { MsgUpdateParams } from "./tx.js";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "dynamicfees/MsgUpdateParams";
   value: {
@@ -23,7 +24,7 @@ export const AminoConverter = {
         params: {
           ntrn_prices: params.ntrnPrices.map((el0) => ({
             denom: el0.denom,
-            amount: el0.amount,
+            amount: Decimal.fromUserInput(el0.amount, 18).atomics,
           })),
         },
       };

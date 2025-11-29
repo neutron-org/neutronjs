@@ -1,15 +1,24 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.interchaintxs.v1";
-/** Params defines the parameters for the module. */
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.Params
+ */
 export interface Params {
-  /** Defines maximum amount of messages to be passed in MsgSubmitTx */
+  /**
+   * Defines maximum amount of messages to be passed in MsgSubmitTx
+   */
   msgSubmitTxMaxMessages: bigint;
-  /** Defines a minimum fee required to register interchain account */
+  /**
+   * Defines a minimum fee required to register interchain account
+   */
   registerFee: Coin[];
 }
 function createBaseParams(): Params {
@@ -18,6 +27,12 @@ function createBaseParams(): Params {
     registerFee: [],
   };
 }
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.Params
+ */
 export const Params = {
   typeUrl: "/neutron.interchaintxs.v1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

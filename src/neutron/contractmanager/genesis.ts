@@ -1,15 +1,22 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { Failure } from "./failure";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Params } from "./params.js";
+import { Failure } from "./failure.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.contractmanager";
-/** GenesisState defines the contractmanager module's genesis state. */
+/**
+ * GenesisState defines the contractmanager module's genesis state.
+ * @name GenesisState
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.GenesisState
+ */
 export interface GenesisState {
   params: Params;
-  /** List of the contract failures */
+  /**
+   * List of the contract failures
+   */
   failuresList: Failure[];
 }
 function createBaseGenesisState(): GenesisState {
@@ -18,6 +25,12 @@ function createBaseGenesisState(): GenesisState {
     failuresList: [],
   };
 }
+/**
+ * GenesisState defines the contractmanager module's genesis state.
+ * @name GenesisState
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/neutron.contractmanager.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

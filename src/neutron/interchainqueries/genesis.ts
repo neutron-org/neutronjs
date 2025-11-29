@@ -1,18 +1,29 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Height, Params } from "../../ibc/core/client/v1/client";
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Height, Params } from "../../ibc/core/client/v1/client.js";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.interchainqueries";
-/** Information about an Interchain Query registered in the interchainqueries module. */
+/**
+ * Information about an Interchain Query registered in the interchainqueries module.
+ * @name RegisteredQuery
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.RegisteredQuery
+ */
 export interface RegisteredQuery {
-  /** The unique id of the registered query. */
+  /**
+   * The unique id of the registered query.
+   */
   id: bigint;
-  /** The address of the contract that registered the query. */
+  /**
+   * The address of the contract that registered the query.
+   */
   owner: string;
-  /** The query type identifier: `kv` or `tx`. */
+  /**
+   * The query type identifier: `kv` or `tx`.
+   */
   queryType: string;
   /**
    * The KV-storage keys for which to get values from the remote chain. Only applicable for the
@@ -37,9 +48,13 @@ export interface RegisteredQuery {
    * minimal delay between query results update).
    */
   updatePeriod: bigint;
-  /** The local chain block height of the last query results update. */
+  /**
+   * The local chain block height of the last query results update.
+   */
   lastSubmittedResultLocalHeight: bigint;
-  /** The remote chain block height that corresponds to the last query result update. */
+  /**
+   * The remote chain block height that corresponds to the last query result update.
+   */
   lastSubmittedResultRemoteHeight?: Height;
   /**
    * Amount of coins paid for the Interchain Query registration. The deposit is paid back to the
@@ -51,24 +66,42 @@ export interface RegisteredQuery {
    * result submission before the query becomes eligible for removal by anyone.
    */
   submitTimeout: bigint;
-  /** The local chain block height of the Interchain Query registration. */
+  /**
+   * The local chain block height of the Interchain Query registration.
+   */
   registeredAtHeight: bigint;
 }
-/** Represents a path to an IAVL storage node. */
+/**
+ * Represents a path to an IAVL storage node.
+ * @name KVKey
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.KVKey
+ */
 export interface KVKey {
   /**
    * The substore name used in an Interchain Query. Typically, this corresponds to the keeper's
    * storeKey, usually the module's name, such as "bank", "staking", etc.
    */
   path: string;
-  /** A bytes field representing the key for specific data in the module's storage. */
+  /**
+   * A bytes field representing the key for specific data in the module's storage.
+   */
   key: Uint8Array;
 }
-/** The interchainqueries module's genesis state model. */
+/**
+ * The interchainqueries module's genesis state model.
+ * @name GenesisState
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.GenesisState
+ */
 export interface GenesisState {
-  /** The parameters of the module. */
+  /**
+   * The parameters of the module.
+   */
   params: Params;
-  /** A list of registered Interchain Queries. */
+  /**
+   * A list of registered Interchain Queries.
+   */
   registeredQueries: RegisteredQuery[];
 }
 function createBaseRegisteredQuery(): RegisteredQuery {
@@ -87,6 +120,12 @@ function createBaseRegisteredQuery(): RegisteredQuery {
     registeredAtHeight: BigInt(0),
   };
 }
+/**
+ * Information about an Interchain Query registered in the interchainqueries module.
+ * @name RegisteredQuery
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.RegisteredQuery
+ */
 export const RegisteredQuery = {
   typeUrl: "/neutron.interchainqueries.RegisteredQuery",
   encode(message: RegisteredQuery, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -268,6 +307,12 @@ function createBaseKVKey(): KVKey {
     key: new Uint8Array(),
   };
 }
+/**
+ * Represents a path to an IAVL storage node.
+ * @name KVKey
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.KVKey
+ */
 export const KVKey = {
   typeUrl: "/neutron.interchainqueries.KVKey",
   encode(message: KVKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -325,6 +370,12 @@ function createBaseGenesisState(): GenesisState {
     registeredQueries: [],
   };
 }
+/**
+ * The interchainqueries module's genesis state model.
+ * @name GenesisState
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/neutron.interchainqueries.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,14 +1,24 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../../binary";
-import { JsonSafe } from "../../../../../json-safe";
-import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../../../helpers";
+import { BinaryReader, BinaryWriter } from "../../../../../binary.js";
+import { JsonSafe } from "../../../../../json-safe.js";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../../../helpers.js";
 export const protobufPackage = "cosmos.store.internal.kv.v1beta1";
-/** Pairs defines a repeated slice of Pair objects. */
+/**
+ * Pairs defines a repeated slice of Pair objects.
+ * @name Pairs
+ * @package cosmos.store.internal.kv.v1beta1
+ * @see proto type: cosmos.store.internal.kv.v1beta1.Pairs
+ */
 export interface Pairs {
   pairs: Pair[];
 }
-/** Pair defines a key/value bytes tuple. */
+/**
+ * Pair defines a key/value bytes tuple.
+ * @name Pair
+ * @package cosmos.store.internal.kv.v1beta1
+ * @see proto type: cosmos.store.internal.kv.v1beta1.Pair
+ */
 export interface Pair {
   key: Uint8Array;
   value: Uint8Array;
@@ -18,6 +28,12 @@ function createBasePairs(): Pairs {
     pairs: [],
   };
 }
+/**
+ * Pairs defines a repeated slice of Pair objects.
+ * @name Pairs
+ * @package cosmos.store.internal.kv.v1beta1
+ * @see proto type: cosmos.store.internal.kv.v1beta1.Pairs
+ */
 export const Pairs = {
   typeUrl: "/cosmos.store.internal.kv.v1beta1.Pairs",
   encode(message: Pairs, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -69,6 +85,12 @@ function createBasePair(): Pair {
     value: new Uint8Array(),
   };
 }
+/**
+ * Pair defines a key/value bytes tuple.
+ * @name Pair
+ * @package cosmos.store.internal.kv.v1beta1
+ * @see proto type: cosmos.store.internal.kv.v1beta1.Pair
+ */
 export const Pair = {
   typeUrl: "/cosmos.store.internal.kv.v1beta1.Pair",
   encode(message: Pair, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

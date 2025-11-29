@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { TxRpc } from "../../../../types.js";
+import { BinaryReader } from "../../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryNextSequenceSendRequest,
@@ -20,7 +20,7 @@ import {
   QueryUnreceivedPacketsResponse,
   QueryUnreceivedAcksRequest,
   QueryUnreceivedAcksResponse,
-} from "./query";
+} from "./query.js";
 /** Query provides defines the gRPC querier service */
 export interface Query {
   /** NextSequenceSend returns the next send sequence for a given channel. */
@@ -45,8 +45,8 @@ export interface Query {
   unreceivedAcks(request: QueryUnreceivedAcksRequest): Promise<QueryUnreceivedAcksResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.nextSequenceSend = this.nextSequenceSend.bind(this);
     this.packetCommitment = this.packetCommitment.bind(this);

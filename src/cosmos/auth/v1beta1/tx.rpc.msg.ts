@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
-import { MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
+import { MsgUpdateParams, MsgUpdateParamsResponse } from "./tx.js";
 /** Msg defines the x/auth Msg service. */
 export interface Msg {
   /**
@@ -12,8 +12,8 @@ export interface Msg {
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.updateParams = this.updateParams.bind(this);
   }
@@ -23,3 +23,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

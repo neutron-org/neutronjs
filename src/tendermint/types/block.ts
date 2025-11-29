@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Header, Data, Commit } from "./types";
-import { EvidenceList } from "./evidence";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Header, Data, Commit } from "./types.js";
+import { EvidenceList } from "./evidence.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "tendermint.types";
+/**
+ * @name Block
+ * @package tendermint.types
+ * @see proto type: tendermint.types.Block
+ */
 export interface Block {
   header: Header;
   data: Data;
@@ -20,6 +25,11 @@ function createBaseBlock(): Block {
     lastCommit: undefined,
   };
 }
+/**
+ * @name Block
+ * @package tendermint.types
+ * @see proto type: tendermint.types.Block
+ */
 export const Block = {
   typeUrl: "/tendermint.types.Block",
   encode(message: Block, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

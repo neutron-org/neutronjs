@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timeout, Order, orderFromJSON, orderToJSON } from "./channel";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Timeout, Order, orderFromJSON, orderToJSON } from "./channel.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.channel.v1";
 /**
  * Upgrade is a verifiable type which contains the relevant information
@@ -11,6 +11,9 @@ export const protobufPackage = "ibc.core.channel.v1";
  * end, the timeout for this upgrade attempt and the next packet sequence
  * which allows the counterparty to efficiently know the highest sequence it has received.
  * The next sequence send is used for pruning and upgrading from unordered to ordered channels.
+ * @name Upgrade
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.Upgrade
  */
 export interface Upgrade {
   fields: UpgradeFields;
@@ -20,6 +23,9 @@ export interface Upgrade {
 /**
  * UpgradeFields are the fields in a channel end which may be changed
  * during a channel upgrade.
+ * @name UpgradeFields
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.UpgradeFields
  */
 export interface UpgradeFields {
   ordering: Order;
@@ -30,11 +36,18 @@ export interface UpgradeFields {
  * ErrorReceipt defines a type which encapsulates the upgrade sequence and error associated with the
  * upgrade handshake failure. When a channel upgrade handshake is aborted both chains are expected to increment to the
  * next sequence.
+ * @name ErrorReceipt
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.ErrorReceipt
  */
 export interface ErrorReceipt {
-  /** the channel upgrade sequence */
+  /**
+   * the channel upgrade sequence
+   */
   sequence: bigint;
-  /** the error message detailing the cause of failure */
+  /**
+   * the error message detailing the cause of failure
+   */
   message: string;
 }
 function createBaseUpgrade(): Upgrade {
@@ -44,6 +57,16 @@ function createBaseUpgrade(): Upgrade {
     nextSequenceSend: BigInt(0),
   };
 }
+/**
+ * Upgrade is a verifiable type which contains the relevant information
+ * for an attempted upgrade. It provides the proposed changes to the channel
+ * end, the timeout for this upgrade attempt and the next packet sequence
+ * which allows the counterparty to efficiently know the highest sequence it has received.
+ * The next sequence send is used for pruning and upgrading from unordered to ordered channels.
+ * @name Upgrade
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.Upgrade
+ */
 export const Upgrade = {
   typeUrl: "/ibc.core.channel.v1.Upgrade",
   encode(message: Upgrade, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -119,6 +142,13 @@ function createBaseUpgradeFields(): UpgradeFields {
     version: "",
   };
 }
+/**
+ * UpgradeFields are the fields in a channel end which may be changed
+ * during a channel upgrade.
+ * @name UpgradeFields
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.UpgradeFields
+ */
 export const UpgradeFields = {
   typeUrl: "/ibc.core.channel.v1.UpgradeFields",
   encode(message: UpgradeFields, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -189,6 +219,14 @@ function createBaseErrorReceipt(): ErrorReceipt {
     message: "",
   };
 }
+/**
+ * ErrorReceipt defines a type which encapsulates the upgrade sequence and error associated with the
+ * upgrade handshake failure. When a channel upgrade handshake is aborted both chains are expected to increment to the
+ * next sequence.
+ * @name ErrorReceipt
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.ErrorReceipt
+ */
 export const ErrorReceipt = {
   typeUrl: "/ibc.core.channel.v1.ErrorReceipt",
   encode(message: ErrorReceipt, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

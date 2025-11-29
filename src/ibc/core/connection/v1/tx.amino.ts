@@ -1,14 +1,14 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { AminoHeight, omitDefault } from "../../../../helpers";
+import { AminoHeight, omitDefault } from "../../../../helpers.js";
 import {
   MsgConnectionOpenInit,
   MsgConnectionOpenTry,
   MsgConnectionOpenAck,
   MsgConnectionOpenConfirm,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export interface MsgConnectionOpenInitAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgConnectionOpenInit";
   value: {

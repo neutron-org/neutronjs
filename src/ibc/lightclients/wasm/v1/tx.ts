@@ -1,42 +1,90 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.lightclients.wasm.v1";
-/** MsgStoreCode defines the request type for the StoreCode rpc. */
+/**
+ * MsgStoreCode defines the request type for the StoreCode rpc.
+ * @name MsgStoreCode
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.MsgStoreCode
+ */
 export interface MsgStoreCode {
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
-  /** wasm byte code of light client contract. It can be raw or gzip compressed */
+  /**
+   * wasm byte code of light client contract. It can be raw or gzip compressed
+   */
   wasmByteCode: Uint8Array;
 }
-/** MsgStoreCodeResponse defines the response type for the StoreCode rpc */
+/**
+ * MsgStoreCodeResponse defines the response type for the StoreCode rpc
+ * @name MsgStoreCodeResponse
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.MsgStoreCodeResponse
+ */
 export interface MsgStoreCodeResponse {
-  /** checksum is the sha256 hash of the stored code */
+  /**
+   * checksum is the sha256 hash of the stored code
+   */
   checksum: Uint8Array;
 }
-/** MsgRemoveChecksum defines the request type for the MsgRemoveChecksum rpc. */
+/**
+ * MsgRemoveChecksum defines the request type for the MsgRemoveChecksum rpc.
+ * @name MsgRemoveChecksum
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.MsgRemoveChecksum
+ */
 export interface MsgRemoveChecksum {
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
-  /** checksum is the sha256 hash to be removed from the store */
+  /**
+   * checksum is the sha256 hash to be removed from the store
+   */
   checksum: Uint8Array;
 }
-/** MsgStoreChecksumResponse defines the response type for the StoreCode rpc */
+/**
+ * MsgStoreChecksumResponse defines the response type for the StoreCode rpc
+ * @name MsgRemoveChecksumResponse
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.MsgRemoveChecksumResponse
+ */
 export interface MsgRemoveChecksumResponse {}
-/** MsgMigrateContract defines the request type for the MigrateContract rpc. */
+/**
+ * MsgMigrateContract defines the request type for the MigrateContract rpc.
+ * @name MsgMigrateContract
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.MsgMigrateContract
+ */
 export interface MsgMigrateContract {
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
-  /** the client id of the contract */
+  /**
+   * the client id of the contract
+   */
   clientId: string;
-  /** checksum is the sha256 hash of the new wasm byte code for the contract */
+  /**
+   * checksum is the sha256 hash of the new wasm byte code for the contract
+   */
   checksum: Uint8Array;
-  /** the json encoded message to be passed to the contract on migration */
+  /**
+   * the json encoded message to be passed to the contract on migration
+   */
   msg: Uint8Array;
 }
-/** MsgMigrateContractResponse defines the response type for the MigrateContract rpc */
+/**
+ * MsgMigrateContractResponse defines the response type for the MigrateContract rpc
+ * @name MsgMigrateContractResponse
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.MsgMigrateContractResponse
+ */
 export interface MsgMigrateContractResponse {}
 function createBaseMsgStoreCode(): MsgStoreCode {
   return {
@@ -44,6 +92,12 @@ function createBaseMsgStoreCode(): MsgStoreCode {
     wasmByteCode: new Uint8Array(),
   };
 }
+/**
+ * MsgStoreCode defines the request type for the StoreCode rpc.
+ * @name MsgStoreCode
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.MsgStoreCode
+ */
 export const MsgStoreCode = {
   typeUrl: "/ibc.lightclients.wasm.v1.MsgStoreCode",
   encode(message: MsgStoreCode, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -102,6 +156,12 @@ function createBaseMsgStoreCodeResponse(): MsgStoreCodeResponse {
     checksum: new Uint8Array(),
   };
 }
+/**
+ * MsgStoreCodeResponse defines the response type for the StoreCode rpc
+ * @name MsgStoreCodeResponse
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.MsgStoreCodeResponse
+ */
 export const MsgStoreCodeResponse = {
   typeUrl: "/ibc.lightclients.wasm.v1.MsgStoreCodeResponse",
   encode(message: MsgStoreCodeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -150,6 +210,12 @@ function createBaseMsgRemoveChecksum(): MsgRemoveChecksum {
     checksum: new Uint8Array(),
   };
 }
+/**
+ * MsgRemoveChecksum defines the request type for the MsgRemoveChecksum rpc.
+ * @name MsgRemoveChecksum
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.MsgRemoveChecksum
+ */
 export const MsgRemoveChecksum = {
   typeUrl: "/ibc.lightclients.wasm.v1.MsgRemoveChecksum",
   encode(message: MsgRemoveChecksum, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -204,6 +270,12 @@ export const MsgRemoveChecksum = {
 function createBaseMsgRemoveChecksumResponse(): MsgRemoveChecksumResponse {
   return {};
 }
+/**
+ * MsgStoreChecksumResponse defines the response type for the StoreCode rpc
+ * @name MsgRemoveChecksumResponse
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.MsgRemoveChecksumResponse
+ */
 export const MsgRemoveChecksumResponse = {
   typeUrl: "/ibc.lightclients.wasm.v1.MsgRemoveChecksumResponse",
   encode(_: MsgRemoveChecksumResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -244,6 +316,12 @@ function createBaseMsgMigrateContract(): MsgMigrateContract {
     msg: new Uint8Array(),
   };
 }
+/**
+ * MsgMigrateContract defines the request type for the MigrateContract rpc.
+ * @name MsgMigrateContract
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.MsgMigrateContract
+ */
 export const MsgMigrateContract = {
   typeUrl: "/ibc.lightclients.wasm.v1.MsgMigrateContract",
   encode(message: MsgMigrateContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -317,6 +395,12 @@ export const MsgMigrateContract = {
 function createBaseMsgMigrateContractResponse(): MsgMigrateContractResponse {
   return {};
 }
+/**
+ * MsgMigrateContractResponse defines the response type for the MigrateContract rpc
+ * @name MsgMigrateContractResponse
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.MsgMigrateContractResponse
+ */
 export const MsgMigrateContractResponse = {
   typeUrl: "/ibc.lightclients.wasm.v1.MsgMigrateContractResponse",
   encode(_: MsgMigrateContractResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

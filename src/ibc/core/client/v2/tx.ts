@@ -1,26 +1,51 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Config } from "./config";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Config } from "./config.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.client.v2";
-/** MsgRegisterCounterparty defines a message to register a counterparty on a client */
+/**
+ * MsgRegisterCounterparty defines a message to register a counterparty on a client
+ * @name MsgRegisterCounterparty
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.MsgRegisterCounterparty
+ */
 export interface MsgRegisterCounterparty {
-  /** client identifier */
+  /**
+   * client identifier
+   */
   clientId: string;
-  /** counterparty merkle prefix */
+  /**
+   * counterparty merkle prefix
+   */
   counterpartyMerklePrefix: Uint8Array[];
-  /** counterparty client identifier */
+  /**
+   * counterparty client identifier
+   */
   counterpartyClientId: string;
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
 }
-/** MsgRegisterCounterpartyResponse defines the Msg/RegisterCounterparty response type. */
+/**
+ * MsgRegisterCounterpartyResponse defines the Msg/RegisterCounterparty response type.
+ * @name MsgRegisterCounterpartyResponse
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.MsgRegisterCounterpartyResponse
+ */
 export interface MsgRegisterCounterpartyResponse {}
-/** MsgUpdateClientConfig defines the sdk.Msg type to update the configuration for a given client */
+/**
+ * MsgUpdateClientConfig defines the sdk.Msg type to update the configuration for a given client
+ * @name MsgUpdateClientConfig
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.MsgUpdateClientConfig
+ */
 export interface MsgUpdateClientConfig {
-  /** client identifier */
+  /**
+   * client identifier
+   */
   clientId: string;
   /**
    * allowed relayers
@@ -28,10 +53,17 @@ export interface MsgUpdateClientConfig {
    * NOTE: All fields in the config must be supplied.
    */
   config: Config;
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
 }
-/** MsgUpdateClientConfigResponse defines the MsgUpdateClientConfig response type. */
+/**
+ * MsgUpdateClientConfigResponse defines the MsgUpdateClientConfig response type.
+ * @name MsgUpdateClientConfigResponse
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.MsgUpdateClientConfigResponse
+ */
 export interface MsgUpdateClientConfigResponse {}
 function createBaseMsgRegisterCounterparty(): MsgRegisterCounterparty {
   return {
@@ -41,6 +73,12 @@ function createBaseMsgRegisterCounterparty(): MsgRegisterCounterparty {
     signer: "",
   };
 }
+/**
+ * MsgRegisterCounterparty defines a message to register a counterparty on a client
+ * @name MsgRegisterCounterparty
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.MsgRegisterCounterparty
+ */
 export const MsgRegisterCounterparty = {
   typeUrl: "/ibc.core.client.v2.MsgRegisterCounterparty",
   encode(message: MsgRegisterCounterparty, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -119,6 +157,12 @@ export const MsgRegisterCounterparty = {
 function createBaseMsgRegisterCounterpartyResponse(): MsgRegisterCounterpartyResponse {
   return {};
 }
+/**
+ * MsgRegisterCounterpartyResponse defines the Msg/RegisterCounterparty response type.
+ * @name MsgRegisterCounterpartyResponse
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.MsgRegisterCounterpartyResponse
+ */
 export const MsgRegisterCounterpartyResponse = {
   typeUrl: "/ibc.core.client.v2.MsgRegisterCounterpartyResponse",
   encode(_: MsgRegisterCounterpartyResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -160,6 +204,12 @@ function createBaseMsgUpdateClientConfig(): MsgUpdateClientConfig {
     signer: "",
   };
 }
+/**
+ * MsgUpdateClientConfig defines the sdk.Msg type to update the configuration for a given client
+ * @name MsgUpdateClientConfig
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.MsgUpdateClientConfig
+ */
 export const MsgUpdateClientConfig = {
   typeUrl: "/ibc.core.client.v2.MsgUpdateClientConfig",
   encode(message: MsgUpdateClientConfig, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -224,6 +274,12 @@ export const MsgUpdateClientConfig = {
 function createBaseMsgUpdateClientConfigResponse(): MsgUpdateClientConfigResponse {
   return {};
 }
+/**
+ * MsgUpdateClientConfigResponse defines the MsgUpdateClientConfig response type.
+ * @name MsgUpdateClientConfigResponse
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.MsgUpdateClientConfigResponse
+ */
 export const MsgUpdateClientConfigResponse = {
   typeUrl: "/ibc.core.client.v2.MsgUpdateClientConfigResponse",
   encode(_: MsgUpdateClientConfigResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

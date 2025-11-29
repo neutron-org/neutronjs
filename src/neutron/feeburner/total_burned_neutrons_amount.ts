@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.feeburner";
-/** TotalBurnedNeutronsAmount defines total amount of burned neutron fees */
+/**
+ * TotalBurnedNeutronsAmount defines total amount of burned neutron fees
+ * @name TotalBurnedNeutronsAmount
+ * @package neutron.feeburner
+ * @see proto type: neutron.feeburner.TotalBurnedNeutronsAmount
+ */
 export interface TotalBurnedNeutronsAmount {
   coin: Coin;
 }
@@ -14,6 +19,12 @@ function createBaseTotalBurnedNeutronsAmount(): TotalBurnedNeutronsAmount {
     coin: Coin.fromPartial({}),
   };
 }
+/**
+ * TotalBurnedNeutronsAmount defines total amount of burned neutron fees
+ * @name TotalBurnedNeutronsAmount
+ * @package neutron.feeburner
+ * @see proto type: neutron.feeburner.TotalBurnedNeutronsAmount
+ */
 export const TotalBurnedNeutronsAmount = {
   typeUrl: "/neutron.feeburner.TotalBurnedNeutronsAmount",
   encode(message: TotalBurnedNeutronsAmount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

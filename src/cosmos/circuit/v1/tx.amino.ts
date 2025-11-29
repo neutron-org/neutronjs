@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { permissions_LevelFromJSON } from "./types";
+import { permissions_LevelFromJSON } from "./types.js";
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgAuthorizeCircuitBreaker, MsgTripCircuitBreaker, MsgResetCircuitBreaker } from "./tx";
+import { MsgAuthorizeCircuitBreaker, MsgTripCircuitBreaker, MsgResetCircuitBreaker } from "./tx.js";
 export interface MsgAuthorizeCircuitBreakerAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgAuthorizeCircuitBreaker";
   value: {

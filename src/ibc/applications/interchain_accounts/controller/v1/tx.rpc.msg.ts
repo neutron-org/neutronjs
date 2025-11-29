@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../../helpers";
-import { BinaryReader } from "../../../../../binary";
+import { TxRpc } from "../../../../../types.js";
+import { BinaryReader } from "../../../../../binary.js";
 import {
   MsgRegisterInterchainAccount,
   MsgRegisterInterchainAccountResponse,
@@ -9,7 +9,7 @@ import {
   MsgSendTxResponse,
   MsgUpdateParams,
   MsgUpdateParamsResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the 27-interchain-accounts/controller Msg service. */
 export interface Msg {
   /** RegisterInterchainAccount defines a rpc handler for MsgRegisterInterchainAccount. */
@@ -22,8 +22,8 @@ export interface Msg {
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.registerInterchainAccount = this.registerInterchainAccount.bind(this);
     this.sendTx = this.sendTx.bind(this);
@@ -59,3 +59,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { TradePairID } from "./trade_pair_id";
-import { LimitOrderType, limitOrderTypeFromJSON, limitOrderTypeToJSON } from "./tx";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { TradePairID } from "./trade_pair_id.js";
+import { LimitOrderType, limitOrderTypeFromJSON, limitOrderTypeToJSON } from "./tx.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
+/**
+ * @name LimitOrderTrancheUser
+ * @package neutron.dex
+ * @see proto type: neutron.dex.LimitOrderTrancheUser
+ */
 export interface LimitOrderTrancheUser {
   tradePairId?: TradePairID;
   tickIndexTakerToMaker: bigint;
@@ -13,7 +18,9 @@ export interface LimitOrderTrancheUser {
   address: string;
   sharesOwned: string;
   sharesWithdrawn: string;
-  /** TODO: remove this in next release. It is no longer used */
+  /**
+   * TODO: remove this in next release. It is no longer used
+   */
   sharesCancelled: string;
   orderType: LimitOrderType;
 }
@@ -29,6 +36,11 @@ function createBaseLimitOrderTrancheUser(): LimitOrderTrancheUser {
     orderType: 0,
   };
 }
+/**
+ * @name LimitOrderTrancheUser
+ * @package neutron.dex
+ * @see proto type: neutron.dex.LimitOrderTrancheUser
+ */
 export const LimitOrderTrancheUser = {
   typeUrl: "/neutron.dex.LimitOrderTrancheUser",
   encode(message: LimitOrderTrancheUser, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

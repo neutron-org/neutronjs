@@ -1,37 +1,54 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
-import { ConnectionEnd, IdentifiedConnection } from "./connection";
-import { Height, IdentifiedClientState, Params } from "../../client/v1/client";
-import { Any } from "../../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination.js";
+import { ConnectionEnd, IdentifiedConnection } from "./connection.js";
+import { Height, IdentifiedClientState, Params } from "../../client/v1/client.js";
+import { Any } from "../../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.connection.v1";
 /**
  * QueryConnectionRequest is the request type for the Query/Connection RPC
  * method
+ * @name QueryConnectionRequest
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionRequest
  */
 export interface QueryConnectionRequest {
-  /** connection unique identifier */
+  /**
+   * connection unique identifier
+   */
   connectionId: string;
 }
 /**
  * QueryConnectionResponse is the response type for the Query/Connection RPC
  * method. Besides the connection end, it includes a proof and the height from
  * which the proof was retrieved.
+ * @name QueryConnectionResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionResponse
  */
 export interface QueryConnectionResponse {
-  /** connection associated with the request identifier */
+  /**
+   * connection associated with the request identifier
+   */
   connection?: ConnectionEnd;
-  /** merkle proof of existence */
+  /**
+   * merkle proof of existence
+   */
   proof: Uint8Array;
-  /** height at which the proof was retrieved */
+  /**
+   * height at which the proof was retrieved
+   */
   proofHeight: Height;
 }
 /**
  * QueryConnectionsRequest is the request type for the Query/Connections RPC
  * method
+ * @name QueryConnectionsRequest
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionsRequest
  */
 export interface QueryConnectionsRequest {
   pagination?: PageRequest;
@@ -39,61 +56,103 @@ export interface QueryConnectionsRequest {
 /**
  * QueryConnectionsResponse is the response type for the Query/Connections RPC
  * method.
+ * @name QueryConnectionsResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionsResponse
  */
 export interface QueryConnectionsResponse {
-  /** list of stored connections of the chain. */
+  /**
+   * list of stored connections of the chain.
+   */
   connections: IdentifiedConnection[];
-  /** pagination response */
+  /**
+   * pagination response
+   */
   pagination?: PageResponse;
-  /** query block height */
+  /**
+   * query block height
+   */
   height: Height;
 }
 /**
  * QueryClientConnectionsRequest is the request type for the
  * Query/ClientConnections RPC method
+ * @name QueryClientConnectionsRequest
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryClientConnectionsRequest
  */
 export interface QueryClientConnectionsRequest {
-  /** client identifier associated with a connection */
+  /**
+   * client identifier associated with a connection
+   */
   clientId: string;
 }
 /**
  * QueryClientConnectionsResponse is the response type for the
  * Query/ClientConnections RPC method
+ * @name QueryClientConnectionsResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryClientConnectionsResponse
  */
 export interface QueryClientConnectionsResponse {
-  /** slice of all the connection paths associated with a client. */
+  /**
+   * slice of all the connection paths associated with a client.
+   */
   connectionPaths: string[];
-  /** merkle proof of existence */
+  /**
+   * merkle proof of existence
+   */
   proof: Uint8Array;
-  /** height at which the proof was generated */
+  /**
+   * height at which the proof was generated
+   */
   proofHeight: Height;
 }
 /**
  * QueryConnectionClientStateRequest is the request type for the
  * Query/ConnectionClientState RPC method
+ * @name QueryConnectionClientStateRequest
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionClientStateRequest
  */
 export interface QueryConnectionClientStateRequest {
-  /** connection identifier */
+  /**
+   * connection identifier
+   */
   connectionId: string;
 }
 /**
  * QueryConnectionClientStateResponse is the response type for the
  * Query/ConnectionClientState RPC method
+ * @name QueryConnectionClientStateResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionClientStateResponse
  */
 export interface QueryConnectionClientStateResponse {
-  /** client state associated with the channel */
+  /**
+   * client state associated with the channel
+   */
   identifiedClientState?: IdentifiedClientState;
-  /** merkle proof of existence */
+  /**
+   * merkle proof of existence
+   */
   proof: Uint8Array;
-  /** height at which the proof was retrieved */
+  /**
+   * height at which the proof was retrieved
+   */
   proofHeight: Height;
 }
 /**
  * QueryConnectionConsensusStateRequest is the request type for the
  * Query/ConnectionConsensusState RPC method
+ * @name QueryConnectionConsensusStateRequest
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionConsensusStateRequest
  */
 export interface QueryConnectionConsensusStateRequest {
-  /** connection identifier */
+  /**
+   * connection identifier
+   */
   connectionId: string;
   revisionNumber: bigint;
   revisionHeight: bigint;
@@ -101,22 +160,45 @@ export interface QueryConnectionConsensusStateRequest {
 /**
  * QueryConnectionConsensusStateResponse is the response type for the
  * Query/ConnectionConsensusState RPC method
+ * @name QueryConnectionConsensusStateResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionConsensusStateResponse
  */
 export interface QueryConnectionConsensusStateResponse {
-  /** consensus state associated with the channel */
+  /**
+   * consensus state associated with the channel
+   */
   consensusState?: Any;
-  /** client ID associated with the consensus state */
+  /**
+   * client ID associated with the consensus state
+   */
   clientId: string;
-  /** merkle proof of existence */
+  /**
+   * merkle proof of existence
+   */
   proof: Uint8Array;
-  /** height at which the proof was retrieved */
+  /**
+   * height at which the proof was retrieved
+   */
   proofHeight: Height;
 }
-/** QueryConnectionParamsRequest is the request type for the Query/ConnectionParams RPC method. */
+/**
+ * QueryConnectionParamsRequest is the request type for the Query/ConnectionParams RPC method.
+ * @name QueryConnectionParamsRequest
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionParamsRequest
+ */
 export interface QueryConnectionParamsRequest {}
-/** QueryConnectionParamsResponse is the response type for the Query/ConnectionParams RPC method. */
+/**
+ * QueryConnectionParamsResponse is the response type for the Query/ConnectionParams RPC method.
+ * @name QueryConnectionParamsResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionParamsResponse
+ */
 export interface QueryConnectionParamsResponse {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params?: Params;
 }
 function createBaseQueryConnectionRequest(): QueryConnectionRequest {
@@ -124,6 +206,13 @@ function createBaseQueryConnectionRequest(): QueryConnectionRequest {
     connectionId: "",
   };
 }
+/**
+ * QueryConnectionRequest is the request type for the Query/Connection RPC
+ * method
+ * @name QueryConnectionRequest
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionRequest
+ */
 export const QueryConnectionRequest = {
   typeUrl: "/ibc.core.connection.v1.QueryConnectionRequest",
   encode(message: QueryConnectionRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -172,6 +261,14 @@ function createBaseQueryConnectionResponse(): QueryConnectionResponse {
     proofHeight: Height.fromPartial({}),
   };
 }
+/**
+ * QueryConnectionResponse is the response type for the Query/Connection RPC
+ * method. Besides the connection end, it includes a proof and the height from
+ * which the proof was retrieved.
+ * @name QueryConnectionResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionResponse
+ */
 export const QueryConnectionResponse = {
   typeUrl: "/ibc.core.connection.v1.QueryConnectionResponse",
   encode(message: QueryConnectionResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -243,6 +340,13 @@ function createBaseQueryConnectionsRequest(): QueryConnectionsRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryConnectionsRequest is the request type for the Query/Connections RPC
+ * method
+ * @name QueryConnectionsRequest
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionsRequest
+ */
 export const QueryConnectionsRequest = {
   typeUrl: "/ibc.core.connection.v1.QueryConnectionsRequest",
   encode(message: QueryConnectionsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -294,6 +398,13 @@ function createBaseQueryConnectionsResponse(): QueryConnectionsResponse {
     height: Height.fromPartial({}),
   };
 }
+/**
+ * QueryConnectionsResponse is the response type for the Query/Connections RPC
+ * method.
+ * @name QueryConnectionsResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionsResponse
+ */
 export const QueryConnectionsResponse = {
   typeUrl: "/ibc.core.connection.v1.QueryConnectionsResponse",
   encode(message: QueryConnectionsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -370,6 +481,13 @@ function createBaseQueryClientConnectionsRequest(): QueryClientConnectionsReques
     clientId: "",
   };
 }
+/**
+ * QueryClientConnectionsRequest is the request type for the
+ * Query/ClientConnections RPC method
+ * @name QueryClientConnectionsRequest
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryClientConnectionsRequest
+ */
 export const QueryClientConnectionsRequest = {
   typeUrl: "/ibc.core.connection.v1.QueryClientConnectionsRequest",
   encode(message: QueryClientConnectionsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -420,6 +538,13 @@ function createBaseQueryClientConnectionsResponse(): QueryClientConnectionsRespo
     proofHeight: Height.fromPartial({}),
   };
 }
+/**
+ * QueryClientConnectionsResponse is the response type for the
+ * Query/ClientConnections RPC method
+ * @name QueryClientConnectionsResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryClientConnectionsResponse
+ */
 export const QueryClientConnectionsResponse = {
   typeUrl: "/ibc.core.connection.v1.QueryClientConnectionsResponse",
   encode(
@@ -498,6 +623,13 @@ function createBaseQueryConnectionClientStateRequest(): QueryConnectionClientSta
     connectionId: "",
   };
 }
+/**
+ * QueryConnectionClientStateRequest is the request type for the
+ * Query/ConnectionClientState RPC method
+ * @name QueryConnectionClientStateRequest
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionClientStateRequest
+ */
 export const QueryConnectionClientStateRequest = {
   typeUrl: "/ibc.core.connection.v1.QueryConnectionClientStateRequest",
   encode(
@@ -551,6 +683,13 @@ function createBaseQueryConnectionClientStateResponse(): QueryConnectionClientSt
     proofHeight: Height.fromPartial({}),
   };
 }
+/**
+ * QueryConnectionClientStateResponse is the response type for the
+ * Query/ConnectionClientState RPC method
+ * @name QueryConnectionClientStateResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionClientStateResponse
+ */
 export const QueryConnectionClientStateResponse = {
   typeUrl: "/ibc.core.connection.v1.QueryConnectionClientStateResponse",
   encode(
@@ -632,6 +771,13 @@ function createBaseQueryConnectionConsensusStateRequest(): QueryConnectionConsen
     revisionHeight: BigInt(0),
   };
 }
+/**
+ * QueryConnectionConsensusStateRequest is the request type for the
+ * Query/ConnectionConsensusState RPC method
+ * @name QueryConnectionConsensusStateRequest
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionConsensusStateRequest
+ */
 export const QueryConnectionConsensusStateRequest = {
   typeUrl: "/ibc.core.connection.v1.QueryConnectionConsensusStateRequest",
   encode(
@@ -710,6 +856,13 @@ function createBaseQueryConnectionConsensusStateResponse(): QueryConnectionConse
     proofHeight: Height.fromPartial({}),
   };
 }
+/**
+ * QueryConnectionConsensusStateResponse is the response type for the
+ * Query/ConnectionConsensusState RPC method
+ * @name QueryConnectionConsensusStateResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionConsensusStateResponse
+ */
 export const QueryConnectionConsensusStateResponse = {
   typeUrl: "/ibc.core.connection.v1.QueryConnectionConsensusStateResponse",
   encode(
@@ -793,6 +946,12 @@ export const QueryConnectionConsensusStateResponse = {
 function createBaseQueryConnectionParamsRequest(): QueryConnectionParamsRequest {
   return {};
 }
+/**
+ * QueryConnectionParamsRequest is the request type for the Query/ConnectionParams RPC method.
+ * @name QueryConnectionParamsRequest
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionParamsRequest
+ */
 export const QueryConnectionParamsRequest = {
   typeUrl: "/ibc.core.connection.v1.QueryConnectionParamsRequest",
   encode(_: QueryConnectionParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -832,6 +991,12 @@ function createBaseQueryConnectionParamsResponse(): QueryConnectionParamsRespons
     params: undefined,
   };
 }
+/**
+ * QueryConnectionParamsResponse is the response type for the Query/ConnectionParams RPC method.
+ * @name QueryConnectionParamsResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.QueryConnectionParamsResponse
+ */
 export const QueryConnectionParamsResponse = {
   typeUrl: "/ibc.core.connection.v1.QueryConnectionParamsResponse",
   encode(message: QueryConnectionParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

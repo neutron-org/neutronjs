@@ -1,16 +1,27 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.auth.module.v1";
-/** Module is the config object for the auth module. */
+/**
+ * Module is the config object for the auth module.
+ * @name Module
+ * @package cosmos.auth.module.v1
+ * @see proto type: cosmos.auth.module.v1.Module
+ */
 export interface Module {
-  /** bech32_prefix is the bech32 account prefix for the app. */
+  /**
+   * bech32_prefix is the bech32 account prefix for the app.
+   */
   bech32Prefix: string;
-  /** module_account_permissions are module account permissions. */
+  /**
+   * module_account_permissions are module account permissions.
+   */
   moduleAccountPermissions: ModuleAccountPermission[];
-  /** authority defines the custom module authority. If not set, defaults to the governance module. */
+  /**
+   * authority defines the custom module authority. If not set, defaults to the governance module.
+   */
   authority: string;
   /**
    * enable_unordered_transactions determines whether unordered transactions should be supported or not.
@@ -19,9 +30,16 @@ export interface Module {
    */
   enableUnorderedTransactions: boolean;
 }
-/** ModuleAccountPermission represents permissions for a module account. */
+/**
+ * ModuleAccountPermission represents permissions for a module account.
+ * @name ModuleAccountPermission
+ * @package cosmos.auth.module.v1
+ * @see proto type: cosmos.auth.module.v1.ModuleAccountPermission
+ */
 export interface ModuleAccountPermission {
-  /** account is the name of the module. */
+  /**
+   * account is the name of the module.
+   */
   account: string;
   /**
    * permissions are the permissions this module has. Currently recognized
@@ -37,6 +55,12 @@ function createBaseModule(): Module {
     enableUnorderedTransactions: false,
   };
 }
+/**
+ * Module is the config object for the auth module.
+ * @name Module
+ * @package cosmos.auth.module.v1
+ * @see proto type: cosmos.auth.module.v1.Module
+ */
 export const Module = {
   typeUrl: "/cosmos.auth.module.v1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -123,6 +147,12 @@ function createBaseModuleAccountPermission(): ModuleAccountPermission {
     permissions: [],
   };
 }
+/**
+ * ModuleAccountPermission represents permissions for a module account.
+ * @name ModuleAccountPermission
+ * @package cosmos.auth.module.v1
+ * @see proto type: cosmos.auth.module.v1.ModuleAccountPermission
+ */
 export const ModuleAccountPermission = {
   typeUrl: "/cosmos.auth.module.v1.ModuleAccountPermission",
   encode(message: ModuleAccountPermission, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

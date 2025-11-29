@@ -1,28 +1,56 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.lightclients.wasm.v1";
-/** QueryChecksumsRequest is the request type for the Query/Checksums RPC method. */
+/**
+ * QueryChecksumsRequest is the request type for the Query/Checksums RPC method.
+ * @name QueryChecksumsRequest
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.QueryChecksumsRequest
+ */
 export interface QueryChecksumsRequest {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
-/** QueryChecksumsResponse is the response type for the Query/Checksums RPC method. */
+/**
+ * QueryChecksumsResponse is the response type for the Query/Checksums RPC method.
+ * @name QueryChecksumsResponse
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.QueryChecksumsResponse
+ */
 export interface QueryChecksumsResponse {
-  /** checksums is a list of the hex encoded checksums of all wasm codes stored. */
+  /**
+   * checksums is a list of the hex encoded checksums of all wasm codes stored.
+   */
   checksums: string[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
-/** QueryCodeRequest is the request type for the Query/Code RPC method. */
+/**
+ * QueryCodeRequest is the request type for the Query/Code RPC method.
+ * @name QueryCodeRequest
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.QueryCodeRequest
+ */
 export interface QueryCodeRequest {
-  /** checksum is a hex encoded string of the code stored. */
+  /**
+   * checksum is a hex encoded string of the code stored.
+   */
   checksum: string;
 }
-/** QueryCodeResponse is the response type for the Query/Code RPC method. */
+/**
+ * QueryCodeResponse is the response type for the Query/Code RPC method.
+ * @name QueryCodeResponse
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.QueryCodeResponse
+ */
 export interface QueryCodeResponse {
   data: Uint8Array;
 }
@@ -31,6 +59,12 @@ function createBaseQueryChecksumsRequest(): QueryChecksumsRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryChecksumsRequest is the request type for the Query/Checksums RPC method.
+ * @name QueryChecksumsRequest
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.QueryChecksumsRequest
+ */
 export const QueryChecksumsRequest = {
   typeUrl: "/ibc.lightclients.wasm.v1.QueryChecksumsRequest",
   encode(message: QueryChecksumsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -81,6 +115,12 @@ function createBaseQueryChecksumsResponse(): QueryChecksumsResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryChecksumsResponse is the response type for the Query/Checksums RPC method.
+ * @name QueryChecksumsResponse
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.QueryChecksumsResponse
+ */
 export const QueryChecksumsResponse = {
   typeUrl: "/ibc.lightclients.wasm.v1.QueryChecksumsResponse",
   encode(message: QueryChecksumsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -143,6 +183,12 @@ function createBaseQueryCodeRequest(): QueryCodeRequest {
     checksum: "",
   };
 }
+/**
+ * QueryCodeRequest is the request type for the Query/Code RPC method.
+ * @name QueryCodeRequest
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.QueryCodeRequest
+ */
 export const QueryCodeRequest = {
   typeUrl: "/ibc.lightclients.wasm.v1.QueryCodeRequest",
   encode(message: QueryCodeRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -189,6 +235,12 @@ function createBaseQueryCodeResponse(): QueryCodeResponse {
     data: new Uint8Array(),
   };
 }
+/**
+ * QueryCodeResponse is the response type for the Query/Code RPC method.
+ * @name QueryCodeResponse
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.QueryCodeResponse
+ */
 export const QueryCodeResponse = {
   typeUrl: "/ibc.lightclients.wasm.v1.QueryCodeResponse",
   encode(message: QueryCodeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,21 +1,38 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
-import { Params } from "./params";
-import { RegisteredQuery } from "./genesis";
-import { QueryResult } from "./tx";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination.js";
+import { Params } from "./params.js";
+import { RegisteredQuery } from "./genesis.js";
+import { QueryResult } from "./tx.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../helpers.js";
 export const protobufPackage = "neutron.interchainqueries";
-/** Request type for the Query/Params RPC method. */
+/**
+ * Request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** Response type for the Query/Params RPC method. */
+/**
+ * Response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** Contains all parameters of the module. */
+  /**
+   * Contains all parameters of the module.
+   */
   params: Params;
 }
-/** Request type for the Query/RegisteredQueries RPC method. */
+/**
+ * Request type for the Query/RegisteredQueries RPC method.
+ * @name QueryRegisteredQueriesRequest
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryRegisteredQueriesRequest
+ */
 export interface QueryRegisteredQueriesRequest {
   /**
    * A list of owners of Interchain Queries. Query response will contain only Interchain Queries
@@ -35,9 +52,16 @@ export interface QueryRegisteredQueriesRequest {
    */
   pagination?: PageRequest;
 }
-/** Response type for the Query/RegisteredQueries RPC method. */
+/**
+ * Response type for the Query/RegisteredQueries RPC method.
+ * @name QueryRegisteredQueriesResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryRegisteredQueriesResponse
+ */
 export interface QueryRegisteredQueriesResponse {
-  /** A list of registered Interchain Queries. */
+  /**
+   * A list of registered Interchain Queries.
+   */
   registeredQueries: RegisteredQuery[];
   /**
    * Current page information. Use values from previous response in the next request in consecutive
@@ -45,32 +69,70 @@ export interface QueryRegisteredQueriesResponse {
    */
   pagination?: PageResponse;
 }
-/** Request type for the Query/RegisteredQuery RPC method. */
+/**
+ * Request type for the Query/RegisteredQuery RPC method.
+ * @name QueryRegisteredQueryRequest
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryRegisteredQueryRequest
+ */
 export interface QueryRegisteredQueryRequest {
-  /** ID of an Interchain Query. */
+  /**
+   * ID of an Interchain Query.
+   */
   queryId: bigint;
 }
-/** Response type for the Query/RegisteredQuery RPC method. */
+/**
+ * Response type for the Query/RegisteredQuery RPC method.
+ * @name QueryRegisteredQueryResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryRegisteredQueryResponse
+ */
 export interface QueryRegisteredQueryResponse {
-  /** A registered Interchain Query. */
+  /**
+   * A registered Interchain Query.
+   */
   registeredQuery?: RegisteredQuery;
 }
-/** Request type for the Query/QueryResult RPC method. */
+/**
+ * Request type for the Query/QueryResult RPC method.
+ * @name QueryRegisteredQueryResultRequest
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryRegisteredQueryResultRequest
+ */
 export interface QueryRegisteredQueryResultRequest {
-  /** ID of an Interchain Query. */
+  /**
+   * ID of an Interchain Query.
+   */
   queryId: bigint;
 }
-/** Response type for the Query/QueryResult RPC method. */
+/**
+ * Response type for the Query/QueryResult RPC method.
+ * @name QueryRegisteredQueryResultResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryRegisteredQueryResultResponse
+ */
 export interface QueryRegisteredQueryResultResponse {
-  /** The last successfully submitted result of an Interchain Query. */
+  /**
+   * The last successfully submitted result of an Interchain Query.
+   */
   result?: QueryResult;
 }
+/**
+ * @name Transaction
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.Transaction
+ */
 export interface Transaction {
   id: bigint;
   height: bigint;
   data: Uint8Array;
 }
-/** Request type for the Query/LastRemoteHeight RPC method. */
+/**
+ * Request type for the Query/LastRemoteHeight RPC method.
+ * @name QueryLastRemoteHeight
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryLastRemoteHeight
+ */
 export interface QueryLastRemoteHeight {
   /**
    * Connection ID of an IBC connection to a remote chain. Determines the IBC client used in query
@@ -78,16 +140,31 @@ export interface QueryLastRemoteHeight {
    */
   connectionId: string;
 }
-/** Response type for the Query/LastRemoteHeight RPC method. */
+/**
+ * Response type for the Query/LastRemoteHeight RPC method.
+ * @name QueryLastRemoteHeightResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryLastRemoteHeightResponse
+ */
 export interface QueryLastRemoteHeightResponse {
-  /** The height of the chain that the IBC client is currently on. */
+  /**
+   * The height of the chain that the IBC client is currently on.
+   */
   height: bigint;
-  /** The revision of the chain that the IBC client is currently on. */
+  /**
+   * The revision of the chain that the IBC client is currently on.
+   */
   revision: bigint;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * Request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/neutron.interchainqueries.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -125,6 +202,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * Response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/neutron.interchainqueries.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -175,6 +258,12 @@ function createBaseQueryRegisteredQueriesRequest(): QueryRegisteredQueriesReques
     pagination: undefined,
   };
 }
+/**
+ * Request type for the Query/RegisteredQueries RPC method.
+ * @name QueryRegisteredQueriesRequest
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryRegisteredQueriesRequest
+ */
 export const QueryRegisteredQueriesRequest = {
   typeUrl: "/neutron.interchainqueries.QueryRegisteredQueriesRequest",
   encode(message: QueryRegisteredQueriesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -249,6 +338,12 @@ function createBaseQueryRegisteredQueriesResponse(): QueryRegisteredQueriesRespo
     pagination: undefined,
   };
 }
+/**
+ * Response type for the Query/RegisteredQueries RPC method.
+ * @name QueryRegisteredQueriesResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryRegisteredQueriesResponse
+ */
 export const QueryRegisteredQueriesResponse = {
   typeUrl: "/neutron.interchainqueries.QueryRegisteredQueriesResponse",
   encode(
@@ -319,6 +414,12 @@ function createBaseQueryRegisteredQueryRequest(): QueryRegisteredQueryRequest {
     queryId: BigInt(0),
   };
 }
+/**
+ * Request type for the Query/RegisteredQuery RPC method.
+ * @name QueryRegisteredQueryRequest
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryRegisteredQueryRequest
+ */
 export const QueryRegisteredQueryRequest = {
   typeUrl: "/neutron.interchainqueries.QueryRegisteredQueryRequest",
   encode(message: QueryRegisteredQueryRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -369,6 +470,12 @@ function createBaseQueryRegisteredQueryResponse(): QueryRegisteredQueryResponse 
     registeredQuery: undefined,
   };
 }
+/**
+ * Response type for the Query/RegisteredQuery RPC method.
+ * @name QueryRegisteredQueryResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryRegisteredQueryResponse
+ */
 export const QueryRegisteredQueryResponse = {
   typeUrl: "/neutron.interchainqueries.QueryRegisteredQueryResponse",
   encode(message: QueryRegisteredQueryResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -422,6 +529,12 @@ function createBaseQueryRegisteredQueryResultRequest(): QueryRegisteredQueryResu
     queryId: BigInt(0),
   };
 }
+/**
+ * Request type for the Query/QueryResult RPC method.
+ * @name QueryRegisteredQueryResultRequest
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryRegisteredQueryResultRequest
+ */
 export const QueryRegisteredQueryResultRequest = {
   typeUrl: "/neutron.interchainqueries.QueryRegisteredQueryResultRequest",
   encode(
@@ -475,6 +588,12 @@ function createBaseQueryRegisteredQueryResultResponse(): QueryRegisteredQueryRes
     result: undefined,
   };
 }
+/**
+ * Response type for the Query/QueryResult RPC method.
+ * @name QueryRegisteredQueryResultResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryRegisteredQueryResultResponse
+ */
 export const QueryRegisteredQueryResultResponse = {
   typeUrl: "/neutron.interchainqueries.QueryRegisteredQueryResultResponse",
   encode(
@@ -531,6 +650,11 @@ function createBaseTransaction(): Transaction {
     data: new Uint8Array(),
   };
 }
+/**
+ * @name Transaction
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.Transaction
+ */
 export const Transaction = {
   typeUrl: "/neutron.interchainqueries.Transaction",
   encode(message: Transaction, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -600,6 +724,12 @@ function createBaseQueryLastRemoteHeight(): QueryLastRemoteHeight {
     connectionId: "",
   };
 }
+/**
+ * Request type for the Query/LastRemoteHeight RPC method.
+ * @name QueryLastRemoteHeight
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryLastRemoteHeight
+ */
 export const QueryLastRemoteHeight = {
   typeUrl: "/neutron.interchainqueries.QueryLastRemoteHeight",
   encode(message: QueryLastRemoteHeight, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -647,6 +777,12 @@ function createBaseQueryLastRemoteHeightResponse(): QueryLastRemoteHeightRespons
     revision: BigInt(0),
   };
 }
+/**
+ * Response type for the Query/LastRemoteHeight RPC method.
+ * @name QueryLastRemoteHeightResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryLastRemoteHeightResponse
+ */
 export const QueryLastRemoteHeightResponse = {
   typeUrl: "/neutron.interchainqueries.QueryLastRemoteHeightResponse",
   encode(message: QueryLastRemoteHeightResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,15 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgParams } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+import { TelescopeGeneratedType } from "../../../types.js";
+import { MsgParams } from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/feemarket.feemarket.v1.MsgParams", MsgParams],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     params(value: MsgParams) {

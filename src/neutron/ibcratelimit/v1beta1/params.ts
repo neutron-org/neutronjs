@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.ibcratelimit.v1beta1";
-/** Params defines the parameters for the ibc-rate-limit module. */
+/**
+ * Params defines the parameters for the ibc-rate-limit module.
+ * @name Params
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto type: neutron.ibcratelimit.v1beta1.Params
+ */
 export interface Params {
   contractAddress?: string;
 }
@@ -13,6 +18,12 @@ function createBaseParams(): Params {
     contractAddress: undefined,
   };
 }
+/**
+ * Params defines the parameters for the ibc-rate-limit module.
+ * @name Params
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto type: neutron.ibcratelimit.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/neutron.ibcratelimit.v1beta1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

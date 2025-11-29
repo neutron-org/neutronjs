@@ -1,18 +1,32 @@
 //@ts-nocheck
 /* eslint-disable */
-import { HookType, hookTypeFromJSON, hookTypeToJSON } from "./hooks";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { HookType, hookTypeFromJSON, hookTypeToJSON } from "./hooks.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.harpoon";
-/** Request type for the Query/SubscribedContracts RPC method. */
+/**
+ * Request type for the Query/SubscribedContracts RPC method.
+ * @name QuerySubscribedContractsRequest
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.QuerySubscribedContractsRequest
+ */
 export interface QuerySubscribedContractsRequest {
-  /** The response will include only contract addresses for this hook type. */
+  /**
+   * The response will include only contract addresses for this hook type.
+   */
   hookType: HookType;
 }
-/** Response type for the Query/SubscribedContracts RPC method. */
+/**
+ * Response type for the Query/SubscribedContracts RPC method.
+ * @name QuerySubscribedContractsResponse
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.QuerySubscribedContractsResponse
+ */
 export interface QuerySubscribedContractsResponse {
-  /** List of contract addresses subscribed to a specific hook. */
+  /**
+   * List of contract addresses subscribed to a specific hook.
+   */
   contractAddresses: string[];
 }
 function createBaseQuerySubscribedContractsRequest(): QuerySubscribedContractsRequest {
@@ -20,6 +34,12 @@ function createBaseQuerySubscribedContractsRequest(): QuerySubscribedContractsRe
     hookType: 0,
   };
 }
+/**
+ * Request type for the Query/SubscribedContracts RPC method.
+ * @name QuerySubscribedContractsRequest
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.QuerySubscribedContractsRequest
+ */
 export const QuerySubscribedContractsRequest = {
   typeUrl: "/neutron.harpoon.QuerySubscribedContractsRequest",
   encode(
@@ -71,6 +91,12 @@ function createBaseQuerySubscribedContractsResponse(): QuerySubscribedContractsR
     contractAddresses: [],
   };
 }
+/**
+ * Response type for the Query/SubscribedContracts RPC method.
+ * @name QuerySubscribedContractsResponse
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.QuerySubscribedContractsResponse
+ */
 export const QuerySubscribedContractsResponse = {
   typeUrl: "/neutron.harpoon.QuerySubscribedContractsResponse",
   encode(

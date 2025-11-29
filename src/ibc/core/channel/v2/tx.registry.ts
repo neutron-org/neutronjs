@@ -1,18 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgSendPacket, MsgRecvPacket, MsgTimeout, MsgAcknowledgement } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+import { TelescopeGeneratedType } from "../../../../types.js";
+import { MsgSendPacket, MsgRecvPacket, MsgTimeout, MsgAcknowledgement } from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/ibc.core.channel.v2.MsgSendPacket", MsgSendPacket],
   ["/ibc.core.channel.v2.MsgRecvPacket", MsgRecvPacket],
   ["/ibc.core.channel.v2.MsgTimeout", MsgTimeout],
   ["/ibc.core.channel.v2.MsgAcknowledgement", MsgAcknowledgement],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     sendPacket(value: MsgSendPacket) {

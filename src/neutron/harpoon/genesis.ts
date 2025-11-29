@@ -1,13 +1,20 @@
 //@ts-nocheck
 /* eslint-disable */
-import { HookSubscriptions } from "./hooks";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact } from "../../helpers";
+import { HookSubscriptions } from "./hooks.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact } from "../../helpers.js";
 export const protobufPackage = "neutron.harpoon";
-/** Harpoon module genesis state. */
+/**
+ * Harpoon module genesis state.
+ * @name GenesisState
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.GenesisState
+ */
 export interface GenesisState {
-  /** List of hooks */
+  /**
+   * List of hooks
+   */
   hookSubscriptions: HookSubscriptions[];
 }
 function createBaseGenesisState(): GenesisState {
@@ -15,6 +22,12 @@ function createBaseGenesisState(): GenesisState {
     hookSubscriptions: [],
   };
 }
+/**
+ * Harpoon module genesis state.
+ * @name GenesisState
+ * @package neutron.harpoon
+ * @see proto type: neutron.harpoon.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/neutron.harpoon.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

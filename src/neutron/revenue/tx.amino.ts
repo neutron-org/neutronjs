@@ -1,8 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../helpers";
-import { MsgUpdateParams, MsgFundTreasury } from "./tx";
+import { omitDefault } from "../../helpers.js";
+import { Decimal } from "@interchainjs/math";
+import { MsgUpdateParams, MsgFundTreasury } from "./tx.js";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "revenue/MsgUpdateParams";
   value: {
@@ -55,12 +56,18 @@ export const AminoConverter = {
             asset: params.rewardQuote.asset,
           },
           blocks_performance_requirement: {
-            allowed_to_miss: params.blocksPerformanceRequirement.allowedToMiss,
-            required_at_least: params.blocksPerformanceRequirement.requiredAtLeast,
+            allowed_to_miss: Decimal.fromUserInput(params.blocksPerformanceRequirement.allowedToMiss, 18)
+              .atomics,
+            required_at_least: Decimal.fromUserInput(params.blocksPerformanceRequirement.requiredAtLeast, 18)
+              .atomics,
           },
           oracle_votes_performance_requirement: {
-            allowed_to_miss: params.oracleVotesPerformanceRequirement.allowedToMiss,
-            required_at_least: params.oracleVotesPerformanceRequirement.requiredAtLeast,
+            allowed_to_miss: Decimal.fromUserInput(params.oracleVotesPerformanceRequirement.allowedToMiss, 18)
+              .atomics,
+            required_at_least: Decimal.fromUserInput(
+              params.oracleVotesPerformanceRequirement.requiredAtLeast,
+              18,
+            ).atomics,
           },
           payment_schedule_type: {
             monthly_payment_schedule_type: {},

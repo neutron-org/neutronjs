@@ -1,13 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { Decimal } from "@cosmjs/math";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { Decimal } from "@interchainjs/math";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "feemarket.feemarket.v1";
 /**
  * Params contains the required set of parameters for the EIP1559 fee market
  * plugin implementation.
+ * @name Params
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.Params
  */
 export interface Params {
   /**
@@ -44,18 +47,26 @@ export interface Params {
    * global minimum for the network.
    */
   minBaseGasPrice: string;
-  /** MinLearningRate is the lower bound for the learning rate. */
+  /**
+   * MinLearningRate is the lower bound for the learning rate.
+   */
   minLearningRate: string;
-  /** MaxLearningRate is the upper bound for the learning rate. */
+  /**
+   * MaxLearningRate is the upper bound for the learning rate.
+   */
   maxLearningRate: string;
-  /** MaxBlockUtilization is the maximum block utilization. */
+  /**
+   * MaxBlockUtilization is the maximum block utilization.
+   */
   maxBlockUtilization: bigint;
   /**
    * Window defines the window size for calculating an adaptive learning rate
    * over a moving window of blocks.
    */
   window: bigint;
-  /** FeeDenom is the denom that will be used for all fee payments. */
+  /**
+   * FeeDenom is the denom that will be used for all fee payments.
+   */
   feeDenom: string;
   /**
    * Enabled is a boolean that determines whether the EIP1559 fee market is
@@ -90,6 +101,13 @@ function createBaseParams(): Params {
     sendTipToProposer: false,
   };
 }
+/**
+ * Params contains the required set of parameters for the EIP1559 fee market
+ * plugin implementation.
+ * @name Params
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.Params
+ */
 export const Params = {
   typeUrl: "/feemarket.feemarket.v1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

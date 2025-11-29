@@ -1,7 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
+import { Decimal } from "@interchainjs/math";
+import { omitDefault } from "../../../helpers.js";
 import {
   MsgSetWithdrawAddress,
   MsgWithdrawDelegatorReward,
@@ -10,7 +11,7 @@ import {
   MsgUpdateParams,
   MsgCommunityPoolSpend,
   MsgDepositValidatorRewardsPool,
-} from "./tx";
+} from "./tx.js";
 export interface MsgSetWithdrawAddressAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgModifyWithdrawAddress";
   value: {
@@ -162,9 +163,9 @@ export const AminoConverter = {
       return {
         authority,
         params: {
-          community_tax: params.communityTax,
-          base_proposer_reward: params.baseProposerReward,
-          bonus_proposer_reward: params.bonusProposerReward,
+          community_tax: Decimal.fromUserInput(params.communityTax, 18).atomics,
+          base_proposer_reward: Decimal.fromUserInput(params.baseProposerReward, 18).atomics,
+          bonus_proposer_reward: Decimal.fromUserInput(params.bonusProposerReward, 18).atomics,
           withdraw_addr_enabled: omitDefault(params.withdrawAddrEnabled),
         },
       };

@@ -1,23 +1,36 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.crypto.hd.v1";
-/** BIP44Params is used as path field in ledger item in Record. */
+/**
+ * BIP44Params is used as path field in ledger item in Record.
+ * @name BIP44Params
+ * @package cosmos.crypto.hd.v1
+ * @see proto type: cosmos.crypto.hd.v1.BIP44Params
+ */
 export interface BIP44Params {
-  /** purpose is a constant set to 44' (or 0x8000002C) following the BIP43 recommendation */
+  /**
+   * purpose is a constant set to 44' (or 0x8000002C) following the BIP43 recommendation
+   */
   purpose: number;
-  /** coin_type is a constant that improves privacy */
+  /**
+   * coin_type is a constant that improves privacy
+   */
   coinType: number;
-  /** account splits the key space into independent user identities */
+  /**
+   * account splits the key space into independent user identities
+   */
   account: number;
   /**
    * change is a constant used for public derivation. Constant 0 is used for external chain and constant 1 for internal
    * chain.
    */
   change: boolean;
-  /** address_index is used as child index in BIP32 derivation */
+  /**
+   * address_index is used as child index in BIP32 derivation
+   */
   addressIndex: number;
 }
 function createBaseBIP44Params(): BIP44Params {
@@ -29,6 +42,12 @@ function createBaseBIP44Params(): BIP44Params {
     addressIndex: 0,
   };
 }
+/**
+ * BIP44Params is used as path field in ledger item in Record.
+ * @name BIP44Params
+ * @package cosmos.crypto.hd.v1
+ * @see proto type: cosmos.crypto.hd.v1.BIP44Params
+ */
 export const BIP44Params = {
   typeUrl: "/cosmos.crypto.hd.v1.BIP44Params",
   encode(message: BIP44Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../base/query/v1beta1/pagination";
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { PageRequest } from "../../base/query/v1beta1/pagination.js";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryAccountRequest,
@@ -11,7 +11,7 @@ import {
   AccountsResponse,
   QueryDisabledListRequest,
   DisabledListResponse,
-} from "./query";
+} from "./query.js";
 /** Query defines the circuit gRPC querier service. */
 export interface Query {
   /** Account returns account permissions. */
@@ -22,8 +22,8 @@ export interface Query {
   disabledList(request?: QueryDisabledListRequest): Promise<DisabledListResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.account = this.account.bind(this);
     this.accounts = this.accounts.bind(this);

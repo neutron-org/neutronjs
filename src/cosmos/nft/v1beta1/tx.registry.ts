@@ -1,13 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgSend } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/cosmos.nft.v1beta1.MsgSend", MsgSend]];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
+import { TelescopeGeneratedType } from "../../../types.js";
+import { MsgSend } from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
+  ["/cosmos.nft.v1beta1.MsgSend", MsgSend],
+];
 export const MessageComposer = {
   encoded: {
     send(value: MsgSend) {

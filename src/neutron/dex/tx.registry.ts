@@ -1,6 +1,6 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
+import { TelescopeGeneratedType } from "../../types.js";
 import {
   MsgDeposit,
   MsgWithdrawal,
@@ -9,8 +9,8 @@ import {
   MsgCancelLimitOrder,
   MsgMultiHopSwap,
   MsgUpdateParams,
-} from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+} from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/neutron.dex.MsgDeposit", MsgDeposit],
   ["/neutron.dex.MsgWithdrawal", MsgWithdrawal],
   ["/neutron.dex.MsgPlaceLimitOrder", MsgPlaceLimitOrder],
@@ -19,11 +19,6 @@ export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/neutron.dex.MsgMultiHopSwap", MsgMultiHopSwap],
   ["/neutron.dex.MsgUpdateParams", MsgUpdateParams],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     deposit(value: MsgDeposit) {

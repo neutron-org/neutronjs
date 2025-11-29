@@ -1,8 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgParams } from "./tx";
+import { Decimal } from "@interchainjs/math";
+import { omitDefault } from "../../../helpers.js";
+import { MsgParams } from "./tx.js";
 export interface MsgParamsAminoType extends AminoMsg {
   type: "/feemarket.feemarket.v1.MsgParams";
   value: {
@@ -30,13 +31,13 @@ export const AminoConverter = {
     toAmino: ({ params, authority }: MsgParams): MsgParamsAminoType["value"] => {
       return {
         params: {
-          alpha: params.alpha,
-          beta: params.beta,
-          gamma: params.gamma,
-          delta: params.delta,
-          min_base_gas_price: params.minBaseGasPrice,
-          min_learning_rate: params.minLearningRate,
-          max_learning_rate: params.maxLearningRate,
+          alpha: Decimal.fromUserInput(params.alpha, 18).atomics,
+          beta: Decimal.fromUserInput(params.beta, 18).atomics,
+          gamma: Decimal.fromUserInput(params.gamma, 18).atomics,
+          delta: Decimal.fromUserInput(params.delta, 18).atomics,
+          min_base_gas_price: Decimal.fromUserInput(params.minBaseGasPrice, 18).atomics,
+          min_learning_rate: Decimal.fromUserInput(params.minLearningRate, 18).atomics,
+          max_learning_rate: Decimal.fromUserInput(params.maxLearningRate, 18).atomics,
           max_block_utilization: omitDefault(params.maxBlockUtilization)?.toString?.(),
           window: omitDefault(params.window)?.toString?.(),
           fee_denom: params.feeDenom,

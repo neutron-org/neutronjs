@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../base/query/v1beta1/pagination";
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { PageRequest } from "../../base/query/v1beta1/pagination.js";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryParamsRequest,
@@ -11,7 +11,7 @@ import {
   QuerySigningInfoResponse,
   QuerySigningInfosRequest,
   QuerySigningInfosResponse,
-} from "./query";
+} from "./query.js";
 /** Query provides defines the gRPC querier service */
 export interface Query {
   /** Params queries the parameters of slashing module */
@@ -22,8 +22,8 @@ export interface Query {
   signingInfos(request?: QuerySigningInfosRequest): Promise<QuerySigningInfosResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.params = this.params.bind(this);
     this.signingInfo = this.signingInfo.bind(this);

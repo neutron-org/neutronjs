@@ -1,17 +1,12 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgRegisterInterchainAccount, MsgSubmitTx, MsgUpdateParams } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+import { TelescopeGeneratedType } from "../../../types.js";
+import { MsgRegisterInterchainAccount, MsgSubmitTx, MsgUpdateParams } from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/neutron.interchaintxs.v1.MsgRegisterInterchainAccount", MsgRegisterInterchainAccount],
   ["/neutron.interchaintxs.v1.MsgSubmitTx", MsgSubmitTx],
   ["/neutron.interchaintxs.v1.MsgUpdateParams", MsgUpdateParams],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     registerInterchainAccount(value: MsgRegisterInterchainAccount) {

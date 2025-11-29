@@ -1,38 +1,72 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.nft.v1beta1";
-/** Class defines the class of the nft type. */
+/**
+ * Class defines the class of the nft type.
+ * @name Class
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.Class
+ */
 export interface Class {
-  /** id defines the unique identifier of the NFT classification, similar to the contract address of ERC721 */
+  /**
+   * id defines the unique identifier of the NFT classification, similar to the contract address of ERC721
+   */
   id: string;
-  /** name defines the human-readable name of the NFT classification. Optional */
+  /**
+   * name defines the human-readable name of the NFT classification. Optional
+   */
   name: string;
-  /** symbol is an abbreviated name for nft classification. Optional */
+  /**
+   * symbol is an abbreviated name for nft classification. Optional
+   */
   symbol: string;
-  /** description is a brief description of nft classification. Optional */
+  /**
+   * description is a brief description of nft classification. Optional
+   */
   description: string;
-  /** uri for the class metadata stored off chain. It can define schema for Class and NFT `Data` attributes. Optional */
+  /**
+   * uri for the class metadata stored off chain. It can define schema for Class and NFT `Data` attributes. Optional
+   */
   uri: string;
-  /** uri_hash is a hash of the document pointed by uri. Optional */
+  /**
+   * uri_hash is a hash of the document pointed by uri. Optional
+   */
   uriHash: string;
-  /** data is the app specific metadata of the NFT class. Optional */
+  /**
+   * data is the app specific metadata of the NFT class. Optional
+   */
   data?: Any;
 }
-/** NFT defines the NFT. */
+/**
+ * NFT defines the NFT.
+ * @name NFT
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.NFT
+ */
 export interface NFT {
-  /** class_id associated with the NFT, similar to the contract address of ERC721 */
+  /**
+   * class_id associated with the NFT, similar to the contract address of ERC721
+   */
   classId: string;
-  /** id is a unique identifier of the NFT */
+  /**
+   * id is a unique identifier of the NFT
+   */
   id: string;
-  /** uri for the NFT metadata stored off chain */
+  /**
+   * uri for the NFT metadata stored off chain
+   */
   uri: string;
-  /** uri_hash is a hash of the document pointed by uri */
+  /**
+   * uri_hash is a hash of the document pointed by uri
+   */
   uriHash: string;
-  /** data is an app specific data of the NFT. Optional */
+  /**
+   * data is an app specific data of the NFT. Optional
+   */
   data?: Any;
 }
 function createBaseClass(): Class {
@@ -46,6 +80,12 @@ function createBaseClass(): Class {
     data: undefined,
   };
 }
+/**
+ * Class defines the class of the nft type.
+ * @name Class
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.Class
+ */
 export const Class = {
   typeUrl: "/cosmos.nft.v1beta1.Class",
   encode(message: Class, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -152,6 +192,12 @@ function createBaseNFT(): NFT {
     data: undefined,
   };
 }
+/**
+ * NFT defines the NFT.
+ * @name NFT
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.NFT
+ */
 export const NFT = {
   typeUrl: "/cosmos.nft.v1beta1.NFT",
   encode(message: NFT, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

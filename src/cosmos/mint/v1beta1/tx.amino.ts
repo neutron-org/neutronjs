@@ -1,8 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgUpdateParams } from "./tx";
+import { Decimal } from "@interchainjs/math";
+import { omitDefault } from "../../../helpers.js";
+import { MsgUpdateParams } from "./tx.js";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "cosmos-sdk/x/mint/MsgUpdateParams";
   value: {
@@ -25,10 +26,10 @@ export const AminoConverter = {
         authority,
         params: {
           mint_denom: params.mintDenom,
-          inflation_rate_change: params.inflationRateChange,
-          inflation_max: params.inflationMax,
-          inflation_min: params.inflationMin,
-          goal_bonded: params.goalBonded,
+          inflation_rate_change: Decimal.fromUserInput(params.inflationRateChange, 18).atomics,
+          inflation_max: Decimal.fromUserInput(params.inflationMax, 18).atomics,
+          inflation_min: Decimal.fromUserInput(params.inflationMin, 18).atomics,
+          goal_bonded: Decimal.fromUserInput(params.goalBonded, 18).atomics,
           blocks_per_year: omitDefault(params.blocksPerYear)?.toString?.(),
         },
       };

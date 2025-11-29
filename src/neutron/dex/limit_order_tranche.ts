@@ -1,27 +1,43 @@
 //@ts-nocheck
 /* eslint-disable */
-import { TradePairID } from "./trade_pair_id";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { TradePairID } from "./trade_pair_id.js";
+import { Timestamp } from "../../google/protobuf/timestamp.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
+/**
+ * @name LimitOrderTrancheKey
+ * @package neutron.dex
+ * @see proto type: neutron.dex.LimitOrderTrancheKey
+ */
 export interface LimitOrderTrancheKey {
   tradePairId?: TradePairID;
   tickIndexTakerToMaker: bigint;
   trancheKey: string;
 }
+/**
+ * @name LimitOrderTranche
+ * @package neutron.dex
+ * @see proto type: neutron.dex.LimitOrderTranche
+ */
 export interface LimitOrderTranche {
   key?: LimitOrderTrancheKey;
-  /** DEPRECATED: reserves_maker_denom will be removed in future release, `dec_reserves_maker_denom` should always be used. */
-  /** @deprecated */
+  /**
+   * DEPRECATED: reserves_maker_denom will be removed in future release, `dec_reserves_maker_denom` should always be used.
+   * @deprecated
+   */
   reservesMakerDenom: string;
-  /** DEPRECATED: reserves_taker_denom will be removed in future release, `dec_reserves_taker_denom` should always be used. */
-  /** @deprecated */
+  /**
+   * DEPRECATED: reserves_taker_denom will be removed in future release, `dec_reserves_taker_denom` should always be used.
+   * @deprecated
+   */
   reservesTakerDenom: string;
   totalMakerDenom: string;
-  /** DEPRECATED: total_taker_denom will be removed in future release, `dec_total_taker_denom` should always be used. */
-  /** @deprecated */
+  /**
+   * DEPRECATED: total_taker_denom will be removed in future release, `dec_total_taker_denom` should always be used.
+   * @deprecated
+   */
   totalTakerDenom: string;
   /**
    * JIT orders also use expiration_time to handle deletion but represent a special case
@@ -29,10 +45,14 @@ export interface LimitOrderTranche {
    * Order deletion still functions the same and the orders will be deleted at the end of the block
    */
   expirationTime?: Timestamp;
-  /** DEPRECATED: price_taker_to_maker will be removed in future release, `maker_price` should always be used. */
-  /** @deprecated */
+  /**
+   * DEPRECATED: price_taker_to_maker will be removed in future release, `maker_price` should always be used.
+   * @deprecated
+   */
   priceTakerToMaker: string;
-  /** This is the price of the LimitOrder denominated in the opposite token. (ie. 1 TokenA with a maker_price of 10 is worth 10 TokenB ) */
+  /**
+   * This is the price of the LimitOrder denominated in the opposite token. (ie. 1 TokenA with a maker_price of 10 is worth 10 TokenB )
+   */
   makerPrice: string;
   decReservesMakerDenom: string;
   decReservesTakerDenom: string;
@@ -45,6 +65,11 @@ function createBaseLimitOrderTrancheKey(): LimitOrderTrancheKey {
     trancheKey: "",
   };
 }
+/**
+ * @name LimitOrderTrancheKey
+ * @package neutron.dex
+ * @see proto type: neutron.dex.LimitOrderTrancheKey
+ */
 export const LimitOrderTrancheKey = {
   typeUrl: "/neutron.dex.LimitOrderTrancheKey",
   encode(message: LimitOrderTrancheKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -126,6 +151,11 @@ function createBaseLimitOrderTranche(): LimitOrderTranche {
     decTotalTakerDenom: "",
   };
 }
+/**
+ * @name LimitOrderTranche
+ * @package neutron.dex
+ * @see proto type: neutron.dex.LimitOrderTranche
+ */
 export const LimitOrderTranche = {
   typeUrl: "/neutron.dex.LimitOrderTranche",
   encode(message: LimitOrderTranche, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

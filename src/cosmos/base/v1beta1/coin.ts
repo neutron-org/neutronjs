@@ -1,15 +1,18 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
-import { Decimal } from "@cosmjs/math";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { Decimal } from "@interchainjs/math";
 export const protobufPackage = "cosmos.base.v1beta1";
 /**
  * Coin defines a token with a denomination and an amount.
  *
  * NOTE: The amount field is an Int which implements the custom method
  * signatures required by gogoproto.
+ * @name Coin
+ * @package cosmos.base.v1beta1
+ * @see proto type: cosmos.base.v1beta1.Coin
  */
 export interface Coin {
   denom: string;
@@ -20,6 +23,9 @@ export interface Coin {
  *
  * NOTE: The amount field is an Dec which implements the custom method
  * signatures required by gogoproto.
+ * @name DecCoin
+ * @package cosmos.base.v1beta1
+ * @see proto type: cosmos.base.v1beta1.DecCoin
  */
 export interface DecCoin {
   denom: string;
@@ -31,6 +37,15 @@ function createBaseCoin(): Coin {
     amount: "",
   };
 }
+/**
+ * Coin defines a token with a denomination and an amount.
+ *
+ * NOTE: The amount field is an Int which implements the custom method
+ * signatures required by gogoproto.
+ * @name Coin
+ * @package cosmos.base.v1beta1
+ * @see proto type: cosmos.base.v1beta1.Coin
+ */
 export const Coin = {
   typeUrl: "/cosmos.base.v1beta1.Coin",
   encode(message: Coin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -87,6 +102,15 @@ function createBaseDecCoin(): DecCoin {
     amount: "",
   };
 }
+/**
+ * DecCoin defines a token with a denomination and a decimal amount.
+ *
+ * NOTE: The amount field is an Dec which implements the custom method
+ * signatures required by gogoproto.
+ * @name DecCoin
+ * @package cosmos.base.v1beta1
+ * @see proto type: cosmos.base.v1beta1.DecCoin
+ */
 export const DecCoin = {
   typeUrl: "/cosmos.base.v1beta1.DecCoin",
   encode(message: DecCoin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

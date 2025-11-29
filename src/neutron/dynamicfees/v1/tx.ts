@@ -1,13 +1,20 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.dynamicfees.v1";
-/** MsgUpdateParams is the MsgUpdateParams request type. */
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ * @name MsgUpdateParams
+ * @package neutron.dynamicfees.v1
+ * @see proto type: neutron.dynamicfees.v1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the x/dynamicfees parameters to update.
@@ -19,6 +26,9 @@ export interface MsgUpdateParams {
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
+ * @name MsgUpdateParamsResponse
+ * @package neutron.dynamicfees.v1
+ * @see proto type: neutron.dynamicfees.v1.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -27,6 +37,12 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ * @name MsgUpdateParams
+ * @package neutron.dynamicfees.v1
+ * @see proto type: neutron.dynamicfees.v1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/neutron.dynamicfees.v1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -82,6 +98,13 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * @name MsgUpdateParamsResponse
+ * @package neutron.dynamicfees.v1
+ * @see proto type: neutron.dynamicfees.v1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/neutron.dynamicfees.v1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

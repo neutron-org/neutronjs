@@ -1,19 +1,35 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.counter.v1";
-/** MsgIncreaseCounter defines a count Msg service counter. */
+/**
+ * MsgIncreaseCounter defines a count Msg service counter.
+ * @name MsgIncreaseCounter
+ * @package cosmos.counter.v1
+ * @see proto type: cosmos.counter.v1.MsgIncreaseCounter
+ */
 export interface MsgIncreaseCounter {
-  /** signer is the address that controls the module (defaults to x/gov unless overwritten). */
+  /**
+   * signer is the address that controls the module (defaults to x/gov unless overwritten).
+   */
   signer: string;
-  /** count is the number of times to increment the counter. */
+  /**
+   * count is the number of times to increment the counter.
+   */
   count: bigint;
 }
-/** MsgIncreaseCountResponse is the Msg/Counter response type. */
+/**
+ * MsgIncreaseCountResponse is the Msg/Counter response type.
+ * @name MsgIncreaseCountResponse
+ * @package cosmos.counter.v1
+ * @see proto type: cosmos.counter.v1.MsgIncreaseCountResponse
+ */
 export interface MsgIncreaseCountResponse {
-  /** new_count is the number of times the counter was incremented. */
+  /**
+   * new_count is the number of times the counter was incremented.
+   */
   newCount: bigint;
 }
 function createBaseMsgIncreaseCounter(): MsgIncreaseCounter {
@@ -22,6 +38,12 @@ function createBaseMsgIncreaseCounter(): MsgIncreaseCounter {
     count: BigInt(0),
   };
 }
+/**
+ * MsgIncreaseCounter defines a count Msg service counter.
+ * @name MsgIncreaseCounter
+ * @package cosmos.counter.v1
+ * @see proto type: cosmos.counter.v1.MsgIncreaseCounter
+ */
 export const MsgIncreaseCounter = {
   typeUrl: "/cosmos.counter.v1.MsgIncreaseCounter",
   encode(message: MsgIncreaseCounter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -79,6 +101,12 @@ function createBaseMsgIncreaseCountResponse(): MsgIncreaseCountResponse {
     newCount: BigInt(0),
   };
 }
+/**
+ * MsgIncreaseCountResponse is the Msg/Counter response type.
+ * @name MsgIncreaseCountResponse
+ * @package cosmos.counter.v1
+ * @see proto type: cosmos.counter.v1.MsgIncreaseCountResponse
+ */
 export const MsgIncreaseCountResponse = {
   typeUrl: "/cosmos.counter.v1.MsgIncreaseCountResponse",
   encode(message: MsgIncreaseCountResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

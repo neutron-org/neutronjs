@@ -1,26 +1,44 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { TotalBurnedNeutronsAmount } from "./total_burned_neutrons_amount";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../helpers";
+import { Params } from "./params.js";
+import { TotalBurnedNeutronsAmount } from "./total_burned_neutrons_amount.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../helpers.js";
 export const protobufPackage = "neutron.feeburner";
-/** QueryParamsRequest is request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.feeburner
+ * @see proto type: neutron.feeburner.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** QueryParamsResponse is response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.feeburner
+ * @see proto type: neutron.feeburner.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params holds all the parameters of this module. */
+  /**
+   * params holds all the parameters of this module.
+   */
   params: Params;
 }
 /**
  * QueryTotalBurnedNeutronsAmountRequest is request type for the
  * Query/QueryTotalBurnedNeutronsAmount method.
+ * @name QueryTotalBurnedNeutronsAmountRequest
+ * @package neutron.feeburner
+ * @see proto type: neutron.feeburner.QueryTotalBurnedNeutronsAmountRequest
  */
 export interface QueryTotalBurnedNeutronsAmountRequest {}
 /**
  * QueryTotalBurnedNeutronsAmountResponse is response type for the
  * Query/QueryTotalBurnedNeutronsAmount method.
+ * @name QueryTotalBurnedNeutronsAmountResponse
+ * @package neutron.feeburner
+ * @see proto type: neutron.feeburner.QueryTotalBurnedNeutronsAmountResponse
  */
 export interface QueryTotalBurnedNeutronsAmountResponse {
   totalBurnedNeutronsAmount: TotalBurnedNeutronsAmount;
@@ -28,6 +46,12 @@ export interface QueryTotalBurnedNeutronsAmountResponse {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.feeburner
+ * @see proto type: neutron.feeburner.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/neutron.feeburner.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -65,6 +89,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * QueryParamsResponse is response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.feeburner
+ * @see proto type: neutron.feeburner.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/neutron.feeburner.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -111,6 +141,13 @@ export const QueryParamsResponse = {
 function createBaseQueryTotalBurnedNeutronsAmountRequest(): QueryTotalBurnedNeutronsAmountRequest {
   return {};
 }
+/**
+ * QueryTotalBurnedNeutronsAmountRequest is request type for the
+ * Query/QueryTotalBurnedNeutronsAmount method.
+ * @name QueryTotalBurnedNeutronsAmountRequest
+ * @package neutron.feeburner
+ * @see proto type: neutron.feeburner.QueryTotalBurnedNeutronsAmountRequest
+ */
 export const QueryTotalBurnedNeutronsAmountRequest = {
   typeUrl: "/neutron.feeburner.QueryTotalBurnedNeutronsAmountRequest",
   encode(
@@ -153,6 +190,13 @@ function createBaseQueryTotalBurnedNeutronsAmountResponse(): QueryTotalBurnedNeu
     totalBurnedNeutronsAmount: TotalBurnedNeutronsAmount.fromPartial({}),
   };
 }
+/**
+ * QueryTotalBurnedNeutronsAmountResponse is response type for the
+ * Query/QueryTotalBurnedNeutronsAmount method.
+ * @name QueryTotalBurnedNeutronsAmountResponse
+ * @package neutron.feeburner
+ * @see proto type: neutron.feeburner.QueryTotalBurnedNeutronsAmountResponse
+ */
 export const QueryTotalBurnedNeutronsAmountResponse = {
   typeUrl: "/neutron.feeburner.QueryTotalBurnedNeutronsAmountResponse",
   encode(

@@ -1,13 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Tx } from "./tx";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { TxResponse, GasInfo, Result } from "../../base/abci/v1beta1/abci";
-import { BlockID } from "../../../tendermint/types/types";
-import { Block } from "../../../tendermint/types/block";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Tx } from "./tx.js";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { TxResponse, GasInfo, Result } from "../../base/abci/v1beta1/abci.js";
+import { BlockID } from "../../../tendermint/types/types.js";
+import { Block } from "../../../tendermint/types/block.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.tx.v1beta1";
 /** OrderBy defines the sorting order */
 export enum OrderBy {
@@ -114,20 +114,23 @@ export function broadcastModeToJSON(object: BroadcastMode): string {
 /**
  * GetTxsEventRequest is the request type for the Service.TxsByEvents
  * RPC method.
+ * @name GetTxsEventRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.GetTxsEventRequest
  */
 export interface GetTxsEventRequest {
   /**
    * events is the list of transaction event type.
    * Deprecated post v0.47.x: use query instead, which should contain a valid
    * events query.
+   * @deprecated
    */
-  /** @deprecated */
   events: string[];
   /**
    * pagination defines a pagination for the request.
    * Deprecated post v0.46.x: use page and limit instead.
+   * @deprecated
    */
-  /** @deprecated */
   pagination?: PageRequest;
   orderBy: OrderBy;
   /**
@@ -149,134 +152,216 @@ export interface GetTxsEventRequest {
 /**
  * GetTxsEventResponse is the response type for the Service.TxsByEvents
  * RPC method.
+ * @name GetTxsEventResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.GetTxsEventResponse
  */
 export interface GetTxsEventResponse {
-  /** txs is the list of queried transactions. */
+  /**
+   * txs is the list of queried transactions.
+   */
   txs: Tx[];
-  /** tx_responses is the list of queried TxResponses. */
+  /**
+   * tx_responses is the list of queried TxResponses.
+   */
   txResponses: TxResponse[];
   /**
    * pagination defines a pagination for the response.
    * Deprecated post v0.46.x: use total instead.
+   * @deprecated
    */
-  /** @deprecated */
   pagination?: PageResponse;
-  /** total is total number of results available */
+  /**
+   * total is total number of results available
+   */
   total: bigint;
 }
 /**
  * BroadcastTxRequest is the request type for the Service.BroadcastTxRequest
  * RPC method.
+ * @name BroadcastTxRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.BroadcastTxRequest
  */
 export interface BroadcastTxRequest {
-  /** tx_bytes is the raw transaction. */
+  /**
+   * tx_bytes is the raw transaction.
+   */
   txBytes: Uint8Array;
   mode: BroadcastMode;
 }
 /**
  * BroadcastTxResponse is the response type for the
  * Service.BroadcastTx method.
+ * @name BroadcastTxResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.BroadcastTxResponse
  */
 export interface BroadcastTxResponse {
-  /** tx_response is the queried TxResponses. */
+  /**
+   * tx_response is the queried TxResponses.
+   */
   txResponse?: TxResponse;
 }
 /**
  * SimulateRequest is the request type for the Service.Simulate
  * RPC method.
+ * @name SimulateRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.SimulateRequest
  */
 export interface SimulateRequest {
   /**
    * tx is the transaction to simulate.
    * Deprecated. Send raw tx bytes instead.
+   * @deprecated
    */
-  /** @deprecated */
   tx?: Tx;
-  /** tx_bytes is the raw transaction. */
+  /**
+   * tx_bytes is the raw transaction.
+   */
   txBytes: Uint8Array;
 }
 /**
  * SimulateResponse is the response type for the
  * Service.SimulateRPC method.
+ * @name SimulateResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.SimulateResponse
  */
 export interface SimulateResponse {
-  /** gas_info is the information about gas used in the simulation. */
+  /**
+   * gas_info is the information about gas used in the simulation.
+   */
   gasInfo?: GasInfo;
-  /** result is the result of the simulation. */
+  /**
+   * result is the result of the simulation.
+   */
   result?: Result;
 }
 /**
  * GetTxRequest is the request type for the Service.GetTx
  * RPC method.
+ * @name GetTxRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.GetTxRequest
  */
 export interface GetTxRequest {
-  /** hash is the tx hash to query, encoded as a hex string. */
+  /**
+   * hash is the tx hash to query, encoded as a hex string.
+   */
   hash: string;
 }
-/** GetTxResponse is the response type for the Service.GetTx method. */
+/**
+ * GetTxResponse is the response type for the Service.GetTx method.
+ * @name GetTxResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.GetTxResponse
+ */
 export interface GetTxResponse {
-  /** tx is the queried transaction. */
+  /**
+   * tx is the queried transaction.
+   */
   tx?: Tx;
-  /** tx_response is the queried TxResponses. */
+  /**
+   * tx_response is the queried TxResponses.
+   */
   txResponse?: TxResponse;
 }
 /**
  * GetBlockWithTxsRequest is the request type for the Service.GetBlockWithTxs
  * RPC method.
+ * @name GetBlockWithTxsRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.GetBlockWithTxsRequest
  */
 export interface GetBlockWithTxsRequest {
-  /** height is the height of the block to query. */
+  /**
+   * height is the height of the block to query.
+   */
   height: bigint;
-  /** pagination defines a pagination for the request. */
+  /**
+   * pagination defines a pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * GetBlockWithTxsResponse is the response type for the Service.GetBlockWithTxs
  * method.
+ * @name GetBlockWithTxsResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.GetBlockWithTxsResponse
  */
 export interface GetBlockWithTxsResponse {
-  /** txs are the transactions in the block. */
+  /**
+   * txs are the transactions in the block.
+   */
   txs: Tx[];
   blockId?: BlockID;
   block?: Block;
-  /** pagination defines a pagination for the response. */
+  /**
+   * pagination defines a pagination for the response.
+   */
   pagination?: PageResponse;
 }
 /**
  * TxDecodeRequest is the request type for the Service.TxDecode
  * RPC method.
+ * @name TxDecodeRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxDecodeRequest
  */
 export interface TxDecodeRequest {
-  /** tx_bytes is the raw transaction. */
+  /**
+   * tx_bytes is the raw transaction.
+   */
   txBytes: Uint8Array;
 }
 /**
  * TxDecodeResponse is the response type for the
  * Service.TxDecode method.
+ * @name TxDecodeResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxDecodeResponse
  */
 export interface TxDecodeResponse {
-  /** tx is the decoded transaction. */
+  /**
+   * tx is the decoded transaction.
+   */
   tx?: Tx;
 }
 /**
  * TxEncodeRequest is the request type for the Service.TxEncode
  * RPC method.
+ * @name TxEncodeRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxEncodeRequest
  */
 export interface TxEncodeRequest {
-  /** tx is the transaction to encode. */
+  /**
+   * tx is the transaction to encode.
+   */
   tx?: Tx;
 }
 /**
  * TxEncodeResponse is the response type for the
  * Service.TxEncode method.
+ * @name TxEncodeResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxEncodeResponse
  */
 export interface TxEncodeResponse {
-  /** tx_bytes is the encoded transaction bytes. */
+  /**
+   * tx_bytes is the encoded transaction bytes.
+   */
   txBytes: Uint8Array;
 }
 /**
  * TxEncodeAminoRequest is the request type for the Service.TxEncodeAmino
  * RPC method.
+ * @name TxEncodeAminoRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxEncodeAminoRequest
  */
 export interface TxEncodeAminoRequest {
   aminoJson: string;
@@ -284,6 +369,9 @@ export interface TxEncodeAminoRequest {
 /**
  * TxEncodeAminoResponse is the response type for the Service.TxEncodeAmino
  * RPC method.
+ * @name TxEncodeAminoResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxEncodeAminoResponse
  */
 export interface TxEncodeAminoResponse {
   aminoBinary: Uint8Array;
@@ -291,6 +379,9 @@ export interface TxEncodeAminoResponse {
 /**
  * TxDecodeAminoRequest is the request type for the Service.TxDecodeAmino
  * RPC method.
+ * @name TxDecodeAminoRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxDecodeAminoRequest
  */
 export interface TxDecodeAminoRequest {
   aminoBinary: Uint8Array;
@@ -298,6 +389,9 @@ export interface TxDecodeAminoRequest {
 /**
  * TxDecodeAminoResponse is the response type for the Service.TxDecodeAmino
  * RPC method.
+ * @name TxDecodeAminoResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxDecodeAminoResponse
  */
 export interface TxDecodeAminoResponse {
   aminoJson: string;
@@ -312,6 +406,13 @@ function createBaseGetTxsEventRequest(): GetTxsEventRequest {
     query: "",
   };
 }
+/**
+ * GetTxsEventRequest is the request type for the Service.TxsByEvents
+ * RPC method.
+ * @name GetTxsEventRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.GetTxsEventRequest
+ */
 export const GetTxsEventRequest = {
   typeUrl: "/cosmos.tx.v1beta1.GetTxsEventRequest",
   encode(message: GetTxsEventRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -417,6 +518,13 @@ function createBaseGetTxsEventResponse(): GetTxsEventResponse {
     total: BigInt(0),
   };
 }
+/**
+ * GetTxsEventResponse is the response type for the Service.TxsByEvents
+ * RPC method.
+ * @name GetTxsEventResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.GetTxsEventResponse
+ */
 export const GetTxsEventResponse = {
   typeUrl: "/cosmos.tx.v1beta1.GetTxsEventResponse",
   encode(message: GetTxsEventResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -505,6 +613,13 @@ function createBaseBroadcastTxRequest(): BroadcastTxRequest {
     mode: 0,
   };
 }
+/**
+ * BroadcastTxRequest is the request type for the Service.BroadcastTxRequest
+ * RPC method.
+ * @name BroadcastTxRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.BroadcastTxRequest
+ */
 export const BroadcastTxRequest = {
   typeUrl: "/cosmos.tx.v1beta1.BroadcastTxRequest",
   encode(message: BroadcastTxRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -561,6 +676,13 @@ function createBaseBroadcastTxResponse(): BroadcastTxResponse {
     txResponse: undefined,
   };
 }
+/**
+ * BroadcastTxResponse is the response type for the
+ * Service.BroadcastTx method.
+ * @name BroadcastTxResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.BroadcastTxResponse
+ */
 export const BroadcastTxResponse = {
   typeUrl: "/cosmos.tx.v1beta1.BroadcastTxResponse",
   encode(message: BroadcastTxResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -611,6 +733,13 @@ function createBaseSimulateRequest(): SimulateRequest {
     txBytes: new Uint8Array(),
   };
 }
+/**
+ * SimulateRequest is the request type for the Service.Simulate
+ * RPC method.
+ * @name SimulateRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.SimulateRequest
+ */
 export const SimulateRequest = {
   typeUrl: "/cosmos.tx.v1beta1.SimulateRequest",
   encode(message: SimulateRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -670,6 +799,13 @@ function createBaseSimulateResponse(): SimulateResponse {
     result: undefined,
   };
 }
+/**
+ * SimulateResponse is the response type for the
+ * Service.SimulateRPC method.
+ * @name SimulateResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.SimulateResponse
+ */
 export const SimulateResponse = {
   typeUrl: "/cosmos.tx.v1beta1.SimulateResponse",
   encode(message: SimulateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -730,6 +866,13 @@ function createBaseGetTxRequest(): GetTxRequest {
     hash: "",
   };
 }
+/**
+ * GetTxRequest is the request type for the Service.GetTx
+ * RPC method.
+ * @name GetTxRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.GetTxRequest
+ */
 export const GetTxRequest = {
   typeUrl: "/cosmos.tx.v1beta1.GetTxRequest",
   encode(message: GetTxRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -777,6 +920,12 @@ function createBaseGetTxResponse(): GetTxResponse {
     txResponse: undefined,
   };
 }
+/**
+ * GetTxResponse is the response type for the Service.GetTx method.
+ * @name GetTxResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.GetTxResponse
+ */
 export const GetTxResponse = {
   typeUrl: "/cosmos.tx.v1beta1.GetTxResponse",
   encode(message: GetTxResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -838,6 +987,13 @@ function createBaseGetBlockWithTxsRequest(): GetBlockWithTxsRequest {
     pagination: undefined,
   };
 }
+/**
+ * GetBlockWithTxsRequest is the request type for the Service.GetBlockWithTxs
+ * RPC method.
+ * @name GetBlockWithTxsRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.GetBlockWithTxsRequest
+ */
 export const GetBlockWithTxsRequest = {
   typeUrl: "/cosmos.tx.v1beta1.GetBlockWithTxsRequest",
   encode(message: GetBlockWithTxsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -901,6 +1057,13 @@ function createBaseGetBlockWithTxsResponse(): GetBlockWithTxsResponse {
     pagination: undefined,
   };
 }
+/**
+ * GetBlockWithTxsResponse is the response type for the Service.GetBlockWithTxs
+ * method.
+ * @name GetBlockWithTxsResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.GetBlockWithTxsResponse
+ */
 export const GetBlockWithTxsResponse = {
   typeUrl: "/cosmos.tx.v1beta1.GetBlockWithTxsResponse",
   encode(message: GetBlockWithTxsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -986,6 +1149,13 @@ function createBaseTxDecodeRequest(): TxDecodeRequest {
     txBytes: new Uint8Array(),
   };
 }
+/**
+ * TxDecodeRequest is the request type for the Service.TxDecode
+ * RPC method.
+ * @name TxDecodeRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxDecodeRequest
+ */
 export const TxDecodeRequest = {
   typeUrl: "/cosmos.tx.v1beta1.TxDecodeRequest",
   encode(message: TxDecodeRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1033,6 +1203,13 @@ function createBaseTxDecodeResponse(): TxDecodeResponse {
     tx: undefined,
   };
 }
+/**
+ * TxDecodeResponse is the response type for the
+ * Service.TxDecode method.
+ * @name TxDecodeResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxDecodeResponse
+ */
 export const TxDecodeResponse = {
   typeUrl: "/cosmos.tx.v1beta1.TxDecodeResponse",
   encode(message: TxDecodeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1081,6 +1258,13 @@ function createBaseTxEncodeRequest(): TxEncodeRequest {
     tx: undefined,
   };
 }
+/**
+ * TxEncodeRequest is the request type for the Service.TxEncode
+ * RPC method.
+ * @name TxEncodeRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxEncodeRequest
+ */
 export const TxEncodeRequest = {
   typeUrl: "/cosmos.tx.v1beta1.TxEncodeRequest",
   encode(message: TxEncodeRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1129,6 +1313,13 @@ function createBaseTxEncodeResponse(): TxEncodeResponse {
     txBytes: new Uint8Array(),
   };
 }
+/**
+ * TxEncodeResponse is the response type for the
+ * Service.TxEncode method.
+ * @name TxEncodeResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxEncodeResponse
+ */
 export const TxEncodeResponse = {
   typeUrl: "/cosmos.tx.v1beta1.TxEncodeResponse",
   encode(message: TxEncodeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1176,6 +1367,13 @@ function createBaseTxEncodeAminoRequest(): TxEncodeAminoRequest {
     aminoJson: "",
   };
 }
+/**
+ * TxEncodeAminoRequest is the request type for the Service.TxEncodeAmino
+ * RPC method.
+ * @name TxEncodeAminoRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxEncodeAminoRequest
+ */
 export const TxEncodeAminoRequest = {
   typeUrl: "/cosmos.tx.v1beta1.TxEncodeAminoRequest",
   encode(message: TxEncodeAminoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1222,6 +1420,13 @@ function createBaseTxEncodeAminoResponse(): TxEncodeAminoResponse {
     aminoBinary: new Uint8Array(),
   };
 }
+/**
+ * TxEncodeAminoResponse is the response type for the Service.TxEncodeAmino
+ * RPC method.
+ * @name TxEncodeAminoResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxEncodeAminoResponse
+ */
 export const TxEncodeAminoResponse = {
   typeUrl: "/cosmos.tx.v1beta1.TxEncodeAminoResponse",
   encode(message: TxEncodeAminoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1271,6 +1476,13 @@ function createBaseTxDecodeAminoRequest(): TxDecodeAminoRequest {
     aminoBinary: new Uint8Array(),
   };
 }
+/**
+ * TxDecodeAminoRequest is the request type for the Service.TxDecodeAmino
+ * RPC method.
+ * @name TxDecodeAminoRequest
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxDecodeAminoRequest
+ */
 export const TxDecodeAminoRequest = {
   typeUrl: "/cosmos.tx.v1beta1.TxDecodeAminoRequest",
   encode(message: TxDecodeAminoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1320,6 +1532,13 @@ function createBaseTxDecodeAminoResponse(): TxDecodeAminoResponse {
     aminoJson: "",
   };
 }
+/**
+ * TxDecodeAminoResponse is the response type for the Service.TxDecodeAmino
+ * RPC method.
+ * @name TxDecodeAminoResponse
+ * @package cosmos.tx.v1beta1
+ * @see proto type: cosmos.tx.v1beta1.TxDecodeAminoResponse
+ */
 export const TxDecodeAminoResponse = {
   typeUrl: "/cosmos.tx.v1beta1.TxDecodeAminoResponse",
   encode(message: TxDecodeAminoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,32 +1,52 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CounterpartyInfo } from "./counterparty";
-import { Config } from "./config";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { CounterpartyInfo } from "./counterparty.js";
+import { Config } from "./config.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.client.v2";
 /**
  * QueryCounterpartyInfoRequest is the request type for the Query/CounterpartyInfo RPC
  * method
+ * @name QueryCounterpartyInfoRequest
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.QueryCounterpartyInfoRequest
  */
 export interface QueryCounterpartyInfoRequest {
-  /** client state unique identifier */
+  /**
+   * client state unique identifier
+   */
   clientId: string;
 }
 /**
  * QueryCounterpartyInfoResponse is the response type for the
  * Query/CounterpartyInfo RPC method.
+ * @name QueryCounterpartyInfoResponse
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.QueryCounterpartyInfoResponse
  */
 export interface QueryCounterpartyInfoResponse {
   counterpartyInfo?: CounterpartyInfo;
 }
-/** QueryConfigRequest is the request type for the Query/Config RPC method */
+/**
+ * QueryConfigRequest is the request type for the Query/Config RPC method
+ * @name QueryConfigRequest
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.QueryConfigRequest
+ */
 export interface QueryConfigRequest {
-  /** client state unique identifier */
+  /**
+   * client state unique identifier
+   */
   clientId: string;
 }
-/** QueryConfigResponse is the response type for the Query/Config RPC method */
+/**
+ * QueryConfigResponse is the response type for the Query/Config RPC method
+ * @name QueryConfigResponse
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.QueryConfigResponse
+ */
 export interface QueryConfigResponse {
   config?: Config;
 }
@@ -35,6 +55,13 @@ function createBaseQueryCounterpartyInfoRequest(): QueryCounterpartyInfoRequest 
     clientId: "",
   };
 }
+/**
+ * QueryCounterpartyInfoRequest is the request type for the Query/CounterpartyInfo RPC
+ * method
+ * @name QueryCounterpartyInfoRequest
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.QueryCounterpartyInfoRequest
+ */
 export const QueryCounterpartyInfoRequest = {
   typeUrl: "/ibc.core.client.v2.QueryCounterpartyInfoRequest",
   encode(message: QueryCounterpartyInfoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -83,6 +110,13 @@ function createBaseQueryCounterpartyInfoResponse(): QueryCounterpartyInfoRespons
     counterpartyInfo: undefined,
   };
 }
+/**
+ * QueryCounterpartyInfoResponse is the response type for the
+ * Query/CounterpartyInfo RPC method.
+ * @name QueryCounterpartyInfoResponse
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.QueryCounterpartyInfoResponse
+ */
 export const QueryCounterpartyInfoResponse = {
   typeUrl: "/ibc.core.client.v2.QueryCounterpartyInfoResponse",
   encode(message: QueryCounterpartyInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -137,6 +171,12 @@ function createBaseQueryConfigRequest(): QueryConfigRequest {
     clientId: "",
   };
 }
+/**
+ * QueryConfigRequest is the request type for the Query/Config RPC method
+ * @name QueryConfigRequest
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.QueryConfigRequest
+ */
 export const QueryConfigRequest = {
   typeUrl: "/ibc.core.client.v2.QueryConfigRequest",
   encode(message: QueryConfigRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -183,6 +223,12 @@ function createBaseQueryConfigResponse(): QueryConfigResponse {
     config: undefined,
   };
 }
+/**
+ * QueryConfigResponse is the response type for the Query/Config RPC method
+ * @name QueryConfigResponse
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.QueryConfigResponse
+ */
 export const QueryConfigResponse = {
   typeUrl: "/ibc.core.client.v2.QueryConfigResponse",
   encode(message: QueryConfigResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,20 +1,38 @@
 //@ts-nocheck
 /* eslint-disable */
-import { FileDescriptorProto } from "../../../google/protobuf/descriptor";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact } from "../../../helpers";
+import { FileDescriptorProto } from "../../../google/protobuf/descriptor.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../helpers.js";
 export const protobufPackage = "cosmos.reflection.v1";
-/** FileDescriptorsRequest is the Query/FileDescriptors request type. */
+/**
+ * FileDescriptorsRequest is the Query/FileDescriptors request type.
+ * @name FileDescriptorsRequest
+ * @package cosmos.reflection.v1
+ * @see proto type: cosmos.reflection.v1.FileDescriptorsRequest
+ */
 export interface FileDescriptorsRequest {}
-/** FileDescriptorsResponse is the Query/FileDescriptors response type. */
+/**
+ * FileDescriptorsResponse is the Query/FileDescriptors response type.
+ * @name FileDescriptorsResponse
+ * @package cosmos.reflection.v1
+ * @see proto type: cosmos.reflection.v1.FileDescriptorsResponse
+ */
 export interface FileDescriptorsResponse {
-  /** files is the file descriptors. */
+  /**
+   * files is the file descriptors.
+   */
   files: FileDescriptorProto[];
 }
 function createBaseFileDescriptorsRequest(): FileDescriptorsRequest {
   return {};
 }
+/**
+ * FileDescriptorsRequest is the Query/FileDescriptors request type.
+ * @name FileDescriptorsRequest
+ * @package cosmos.reflection.v1
+ * @see proto type: cosmos.reflection.v1.FileDescriptorsRequest
+ */
 export const FileDescriptorsRequest = {
   typeUrl: "/cosmos.reflection.v1.FileDescriptorsRequest",
   encode(_: FileDescriptorsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -52,6 +70,12 @@ function createBaseFileDescriptorsResponse(): FileDescriptorsResponse {
     files: [],
   };
 }
+/**
+ * FileDescriptorsResponse is the Query/FileDescriptors response type.
+ * @name FileDescriptorsResponse
+ * @package cosmos.reflection.v1
+ * @see proto type: cosmos.reflection.v1.FileDescriptorsResponse
+ */
 export const FileDescriptorsResponse = {
   typeUrl: "/cosmos.reflection.v1.FileDescriptorsResponse",
   encode(message: FileDescriptorsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

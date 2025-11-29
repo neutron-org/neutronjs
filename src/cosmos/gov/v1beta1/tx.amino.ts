@@ -1,9 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { voteOptionFromJSON } from "./gov";
+import { voteOptionFromJSON } from "./gov.js";
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgSubmitProposal, MsgVote, MsgVoteWeighted, MsgDeposit } from "./tx";
+import { omitDefault } from "../../../helpers.js";
+import { Decimal } from "@interchainjs/math";
+import { MsgSubmitProposal, MsgVote, MsgVoteWeighted, MsgDeposit } from "./tx.js";
 export interface MsgSubmitProposalAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgSubmitProposal";
   value: {
@@ -114,7 +115,7 @@ export const AminoConverter = {
         voter,
         options: options.map((el0) => ({
           option: el0.option,
-          weight: el0.weight,
+          weight: Decimal.fromUserInput(el0.weight, 18).atomics,
         })),
       };
     },

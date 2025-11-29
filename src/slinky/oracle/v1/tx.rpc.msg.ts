@@ -1,13 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgAddCurrencyPairs,
   MsgAddCurrencyPairsResponse,
   MsgRemoveCurrencyPairs,
   MsgRemoveCurrencyPairsResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg is the message service for the x/oracle module. */
 export interface Msg {
   /**
@@ -24,8 +24,8 @@ export interface Msg {
   removeCurrencyPairs(request: MsgRemoveCurrencyPairs): Promise<MsgRemoveCurrencyPairsResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.addCurrencyPairs = this.addCurrencyPairs.bind(this);
     this.removeCurrencyPairs = this.removeCurrencyPairs.bind(this);
@@ -41,3 +41,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgRemoveCurrencyPairsResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

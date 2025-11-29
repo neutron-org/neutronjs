@@ -1,16 +1,26 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Op } from "./benchmark";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Op } from "./benchmark.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.benchmark.v1";
-/** MsgLoadTestOps defines a message containing a sequence of load test operations. */
+/**
+ * MsgLoadTestOps defines a message containing a sequence of load test operations.
+ * @name MsgLoadTest
+ * @package cosmos.benchmark.v1
+ * @see proto type: cosmos.benchmark.v1.MsgLoadTest
+ */
 export interface MsgLoadTest {
   caller: Uint8Array;
   ops: Op[];
 }
-/** MsgLoadTestResponse defines a message containing the results of a load test operation. */
+/**
+ * MsgLoadTestResponse defines a message containing the results of a load test operation.
+ * @name MsgLoadTestResponse
+ * @package cosmos.benchmark.v1
+ * @see proto type: cosmos.benchmark.v1.MsgLoadTestResponse
+ */
 export interface MsgLoadTestResponse {
   totalTime: bigint;
   totalErrors: bigint;
@@ -21,6 +31,12 @@ function createBaseMsgLoadTest(): MsgLoadTest {
     ops: [],
   };
 }
+/**
+ * MsgLoadTestOps defines a message containing a sequence of load test operations.
+ * @name MsgLoadTest
+ * @package cosmos.benchmark.v1
+ * @see proto type: cosmos.benchmark.v1.MsgLoadTest
+ */
 export const MsgLoadTest = {
   typeUrl: "/cosmos.benchmark.v1.MsgLoadTest",
   encode(message: MsgLoadTest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -82,6 +98,12 @@ function createBaseMsgLoadTestResponse(): MsgLoadTestResponse {
     totalErrors: BigInt(0),
   };
 }
+/**
+ * MsgLoadTestResponse defines a message containing the results of a load test operation.
+ * @name MsgLoadTestResponse
+ * @package cosmos.benchmark.v1
+ * @see proto type: cosmos.benchmark.v1.MsgLoadTestResponse
+ */
 export const MsgLoadTestResponse = {
   typeUrl: "/cosmos.benchmark.v1.MsgLoadTestResponse",
   encode(message: MsgLoadTestResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

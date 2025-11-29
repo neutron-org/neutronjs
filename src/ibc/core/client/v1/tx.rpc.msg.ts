@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { TxRpc } from "../../../../types.js";
+import { BinaryReader } from "../../../../binary.js";
 import {
   MsgCreateClient,
   MsgCreateClientResponse,
@@ -19,7 +19,7 @@ import {
   MsgUpdateParamsResponse,
   MsgDeleteClientCreator,
   MsgDeleteClientCreatorResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the ibc/client Msg service. */
 export interface Msg {
   /** CreateClient defines a rpc handler method for MsgCreateClient. */
@@ -40,8 +40,8 @@ export interface Msg {
   deleteClientCreator(request: MsgDeleteClientCreator): Promise<MsgDeleteClientCreatorResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.createClient = this.createClient.bind(this);
     this.updateClient = this.updateClient.bind(this);
@@ -93,3 +93,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgDeleteClientCreatorResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

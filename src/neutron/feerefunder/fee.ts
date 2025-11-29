@@ -1,19 +1,35 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../helpers";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../helpers.js";
 export const protobufPackage = "neutron.feerefunder";
-/** Fee defines the ICS29 receive, acknowledgement and timeout fees */
+/**
+ * Fee defines the ICS29 receive, acknowledgement and timeout fees
+ * @name Fee
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.Fee
+ */
 export interface Fee {
-  /** the packet receive fee */
+  /**
+   * the packet receive fee
+   */
   recvFee: Coin[];
-  /** the packet acknowledgement fee */
+  /**
+   * the packet acknowledgement fee
+   */
   ackFee: Coin[];
-  /** the packet timeout fee */
+  /**
+   * the packet timeout fee
+   */
   timeoutFee: Coin[];
 }
+/**
+ * @name PacketID
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.PacketID
+ */
 export interface PacketID {
   channelId: string;
   portId: string;
@@ -26,6 +42,12 @@ function createBaseFee(): Fee {
     timeoutFee: [],
   };
 }
+/**
+ * Fee defines the ICS29 receive, acknowledgement and timeout fees
+ * @name Fee
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.Fee
+ */
 export const Fee = {
   typeUrl: "/neutron.feerefunder.Fee",
   encode(message: Fee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -105,6 +127,11 @@ function createBasePacketID(): PacketID {
     sequence: BigInt(0),
   };
 }
+/**
+ * @name PacketID
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.PacketID
+ */
 export const PacketID = {
   typeUrl: "/neutron.feerefunder.PacketID",
   encode(message: PacketID, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

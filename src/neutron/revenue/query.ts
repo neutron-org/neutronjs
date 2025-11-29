@@ -1,27 +1,53 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { PaymentSchedule, ValidatorInfo } from "./genesis";
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../helpers";
-import { Decimal } from "@cosmjs/math";
+import { Params } from "./params.js";
+import { PaymentSchedule, ValidatorInfo } from "./genesis.js";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../helpers.js";
+import { Decimal } from "@interchainjs/math";
 export const protobufPackage = "neutron.revenue";
-/** Request type for the Query/Params RPC method. */
+/**
+ * Request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** Response type for the Query/Params RPC method. */
+/**
+ * Response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** Contains all parameters of the module. */
+  /**
+   * Contains all parameters of the module.
+   */
   params: Params;
 }
-/** Request type for the Query/PaymentInfo RPC method. */
+/**
+ * Request type for the Query/PaymentInfo RPC method.
+ * @name QueryPaymentInfoRequest
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryPaymentInfoRequest
+ */
 export interface QueryPaymentInfoRequest {}
-/** Response type for the Query/PaymentInfo RPC method. */
+/**
+ * Response type for the Query/PaymentInfo RPC method.
+ * @name QueryPaymentInfoResponse
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryPaymentInfoResponse
+ */
 export interface QueryPaymentInfoResponse {
-  /** The current payment schedule. */
+  /**
+   * The current payment schedule.
+   */
   paymentSchedule: PaymentSchedule;
-  /** Revenue amount multiplier value that corresponds to the effective payment period progress. */
+  /**
+   * Revenue amount multiplier value that corresponds to the effective payment period progress.
+   */
   effectivePeriodProgress: string;
   /**
    * The current TWAP of the reward asset in quote asset. Is calculated as:
@@ -35,30 +61,67 @@ export interface QueryPaymentInfoResponse {
    */
   baseRevenueAmount: Coin;
 }
-/** Request type for the Query/ValidatorStats RPC method. */
+/**
+ * Request type for the Query/ValidatorStats RPC method.
+ * @name QueryValidatorStatsRequest
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryValidatorStatsRequest
+ */
 export interface QueryValidatorStatsRequest {
-  /** The validator's node operator address. */
+  /**
+   * The validator's node operator address.
+   */
   valOperAddress: string;
 }
-/** Response type for the Query/ValidatorStats RPC method. */
+/**
+ * Response type for the Query/ValidatorStats RPC method.
+ * @name QueryValidatorStatsResponse
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryValidatorStatsResponse
+ */
 export interface QueryValidatorStatsResponse {
-  /** Contains the validator's information. */
+  /**
+   * Contains the validator's information.
+   */
   stats: ValidatorStats;
 }
-/** Request type for the Query/ValidatorsStats RPC method. */
+/**
+ * Request type for the Query/ValidatorsStats RPC method.
+ * @name QueryValidatorsStatsRequest
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryValidatorsStatsRequest
+ */
 export interface QueryValidatorsStatsRequest {}
-/** Response type for the Query/ValidatorsStats RPC method. */
+/**
+ * Response type for the Query/ValidatorsStats RPC method.
+ * @name QueryValidatorsStatsResponse
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryValidatorsStatsResponse
+ */
 export interface QueryValidatorsStatsResponse {
-  /** Contains the validators' information. */
+  /**
+   * Contains the validators' information.
+   */
   stats: ValidatorStats[];
 }
-/** Contains validator's info and their performance rating. */
+/**
+ * Contains validator's info and their performance rating.
+ * @name ValidatorStats
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.ValidatorStats
+ */
 export interface ValidatorStats {
-  /** Contains the validator's information. */
+  /**
+   * Contains the validator's information.
+   */
   validatorInfo: ValidatorInfo;
-  /** The total number of blocks produced by the chain in the current payment period. */
+  /**
+   * The total number of blocks produced by the chain in the current payment period.
+   */
   totalProducedBlocksInPeriod: bigint;
-  /** The validator's performance rating. Represented as a decimal value. */
+  /**
+   * The validator's performance rating. Represented as a decimal value.
+   */
   performanceRating: string;
   /**
    * Contains expected revenue for the validator based on their performance rating in the current
@@ -70,6 +133,12 @@ export interface ValidatorStats {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * Request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/neutron.revenue.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -107,6 +176,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * Response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/neutron.revenue.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -153,6 +228,12 @@ export const QueryParamsResponse = {
 function createBaseQueryPaymentInfoRequest(): QueryPaymentInfoRequest {
   return {};
 }
+/**
+ * Request type for the Query/PaymentInfo RPC method.
+ * @name QueryPaymentInfoRequest
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryPaymentInfoRequest
+ */
 export const QueryPaymentInfoRequest = {
   typeUrl: "/neutron.revenue.QueryPaymentInfoRequest",
   encode(_: QueryPaymentInfoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -193,6 +274,12 @@ function createBaseQueryPaymentInfoResponse(): QueryPaymentInfoResponse {
     baseRevenueAmount: Coin.fromPartial({}),
   };
 }
+/**
+ * Response type for the Query/PaymentInfo RPC method.
+ * @name QueryPaymentInfoResponse
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryPaymentInfoResponse
+ */
 export const QueryPaymentInfoResponse = {
   typeUrl: "/neutron.revenue.QueryPaymentInfoResponse",
   encode(message: QueryPaymentInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -280,6 +367,12 @@ function createBaseQueryValidatorStatsRequest(): QueryValidatorStatsRequest {
     valOperAddress: "",
   };
 }
+/**
+ * Request type for the Query/ValidatorStats RPC method.
+ * @name QueryValidatorStatsRequest
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryValidatorStatsRequest
+ */
 export const QueryValidatorStatsRequest = {
   typeUrl: "/neutron.revenue.QueryValidatorStatsRequest",
   encode(message: QueryValidatorStatsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -328,6 +421,12 @@ function createBaseQueryValidatorStatsResponse(): QueryValidatorStatsResponse {
     stats: ValidatorStats.fromPartial({}),
   };
 }
+/**
+ * Response type for the Query/ValidatorStats RPC method.
+ * @name QueryValidatorStatsResponse
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryValidatorStatsResponse
+ */
 export const QueryValidatorStatsResponse = {
   typeUrl: "/neutron.revenue.QueryValidatorStatsResponse",
   encode(message: QueryValidatorStatsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -377,6 +476,12 @@ export const QueryValidatorStatsResponse = {
 function createBaseQueryValidatorsStatsRequest(): QueryValidatorsStatsRequest {
   return {};
 }
+/**
+ * Request type for the Query/ValidatorsStats RPC method.
+ * @name QueryValidatorsStatsRequest
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryValidatorsStatsRequest
+ */
 export const QueryValidatorsStatsRequest = {
   typeUrl: "/neutron.revenue.QueryValidatorsStatsRequest",
   encode(_: QueryValidatorsStatsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -416,6 +521,12 @@ function createBaseQueryValidatorsStatsResponse(): QueryValidatorsStatsResponse 
     stats: [],
   };
 }
+/**
+ * Response type for the Query/ValidatorsStats RPC method.
+ * @name QueryValidatorsStatsResponse
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.QueryValidatorsStatsResponse
+ */
 export const QueryValidatorsStatsResponse = {
   typeUrl: "/neutron.revenue.QueryValidatorsStatsResponse",
   encode(message: QueryValidatorsStatsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -471,6 +582,12 @@ function createBaseValidatorStats(): ValidatorStats {
     expectedRevenue: Coin.fromPartial({}),
   };
 }
+/**
+ * Contains validator's info and their performance rating.
+ * @name ValidatorStats
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.ValidatorStats
+ */
 export const ValidatorStats = {
   typeUrl: "/neutron.revenue.ValidatorStats",
   encode(message: ValidatorStats, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

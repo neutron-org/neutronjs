@@ -1,13 +1,20 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "gaia.globalfee.v1beta1";
-/** GenesisState - initial state of module */
+/**
+ * GenesisState - initial state of module
+ * @name GenesisState
+ * @package gaia.globalfee.v1beta1
+ * @see proto type: gaia.globalfee.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** Params of this module */
+  /**
+   * Params of this module
+   */
   params: Params;
 }
 function createBaseGenesisState(): GenesisState {
@@ -15,6 +22,12 @@ function createBaseGenesisState(): GenesisState {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * GenesisState - initial state of module
+ * @name GenesisState
+ * @package gaia.globalfee.v1beta1
+ * @see proto type: gaia.globalfee.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/gaia.globalfee.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

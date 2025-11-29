@@ -1,12 +1,17 @@
 //@ts-nocheck
 /* eslint-disable */
-import { MsgStoreCode, MsgInstantiateContract, MsgExecuteContract } from "./tx";
-import { Params, CodeInfo, ContractInfo, Model, ContractCodeHistoryEntry } from "./types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { MsgStoreCode, MsgInstantiateContract, MsgExecuteContract } from "./tx.js";
+import { Params, CodeInfo, ContractInfo, Model, ContractCodeHistoryEntry } from "./types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmwasm.wasm.v1";
-/** GenesisState - genesis state of x/wasm */
+/**
+ * GenesisState - genesis state of x/wasm
+ * @name GenesisState
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.GenesisState
+ */
 export interface GenesisState {
   params: Params;
   codes: Code[];
@@ -17,28 +22,48 @@ export interface GenesisState {
 /**
  * GenMsgs define the messages that can be executed during genesis phase in
  * order. The intention is to have more human readable data that is auditable.
+ * @name GenesisState_GenMsgs
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.GenMsgs
  */
 export interface GenesisState_GenMsgs {
   storeCode?: MsgStoreCode;
   instantiateContract?: MsgInstantiateContract;
   executeContract?: MsgExecuteContract;
 }
-/** Code struct encompasses CodeInfo and CodeBytes */
+/**
+ * Code struct encompasses CodeInfo and CodeBytes
+ * @name Code
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.Code
+ */
 export interface Code {
   codeId: bigint;
   codeInfo: CodeInfo;
   codeBytes: Uint8Array;
-  /** Pinned to wasmvm cache */
+  /**
+   * Pinned to wasmvm cache
+   */
   pinned: boolean;
 }
-/** Contract struct encompasses ContractAddress, ContractInfo, and ContractState */
+/**
+ * Contract struct encompasses ContractAddress, ContractInfo, and ContractState
+ * @name Contract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.Contract
+ */
 export interface Contract {
   contractAddress: string;
   contractInfo: ContractInfo;
   contractState: Model[];
   contractCodeHistory: ContractCodeHistoryEntry[];
 }
-/** Sequence key and value of an id generation counter */
+/**
+ * Sequence key and value of an id generation counter
+ * @name Sequence
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.Sequence
+ */
 export interface Sequence {
   idKey: Uint8Array;
   value: bigint;
@@ -52,6 +77,12 @@ function createBaseGenesisState(): GenesisState {
     genMsgs: [],
   };
 }
+/**
+ * GenesisState - genesis state of x/wasm
+ * @name GenesisState
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmwasm.wasm.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -157,6 +188,13 @@ function createBaseGenesisState_GenMsgs(): GenesisState_GenMsgs {
     executeContract: undefined,
   };
 }
+/**
+ * GenMsgs define the messages that can be executed during genesis phase in
+ * order. The intention is to have more human readable data that is auditable.
+ * @name GenesisState_GenMsgs
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.GenMsgs
+ */
 export const GenesisState_GenMsgs = {
   typeUrl: "/cosmwasm.wasm.v1.GenMsgs",
   encode(message: GenesisState_GenMsgs, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -239,6 +277,12 @@ function createBaseCode(): Code {
     pinned: false,
   };
 }
+/**
+ * Code struct encompasses CodeInfo and CodeBytes
+ * @name Code
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.Code
+ */
 export const Code = {
   typeUrl: "/cosmwasm.wasm.v1.Code",
   encode(message: Code, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -323,6 +367,12 @@ function createBaseContract(): Contract {
     contractCodeHistory: [],
   };
 }
+/**
+ * Contract struct encompasses ContractAddress, ContractInfo, and ContractState
+ * @name Contract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.Contract
+ */
 export const Contract = {
   typeUrl: "/cosmwasm.wasm.v1.Contract",
   encode(message: Contract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -415,6 +465,12 @@ function createBaseSequence(): Sequence {
     value: BigInt(0),
   };
 }
+/**
+ * Sequence key and value of an id generation counter
+ * @name Sequence
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.Sequence
+ */
 export const Sequence = {
   typeUrl: "/cosmwasm.wasm.v1.Sequence",
   encode(message: Sequence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

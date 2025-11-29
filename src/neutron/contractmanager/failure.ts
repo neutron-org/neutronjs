@@ -1,23 +1,34 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.contractmanager";
 /**
  * Failure message contains information about ACK failures and can be used to
  * replay ACK in case of requirement.
  * Note that Failure means that sudo handler to cosmwasm contract failed for
  * some reason
+ * @name Failure
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.Failure
  */
 export interface Failure {
-  /** Address of the failed contract */
+  /**
+   * Address of the failed contract
+   */
   address: string;
-  /** Id of the failure under specific address */
+  /**
+   * Id of the failure under specific address
+   */
   id: bigint;
-  /** Serialized MessageSudoCallback with Packet and Ack(if exists) */
+  /**
+   * Serialized MessageSudoCallback with Packet and Ack(if exists)
+   */
   sudoPayload: Uint8Array;
-  /** Redacted error response of the sudo call. Full error is emitted as an event */
+  /**
+   * Redacted error response of the sudo call. Full error is emitted as an event
+   */
   error: string;
 }
 function createBaseFailure(): Failure {
@@ -28,6 +39,15 @@ function createBaseFailure(): Failure {
     error: "",
   };
 }
+/**
+ * Failure message contains information about ACK failures and can be used to
+ * replay ACK in case of requirement.
+ * Note that Failure means that sudo handler to cosmwasm contract failed for
+ * some reason
+ * @name Failure
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.Failure
+ */
 export const Failure = {
   typeUrl: "/neutron.contractmanager.Failure",
   encode(message: Failure, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

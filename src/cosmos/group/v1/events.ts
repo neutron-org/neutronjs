@@ -8,76 +8,165 @@ import {
   proposalExecutorResultToJSON,
   proposalStatusFromJSON,
   proposalStatusToJSON,
-} from "./types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+} from "./types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.group.v1";
-/** EventCreateGroup is an event emitted when a group is created. */
+/**
+ * EventCreateGroup is an event emitted when a group is created.
+ * @name EventCreateGroup
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventCreateGroup
+ */
 export interface EventCreateGroup {
-  /** group_id is the unique ID of the group. */
+  /**
+   * group_id is the unique ID of the group.
+   */
   groupId: bigint;
 }
-/** EventUpdateGroup is an event emitted when a group is updated. */
+/**
+ * EventUpdateGroup is an event emitted when a group is updated.
+ * @name EventUpdateGroup
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventUpdateGroup
+ */
 export interface EventUpdateGroup {
-  /** group_id is the unique ID of the group. */
+  /**
+   * group_id is the unique ID of the group.
+   */
   groupId: bigint;
 }
-/** EventCreateGroupPolicy is an event emitted when a group policy is created. */
+/**
+ * EventCreateGroupPolicy is an event emitted when a group policy is created.
+ * @name EventCreateGroupPolicy
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventCreateGroupPolicy
+ */
 export interface EventCreateGroupPolicy {
-  /** address is the account address of the group policy. */
+  /**
+   * address is the account address of the group policy.
+   */
   address: string;
 }
-/** EventUpdateGroupPolicy is an event emitted when a group policy is updated. */
+/**
+ * EventUpdateGroupPolicy is an event emitted when a group policy is updated.
+ * @name EventUpdateGroupPolicy
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventUpdateGroupPolicy
+ */
 export interface EventUpdateGroupPolicy {
-  /** address is the account address of the group policy. */
+  /**
+   * address is the account address of the group policy.
+   */
   address: string;
 }
-/** EventSubmitProposal is an event emitted when a proposal is created. */
+/**
+ * EventSubmitProposal is an event emitted when a proposal is created.
+ * @name EventSubmitProposal
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventSubmitProposal
+ */
 export interface EventSubmitProposal {
-  /** proposal_id is the unique ID of the proposal. */
+  /**
+   * proposal_id is the unique ID of the proposal.
+   */
   proposalId: bigint;
 }
-/** EventWithdrawProposal is an event emitted when a proposal is withdrawn. */
+/**
+ * EventWithdrawProposal is an event emitted when a proposal is withdrawn.
+ * @name EventWithdrawProposal
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventWithdrawProposal
+ */
 export interface EventWithdrawProposal {
-  /** proposal_id is the unique ID of the proposal. */
+  /**
+   * proposal_id is the unique ID of the proposal.
+   */
   proposalId: bigint;
 }
-/** EventVote is an event emitted when a voter votes on a proposal. */
+/**
+ * EventVote is an event emitted when a voter votes on a proposal.
+ * @name EventVote
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventVote
+ */
 export interface EventVote {
-  /** proposal_id is the unique ID of the proposal. */
+  /**
+   * proposal_id is the unique ID of the proposal.
+   */
   proposalId: bigint;
 }
-/** EventExec is an event emitted when a proposal is executed. */
+/**
+ * EventExec is an event emitted when a proposal is executed.
+ * @name EventExec
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventExec
+ */
 export interface EventExec {
-  /** proposal_id is the unique ID of the proposal. */
+  /**
+   * proposal_id is the unique ID of the proposal.
+   */
   proposalId: bigint;
-  /** result is the proposal execution result. */
+  /**
+   * result is the proposal execution result.
+   */
   result: ProposalExecutorResult;
-  /** logs contains error logs in case the execution result is FAILURE. */
+  /**
+   * logs contains error logs in case the execution result is FAILURE.
+   */
   logs: string;
 }
-/** EventLeaveGroup is an event emitted when group member leaves the group. */
+/**
+ * EventLeaveGroup is an event emitted when group member leaves the group.
+ * @name EventLeaveGroup
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventLeaveGroup
+ */
 export interface EventLeaveGroup {
-  /** group_id is the unique ID of the group. */
+  /**
+   * group_id is the unique ID of the group.
+   */
   groupId: bigint;
-  /** address is the account address of the group member. */
+  /**
+   * address is the account address of the group member.
+   */
   address: string;
 }
-/** EventProposalPruned is an event emitted when a proposal is pruned. */
+/**
+ * EventProposalPruned is an event emitted when a proposal is pruned.
+ * @name EventProposalPruned
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventProposalPruned
+ */
 export interface EventProposalPruned {
-  /** proposal_id is the unique ID of the proposal. */
+  /**
+   * proposal_id is the unique ID of the proposal.
+   */
   proposalId: bigint;
-  /** status is the proposal status (UNSPECIFIED, SUBMITTED, ACCEPTED, REJECTED, ABORTED, WITHDRAWN). */
+  /**
+   * status is the proposal status (UNSPECIFIED, SUBMITTED, ACCEPTED, REJECTED, ABORTED, WITHDRAWN).
+   */
   status: ProposalStatus;
-  /** tally_result is the proposal tally result (when applicable). */
+  /**
+   * tally_result is the proposal tally result (when applicable).
+   */
   tallyResult?: TallyResult;
 }
-/** EventTallyError is an event emitted when a proposal tally failed with an error. */
+/**
+ * EventTallyError is an event emitted when a proposal tally failed with an error.
+ * @name EventTallyError
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventTallyError
+ */
 export interface EventTallyError {
-  /** proposal_id is the unique ID of the proposal. */
+  /**
+   * proposal_id is the unique ID of the proposal.
+   */
   proposalId: bigint;
-  /** error_message is the raw error output */
+  /**
+   * error_message is the raw error output
+   */
   errorMessage: string;
 }
 function createBaseEventCreateGroup(): EventCreateGroup {
@@ -85,6 +174,12 @@ function createBaseEventCreateGroup(): EventCreateGroup {
     groupId: BigInt(0),
   };
 }
+/**
+ * EventCreateGroup is an event emitted when a group is created.
+ * @name EventCreateGroup
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventCreateGroup
+ */
 export const EventCreateGroup = {
   typeUrl: "/cosmos.group.v1.EventCreateGroup",
   encode(message: EventCreateGroup, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -133,6 +228,12 @@ function createBaseEventUpdateGroup(): EventUpdateGroup {
     groupId: BigInt(0),
   };
 }
+/**
+ * EventUpdateGroup is an event emitted when a group is updated.
+ * @name EventUpdateGroup
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventUpdateGroup
+ */
 export const EventUpdateGroup = {
   typeUrl: "/cosmos.group.v1.EventUpdateGroup",
   encode(message: EventUpdateGroup, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -181,6 +282,12 @@ function createBaseEventCreateGroupPolicy(): EventCreateGroupPolicy {
     address: "",
   };
 }
+/**
+ * EventCreateGroupPolicy is an event emitted when a group policy is created.
+ * @name EventCreateGroupPolicy
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventCreateGroupPolicy
+ */
 export const EventCreateGroupPolicy = {
   typeUrl: "/cosmos.group.v1.EventCreateGroupPolicy",
   encode(message: EventCreateGroupPolicy, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -227,6 +334,12 @@ function createBaseEventUpdateGroupPolicy(): EventUpdateGroupPolicy {
     address: "",
   };
 }
+/**
+ * EventUpdateGroupPolicy is an event emitted when a group policy is updated.
+ * @name EventUpdateGroupPolicy
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventUpdateGroupPolicy
+ */
 export const EventUpdateGroupPolicy = {
   typeUrl: "/cosmos.group.v1.EventUpdateGroupPolicy",
   encode(message: EventUpdateGroupPolicy, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -273,6 +386,12 @@ function createBaseEventSubmitProposal(): EventSubmitProposal {
     proposalId: BigInt(0),
   };
 }
+/**
+ * EventSubmitProposal is an event emitted when a proposal is created.
+ * @name EventSubmitProposal
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventSubmitProposal
+ */
 export const EventSubmitProposal = {
   typeUrl: "/cosmos.group.v1.EventSubmitProposal",
   encode(message: EventSubmitProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -321,6 +440,12 @@ function createBaseEventWithdrawProposal(): EventWithdrawProposal {
     proposalId: BigInt(0),
   };
 }
+/**
+ * EventWithdrawProposal is an event emitted when a proposal is withdrawn.
+ * @name EventWithdrawProposal
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventWithdrawProposal
+ */
 export const EventWithdrawProposal = {
   typeUrl: "/cosmos.group.v1.EventWithdrawProposal",
   encode(message: EventWithdrawProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -369,6 +494,12 @@ function createBaseEventVote(): EventVote {
     proposalId: BigInt(0),
   };
 }
+/**
+ * EventVote is an event emitted when a voter votes on a proposal.
+ * @name EventVote
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventVote
+ */
 export const EventVote = {
   typeUrl: "/cosmos.group.v1.EventVote",
   encode(message: EventVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -419,6 +550,12 @@ function createBaseEventExec(): EventExec {
     logs: "",
   };
 }
+/**
+ * EventExec is an event emitted when a proposal is executed.
+ * @name EventExec
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventExec
+ */
 export const EventExec = {
   typeUrl: "/cosmos.group.v1.EventExec",
   encode(message: EventExec, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -486,6 +623,12 @@ function createBaseEventLeaveGroup(): EventLeaveGroup {
     address: "",
   };
 }
+/**
+ * EventLeaveGroup is an event emitted when group member leaves the group.
+ * @name EventLeaveGroup
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventLeaveGroup
+ */
 export const EventLeaveGroup = {
   typeUrl: "/cosmos.group.v1.EventLeaveGroup",
   encode(message: EventLeaveGroup, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -545,6 +688,12 @@ function createBaseEventProposalPruned(): EventProposalPruned {
     tallyResult: undefined,
   };
 }
+/**
+ * EventProposalPruned is an event emitted when a proposal is pruned.
+ * @name EventProposalPruned
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventProposalPruned
+ */
 export const EventProposalPruned = {
   typeUrl: "/cosmos.group.v1.EventProposalPruned",
   encode(message: EventProposalPruned, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -615,6 +764,12 @@ function createBaseEventTallyError(): EventTallyError {
     errorMessage: "",
   };
 }
+/**
+ * EventTallyError is an event emitted when a proposal tally failed with an error.
+ * @name EventTallyError
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.EventTallyError
+ */
 export const EventTallyError = {
   typeUrl: "/cosmos.group.v1.EventTallyError",
   encode(message: EventTallyError, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

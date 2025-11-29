@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../../../cosmos/base/query/v1beta1/pagination";
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { PageRequest } from "../../../../cosmos/base/query/v1beta1/pagination.js";
+import { TxRpc } from "../../../../types.js";
+import { BinaryReader } from "../../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryParamsRequest,
@@ -17,7 +17,7 @@ import {
   QueryEscrowAddressResponse,
   QueryTotalEscrowForDenomRequest,
   QueryTotalEscrowForDenomResponse,
-} from "./query";
+} from "./query.js";
 /** Query provides defines the gRPC querier service. */
 export interface Query {
   /** Params queries all parameters of the ibc-transfer module. */
@@ -34,8 +34,8 @@ export interface Query {
   totalEscrowForDenom(request: QueryTotalEscrowForDenomRequest): Promise<QueryTotalEscrowForDenomResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.params = this.params.bind(this);
     this.denoms = this.denoms.bind(this);

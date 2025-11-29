@@ -1,16 +1,11 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgRegisterCounterparty, MsgUpdateClientConfig } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+import { TelescopeGeneratedType } from "../../../../types.js";
+import { MsgRegisterCounterparty, MsgUpdateClientConfig } from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/ibc.core.client.v2.MsgRegisterCounterparty", MsgRegisterCounterparty],
   ["/ibc.core.client.v2.MsgUpdateClientConfig", MsgUpdateClientConfig],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     registerCounterparty(value: MsgRegisterCounterparty) {

@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { DecCoin } from "../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact } from "../../../helpers";
+import { DecCoin } from "../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../helpers.js";
 export const protobufPackage = "neutron.dynamicfees.v1";
-/** Params defines the parameters for the module. */
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.dynamicfees.v1
+ * @see proto type: neutron.dynamicfees.v1.Params
+ */
 export interface Params {
   /**
    * List of asset prices by the NTRN
@@ -20,6 +25,12 @@ function createBaseParams(): Params {
     ntrnPrices: [],
   };
 }
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.dynamicfees.v1
+ * @see proto type: neutron.dynamicfees.v1.Params
+ */
 export const Params = {
   typeUrl: "/neutron.dynamicfees.v1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,43 +1,69 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.evidence.v1beta1";
-/** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
+/**
+ * QueryEvidenceRequest is the request type for the Query/Evidence RPC method.
+ * @name QueryEvidenceRequest
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.QueryEvidenceRequest
+ */
 export interface QueryEvidenceRequest {
   /**
    * evidence_hash defines the hash of the requested evidence.
    * Deprecated: Use hash, a HEX encoded string, instead.
+   * @deprecated
    */
-  /** @deprecated */
   evidenceHash: Uint8Array;
-  /** hash defines the evidence hash of the requested evidence. */
+  /**
+   * hash defines the evidence hash of the requested evidence.
+   */
   hash: string;
 }
-/** QueryEvidenceResponse is the response type for the Query/Evidence RPC method. */
+/**
+ * QueryEvidenceResponse is the response type for the Query/Evidence RPC method.
+ * @name QueryEvidenceResponse
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.QueryEvidenceResponse
+ */
 export interface QueryEvidenceResponse {
-  /** evidence returns the requested evidence. */
+  /**
+   * evidence returns the requested evidence.
+   */
   evidence?: Any;
 }
 /**
  * QueryEvidenceRequest is the request type for the Query/AllEvidence RPC
  * method.
+ * @name QueryAllEvidenceRequest
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.QueryAllEvidenceRequest
  */
 export interface QueryAllEvidenceRequest {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryAllEvidenceResponse is the response type for the Query/AllEvidence RPC
  * method.
+ * @name QueryAllEvidenceResponse
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.QueryAllEvidenceResponse
  */
 export interface QueryAllEvidenceResponse {
-  /** evidence returns all evidences. */
+  /**
+   * evidence returns all evidences.
+   */
   evidence: Any[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 function createBaseQueryEvidenceRequest(): QueryEvidenceRequest {
@@ -46,6 +72,12 @@ function createBaseQueryEvidenceRequest(): QueryEvidenceRequest {
     hash: "",
   };
 }
+/**
+ * QueryEvidenceRequest is the request type for the Query/Evidence RPC method.
+ * @name QueryEvidenceRequest
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.QueryEvidenceRequest
+ */
 export const QueryEvidenceRequest = {
   typeUrl: "/cosmos.evidence.v1beta1.QueryEvidenceRequest",
   encode(message: QueryEvidenceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -104,6 +136,12 @@ function createBaseQueryEvidenceResponse(): QueryEvidenceResponse {
     evidence: undefined,
   };
 }
+/**
+ * QueryEvidenceResponse is the response type for the Query/Evidence RPC method.
+ * @name QueryEvidenceResponse
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.QueryEvidenceResponse
+ */
 export const QueryEvidenceResponse = {
   typeUrl: "/cosmos.evidence.v1beta1.QueryEvidenceResponse",
   encode(message: QueryEvidenceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -153,6 +191,13 @@ function createBaseQueryAllEvidenceRequest(): QueryAllEvidenceRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryEvidenceRequest is the request type for the Query/AllEvidence RPC
+ * method.
+ * @name QueryAllEvidenceRequest
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.QueryAllEvidenceRequest
+ */
 export const QueryAllEvidenceRequest = {
   typeUrl: "/cosmos.evidence.v1beta1.QueryAllEvidenceRequest",
   encode(message: QueryAllEvidenceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -203,6 +248,13 @@ function createBaseQueryAllEvidenceResponse(): QueryAllEvidenceResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryAllEvidenceResponse is the response type for the Query/AllEvidence RPC
+ * method.
+ * @name QueryAllEvidenceResponse
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.QueryAllEvidenceResponse
+ */
 export const QueryAllEvidenceResponse = {
   typeUrl: "/cosmos.evidence.v1beta1.QueryAllEvidenceResponse",
   encode(message: QueryAllEvidenceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

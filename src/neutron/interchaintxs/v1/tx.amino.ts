@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { orderFromJSON } from "../../../ibc/core/channel/v1/channel";
+import { orderFromJSON } from "../../../ibc/core/channel/v1/channel.js";
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgRegisterInterchainAccount, MsgSubmitTx, MsgUpdateParams } from "./tx";
+import { omitDefault } from "../../../helpers.js";
+import { MsgRegisterInterchainAccount, MsgSubmitTx, MsgUpdateParams } from "./tx.js";
 export interface MsgRegisterInterchainAccountAminoType extends AminoMsg {
   type: "/neutron.interchaintxs.v1.MsgRegisterInterchainAccount";
   value: {

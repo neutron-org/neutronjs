@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../../../cosmos/base/query/v1beta1/pagination";
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { PageRequest } from "../../../../cosmos/base/query/v1beta1/pagination.js";
+import { TxRpc } from "../../../../types.js";
+import { BinaryReader } from "../../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryClientStateRequest,
@@ -27,7 +27,7 @@ import {
   QueryUpgradedConsensusStateResponse,
   QueryVerifyMembershipRequest,
   QueryVerifyMembershipResponse,
-} from "./query";
+} from "./query.js";
 /** Query provides defines the gRPC querier service */
 export interface Query {
   /** ClientState queries an IBC light client. */
@@ -64,8 +64,8 @@ export interface Query {
   verifyMembership(request: QueryVerifyMembershipRequest): Promise<QueryVerifyMembershipResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.clientState = this.clientState.bind(this);
     this.clientStates = this.clientStates.bind(this);

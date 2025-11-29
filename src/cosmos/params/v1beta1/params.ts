@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.params.v1beta1";
-/** ParameterChangeProposal defines a proposal to change one or more parameters. */
+/**
+ * ParameterChangeProposal defines a proposal to change one or more parameters.
+ * @name ParameterChangeProposal
+ * @package cosmos.params.v1beta1
+ * @see proto type: cosmos.params.v1beta1.ParameterChangeProposal
+ */
 export interface ParameterChangeProposal {
   title: string;
   description: string;
@@ -13,6 +18,9 @@ export interface ParameterChangeProposal {
 /**
  * ParamChange defines an individual parameter change, for use in
  * ParameterChangeProposal.
+ * @name ParamChange
+ * @package cosmos.params.v1beta1
+ * @see proto type: cosmos.params.v1beta1.ParamChange
  */
 export interface ParamChange {
   subspace: string;
@@ -26,6 +34,12 @@ function createBaseParameterChangeProposal(): ParameterChangeProposal {
     changes: [],
   };
 }
+/**
+ * ParameterChangeProposal defines a proposal to change one or more parameters.
+ * @name ParameterChangeProposal
+ * @package cosmos.params.v1beta1
+ * @see proto type: cosmos.params.v1beta1.ParameterChangeProposal
+ */
 export const ParameterChangeProposal = {
   typeUrl: "/cosmos.params.v1beta1.ParameterChangeProposal",
   encode(message: ParameterChangeProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -96,6 +110,13 @@ function createBaseParamChange(): ParamChange {
     value: "",
   };
 }
+/**
+ * ParamChange defines an individual parameter change, for use in
+ * ParameterChangeProposal.
+ * @name ParamChange
+ * @package cosmos.params.v1beta1
+ * @see proto type: cosmos.params.v1beta1.ParamChange
+ */
 export const ParamChange = {
   typeUrl: "/cosmos.params.v1beta1.ParamChange",
   encode(message: ParamChange, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

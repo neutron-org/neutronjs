@@ -1,14 +1,17 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { CurrencyPair } from "../../types/v1/currency_pair";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { CurrencyPair } from "../../types/v1/currency_pair.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "slinky.oracle.v1";
 /**
  * QuotePrice is the representation of the aggregated prices for a CurrencyPair,
  * where price represents the price of Base in terms of Quote
+ * @name QuotePrice
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.QuotePrice
  */
 export interface QuotePrice {
   price: string;
@@ -18,12 +21,17 @@ export interface QuotePrice {
    * contracts and applications are not utilizing stale oracle prices
    */
   blockTimestamp: Timestamp;
-  /** BlockHeight is height of block mentioned above */
+  /**
+   * BlockHeight is height of block mentioned above
+   */
   blockHeight: bigint;
 }
 /**
  * CurrencyPairState represents the stateful information tracked by the x/oracle
  * module per-currency-pair.
+ * @name CurrencyPairState
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.CurrencyPairState
  */
 export interface CurrencyPairState {
   /**
@@ -31,17 +39,26 @@ export interface CurrencyPairState {
    * be null in the case that no price exists for the currency-pair
    */
   price?: QuotePrice;
-  /** Nonce is the number of updates this currency-pair has received */
+  /**
+   * Nonce is the number of updates this currency-pair has received
+   */
   nonce: bigint;
-  /** ID is the ID of the CurrencyPair */
+  /**
+   * ID is the ID of the CurrencyPair
+   */
   id: bigint;
 }
 /**
  * CurrencyPairGenesis is the information necessary for initialization of a
  * CurrencyPair.
+ * @name CurrencyPairGenesis
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.CurrencyPairGenesis
  */
 export interface CurrencyPairGenesis {
-  /** The CurrencyPair to be added to module state */
+  /**
+   * The CurrencyPair to be added to module state
+   */
   currencyPair: CurrencyPair;
   /**
    * A genesis price if one exists (note this will be empty, unless it results
@@ -53,12 +70,17 @@ export interface CurrencyPairGenesis {
    * likely 0 unless it results from fork of module)
    */
   nonce: bigint;
-  /** id is the ID of the CurrencyPair */
+  /**
+   * id is the ID of the CurrencyPair
+   */
   id: bigint;
 }
 /**
  * GenesisState is the genesis-state for the x/oracle module, it takes a set of
  * predefined CurrencyPairGeneses
+ * @name GenesisState
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GenesisState
  */
 export interface GenesisState {
   /**
@@ -67,7 +89,9 @@ export interface GenesisState {
    * their latest update.
    */
   currencyPairGenesis: CurrencyPairGenesis[];
-  /** NextID is the next ID to be used for a CurrencyPair */
+  /**
+   * NextID is the next ID to be used for a CurrencyPair
+   */
   nextId: bigint;
 }
 function createBaseQuotePrice(): QuotePrice {
@@ -77,6 +101,13 @@ function createBaseQuotePrice(): QuotePrice {
     blockHeight: BigInt(0),
   };
 }
+/**
+ * QuotePrice is the representation of the aggregated prices for a CurrencyPair,
+ * where price represents the price of Base in terms of Quote
+ * @name QuotePrice
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.QuotePrice
+ */
 export const QuotePrice = {
   typeUrl: "/slinky.oracle.v1.QuotePrice",
   encode(message: QuotePrice, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -148,6 +179,13 @@ function createBaseCurrencyPairState(): CurrencyPairState {
     id: BigInt(0),
   };
 }
+/**
+ * CurrencyPairState represents the stateful information tracked by the x/oracle
+ * module per-currency-pair.
+ * @name CurrencyPairState
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.CurrencyPairState
+ */
 export const CurrencyPairState = {
   typeUrl: "/slinky.oracle.v1.CurrencyPairState",
   encode(message: CurrencyPairState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -221,6 +259,13 @@ function createBaseCurrencyPairGenesis(): CurrencyPairGenesis {
     id: BigInt(0),
   };
 }
+/**
+ * CurrencyPairGenesis is the information necessary for initialization of a
+ * CurrencyPair.
+ * @name CurrencyPairGenesis
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.CurrencyPairGenesis
+ */
 export const CurrencyPairGenesis = {
   typeUrl: "/slinky.oracle.v1.CurrencyPairGenesis",
   encode(message: CurrencyPairGenesis, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -308,6 +353,13 @@ function createBaseGenesisState(): GenesisState {
     nextId: BigInt(0),
   };
 }
+/**
+ * GenesisState is the genesis-state for the x/oracle module, it takes a set of
+ * predefined CurrencyPairGeneses
+ * @name GenesisState
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/slinky.oracle.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

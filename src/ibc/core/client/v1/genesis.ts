@@ -1,41 +1,64 @@
 //@ts-nocheck
 /* eslint-disable */
-import { IdentifiedClientState, ClientConsensusStates, Params } from "./client";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { IdentifiedClientState, ClientConsensusStates, Params } from "./client.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.client.v1";
-/** GenesisState defines the ibc client submodule's genesis state. */
+/**
+ * GenesisState defines the ibc client submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.GenesisState
+ */
 export interface GenesisState {
-  /** client states with their corresponding identifiers */
+  /**
+   * client states with their corresponding identifiers
+   */
   clients: IdentifiedClientState[];
-  /** consensus states from each client */
+  /**
+   * consensus states from each client
+   */
   clientsConsensus: ClientConsensusStates[];
-  /** metadata from each client */
+  /**
+   * metadata from each client
+   */
   clientsMetadata: IdentifiedGenesisMetadata[];
   params: Params;
   /**
    * Deprecated: create_localhost has been deprecated.
    * The localhost client is automatically created at genesis.
+   * @deprecated
    */
-  /** @deprecated */
   createLocalhost: boolean;
-  /** the sequence for the next generated client identifier */
+  /**
+   * the sequence for the next generated client identifier
+   */
   nextClientSequence: bigint;
 }
 /**
  * GenesisMetadata defines the genesis type for metadata that will be used
  * to export all client store keys that are not client or consensus states.
+ * @name GenesisMetadata
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.GenesisMetadata
  */
 export interface GenesisMetadata {
-  /** store key of metadata without clientID-prefix */
+  /**
+   * store key of metadata without clientID-prefix
+   */
   key: Uint8Array;
-  /** metadata value */
+  /**
+   * metadata value
+   */
   value: Uint8Array;
 }
 /**
  * IdentifiedGenesisMetadata has the client metadata with the corresponding
  * client id.
+ * @name IdentifiedGenesisMetadata
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.IdentifiedGenesisMetadata
  */
 export interface IdentifiedGenesisMetadata {
   clientId: string;
@@ -51,6 +74,12 @@ function createBaseGenesisState(): GenesisState {
     nextClientSequence: BigInt(0),
   };
 }
+/**
+ * GenesisState defines the ibc client submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.core.client.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -170,6 +199,13 @@ function createBaseGenesisMetadata(): GenesisMetadata {
     value: new Uint8Array(),
   };
 }
+/**
+ * GenesisMetadata defines the genesis type for metadata that will be used
+ * to export all client store keys that are not client or consensus states.
+ * @name GenesisMetadata
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.GenesisMetadata
+ */
 export const GenesisMetadata = {
   typeUrl: "/ibc.core.client.v1.GenesisMetadata",
   encode(message: GenesisMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -228,6 +264,13 @@ function createBaseIdentifiedGenesisMetadata(): IdentifiedGenesisMetadata {
     clientMetadata: [],
   };
 }
+/**
+ * IdentifiedGenesisMetadata has the client metadata with the corresponding
+ * client id.
+ * @name IdentifiedGenesisMetadata
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.IdentifiedGenesisMetadata
+ */
 export const IdentifiedGenesisMetadata = {
   typeUrl: "/ibc.core.client.v1.IdentifiedGenesisMetadata",
   encode(message: IdentifiedGenesisMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

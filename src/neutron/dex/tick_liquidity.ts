@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PoolReserves } from "./pool_reserves";
-import { LimitOrderTranche } from "./limit_order_tranche";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { PoolReserves } from "./pool_reserves.js";
+import { LimitOrderTranche } from "./limit_order_tranche.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
+/**
+ * @name TickLiquidity
+ * @package neutron.dex
+ * @see proto type: neutron.dex.TickLiquidity
+ */
 export interface TickLiquidity {
   poolReserves?: PoolReserves;
   limitOrderTranche?: LimitOrderTranche;
@@ -16,6 +21,11 @@ function createBaseTickLiquidity(): TickLiquidity {
     limitOrderTranche: undefined,
   };
 }
+/**
+ * @name TickLiquidity
+ * @package neutron.dex
+ * @see proto type: neutron.dex.TickLiquidity
+ */
 export const TickLiquidity = {
   typeUrl: "/neutron.dex.TickLiquidity",
   encode(message: TickLiquidity, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "slinky.marketmap.module.v1";
-/** Module is the config object of the builder module. */
+/**
+ * Module is the config object of the builder module.
+ * @name Module
+ * @package slinky.marketmap.module.v1
+ * @see proto type: slinky.marketmap.module.v1.Module
+ */
 export interface Module {
   /**
    * Authority defines the custom module authority. If not set, defaults to the
@@ -24,6 +29,12 @@ function createBaseModule(): Module {
     hooksOrder: [],
   };
 }
+/**
+ * Module is the config object of the builder module.
+ * @name Module
+ * @package slinky.marketmap.module.v1
+ * @see proto type: slinky.marketmap.module.v1.Module
+ */
 export const Module = {
   typeUrl: "/slinky.marketmap.module.v1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

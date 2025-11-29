@@ -1,17 +1,17 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../helpers";
-import { BinaryReader } from "../../binary";
+import { TxRpc } from "../../types.js";
+import { BinaryReader } from "../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QuerySubscribedContractsRequest, QuerySubscribedContractsResponse } from "./query";
+import { QuerySubscribedContractsRequest, QuerySubscribedContractsResponse } from "./query.js";
 /** Defines the Query interface of the module. */
 export interface Query {
   /** Retrieves contracts subscribed to a specific hook type. */
   subscribedContracts(request: QuerySubscribedContractsRequest): Promise<QuerySubscribedContractsResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.subscribedContracts = this.subscribedContracts.bind(this);
   }

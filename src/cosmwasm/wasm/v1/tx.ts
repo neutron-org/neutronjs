@@ -1,16 +1,25 @@
 //@ts-nocheck
 /* eslint-disable */
-import { AccessConfig, Params } from "./types";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { AccessConfig, Params } from "./types.js";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmwasm.wasm.v1";
-/** MsgStoreCode submit Wasm code to the system */
+/**
+ * MsgStoreCode submit Wasm code to the system
+ * @name MsgStoreCode
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgStoreCode
+ */
 export interface MsgStoreCode {
-  /** Sender is the actor that signed the messages */
+  /**
+   * Sender is the actor that signed the messages
+   */
   sender: string;
-  /** WASMByteCode can be raw or gzip compressed */
+  /**
+   * WASMByteCode can be raw or gzip compressed
+   */
   wasmByteCode: Uint8Array;
   /**
    * InstantiatePermission access control to apply on contract creation,
@@ -18,56 +27,106 @@ export interface MsgStoreCode {
    */
   instantiatePermission?: AccessConfig;
 }
-/** MsgStoreCodeResponse returns store result data. */
+/**
+ * MsgStoreCodeResponse returns store result data.
+ * @name MsgStoreCodeResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgStoreCodeResponse
+ */
 export interface MsgStoreCodeResponse {
-  /** CodeID is the reference to the stored WASM code */
+  /**
+   * CodeID is the reference to the stored WASM code
+   */
   codeId: bigint;
-  /** Checksum is the sha256 hash of the stored code */
+  /**
+   * Checksum is the sha256 hash of the stored code
+   */
   checksum: Uint8Array;
 }
 /**
  * MsgInstantiateContract create a new smart contract instance for the given
  * code id.
+ * @name MsgInstantiateContract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgInstantiateContract
  */
 export interface MsgInstantiateContract {
-  /** Sender is the that actor that signed the messages */
+  /**
+   * Sender is the that actor that signed the messages
+   */
   sender: string;
-  /** Admin is an optional address that can execute migrations */
+  /**
+   * Admin is an optional address that can execute migrations
+   */
   admin: string;
-  /** CodeID is the reference to the stored WASM code */
+  /**
+   * CodeID is the reference to the stored WASM code
+   */
   codeId: bigint;
-  /** Label is optional metadata to be stored with a contract instance. */
+  /**
+   * Label is optional metadata to be stored with a contract instance.
+   */
   label: string;
-  /** Msg json encoded message to be passed to the contract on instantiation */
+  /**
+   * Msg json encoded message to be passed to the contract on instantiation
+   */
   msg: Uint8Array;
-  /** Funds coins that are transferred to the contract on instantiation */
+  /**
+   * Funds coins that are transferred to the contract on instantiation
+   */
   funds: Coin[];
 }
-/** MsgInstantiateContractResponse return instantiation result data */
+/**
+ * MsgInstantiateContractResponse return instantiation result data
+ * @name MsgInstantiateContractResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgInstantiateContractResponse
+ */
 export interface MsgInstantiateContractResponse {
-  /** Address is the bech32 address of the new contract instance. */
+  /**
+   * Address is the bech32 address of the new contract instance.
+   */
   address: string;
-  /** Data contains bytes to returned from the contract */
+  /**
+   * Data contains bytes to returned from the contract
+   */
   data: Uint8Array;
 }
 /**
  * MsgInstantiateContract2 create a new smart contract instance for the given
  * code id with a predictable address.
+ * @name MsgInstantiateContract2
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgInstantiateContract2
  */
 export interface MsgInstantiateContract2 {
-  /** Sender is the that actor that signed the messages */
+  /**
+   * Sender is the that actor that signed the messages
+   */
   sender: string;
-  /** Admin is an optional address that can execute migrations */
+  /**
+   * Admin is an optional address that can execute migrations
+   */
   admin: string;
-  /** CodeID is the reference to the stored WASM code */
+  /**
+   * CodeID is the reference to the stored WASM code
+   */
   codeId: bigint;
-  /** Label is optional metadata to be stored with a contract instance. */
+  /**
+   * Label is optional metadata to be stored with a contract instance.
+   */
   label: string;
-  /** Msg json encoded message to be passed to the contract on instantiation */
+  /**
+   * Msg json encoded message to be passed to the contract on instantiation
+   */
   msg: Uint8Array;
-  /** Funds coins that are transferred to the contract on instantiation */
+  /**
+   * Funds coins that are transferred to the contract on instantiation
+   */
   funds: Coin[];
-  /** Salt is an arbitrary value provided by the sender. Size can be 1 to 64. */
+  /**
+   * Salt is an arbitrary value provided by the sender. Size can be 1 to 64.
+   */
   salt: Uint8Array;
   /**
    * FixMsg include the msg value into the hash for the predictable address.
@@ -75,41 +134,88 @@ export interface MsgInstantiateContract2 {
    */
   fixMsg: boolean;
 }
-/** MsgInstantiateContract2Response return instantiation result data */
+/**
+ * MsgInstantiateContract2Response return instantiation result data
+ * @name MsgInstantiateContract2Response
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgInstantiateContract2Response
+ */
 export interface MsgInstantiateContract2Response {
-  /** Address is the bech32 address of the new contract instance. */
+  /**
+   * Address is the bech32 address of the new contract instance.
+   */
   address: string;
-  /** Data contains bytes to returned from the contract */
+  /**
+   * Data contains bytes to returned from the contract
+   */
   data: Uint8Array;
 }
-/** MsgExecuteContract submits the given message data to a smart contract */
+/**
+ * MsgExecuteContract submits the given message data to a smart contract
+ * @name MsgExecuteContract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgExecuteContract
+ */
 export interface MsgExecuteContract {
-  /** Sender is the that actor that signed the messages */
+  /**
+   * Sender is the that actor that signed the messages
+   */
   sender: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
-  /** Msg json encoded message to be passed to the contract */
+  /**
+   * Msg json encoded message to be passed to the contract
+   */
   msg: Uint8Array;
-  /** Funds coins that are transferred to the contract on execution */
+  /**
+   * Funds coins that are transferred to the contract on execution
+   */
   funds: Coin[];
 }
-/** MsgExecuteContractResponse returns execution result data. */
+/**
+ * MsgExecuteContractResponse returns execution result data.
+ * @name MsgExecuteContractResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgExecuteContractResponse
+ */
 export interface MsgExecuteContractResponse {
-  /** Data contains bytes to returned from the contract */
+  /**
+   * Data contains bytes to returned from the contract
+   */
   data: Uint8Array;
 }
-/** MsgMigrateContract runs a code upgrade/ downgrade for a smart contract */
+/**
+ * MsgMigrateContract runs a code upgrade/ downgrade for a smart contract
+ * @name MsgMigrateContract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgMigrateContract
+ */
 export interface MsgMigrateContract {
-  /** Sender is the that actor that signed the messages */
+  /**
+   * Sender is the that actor that signed the messages
+   */
   sender: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
-  /** CodeID references the new WASM code */
+  /**
+   * CodeID references the new WASM code
+   */
   codeId: bigint;
-  /** Msg json encoded message to be passed to the contract on migration */
+  /**
+   * Msg json encoded message to be passed to the contract on migration
+   */
   msg: Uint8Array;
 }
-/** MsgMigrateContractResponse returns contract migration result data. */
+/**
+ * MsgMigrateContractResponse returns contract migration result data.
+ * @name MsgMigrateContractResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgMigrateContractResponse
+ */
 export interface MsgMigrateContractResponse {
   /**
    * Data contains same raw bytes returned as data from the wasm contract.
@@ -117,44 +223,95 @@ export interface MsgMigrateContractResponse {
    */
   data: Uint8Array;
 }
-/** MsgUpdateAdmin sets a new admin for a smart contract */
+/**
+ * MsgUpdateAdmin sets a new admin for a smart contract
+ * @name MsgUpdateAdmin
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateAdmin
+ */
 export interface MsgUpdateAdmin {
-  /** Sender is the that actor that signed the messages */
+  /**
+   * Sender is the that actor that signed the messages
+   */
   sender: string;
-  /** NewAdmin address to be set */
+  /**
+   * NewAdmin address to be set
+   */
   newAdmin: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
 }
-/** MsgUpdateAdminResponse returns empty data */
+/**
+ * MsgUpdateAdminResponse returns empty data
+ * @name MsgUpdateAdminResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateAdminResponse
+ */
 export interface MsgUpdateAdminResponse {}
-/** MsgClearAdmin removes any admin stored for a smart contract */
+/**
+ * MsgClearAdmin removes any admin stored for a smart contract
+ * @name MsgClearAdmin
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgClearAdmin
+ */
 export interface MsgClearAdmin {
-  /** Sender is the actor that signed the messages */
+  /**
+   * Sender is the actor that signed the messages
+   */
   sender: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
 }
-/** MsgClearAdminResponse returns empty data */
+/**
+ * MsgClearAdminResponse returns empty data
+ * @name MsgClearAdminResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgClearAdminResponse
+ */
 export interface MsgClearAdminResponse {}
-/** MsgUpdateInstantiateConfig updates instantiate config for a smart contract */
+/**
+ * MsgUpdateInstantiateConfig updates instantiate config for a smart contract
+ * @name MsgUpdateInstantiateConfig
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+ */
 export interface MsgUpdateInstantiateConfig {
-  /** Sender is the that actor that signed the messages */
+  /**
+   * Sender is the that actor that signed the messages
+   */
   sender: string;
-  /** CodeID references the stored WASM code */
+  /**
+   * CodeID references the stored WASM code
+   */
   codeId: bigint;
-  /** NewInstantiatePermission is the new access control */
+  /**
+   * NewInstantiatePermission is the new access control
+   */
   newInstantiatePermission?: AccessConfig;
 }
-/** MsgUpdateInstantiateConfigResponse returns empty data */
+/**
+ * MsgUpdateInstantiateConfigResponse returns empty data
+ * @name MsgUpdateInstantiateConfigResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse
+ */
 export interface MsgUpdateInstantiateConfigResponse {}
 /**
  * MsgUpdateParams is the MsgUpdateParams request type.
  *
  * Since: 0.40
+ * @name MsgUpdateParams
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateParams
  */
 export interface MsgUpdateParams {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the x/wasm parameters to update.
@@ -168,19 +325,31 @@ export interface MsgUpdateParams {
  * MsgUpdateParams message.
  *
  * Since: 0.40
+ * @name MsgUpdateParamsResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
 /**
  * MsgSudoContract is the MsgSudoContract request type.
  *
  * Since: 0.40
+ * @name MsgSudoContract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgSudoContract
  */
 export interface MsgSudoContract {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
-  /** Msg json encoded message to be passed to the contract as sudo */
+  /**
+   * Msg json encoded message to be passed to the contract as sudo
+   */
   msg: Uint8Array;
 }
 /**
@@ -188,20 +357,32 @@ export interface MsgSudoContract {
  * MsgSudoContract message.
  *
  * Since: 0.40
+ * @name MsgSudoContractResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgSudoContractResponse
  */
 export interface MsgSudoContractResponse {
-  /** Data contains bytes to returned from the contract */
+  /**
+   * Data contains bytes to returned from the contract
+   */
   data: Uint8Array;
 }
 /**
  * MsgPinCodes is the MsgPinCodes request type.
  *
  * Since: 0.40
+ * @name MsgPinCodes
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgPinCodes
  */
 export interface MsgPinCodes {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
-  /** CodeIDs references the new WASM codes */
+  /**
+   * CodeIDs references the new WASM codes
+   */
   codeIds: bigint[];
 }
 /**
@@ -209,17 +390,27 @@ export interface MsgPinCodes {
  * MsgPinCodes message.
  *
  * Since: 0.40
+ * @name MsgPinCodesResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgPinCodesResponse
  */
 export interface MsgPinCodesResponse {}
 /**
  * MsgUnpinCodes is the MsgUnpinCodes request type.
  *
  * Since: 0.40
+ * @name MsgUnpinCodes
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUnpinCodes
  */
 export interface MsgUnpinCodes {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
-  /** CodeIDs references the WASM codes */
+  /**
+   * CodeIDs references the WASM codes
+   */
   codeIds: bigint[];
 }
 /**
@@ -227,6 +418,9 @@ export interface MsgUnpinCodes {
  * MsgUnpinCodes message.
  *
  * Since: 0.40
+ * @name MsgUnpinCodesResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUnpinCodesResponse
  */
 export interface MsgUnpinCodesResponse {}
 /**
@@ -234,31 +428,48 @@ export interface MsgUnpinCodesResponse {}
  * request type.
  *
  * Since: 0.40
+ * @name MsgStoreAndInstantiateContract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgStoreAndInstantiateContract
  */
 export interface MsgStoreAndInstantiateContract {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
-  /** WASMByteCode can be raw or gzip compressed */
+  /**
+   * WASMByteCode can be raw or gzip compressed
+   */
   wasmByteCode: Uint8Array;
-  /** InstantiatePermission to apply on contract creation, optional */
+  /**
+   * InstantiatePermission to apply on contract creation, optional
+   */
   instantiatePermission?: AccessConfig;
   /**
    * UnpinCode code on upload, optional. As default the uploaded contract is
    * pinned to cache.
    */
   unpinCode: boolean;
-  /** Admin is an optional address that can execute migrations */
+  /**
+   * Admin is an optional address that can execute migrations
+   */
   admin: string;
-  /** Label is optional metadata to be stored with a contract instance. */
+  /**
+   * Label is optional metadata to be stored with a contract instance.
+   */
   label: string;
-  /** Msg json encoded message to be passed to the contract on instantiation */
+  /**
+   * Msg json encoded message to be passed to the contract on instantiation
+   */
   msg: Uint8Array;
   /**
    * Funds coins that are transferred from the authority account to the contract
    * on instantiation
    */
   funds: Coin[];
-  /** Source is the URL where the code is hosted */
+  /**
+   * Source is the URL where the code is hosted
+   */
   source: string;
   /**
    * Builder is the docker image used to build the code deterministically, used
@@ -276,39 +487,62 @@ export interface MsgStoreAndInstantiateContract {
  * for executing a MsgStoreAndInstantiateContract message.
  *
  * Since: 0.40
+ * @name MsgStoreAndInstantiateContractResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgStoreAndInstantiateContractResponse
  */
 export interface MsgStoreAndInstantiateContractResponse {
-  /** Address is the bech32 address of the new contract instance. */
+  /**
+   * Address is the bech32 address of the new contract instance.
+   */
   address: string;
-  /** Data contains bytes to returned from the contract */
+  /**
+   * Data contains bytes to returned from the contract
+   */
   data: Uint8Array;
 }
 /**
  * MsgAddCodeUploadParamsAddresses is the
  * MsgAddCodeUploadParamsAddresses request type.
+ * @name MsgAddCodeUploadParamsAddresses
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddresses
  */
 export interface MsgAddCodeUploadParamsAddresses {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
   addresses: string[];
 }
 /**
  * MsgAddCodeUploadParamsAddressesResponse defines the response
  * structure for executing a MsgAddCodeUploadParamsAddresses message.
+ * @name MsgAddCodeUploadParamsAddressesResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddressesResponse
  */
 export interface MsgAddCodeUploadParamsAddressesResponse {}
 /**
  * MsgRemoveCodeUploadParamsAddresses is the
  * MsgRemoveCodeUploadParamsAddresses request type.
+ * @name MsgRemoveCodeUploadParamsAddresses
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddresses
  */
 export interface MsgRemoveCodeUploadParamsAddresses {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
   addresses: string[];
 }
 /**
  * MsgRemoveCodeUploadParamsAddressesResponse defines the response
  * structure for executing a MsgRemoveCodeUploadParamsAddresses message.
+ * @name MsgRemoveCodeUploadParamsAddressesResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddressesResponse
  */
 export interface MsgRemoveCodeUploadParamsAddressesResponse {}
 /**
@@ -316,17 +550,30 @@ export interface MsgRemoveCodeUploadParamsAddressesResponse {}
  * request type.
  *
  * Since: 0.42
+ * @name MsgStoreAndMigrateContract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgStoreAndMigrateContract
  */
 export interface MsgStoreAndMigrateContract {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
-  /** WASMByteCode can be raw or gzip compressed */
+  /**
+   * WASMByteCode can be raw or gzip compressed
+   */
   wasmByteCode: Uint8Array;
-  /** InstantiatePermission to apply on contract creation, optional */
+  /**
+   * InstantiatePermission to apply on contract creation, optional
+   */
   instantiatePermission?: AccessConfig;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
-  /** Msg json encoded message to be passed to the contract on migration */
+  /**
+   * Msg json encoded message to be passed to the contract on migration
+   */
   msg: Uint8Array;
 }
 /**
@@ -334,25 +581,50 @@ export interface MsgStoreAndMigrateContract {
  * for executing a MsgStoreAndMigrateContract message.
  *
  * Since: 0.42
+ * @name MsgStoreAndMigrateContractResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgStoreAndMigrateContractResponse
  */
 export interface MsgStoreAndMigrateContractResponse {
-  /** CodeID is the reference to the stored WASM code */
+  /**
+   * CodeID is the reference to the stored WASM code
+   */
   codeId: bigint;
-  /** Checksum is the sha256 hash of the stored code */
+  /**
+   * Checksum is the sha256 hash of the stored code
+   */
   checksum: Uint8Array;
-  /** Data contains bytes to returned from the contract */
+  /**
+   * Data contains bytes to returned from the contract
+   */
   data: Uint8Array;
 }
-/** MsgUpdateContractLabel sets a new label for a smart contract */
+/**
+ * MsgUpdateContractLabel sets a new label for a smart contract
+ * @name MsgUpdateContractLabel
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateContractLabel
+ */
 export interface MsgUpdateContractLabel {
-  /** Sender is the that actor that signed the messages */
+  /**
+   * Sender is the that actor that signed the messages
+   */
   sender: string;
-  /** NewLabel string to be set */
+  /**
+   * NewLabel string to be set
+   */
   newLabel: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
 }
-/** MsgUpdateContractLabelResponse returns empty data */
+/**
+ * MsgUpdateContractLabelResponse returns empty data
+ * @name MsgUpdateContractLabelResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateContractLabelResponse
+ */
 export interface MsgUpdateContractLabelResponse {}
 function createBaseMsgStoreCode(): MsgStoreCode {
   return {
@@ -361,6 +633,12 @@ function createBaseMsgStoreCode(): MsgStoreCode {
     instantiatePermission: undefined,
   };
 }
+/**
+ * MsgStoreCode submit Wasm code to the system
+ * @name MsgStoreCode
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgStoreCode
+ */
 export const MsgStoreCode = {
   typeUrl: "/cosmwasm.wasm.v1.MsgStoreCode",
   encode(message: MsgStoreCode, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -435,6 +713,12 @@ function createBaseMsgStoreCodeResponse(): MsgStoreCodeResponse {
     checksum: new Uint8Array(),
   };
 }
+/**
+ * MsgStoreCodeResponse returns store result data.
+ * @name MsgStoreCodeResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgStoreCodeResponse
+ */
 export const MsgStoreCodeResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgStoreCodeResponse",
   encode(message: MsgStoreCodeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -498,6 +782,13 @@ function createBaseMsgInstantiateContract(): MsgInstantiateContract {
     funds: [],
   };
 }
+/**
+ * MsgInstantiateContract create a new smart contract instance for the given
+ * code id.
+ * @name MsgInstantiateContract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgInstantiateContract
+ */
 export const MsgInstantiateContract = {
   typeUrl: "/cosmwasm.wasm.v1.MsgInstantiateContract",
   encode(message: MsgInstantiateContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -597,6 +888,12 @@ function createBaseMsgInstantiateContractResponse(): MsgInstantiateContractRespo
     data: new Uint8Array(),
   };
 }
+/**
+ * MsgInstantiateContractResponse return instantiation result data
+ * @name MsgInstantiateContractResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgInstantiateContractResponse
+ */
 export const MsgInstantiateContractResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgInstantiateContractResponse",
   encode(
@@ -665,6 +962,13 @@ function createBaseMsgInstantiateContract2(): MsgInstantiateContract2 {
     fixMsg: false,
   };
 }
+/**
+ * MsgInstantiateContract2 create a new smart contract instance for the given
+ * code id with a predictable address.
+ * @name MsgInstantiateContract2
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgInstantiateContract2
+ */
 export const MsgInstantiateContract2 = {
   typeUrl: "/cosmwasm.wasm.v1.MsgInstantiateContract2",
   encode(message: MsgInstantiateContract2, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -783,6 +1087,12 @@ function createBaseMsgInstantiateContract2Response(): MsgInstantiateContract2Res
     data: new Uint8Array(),
   };
 }
+/**
+ * MsgInstantiateContract2Response return instantiation result data
+ * @name MsgInstantiateContract2Response
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgInstantiateContract2Response
+ */
 export const MsgInstantiateContract2Response = {
   typeUrl: "/cosmwasm.wasm.v1.MsgInstantiateContract2Response",
   encode(
@@ -847,6 +1157,12 @@ function createBaseMsgExecuteContract(): MsgExecuteContract {
     funds: [],
   };
 }
+/**
+ * MsgExecuteContract submits the given message data to a smart contract
+ * @name MsgExecuteContract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgExecuteContract
+ */
 export const MsgExecuteContract = {
   typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
   encode(message: MsgExecuteContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -925,6 +1241,12 @@ function createBaseMsgExecuteContractResponse(): MsgExecuteContractResponse {
     data: new Uint8Array(),
   };
 }
+/**
+ * MsgExecuteContractResponse returns execution result data.
+ * @name MsgExecuteContractResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgExecuteContractResponse
+ */
 export const MsgExecuteContractResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContractResponse",
   encode(message: MsgExecuteContractResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -977,6 +1299,12 @@ function createBaseMsgMigrateContract(): MsgMigrateContract {
     msg: new Uint8Array(),
   };
 }
+/**
+ * MsgMigrateContract runs a code upgrade/ downgrade for a smart contract
+ * @name MsgMigrateContract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgMigrateContract
+ */
 export const MsgMigrateContract = {
   typeUrl: "/cosmwasm.wasm.v1.MsgMigrateContract",
   encode(message: MsgMigrateContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1053,6 +1381,12 @@ function createBaseMsgMigrateContractResponse(): MsgMigrateContractResponse {
     data: new Uint8Array(),
   };
 }
+/**
+ * MsgMigrateContractResponse returns contract migration result data.
+ * @name MsgMigrateContractResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgMigrateContractResponse
+ */
 export const MsgMigrateContractResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgMigrateContractResponse",
   encode(message: MsgMigrateContractResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1104,6 +1438,12 @@ function createBaseMsgUpdateAdmin(): MsgUpdateAdmin {
     contract: "",
   };
 }
+/**
+ * MsgUpdateAdmin sets a new admin for a smart contract
+ * @name MsgUpdateAdmin
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateAdmin
+ */
 export const MsgUpdateAdmin = {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateAdmin",
   encode(message: MsgUpdateAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1166,6 +1506,12 @@ export const MsgUpdateAdmin = {
 function createBaseMsgUpdateAdminResponse(): MsgUpdateAdminResponse {
   return {};
 }
+/**
+ * MsgUpdateAdminResponse returns empty data
+ * @name MsgUpdateAdminResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateAdminResponse
+ */
 export const MsgUpdateAdminResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateAdminResponse",
   encode(_: MsgUpdateAdminResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1204,6 +1550,12 @@ function createBaseMsgClearAdmin(): MsgClearAdmin {
     contract: "",
   };
 }
+/**
+ * MsgClearAdmin removes any admin stored for a smart contract
+ * @name MsgClearAdmin
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgClearAdmin
+ */
 export const MsgClearAdmin = {
   typeUrl: "/cosmwasm.wasm.v1.MsgClearAdmin",
   encode(message: MsgClearAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1257,6 +1609,12 @@ export const MsgClearAdmin = {
 function createBaseMsgClearAdminResponse(): MsgClearAdminResponse {
   return {};
 }
+/**
+ * MsgClearAdminResponse returns empty data
+ * @name MsgClearAdminResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgClearAdminResponse
+ */
 export const MsgClearAdminResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgClearAdminResponse",
   encode(_: MsgClearAdminResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1296,6 +1654,12 @@ function createBaseMsgUpdateInstantiateConfig(): MsgUpdateInstantiateConfig {
     newInstantiatePermission: undefined,
   };
 }
+/**
+ * MsgUpdateInstantiateConfig updates instantiate config for a smart contract
+ * @name MsgUpdateInstantiateConfig
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+ */
 export const MsgUpdateInstantiateConfig = {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateInstantiateConfig",
   encode(message: MsgUpdateInstantiateConfig, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1368,6 +1732,12 @@ export const MsgUpdateInstantiateConfig = {
 function createBaseMsgUpdateInstantiateConfigResponse(): MsgUpdateInstantiateConfigResponse {
   return {};
 }
+/**
+ * MsgUpdateInstantiateConfigResponse returns empty data
+ * @name MsgUpdateInstantiateConfigResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse
+ */
 export const MsgUpdateInstantiateConfigResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse",
   encode(_: MsgUpdateInstantiateConfigResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1408,6 +1778,14 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ *
+ * Since: 0.40
+ * @name MsgUpdateParams
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1463,6 +1841,15 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: 0.40
+ * @name MsgUpdateParamsResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1502,6 +1889,14 @@ function createBaseMsgSudoContract(): MsgSudoContract {
     msg: new Uint8Array(),
   };
 }
+/**
+ * MsgSudoContract is the MsgSudoContract request type.
+ *
+ * Since: 0.40
+ * @name MsgSudoContract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgSudoContract
+ */
 export const MsgSudoContract = {
   typeUrl: "/cosmwasm.wasm.v1.MsgSudoContract",
   encode(message: MsgSudoContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1567,6 +1962,15 @@ function createBaseMsgSudoContractResponse(): MsgSudoContractResponse {
     data: new Uint8Array(),
   };
 }
+/**
+ * MsgSudoContractResponse defines the response structure for executing a
+ * MsgSudoContract message.
+ *
+ * Since: 0.40
+ * @name MsgSudoContractResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgSudoContractResponse
+ */
 export const MsgSudoContractResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgSudoContractResponse",
   encode(message: MsgSudoContractResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1615,6 +2019,14 @@ function createBaseMsgPinCodes(): MsgPinCodes {
     codeIds: [],
   };
 }
+/**
+ * MsgPinCodes is the MsgPinCodes request type.
+ *
+ * Since: 0.40
+ * @name MsgPinCodes
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgPinCodes
+ */
 export const MsgPinCodes = {
   typeUrl: "/cosmwasm.wasm.v1.MsgPinCodes",
   encode(message: MsgPinCodes, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1681,6 +2093,15 @@ export const MsgPinCodes = {
 function createBaseMsgPinCodesResponse(): MsgPinCodesResponse {
   return {};
 }
+/**
+ * MsgPinCodesResponse defines the response structure for executing a
+ * MsgPinCodes message.
+ *
+ * Since: 0.40
+ * @name MsgPinCodesResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgPinCodesResponse
+ */
 export const MsgPinCodesResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgPinCodesResponse",
   encode(_: MsgPinCodesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1719,6 +2140,14 @@ function createBaseMsgUnpinCodes(): MsgUnpinCodes {
     codeIds: [],
   };
 }
+/**
+ * MsgUnpinCodes is the MsgUnpinCodes request type.
+ *
+ * Since: 0.40
+ * @name MsgUnpinCodes
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUnpinCodes
+ */
 export const MsgUnpinCodes = {
   typeUrl: "/cosmwasm.wasm.v1.MsgUnpinCodes",
   encode(message: MsgUnpinCodes, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1785,6 +2214,15 @@ export const MsgUnpinCodes = {
 function createBaseMsgUnpinCodesResponse(): MsgUnpinCodesResponse {
   return {};
 }
+/**
+ * MsgUnpinCodesResponse defines the response structure for executing a
+ * MsgUnpinCodes message.
+ *
+ * Since: 0.40
+ * @name MsgUnpinCodesResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUnpinCodesResponse
+ */
 export const MsgUnpinCodesResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgUnpinCodesResponse",
   encode(_: MsgUnpinCodesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1832,6 +2270,15 @@ function createBaseMsgStoreAndInstantiateContract(): MsgStoreAndInstantiateContr
     codeHash: new Uint8Array(),
   };
 }
+/**
+ * MsgStoreAndInstantiateContract is the MsgStoreAndInstantiateContract
+ * request type.
+ *
+ * Since: 0.40
+ * @name MsgStoreAndInstantiateContract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgStoreAndInstantiateContract
+ */
 export const MsgStoreAndInstantiateContract = {
   typeUrl: "/cosmwasm.wasm.v1.MsgStoreAndInstantiateContract",
   encode(
@@ -1989,6 +2436,15 @@ function createBaseMsgStoreAndInstantiateContractResponse(): MsgStoreAndInstanti
     data: new Uint8Array(),
   };
 }
+/**
+ * MsgStoreAndInstantiateContractResponse defines the response structure
+ * for executing a MsgStoreAndInstantiateContract message.
+ *
+ * Since: 0.40
+ * @name MsgStoreAndInstantiateContractResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgStoreAndInstantiateContractResponse
+ */
 export const MsgStoreAndInstantiateContractResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgStoreAndInstantiateContractResponse",
   encode(
@@ -2051,6 +2507,13 @@ function createBaseMsgAddCodeUploadParamsAddresses(): MsgAddCodeUploadParamsAddr
     addresses: [],
   };
 }
+/**
+ * MsgAddCodeUploadParamsAddresses is the
+ * MsgAddCodeUploadParamsAddresses request type.
+ * @name MsgAddCodeUploadParamsAddresses
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddresses
+ */
 export const MsgAddCodeUploadParamsAddresses = {
   typeUrl: "/cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddresses",
   encode(
@@ -2113,6 +2576,13 @@ export const MsgAddCodeUploadParamsAddresses = {
 function createBaseMsgAddCodeUploadParamsAddressesResponse(): MsgAddCodeUploadParamsAddressesResponse {
   return {};
 }
+/**
+ * MsgAddCodeUploadParamsAddressesResponse defines the response
+ * structure for executing a MsgAddCodeUploadParamsAddresses message.
+ * @name MsgAddCodeUploadParamsAddressesResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddressesResponse
+ */
 export const MsgAddCodeUploadParamsAddressesResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddressesResponse",
   encode(
@@ -2156,6 +2626,13 @@ function createBaseMsgRemoveCodeUploadParamsAddresses(): MsgRemoveCodeUploadPara
     addresses: [],
   };
 }
+/**
+ * MsgRemoveCodeUploadParamsAddresses is the
+ * MsgRemoveCodeUploadParamsAddresses request type.
+ * @name MsgRemoveCodeUploadParamsAddresses
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddresses
+ */
 export const MsgRemoveCodeUploadParamsAddresses = {
   typeUrl: "/cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddresses",
   encode(
@@ -2218,6 +2695,13 @@ export const MsgRemoveCodeUploadParamsAddresses = {
 function createBaseMsgRemoveCodeUploadParamsAddressesResponse(): MsgRemoveCodeUploadParamsAddressesResponse {
   return {};
 }
+/**
+ * MsgRemoveCodeUploadParamsAddressesResponse defines the response
+ * structure for executing a MsgRemoveCodeUploadParamsAddresses message.
+ * @name MsgRemoveCodeUploadParamsAddressesResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddressesResponse
+ */
 export const MsgRemoveCodeUploadParamsAddressesResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddressesResponse",
   encode(
@@ -2266,6 +2750,15 @@ function createBaseMsgStoreAndMigrateContract(): MsgStoreAndMigrateContract {
     msg: new Uint8Array(),
   };
 }
+/**
+ * MsgStoreAndMigrateContract is the MsgStoreAndMigrateContract
+ * request type.
+ *
+ * Since: 0.42
+ * @name MsgStoreAndMigrateContract
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgStoreAndMigrateContract
+ */
 export const MsgStoreAndMigrateContract = {
   typeUrl: "/cosmwasm.wasm.v1.MsgStoreAndMigrateContract",
   encode(message: MsgStoreAndMigrateContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -2362,6 +2855,15 @@ function createBaseMsgStoreAndMigrateContractResponse(): MsgStoreAndMigrateContr
     data: new Uint8Array(),
   };
 }
+/**
+ * MsgStoreAndMigrateContractResponse defines the response structure
+ * for executing a MsgStoreAndMigrateContract message.
+ *
+ * Since: 0.42
+ * @name MsgStoreAndMigrateContractResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgStoreAndMigrateContractResponse
+ */
 export const MsgStoreAndMigrateContractResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgStoreAndMigrateContractResponse",
   encode(
@@ -2437,6 +2939,12 @@ function createBaseMsgUpdateContractLabel(): MsgUpdateContractLabel {
     contract: "",
   };
 }
+/**
+ * MsgUpdateContractLabel sets a new label for a smart contract
+ * @name MsgUpdateContractLabel
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateContractLabel
+ */
 export const MsgUpdateContractLabel = {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateContractLabel",
   encode(message: MsgUpdateContractLabel, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -2499,6 +3007,12 @@ export const MsgUpdateContractLabel = {
 function createBaseMsgUpdateContractLabelResponse(): MsgUpdateContractLabelResponse {
   return {};
 }
+/**
+ * MsgUpdateContractLabelResponse returns empty data
+ * @name MsgUpdateContractLabelResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgUpdateContractLabelResponse
+ */
 export const MsgUpdateContractLabelResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateContractLabelResponse",
   encode(_: MsgUpdateContractLabelResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

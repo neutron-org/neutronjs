@@ -1,16 +1,26 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
-import { Decimal } from "@cosmjs/math";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { Decimal } from "@interchainjs/math";
 export const protobufPackage = "sdk.auction.v1";
-/** GenesisState defines the genesis state of the x/auction module. */
+/**
+ * GenesisState defines the genesis state of the x/auction module.
+ * @name GenesisState
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.GenesisState
+ */
 export interface GenesisState {
   params: Params;
 }
-/** Params defines the parameters of the x/auction module. */
+/**
+ * Params defines the parameters of the x/auction module.
+ * @name Params
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.Params
+ */
 export interface Params {
   /**
    * max_bundle_size is the maximum number of transactions that can be bundled
@@ -22,7 +32,9 @@ export interface Params {
    * portion of the bid proceeds.
    */
   escrowAccountAddress: Uint8Array;
-  /** reserve_fee specifies the bid floor for the auction. */
+  /**
+   * reserve_fee specifies the bid floor for the auction.
+   */
   reserveFee: Coin;
   /**
    * min_bid_increment specifies the minimum amount that the next bid must be
@@ -45,6 +57,12 @@ function createBaseGenesisState(): GenesisState {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * GenesisState defines the genesis state of the x/auction module.
+ * @name GenesisState
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/sdk.auction.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -98,6 +116,12 @@ function createBaseParams(): Params {
     proposerFee: "",
   };
 }
+/**
+ * Params defines the parameters of the x/auction module.
+ * @name Params
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.Params
+ */
 export const Params = {
   typeUrl: "/sdk.auction.v1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

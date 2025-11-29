@@ -1,16 +1,21 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "osmosis.tokenfactory.v1beta1";
 /**
  * DenomAuthorityMetadata specifies metadata for addresses that have specific
  * capabilities over a token factory denom. Right now there is only one Admin
  * permission, but is planned to be extended to the future.
+ * @name DenomAuthorityMetadata
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.DenomAuthorityMetadata
  */
 export interface DenomAuthorityMetadata {
-  /** Can be empty for no admin, or a valid osmosis address */
+  /**
+   * Can be empty for no admin, or a valid osmosis address
+   */
   admin: string;
 }
 function createBaseDenomAuthorityMetadata(): DenomAuthorityMetadata {
@@ -18,6 +23,14 @@ function createBaseDenomAuthorityMetadata(): DenomAuthorityMetadata {
     admin: "",
   };
 }
+/**
+ * DenomAuthorityMetadata specifies metadata for addresses that have specific
+ * capabilities over a token factory denom. Right now there is only one Admin
+ * permission, but is planned to be extended to the future.
+ * @name DenomAuthorityMetadata
+ * @package osmosis.tokenfactory.v1beta1
+ * @see proto type: osmosis.tokenfactory.v1beta1.DenomAuthorityMetadata
+ */
 export const DenomAuthorityMetadata = {
   typeUrl: "/osmosis.tokenfactory.v1beta1.DenomAuthorityMetadata",
   encode(message: DenomAuthorityMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

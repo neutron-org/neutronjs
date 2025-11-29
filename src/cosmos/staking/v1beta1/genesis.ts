@@ -1,13 +1,20 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params, Validator, Delegation, UnbondingDelegation, Redelegation } from "./staking";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Params, Validator, Delegation, UnbondingDelegation, Redelegation } from "./staking.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.staking.v1beta1";
-/** GenesisState defines the staking module's genesis state. */
+/**
+ * GenesisState defines the staking module's genesis state.
+ * @name GenesisState
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** params defines all the parameters of related to deposit. */
+  /**
+   * params defines all the parameters of related to deposit.
+   */
   params: Params;
   /**
    * last_total_power tracks the total amounts of bonded tokens recorded during
@@ -19,22 +26,41 @@ export interface GenesisState {
    * of the last-block's bonded validators.
    */
   lastValidatorPowers: LastValidatorPower[];
-  /** validators defines the validator set at genesis. */
+  /**
+   * validators defines the validator set at genesis.
+   */
   validators: Validator[];
-  /** delegations defines the delegations active at genesis. */
+  /**
+   * delegations defines the delegations active at genesis.
+   */
   delegations: Delegation[];
-  /** unbonding_delegations defines the unbonding delegations active at genesis. */
+  /**
+   * unbonding_delegations defines the unbonding delegations active at genesis.
+   */
   unbondingDelegations: UnbondingDelegation[];
-  /** redelegations defines the redelegations active at genesis. */
+  /**
+   * redelegations defines the redelegations active at genesis.
+   */
   redelegations: Redelegation[];
-  /** exported defines a bool to identify whether the chain dealing with exported or initialized genesis. */
+  /**
+   * exported defines a bool to identify whether the chain dealing with exported or initialized genesis.
+   */
   exported: boolean;
 }
-/** LastValidatorPower required for validator set update logic. */
+/**
+ * LastValidatorPower required for validator set update logic.
+ * @name LastValidatorPower
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.LastValidatorPower
+ */
 export interface LastValidatorPower {
-  /** address is the address of the validator. */
+  /**
+   * address is the address of the validator.
+   */
   address: string;
-  /** power defines the power of the validator. */
+  /**
+   * power defines the power of the validator.
+   */
   power: bigint;
 }
 function createBaseGenesisState(): GenesisState {
@@ -49,6 +75,12 @@ function createBaseGenesisState(): GenesisState {
     exported: false,
   };
 }
+/**
+ * GenesisState defines the staking module's genesis state.
+ * @name GenesisState
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmos.staking.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -195,6 +227,12 @@ function createBaseLastValidatorPower(): LastValidatorPower {
     power: BigInt(0),
   };
 }
+/**
+ * LastValidatorPower required for validator set update logic.
+ * @name LastValidatorPower
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.LastValidatorPower
+ */
 export const LastValidatorPower = {
   typeUrl: "/cosmos.staking.v1beta1.LastValidatorPower",
   encode(message: LastValidatorPower, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

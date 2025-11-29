@@ -1,47 +1,95 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { Grant } from "./feegrant";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { Grant } from "./feegrant.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.feegrant.v1beta1";
-/** QueryAllowanceRequest is the request type for the Query/Allowance RPC method. */
+/**
+ * QueryAllowanceRequest is the request type for the Query/Allowance RPC method.
+ * @name QueryAllowanceRequest
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.QueryAllowanceRequest
+ */
 export interface QueryAllowanceRequest {
-  /** granter is the address of the user granting an allowance of their funds. */
+  /**
+   * granter is the address of the user granting an allowance of their funds.
+   */
   granter: string;
-  /** grantee is the address of the user being granted an allowance of another user's funds. */
+  /**
+   * grantee is the address of the user being granted an allowance of another user's funds.
+   */
   grantee: string;
 }
-/** QueryAllowanceResponse is the response type for the Query/Allowance RPC method. */
+/**
+ * QueryAllowanceResponse is the response type for the Query/Allowance RPC method.
+ * @name QueryAllowanceResponse
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.QueryAllowanceResponse
+ */
 export interface QueryAllowanceResponse {
-  /** allowance is a allowance granted for grantee by granter. */
+  /**
+   * allowance is a allowance granted for grantee by granter.
+   */
   allowance?: Grant;
 }
-/** QueryAllowancesRequest is the request type for the Query/Allowances RPC method. */
+/**
+ * QueryAllowancesRequest is the request type for the Query/Allowances RPC method.
+ * @name QueryAllowancesRequest
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.QueryAllowancesRequest
+ */
 export interface QueryAllowancesRequest {
   grantee: string;
-  /** pagination defines an pagination for the request. */
+  /**
+   * pagination defines an pagination for the request.
+   */
   pagination?: PageRequest;
 }
-/** QueryAllowancesResponse is the response type for the Query/Allowances RPC method. */
+/**
+ * QueryAllowancesResponse is the response type for the Query/Allowances RPC method.
+ * @name QueryAllowancesResponse
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.QueryAllowancesResponse
+ */
 export interface QueryAllowancesResponse {
-  /** allowances are allowance's granted for grantee by granter. */
+  /**
+   * allowances are allowance's granted for grantee by granter.
+   */
   allowances: Grant[];
-  /** pagination defines an pagination for the response. */
+  /**
+   * pagination defines an pagination for the response.
+   */
   pagination?: PageResponse;
 }
-/** QueryAllowancesByGranterRequest is the request type for the Query/AllowancesByGranter RPC method. */
+/**
+ * QueryAllowancesByGranterRequest is the request type for the Query/AllowancesByGranter RPC method.
+ * @name QueryAllowancesByGranterRequest
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.QueryAllowancesByGranterRequest
+ */
 export interface QueryAllowancesByGranterRequest {
   granter: string;
-  /** pagination defines an pagination for the request. */
+  /**
+   * pagination defines an pagination for the request.
+   */
   pagination?: PageRequest;
 }
-/** QueryAllowancesByGranterResponse is the response type for the Query/AllowancesByGranter RPC method. */
+/**
+ * QueryAllowancesByGranterResponse is the response type for the Query/AllowancesByGranter RPC method.
+ * @name QueryAllowancesByGranterResponse
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.QueryAllowancesByGranterResponse
+ */
 export interface QueryAllowancesByGranterResponse {
-  /** allowances that have been issued by the granter. */
+  /**
+   * allowances that have been issued by the granter.
+   */
   allowances: Grant[];
-  /** pagination defines an pagination for the response. */
+  /**
+   * pagination defines an pagination for the response.
+   */
   pagination?: PageResponse;
 }
 function createBaseQueryAllowanceRequest(): QueryAllowanceRequest {
@@ -50,6 +98,12 @@ function createBaseQueryAllowanceRequest(): QueryAllowanceRequest {
     grantee: "",
   };
 }
+/**
+ * QueryAllowanceRequest is the request type for the Query/Allowance RPC method.
+ * @name QueryAllowanceRequest
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.QueryAllowanceRequest
+ */
 export const QueryAllowanceRequest = {
   typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowanceRequest",
   encode(message: QueryAllowanceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -105,6 +159,12 @@ function createBaseQueryAllowanceResponse(): QueryAllowanceResponse {
     allowance: undefined,
   };
 }
+/**
+ * QueryAllowanceResponse is the response type for the Query/Allowance RPC method.
+ * @name QueryAllowanceResponse
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.QueryAllowanceResponse
+ */
 export const QueryAllowanceResponse = {
   typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowanceResponse",
   encode(message: QueryAllowanceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -155,6 +215,12 @@ function createBaseQueryAllowancesRequest(): QueryAllowancesRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryAllowancesRequest is the request type for the Query/Allowances RPC method.
+ * @name QueryAllowancesRequest
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.QueryAllowancesRequest
+ */
 export const QueryAllowancesRequest = {
   typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowancesRequest",
   encode(message: QueryAllowancesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -214,6 +280,12 @@ function createBaseQueryAllowancesResponse(): QueryAllowancesResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryAllowancesResponse is the response type for the Query/Allowances RPC method.
+ * @name QueryAllowancesResponse
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.QueryAllowancesResponse
+ */
 export const QueryAllowancesResponse = {
   typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowancesResponse",
   encode(message: QueryAllowancesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -278,6 +350,12 @@ function createBaseQueryAllowancesByGranterRequest(): QueryAllowancesByGranterRe
     pagination: undefined,
   };
 }
+/**
+ * QueryAllowancesByGranterRequest is the request type for the Query/AllowancesByGranter RPC method.
+ * @name QueryAllowancesByGranterRequest
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.QueryAllowancesByGranterRequest
+ */
 export const QueryAllowancesByGranterRequest = {
   typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowancesByGranterRequest",
   encode(
@@ -342,6 +420,12 @@ function createBaseQueryAllowancesByGranterResponse(): QueryAllowancesByGranterR
     pagination: undefined,
   };
 }
+/**
+ * QueryAllowancesByGranterResponse is the response type for the Query/AllowancesByGranter RPC method.
+ * @name QueryAllowancesByGranterResponse
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.QueryAllowancesByGranterResponse
+ */
 export const QueryAllowancesByGranterResponse = {
   typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowancesByGranterResponse",
   encode(

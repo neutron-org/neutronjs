@@ -1,30 +1,56 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { Decimal } from "@cosmjs/math";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { Decimal } from "@interchainjs/math";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.mint.v1beta1";
-/** Minter represents the minting state. */
+/**
+ * Minter represents the minting state.
+ * @name Minter
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.Minter
+ */
 export interface Minter {
-  /** current annual inflation rate */
+  /**
+   * current annual inflation rate
+   */
   inflation: string;
-  /** current annual expected provisions */
+  /**
+   * current annual expected provisions
+   */
   annualProvisions: string;
 }
-/** Params defines the parameters for the x/mint module. */
+/**
+ * Params defines the parameters for the x/mint module.
+ * @name Params
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.Params
+ */
 export interface Params {
-  /** type of coin to mint */
+  /**
+   * type of coin to mint
+   */
   mintDenom: string;
-  /** maximum annual change in inflation rate */
+  /**
+   * maximum annual change in inflation rate
+   */
   inflationRateChange: string;
-  /** maximum inflation rate */
+  /**
+   * maximum inflation rate
+   */
   inflationMax: string;
-  /** minimum inflation rate */
+  /**
+   * minimum inflation rate
+   */
   inflationMin: string;
-  /** goal of percent bonded atoms */
+  /**
+   * goal of percent bonded atoms
+   */
   goalBonded: string;
-  /** expected blocks per year */
+  /**
+   * expected blocks per year
+   */
   blocksPerYear: bigint;
 }
 function createBaseMinter(): Minter {
@@ -33,6 +59,12 @@ function createBaseMinter(): Minter {
     annualProvisions: "",
   };
 }
+/**
+ * Minter represents the minting state.
+ * @name Minter
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.Minter
+ */
 export const Minter = {
   typeUrl: "/cosmos.mint.v1beta1.Minter",
   encode(message: Minter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -93,6 +125,12 @@ function createBaseParams(): Params {
     blocksPerYear: BigInt(0),
   };
 }
+/**
+ * Params defines the parameters for the x/mint module.
+ * @name Params
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/cosmos.mint.v1beta1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

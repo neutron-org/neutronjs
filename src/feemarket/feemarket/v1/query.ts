@@ -1,41 +1,79 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { State } from "./genesis";
-import { DecCoin } from "../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Params } from "./params.js";
+import { State } from "./genesis.js";
+import { DecCoin } from "../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "feemarket.feemarket.v1";
-/** ParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * ParamsRequest is the request type for the Query/Params RPC method.
+ * @name ParamsRequest
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.ParamsRequest
+ */
 export interface ParamsRequest {}
-/** ParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * ParamsResponse is the response type for the Query/Params RPC method.
+ * @name ParamsResponse
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.ParamsResponse
+ */
 export interface ParamsResponse {
   params: Params;
 }
-/** StateRequest is the request type for the Query/State RPC method. */
+/**
+ * StateRequest is the request type for the Query/State RPC method.
+ * @name StateRequest
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.StateRequest
+ */
 export interface StateRequest {}
-/** StateResponse is the response type for the Query/State RPC method. */
+/**
+ * StateResponse is the response type for the Query/State RPC method.
+ * @name StateResponse
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.StateResponse
+ */
 export interface StateResponse {
   state: State;
 }
-/** GasPriceRequest is the request type for the Query/GasPrice RPC method. */
+/**
+ * GasPriceRequest is the request type for the Query/GasPrice RPC method.
+ * @name GasPriceRequest
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.GasPriceRequest
+ */
 export interface GasPriceRequest {
-  /** denom we are querying gas price in */
+  /**
+   * denom we are querying gas price in
+   */
   denom: string;
 }
 /**
  * GasPriceResponse is the response type for the Query/GasPrice RPC method.
  * Returns a gas price in specified denom.
+ * @name GasPriceResponse
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.GasPriceResponse
  */
 export interface GasPriceResponse {
   price: DecCoin;
 }
-/** GasPriceRequest is the request type for the Query/GasPrices RPC method. */
+/**
+ * GasPriceRequest is the request type for the Query/GasPrices RPC method.
+ * @name GasPricesRequest
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.GasPricesRequest
+ */
 export interface GasPricesRequest {}
 /**
  * GasPricesResponse is the response type for the Query/GasPrices RPC method.
  * Returns a gas price in all available denoms.
+ * @name GasPricesResponse
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.GasPricesResponse
  */
 export interface GasPricesResponse {
   prices: DecCoin[];
@@ -43,6 +81,12 @@ export interface GasPricesResponse {
 function createBaseParamsRequest(): ParamsRequest {
   return {};
 }
+/**
+ * ParamsRequest is the request type for the Query/Params RPC method.
+ * @name ParamsRequest
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.ParamsRequest
+ */
 export const ParamsRequest = {
   typeUrl: "/feemarket.feemarket.v1.ParamsRequest",
   encode(_: ParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -80,6 +124,12 @@ function createBaseParamsResponse(): ParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * ParamsResponse is the response type for the Query/Params RPC method.
+ * @name ParamsResponse
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.ParamsResponse
+ */
 export const ParamsResponse = {
   typeUrl: "/feemarket.feemarket.v1.ParamsResponse",
   encode(message: ParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -126,6 +176,12 @@ export const ParamsResponse = {
 function createBaseStateRequest(): StateRequest {
   return {};
 }
+/**
+ * StateRequest is the request type for the Query/State RPC method.
+ * @name StateRequest
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.StateRequest
+ */
 export const StateRequest = {
   typeUrl: "/feemarket.feemarket.v1.StateRequest",
   encode(_: StateRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -163,6 +219,12 @@ function createBaseStateResponse(): StateResponse {
     state: State.fromPartial({}),
   };
 }
+/**
+ * StateResponse is the response type for the Query/State RPC method.
+ * @name StateResponse
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.StateResponse
+ */
 export const StateResponse = {
   typeUrl: "/feemarket.feemarket.v1.StateResponse",
   encode(message: StateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -211,6 +273,12 @@ function createBaseGasPriceRequest(): GasPriceRequest {
     denom: "",
   };
 }
+/**
+ * GasPriceRequest is the request type for the Query/GasPrice RPC method.
+ * @name GasPriceRequest
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.GasPriceRequest
+ */
 export const GasPriceRequest = {
   typeUrl: "/feemarket.feemarket.v1.GasPriceRequest",
   encode(message: GasPriceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -257,6 +325,13 @@ function createBaseGasPriceResponse(): GasPriceResponse {
     price: DecCoin.fromPartial({}),
   };
 }
+/**
+ * GasPriceResponse is the response type for the Query/GasPrice RPC method.
+ * Returns a gas price in specified denom.
+ * @name GasPriceResponse
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.GasPriceResponse
+ */
 export const GasPriceResponse = {
   typeUrl: "/feemarket.feemarket.v1.GasPriceResponse",
   encode(message: GasPriceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -303,6 +378,12 @@ export const GasPriceResponse = {
 function createBaseGasPricesRequest(): GasPricesRequest {
   return {};
 }
+/**
+ * GasPriceRequest is the request type for the Query/GasPrices RPC method.
+ * @name GasPricesRequest
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.GasPricesRequest
+ */
 export const GasPricesRequest = {
   typeUrl: "/feemarket.feemarket.v1.GasPricesRequest",
   encode(_: GasPricesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -340,6 +421,13 @@ function createBaseGasPricesResponse(): GasPricesResponse {
     prices: [],
   };
 }
+/**
+ * GasPricesResponse is the response type for the Query/GasPrices RPC method.
+ * Returns a gas price in all available denoms.
+ * @name GasPricesResponse
+ * @package feemarket.feemarket.v1
+ * @see proto type: feemarket.feemarket.v1.GasPricesResponse
+ */
 export const GasPricesResponse = {
   typeUrl: "/feemarket.feemarket.v1.GasPricesResponse",
   encode(message: GasPricesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

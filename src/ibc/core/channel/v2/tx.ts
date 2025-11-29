@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Payload, Packet, Acknowledgement } from "./packet";
-import { Height } from "../../client/v1/client";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Payload, Packet, Acknowledgement } from "./packet.js";
+import { Height } from "../../client/v1/client.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.channel.v2";
 /** ResponseResultType defines the possible outcomes of the execution of a message */
 export enum ResponseResultType {
@@ -53,40 +53,75 @@ export function responseResultTypeToJSON(object: ResponseResultType): string {
       return "UNRECOGNIZED";
   }
 }
-/** MsgSendPacket sends an outgoing IBC packet. */
+/**
+ * MsgSendPacket sends an outgoing IBC packet.
+ * @name MsgSendPacket
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgSendPacket
+ */
 export interface MsgSendPacket {
   sourceClient: string;
   timeoutTimestamp: bigint;
   payloads: Payload[];
   signer: string;
 }
-/** MsgSendPacketResponse defines the Msg/SendPacket response type. */
+/**
+ * MsgSendPacketResponse defines the Msg/SendPacket response type.
+ * @name MsgSendPacketResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgSendPacketResponse
+ */
 export interface MsgSendPacketResponse {
   sequence: bigint;
 }
-/** MsgRecvPacket receives an incoming IBC packet. */
+/**
+ * MsgRecvPacket receives an incoming IBC packet.
+ * @name MsgRecvPacket
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgRecvPacket
+ */
 export interface MsgRecvPacket {
   packet: Packet;
   proofCommitment: Uint8Array;
   proofHeight: Height;
   signer: string;
 }
-/** MsgRecvPacketResponse defines the Msg/RecvPacket response type. */
+/**
+ * MsgRecvPacketResponse defines the Msg/RecvPacket response type.
+ * @name MsgRecvPacketResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgRecvPacketResponse
+ */
 export interface MsgRecvPacketResponse {
   result: ResponseResultType;
 }
-/** MsgTimeout receives timed-out packet */
+/**
+ * MsgTimeout receives timed-out packet
+ * @name MsgTimeout
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgTimeout
+ */
 export interface MsgTimeout {
   packet: Packet;
   proofUnreceived: Uint8Array;
   proofHeight: Height;
   signer: string;
 }
-/** MsgTimeoutResponse defines the Msg/Timeout response type. */
+/**
+ * MsgTimeoutResponse defines the Msg/Timeout response type.
+ * @name MsgTimeoutResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgTimeoutResponse
+ */
 export interface MsgTimeoutResponse {
   result: ResponseResultType;
 }
-/** MsgAcknowledgement receives incoming IBC acknowledgement. */
+/**
+ * MsgAcknowledgement receives incoming IBC acknowledgement.
+ * @name MsgAcknowledgement
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgAcknowledgement
+ */
 export interface MsgAcknowledgement {
   packet: Packet;
   acknowledgement: Acknowledgement;
@@ -94,7 +129,12 @@ export interface MsgAcknowledgement {
   proofHeight: Height;
   signer: string;
 }
-/** MsgAcknowledgementResponse defines the Msg/Acknowledgement response type. */
+/**
+ * MsgAcknowledgementResponse defines the Msg/Acknowledgement response type.
+ * @name MsgAcknowledgementResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgAcknowledgementResponse
+ */
 export interface MsgAcknowledgementResponse {
   result: ResponseResultType;
 }
@@ -106,6 +146,12 @@ function createBaseMsgSendPacket(): MsgSendPacket {
     signer: "",
   };
 }
+/**
+ * MsgSendPacket sends an outgoing IBC packet.
+ * @name MsgSendPacket
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgSendPacket
+ */
 export const MsgSendPacket = {
   typeUrl: "/ibc.core.channel.v2.MsgSendPacket",
   encode(message: MsgSendPacket, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -186,6 +232,12 @@ function createBaseMsgSendPacketResponse(): MsgSendPacketResponse {
     sequence: BigInt(0),
   };
 }
+/**
+ * MsgSendPacketResponse defines the Msg/SendPacket response type.
+ * @name MsgSendPacketResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgSendPacketResponse
+ */
 export const MsgSendPacketResponse = {
   typeUrl: "/ibc.core.channel.v2.MsgSendPacketResponse",
   encode(message: MsgSendPacketResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -237,6 +289,12 @@ function createBaseMsgRecvPacket(): MsgRecvPacket {
     signer: "",
   };
 }
+/**
+ * MsgRecvPacket receives an incoming IBC packet.
+ * @name MsgRecvPacket
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgRecvPacket
+ */
 export const MsgRecvPacket = {
   typeUrl: "/ibc.core.channel.v2.MsgRecvPacket",
   encode(message: MsgRecvPacket, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -318,6 +376,12 @@ function createBaseMsgRecvPacketResponse(): MsgRecvPacketResponse {
     result: 0,
   };
 }
+/**
+ * MsgRecvPacketResponse defines the Msg/RecvPacket response type.
+ * @name MsgRecvPacketResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgRecvPacketResponse
+ */
 export const MsgRecvPacketResponse = {
   typeUrl: "/ibc.core.channel.v2.MsgRecvPacketResponse",
   encode(message: MsgRecvPacketResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -367,6 +431,12 @@ function createBaseMsgTimeout(): MsgTimeout {
     signer: "",
   };
 }
+/**
+ * MsgTimeout receives timed-out packet
+ * @name MsgTimeout
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgTimeout
+ */
 export const MsgTimeout = {
   typeUrl: "/ibc.core.channel.v2.MsgTimeout",
   encode(message: MsgTimeout, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -448,6 +518,12 @@ function createBaseMsgTimeoutResponse(): MsgTimeoutResponse {
     result: 0,
   };
 }
+/**
+ * MsgTimeoutResponse defines the Msg/Timeout response type.
+ * @name MsgTimeoutResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgTimeoutResponse
+ */
 export const MsgTimeoutResponse = {
   typeUrl: "/ibc.core.channel.v2.MsgTimeoutResponse",
   encode(message: MsgTimeoutResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -498,6 +574,12 @@ function createBaseMsgAcknowledgement(): MsgAcknowledgement {
     signer: "",
   };
 }
+/**
+ * MsgAcknowledgement receives incoming IBC acknowledgement.
+ * @name MsgAcknowledgement
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgAcknowledgement
+ */
 export const MsgAcknowledgement = {
   typeUrl: "/ibc.core.channel.v2.MsgAcknowledgement",
   encode(message: MsgAcknowledgement, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -593,6 +675,12 @@ function createBaseMsgAcknowledgementResponse(): MsgAcknowledgementResponse {
     result: 0,
   };
 }
+/**
+ * MsgAcknowledgementResponse defines the Msg/Acknowledgement response type.
+ * @name MsgAcknowledgementResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.MsgAcknowledgementResponse
+ */
 export const MsgAcknowledgementResponse = {
   typeUrl: "/ibc.core.channel.v2.MsgAcknowledgementResponse",
   encode(message: MsgAcknowledgementResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

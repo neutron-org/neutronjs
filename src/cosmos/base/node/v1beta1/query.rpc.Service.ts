@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { TxRpc } from "../../../../types.js";
+import { BinaryReader } from "../../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { ConfigRequest, ConfigResponse, StatusRequest, StatusResponse } from "./query";
+import { ConfigRequest, ConfigResponse, StatusRequest, StatusResponse } from "./query.js";
 /** Service defines the gRPC querier service for node related queries. */
 export interface Service {
   /** Config queries for the operator configuration. */
@@ -12,8 +12,8 @@ export interface Service {
   status(request?: StatusRequest): Promise<StatusResponse>;
 }
 export class ServiceClientImpl implements Service {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.config = this.config.bind(this);
     this.status = this.status.bind(this);

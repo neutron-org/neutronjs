@@ -1,30 +1,59 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.cron.v1";
-/** Defines the schedule for execution */
+/**
+ * Defines the schedule for execution
+ * @name Schedule
+ * @package neutron.cron.v1
+ * @see proto type: neutron.cron.v1.Schedule
+ */
 export interface Schedule {
-  /** Name of schedule */
+  /**
+   * Name of schedule
+   */
   name: string;
-  /** Period in blocks */
+  /**
+   * Period in blocks
+   */
   period: bigint;
-  /** Msgs that will be executed every certain number of blocks, specified in the `period` field */
+  /**
+   * Msgs that will be executed every certain number of blocks, specified in the `period` field
+   */
   msgs: MsgExecuteContract[];
-  /** Last execution's block height */
+  /**
+   * Last execution's block height
+   */
   lastExecuteHeight: bigint;
 }
-/** Defines the contract and the message to pass */
+/**
+ * Defines the contract and the message to pass
+ * @name MsgExecuteContract
+ * @package neutron.cron.v1
+ * @see proto type: neutron.cron.v1.MsgExecuteContract
+ */
 export interface MsgExecuteContract {
-  /** The address of the smart contract */
+  /**
+   * The address of the smart contract
+   */
   contract: string;
-  /** JSON encoded message to be passed to the contract */
+  /**
+   * JSON encoded message to be passed to the contract
+   */
   msg: string;
 }
-/** Defines the number of current schedules */
+/**
+ * Defines the number of current schedules
+ * @name ScheduleCount
+ * @package neutron.cron.v1
+ * @see proto type: neutron.cron.v1.ScheduleCount
+ */
 export interface ScheduleCount {
-  /** The number of current schedules */
+  /**
+   * The number of current schedules
+   */
   count: number;
 }
 function createBaseSchedule(): Schedule {
@@ -35,6 +64,12 @@ function createBaseSchedule(): Schedule {
     lastExecuteHeight: BigInt(0),
   };
 }
+/**
+ * Defines the schedule for execution
+ * @name Schedule
+ * @package neutron.cron.v1
+ * @see proto type: neutron.cron.v1.Schedule
+ */
 export const Schedule = {
   typeUrl: "/neutron.cron.v1.Schedule",
   encode(message: Schedule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -118,6 +153,12 @@ function createBaseMsgExecuteContract(): MsgExecuteContract {
     msg: "",
   };
 }
+/**
+ * Defines the contract and the message to pass
+ * @name MsgExecuteContract
+ * @package neutron.cron.v1
+ * @see proto type: neutron.cron.v1.MsgExecuteContract
+ */
 export const MsgExecuteContract = {
   typeUrl: "/neutron.cron.v1.MsgExecuteContract",
   encode(message: MsgExecuteContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -173,6 +214,12 @@ function createBaseScheduleCount(): ScheduleCount {
     count: 0,
   };
 }
+/**
+ * Defines the number of current schedules
+ * @name ScheduleCount
+ * @package neutron.cron.v1
+ * @see proto type: neutron.cron.v1.ScheduleCount
+ */
 export const ScheduleCount = {
   typeUrl: "/neutron.cron.v1.ScheduleCount",
   encode(message: ScheduleCount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

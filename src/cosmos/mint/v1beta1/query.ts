@@ -1,43 +1,79 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./mint";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { Params } from "./mint.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
 export const protobufPackage = "cosmos.mint.v1beta1";
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: Params;
 }
-/** QueryInflationRequest is the request type for the Query/Inflation RPC method. */
+/**
+ * QueryInflationRequest is the request type for the Query/Inflation RPC method.
+ * @name QueryInflationRequest
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.QueryInflationRequest
+ */
 export interface QueryInflationRequest {}
 /**
  * QueryInflationResponse is the response type for the Query/Inflation RPC
  * method.
+ * @name QueryInflationResponse
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.QueryInflationResponse
  */
 export interface QueryInflationResponse {
-  /** inflation is the current minting inflation value. */
+  /**
+   * inflation is the current minting inflation value.
+   */
   inflation: Uint8Array;
 }
 /**
  * QueryAnnualProvisionsRequest is the request type for the
  * Query/AnnualProvisions RPC method.
+ * @name QueryAnnualProvisionsRequest
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.QueryAnnualProvisionsRequest
  */
 export interface QueryAnnualProvisionsRequest {}
 /**
  * QueryAnnualProvisionsResponse is the response type for the
  * Query/AnnualProvisions RPC method.
+ * @name QueryAnnualProvisionsResponse
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.QueryAnnualProvisionsResponse
  */
 export interface QueryAnnualProvisionsResponse {
-  /** annual_provisions is the current minting annual provisions value. */
+  /**
+   * annual_provisions is the current minting annual provisions value.
+   */
   annualProvisions: Uint8Array;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/cosmos.mint.v1beta1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -75,6 +111,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/cosmos.mint.v1beta1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -121,6 +163,12 @@ export const QueryParamsResponse = {
 function createBaseQueryInflationRequest(): QueryInflationRequest {
   return {};
 }
+/**
+ * QueryInflationRequest is the request type for the Query/Inflation RPC method.
+ * @name QueryInflationRequest
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.QueryInflationRequest
+ */
 export const QueryInflationRequest = {
   typeUrl: "/cosmos.mint.v1beta1.QueryInflationRequest",
   encode(_: QueryInflationRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -158,6 +206,13 @@ function createBaseQueryInflationResponse(): QueryInflationResponse {
     inflation: new Uint8Array(),
   };
 }
+/**
+ * QueryInflationResponse is the response type for the Query/Inflation RPC
+ * method.
+ * @name QueryInflationResponse
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.QueryInflationResponse
+ */
 export const QueryInflationResponse = {
   typeUrl: "/cosmos.mint.v1beta1.QueryInflationResponse",
   encode(message: QueryInflationResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -205,6 +260,13 @@ export const QueryInflationResponse = {
 function createBaseQueryAnnualProvisionsRequest(): QueryAnnualProvisionsRequest {
   return {};
 }
+/**
+ * QueryAnnualProvisionsRequest is the request type for the
+ * Query/AnnualProvisions RPC method.
+ * @name QueryAnnualProvisionsRequest
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.QueryAnnualProvisionsRequest
+ */
 export const QueryAnnualProvisionsRequest = {
   typeUrl: "/cosmos.mint.v1beta1.QueryAnnualProvisionsRequest",
   encode(_: QueryAnnualProvisionsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -244,6 +306,13 @@ function createBaseQueryAnnualProvisionsResponse(): QueryAnnualProvisionsRespons
     annualProvisions: new Uint8Array(),
   };
 }
+/**
+ * QueryAnnualProvisionsResponse is the response type for the
+ * Query/AnnualProvisions RPC method.
+ * @name QueryAnnualProvisionsResponse
+ * @package cosmos.mint.v1beta1
+ * @see proto type: cosmos.mint.v1beta1.QueryAnnualProvisionsResponse
+ */
 export const QueryAnnualProvisionsResponse = {
   typeUrl: "/cosmos.mint.v1beta1.QueryAnnualProvisionsResponse",
   encode(message: QueryAnnualProvisionsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

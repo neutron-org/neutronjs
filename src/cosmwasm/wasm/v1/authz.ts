@@ -1,37 +1,57 @@
 //@ts-nocheck
 /* eslint-disable */
-import { AccessConfig } from "./types";
-import { Any } from "../../../google/protobuf/any";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { AccessConfig } from "./types.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /**
  * StoreCodeAuthorization defines authorization for wasm code upload.
  * Since: wasmd 0.42
+ * @name StoreCodeAuthorization
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.StoreCodeAuthorization
  */
 export interface StoreCodeAuthorization {
-  /** Grants for code upload */
+  /**
+   * Grants for code upload
+   */
   grants: CodeGrant[];
 }
 /**
  * ContractExecutionAuthorization defines authorization for wasm execute.
  * Since: wasmd 0.30
+ * @name ContractExecutionAuthorization
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.ContractExecutionAuthorization
  */
 export interface ContractExecutionAuthorization {
-  /** Grants for contract executions */
+  /**
+   * Grants for contract executions
+   */
   grants: ContractGrant[];
 }
 /**
  * ContractMigrationAuthorization defines authorization for wasm contract
  * migration. Since: wasmd 0.30
+ * @name ContractMigrationAuthorization
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.ContractMigrationAuthorization
  */
 export interface ContractMigrationAuthorization {
-  /** Grants for contract migrations */
+  /**
+   * Grants for contract migrations
+   */
   grants: ContractGrant[];
 }
-/** CodeGrant a granted permission for a single code */
+/**
+ * CodeGrant a granted permission for a single code
+ * @name CodeGrant
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.CodeGrant
+ */
 export interface CodeGrant {
   /**
    * CodeHash is the unique identifier created by wasmvm
@@ -48,9 +68,14 @@ export interface CodeGrant {
 /**
  * ContractGrant a granted permission for a single contract
  * Since: wasmd 0.30
+ * @name ContractGrant
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.ContractGrant
  */
 export interface ContractGrant {
-  /** Contract is the bech32 address of the smart contract */
+  /**
+   * Contract is the bech32 address of the smart contract
+   */
   contract: string;
   /**
    * Limit defines execution limits that are enforced and updated when the grant
@@ -67,52 +92,82 @@ export interface ContractGrant {
 /**
  * MaxCallsLimit limited number of calls to the contract. No funds transferable.
  * Since: wasmd 0.30
+ * @name MaxCallsLimit
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MaxCallsLimit
  */
 export interface MaxCallsLimit {
-  /** Remaining number that is decremented on each execution */
+  /**
+   * Remaining number that is decremented on each execution
+   */
   remaining: bigint;
 }
 /**
  * MaxFundsLimit defines the maximal amounts that can be sent to the contract.
  * Since: wasmd 0.30
+ * @name MaxFundsLimit
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MaxFundsLimit
  */
 export interface MaxFundsLimit {
-  /** Amounts is the maximal amount of tokens transferable to the contract. */
+  /**
+   * Amounts is the maximal amount of tokens transferable to the contract.
+   */
   amounts: Coin[];
 }
 /**
  * CombinedLimit defines the maximal amounts that can be sent to a contract and
  * the maximal number of calls executable. Both need to remain >0 to be valid.
  * Since: wasmd 0.30
+ * @name CombinedLimit
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.CombinedLimit
  */
 export interface CombinedLimit {
-  /** Remaining number that is decremented on each execution */
+  /**
+   * Remaining number that is decremented on each execution
+   */
   callsRemaining: bigint;
-  /** Amounts is the maximal amount of tokens transferable to the contract. */
+  /**
+   * Amounts is the maximal amount of tokens transferable to the contract.
+   */
   amounts: Coin[];
 }
 /**
  * AllowAllMessagesFilter is a wildcard to allow any type of contract payload
  * message.
  * Since: wasmd 0.30
+ * @name AllowAllMessagesFilter
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.AllowAllMessagesFilter
  */
 export interface AllowAllMessagesFilter {}
 /**
  * AcceptedMessageKeysFilter accept only the specific contract message keys in
  * the json object to be executed.
  * Since: wasmd 0.30
+ * @name AcceptedMessageKeysFilter
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.AcceptedMessageKeysFilter
  */
 export interface AcceptedMessageKeysFilter {
-  /** Messages is the list of unique keys */
+  /**
+   * Messages is the list of unique keys
+   */
   keys: string[];
 }
 /**
  * AcceptedMessagesFilter accept only the specific raw contract messages to be
  * executed.
  * Since: wasmd 0.30
+ * @name AcceptedMessagesFilter
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.AcceptedMessagesFilter
  */
 export interface AcceptedMessagesFilter {
-  /** Messages is the list of raw contract messages */
+  /**
+   * Messages is the list of raw contract messages
+   */
   messages: Uint8Array[];
 }
 function createBaseStoreCodeAuthorization(): StoreCodeAuthorization {
@@ -120,6 +175,13 @@ function createBaseStoreCodeAuthorization(): StoreCodeAuthorization {
     grants: [],
   };
 }
+/**
+ * StoreCodeAuthorization defines authorization for wasm code upload.
+ * Since: wasmd 0.42
+ * @name StoreCodeAuthorization
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.StoreCodeAuthorization
+ */
 export const StoreCodeAuthorization = {
   typeUrl: "/cosmwasm.wasm.v1.StoreCodeAuthorization",
   encode(message: StoreCodeAuthorization, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -170,6 +232,13 @@ function createBaseContractExecutionAuthorization(): ContractExecutionAuthorizat
     grants: [],
   };
 }
+/**
+ * ContractExecutionAuthorization defines authorization for wasm execute.
+ * Since: wasmd 0.30
+ * @name ContractExecutionAuthorization
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.ContractExecutionAuthorization
+ */
 export const ContractExecutionAuthorization = {
   typeUrl: "/cosmwasm.wasm.v1.ContractExecutionAuthorization",
   encode(
@@ -225,6 +294,13 @@ function createBaseContractMigrationAuthorization(): ContractMigrationAuthorizat
     grants: [],
   };
 }
+/**
+ * ContractMigrationAuthorization defines authorization for wasm contract
+ * migration. Since: wasmd 0.30
+ * @name ContractMigrationAuthorization
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.ContractMigrationAuthorization
+ */
 export const ContractMigrationAuthorization = {
   typeUrl: "/cosmwasm.wasm.v1.ContractMigrationAuthorization",
   encode(
@@ -281,6 +357,12 @@ function createBaseCodeGrant(): CodeGrant {
     instantiatePermission: undefined,
   };
 }
+/**
+ * CodeGrant a granted permission for a single code
+ * @name CodeGrant
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.CodeGrant
+ */
 export const CodeGrant = {
   typeUrl: "/cosmwasm.wasm.v1.CodeGrant",
   encode(message: CodeGrant, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -345,6 +427,13 @@ function createBaseContractGrant(): ContractGrant {
     filter: undefined,
   };
 }
+/**
+ * ContractGrant a granted permission for a single contract
+ * Since: wasmd 0.30
+ * @name ContractGrant
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.ContractGrant
+ */
 export const ContractGrant = {
   typeUrl: "/cosmwasm.wasm.v1.ContractGrant",
   encode(message: ContractGrant, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -413,6 +502,13 @@ function createBaseMaxCallsLimit(): MaxCallsLimit {
     remaining: BigInt(0),
   };
 }
+/**
+ * MaxCallsLimit limited number of calls to the contract. No funds transferable.
+ * Since: wasmd 0.30
+ * @name MaxCallsLimit
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MaxCallsLimit
+ */
 export const MaxCallsLimit = {
   typeUrl: "/cosmwasm.wasm.v1.MaxCallsLimit",
   encode(message: MaxCallsLimit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -461,6 +557,13 @@ function createBaseMaxFundsLimit(): MaxFundsLimit {
     amounts: [],
   };
 }
+/**
+ * MaxFundsLimit defines the maximal amounts that can be sent to the contract.
+ * Since: wasmd 0.30
+ * @name MaxFundsLimit
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MaxFundsLimit
+ */
 export const MaxFundsLimit = {
   typeUrl: "/cosmwasm.wasm.v1.MaxFundsLimit",
   encode(message: MaxFundsLimit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -512,6 +615,14 @@ function createBaseCombinedLimit(): CombinedLimit {
     amounts: [],
   };
 }
+/**
+ * CombinedLimit defines the maximal amounts that can be sent to a contract and
+ * the maximal number of calls executable. Both need to remain >0 to be valid.
+ * Since: wasmd 0.30
+ * @name CombinedLimit
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.CombinedLimit
+ */
 export const CombinedLimit = {
   typeUrl: "/cosmwasm.wasm.v1.CombinedLimit",
   encode(message: CombinedLimit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -572,6 +683,14 @@ export const CombinedLimit = {
 function createBaseAllowAllMessagesFilter(): AllowAllMessagesFilter {
   return {};
 }
+/**
+ * AllowAllMessagesFilter is a wildcard to allow any type of contract payload
+ * message.
+ * Since: wasmd 0.30
+ * @name AllowAllMessagesFilter
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.AllowAllMessagesFilter
+ */
 export const AllowAllMessagesFilter = {
   typeUrl: "/cosmwasm.wasm.v1.AllowAllMessagesFilter",
   encode(_: AllowAllMessagesFilter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -609,6 +728,14 @@ function createBaseAcceptedMessageKeysFilter(): AcceptedMessageKeysFilter {
     keys: [],
   };
 }
+/**
+ * AcceptedMessageKeysFilter accept only the specific contract message keys in
+ * the json object to be executed.
+ * Since: wasmd 0.30
+ * @name AcceptedMessageKeysFilter
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.AcceptedMessageKeysFilter
+ */
 export const AcceptedMessageKeysFilter = {
   typeUrl: "/cosmwasm.wasm.v1.AcceptedMessageKeysFilter",
   encode(message: AcceptedMessageKeysFilter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -661,6 +788,14 @@ function createBaseAcceptedMessagesFilter(): AcceptedMessagesFilter {
     messages: [],
   };
 }
+/**
+ * AcceptedMessagesFilter accept only the specific raw contract messages to be
+ * executed.
+ * Since: wasmd 0.30
+ * @name AcceptedMessagesFilter
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.AcceptedMessagesFilter
+ */
 export const AcceptedMessagesFilter = {
   typeUrl: "/cosmwasm.wasm.v1.AcceptedMessagesFilter",
   encode(message: AcceptedMessagesFilter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

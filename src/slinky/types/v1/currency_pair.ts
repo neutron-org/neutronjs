@@ -1,12 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "slinky.types.v1";
 /**
  * CurrencyPair is the standard representation of a pair of assets, where one
  * (Base) is priced in terms of the other (Quote)
+ * @name CurrencyPair
+ * @package slinky.types.v1
+ * @see proto type: slinky.types.v1.CurrencyPair
  */
 export interface CurrencyPair {
   base: string;
@@ -18,6 +21,13 @@ function createBaseCurrencyPair(): CurrencyPair {
     quote: "",
   };
 }
+/**
+ * CurrencyPair is the standard representation of a pair of assets, where one
+ * (Base) is priced in terms of the other (Quote)
+ * @name CurrencyPair
+ * @package slinky.types.v1
+ * @see proto type: slinky.types.v1.CurrencyPair
+ */
 export const CurrencyPair = {
   typeUrl: "/slinky.types.v1.CurrencyPair",
   encode(message: CurrencyPair, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

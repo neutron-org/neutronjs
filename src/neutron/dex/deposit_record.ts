@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PairID } from "./pair_id";
-import { Pool } from "./pool";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { PairID } from "./pair_id.js";
+import { Pool } from "./pool.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
+/**
+ * @name DepositRecord
+ * @package neutron.dex
+ * @see proto type: neutron.dex.DepositRecord
+ */
 export interface DepositRecord {
   pairId?: PairID;
   sharesOwned: string;
@@ -28,6 +33,11 @@ function createBaseDepositRecord(): DepositRecord {
     pool: undefined,
   };
 }
+/**
+ * @name DepositRecord
+ * @package neutron.dex
+ * @see proto type: neutron.dex.DepositRecord
+ */
 export const DepositRecord = {
   typeUrl: "/neutron.dex.DepositRecord",
   encode(message: DepositRecord, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

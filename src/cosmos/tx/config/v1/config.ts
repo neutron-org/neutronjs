@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.tx.config.v1";
-/** Config is the config object of the x/auth/tx package. */
+/**
+ * Config is the config object of the x/auth/tx package.
+ * @name Config
+ * @package cosmos.tx.config.v1
+ * @see proto type: cosmos.tx.config.v1.Config
+ */
 export interface Config {
   /**
    * skip_ante_handler defines whether the ante handler registration should be skipped in case an app wants to override
@@ -23,6 +28,12 @@ function createBaseConfig(): Config {
     skipPostHandler: false,
   };
 }
+/**
+ * Config is the config object of the x/auth/tx package.
+ * @name Config
+ * @package cosmos.tx.config.v1
+ * @see proto type: cosmos.tx.config.v1.Config
+ */
 export const Config = {
   typeUrl: "/cosmos.tx.config.v1.Config",
   encode(message: Config, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,13 +1,18 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Denom } from "./token";
-import { Params } from "./transfer";
-import { Coin } from "../../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Denom } from "./token.js";
+import { Params } from "./transfer.js";
+import { Coin } from "../../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.applications.transfer.v1";
-/** GenesisState defines the ibc-transfer genesis state */
+/**
+ * GenesisState defines the ibc-transfer genesis state
+ * @name GenesisState
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.GenesisState
+ */
 export interface GenesisState {
   portId: string;
   denoms: Denom[];
@@ -26,6 +31,12 @@ function createBaseGenesisState(): GenesisState {
     totalEscrowed: [],
   };
 }
+/**
+ * GenesisState defines the ibc-transfer genesis state
+ * @name GenesisState
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.applications.transfer.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

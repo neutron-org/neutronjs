@@ -1,33 +1,67 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { Permissions, GenesisAccountPermissions } from "./types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { Permissions, GenesisAccountPermissions } from "./types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.circuit.v1";
-/** QueryAccountRequest is the request type for the Query/Account RPC method. */
+/**
+ * QueryAccountRequest is the request type for the Query/Account RPC method.
+ * @name QueryAccountRequest
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.QueryAccountRequest
+ */
 export interface QueryAccountRequest {
   address: string;
 }
-/** AccountResponse is the response type for the Query/Account RPC method. */
+/**
+ * AccountResponse is the response type for the Query/Account RPC method.
+ * @name AccountResponse
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.AccountResponse
+ */
 export interface AccountResponse {
   permission?: Permissions;
 }
-/** QueryAccountsRequest is the request type for the Query/Accounts RPC method. */
+/**
+ * QueryAccountsRequest is the request type for the Query/Accounts RPC method.
+ * @name QueryAccountsRequest
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.QueryAccountsRequest
+ */
 export interface QueryAccountsRequest {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
-/** AccountsResponse is the response type for the Query/Accounts RPC method. */
+/**
+ * AccountsResponse is the response type for the Query/Accounts RPC method.
+ * @name AccountsResponse
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.AccountsResponse
+ */
 export interface AccountsResponse {
   accounts: GenesisAccountPermissions[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
-/** QueryDisableListRequest is the request type for the Query/DisabledList RPC method. */
+/**
+ * QueryDisableListRequest is the request type for the Query/DisabledList RPC method.
+ * @name QueryDisabledListRequest
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.QueryDisabledListRequest
+ */
 export interface QueryDisabledListRequest {}
-/** DisabledListResponse is the response type for the Query/DisabledList RPC method. */
+/**
+ * DisabledListResponse is the response type for the Query/DisabledList RPC method.
+ * @name DisabledListResponse
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.DisabledListResponse
+ */
 export interface DisabledListResponse {
   disabledList: string[];
 }
@@ -36,6 +70,12 @@ function createBaseQueryAccountRequest(): QueryAccountRequest {
     address: "",
   };
 }
+/**
+ * QueryAccountRequest is the request type for the Query/Account RPC method.
+ * @name QueryAccountRequest
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.QueryAccountRequest
+ */
 export const QueryAccountRequest = {
   typeUrl: "/cosmos.circuit.v1.QueryAccountRequest",
   encode(message: QueryAccountRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -82,6 +122,12 @@ function createBaseAccountResponse(): AccountResponse {
     permission: undefined,
   };
 }
+/**
+ * AccountResponse is the response type for the Query/Account RPC method.
+ * @name AccountResponse
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.AccountResponse
+ */
 export const AccountResponse = {
   typeUrl: "/cosmos.circuit.v1.AccountResponse",
   encode(message: AccountResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -131,6 +177,12 @@ function createBaseQueryAccountsRequest(): QueryAccountsRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryAccountsRequest is the request type for the Query/Accounts RPC method.
+ * @name QueryAccountsRequest
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.QueryAccountsRequest
+ */
 export const QueryAccountsRequest = {
   typeUrl: "/cosmos.circuit.v1.QueryAccountsRequest",
   encode(message: QueryAccountsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -181,6 +233,12 @@ function createBaseAccountsResponse(): AccountsResponse {
     pagination: undefined,
   };
 }
+/**
+ * AccountsResponse is the response type for the Query/Accounts RPC method.
+ * @name AccountsResponse
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.AccountsResponse
+ */
 export const AccountsResponse = {
   typeUrl: "/cosmos.circuit.v1.AccountsResponse",
   encode(message: AccountsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -242,6 +300,12 @@ export const AccountsResponse = {
 function createBaseQueryDisabledListRequest(): QueryDisabledListRequest {
   return {};
 }
+/**
+ * QueryDisableListRequest is the request type for the Query/DisabledList RPC method.
+ * @name QueryDisabledListRequest
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.QueryDisabledListRequest
+ */
 export const QueryDisabledListRequest = {
   typeUrl: "/cosmos.circuit.v1.QueryDisabledListRequest",
   encode(_: QueryDisabledListRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -279,6 +343,12 @@ function createBaseDisabledListResponse(): DisabledListResponse {
     disabledList: [],
   };
 }
+/**
+ * DisabledListResponse is the response type for the Query/DisabledList RPC method.
+ * @name DisabledListResponse
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.DisabledListResponse
+ */
 export const DisabledListResponse = {
   typeUrl: "/cosmos.circuit.v1.DisabledListResponse",
   encode(message: DisabledListResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

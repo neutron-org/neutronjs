@@ -1,15 +1,18 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Counterparty, Version } from "./connection";
-import { Any } from "../../../../google/protobuf/any";
-import { Height, Params } from "../../client/v1/client";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Counterparty, Version } from "./connection.js";
+import { Any } from "../../../../google/protobuf/any.js";
+import { Height, Params } from "../../client/v1/client.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.connection.v1";
 /**
  * MsgConnectionOpenInit defines the msg sent by an account on Chain A to
  * initialize a connection with Chain B.
+ * @name MsgConnectionOpenInit
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenInit
  */
 export interface MsgConnectionOpenInit {
   clientId: string;
@@ -21,19 +24,29 @@ export interface MsgConnectionOpenInit {
 /**
  * MsgConnectionOpenInitResponse defines the Msg/ConnectionOpenInit response
  * type.
+ * @name MsgConnectionOpenInitResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenInitResponse
  */
 export interface MsgConnectionOpenInitResponse {}
 /**
  * MsgConnectionOpenTry defines a msg sent by a Relayer to try to open a
  * connection on Chain B.
+ * @name MsgConnectionOpenTry
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenTry
  */
 export interface MsgConnectionOpenTry {
   clientId: string;
-  /** Deprecated: this field is unused. Crossing hellos are no longer supported in core IBC. */
-  /** @deprecated */
+  /**
+   * Deprecated: this field is unused. Crossing hellos are no longer supported in core IBC.
+   * @deprecated
+   */
   previousConnectionId: string;
-  /** Deprecated: this field is unused. */
-  /** @deprecated */
+  /**
+   * Deprecated: this field is unused.
+   * @deprecated
+   */
   clientState?: Any;
   counterparty: Counterparty;
   delayPeriod: bigint;
@@ -44,32 +57,50 @@ export interface MsgConnectionOpenTry {
    * INIT`
    */
   proofInit: Uint8Array;
-  /** Deprecated: this field is unused. */
-  /** @deprecated */
+  /**
+   * Deprecated: this field is unused.
+   * @deprecated
+   */
   proofClient: Uint8Array;
-  /** Deprecated: this field is unused. */
-  /** @deprecated */
+  /**
+   * Deprecated: this field is unused.
+   * @deprecated
+   */
   proofConsensus: Uint8Array;
-  /** Deprecated: this field is unused. */
-  /** @deprecated */
+  /**
+   * Deprecated: this field is unused.
+   * @deprecated
+   */
   consensusHeight: Height;
   signer: string;
-  /** Deprecated: this field is unused. */
-  /** @deprecated */
+  /**
+   * Deprecated: this field is unused.
+   * @deprecated
+   */
   hostConsensusStateProof: Uint8Array;
 }
-/** MsgConnectionOpenTryResponse defines the Msg/ConnectionOpenTry response type. */
+/**
+ * MsgConnectionOpenTryResponse defines the Msg/ConnectionOpenTry response type.
+ * @name MsgConnectionOpenTryResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenTryResponse
+ */
 export interface MsgConnectionOpenTryResponse {}
 /**
  * MsgConnectionOpenAck defines a msg sent by a Relayer to Chain A to
  * acknowledge the change of connection state to TRYOPEN on Chain B.
+ * @name MsgConnectionOpenAck
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenAck
  */
 export interface MsgConnectionOpenAck {
   connectionId: string;
   counterpartyConnectionId: string;
   version?: Version;
-  /** Deprecated: this field is unused. */
-  /** @deprecated */
+  /**
+   * Deprecated: this field is unused.
+   * @deprecated
+   */
   clientState?: Any;
   proofHeight: Height;
   /**
@@ -77,29 +108,47 @@ export interface MsgConnectionOpenAck {
    * TRYOPEN`
    */
   proofTry: Uint8Array;
-  /** Deprecated: this field is unused. */
-  /** @deprecated */
+  /**
+   * Deprecated: this field is unused.
+   * @deprecated
+   */
   proofClient: Uint8Array;
-  /** Deprecated: this field is unused. */
-  /** @deprecated */
+  /**
+   * Deprecated: this field is unused.
+   * @deprecated
+   */
   proofConsensus: Uint8Array;
-  /** Deprecated: this field is unused. */
-  /** @deprecated */
+  /**
+   * Deprecated: this field is unused.
+   * @deprecated
+   */
   consensusHeight: Height;
   signer: string;
-  /** Deprecated: this field is unused. */
-  /** @deprecated */
+  /**
+   * Deprecated: this field is unused.
+   * @deprecated
+   */
   hostConsensusStateProof: Uint8Array;
 }
-/** MsgConnectionOpenAckResponse defines the Msg/ConnectionOpenAck response type. */
+/**
+ * MsgConnectionOpenAckResponse defines the Msg/ConnectionOpenAck response type.
+ * @name MsgConnectionOpenAckResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenAckResponse
+ */
 export interface MsgConnectionOpenAckResponse {}
 /**
  * MsgConnectionOpenConfirm defines a msg sent by a Relayer to Chain B to
  * acknowledge the change of connection state to OPEN on Chain A.
+ * @name MsgConnectionOpenConfirm
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenConfirm
  */
 export interface MsgConnectionOpenConfirm {
   connectionId: string;
-  /** proof for the change of the connection state on Chain A: `INIT -> OPEN` */
+  /**
+   * proof for the change of the connection state on Chain A: `INIT -> OPEN`
+   */
   proofAck: Uint8Array;
   proofHeight: Height;
   signer: string;
@@ -107,11 +156,21 @@ export interface MsgConnectionOpenConfirm {
 /**
  * MsgConnectionOpenConfirmResponse defines the Msg/ConnectionOpenConfirm
  * response type.
+ * @name MsgConnectionOpenConfirmResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenConfirmResponse
  */
 export interface MsgConnectionOpenConfirmResponse {}
-/** MsgUpdateParams defines the sdk.Msg type to update the connection parameters. */
+/**
+ * MsgUpdateParams defines the sdk.Msg type to update the connection parameters.
+ * @name MsgUpdateParams
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
   /**
    * params defines the connection parameters to update.
@@ -120,7 +179,12 @@ export interface MsgUpdateParams {
    */
   params: Params;
 }
-/** MsgUpdateParamsResponse defines the MsgUpdateParams response type. */
+/**
+ * MsgUpdateParamsResponse defines the MsgUpdateParams response type.
+ * @name MsgUpdateParamsResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgConnectionOpenInit(): MsgConnectionOpenInit {
   return {
@@ -131,6 +195,13 @@ function createBaseMsgConnectionOpenInit(): MsgConnectionOpenInit {
     signer: "",
   };
 }
+/**
+ * MsgConnectionOpenInit defines the msg sent by an account on Chain A to
+ * initialize a connection with Chain B.
+ * @name MsgConnectionOpenInit
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenInit
+ */
 export const MsgConnectionOpenInit = {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenInit",
   encode(message: MsgConnectionOpenInit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -219,6 +290,13 @@ export const MsgConnectionOpenInit = {
 function createBaseMsgConnectionOpenInitResponse(): MsgConnectionOpenInitResponse {
   return {};
 }
+/**
+ * MsgConnectionOpenInitResponse defines the Msg/ConnectionOpenInit response
+ * type.
+ * @name MsgConnectionOpenInitResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenInitResponse
+ */
 export const MsgConnectionOpenInitResponse = {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenInitResponse",
   encode(_: MsgConnectionOpenInitResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -270,6 +348,13 @@ function createBaseMsgConnectionOpenTry(): MsgConnectionOpenTry {
     hostConsensusStateProof: new Uint8Array(),
   };
 }
+/**
+ * MsgConnectionOpenTry defines a msg sent by a Relayer to try to open a
+ * connection on Chain B.
+ * @name MsgConnectionOpenTry
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenTry
+ */
 export const MsgConnectionOpenTry = {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenTry",
   encode(message: MsgConnectionOpenTry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -454,6 +539,12 @@ export const MsgConnectionOpenTry = {
 function createBaseMsgConnectionOpenTryResponse(): MsgConnectionOpenTryResponse {
   return {};
 }
+/**
+ * MsgConnectionOpenTryResponse defines the Msg/ConnectionOpenTry response type.
+ * @name MsgConnectionOpenTryResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenTryResponse
+ */
 export const MsgConnectionOpenTryResponse = {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenTryResponse",
   encode(_: MsgConnectionOpenTryResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -503,6 +594,13 @@ function createBaseMsgConnectionOpenAck(): MsgConnectionOpenAck {
     hostConsensusStateProof: new Uint8Array(),
   };
 }
+/**
+ * MsgConnectionOpenAck defines a msg sent by a Relayer to Chain A to
+ * acknowledge the change of connection state to TRYOPEN on Chain B.
+ * @name MsgConnectionOpenAck
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenAck
+ */
 export const MsgConnectionOpenAck = {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenAck",
   encode(message: MsgConnectionOpenAck, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -662,6 +760,12 @@ export const MsgConnectionOpenAck = {
 function createBaseMsgConnectionOpenAckResponse(): MsgConnectionOpenAckResponse {
   return {};
 }
+/**
+ * MsgConnectionOpenAckResponse defines the Msg/ConnectionOpenAck response type.
+ * @name MsgConnectionOpenAckResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenAckResponse
+ */
 export const MsgConnectionOpenAckResponse = {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenAckResponse",
   encode(_: MsgConnectionOpenAckResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -704,6 +808,13 @@ function createBaseMsgConnectionOpenConfirm(): MsgConnectionOpenConfirm {
     signer: "",
   };
 }
+/**
+ * MsgConnectionOpenConfirm defines a msg sent by a Relayer to Chain B to
+ * acknowledge the change of connection state to OPEN on Chain A.
+ * @name MsgConnectionOpenConfirm
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenConfirm
+ */
 export const MsgConnectionOpenConfirm = {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenConfirm",
   encode(message: MsgConnectionOpenConfirm, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -781,6 +892,13 @@ export const MsgConnectionOpenConfirm = {
 function createBaseMsgConnectionOpenConfirmResponse(): MsgConnectionOpenConfirmResponse {
   return {};
 }
+/**
+ * MsgConnectionOpenConfirmResponse defines the Msg/ConnectionOpenConfirm
+ * response type.
+ * @name MsgConnectionOpenConfirmResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgConnectionOpenConfirmResponse
+ */
 export const MsgConnectionOpenConfirmResponse = {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenConfirmResponse",
   encode(_: MsgConnectionOpenConfirmResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -821,6 +939,12 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams defines the sdk.Msg type to update the connection parameters.
+ * @name MsgUpdateParams
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/ibc.core.connection.v1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -876,6 +1000,12 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the MsgUpdateParams response type.
+ * @name MsgUpdateParamsResponse
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/ibc.core.connection.v1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

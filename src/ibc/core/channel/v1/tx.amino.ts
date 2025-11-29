@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { stateFromJSON, orderFromJSON } from "./channel";
+import { stateFromJSON, orderFromJSON } from "./channel.js";
 import { AminoMsg } from "@cosmjs/amino";
-import { AminoHeight, omitDefault } from "../../../../helpers";
+import { AminoHeight, omitDefault } from "../../../../helpers.js";
 import {
   MsgChannelOpenInit,
   MsgChannelOpenTry,
@@ -14,7 +14,7 @@ import {
   MsgTimeout,
   MsgTimeoutOnClose,
   MsgAcknowledgement,
-} from "./tx";
+} from "./tx.js";
 export interface MsgChannelOpenInitAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgChannelOpenInit";
   value: {

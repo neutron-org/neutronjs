@@ -1,20 +1,35 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../base/v1beta1/coin";
-import { Input, Output, Params, SendEnabled } from "./bank";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { Input, Output, Params, SendEnabled } from "./bank.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.bank.v1beta1";
-/** MsgSend represents a message to send coins from one account to another. */
+/**
+ * MsgSend represents a message to send coins from one account to another.
+ * @name MsgSend
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgSend
+ */
 export interface MsgSend {
   fromAddress: string;
   toAddress: string;
   amount: Coin[];
 }
-/** MsgSendResponse defines the Msg/Send response type. */
+/**
+ * MsgSendResponse defines the Msg/Send response type.
+ * @name MsgSendResponse
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgSendResponse
+ */
 export interface MsgSendResponse {}
-/** MsgMultiSend represents an arbitrary multi-in, multi-out send message. */
+/**
+ * MsgMultiSend represents an arbitrary multi-in, multi-out send message.
+ * @name MsgMultiSend
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgMultiSend
+ */
 export interface MsgMultiSend {
   /**
    * Inputs, despite being `repeated`, only allows one sender input. This is
@@ -23,11 +38,23 @@ export interface MsgMultiSend {
   inputs: Input[];
   outputs: Output[];
 }
-/** MsgMultiSendResponse defines the Msg/MultiSend response type. */
+/**
+ * MsgMultiSendResponse defines the Msg/MultiSend response type.
+ * @name MsgMultiSendResponse
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgMultiSendResponse
+ */
 export interface MsgMultiSendResponse {}
-/** MsgUpdateParams is the Msg/UpdateParams request type. */
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * @name MsgUpdateParams
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless overwritten).
+   */
   authority: string;
   /**
    * params defines the x/bank parameters to update.
@@ -39,6 +66,9 @@ export interface MsgUpdateParams {
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
+ * @name MsgUpdateParamsResponse
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
 /**
@@ -47,11 +77,18 @@ export interface MsgUpdateParamsResponse {}
  * Only entries to add/update/delete need to be included.
  * Existing SendEnabled entries that are not included in this
  * message are left unchanged.
+ * @name MsgSetSendEnabled
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgSetSendEnabled
  */
 export interface MsgSetSendEnabled {
-  /** authority is the address that controls the module. */
+  /**
+   * authority is the address that controls the module.
+   */
   authority: string;
-  /** send_enabled is the list of entries to add or update. */
+  /**
+   * send_enabled is the list of entries to add or update.
+   */
   sendEnabled: SendEnabled[];
   /**
    * use_default_for is a list of denoms that should use the params.default_send_enabled value.
@@ -61,7 +98,12 @@ export interface MsgSetSendEnabled {
    */
   useDefaultFor: string[];
 }
-/** MsgSetSendEnabledResponse defines the Msg/SetSendEnabled response type. */
+/**
+ * MsgSetSendEnabledResponse defines the Msg/SetSendEnabled response type.
+ * @name MsgSetSendEnabledResponse
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgSetSendEnabledResponse
+ */
 export interface MsgSetSendEnabledResponse {}
 function createBaseMsgSend(): MsgSend {
   return {
@@ -70,6 +112,12 @@ function createBaseMsgSend(): MsgSend {
     amount: [],
   };
 }
+/**
+ * MsgSend represents a message to send coins from one account to another.
+ * @name MsgSend
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgSend
+ */
 export const MsgSend = {
   typeUrl: "/cosmos.bank.v1beta1.MsgSend",
   encode(message: MsgSend, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -136,6 +184,12 @@ export const MsgSend = {
 function createBaseMsgSendResponse(): MsgSendResponse {
   return {};
 }
+/**
+ * MsgSendResponse defines the Msg/Send response type.
+ * @name MsgSendResponse
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgSendResponse
+ */
 export const MsgSendResponse = {
   typeUrl: "/cosmos.bank.v1beta1.MsgSendResponse",
   encode(_: MsgSendResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -174,6 +228,12 @@ function createBaseMsgMultiSend(): MsgMultiSend {
     outputs: [],
   };
 }
+/**
+ * MsgMultiSend represents an arbitrary multi-in, multi-out send message.
+ * @name MsgMultiSend
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgMultiSend
+ */
 export const MsgMultiSend = {
   typeUrl: "/cosmos.bank.v1beta1.MsgMultiSend",
   encode(message: MsgMultiSend, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -235,6 +295,12 @@ export const MsgMultiSend = {
 function createBaseMsgMultiSendResponse(): MsgMultiSendResponse {
   return {};
 }
+/**
+ * MsgMultiSendResponse defines the Msg/MultiSend response type.
+ * @name MsgMultiSendResponse
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgMultiSendResponse
+ */
 export const MsgMultiSendResponse = {
   typeUrl: "/cosmos.bank.v1beta1.MsgMultiSendResponse",
   encode(_: MsgMultiSendResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -273,6 +339,12 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * @name MsgUpdateParams
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -328,6 +400,13 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * @name MsgUpdateParamsResponse
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -367,6 +446,16 @@ function createBaseMsgSetSendEnabled(): MsgSetSendEnabled {
     useDefaultFor: [],
   };
 }
+/**
+ * MsgSetSendEnabled is the Msg/SetSendEnabled request type.
+ *
+ * Only entries to add/update/delete need to be included.
+ * Existing SendEnabled entries that are not included in this
+ * message are left unchanged.
+ * @name MsgSetSendEnabled
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgSetSendEnabled
+ */
 export const MsgSetSendEnabled = {
   typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabled",
   encode(message: MsgSetSendEnabled, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -439,6 +528,12 @@ export const MsgSetSendEnabled = {
 function createBaseMsgSetSendEnabledResponse(): MsgSetSendEnabledResponse {
   return {};
 }
+/**
+ * MsgSetSendEnabledResponse defines the Msg/SetSendEnabled response type.
+ * @name MsgSetSendEnabledResponse
+ * @package cosmos.bank.v1beta1
+ * @see proto type: cosmos.bank.v1beta1.MsgSetSendEnabledResponse
+ */
 export const MsgSetSendEnabledResponse = {
   typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabledResponse",
   encode(_: MsgSetSendEnabledResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

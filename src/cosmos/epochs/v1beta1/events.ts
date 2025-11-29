@@ -1,14 +1,24 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.epochs.v1beta1";
-/** EventEpochEnd is an event emitted when an epoch end. */
+/**
+ * EventEpochEnd is an event emitted when an epoch end.
+ * @name EventEpochEnd
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.EventEpochEnd
+ */
 export interface EventEpochEnd {
   epochNumber: bigint;
 }
-/** EventEpochStart is an event emitted when an epoch start. */
+/**
+ * EventEpochStart is an event emitted when an epoch start.
+ * @name EventEpochStart
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.EventEpochStart
+ */
 export interface EventEpochStart {
   epochNumber: bigint;
   epochStartTime: bigint;
@@ -18,6 +28,12 @@ function createBaseEventEpochEnd(): EventEpochEnd {
     epochNumber: BigInt(0),
   };
 }
+/**
+ * EventEpochEnd is an event emitted when an epoch end.
+ * @name EventEpochEnd
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.EventEpochEnd
+ */
 export const EventEpochEnd = {
   typeUrl: "/cosmos.epochs.v1beta1.EventEpochEnd",
   encode(message: EventEpochEnd, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -67,6 +83,12 @@ function createBaseEventEpochStart(): EventEpochStart {
     epochStartTime: BigInt(0),
   };
 }
+/**
+ * EventEpochStart is an event emitted when an epoch start.
+ * @name EventEpochStart
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.EventEpochStart
+ */
 export const EventEpochStart = {
   typeUrl: "/cosmos.epochs.v1beta1.EventEpochStart",
   encode(message: EventEpochStart, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { JsonSafe } from "../../../../json-safe";
-import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { JsonSafe } from "../../../../json-safe.js";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers.js";
 export const protobufPackage = "ibc.core.channel.v2";
-/** GenesisState defines the ibc channel/v2 submodule's genesis state. */
+/**
+ * GenesisState defines the ibc channel/v2 submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.GenesisState
+ */
 export interface GenesisState {
   acknowledgements: PacketState[];
   commitments: PacketState[];
@@ -17,20 +22,38 @@ export interface GenesisState {
  * packet commitments, acknowledgements, and receipts.
  * Caller is responsible for knowing the context necessary to interpret this
  * state as a commitment, acknowledgement, or a receipt.
+ * @name PacketState
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.PacketState
  */
 export interface PacketState {
-  /** client unique identifier. */
+  /**
+   * client unique identifier.
+   */
   clientId: string;
-  /** packet sequence. */
+  /**
+   * packet sequence.
+   */
   sequence: bigint;
-  /** embedded data that represents packet state. */
+  /**
+   * embedded data that represents packet state.
+   */
   data: Uint8Array;
 }
-/** PacketSequence defines the genesis type necessary to retrieve and store next send sequences. */
+/**
+ * PacketSequence defines the genesis type necessary to retrieve and store next send sequences.
+ * @name PacketSequence
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.PacketSequence
+ */
 export interface PacketSequence {
-  /** client unique identifier. */
+  /**
+   * client unique identifier.
+   */
   clientId: string;
-  /** packet sequence */
+  /**
+   * packet sequence
+   */
   sequence: bigint;
 }
 function createBaseGenesisState(): GenesisState {
@@ -42,6 +65,12 @@ function createBaseGenesisState(): GenesisState {
     sendSequences: [],
   };
 }
+/**
+ * GenesisState defines the ibc channel/v2 submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.core.channel.v2.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -151,6 +180,15 @@ function createBasePacketState(): PacketState {
     data: new Uint8Array(),
   };
 }
+/**
+ * PacketState defines the generic type necessary to retrieve and store
+ * packet commitments, acknowledgements, and receipts.
+ * Caller is responsible for knowing the context necessary to interpret this
+ * state as a commitment, acknowledgement, or a receipt.
+ * @name PacketState
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.PacketState
+ */
 export const PacketState = {
   typeUrl: "/ibc.core.channel.v2.PacketState",
   encode(message: PacketState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -219,6 +257,12 @@ function createBasePacketSequence(): PacketSequence {
     sequence: BigInt(0),
   };
 }
+/**
+ * PacketSequence defines the genesis type necessary to retrieve and store next send sequences.
+ * @name PacketSequence
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.PacketSequence
+ */
 export const PacketSequence = {
   typeUrl: "/ibc.core.channel.v2.PacketSequence",
   encode(message: PacketSequence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

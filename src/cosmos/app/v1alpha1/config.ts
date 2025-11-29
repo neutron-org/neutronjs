@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "cosmos.app.v1alpha1";
 /**
  * Config represents the configuration for a Cosmos SDK ABCI app.
@@ -13,9 +13,14 @@ export const protobufPackage = "cosmos.app.v1alpha1";
  * allow a mixture of declarative and imperative app wiring, however, apps
  * that strive for the maximum ease of maintainability should be able to describe
  * their state machine with a config object alone.
+ * @name Config
+ * @package cosmos.app.v1alpha1
+ * @see proto type: cosmos.app.v1alpha1.Config
  */
 export interface Config {
-  /** modules are the module configurations for the app. */
+  /**
+   * modules are the module configurations for the app.
+   */
   modules: ModuleConfig[];
   /**
    * golang_bindings specifies explicit interface to implementation type bindings which
@@ -24,7 +29,12 @@ export interface Config {
    */
   golangBindings: GolangBinding[];
 }
-/** ModuleConfig is a module configuration for an app. */
+/**
+ * ModuleConfig is a module configuration for an app.
+ * @name ModuleConfig
+ * @package cosmos.app.v1alpha1
+ * @see proto type: cosmos.app.v1alpha1.ModuleConfig
+ */
 export interface ModuleConfig {
   /**
    * name is the unique name of the module within the app. It should be a name
@@ -51,11 +61,20 @@ export interface ModuleConfig {
    */
   golangBindings: GolangBinding[];
 }
-/** GolangBinding is an explicit interface type to implementing type binding for dependency injection. */
+/**
+ * GolangBinding is an explicit interface type to implementing type binding for dependency injection.
+ * @name GolangBinding
+ * @package cosmos.app.v1alpha1
+ * @see proto type: cosmos.app.v1alpha1.GolangBinding
+ */
 export interface GolangBinding {
-  /** interface_type is the interface type which will be bound to a specific implementation type */
+  /**
+   * interface_type is the interface type which will be bound to a specific implementation type
+   */
   interfaceType: string;
-  /** implementation is the implementing type which will be supplied when an input of type interface is requested */
+  /**
+   * implementation is the implementing type which will be supplied when an input of type interface is requested
+   */
   implementation: string;
 }
 function createBaseConfig(): Config {
@@ -64,6 +83,18 @@ function createBaseConfig(): Config {
     golangBindings: [],
   };
 }
+/**
+ * Config represents the configuration for a Cosmos SDK ABCI app.
+ * It is intended that all state machine logic including the version of
+ * baseapp and tx handlers (and possibly even Tendermint) that an app needs
+ * can be described in a config object. For compatibility, the framework should
+ * allow a mixture of declarative and imperative app wiring, however, apps
+ * that strive for the maximum ease of maintainability should be able to describe
+ * their state machine with a config object alone.
+ * @name Config
+ * @package cosmos.app.v1alpha1
+ * @see proto type: cosmos.app.v1alpha1.Config
+ */
 export const Config = {
   typeUrl: "/cosmos.app.v1alpha1.Config",
   encode(message: Config, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -131,6 +162,12 @@ function createBaseModuleConfig(): ModuleConfig {
     golangBindings: [],
   };
 }
+/**
+ * ModuleConfig is a module configuration for an app.
+ * @name ModuleConfig
+ * @package cosmos.app.v1alpha1
+ * @see proto type: cosmos.app.v1alpha1.ModuleConfig
+ */
 export const ModuleConfig = {
   typeUrl: "/cosmos.app.v1alpha1.ModuleConfig",
   encode(message: ModuleConfig, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -203,6 +240,12 @@ function createBaseGolangBinding(): GolangBinding {
     implementation: "",
   };
 }
+/**
+ * GolangBinding is an explicit interface type to implementing type binding for dependency injection.
+ * @name GolangBinding
+ * @package cosmos.app.v1alpha1
+ * @see proto type: cosmos.app.v1alpha1.GolangBinding
+ */
 export const GolangBinding = {
   typeUrl: "/cosmos.app.v1alpha1.GolangBinding",
   encode(message: GolangBinding, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

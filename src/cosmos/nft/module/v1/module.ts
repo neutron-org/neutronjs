@@ -1,14 +1,25 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { JsonSafe } from "../../../../json-safe";
-import { DeepPartial, Exact } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { JsonSafe } from "../../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../../helpers.js";
 export const protobufPackage = "cosmos.nft.module.v1";
-/** Module is the config object of the nft module. */
+/**
+ * Module is the config object of the nft module.
+ * @name Module
+ * @package cosmos.nft.module.v1
+ * @see proto type: cosmos.nft.module.v1.Module
+ */
 export interface Module {}
 function createBaseModule(): Module {
   return {};
 }
+/**
+ * Module is the config object of the nft module.
+ * @name Module
+ * @package cosmos.nft.module.v1
+ * @see proto type: cosmos.nft.module.v1.Module
+ */
 export const Module = {
   typeUrl: "/cosmos.nft.module.v1.Module",
   encode(_: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

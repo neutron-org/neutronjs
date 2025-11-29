@@ -1,17 +1,22 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "../../../cosmos/bank/v1beta1/bank";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Params } from "../../../cosmos/bank/v1beta1/bank.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.ibcratelimit.v1beta1";
 /**
  * MsgUpdateParams is the MsgUpdateParams request type.
  *
  * Since: 0.47
+ * @name MsgUpdateParams
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto type: neutron.ibcratelimit.v1beta1.MsgUpdateParams
  */
 export interface MsgUpdateParams {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the x/tokenfactory parameters to update.
@@ -25,6 +30,9 @@ export interface MsgUpdateParams {
  * MsgUpdateParams message.
  *
  * Since: 0.47
+ * @name MsgUpdateParamsResponse
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto type: neutron.ibcratelimit.v1beta1.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -33,6 +41,14 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ *
+ * Since: 0.47
+ * @name MsgUpdateParams
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto type: neutron.ibcratelimit.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/neutron.ibcratelimit.v1beta1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -88,6 +104,15 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: 0.47
+ * @name MsgUpdateParamsResponse
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto type: neutron.ibcratelimit.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/neutron.ibcratelimit.v1beta1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

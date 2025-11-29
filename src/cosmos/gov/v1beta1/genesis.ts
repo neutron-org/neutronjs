@@ -1,25 +1,44 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Deposit, Vote, Proposal, DepositParams, VotingParams, TallyParams } from "./gov";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Deposit, Vote, Proposal, DepositParams, VotingParams, TallyParams } from "./gov.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.gov.v1beta1";
-/** GenesisState defines the gov module's genesis state. */
+/**
+ * GenesisState defines the gov module's genesis state.
+ * @name GenesisState
+ * @package cosmos.gov.v1beta1
+ * @see proto type: cosmos.gov.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** starting_proposal_id is the ID of the starting proposal. */
+  /**
+   * starting_proposal_id is the ID of the starting proposal.
+   */
   startingProposalId: bigint;
-  /** deposits defines all the deposits present at genesis. */
+  /**
+   * deposits defines all the deposits present at genesis.
+   */
   deposits: Deposit[];
-  /** votes defines all the votes present at genesis. */
+  /**
+   * votes defines all the votes present at genesis.
+   */
   votes: Vote[];
-  /** proposals defines all the proposals present at genesis. */
+  /**
+   * proposals defines all the proposals present at genesis.
+   */
   proposals: Proposal[];
-  /** deposit_params defines all the parameters related to deposit. */
+  /**
+   * deposit_params defines all the parameters related to deposit.
+   */
   depositParams: DepositParams;
-  /** voting_params defines all the parameters related to voting. */
+  /**
+   * voting_params defines all the parameters related to voting.
+   */
   votingParams: VotingParams;
-  /** tally_params defines all the parameters related to tally. */
+  /**
+   * tally_params defines all the parameters related to tally.
+   */
   tallyParams: TallyParams;
 }
 function createBaseGenesisState(): GenesisState {
@@ -33,6 +52,12 @@ function createBaseGenesisState(): GenesisState {
     tallyParams: TallyParams.fromPartial({}),
   };
 }
+/**
+ * GenesisState defines the gov module's genesis state.
+ * @name GenesisState
+ * @package cosmos.gov.v1beta1
+ * @see proto type: cosmos.gov.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmos.gov.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

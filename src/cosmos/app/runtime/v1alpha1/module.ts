@@ -1,12 +1,19 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.app.runtime.v1alpha1";
-/** Module is the config object for the runtime module. */
+/**
+ * Module is the config object for the runtime module.
+ * @name Module
+ * @package cosmos.app.runtime.v1alpha1
+ * @see proto type: cosmos.app.runtime.v1alpha1.Module
+ */
 export interface Module {
-  /** app_name is the name of the app. */
+  /**
+   * app_name is the name of the app.
+   */
   appName: string;
   /**
    * begin_blockers specifies the module names of begin blockers
@@ -71,11 +78,18 @@ export interface Module {
 /**
  * StoreKeyConfig may be supplied to override the default module store key, which
  * is the module name.
+ * @name StoreKeyConfig
+ * @package cosmos.app.runtime.v1alpha1
+ * @see proto type: cosmos.app.runtime.v1alpha1.StoreKeyConfig
  */
 export interface StoreKeyConfig {
-  /** name of the module to override the store key of */
+  /**
+   * name of the module to override the store key of
+   */
   moduleName: string;
-  /** the kv store key to use instead of the module name. */
+  /**
+   * the kv store key to use instead of the module name.
+   */
   kvStoreKey: string;
 }
 function createBaseModule(): Module {
@@ -93,6 +107,12 @@ function createBaseModule(): Module {
     preBlockers: [],
   };
 }
+/**
+ * Module is the config object for the runtime module.
+ * @name Module
+ * @package cosmos.app.runtime.v1alpha1
+ * @see proto type: cosmos.app.runtime.v1alpha1.Module
+ */
 export const Module = {
   typeUrl: "/cosmos.app.runtime.v1alpha1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -279,6 +299,13 @@ function createBaseStoreKeyConfig(): StoreKeyConfig {
     kvStoreKey: "",
   };
 }
+/**
+ * StoreKeyConfig may be supplied to override the default module store key, which
+ * is the module name.
+ * @name StoreKeyConfig
+ * @package cosmos.app.runtime.v1alpha1
+ * @see proto type: cosmos.app.runtime.v1alpha1.StoreKeyConfig
+ */
 export const StoreKeyConfig = {
   typeUrl: "/cosmos.app.runtime.v1alpha1.StoreKeyConfig",
   encode(message: StoreKeyConfig, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

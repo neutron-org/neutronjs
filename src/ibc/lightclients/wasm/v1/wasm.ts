@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Height } from "../../../core/client/v1/client";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Height } from "../../../core/client/v1/client.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.lightclients.wasm.v1";
-/** Wasm light client's Client state */
+/**
+ * Wasm light client's Client state
+ * @name ClientState
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.ClientState
+ */
 export interface ClientState {
   /**
    * bytes encoding the client state of the underlying light client
@@ -15,7 +20,12 @@ export interface ClientState {
   checksum: Uint8Array;
   latestHeight: Height;
 }
-/** Wasm light client's ConsensusState */
+/**
+ * Wasm light client's ConsensusState
+ * @name ConsensusState
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.ConsensusState
+ */
 export interface ConsensusState {
   /**
    * bytes encoding the consensus state of the underlying light client
@@ -23,7 +33,12 @@ export interface ConsensusState {
    */
   data: Uint8Array;
 }
-/** Wasm light client message (either header(s) or misbehaviour) */
+/**
+ * Wasm light client message (either header(s) or misbehaviour)
+ * @name ClientMessage
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.ClientMessage
+ */
 export interface ClientMessage {
   data: Uint8Array;
 }
@@ -32,8 +47,11 @@ export interface ClientMessage {
  *
  * Deprecated: This message is deprecated in favor of storing the checksums
  * using a Collections.KeySet.
+ * @name Checksums
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.Checksums
+ * @deprecated
  */
-/** @deprecated */
 export interface Checksums {
   checksums: Uint8Array[];
 }
@@ -44,6 +62,12 @@ function createBaseClientState(): ClientState {
     latestHeight: Height.fromPartial({}),
   };
 }
+/**
+ * Wasm light client's Client state
+ * @name ClientState
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.ClientState
+ */
 export const ClientState = {
   typeUrl: "/ibc.lightclients.wasm.v1.ClientState",
   encode(message: ClientState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -113,6 +137,12 @@ function createBaseConsensusState(): ConsensusState {
     data: new Uint8Array(),
   };
 }
+/**
+ * Wasm light client's ConsensusState
+ * @name ConsensusState
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.ConsensusState
+ */
 export const ConsensusState = {
   typeUrl: "/ibc.lightclients.wasm.v1.ConsensusState",
   encode(message: ConsensusState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -160,6 +190,12 @@ function createBaseClientMessage(): ClientMessage {
     data: new Uint8Array(),
   };
 }
+/**
+ * Wasm light client message (either header(s) or misbehaviour)
+ * @name ClientMessage
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.ClientMessage
+ */
 export const ClientMessage = {
   typeUrl: "/ibc.lightclients.wasm.v1.ClientMessage",
   encode(message: ClientMessage, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -207,6 +243,16 @@ function createBaseChecksums(): Checksums {
     checksums: [],
   };
 }
+/**
+ * Checksums defines a list of all checksums that are stored
+ *
+ * Deprecated: This message is deprecated in favor of storing the checksums
+ * using a Collections.KeySet.
+ * @name Checksums
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.Checksums
+ * @deprecated
+ */
 export const Checksums = {
   typeUrl: "/ibc.lightclients.wasm.v1.Checksums",
   encode(message: Checksums, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

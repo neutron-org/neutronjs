@@ -1,20 +1,28 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "osmosis.tokenfactory";
 /**
  * WhitelistedHook describes a beforeSendHook which is allowed to be added and executed
  * SetBeforeSendHook can only be called on denoms where the denom creator and
  * code_id for the `contract_addr` match a WhitelistedHook
+ * @name WhitelistedHook
+ * @package osmosis.tokenfactory
+ * @see proto type: osmosis.tokenfactory.WhitelistedHook
  */
 export interface WhitelistedHook {
   codeId: bigint;
   denomCreator: string;
 }
-/** Params defines the parameters for the tokenfactory module. */
+/**
+ * Params defines the parameters for the tokenfactory module.
+ * @name Params
+ * @package osmosis.tokenfactory
+ * @see proto type: osmosis.tokenfactory.Params
+ */
 export interface Params {
   /**
    * DenomCreationFee defines the fee to be charged on the creation of a new
@@ -34,7 +42,9 @@ export interface Params {
    * are sent to
    */
   feeCollectorAddress: string;
-  /** whitelisted_hooks is the list of hooks which are allowed to be added and executed */
+  /**
+   * whitelisted_hooks is the list of hooks which are allowed to be added and executed
+   */
   whitelistedHooks: WhitelistedHook[];
 }
 function createBaseWhitelistedHook(): WhitelistedHook {
@@ -43,6 +53,14 @@ function createBaseWhitelistedHook(): WhitelistedHook {
     denomCreator: "",
   };
 }
+/**
+ * WhitelistedHook describes a beforeSendHook which is allowed to be added and executed
+ * SetBeforeSendHook can only be called on denoms where the denom creator and
+ * code_id for the `contract_addr` match a WhitelistedHook
+ * @name WhitelistedHook
+ * @package osmosis.tokenfactory
+ * @see proto type: osmosis.tokenfactory.WhitelistedHook
+ */
 export const WhitelistedHook = {
   typeUrl: "/osmosis.tokenfactory.WhitelistedHook",
   encode(message: WhitelistedHook, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -103,6 +121,12 @@ function createBaseParams(): Params {
     whitelistedHooks: [],
   };
 }
+/**
+ * Params defines the parameters for the tokenfactory module.
+ * @name Params
+ * @package osmosis.tokenfactory
+ * @see proto type: osmosis.tokenfactory.Params
+ */
 export const Params = {
   typeUrl: "/osmosis.tokenfactory.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,21 +1,37 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { Decimal } from "@cosmjs/math";
-import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { Decimal } from "@interchainjs/math";
+import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.protocolpool.v1";
-/** ContinuousFund defines the fields of continuous fund proposal. */
+/**
+ * ContinuousFund defines the fields of continuous fund proposal.
+ * @name ContinuousFund
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.ContinuousFund
+ */
 export interface ContinuousFund {
-  /** Recipient is the address string of the account receiving funds. */
+  /**
+   * Recipient is the address string of the account receiving funds.
+   */
   recipient: string;
-  /** Percentage is the percentage of funds to be allocated from Community pool. */
+  /**
+   * Percentage is the percentage of funds to be allocated from Community pool.
+   */
   percentage: string;
-  /** Optional, if expiry is set, removes the state object when expired. */
+  /**
+   * Optional, if expiry is set, removes the state object when expired.
+   */
   expiry?: Timestamp;
 }
-/** Params defines the parameters for the protocolpool module. */
+/**
+ * Params defines the parameters for the protocolpool module.
+ * @name Params
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.Params
+ */
 export interface Params {
   /**
    * EnabledDistributionDenoms lists the denoms that are allowed to be distributed.
@@ -35,6 +51,12 @@ function createBaseContinuousFund(): ContinuousFund {
     expiry: undefined,
   };
 }
+/**
+ * ContinuousFund defines the fields of continuous fund proposal.
+ * @name ContinuousFund
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.ContinuousFund
+ */
 export const ContinuousFund = {
   typeUrl: "/cosmos.protocolpool.v1.ContinuousFund",
   encode(message: ContinuousFund, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -102,6 +124,12 @@ function createBaseParams(): Params {
     distributionFrequency: BigInt(0),
   };
 }
+/**
+ * Params defines the parameters for the protocolpool module.
+ * @name Params
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.Params
+ */
 export const Params = {
   typeUrl: "/cosmos.protocolpool.v1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

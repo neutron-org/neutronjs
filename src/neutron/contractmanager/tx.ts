@@ -1,17 +1,22 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.contractmanager";
 /**
  * MsgUpdateParams is the MsgUpdateParams request type.
  *
  * Since: 0.47
+ * @name MsgUpdateParams
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.MsgUpdateParams
  */
 export interface MsgUpdateParams {
-  /** Authority is the address of the governance account. */
+  /**
+   * Authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the x/contractmanager parameters to update.
@@ -25,15 +30,32 @@ export interface MsgUpdateParams {
  * MsgUpdateParams message.
  *
  * Since: 0.47
+ * @name MsgUpdateParamsResponse
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
-/** MsgResubmitFailure - contract that has failed acknowledgement can resubmit its failure */
+/**
+ * MsgResubmitFailure - contract that has failed acknowledgement can resubmit its failure
+ * @name MsgResubmitFailure
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.MsgResubmitFailure
+ */
 export interface MsgResubmitFailure {
-  /** sender is the contract which failure to acknowledge is resubmitted. */
+  /**
+   * sender is the contract which failure to acknowledge is resubmitted.
+   */
   sender: string;
-  /** failure_id is id of failure to resubmit */
+  /**
+   * failure_id is id of failure to resubmit
+   */
   failureId: bigint;
 }
+/**
+ * @name MsgResubmitFailureResponse
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.MsgResubmitFailureResponse
+ */
 export interface MsgResubmitFailureResponse {}
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
@@ -41,6 +63,14 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams is the MsgUpdateParams request type.
+ *
+ * Since: 0.47
+ * @name MsgUpdateParams
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/neutron.contractmanager.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -96,6 +126,15 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ *
+ * Since: 0.47
+ * @name MsgUpdateParamsResponse
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/neutron.contractmanager.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -134,6 +173,12 @@ function createBaseMsgResubmitFailure(): MsgResubmitFailure {
     failureId: BigInt(0),
   };
 }
+/**
+ * MsgResubmitFailure - contract that has failed acknowledgement can resubmit its failure
+ * @name MsgResubmitFailure
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.MsgResubmitFailure
+ */
 export const MsgResubmitFailure = {
   typeUrl: "/neutron.contractmanager.MsgResubmitFailure",
   encode(message: MsgResubmitFailure, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -189,6 +234,11 @@ export const MsgResubmitFailure = {
 function createBaseMsgResubmitFailureResponse(): MsgResubmitFailureResponse {
   return {};
 }
+/**
+ * @name MsgResubmitFailureResponse
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.MsgResubmitFailureResponse
+ */
 export const MsgResubmitFailureResponse = {
   typeUrl: "/neutron.contractmanager.MsgResubmitFailureResponse",
   encode(_: MsgResubmitFailureResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

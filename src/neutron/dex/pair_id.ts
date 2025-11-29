@@ -1,9 +1,14 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
+/**
+ * @name PairID
+ * @package neutron.dex
+ * @see proto type: neutron.dex.PairID
+ */
 export interface PairID {
   token0: string;
   token1: string;
@@ -14,6 +19,11 @@ function createBasePairID(): PairID {
     token1: "",
   };
 }
+/**
+ * @name PairID
+ * @package neutron.dex
+ * @see proto type: neutron.dex.PairID
+ */
 export const PairID = {
   typeUrl: "/neutron.dex.PairID",
   encode(message: PairID, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

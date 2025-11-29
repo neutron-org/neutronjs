@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../query/v1beta1/pagination";
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { PageRequest } from "../../query/v1beta1/pagination.js";
+import { TxRpc } from "../../../../types.js";
+import { BinaryReader } from "../../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   GetNodeInfoRequest,
@@ -19,7 +19,7 @@ import {
   GetValidatorSetByHeightResponse,
   ABCIQueryRequest,
   ABCIQueryResponse,
-} from "./query";
+} from "./query.js";
 /** Service defines the gRPC querier service for tendermint queries. */
 export interface Service {
   /** GetNodeInfo queries the current node info. */
@@ -42,8 +42,8 @@ export interface Service {
   aBCIQuery(request: ABCIQueryRequest): Promise<ABCIQueryResponse>;
 }
 export class ServiceClientImpl implements Service {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.getNodeInfo = this.getNodeInfo.bind(this);
     this.getSyncing = this.getSyncing.bind(this);

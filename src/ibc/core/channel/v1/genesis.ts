@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { IdentifiedChannel, PacketState } from "./channel";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { IdentifiedChannel, PacketState } from "./channel.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.channel.v1";
-/** GenesisState defines the ibc channel submodule's genesis state. */
+/**
+ * GenesisState defines the ibc channel submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.GenesisState
+ */
 export interface GenesisState {
   channels: IdentifiedChannel[];
   acknowledgements: PacketState[];
@@ -14,12 +19,17 @@ export interface GenesisState {
   sendSequences: PacketSequence[];
   recvSequences: PacketSequence[];
   ackSequences: PacketSequence[];
-  /** the sequence for the next generated channel identifier */
+  /**
+   * the sequence for the next generated channel identifier
+   */
   nextChannelSequence: bigint;
 }
 /**
  * PacketSequence defines the genesis type necessary to retrieve and store
  * next send and receive sequences.
+ * @name PacketSequence
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.PacketSequence
  */
 export interface PacketSequence {
   portId: string;
@@ -38,6 +48,12 @@ function createBaseGenesisState(): GenesisState {
     nextChannelSequence: BigInt(0),
   };
 }
+/**
+ * GenesisState defines the ibc channel submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.core.channel.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -188,6 +204,13 @@ function createBasePacketSequence(): PacketSequence {
     sequence: BigInt(0),
   };
 }
+/**
+ * PacketSequence defines the genesis type necessary to retrieve and store
+ * next send and receive sequences.
+ * @name PacketSequence
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.PacketSequence
+ */
 export const PacketSequence = {
   typeUrl: "/ibc.core.channel.v1.PacketSequence",
   encode(message: PacketSequence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

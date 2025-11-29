@@ -1,15 +1,22 @@
 //@ts-nocheck
 /* eslint-disable */
-import { IdentifiedConnection, ConnectionPaths, Params } from "./connection";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { IdentifiedConnection, ConnectionPaths, Params } from "./connection.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.connection.v1";
-/** GenesisState defines the ibc connection submodule's genesis state. */
+/**
+ * GenesisState defines the ibc connection submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.GenesisState
+ */
 export interface GenesisState {
   connections: IdentifiedConnection[];
   clientConnectionPaths: ConnectionPaths[];
-  /** the sequence for the next generated connection identifier */
+  /**
+   * the sequence for the next generated connection identifier
+   */
   nextConnectionSequence: bigint;
   params: Params;
 }
@@ -21,6 +28,12 @@ function createBaseGenesisState(): GenesisState {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * GenesisState defines the ibc connection submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.core.connection.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

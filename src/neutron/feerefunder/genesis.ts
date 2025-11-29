@@ -1,16 +1,26 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { PacketID, Fee } from "./fee";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Params } from "./params.js";
+import { PacketID, Fee } from "./fee.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.feerefunder";
-/** GenesisState defines the fee module's genesis state. */
+/**
+ * GenesisState defines the fee module's genesis state.
+ * @name GenesisState
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.GenesisState
+ */
 export interface GenesisState {
   params: Params;
   feeInfos: FeeInfo[];
 }
+/**
+ * @name FeeInfo
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.FeeInfo
+ */
 export interface FeeInfo {
   payer: string;
   packetId: PacketID;
@@ -22,6 +32,12 @@ function createBaseGenesisState(): GenesisState {
     feeInfos: [],
   };
 }
+/**
+ * GenesisState defines the fee module's genesis state.
+ * @name GenesisState
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/neutron.feerefunder.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -85,6 +101,11 @@ function createBaseFeeInfo(): FeeInfo {
     fee: Fee.fromPartial({}),
   };
 }
+/**
+ * @name FeeInfo
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.FeeInfo
+ */
 export const FeeInfo = {
   typeUrl: "/neutron.feerefunder.FeeInfo",
   encode(message: FeeInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,6 +1,6 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
+import { TelescopeGeneratedType } from "../../../types.js";
 import {
   MsgStoreCode,
   MsgInstantiateContract,
@@ -19,8 +19,8 @@ import {
   MsgAddCodeUploadParamsAddresses,
   MsgStoreAndMigrateContract,
   MsgUpdateContractLabel,
-} from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+} from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/cosmwasm.wasm.v1.MsgStoreCode", MsgStoreCode],
   ["/cosmwasm.wasm.v1.MsgInstantiateContract", MsgInstantiateContract],
   ["/cosmwasm.wasm.v1.MsgInstantiateContract2", MsgInstantiateContract2],
@@ -39,11 +39,6 @@ export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmwasm.wasm.v1.MsgStoreAndMigrateContract", MsgStoreAndMigrateContract],
   ["/cosmwasm.wasm.v1.MsgUpdateContractLabel", MsgUpdateContractLabel],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     storeCode(value: MsgStoreCode) {

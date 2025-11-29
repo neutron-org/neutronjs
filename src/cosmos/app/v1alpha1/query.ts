@@ -1,20 +1,38 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Config } from "./config";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Config } from "./config.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "cosmos.app.v1alpha1";
-/** QueryConfigRequest is the Query/Config request type. */
+/**
+ * QueryConfigRequest is the Query/Config request type.
+ * @name QueryConfigRequest
+ * @package cosmos.app.v1alpha1
+ * @see proto type: cosmos.app.v1alpha1.QueryConfigRequest
+ */
 export interface QueryConfigRequest {}
-/** QueryConfigResponse is the Query/Config response type. */
+/**
+ * QueryConfigResponse is the Query/Config response type.
+ * @name QueryConfigResponse
+ * @package cosmos.app.v1alpha1
+ * @see proto type: cosmos.app.v1alpha1.QueryConfigResponse
+ */
 export interface QueryConfigResponse {
-  /** config is the current app config. */
+  /**
+   * config is the current app config.
+   */
   config?: Config;
 }
 function createBaseQueryConfigRequest(): QueryConfigRequest {
   return {};
 }
+/**
+ * QueryConfigRequest is the Query/Config request type.
+ * @name QueryConfigRequest
+ * @package cosmos.app.v1alpha1
+ * @see proto type: cosmos.app.v1alpha1.QueryConfigRequest
+ */
 export const QueryConfigRequest = {
   typeUrl: "/cosmos.app.v1alpha1.QueryConfigRequest",
   encode(_: QueryConfigRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -52,6 +70,12 @@ function createBaseQueryConfigResponse(): QueryConfigResponse {
     config: undefined,
   };
 }
+/**
+ * QueryConfigResponse is the Query/Config response type.
+ * @name QueryConfigResponse
+ * @package cosmos.app.v1alpha1
+ * @see proto type: cosmos.app.v1alpha1.QueryConfigResponse
+ */
 export const QueryConfigResponse = {
   typeUrl: "/cosmos.app.v1alpha1.QueryConfigResponse",
   encode(message: QueryConfigResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

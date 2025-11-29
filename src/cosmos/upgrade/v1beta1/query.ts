@@ -1,44 +1,65 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Plan, ModuleVersion } from "./upgrade";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { Plan, ModuleVersion } from "./upgrade.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
 export const protobufPackage = "cosmos.upgrade.v1beta1";
 /**
  * QueryCurrentPlanRequest is the request type for the Query/CurrentPlan RPC
  * method.
+ * @name QueryCurrentPlanRequest
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryCurrentPlanRequest
  */
 export interface QueryCurrentPlanRequest {}
 /**
  * QueryCurrentPlanResponse is the response type for the Query/CurrentPlan RPC
  * method.
+ * @name QueryCurrentPlanResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryCurrentPlanResponse
  */
 export interface QueryCurrentPlanResponse {
-  /** plan is the current upgrade plan. */
+  /**
+   * plan is the current upgrade plan.
+   */
   plan?: Plan;
 }
 /**
  * QueryCurrentPlanRequest is the request type for the Query/AppliedPlan RPC
  * method.
+ * @name QueryAppliedPlanRequest
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryAppliedPlanRequest
  */
 export interface QueryAppliedPlanRequest {
-  /** name is the name of the applied plan to query for. */
+  /**
+   * name is the name of the applied plan to query for.
+   */
   name: string;
 }
 /**
  * QueryAppliedPlanResponse is the response type for the Query/AppliedPlan RPC
  * method.
+ * @name QueryAppliedPlanResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryAppliedPlanResponse
  */
 export interface QueryAppliedPlanResponse {
-  /** height is the block height at which the plan was applied. */
+  /**
+   * height is the block height at which the plan was applied.
+   */
   height: bigint;
 }
 /**
  * QueryUpgradedConsensusStateRequest is the request type for the Query/UpgradedConsensusState
  * RPC method.
+ * @name QueryUpgradedConsensusStateRequest
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest
+ * @deprecated
  */
-/** @deprecated */
 export interface QueryUpgradedConsensusStateRequest {
   /**
    * last height of the current chain must be sent in request
@@ -49,14 +70,20 @@ export interface QueryUpgradedConsensusStateRequest {
 /**
  * QueryUpgradedConsensusStateResponse is the response type for the Query/UpgradedConsensusState
  * RPC method.
+ * @name QueryUpgradedConsensusStateResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse
+ * @deprecated
  */
-/** @deprecated */
 export interface QueryUpgradedConsensusStateResponse {
   upgradedConsensusState: Uint8Array;
 }
 /**
  * QueryModuleVersionsRequest is the request type for the Query/ModuleVersions
  * RPC method.
+ * @name QueryModuleVersionsRequest
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryModuleVersionsRequest
  */
 export interface QueryModuleVersionsRequest {
   /**
@@ -69,20 +96,42 @@ export interface QueryModuleVersionsRequest {
 /**
  * QueryModuleVersionsResponse is the response type for the Query/ModuleVersions
  * RPC method.
+ * @name QueryModuleVersionsResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryModuleVersionsResponse
  */
 export interface QueryModuleVersionsResponse {
-  /** module_versions is a list of module names with their consensus versions. */
+  /**
+   * module_versions is a list of module names with their consensus versions.
+   */
   moduleVersions: ModuleVersion[];
 }
-/** QueryAuthorityRequest is the request type for Query/Authority */
+/**
+ * QueryAuthorityRequest is the request type for Query/Authority
+ * @name QueryAuthorityRequest
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryAuthorityRequest
+ */
 export interface QueryAuthorityRequest {}
-/** QueryAuthorityResponse is the response type for Query/Authority */
+/**
+ * QueryAuthorityResponse is the response type for Query/Authority
+ * @name QueryAuthorityResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryAuthorityResponse
+ */
 export interface QueryAuthorityResponse {
   address: string;
 }
 function createBaseQueryCurrentPlanRequest(): QueryCurrentPlanRequest {
   return {};
 }
+/**
+ * QueryCurrentPlanRequest is the request type for the Query/CurrentPlan RPC
+ * method.
+ * @name QueryCurrentPlanRequest
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryCurrentPlanRequest
+ */
 export const QueryCurrentPlanRequest = {
   typeUrl: "/cosmos.upgrade.v1beta1.QueryCurrentPlanRequest",
   encode(_: QueryCurrentPlanRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -120,6 +169,13 @@ function createBaseQueryCurrentPlanResponse(): QueryCurrentPlanResponse {
     plan: undefined,
   };
 }
+/**
+ * QueryCurrentPlanResponse is the response type for the Query/CurrentPlan RPC
+ * method.
+ * @name QueryCurrentPlanResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryCurrentPlanResponse
+ */
 export const QueryCurrentPlanResponse = {
   typeUrl: "/cosmos.upgrade.v1beta1.QueryCurrentPlanResponse",
   encode(message: QueryCurrentPlanResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -170,6 +226,13 @@ function createBaseQueryAppliedPlanRequest(): QueryAppliedPlanRequest {
     name: "",
   };
 }
+/**
+ * QueryCurrentPlanRequest is the request type for the Query/AppliedPlan RPC
+ * method.
+ * @name QueryAppliedPlanRequest
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryAppliedPlanRequest
+ */
 export const QueryAppliedPlanRequest = {
   typeUrl: "/cosmos.upgrade.v1beta1.QueryAppliedPlanRequest",
   encode(message: QueryAppliedPlanRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -216,6 +279,13 @@ function createBaseQueryAppliedPlanResponse(): QueryAppliedPlanResponse {
     height: BigInt(0),
   };
 }
+/**
+ * QueryAppliedPlanResponse is the response type for the Query/AppliedPlan RPC
+ * method.
+ * @name QueryAppliedPlanResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryAppliedPlanResponse
+ */
 export const QueryAppliedPlanResponse = {
   typeUrl: "/cosmos.upgrade.v1beta1.QueryAppliedPlanResponse",
   encode(message: QueryAppliedPlanResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -266,6 +336,14 @@ function createBaseQueryUpgradedConsensusStateRequest(): QueryUpgradedConsensusS
     lastHeight: BigInt(0),
   };
 }
+/**
+ * QueryUpgradedConsensusStateRequest is the request type for the Query/UpgradedConsensusState
+ * RPC method.
+ * @name QueryUpgradedConsensusStateRequest
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest
+ * @deprecated
+ */
 export const QueryUpgradedConsensusStateRequest = {
   typeUrl: "/cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest",
   encode(
@@ -319,6 +397,14 @@ function createBaseQueryUpgradedConsensusStateResponse(): QueryUpgradedConsensus
     upgradedConsensusState: new Uint8Array(),
   };
 }
+/**
+ * QueryUpgradedConsensusStateResponse is the response type for the Query/UpgradedConsensusState
+ * RPC method.
+ * @name QueryUpgradedConsensusStateResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse
+ * @deprecated
+ */
 export const QueryUpgradedConsensusStateResponse = {
   typeUrl: "/cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse",
   encode(
@@ -374,6 +460,13 @@ function createBaseQueryModuleVersionsRequest(): QueryModuleVersionsRequest {
     moduleName: "",
   };
 }
+/**
+ * QueryModuleVersionsRequest is the request type for the Query/ModuleVersions
+ * RPC method.
+ * @name QueryModuleVersionsRequest
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryModuleVersionsRequest
+ */
 export const QueryModuleVersionsRequest = {
   typeUrl: "/cosmos.upgrade.v1beta1.QueryModuleVersionsRequest",
   encode(message: QueryModuleVersionsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -422,6 +515,13 @@ function createBaseQueryModuleVersionsResponse(): QueryModuleVersionsResponse {
     moduleVersions: [],
   };
 }
+/**
+ * QueryModuleVersionsResponse is the response type for the Query/ModuleVersions
+ * RPC method.
+ * @name QueryModuleVersionsResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryModuleVersionsResponse
+ */
 export const QueryModuleVersionsResponse = {
   typeUrl: "/cosmos.upgrade.v1beta1.QueryModuleVersionsResponse",
   encode(message: QueryModuleVersionsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -473,6 +573,12 @@ export const QueryModuleVersionsResponse = {
 function createBaseQueryAuthorityRequest(): QueryAuthorityRequest {
   return {};
 }
+/**
+ * QueryAuthorityRequest is the request type for Query/Authority
+ * @name QueryAuthorityRequest
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryAuthorityRequest
+ */
 export const QueryAuthorityRequest = {
   typeUrl: "/cosmos.upgrade.v1beta1.QueryAuthorityRequest",
   encode(_: QueryAuthorityRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -510,6 +616,12 @@ function createBaseQueryAuthorityResponse(): QueryAuthorityResponse {
     address: "",
   };
 }
+/**
+ * QueryAuthorityResponse is the response type for Query/Authority
+ * @name QueryAuthorityResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.QueryAuthorityResponse
+ */
 export const QueryAuthorityResponse = {
   typeUrl: "/cosmos.upgrade.v1beta1.QueryAuthorityResponse",
   encode(message: QueryAuthorityResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

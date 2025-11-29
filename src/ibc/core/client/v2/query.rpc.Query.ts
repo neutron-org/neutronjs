@@ -1,14 +1,14 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { TxRpc } from "../../../../types.js";
+import { BinaryReader } from "../../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryCounterpartyInfoRequest,
   QueryCounterpartyInfoResponse,
   QueryConfigRequest,
   QueryConfigResponse,
-} from "./query";
+} from "./query.js";
 /** Query provides defines the gRPC querier service */
 export interface Query {
   /** CounterpartyInfo queries an IBC light counter party info. */
@@ -17,8 +17,8 @@ export interface Query {
   config(request: QueryConfigRequest): Promise<QueryConfigResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.counterpartyInfo = this.counterpartyInfo.bind(this);
     this.config = this.config.bind(this);

@@ -1,19 +1,32 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Coin } from "../../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.applications.transfer.v1";
-/** Allocation defines the spend limit for a particular port and channel */
+/**
+ * Allocation defines the spend limit for a particular port and channel
+ * @name Allocation
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Allocation
+ */
 export interface Allocation {
-  /** the port on which the packet will be sent */
+  /**
+   * the port on which the packet will be sent
+   */
   sourcePort: string;
-  /** the channel by which the packet will be sent */
+  /**
+   * the channel by which the packet will be sent
+   */
   sourceChannel: string;
-  /** spend limitation on the channel */
+  /**
+   * spend limitation on the channel
+   */
   spendLimit: Coin[];
-  /** allow list of receivers, an empty allow list permits any receiver address */
+  /**
+   * allow list of receivers, an empty allow list permits any receiver address
+   */
   allowList: string[];
   /**
    * allow list of memo strings, an empty list prohibits all memo strings;
@@ -24,9 +37,14 @@ export interface Allocation {
 /**
  * TransferAuthorization allows the grantee to spend up to spend_limit coins from
  * the granter's account for ibc transfer on a specific channel
+ * @name TransferAuthorization
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.TransferAuthorization
  */
 export interface TransferAuthorization {
-  /** port and channel amounts */
+  /**
+   * port and channel amounts
+   */
   allocations: Allocation[];
 }
 function createBaseAllocation(): Allocation {
@@ -38,6 +56,12 @@ function createBaseAllocation(): Allocation {
     allowedPacketData: [],
   };
 }
+/**
+ * Allocation defines the spend limit for a particular port and channel
+ * @name Allocation
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Allocation
+ */
 export const Allocation = {
   typeUrl: "/ibc.applications.transfer.v1.Allocation",
   encode(message: Allocation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -134,6 +158,13 @@ function createBaseTransferAuthorization(): TransferAuthorization {
     allocations: [],
   };
 }
+/**
+ * TransferAuthorization allows the grantee to spend up to spend_limit coins from
+ * the granter's account for ibc transfer on a specific channel
+ * @name TransferAuthorization
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.TransferAuthorization
+ */
 export const TransferAuthorization = {
   typeUrl: "/ibc.applications.transfer.v1.TransferAuthorization",
   encode(message: TransferAuthorization, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

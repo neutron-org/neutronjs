@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { accessTypeFromJSON } from "./types";
+import { accessTypeFromJSON } from "./types.js";
 import { AminoMsg } from "@cosmjs/amino";
-import { toBase64, fromBase64, fromUtf8, toUtf8 } from "@cosmjs/encoding";
-import { omitDefault } from "../../../helpers";
+import { toBase64, fromBase64, fromUtf8, toUtf8 } from "@interchainjs/encoding";
+import { omitDefault } from "../../../helpers.js";
 import {
   MsgStoreCode,
   MsgInstantiateContract,
@@ -22,7 +22,7 @@ import {
   MsgAddCodeUploadParamsAddresses,
   MsgStoreAndMigrateContract,
   MsgUpdateContractLabel,
-} from "./tx";
+} from "./tx.js";
 export interface MsgStoreCodeAminoType extends AminoMsg {
   type: "wasm/MsgStoreCode";
   value: {

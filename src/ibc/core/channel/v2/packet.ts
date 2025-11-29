@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.channel.v2";
 /** PacketStatus specifies the status of a RecvPacketResult. */
 export enum PacketStatus {
@@ -51,7 +51,12 @@ export function packetStatusToJSON(object: PacketStatus): string {
       return "UNRECOGNIZED";
   }
 }
-/** Packet defines a type that carries data across different chains through IBC */
+/**
+ * Packet defines a type that carries data across different chains through IBC
+ * @name Packet
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.Packet
+ */
 export interface Packet {
   /**
    * number corresponds to the order of sends and receives, where a Packet
@@ -59,26 +64,49 @@ export interface Packet {
    * with a later sequence number.
    */
   sequence: bigint;
-  /** identifies the sending client on the sending chain. */
+  /**
+   * identifies the sending client on the sending chain.
+   */
   sourceClient: string;
-  /** identifies the receiving client on the receiving chain. */
+  /**
+   * identifies the receiving client on the receiving chain.
+   */
   destinationClient: string;
-  /** timeout timestamp in seconds after which the packet times out. */
+  /**
+   * timeout timestamp in seconds after which the packet times out.
+   */
   timeoutTimestamp: bigint;
-  /** a list of payloads, each one for a specific application. */
+  /**
+   * a list of payloads, each one for a specific application.
+   */
   payloads: Payload[];
 }
-/** Payload contains the source and destination ports and payload for the application (version, encoding, raw bytes) */
+/**
+ * Payload contains the source and destination ports and payload for the application (version, encoding, raw bytes)
+ * @name Payload
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.Payload
+ */
 export interface Payload {
-  /** specifies the source port of the packet. */
+  /**
+   * specifies the source port of the packet.
+   */
   sourcePort: string;
-  /** specifies the destination port of the packet. */
+  /**
+   * specifies the destination port of the packet.
+   */
   destinationPort: string;
-  /** version of the specified application. */
+  /**
+   * version of the specified application.
+   */
   version: string;
-  /** the encoding used for the provided value. */
+  /**
+   * the encoding used for the provided value.
+   */
   encoding: string;
-  /** the raw bytes for the payload. */
+  /**
+   * the raw bytes for the payload.
+   */
   value: Uint8Array;
 }
 /**
@@ -88,15 +116,27 @@ export interface Payload {
  * in the packet.
  * If the receive is not successful, the acknowledgement will contain a single app acknowledgment
  * which will be a constant error acknowledgment as defined by the IBC v2 protocol.
+ * @name Acknowledgement
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.Acknowledgement
  */
 export interface Acknowledgement {
   appAcknowledgements: Uint8Array[];
 }
-/** RecvPacketResult speecifies the status of a packet as well as the acknowledgement bytes. */
+/**
+ * RecvPacketResult speecifies the status of a packet as well as the acknowledgement bytes.
+ * @name RecvPacketResult
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.RecvPacketResult
+ */
 export interface RecvPacketResult {
-  /** status of the packet */
+  /**
+   * status of the packet
+   */
   status: PacketStatus;
-  /** acknowledgement of the packet */
+  /**
+   * acknowledgement of the packet
+   */
   acknowledgement: Uint8Array;
 }
 function createBasePacket(): Packet {
@@ -108,6 +148,12 @@ function createBasePacket(): Packet {
     payloads: [],
   };
 }
+/**
+ * Packet defines a type that carries data across different chains through IBC
+ * @name Packet
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.Packet
+ */
 export const Packet = {
   typeUrl: "/ibc.core.channel.v2.Packet",
   encode(message: Packet, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -203,6 +249,12 @@ function createBasePayload(): Payload {
     value: new Uint8Array(),
   };
 }
+/**
+ * Payload contains the source and destination ports and payload for the application (version, encoding, raw bytes)
+ * @name Payload
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.Payload
+ */
 export const Payload = {
   typeUrl: "/ibc.core.channel.v2.Payload",
   encode(message: Payload, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -286,6 +338,17 @@ function createBaseAcknowledgement(): Acknowledgement {
     appAcknowledgements: [],
   };
 }
+/**
+ * Acknowledgement contains a list of all ack results associated with a single packet.
+ * In the case of a successful receive, the acknowledgement will contain an app acknowledgement
+ * for each application that received a payload in the same order that the payloads were sent
+ * in the packet.
+ * If the receive is not successful, the acknowledgement will contain a single app acknowledgment
+ * which will be a constant error acknowledgment as defined by the IBC v2 protocol.
+ * @name Acknowledgement
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.Acknowledgement
+ */
 export const Acknowledgement = {
   typeUrl: "/ibc.core.channel.v2.Acknowledgement",
   encode(message: Acknowledgement, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -340,6 +403,12 @@ function createBaseRecvPacketResult(): RecvPacketResult {
     acknowledgement: new Uint8Array(),
   };
 }
+/**
+ * RecvPacketResult speecifies the status of a packet as well as the acknowledgement bytes.
+ * @name RecvPacketResult
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.RecvPacketResult
+ */
 export const RecvPacketResult = {
   typeUrl: "/ibc.core.channel.v2.RecvPacketResult",
   encode(message: RecvPacketResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

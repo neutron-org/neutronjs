@@ -1,23 +1,38 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Height } from "../../../ibc/core/client/v1/client";
-import { Fee } from "../../feerefunder/fee";
-import { Params } from "../../../ibc/applications/transfer/v1/transfer";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { Height } from "../../../ibc/core/client/v1/client.js";
+import { Fee } from "../../feerefunder/fee.js";
+import { Params } from "../../../ibc/applications/transfer/v1/transfer.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.transfer";
+/**
+ * @name MsgTransfer
+ * @package neutron.transfer
+ * @see proto type: neutron.transfer.MsgTransfer
+ */
 export interface MsgTransfer {
-  /** the port on which the packet will be sent */
+  /**
+   * the port on which the packet will be sent
+   */
   sourcePort: string;
-  /** the channel by which the packet will be sent */
+  /**
+   * the channel by which the packet will be sent
+   */
   sourceChannel: string;
-  /** the tokens to be transferred */
+  /**
+   * the tokens to be transferred
+   */
   token: Coin;
-  /** the sender address */
+  /**
+   * the sender address
+   */
   sender: string;
-  /** the recipient address on the destination chain */
+  /**
+   * the recipient address on the destination chain
+   */
   receiver: string;
   /**
    * Timeout height relative to the current block height.
@@ -35,16 +50,30 @@ export interface MsgTransfer {
 /**
  * MsgTransferResponse is the modified response type for
  * ibc-go MsgTransfer.
+ * @name MsgTransferResponse
+ * @package neutron.transfer
+ * @see proto type: neutron.transfer.MsgTransferResponse
  */
 export interface MsgTransferResponse {
-  /** channel's sequence_id for outgoing ibc packet. Unique per a channel. */
+  /**
+   * channel's sequence_id for outgoing ibc packet. Unique per a channel.
+   */
   sequenceId: bigint;
-  /** channel src channel on neutron side transaction was submitted from */
+  /**
+   * channel src channel on neutron side transaction was submitted from
+   */
   channel: string;
 }
-/** MsgUpdateParams is the Msg/UpdateParams request type. */
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * @name MsgUpdateParams
+ * @package neutron.transfer
+ * @see proto type: neutron.transfer.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
   /**
    * params defines the transfer parameters to update.
@@ -56,6 +85,9 @@ export interface MsgUpdateParams {
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
+ * @name MsgUpdateParamsResponse
+ * @package neutron.transfer
+ * @see proto type: neutron.transfer.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgTransfer(): MsgTransfer {
@@ -71,6 +103,11 @@ function createBaseMsgTransfer(): MsgTransfer {
     fee: Fee.fromPartial({}),
   };
 }
+/**
+ * @name MsgTransfer
+ * @package neutron.transfer
+ * @see proto type: neutron.transfer.MsgTransfer
+ */
 export const MsgTransfer = {
   typeUrl: "/neutron.transfer.MsgTransfer",
   encode(message: MsgTransfer, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -200,6 +237,13 @@ function createBaseMsgTransferResponse(): MsgTransferResponse {
     channel: "",
   };
 }
+/**
+ * MsgTransferResponse is the modified response type for
+ * ibc-go MsgTransfer.
+ * @name MsgTransferResponse
+ * @package neutron.transfer
+ * @see proto type: neutron.transfer.MsgTransferResponse
+ */
 export const MsgTransferResponse = {
   typeUrl: "/neutron.transfer.MsgTransferResponse",
   encode(message: MsgTransferResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -258,6 +302,12 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * @name MsgUpdateParams
+ * @package neutron.transfer
+ * @see proto type: neutron.transfer.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/neutron.transfer.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -313,6 +363,13 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * @name MsgUpdateParamsResponse
+ * @package neutron.transfer
+ * @see proto type: neutron.transfer.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/neutron.transfer.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

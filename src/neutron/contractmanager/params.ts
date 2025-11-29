@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.contractmanager";
-/** Params defines the parameters for the module. */
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.Params
+ */
 export interface Params {
   sudoCallGasLimit: bigint;
 }
@@ -13,6 +18,12 @@ function createBaseParams(): Params {
     sudoCallGasLimit: BigInt(0),
   };
 }
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.Params
+ */
 export const Params = {
   typeUrl: "/neutron.contractmanager.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.bank.module.v1";
-/** Module is the config object of the bank module. */
+/**
+ * Module is the config object of the bank module.
+ * @name Module
+ * @package cosmos.bank.module.v1
+ * @see proto type: cosmos.bank.module.v1.Module
+ */
 export interface Module {
   /**
    * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
@@ -12,7 +17,9 @@ export interface Module {
    * module_account_permissions
    */
   blockedModuleAccountsOverride: string[];
-  /** authority defines the custom module authority. If not set, defaults to the governance module. */
+  /**
+   * authority defines the custom module authority. If not set, defaults to the governance module.
+   */
   authority: string;
   /**
    * restrictions_order specifies the order of send restrictions and should be
@@ -29,6 +36,12 @@ function createBaseModule(): Module {
     restrictionsOrder: [],
   };
 }
+/**
+ * Module is the config object of the bank module.
+ * @name Module
+ * @package cosmos.bank.module.v1
+ * @see proto type: cosmos.bank.module.v1.Module
+ */
 export const Module = {
   typeUrl: "/cosmos.bank.module.v1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

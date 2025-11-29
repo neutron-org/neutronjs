@@ -1,17 +1,31 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { JsonSafe } from "../../../../json-safe";
-import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { JsonSafe } from "../../../../json-safe.js";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers.js";
 export const protobufPackage = "ibc.lightclients.wasm.v1";
-/** GenesisState defines 08-wasm's keeper genesis state */
+/**
+ * GenesisState defines 08-wasm's keeper genesis state
+ * @name GenesisState
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.GenesisState
+ */
 export interface GenesisState {
-  /** uploaded light client wasm contracts */
+  /**
+   * uploaded light client wasm contracts
+   */
   contracts: Contract[];
 }
-/** Contract stores contract code */
+/**
+ * Contract stores contract code
+ * @name Contract
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.Contract
+ */
 export interface Contract {
-  /** contract byte code */
+  /**
+   * contract byte code
+   */
   codeBytes: Uint8Array;
 }
 function createBaseGenesisState(): GenesisState {
@@ -19,6 +33,12 @@ function createBaseGenesisState(): GenesisState {
     contracts: [],
   };
 }
+/**
+ * GenesisState defines 08-wasm's keeper genesis state
+ * @name GenesisState
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.lightclients.wasm.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -70,6 +90,12 @@ function createBaseContract(): Contract {
     codeBytes: new Uint8Array(),
   };
 }
+/**
+ * Contract stores contract code
+ * @name Contract
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.Contract
+ */
 export const Contract = {
   typeUrl: "/ibc.lightclients.wasm.v1.Contract",
   encode(message: Contract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,6 +1,6 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
 import {
   Validator,
   DelegationResponse,
@@ -9,231 +9,417 @@ import {
   HistoricalInfo,
   Pool,
   Params,
-} from "./staking";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+} from "./staking.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.staking.v1beta1";
-/** QueryValidatorsRequest is request type for Query/Validators RPC method. */
+/**
+ * QueryValidatorsRequest is request type for Query/Validators RPC method.
+ * @name QueryValidatorsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorsRequest
+ */
 export interface QueryValidatorsRequest {
-  /** status enables to query for validators matching a given status. */
+  /**
+   * status enables to query for validators matching a given status.
+   */
   status: string;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
-/** QueryValidatorsResponse is response type for the Query/Validators RPC method */
+/**
+ * QueryValidatorsResponse is response type for the Query/Validators RPC method
+ * @name QueryValidatorsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorsResponse
+ */
 export interface QueryValidatorsResponse {
-  /** validators contains all the queried validators. */
+  /**
+   * validators contains all the queried validators.
+   */
   validators: Validator[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
-/** QueryValidatorRequest is response type for the Query/Validator RPC method */
+/**
+ * QueryValidatorRequest is response type for the Query/Validator RPC method
+ * @name QueryValidatorRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorRequest
+ */
 export interface QueryValidatorRequest {
-  /** validator_addr defines the validator address to query for. */
+  /**
+   * validator_addr defines the validator address to query for.
+   */
   validatorAddr: string;
 }
-/** QueryValidatorResponse is response type for the Query/Validator RPC method */
+/**
+ * QueryValidatorResponse is response type for the Query/Validator RPC method
+ * @name QueryValidatorResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorResponse
+ */
 export interface QueryValidatorResponse {
-  /** validator defines the validator info. */
+  /**
+   * validator defines the validator info.
+   */
   validator: Validator;
 }
 /**
  * QueryValidatorDelegationsRequest is request type for the
  * Query/ValidatorDelegations RPC method
+ * @name QueryValidatorDelegationsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorDelegationsRequest
  */
 export interface QueryValidatorDelegationsRequest {
-  /** validator_addr defines the validator address to query for. */
+  /**
+   * validator_addr defines the validator address to query for.
+   */
   validatorAddr: string;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryValidatorDelegationsResponse is response type for the
  * Query/ValidatorDelegations RPC method
+ * @name QueryValidatorDelegationsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorDelegationsResponse
  */
 export interface QueryValidatorDelegationsResponse {
   delegationResponses: DelegationResponse[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 /**
  * QueryValidatorUnbondingDelegationsRequest is required type for the
  * Query/ValidatorUnbondingDelegations RPC method
+ * @name QueryValidatorUnbondingDelegationsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsRequest
  */
 export interface QueryValidatorUnbondingDelegationsRequest {
-  /** validator_addr defines the validator address to query for. */
+  /**
+   * validator_addr defines the validator address to query for.
+   */
   validatorAddr: string;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryValidatorUnbondingDelegationsResponse is response type for the
  * Query/ValidatorUnbondingDelegations RPC method.
+ * @name QueryValidatorUnbondingDelegationsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsResponse
  */
 export interface QueryValidatorUnbondingDelegationsResponse {
   unbondingResponses: UnbondingDelegation[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
-/** QueryDelegationRequest is request type for the Query/Delegation RPC method. */
+/**
+ * QueryDelegationRequest is request type for the Query/Delegation RPC method.
+ * @name QueryDelegationRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegationRequest
+ */
 export interface QueryDelegationRequest {
-  /** delegator_addr defines the delegator address to query for. */
+  /**
+   * delegator_addr defines the delegator address to query for.
+   */
   delegatorAddr: string;
-  /** validator_addr defines the validator address to query for. */
+  /**
+   * validator_addr defines the validator address to query for.
+   */
   validatorAddr: string;
 }
-/** QueryDelegationResponse is response type for the Query/Delegation RPC method. */
+/**
+ * QueryDelegationResponse is response type for the Query/Delegation RPC method.
+ * @name QueryDelegationResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegationResponse
+ */
 export interface QueryDelegationResponse {
-  /** delegation_responses defines the delegation info of a delegation. */
+  /**
+   * delegation_responses defines the delegation info of a delegation.
+   */
   delegationResponse?: DelegationResponse;
 }
 /**
  * QueryUnbondingDelegationRequest is request type for the
  * Query/UnbondingDelegation RPC method.
+ * @name QueryUnbondingDelegationRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryUnbondingDelegationRequest
  */
 export interface QueryUnbondingDelegationRequest {
-  /** delegator_addr defines the delegator address to query for. */
+  /**
+   * delegator_addr defines the delegator address to query for.
+   */
   delegatorAddr: string;
-  /** validator_addr defines the validator address to query for. */
+  /**
+   * validator_addr defines the validator address to query for.
+   */
   validatorAddr: string;
 }
 /**
  * QueryDelegationResponse is response type for the Query/UnbondingDelegation
  * RPC method.
+ * @name QueryUnbondingDelegationResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryUnbondingDelegationResponse
  */
 export interface QueryUnbondingDelegationResponse {
-  /** unbond defines the unbonding information of a delegation. */
+  /**
+   * unbond defines the unbonding information of a delegation.
+   */
   unbond: UnbondingDelegation;
 }
 /**
  * QueryDelegatorDelegationsRequest is request type for the
  * Query/DelegatorDelegations RPC method.
+ * @name QueryDelegatorDelegationsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorDelegationsRequest
  */
 export interface QueryDelegatorDelegationsRequest {
-  /** delegator_addr defines the delegator address to query for. */
+  /**
+   * delegator_addr defines the delegator address to query for.
+   */
   delegatorAddr: string;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryDelegatorDelegationsResponse is response type for the
  * Query/DelegatorDelegations RPC method.
+ * @name QueryDelegatorDelegationsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorDelegationsResponse
  */
 export interface QueryDelegatorDelegationsResponse {
-  /** delegation_responses defines all the delegations' info of a delegator. */
+  /**
+   * delegation_responses defines all the delegations' info of a delegator.
+   */
   delegationResponses: DelegationResponse[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 /**
  * QueryDelegatorUnbondingDelegationsRequest is request type for the
  * Query/DelegatorUnbondingDelegations RPC method.
+ * @name QueryDelegatorUnbondingDelegationsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsRequest
  */
 export interface QueryDelegatorUnbondingDelegationsRequest {
-  /** delegator_addr defines the delegator address to query for. */
+  /**
+   * delegator_addr defines the delegator address to query for.
+   */
   delegatorAddr: string;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryUnbondingDelegatorDelegationsResponse is response type for the
  * Query/UnbondingDelegatorDelegations RPC method.
+ * @name QueryDelegatorUnbondingDelegationsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsResponse
  */
 export interface QueryDelegatorUnbondingDelegationsResponse {
   unbondingResponses: UnbondingDelegation[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 /**
  * QueryRedelegationsRequest is request type for the Query/Redelegations RPC
  * method.
+ * @name QueryRedelegationsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryRedelegationsRequest
  */
 export interface QueryRedelegationsRequest {
-  /** delegator_addr defines the delegator address to query for. */
+  /**
+   * delegator_addr defines the delegator address to query for.
+   */
   delegatorAddr: string;
-  /** src_validator_addr defines the validator address to redelegate from. */
+  /**
+   * src_validator_addr defines the validator address to redelegate from.
+   */
   srcValidatorAddr: string;
-  /** dst_validator_addr defines the validator address to redelegate to. */
+  /**
+   * dst_validator_addr defines the validator address to redelegate to.
+   */
   dstValidatorAddr: string;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryRedelegationsResponse is response type for the Query/Redelegations RPC
  * method.
+ * @name QueryRedelegationsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryRedelegationsResponse
  */
 export interface QueryRedelegationsResponse {
   redelegationResponses: RedelegationResponse[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 /**
  * QueryDelegatorValidatorsRequest is request type for the
  * Query/DelegatorValidators RPC method.
+ * @name QueryDelegatorValidatorsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorValidatorsRequest
  */
 export interface QueryDelegatorValidatorsRequest {
-  /** delegator_addr defines the delegator address to query for. */
+  /**
+   * delegator_addr defines the delegator address to query for.
+   */
   delegatorAddr: string;
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 /**
  * QueryDelegatorValidatorsResponse is response type for the
  * Query/DelegatorValidators RPC method.
+ * @name QueryDelegatorValidatorsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorValidatorsResponse
  */
 export interface QueryDelegatorValidatorsResponse {
-  /** validators defines the validators' info of a delegator. */
+  /**
+   * validators defines the validators' info of a delegator.
+   */
   validators: Validator[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 /**
  * QueryDelegatorValidatorRequest is request type for the
  * Query/DelegatorValidator RPC method.
+ * @name QueryDelegatorValidatorRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorValidatorRequest
  */
 export interface QueryDelegatorValidatorRequest {
-  /** delegator_addr defines the delegator address to query for. */
+  /**
+   * delegator_addr defines the delegator address to query for.
+   */
   delegatorAddr: string;
-  /** validator_addr defines the validator address to query for. */
+  /**
+   * validator_addr defines the validator address to query for.
+   */
   validatorAddr: string;
 }
 /**
  * QueryDelegatorValidatorResponse response type for the
  * Query/DelegatorValidator RPC method.
+ * @name QueryDelegatorValidatorResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorValidatorResponse
  */
 export interface QueryDelegatorValidatorResponse {
-  /** validator defines the validator info. */
+  /**
+   * validator defines the validator info.
+   */
   validator: Validator;
 }
 /**
  * QueryHistoricalInfoRequest is request type for the Query/HistoricalInfo RPC
  * method.
+ * @name QueryHistoricalInfoRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryHistoricalInfoRequest
  */
 export interface QueryHistoricalInfoRequest {
-  /** height defines at which height to query the historical info. */
+  /**
+   * height defines at which height to query the historical info.
+   */
   height: bigint;
 }
 /**
  * QueryHistoricalInfoResponse is response type for the Query/HistoricalInfo RPC
  * method.
+ * @name QueryHistoricalInfoResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryHistoricalInfoResponse
  */
 export interface QueryHistoricalInfoResponse {
-  /** hist defines the historical info at the given height. */
+  /**
+   * hist defines the historical info at the given height.
+   */
   hist?: HistoricalInfo;
 }
-/** QueryPoolRequest is request type for the Query/Pool RPC method. */
+/**
+ * QueryPoolRequest is request type for the Query/Pool RPC method.
+ * @name QueryPoolRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryPoolRequest
+ */
 export interface QueryPoolRequest {}
-/** QueryPoolResponse is response type for the Query/Pool RPC method. */
+/**
+ * QueryPoolResponse is response type for the Query/Pool RPC method.
+ * @name QueryPoolResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryPoolResponse
+ */
 export interface QueryPoolResponse {
-  /** pool defines the pool info. */
+  /**
+   * pool defines the pool info.
+   */
   pool: Pool;
 }
-/** QueryParamsRequest is request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** QueryParamsResponse is response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params holds all the parameters of this module. */
+  /**
+   * params holds all the parameters of this module.
+   */
   params: Params;
 }
 function createBaseQueryValidatorsRequest(): QueryValidatorsRequest {
@@ -242,6 +428,12 @@ function createBaseQueryValidatorsRequest(): QueryValidatorsRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryValidatorsRequest is request type for Query/Validators RPC method.
+ * @name QueryValidatorsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorsRequest
+ */
 export const QueryValidatorsRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryValidatorsRequest",
   encode(message: QueryValidatorsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -301,6 +493,12 @@ function createBaseQueryValidatorsResponse(): QueryValidatorsResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryValidatorsResponse is response type for the Query/Validators RPC method
+ * @name QueryValidatorsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorsResponse
+ */
 export const QueryValidatorsResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryValidatorsResponse",
   encode(message: QueryValidatorsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -364,6 +562,12 @@ function createBaseQueryValidatorRequest(): QueryValidatorRequest {
     validatorAddr: "",
   };
 }
+/**
+ * QueryValidatorRequest is response type for the Query/Validator RPC method
+ * @name QueryValidatorRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorRequest
+ */
 export const QueryValidatorRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryValidatorRequest",
   encode(message: QueryValidatorRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -410,6 +614,12 @@ function createBaseQueryValidatorResponse(): QueryValidatorResponse {
     validator: Validator.fromPartial({}),
   };
 }
+/**
+ * QueryValidatorResponse is response type for the Query/Validator RPC method
+ * @name QueryValidatorResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorResponse
+ */
 export const QueryValidatorResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryValidatorResponse",
   encode(message: QueryValidatorResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -460,6 +670,13 @@ function createBaseQueryValidatorDelegationsRequest(): QueryValidatorDelegations
     pagination: undefined,
   };
 }
+/**
+ * QueryValidatorDelegationsRequest is request type for the
+ * Query/ValidatorDelegations RPC method
+ * @name QueryValidatorDelegationsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorDelegationsRequest
+ */
 export const QueryValidatorDelegationsRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryValidatorDelegationsRequest",
   encode(
@@ -524,6 +741,13 @@ function createBaseQueryValidatorDelegationsResponse(): QueryValidatorDelegation
     pagination: undefined,
   };
 }
+/**
+ * QueryValidatorDelegationsResponse is response type for the
+ * Query/ValidatorDelegations RPC method
+ * @name QueryValidatorDelegationsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorDelegationsResponse
+ */
 export const QueryValidatorDelegationsResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryValidatorDelegationsResponse",
   encode(
@@ -596,6 +820,13 @@ function createBaseQueryValidatorUnbondingDelegationsRequest(): QueryValidatorUn
     pagination: undefined,
   };
 }
+/**
+ * QueryValidatorUnbondingDelegationsRequest is required type for the
+ * Query/ValidatorUnbondingDelegations RPC method
+ * @name QueryValidatorUnbondingDelegationsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsRequest
+ */
 export const QueryValidatorUnbondingDelegationsRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsRequest",
   encode(
@@ -662,6 +893,13 @@ function createBaseQueryValidatorUnbondingDelegationsResponse(): QueryValidatorU
     pagination: undefined,
   };
 }
+/**
+ * QueryValidatorUnbondingDelegationsResponse is response type for the
+ * Query/ValidatorUnbondingDelegations RPC method.
+ * @name QueryValidatorUnbondingDelegationsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsResponse
+ */
 export const QueryValidatorUnbondingDelegationsResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsResponse",
   encode(
@@ -736,6 +974,12 @@ function createBaseQueryDelegationRequest(): QueryDelegationRequest {
     validatorAddr: "",
   };
 }
+/**
+ * QueryDelegationRequest is request type for the Query/Delegation RPC method.
+ * @name QueryDelegationRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegationRequest
+ */
 export const QueryDelegationRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegationRequest",
   encode(message: QueryDelegationRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -791,6 +1035,12 @@ function createBaseQueryDelegationResponse(): QueryDelegationResponse {
     delegationResponse: undefined,
   };
 }
+/**
+ * QueryDelegationResponse is response type for the Query/Delegation RPC method.
+ * @name QueryDelegationResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegationResponse
+ */
 export const QueryDelegationResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegationResponse",
   encode(message: QueryDelegationResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -844,6 +1094,13 @@ function createBaseQueryUnbondingDelegationRequest(): QueryUnbondingDelegationRe
     validatorAddr: "",
   };
 }
+/**
+ * QueryUnbondingDelegationRequest is request type for the
+ * Query/UnbondingDelegation RPC method.
+ * @name QueryUnbondingDelegationRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryUnbondingDelegationRequest
+ */
 export const QueryUnbondingDelegationRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryUnbondingDelegationRequest",
   encode(
@@ -904,6 +1161,13 @@ function createBaseQueryUnbondingDelegationResponse(): QueryUnbondingDelegationR
     unbond: UnbondingDelegation.fromPartial({}),
   };
 }
+/**
+ * QueryDelegationResponse is response type for the Query/UnbondingDelegation
+ * RPC method.
+ * @name QueryUnbondingDelegationResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryUnbondingDelegationResponse
+ */
 export const QueryUnbondingDelegationResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryUnbondingDelegationResponse",
   encode(
@@ -959,6 +1223,13 @@ function createBaseQueryDelegatorDelegationsRequest(): QueryDelegatorDelegations
     pagination: undefined,
   };
 }
+/**
+ * QueryDelegatorDelegationsRequest is request type for the
+ * Query/DelegatorDelegations RPC method.
+ * @name QueryDelegatorDelegationsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorDelegationsRequest
+ */
 export const QueryDelegatorDelegationsRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorDelegationsRequest",
   encode(
@@ -1023,6 +1294,13 @@ function createBaseQueryDelegatorDelegationsResponse(): QueryDelegatorDelegation
     pagination: undefined,
   };
 }
+/**
+ * QueryDelegatorDelegationsResponse is response type for the
+ * Query/DelegatorDelegations RPC method.
+ * @name QueryDelegatorDelegationsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorDelegationsResponse
+ */
 export const QueryDelegatorDelegationsResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorDelegationsResponse",
   encode(
@@ -1095,6 +1373,13 @@ function createBaseQueryDelegatorUnbondingDelegationsRequest(): QueryDelegatorUn
     pagination: undefined,
   };
 }
+/**
+ * QueryDelegatorUnbondingDelegationsRequest is request type for the
+ * Query/DelegatorUnbondingDelegations RPC method.
+ * @name QueryDelegatorUnbondingDelegationsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsRequest
+ */
 export const QueryDelegatorUnbondingDelegationsRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsRequest",
   encode(
@@ -1161,6 +1446,13 @@ function createBaseQueryDelegatorUnbondingDelegationsResponse(): QueryDelegatorU
     pagination: undefined,
   };
 }
+/**
+ * QueryUnbondingDelegatorDelegationsResponse is response type for the
+ * Query/UnbondingDelegatorDelegations RPC method.
+ * @name QueryDelegatorUnbondingDelegationsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsResponse
+ */
 export const QueryDelegatorUnbondingDelegationsResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsResponse",
   encode(
@@ -1237,6 +1529,13 @@ function createBaseQueryRedelegationsRequest(): QueryRedelegationsRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryRedelegationsRequest is request type for the Query/Redelegations RPC
+ * method.
+ * @name QueryRedelegationsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryRedelegationsRequest
+ */
 export const QueryRedelegationsRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryRedelegationsRequest",
   encode(message: QueryRedelegationsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1316,6 +1615,13 @@ function createBaseQueryRedelegationsResponse(): QueryRedelegationsResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryRedelegationsResponse is response type for the Query/Redelegations RPC
+ * method.
+ * @name QueryRedelegationsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryRedelegationsResponse
+ */
 export const QueryRedelegationsResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryRedelegationsResponse",
   encode(message: QueryRedelegationsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1387,6 +1693,13 @@ function createBaseQueryDelegatorValidatorsRequest(): QueryDelegatorValidatorsRe
     pagination: undefined,
   };
 }
+/**
+ * QueryDelegatorValidatorsRequest is request type for the
+ * Query/DelegatorValidators RPC method.
+ * @name QueryDelegatorValidatorsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorValidatorsRequest
+ */
 export const QueryDelegatorValidatorsRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorValidatorsRequest",
   encode(
@@ -1451,6 +1764,13 @@ function createBaseQueryDelegatorValidatorsResponse(): QueryDelegatorValidatorsR
     pagination: undefined,
   };
 }
+/**
+ * QueryDelegatorValidatorsResponse is response type for the
+ * Query/DelegatorValidators RPC method.
+ * @name QueryDelegatorValidatorsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorValidatorsResponse
+ */
 export const QueryDelegatorValidatorsResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorValidatorsResponse",
   encode(
@@ -1520,6 +1840,13 @@ function createBaseQueryDelegatorValidatorRequest(): QueryDelegatorValidatorRequ
     validatorAddr: "",
   };
 }
+/**
+ * QueryDelegatorValidatorRequest is request type for the
+ * Query/DelegatorValidator RPC method.
+ * @name QueryDelegatorValidatorRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorValidatorRequest
+ */
 export const QueryDelegatorValidatorRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorValidatorRequest",
   encode(
@@ -1580,6 +1907,13 @@ function createBaseQueryDelegatorValidatorResponse(): QueryDelegatorValidatorRes
     validator: Validator.fromPartial({}),
   };
 }
+/**
+ * QueryDelegatorValidatorResponse response type for the
+ * Query/DelegatorValidator RPC method.
+ * @name QueryDelegatorValidatorResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryDelegatorValidatorResponse
+ */
 export const QueryDelegatorValidatorResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorValidatorResponse",
   encode(
@@ -1634,6 +1968,13 @@ function createBaseQueryHistoricalInfoRequest(): QueryHistoricalInfoRequest {
     height: BigInt(0),
   };
 }
+/**
+ * QueryHistoricalInfoRequest is request type for the Query/HistoricalInfo RPC
+ * method.
+ * @name QueryHistoricalInfoRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryHistoricalInfoRequest
+ */
 export const QueryHistoricalInfoRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryHistoricalInfoRequest",
   encode(message: QueryHistoricalInfoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1684,6 +2025,13 @@ function createBaseQueryHistoricalInfoResponse(): QueryHistoricalInfoResponse {
     hist: undefined,
   };
 }
+/**
+ * QueryHistoricalInfoResponse is response type for the Query/HistoricalInfo RPC
+ * method.
+ * @name QueryHistoricalInfoResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryHistoricalInfoResponse
+ */
 export const QueryHistoricalInfoResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryHistoricalInfoResponse",
   encode(message: QueryHistoricalInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1732,6 +2080,12 @@ export const QueryHistoricalInfoResponse = {
 function createBaseQueryPoolRequest(): QueryPoolRequest {
   return {};
 }
+/**
+ * QueryPoolRequest is request type for the Query/Pool RPC method.
+ * @name QueryPoolRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryPoolRequest
+ */
 export const QueryPoolRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryPoolRequest",
   encode(_: QueryPoolRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1769,6 +2123,12 @@ function createBaseQueryPoolResponse(): QueryPoolResponse {
     pool: Pool.fromPartial({}),
   };
 }
+/**
+ * QueryPoolResponse is response type for the Query/Pool RPC method.
+ * @name QueryPoolResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryPoolResponse
+ */
 export const QueryPoolResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryPoolResponse",
   encode(message: QueryPoolResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1815,6 +2175,12 @@ export const QueryPoolResponse = {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/cosmos.staking.v1beta1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1852,6 +2218,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * QueryParamsResponse is response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/cosmos.staking.v1beta1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

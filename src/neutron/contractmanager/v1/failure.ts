@@ -1,20 +1,35 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.contractmanager.v1";
-/** Deprecated. Used only for migration purposes. */
+/**
+ * Deprecated. Used only for migration purposes.
+ * @name Failure
+ * @package neutron.contractmanager.v1
+ * @see proto type: neutron.contractmanager.v1.Failure
+ */
 export interface Failure {
-  /** ChannelId */
+  /**
+   * ChannelId
+   */
   channelId: string;
-  /** Address of the failed contract */
+  /**
+   * Address of the failed contract
+   */
   address: string;
-  /** id of the failure under specific address */
+  /**
+   * id of the failure under specific address
+   */
   id: bigint;
-  /** ACK id to restore */
+  /**
+   * ACK id to restore
+   */
   ackId: bigint;
-  /** Acknowledgement type */
+  /**
+   * Acknowledgement type
+   */
   ackType: string;
 }
 function createBaseFailure(): Failure {
@@ -26,6 +41,12 @@ function createBaseFailure(): Failure {
     ackType: "",
   };
 }
+/**
+ * Deprecated. Used only for migration purposes.
+ * @name Failure
+ * @package neutron.contractmanager.v1
+ * @see proto type: neutron.contractmanager.v1.Failure
+ */
 export const Failure = {
   typeUrl: "/neutron.contractmanager.v1.Failure",
   encode(message: Failure, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

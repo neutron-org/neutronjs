@@ -1,145 +1,291 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination";
-import { Height } from "../../client/v1/client";
-import { PacketState } from "./genesis";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { PageRequest, PageResponse } from "../../../../cosmos/base/query/v1beta1/pagination.js";
+import { Height } from "../../client/v1/client.js";
+import { PacketState } from "./genesis.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.channel.v2";
-/** QueryNextSequenceSendRequest is the request type for the Query/QueryNextSequenceSend RPC method */
+/**
+ * QueryNextSequenceSendRequest is the request type for the Query/QueryNextSequenceSend RPC method
+ * @name QueryNextSequenceSendRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryNextSequenceSendRequest
+ */
 export interface QueryNextSequenceSendRequest {
-  /** client unique identifier */
+  /**
+   * client unique identifier
+   */
   clientId: string;
 }
-/** QueryNextSequenceSendResponse is the response type for the Query/QueryNextSequenceSend RPC method */
+/**
+ * QueryNextSequenceSendResponse is the response type for the Query/QueryNextSequenceSend RPC method
+ * @name QueryNextSequenceSendResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryNextSequenceSendResponse
+ */
 export interface QueryNextSequenceSendResponse {
-  /** next sequence send number */
+  /**
+   * next sequence send number
+   */
   nextSequenceSend: bigint;
-  /** merkle proof of existence */
+  /**
+   * merkle proof of existence
+   */
   proof: Uint8Array;
-  /** height at which the proof was retrieved */
+  /**
+   * height at which the proof was retrieved
+   */
   proofHeight: Height;
 }
-/** QueryPacketCommitmentRequest is the request type for the Query/PacketCommitment RPC method. */
+/**
+ * QueryPacketCommitmentRequest is the request type for the Query/PacketCommitment RPC method.
+ * @name QueryPacketCommitmentRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketCommitmentRequest
+ */
 export interface QueryPacketCommitmentRequest {
-  /** client unique identifier */
+  /**
+   * client unique identifier
+   */
   clientId: string;
-  /** packet sequence */
+  /**
+   * packet sequence
+   */
   sequence: bigint;
 }
-/** QueryPacketCommitmentResponse is the response type for the Query/PacketCommitment RPC method. */
+/**
+ * QueryPacketCommitmentResponse is the response type for the Query/PacketCommitment RPC method.
+ * @name QueryPacketCommitmentResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketCommitmentResponse
+ */
 export interface QueryPacketCommitmentResponse {
-  /** packet associated with the request fields */
+  /**
+   * packet associated with the request fields
+   */
   commitment: Uint8Array;
-  /** merkle proof of existence */
+  /**
+   * merkle proof of existence
+   */
   proof: Uint8Array;
-  /** height at which the proof was retrieved */
+  /**
+   * height at which the proof was retrieved
+   */
   proofHeight: Height;
 }
-/** QueryPacketCommitmentsRequest is the request type for the Query/PacketCommitments RPC method. */
+/**
+ * QueryPacketCommitmentsRequest is the request type for the Query/PacketCommitments RPC method.
+ * @name QueryPacketCommitmentsRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketCommitmentsRequest
+ */
 export interface QueryPacketCommitmentsRequest {
-  /** client unique identifier */
+  /**
+   * client unique identifier
+   */
   clientId: string;
-  /** pagination request */
+  /**
+   * pagination request
+   */
   pagination?: PageRequest;
 }
-/** QueryPacketCommitmentResponse is the response type for the Query/PacketCommitment RPC method. */
+/**
+ * QueryPacketCommitmentResponse is the response type for the Query/PacketCommitment RPC method.
+ * @name QueryPacketCommitmentsResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketCommitmentsResponse
+ */
 export interface QueryPacketCommitmentsResponse {
-  /** collection of packet commitments for the requested channel identifier. */
+  /**
+   * collection of packet commitments for the requested channel identifier.
+   */
   commitments: PacketState[];
-  /** pagination response. */
+  /**
+   * pagination response.
+   */
   pagination?: PageResponse;
-  /** query block height. */
+  /**
+   * query block height.
+   */
   height: Height;
 }
-/** QueryPacketAcknowledgementRequest is the request type for the Query/PacketAcknowledgement RPC method. */
+/**
+ * QueryPacketAcknowledgementRequest is the request type for the Query/PacketAcknowledgement RPC method.
+ * @name QueryPacketAcknowledgementRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketAcknowledgementRequest
+ */
 export interface QueryPacketAcknowledgementRequest {
-  /** client unique identifier */
+  /**
+   * client unique identifier
+   */
   clientId: string;
-  /** packet sequence */
+  /**
+   * packet sequence
+   */
   sequence: bigint;
 }
-/** QueryPacketAcknowledgementResponse is the response type for the Query/PacketAcknowledgement RPC method. */
+/**
+ * QueryPacketAcknowledgementResponse is the response type for the Query/PacketAcknowledgement RPC method.
+ * @name QueryPacketAcknowledgementResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketAcknowledgementResponse
+ */
 export interface QueryPacketAcknowledgementResponse {
-  /** acknowledgement associated with the request fields */
+  /**
+   * acknowledgement associated with the request fields
+   */
   acknowledgement: Uint8Array;
-  /** merkle proof of existence */
+  /**
+   * merkle proof of existence
+   */
   proof: Uint8Array;
-  /** height at which the proof was retrieved */
+  /**
+   * height at which the proof was retrieved
+   */
   proofHeight: Height;
 }
 /**
  * QueryPacketAcknowledgementsRequest is the request type for the
  * Query/QueryPacketCommitments RPC method
+ * @name QueryPacketAcknowledgementsRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketAcknowledgementsRequest
  */
 export interface QueryPacketAcknowledgementsRequest {
-  /** client unique identifier */
+  /**
+   * client unique identifier
+   */
   clientId: string;
-  /** pagination request */
+  /**
+   * pagination request
+   */
   pagination?: PageRequest;
-  /** list of packet sequences */
+  /**
+   * list of packet sequences
+   */
   packetCommitmentSequences: bigint[];
 }
 /**
  * QueryPacketAcknowledgemetsResponse is the request type for the
  * Query/QueryPacketAcknowledgements RPC method
+ * @name QueryPacketAcknowledgementsResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketAcknowledgementsResponse
  */
 export interface QueryPacketAcknowledgementsResponse {
   acknowledgements: PacketState[];
-  /** pagination response */
+  /**
+   * pagination response
+   */
   pagination?: PageResponse;
-  /** query block height */
+  /**
+   * query block height
+   */
   height: Height;
 }
-/** QueryPacketReceiptRequest is the request type for the Query/PacketReceipt RPC method. */
+/**
+ * QueryPacketReceiptRequest is the request type for the Query/PacketReceipt RPC method.
+ * @name QueryPacketReceiptRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketReceiptRequest
+ */
 export interface QueryPacketReceiptRequest {
-  /** client unique identifier */
+  /**
+   * client unique identifier
+   */
   clientId: string;
-  /** packet sequence */
+  /**
+   * packet sequence
+   */
   sequence: bigint;
 }
-/** QueryPacketReceiptResponse is the response type for the Query/PacketReceipt RPC method. */
+/**
+ * QueryPacketReceiptResponse is the response type for the Query/PacketReceipt RPC method.
+ * @name QueryPacketReceiptResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketReceiptResponse
+ */
 export interface QueryPacketReceiptResponse {
-  /** success flag for if receipt exists */
+  /**
+   * success flag for if receipt exists
+   */
   received: boolean;
-  /** merkle proof of existence or absence */
+  /**
+   * merkle proof of existence or absence
+   */
   proof: Uint8Array;
-  /** height at which the proof was retrieved */
+  /**
+   * height at which the proof was retrieved
+   */
   proofHeight: Height;
 }
-/** QueryUnreceivedPacketsRequest is the request type for the Query/UnreceivedPackets RPC method */
+/**
+ * QueryUnreceivedPacketsRequest is the request type for the Query/UnreceivedPackets RPC method
+ * @name QueryUnreceivedPacketsRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryUnreceivedPacketsRequest
+ */
 export interface QueryUnreceivedPacketsRequest {
-  /** client unique identifier */
+  /**
+   * client unique identifier
+   */
   clientId: string;
-  /** list of packet sequences */
+  /**
+   * list of packet sequences
+   */
   sequences: bigint[];
 }
-/** QueryUnreceivedPacketsResponse is the response type for the Query/UnreceivedPacketCommitments RPC method */
+/**
+ * QueryUnreceivedPacketsResponse is the response type for the Query/UnreceivedPacketCommitments RPC method
+ * @name QueryUnreceivedPacketsResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryUnreceivedPacketsResponse
+ */
 export interface QueryUnreceivedPacketsResponse {
-  /** list of unreceived packet sequences */
+  /**
+   * list of unreceived packet sequences
+   */
   sequences: bigint[];
-  /** query block height */
+  /**
+   * query block height
+   */
   height: Height;
 }
 /**
  * QueryUnreceivedAcks is the request type for the
  * Query/UnreceivedAcks RPC method
+ * @name QueryUnreceivedAcksRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryUnreceivedAcksRequest
  */
 export interface QueryUnreceivedAcksRequest {
-  /** client unique identifier */
+  /**
+   * client unique identifier
+   */
   clientId: string;
-  /** list of acknowledgement sequences */
+  /**
+   * list of acknowledgement sequences
+   */
   packetAckSequences: bigint[];
 }
 /**
  * QueryUnreceivedAcksResponse is the response type for the
  * Query/UnreceivedAcks RPC method
+ * @name QueryUnreceivedAcksResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryUnreceivedAcksResponse
  */
 export interface QueryUnreceivedAcksResponse {
-  /** list of unreceived acknowledgement sequences */
+  /**
+   * list of unreceived acknowledgement sequences
+   */
   sequences: bigint[];
-  /** query block height */
+  /**
+   * query block height
+   */
   height: Height;
 }
 function createBaseQueryNextSequenceSendRequest(): QueryNextSequenceSendRequest {
@@ -147,6 +293,12 @@ function createBaseQueryNextSequenceSendRequest(): QueryNextSequenceSendRequest 
     clientId: "",
   };
 }
+/**
+ * QueryNextSequenceSendRequest is the request type for the Query/QueryNextSequenceSend RPC method
+ * @name QueryNextSequenceSendRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryNextSequenceSendRequest
+ */
 export const QueryNextSequenceSendRequest = {
   typeUrl: "/ibc.core.channel.v2.QueryNextSequenceSendRequest",
   encode(message: QueryNextSequenceSendRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -197,6 +349,12 @@ function createBaseQueryNextSequenceSendResponse(): QueryNextSequenceSendRespons
     proofHeight: Height.fromPartial({}),
   };
 }
+/**
+ * QueryNextSequenceSendResponse is the response type for the Query/QueryNextSequenceSend RPC method
+ * @name QueryNextSequenceSendResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryNextSequenceSendResponse
+ */
 export const QueryNextSequenceSendResponse = {
   typeUrl: "/ibc.core.channel.v2.QueryNextSequenceSendResponse",
   encode(message: QueryNextSequenceSendResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -271,6 +429,12 @@ function createBaseQueryPacketCommitmentRequest(): QueryPacketCommitmentRequest 
     sequence: BigInt(0),
   };
 }
+/**
+ * QueryPacketCommitmentRequest is the request type for the Query/PacketCommitment RPC method.
+ * @name QueryPacketCommitmentRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketCommitmentRequest
+ */
 export const QueryPacketCommitmentRequest = {
   typeUrl: "/ibc.core.channel.v2.QueryPacketCommitmentRequest",
   encode(message: QueryPacketCommitmentRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -332,6 +496,12 @@ function createBaseQueryPacketCommitmentResponse(): QueryPacketCommitmentRespons
     proofHeight: Height.fromPartial({}),
   };
 }
+/**
+ * QueryPacketCommitmentResponse is the response type for the Query/PacketCommitment RPC method.
+ * @name QueryPacketCommitmentResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketCommitmentResponse
+ */
 export const QueryPacketCommitmentResponse = {
   typeUrl: "/ibc.core.channel.v2.QueryPacketCommitmentResponse",
   encode(message: QueryPacketCommitmentResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -406,6 +576,12 @@ function createBaseQueryPacketCommitmentsRequest(): QueryPacketCommitmentsReques
     pagination: undefined,
   };
 }
+/**
+ * QueryPacketCommitmentsRequest is the request type for the Query/PacketCommitments RPC method.
+ * @name QueryPacketCommitmentsRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketCommitmentsRequest
+ */
 export const QueryPacketCommitmentsRequest = {
   typeUrl: "/ibc.core.channel.v2.QueryPacketCommitmentsRequest",
   encode(message: QueryPacketCommitmentsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -468,6 +644,12 @@ function createBaseQueryPacketCommitmentsResponse(): QueryPacketCommitmentsRespo
     height: Height.fromPartial({}),
   };
 }
+/**
+ * QueryPacketCommitmentResponse is the response type for the Query/PacketCommitment RPC method.
+ * @name QueryPacketCommitmentsResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketCommitmentsResponse
+ */
 export const QueryPacketCommitmentsResponse = {
   typeUrl: "/ibc.core.channel.v2.QueryPacketCommitmentsResponse",
   encode(
@@ -548,6 +730,12 @@ function createBaseQueryPacketAcknowledgementRequest(): QueryPacketAcknowledgeme
     sequence: BigInt(0),
   };
 }
+/**
+ * QueryPacketAcknowledgementRequest is the request type for the Query/PacketAcknowledgement RPC method.
+ * @name QueryPacketAcknowledgementRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketAcknowledgementRequest
+ */
 export const QueryPacketAcknowledgementRequest = {
   typeUrl: "/ibc.core.channel.v2.QueryPacketAcknowledgementRequest",
   encode(
@@ -612,6 +800,12 @@ function createBaseQueryPacketAcknowledgementResponse(): QueryPacketAcknowledgem
     proofHeight: Height.fromPartial({}),
   };
 }
+/**
+ * QueryPacketAcknowledgementResponse is the response type for the Query/PacketAcknowledgement RPC method.
+ * @name QueryPacketAcknowledgementResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketAcknowledgementResponse
+ */
 export const QueryPacketAcknowledgementResponse = {
   typeUrl: "/ibc.core.channel.v2.QueryPacketAcknowledgementResponse",
   encode(
@@ -690,6 +884,13 @@ function createBaseQueryPacketAcknowledgementsRequest(): QueryPacketAcknowledgem
     packetCommitmentSequences: [],
   };
 }
+/**
+ * QueryPacketAcknowledgementsRequest is the request type for the
+ * Query/QueryPacketCommitments RPC method
+ * @name QueryPacketAcknowledgementsRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketAcknowledgementsRequest
+ */
 export const QueryPacketAcknowledgementsRequest = {
   typeUrl: "/ibc.core.channel.v2.QueryPacketAcknowledgementsRequest",
   encode(
@@ -781,6 +982,13 @@ function createBaseQueryPacketAcknowledgementsResponse(): QueryPacketAcknowledge
     height: Height.fromPartial({}),
   };
 }
+/**
+ * QueryPacketAcknowledgemetsResponse is the request type for the
+ * Query/QueryPacketAcknowledgements RPC method
+ * @name QueryPacketAcknowledgementsResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketAcknowledgementsResponse
+ */
 export const QueryPacketAcknowledgementsResponse = {
   typeUrl: "/ibc.core.channel.v2.QueryPacketAcknowledgementsResponse",
   encode(
@@ -861,6 +1069,12 @@ function createBaseQueryPacketReceiptRequest(): QueryPacketReceiptRequest {
     sequence: BigInt(0),
   };
 }
+/**
+ * QueryPacketReceiptRequest is the request type for the Query/PacketReceipt RPC method.
+ * @name QueryPacketReceiptRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketReceiptRequest
+ */
 export const QueryPacketReceiptRequest = {
   typeUrl: "/ibc.core.channel.v2.QueryPacketReceiptRequest",
   encode(message: QueryPacketReceiptRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -922,6 +1136,12 @@ function createBaseQueryPacketReceiptResponse(): QueryPacketReceiptResponse {
     proofHeight: Height.fromPartial({}),
   };
 }
+/**
+ * QueryPacketReceiptResponse is the response type for the Query/PacketReceipt RPC method.
+ * @name QueryPacketReceiptResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryPacketReceiptResponse
+ */
 export const QueryPacketReceiptResponse = {
   typeUrl: "/ibc.core.channel.v2.QueryPacketReceiptResponse",
   encode(message: QueryPacketReceiptResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -993,6 +1213,12 @@ function createBaseQueryUnreceivedPacketsRequest(): QueryUnreceivedPacketsReques
     sequences: [],
   };
 }
+/**
+ * QueryUnreceivedPacketsRequest is the request type for the Query/UnreceivedPackets RPC method
+ * @name QueryUnreceivedPacketsRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryUnreceivedPacketsRequest
+ */
 export const QueryUnreceivedPacketsRequest = {
   typeUrl: "/ibc.core.channel.v2.QueryUnreceivedPacketsRequest",
   encode(message: QueryUnreceivedPacketsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1065,6 +1291,12 @@ function createBaseQueryUnreceivedPacketsResponse(): QueryUnreceivedPacketsRespo
     height: Height.fromPartial({}),
   };
 }
+/**
+ * QueryUnreceivedPacketsResponse is the response type for the Query/UnreceivedPacketCommitments RPC method
+ * @name QueryUnreceivedPacketsResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryUnreceivedPacketsResponse
+ */
 export const QueryUnreceivedPacketsResponse = {
   typeUrl: "/ibc.core.channel.v2.QueryUnreceivedPacketsResponse",
   encode(
@@ -1142,6 +1374,13 @@ function createBaseQueryUnreceivedAcksRequest(): QueryUnreceivedAcksRequest {
     packetAckSequences: [],
   };
 }
+/**
+ * QueryUnreceivedAcks is the request type for the
+ * Query/UnreceivedAcks RPC method
+ * @name QueryUnreceivedAcksRequest
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryUnreceivedAcksRequest
+ */
 export const QueryUnreceivedAcksRequest = {
   typeUrl: "/ibc.core.channel.v2.QueryUnreceivedAcksRequest",
   encode(message: QueryUnreceivedAcksRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1214,6 +1453,13 @@ function createBaseQueryUnreceivedAcksResponse(): QueryUnreceivedAcksResponse {
     height: Height.fromPartial({}),
   };
 }
+/**
+ * QueryUnreceivedAcksResponse is the response type for the
+ * Query/UnreceivedAcks RPC method
+ * @name QueryUnreceivedAcksResponse
+ * @package ibc.core.channel.v2
+ * @see proto type: ibc.core.channel.v2.QueryUnreceivedAcksResponse
+ */
 export const QueryUnreceivedAcksResponse = {
   typeUrl: "/ibc.core.channel.v2.QueryUnreceivedAcksResponse",
   encode(message: QueryUnreceivedAcksResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

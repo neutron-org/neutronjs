@@ -1,8 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgUpdateParams } from "./tx";
+import { Decimal } from "@interchainjs/math";
+import { omitDefault } from "../../../helpers.js";
+import { MsgUpdateParams } from "./tx.js";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "globalfee/MsgUpdateParams";
   value: {
@@ -26,7 +27,7 @@ export const AminoConverter = {
         params: {
           minimum_gas_prices: params.minimumGasPrices.map((el0) => ({
             denom: el0.denom,
-            amount: el0.amount,
+            amount: Decimal.fromUserInput(el0.amount, 18).atomics,
           })),
           bypass_min_fee_msg_types: params.bypassMinFeeMsgTypes,
           max_total_bypass_min_fee_msg_gas_usage: omitDefault(

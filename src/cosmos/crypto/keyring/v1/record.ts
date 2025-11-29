@@ -1,40 +1,75 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Any } from "../../../../google/protobuf/any";
-import { BIP44Params } from "../../hd/v1/hd";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Any } from "../../../../google/protobuf/any.js";
+import { BIP44Params } from "../../hd/v1/hd.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.crypto.keyring.v1";
-/** Record is used for representing a key in the keyring. */
+/**
+ * Record is used for representing a key in the keyring.
+ * @name Record
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Record
+ */
 export interface Record {
-  /** name represents a name of Record */
+  /**
+   * name represents a name of Record
+   */
   name: string;
-  /** pub_key represents a public key in any format */
+  /**
+   * pub_key represents a public key in any format
+   */
   pubKey?: Any;
-  /** local stores the private key locally. */
+  /**
+   * local stores the private key locally.
+   */
   local?: Record_Local;
-  /** ledger stores the information about a Ledger key. */
+  /**
+   * ledger stores the information about a Ledger key.
+   */
   ledger?: Record_Ledger;
-  /** Multi does not store any other information. */
+  /**
+   * Multi does not store any other information.
+   */
   multi?: Record_Multi;
-  /** Offline does not store any other information. */
+  /**
+   * Offline does not store any other information.
+   */
   offline?: Record_Offline;
 }
 /**
  * Item is a keyring item stored in a keyring backend.
  * Local item
+ * @name Record_Local
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Local
  */
 export interface Record_Local {
   privKey?: Any;
 }
-/** Ledger item */
+/**
+ * Ledger item
+ * @name Record_Ledger
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Ledger
+ */
 export interface Record_Ledger {
   path?: BIP44Params;
 }
-/** Multi item */
+/**
+ * Multi item
+ * @name Record_Multi
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Multi
+ */
 export interface Record_Multi {}
-/** Offline item */
+/**
+ * Offline item
+ * @name Record_Offline
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Offline
+ */
 export interface Record_Offline {}
 function createBaseRecord(): Record {
   return {
@@ -46,6 +81,12 @@ function createBaseRecord(): Record {
     offline: undefined,
   };
 }
+/**
+ * Record is used for representing a key in the keyring.
+ * @name Record
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Record
+ */
 export const Record = {
   typeUrl: "/cosmos.crypto.keyring.v1.Record",
   encode(message: Record, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -151,6 +192,13 @@ function createBaseRecord_Local(): Record_Local {
     privKey: undefined,
   };
 }
+/**
+ * Item is a keyring item stored in a keyring backend.
+ * Local item
+ * @name Record_Local
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Local
+ */
 export const Record_Local = {
   typeUrl: "/cosmos.crypto.keyring.v1.Local",
   encode(message: Record_Local, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -200,6 +248,12 @@ function createBaseRecord_Ledger(): Record_Ledger {
     path: undefined,
   };
 }
+/**
+ * Ledger item
+ * @name Record_Ledger
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Ledger
+ */
 export const Record_Ledger = {
   typeUrl: "/cosmos.crypto.keyring.v1.Ledger",
   encode(message: Record_Ledger, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -246,6 +300,12 @@ export const Record_Ledger = {
 function createBaseRecord_Multi(): Record_Multi {
   return {};
 }
+/**
+ * Multi item
+ * @name Record_Multi
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Multi
+ */
 export const Record_Multi = {
   typeUrl: "/cosmos.crypto.keyring.v1.Multi",
   encode(_: Record_Multi, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -281,6 +341,12 @@ export const Record_Multi = {
 function createBaseRecord_Offline(): Record_Offline {
   return {};
 }
+/**
+ * Offline item
+ * @name Record_Offline
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Offline
+ */
 export const Record_Offline = {
   typeUrl: "/cosmos.crypto.keyring.v1.Offline",
   encode(_: Record_Offline, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

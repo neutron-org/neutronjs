@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Duration } from "../../../../google/protobuf/duration";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Duration } from "../../../../google/protobuf/duration.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.group.module.v1";
-/** Module is the config object of the group module. */
+/**
+ * Module is the config object of the group module.
+ * @name Module
+ * @package cosmos.group.module.v1
+ * @see proto type: cosmos.group.module.v1.Module
+ */
 export interface Module {
   /**
    * max_execution_period defines the max duration after a proposal's voting period ends that members can send a MsgExec
@@ -24,6 +29,12 @@ function createBaseModule(): Module {
     maxMetadataLen: BigInt(0),
   };
 }
+/**
+ * Module is the config object of the group module.
+ * @name Module
+ * @package cosmos.group.module.v1
+ * @see proto type: cosmos.group.module.v1.Module
+ */
 export const Module = {
   typeUrl: "/cosmos.group.module.v1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

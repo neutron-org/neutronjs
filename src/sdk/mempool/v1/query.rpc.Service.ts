@@ -1,17 +1,17 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { GetTxDistributionRequest, GetTxDistributionResponse } from "./query";
+import { GetTxDistributionRequest, GetTxDistributionResponse } from "./query.js";
 /** Service defines the gRPC querier service for the Block SDK mempool. */
 export interface Service {
   /** GetTxDistribution returns the distribution of transactions in the mempool. */
   getTxDistribution(request?: GetTxDistributionRequest): Promise<GetTxDistributionResponse>;
 }
 export class ServiceClientImpl implements Service {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.getTxDistribution = this.getTxDistribution.bind(this);
   }

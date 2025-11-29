@@ -1,28 +1,56 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Params } from "./params.js";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.revenue";
-/** Request type for the Msg/UpdateParams RPC method. */
+/**
+ * Request type for the Msg/UpdateParams RPC method.
+ * @name MsgUpdateParams
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** The address of the authority of the module. */
+  /**
+   * The address of the authority of the module.
+   */
   authority: string;
-  /** The new parameters of the module. All parameters must be supplied. */
+  /**
+   * The new parameters of the module. All parameters must be supplied.
+   */
   params: Params;
 }
-/** Response type for the Msg/UpdateParams RPC method. */
+/**
+ * Response type for the Msg/UpdateParams RPC method.
+ * @name MsgUpdateParamsResponse
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
-/** Request type for the Msg/FundTreasury RPC method. */
+/**
+ * Request type for the Msg/FundTreasury RPC method.
+ * @name MsgFundTreasury
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.MsgFundTreasury
+ */
 export interface MsgFundTreasury {
-  /** The signer of the message. */
+  /**
+   * The signer of the message.
+   */
   sender: string;
-  /** The amount of coins to fund the revenue treasury pool with. Must match the reward asset denom. */
+  /**
+   * The amount of coins to fund the revenue treasury pool with. Must match the reward asset denom.
+   */
   amount: Coin[];
 }
-/** Response type for the Msg/FundTreasury RPC method. */
+/**
+ * Response type for the Msg/FundTreasury RPC method.
+ * @name MsgFundTreasuryResponse
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.MsgFundTreasuryResponse
+ */
 export interface MsgFundTreasuryResponse {}
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
@@ -30,6 +58,12 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * Request type for the Msg/UpdateParams RPC method.
+ * @name MsgUpdateParams
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/neutron.revenue.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -85,6 +119,12 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * Response type for the Msg/UpdateParams RPC method.
+ * @name MsgUpdateParamsResponse
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/neutron.revenue.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -123,6 +163,12 @@ function createBaseMsgFundTreasury(): MsgFundTreasury {
     amount: [],
   };
 }
+/**
+ * Request type for the Msg/FundTreasury RPC method.
+ * @name MsgFundTreasury
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.MsgFundTreasury
+ */
 export const MsgFundTreasury = {
   typeUrl: "/neutron.revenue.MsgFundTreasury",
   encode(message: MsgFundTreasury, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -180,6 +226,12 @@ export const MsgFundTreasury = {
 function createBaseMsgFundTreasuryResponse(): MsgFundTreasuryResponse {
   return {};
 }
+/**
+ * Response type for the Msg/FundTreasury RPC method.
+ * @name MsgFundTreasuryResponse
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.MsgFundTreasuryResponse
+ */
 export const MsgFundTreasuryResponse = {
   typeUrl: "/neutron.revenue.MsgFundTreasuryResponse",
   encode(_: MsgFundTreasuryResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

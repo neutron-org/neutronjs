@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "slinky.marketmap.v1";
-/** Params defines the parameters for the x/marketmap module. */
+/**
+ * Params defines the parameters for the x/marketmap module.
+ * @name Params
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.Params
+ */
 export interface Params {
   /**
    * MarketAuthorities is the list of authority accounts that are able to
@@ -23,6 +28,12 @@ function createBaseParams(): Params {
     admin: "",
   };
 }
+/**
+ * Params defines the parameters for the x/marketmap module.
+ * @name Params
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.Params
+ */
 export const Params = {
   typeUrl: "/slinky.marketmap.v1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

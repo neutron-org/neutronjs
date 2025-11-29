@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { TxRpc } from "../../../../types.js";
+import { BinaryReader } from "../../../../binary.js";
 import {
   MsgSendPacket,
   MsgSendPacketResponse,
@@ -11,7 +11,7 @@ import {
   MsgTimeoutResponse,
   MsgAcknowledgement,
   MsgAcknowledgementResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the ibc/channel/v2 Msg service. */
 export interface Msg {
   /** SendPacket defines a rpc handler method for MsgSendPacket. */
@@ -24,8 +24,8 @@ export interface Msg {
   acknowledgement(request: MsgAcknowledgement): Promise<MsgAcknowledgementResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.sendPacket = this.sendPacket.bind(this);
     this.recvPacket = this.recvPacket.bind(this);
@@ -53,3 +53,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgAcknowledgementResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

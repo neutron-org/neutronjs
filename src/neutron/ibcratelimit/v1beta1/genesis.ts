@@ -1,13 +1,20 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.ibcratelimit.v1beta1";
-/** GenesisState defines the ibc-rate-limit module's genesis state. */
+/**
+ * GenesisState defines the ibc-rate-limit module's genesis state.
+ * @name GenesisState
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto type: neutron.ibcratelimit.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** params are all the parameters of the module */
+  /**
+   * params are all the parameters of the module
+   */
   params: Params;
 }
 function createBaseGenesisState(): GenesisState {
@@ -15,6 +22,12 @@ function createBaseGenesisState(): GenesisState {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * GenesisState defines the ibc-rate-limit module's genesis state.
+ * @name GenesisState
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto type: neutron.ibcratelimit.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/neutron.ibcratelimit.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

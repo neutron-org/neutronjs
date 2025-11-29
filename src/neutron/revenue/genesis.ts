@@ -1,21 +1,30 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
-import { Decimal } from "@cosmjs/math";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
+import { Decimal } from "@interchainjs/math";
 export const protobufPackage = "neutron.revenue";
-/** Defines the revenue module's genesis state. */
+/**
+ * Defines the revenue module's genesis state.
+ * @name GenesisState
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.GenesisState
+ */
 export interface GenesisState {
-  /** Revenue module parameters. */
+  /**
+   * Revenue module parameters.
+   */
   params: Params;
   /**
    * The current payment schedule. If nil, the module will use the respective payment schedule for
    * the payment schedule type specified in the params.
    */
   paymentSchedule?: PaymentSchedule;
-  /** Revenue module list of validators. */
+  /**
+   * Revenue module list of validators.
+   */
   validators: ValidatorInfo[];
 }
 /**
@@ -25,19 +34,33 @@ export interface GenesisState {
  * The inner oneof must correspond with the respective payment schedule type defined in the module
  * params. In runtime, on a mismatch due to e.g. MsgUpdateParams execution, the module will switch
  * to the payment schedule that corresponds to the payment schedule type automatically.
+ * @name PaymentSchedule
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.PaymentSchedule
  */
 export interface PaymentSchedule {
   monthlyPaymentSchedule?: MonthlyPaymentSchedule;
   blockBasedPaymentSchedule?: BlockBasedPaymentSchedule;
   emptyPaymentSchedule?: EmptyPaymentSchedule;
 }
-/** Contains information about a validator. */
+/**
+ * Contains information about a validator.
+ * @name ValidatorInfo
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.ValidatorInfo
+ */
 export interface ValidatorInfo {
-  /** The validator's node operator address. */
+  /**
+   * The validator's node operator address.
+   */
   valOperAddress: string;
-  /** The number of blocks the validator has committed in the current payment period. */
+  /**
+   * The number of blocks the validator has committed in the current payment period.
+   */
   commitedBlocksInPeriod: bigint;
-  /** The number of oracle votes the validator has submitted in the current payment period. */
+  /**
+   * The number of oracle votes the validator has submitted in the current payment period.
+   */
   commitedOracleVotesInPeriod: bigint;
   /**
    * The number of blocks the validator has remained in the active validator set for in the
@@ -45,29 +68,53 @@ export interface ValidatorInfo {
    */
   inActiveValsetForBlocksInPeriod: bigint;
 }
-/** Represents a payment schedule where revenue payments are processed once a month. */
+/**
+ * Represents a payment schedule where revenue payments are processed once a month.
+ * @name MonthlyPaymentSchedule
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.MonthlyPaymentSchedule
+ */
 export interface MonthlyPaymentSchedule {
-  /** The block height at which the current month started. */
+  /**
+   * The block height at which the current month started.
+   */
   currentMonthStartBlock: bigint;
-  /** The timestamp of the block at which the current month started. */
+  /**
+   * The timestamp of the block at which the current month started.
+   */
   currentMonthStartBlockTs: bigint;
 }
 /**
  * Represents a payment schedule where revenue payments are processed after a specified number
  * of blocks.
+ * @name BlockBasedPaymentSchedule
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.BlockBasedPaymentSchedule
  */
 export interface BlockBasedPaymentSchedule {
-  /** The number of blocks in each payment period. */
+  /**
+   * The number of blocks in each payment period.
+   */
   blocksPerPeriod: bigint;
-  /** The block height at which the current payment period started. */
+  /**
+   * The block height at which the current payment period started.
+   */
   currentPeriodStartBlock: bigint;
 }
-/** Represents a payment schedule where revenue is never distributed. */
+/**
+ * Represents a payment schedule where revenue is never distributed.
+ * @name EmptyPaymentSchedule
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.EmptyPaymentSchedule
+ */
 export interface EmptyPaymentSchedule {}
 /**
  * Represents a data structure that tracks the cumulative price of an asset over the entire
  * observation period, along with the last absolute asset price and the timestamp when this
  * price was last recorded.
+ * @name RewardAssetPrice
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.RewardAssetPrice
  */
 export interface RewardAssetPrice {
   /**
@@ -75,9 +122,13 @@ export interface RewardAssetPrice {
    * `cumulative_price_at_timestamp_t(n)` = `last_price_at_t(n-1)` * (t(n) - t(n-1)) + `cumulative_price_at_timestamp_t(n-1)`
    */
   cumulativePrice: string;
-  /** The price of the reward asset in reward quote asset that corresponds to the timestamp. */
+  /**
+   * The price of the reward asset in reward quote asset that corresponds to the timestamp.
+   */
   absolutePrice: string;
-  /** The timestamp of the last update of the absolute and cumulative price. */
+  /**
+   * The timestamp of the last update of the absolute and cumulative price.
+   */
   timestamp: bigint;
 }
 function createBaseGenesisState(): GenesisState {
@@ -87,6 +138,12 @@ function createBaseGenesisState(): GenesisState {
     validators: [],
   };
 }
+/**
+ * Defines the revenue module's genesis state.
+ * @name GenesisState
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/neutron.revenue.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -165,6 +222,17 @@ function createBasePaymentSchedule(): PaymentSchedule {
     emptyPaymentSchedule: undefined,
   };
 }
+/**
+ * A model that contains information specific to the currently active payment schedule. The oneof
+ * implementations define conditions for payment periods ending and track the progress of the
+ * current payment period. This is a module's state variable.
+ * The inner oneof must correspond with the respective payment schedule type defined in the module
+ * params. In runtime, on a mismatch due to e.g. MsgUpdateParams execution, the module will switch
+ * to the payment schedule that corresponds to the payment schedule type automatically.
+ * @name PaymentSchedule
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.PaymentSchedule
+ */
 export const PaymentSchedule = {
   typeUrl: "/neutron.revenue.PaymentSchedule",
   encode(message: PaymentSchedule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -252,6 +320,12 @@ function createBaseValidatorInfo(): ValidatorInfo {
     inActiveValsetForBlocksInPeriod: BigInt(0),
   };
 }
+/**
+ * Contains information about a validator.
+ * @name ValidatorInfo
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.ValidatorInfo
+ */
 export const ValidatorInfo = {
   typeUrl: "/neutron.revenue.ValidatorInfo",
   encode(message: ValidatorInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -343,6 +417,12 @@ function createBaseMonthlyPaymentSchedule(): MonthlyPaymentSchedule {
     currentMonthStartBlockTs: BigInt(0),
   };
 }
+/**
+ * Represents a payment schedule where revenue payments are processed once a month.
+ * @name MonthlyPaymentSchedule
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.MonthlyPaymentSchedule
+ */
 export const MonthlyPaymentSchedule = {
   typeUrl: "/neutron.revenue.MonthlyPaymentSchedule",
   encode(message: MonthlyPaymentSchedule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -407,6 +487,13 @@ function createBaseBlockBasedPaymentSchedule(): BlockBasedPaymentSchedule {
     currentPeriodStartBlock: BigInt(0),
   };
 }
+/**
+ * Represents a payment schedule where revenue payments are processed after a specified number
+ * of blocks.
+ * @name BlockBasedPaymentSchedule
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.BlockBasedPaymentSchedule
+ */
 export const BlockBasedPaymentSchedule = {
   typeUrl: "/neutron.revenue.BlockBasedPaymentSchedule",
   encode(message: BlockBasedPaymentSchedule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -469,6 +556,12 @@ export const BlockBasedPaymentSchedule = {
 function createBaseEmptyPaymentSchedule(): EmptyPaymentSchedule {
   return {};
 }
+/**
+ * Represents a payment schedule where revenue is never distributed.
+ * @name EmptyPaymentSchedule
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.EmptyPaymentSchedule
+ */
 export const EmptyPaymentSchedule = {
   typeUrl: "/neutron.revenue.EmptyPaymentSchedule",
   encode(_: EmptyPaymentSchedule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -508,6 +601,14 @@ function createBaseRewardAssetPrice(): RewardAssetPrice {
     timestamp: BigInt(0),
   };
 }
+/**
+ * Represents a data structure that tracks the cumulative price of an asset over the entire
+ * observation period, along with the last absolute asset price and the timestamp when this
+ * price was last recorded.
+ * @name RewardAssetPrice
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.RewardAssetPrice
+ */
 export const RewardAssetPrice = {
   typeUrl: "/neutron.revenue.RewardAssetPrice",
   encode(message: RewardAssetPrice, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

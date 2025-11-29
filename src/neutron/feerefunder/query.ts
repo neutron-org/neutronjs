@@ -1,29 +1,57 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { FeeInfo } from "./genesis";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../helpers";
+import { Params } from "./params.js";
+import { FeeInfo } from "./genesis.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../helpers.js";
 export const protobufPackage = "neutron.feerefunder";
-/** QueryParamsRequest is request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** QueryParamsResponse is response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params holds all the parameters of this module. */
+  /**
+   * params holds all the parameters of this module.
+   */
   params: Params;
 }
+/**
+ * @name FeeInfoRequest
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.FeeInfoRequest
+ */
 export interface FeeInfoRequest {
   channelId: string;
   portId: string;
   sequence: bigint;
 }
+/**
+ * @name FeeInfoResponse
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.FeeInfoResponse
+ */
 export interface FeeInfoResponse {
   feeInfo?: FeeInfo;
 }
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/neutron.feerefunder.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -61,6 +89,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * QueryParamsResponse is response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/neutron.feerefunder.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -111,6 +145,11 @@ function createBaseFeeInfoRequest(): FeeInfoRequest {
     sequence: BigInt(0),
   };
 }
+/**
+ * @name FeeInfoRequest
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.FeeInfoRequest
+ */
 export const FeeInfoRequest = {
   typeUrl: "/neutron.feerefunder.FeeInfoRequest",
   encode(message: FeeInfoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -177,6 +216,11 @@ function createBaseFeeInfoResponse(): FeeInfoResponse {
     feeInfo: undefined,
   };
 }
+/**
+ * @name FeeInfoResponse
+ * @package neutron.feerefunder
+ * @see proto type: neutron.feerefunder.FeeInfoResponse
+ */
 export const FeeInfoResponse = {
   typeUrl: "/neutron.feerefunder.FeeInfoResponse",
   encode(message: FeeInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

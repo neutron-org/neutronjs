@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryCurrentPlanRequest,
@@ -14,7 +14,7 @@ import {
   QueryModuleVersionsResponse,
   QueryAuthorityRequest,
   QueryAuthorityResponse,
-} from "./query";
+} from "./query.js";
 /** Query defines the gRPC upgrade querier service. */
 export interface Query {
   /** CurrentPlan queries the current upgrade plan. */
@@ -38,8 +38,8 @@ export interface Query {
   authority(request?: QueryAuthorityRequest): Promise<QueryAuthorityResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.currentPlan = this.currentPlan.bind(this);
     this.appliedPlan = this.appliedPlan.bind(this);

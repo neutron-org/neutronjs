@@ -1,9 +1,14 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
+/**
+ * @name PrecDecCoin
+ * @package neutron.dex
+ * @see proto type: neutron.dex.PrecDecCoin
+ */
 export interface PrecDecCoin {
   denom: string;
   amount: string;
@@ -14,6 +19,11 @@ function createBasePrecDecCoin(): PrecDecCoin {
     amount: "",
   };
 }
+/**
+ * @name PrecDecCoin
+ * @package neutron.dex
+ * @see proto type: neutron.dex.PrecDecCoin
+ */
 export const PrecDecCoin = {
   typeUrl: "/neutron.dex.PrecDecCoin",
   encode(message: PrecDecCoin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

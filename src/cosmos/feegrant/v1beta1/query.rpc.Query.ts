@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryAllowanceRequest,
@@ -10,7 +10,7 @@ import {
   QueryAllowancesResponse,
   QueryAllowancesByGranterRequest,
   QueryAllowancesByGranterResponse,
-} from "./query";
+} from "./query.js";
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Allowance returns granted allwance to the grantee by the granter. */
@@ -21,8 +21,8 @@ export interface Query {
   allowancesByGranter(request: QueryAllowancesByGranterRequest): Promise<QueryAllowancesByGranterResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.allowance = this.allowance.bind(this);
     this.allowances = this.allowances.bind(this);

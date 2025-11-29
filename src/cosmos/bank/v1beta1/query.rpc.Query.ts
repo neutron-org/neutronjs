@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../base/query/v1beta1/pagination";
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { PageRequest } from "../../base/query/v1beta1/pagination.js";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryBalanceRequest,
@@ -31,7 +31,7 @@ import {
   QueryDenomOwnersByQueryResponse,
   QuerySendEnabledRequest,
   QuerySendEnabledResponse,
-} from "./query";
+} from "./query.js";
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Balance queries the balance of a single coin for a single account. */
@@ -111,8 +111,8 @@ export interface Query {
   sendEnabled(request: QuerySendEnabledRequest): Promise<QuerySendEnabledResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.balance = this.balance.bind(this);
     this.allBalances = this.allBalances.bind(this);

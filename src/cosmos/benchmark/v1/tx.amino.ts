@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgLoadTest } from "./tx";
+import { omitDefault } from "../../../helpers.js";
+import { MsgLoadTest } from "./tx.js";
 export interface MsgLoadTestAminoType extends AminoMsg {
   type: "cosmos-sdk/tools/benchmark/v1/MsgLoadTest";
   value: {

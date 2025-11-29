@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgGrantAllowance,
   MsgGrantAllowanceResponse,
@@ -9,7 +9,7 @@ import {
   MsgRevokeAllowanceResponse,
   MsgPruneAllowances,
   MsgPruneAllowancesResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the feegrant msg service. */
 export interface Msg {
   /**
@@ -26,8 +26,8 @@ export interface Msg {
   pruneAllowances(request: MsgPruneAllowances): Promise<MsgPruneAllowancesResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.grantAllowance = this.grantAllowance.bind(this);
     this.revokeAllowance = this.revokeAllowance.bind(this);
@@ -49,3 +49,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgPruneAllowancesResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

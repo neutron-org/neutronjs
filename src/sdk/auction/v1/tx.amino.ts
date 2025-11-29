@@ -1,8 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgAuctionBid, MsgUpdateParams } from "./tx";
+import { omitDefault } from "../../../helpers.js";
+import { Decimal } from "@interchainjs/math";
+import { MsgAuctionBid, MsgUpdateParams } from "./tx.js";
 export interface MsgAuctionBidAminoType extends AminoMsg {
   type: "block-sdk/x/auction/MsgAuctionBid";
   value: {
@@ -78,7 +79,7 @@ export const AminoConverter = {
             amount: params.minBidIncrement.amount,
           },
           front_running_protection: omitDefault(params.frontRunningProtection),
-          proposer_fee: params.proposerFee,
+          proposer_fee: Decimal.fromUserInput(params.proposerFee, 18).atomics,
         },
       };
     },

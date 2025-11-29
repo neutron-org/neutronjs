@@ -1,6 +1,6 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
+import { TelescopeGeneratedType } from "../../../../types.js";
 import {
   MsgChannelOpenInit,
   MsgChannelOpenTry,
@@ -12,8 +12,8 @@ import {
   MsgTimeout,
   MsgTimeoutOnClose,
   MsgAcknowledgement,
-} from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+} from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/ibc.core.channel.v1.MsgChannelOpenInit", MsgChannelOpenInit],
   ["/ibc.core.channel.v1.MsgChannelOpenTry", MsgChannelOpenTry],
   ["/ibc.core.channel.v1.MsgChannelOpenAck", MsgChannelOpenAck],
@@ -25,11 +25,6 @@ export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/ibc.core.channel.v1.MsgTimeoutOnClose", MsgTimeoutOnClose],
   ["/ibc.core.channel.v1.MsgAcknowledgement", MsgAcknowledgement],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     channelOpenInit(value: MsgChannelOpenInit) {

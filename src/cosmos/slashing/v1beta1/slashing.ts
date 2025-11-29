@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Duration } from "../../../google/protobuf/duration";
-import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { Duration } from "../../../google/protobuf/duration.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
 import {
   isSet,
   fromJsonTimestamp,
@@ -11,16 +11,21 @@ import {
   Exact,
   bytesFromBase64,
   base64FromBytes,
-} from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+} from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.slashing.v1beta1";
 /**
  * ValidatorSigningInfo defines a validator's signing info for monitoring their
  * liveness activity.
+ * @name ValidatorSigningInfo
+ * @package cosmos.slashing.v1beta1
+ * @see proto type: cosmos.slashing.v1beta1.ValidatorSigningInfo
  */
 export interface ValidatorSigningInfo {
   address: string;
-  /** Height at which validator was first a candidate OR was un-jailed */
+  /**
+   * Height at which validator was first a candidate OR was un-jailed
+   */
   startHeight: bigint;
   /**
    * Index which is incremented every time a validator is bonded in a block and
@@ -28,7 +33,9 @@ export interface ValidatorSigningInfo {
    * signed_blocks_window param determines the index in the missed block bitmap.
    */
   indexOffset: bigint;
-  /** Timestamp until which the validator is jailed due to liveness downtime. */
+  /**
+   * Timestamp until which the validator is jailed due to liveness downtime.
+   */
   jailedUntil: Timestamp;
   /**
    * Whether or not a validator has been tombstoned (killed out of validator
@@ -42,7 +49,12 @@ export interface ValidatorSigningInfo {
    */
   missedBlocksCounter: bigint;
 }
-/** Params represents the parameters used for by the slashing module. */
+/**
+ * Params represents the parameters used for by the slashing module.
+ * @name Params
+ * @package cosmos.slashing.v1beta1
+ * @see proto type: cosmos.slashing.v1beta1.Params
+ */
 export interface Params {
   signedBlocksWindow: bigint;
   minSignedPerWindow: Uint8Array;
@@ -60,6 +72,13 @@ function createBaseValidatorSigningInfo(): ValidatorSigningInfo {
     missedBlocksCounter: BigInt(0),
   };
 }
+/**
+ * ValidatorSigningInfo defines a validator's signing info for monitoring their
+ * liveness activity.
+ * @name ValidatorSigningInfo
+ * @package cosmos.slashing.v1beta1
+ * @see proto type: cosmos.slashing.v1beta1.ValidatorSigningInfo
+ */
 export const ValidatorSigningInfo = {
   typeUrl: "/cosmos.slashing.v1beta1.ValidatorSigningInfo",
   encode(message: ValidatorSigningInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -165,6 +184,12 @@ function createBaseParams(): Params {
     slashFractionDowntime: new Uint8Array(),
   };
 }
+/**
+ * Params represents the parameters used for by the slashing module.
+ * @name Params
+ * @package cosmos.slashing.v1beta1
+ * @see proto type: cosmos.slashing.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/cosmos.slashing.v1beta1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

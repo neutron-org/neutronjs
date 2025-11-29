@@ -1,16 +1,11 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgAddCurrencyPairs, MsgRemoveCurrencyPairs } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+import { TelescopeGeneratedType } from "../../../types.js";
+import { MsgAddCurrencyPairs, MsgRemoveCurrencyPairs } from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/slinky.oracle.v1.MsgAddCurrencyPairs", MsgAddCurrencyPairs],
   ["/slinky.oracle.v1.MsgRemoveCurrencyPairs", MsgRemoveCurrencyPairs],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     addCurrencyPairs(value: MsgAddCurrencyPairs) {

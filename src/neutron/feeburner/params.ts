@@ -1,19 +1,28 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.feeburner";
-/** Params defines the parameters for the module. */
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.feeburner
+ * @see proto type: neutron.feeburner.Params
+ */
 export interface Params {
   /**
    * Defines Neutron denom, which will be burned during fee processing, any
    * other denom will be sent to Treasury
    */
   neutronDenom: string;
-  /** Deprecated in v0.4.4. Is not used anymore */
+  /**
+   * Deprecated in v0.4.4. Is not used anymore
+   */
   reserveAddress: string;
-  /** Defines treasury address */
+  /**
+   * Defines treasury address
+   */
   treasuryAddress: string;
 }
 function createBaseParams(): Params {
@@ -23,6 +32,12 @@ function createBaseParams(): Params {
     treasuryAddress: "",
   };
 }
+/**
+ * Params defines the parameters for the module.
+ * @name Params
+ * @package neutron.feeburner
+ * @see proto type: neutron.feeburner.Params
+ */
 export const Params = {
   typeUrl: "/neutron.feeburner.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

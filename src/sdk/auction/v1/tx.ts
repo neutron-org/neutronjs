@@ -1,14 +1,17 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Params } from "./genesis";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { Params } from "./genesis.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "sdk.auction.v1";
 /**
  * MsgAuctionBid defines a request type for sending bids to the x/auction
  * module.
+ * @name MsgAuctionBid
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.MsgAuctionBid
  */
 export interface MsgAuctionBid {
   /**
@@ -27,11 +30,19 @@ export interface MsgAuctionBid {
    */
   transactions: Uint8Array[];
 }
-/** MsgAuctionBidResponse defines the Msg/AuctionBid response type. */
+/**
+ * MsgAuctionBidResponse defines the Msg/AuctionBid response type.
+ * @name MsgAuctionBidResponse
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.MsgAuctionBidResponse
+ */
 export interface MsgAuctionBidResponse {}
 /**
  * MsgUpdateParams defines a request type for updating the x/auction module
  * parameters.
+ * @name MsgUpdateParams
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.MsgUpdateParams
  */
 export interface MsgUpdateParams {
   /**
@@ -39,10 +50,17 @@ export interface MsgUpdateParams {
    * x/auction module parameters.
    */
   authority: string;
-  /** params is the new parameters for the x/auction module. */
+  /**
+   * params is the new parameters for the x/auction module.
+   */
   params: Params;
 }
-/** MsgUpdateParamsResponse defines the Msg/UpdateParams response type. */
+/**
+ * MsgUpdateParamsResponse defines the Msg/UpdateParams response type.
+ * @name MsgUpdateParamsResponse
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgAuctionBid(): MsgAuctionBid {
   return {
@@ -51,6 +69,13 @@ function createBaseMsgAuctionBid(): MsgAuctionBid {
     transactions: [],
   };
 }
+/**
+ * MsgAuctionBid defines a request type for sending bids to the x/auction
+ * module.
+ * @name MsgAuctionBid
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.MsgAuctionBid
+ */
 export const MsgAuctionBid = {
   typeUrl: "/sdk.auction.v1.MsgAuctionBid",
   encode(message: MsgAuctionBid, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -122,6 +147,12 @@ export const MsgAuctionBid = {
 function createBaseMsgAuctionBidResponse(): MsgAuctionBidResponse {
   return {};
 }
+/**
+ * MsgAuctionBidResponse defines the Msg/AuctionBid response type.
+ * @name MsgAuctionBidResponse
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.MsgAuctionBidResponse
+ */
 export const MsgAuctionBidResponse = {
   typeUrl: "/sdk.auction.v1.MsgAuctionBidResponse",
   encode(_: MsgAuctionBidResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -160,6 +191,13 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams defines a request type for updating the x/auction module
+ * parameters.
+ * @name MsgUpdateParams
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/sdk.auction.v1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -215,6 +253,12 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the Msg/UpdateParams response type.
+ * @name MsgUpdateParamsResponse
+ * @package sdk.auction.v1
+ * @see proto type: sdk.auction.v1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/sdk.auction.v1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

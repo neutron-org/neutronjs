@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgSetWithdrawAddress,
   MsgSetWithdrawAddressResponse,
@@ -17,7 +17,7 @@ import {
   MsgCommunityPoolSpendResponse,
   MsgDepositValidatorRewardsPool,
   MsgDepositValidatorRewardsPoolResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the distribution Msg service. */
 export interface Msg {
   /**
@@ -67,8 +67,8 @@ export interface Msg {
   ): Promise<MsgDepositValidatorRewardsPoolResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.setWithdrawAddress = this.setWithdrawAddress.bind(this);
     this.withdrawDelegatorReward = this.withdrawDelegatorReward.bind(this);
@@ -118,3 +118,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgDepositValidatorRewardsPoolResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

@@ -1,14 +1,23 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { bytesFromBase64, isSet, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { bytesFromBase64, isSet, base64FromBytes, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.client.v2";
-/** CounterpartyInfo defines the key that the counterparty will use to message our client */
+/**
+ * CounterpartyInfo defines the key that the counterparty will use to message our client
+ * @name CounterpartyInfo
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.CounterpartyInfo
+ */
 export interface CounterpartyInfo {
-  /** merkle prefix key is the prefix that ics provable keys are stored under */
+  /**
+   * merkle prefix key is the prefix that ics provable keys are stored under
+   */
   merklePrefix: Uint8Array[];
-  /** client identifier is the identifier used to send packet messages to our client */
+  /**
+   * client identifier is the identifier used to send packet messages to our client
+   */
   clientId: string;
 }
 function createBaseCounterpartyInfo(): CounterpartyInfo {
@@ -17,6 +26,12 @@ function createBaseCounterpartyInfo(): CounterpartyInfo {
     clientId: "",
   };
 }
+/**
+ * CounterpartyInfo defines the key that the counterparty will use to message our client
+ * @name CounterpartyInfo
+ * @package ibc.core.client.v2
+ * @see proto type: ibc.core.client.v2.CounterpartyInfo
+ */
 export const CounterpartyInfo = {
   typeUrl: "/ibc.core.client.v2.CounterpartyInfo",
   encode(message: CounterpartyInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,9 +1,14 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, isObject } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, isObject } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "sdk.proposals.v1";
+/**
+ * @name ProposalInfo_TxsByLaneEntry
+ * @package sdk.proposals.v1
+ * @see proto type: sdk.proposals.v1.undefined
+ */
 export interface ProposalInfo_TxsByLaneEntry {
   key: string;
   value: bigint;
@@ -12,6 +17,9 @@ export interface ProposalInfo_TxsByLaneEntry {
  * ProposalInfo contains the metadata about a given proposal that was built by
  * the block-sdk. This is used to verify and consilidate proposal data across
  * the network.
+ * @name ProposalInfo
+ * @package sdk.proposals.v1
+ * @see proto type: sdk.proposals.v1.ProposalInfo
  */
 export interface ProposalInfo {
   /**
@@ -31,9 +39,13 @@ export interface ProposalInfo {
    * block that was used to construct this block proposal.
    */
   maxGasLimit: bigint;
-  /** BlockSize corresponds to the size of this block proposal. */
+  /**
+   * BlockSize corresponds to the size of this block proposal.
+   */
   blockSize: bigint;
-  /** GasLimit corresponds to the gas limit of this block proposal. */
+  /**
+   * GasLimit corresponds to the gas limit of this block proposal.
+   */
   gasLimit: bigint;
 }
 function createBaseProposalInfo_TxsByLaneEntry(): ProposalInfo_TxsByLaneEntry {
@@ -42,6 +54,11 @@ function createBaseProposalInfo_TxsByLaneEntry(): ProposalInfo_TxsByLaneEntry {
     value: BigInt(0),
   };
 }
+/**
+ * @name ProposalInfo_TxsByLaneEntry
+ * @package sdk.proposals.v1
+ * @see proto type: sdk.proposals.v1.undefined
+ */
 export const ProposalInfo_TxsByLaneEntry = {
   encode(message: ProposalInfo_TxsByLaneEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
@@ -104,6 +121,14 @@ function createBaseProposalInfo(): ProposalInfo {
     gasLimit: BigInt(0),
   };
 }
+/**
+ * ProposalInfo contains the metadata about a given proposal that was built by
+ * the block-sdk. This is used to verify and consilidate proposal data across
+ * the network.
+ * @name ProposalInfo
+ * @package sdk.proposals.v1
+ * @see proto type: sdk.proposals.v1.ProposalInfo
+ */
 export const ProposalInfo = {
   typeUrl: "/sdk.proposals.v1.ProposalInfo",
   encode(message: ProposalInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

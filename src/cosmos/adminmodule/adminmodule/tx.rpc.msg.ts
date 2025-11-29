@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgDeleteAdmin,
   MsgDeleteAdminResponse,
@@ -11,7 +11,7 @@ import {
   MsgSubmitProposalResponse,
   MsgSubmitProposalLegacy,
   MsgSubmitProposalLegacyResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the Msg service. */
 export interface Msg {
   deleteAdmin(request: MsgDeleteAdmin): Promise<MsgDeleteAdminResponse>;
@@ -20,8 +20,8 @@ export interface Msg {
   submitProposalLegacy(request: MsgSubmitProposalLegacy): Promise<MsgSubmitProposalLegacyResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.deleteAdmin = this.deleteAdmin.bind(this);
     this.addAdmin = this.addAdmin.bind(this);
@@ -49,3 +49,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgSubmitProposalLegacyResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

@@ -8,11 +8,11 @@ import {
   voteOptionToJSON,
   proposalExecutorResultFromJSON,
   proposalExecutorResultToJSON,
-} from "./types";
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+} from "./types.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.group.v1";
 /** Exec defines modes of execution of a proposal on creation or on new vote. */
 export enum Exec {
@@ -55,25 +55,52 @@ export function execToJSON(object: Exec): string {
       return "UNRECOGNIZED";
   }
 }
-/** MsgCreateGroup is the Msg/CreateGroup request type. */
+/**
+ * MsgCreateGroup is the Msg/CreateGroup request type.
+ * @name MsgCreateGroup
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgCreateGroup
+ */
 export interface MsgCreateGroup {
-  /** admin is the account address of the group admin. */
+  /**
+   * admin is the account address of the group admin.
+   */
   admin: string;
-  /** members defines the group members. */
+  /**
+   * members defines the group members.
+   */
   members: MemberRequest[];
-  /** metadata is any arbitrary metadata to attached to the group. */
+  /**
+   * metadata is any arbitrary metadata to attached to the group.
+   */
   metadata: string;
 }
-/** MsgCreateGroupResponse is the Msg/CreateGroup response type. */
+/**
+ * MsgCreateGroupResponse is the Msg/CreateGroup response type.
+ * @name MsgCreateGroupResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgCreateGroupResponse
+ */
 export interface MsgCreateGroupResponse {
-  /** group_id is the unique ID of the newly created group. */
+  /**
+   * group_id is the unique ID of the newly created group.
+   */
   groupId: bigint;
 }
-/** MsgUpdateGroupMembers is the Msg/UpdateGroupMembers request type. */
+/**
+ * MsgUpdateGroupMembers is the Msg/UpdateGroupMembers request type.
+ * @name MsgUpdateGroupMembers
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupMembers
+ */
 export interface MsgUpdateGroupMembers {
-  /** admin is the account address of the group admin. */
+  /**
+   * admin is the account address of the group admin.
+   */
   admin: string;
-  /** group_id is the unique ID of the group. */
+  /**
+   * group_id is the unique ID of the group.
+   */
   groupId: bigint;
   /**
    * member_updates is the list of members to update,
@@ -81,116 +108,256 @@ export interface MsgUpdateGroupMembers {
    */
   memberUpdates: MemberRequest[];
 }
-/** MsgUpdateGroupMembersResponse is the Msg/UpdateGroupMembers response type. */
+/**
+ * MsgUpdateGroupMembersResponse is the Msg/UpdateGroupMembers response type.
+ * @name MsgUpdateGroupMembersResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupMembersResponse
+ */
 export interface MsgUpdateGroupMembersResponse {}
-/** MsgUpdateGroupAdmin is the Msg/UpdateGroupAdmin request type. */
+/**
+ * MsgUpdateGroupAdmin is the Msg/UpdateGroupAdmin request type.
+ * @name MsgUpdateGroupAdmin
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupAdmin
+ */
 export interface MsgUpdateGroupAdmin {
-  /** admin is the current account address of the group admin. */
+  /**
+   * admin is the current account address of the group admin.
+   */
   admin: string;
-  /** group_id is the unique ID of the group. */
+  /**
+   * group_id is the unique ID of the group.
+   */
   groupId: bigint;
-  /** new_admin is the group new admin account address. */
+  /**
+   * new_admin is the group new admin account address.
+   */
   newAdmin: string;
 }
-/** MsgUpdateGroupAdminResponse is the Msg/UpdateGroupAdmin response type. */
+/**
+ * MsgUpdateGroupAdminResponse is the Msg/UpdateGroupAdmin response type.
+ * @name MsgUpdateGroupAdminResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupAdminResponse
+ */
 export interface MsgUpdateGroupAdminResponse {}
-/** MsgUpdateGroupMetadata is the Msg/UpdateGroupMetadata request type. */
+/**
+ * MsgUpdateGroupMetadata is the Msg/UpdateGroupMetadata request type.
+ * @name MsgUpdateGroupMetadata
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupMetadata
+ */
 export interface MsgUpdateGroupMetadata {
-  /** admin is the account address of the group admin. */
+  /**
+   * admin is the account address of the group admin.
+   */
   admin: string;
-  /** group_id is the unique ID of the group. */
+  /**
+   * group_id is the unique ID of the group.
+   */
   groupId: bigint;
-  /** metadata is the updated group's metadata. */
+  /**
+   * metadata is the updated group's metadata.
+   */
   metadata: string;
 }
-/** MsgUpdateGroupMetadataResponse is the Msg/UpdateGroupMetadata response type. */
+/**
+ * MsgUpdateGroupMetadataResponse is the Msg/UpdateGroupMetadata response type.
+ * @name MsgUpdateGroupMetadataResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupMetadataResponse
+ */
 export interface MsgUpdateGroupMetadataResponse {}
-/** MsgCreateGroupPolicy is the Msg/CreateGroupPolicy request type. */
+/**
+ * MsgCreateGroupPolicy is the Msg/CreateGroupPolicy request type.
+ * @name MsgCreateGroupPolicy
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgCreateGroupPolicy
+ */
 export interface MsgCreateGroupPolicy {
-  /** admin is the account address of the group admin. */
+  /**
+   * admin is the account address of the group admin.
+   */
   admin: string;
-  /** group_id is the unique ID of the group. */
+  /**
+   * group_id is the unique ID of the group.
+   */
   groupId: bigint;
-  /** metadata is any arbitrary metadata attached to the group policy. */
+  /**
+   * metadata is any arbitrary metadata attached to the group policy.
+   */
   metadata: string;
-  /** decision_policy specifies the group policy's decision policy. */
+  /**
+   * decision_policy specifies the group policy's decision policy.
+   */
   decisionPolicy?: Any;
 }
-/** MsgCreateGroupPolicyResponse is the Msg/CreateGroupPolicy response type. */
+/**
+ * MsgCreateGroupPolicyResponse is the Msg/CreateGroupPolicy response type.
+ * @name MsgCreateGroupPolicyResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgCreateGroupPolicyResponse
+ */
 export interface MsgCreateGroupPolicyResponse {
-  /** address is the account address of the newly created group policy. */
+  /**
+   * address is the account address of the newly created group policy.
+   */
   address: string;
 }
-/** MsgUpdateGroupPolicyAdmin is the Msg/UpdateGroupPolicyAdmin request type. */
+/**
+ * MsgUpdateGroupPolicyAdmin is the Msg/UpdateGroupPolicyAdmin request type.
+ * @name MsgUpdateGroupPolicyAdmin
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupPolicyAdmin
+ */
 export interface MsgUpdateGroupPolicyAdmin {
-  /** admin is the account address of the group admin. */
+  /**
+   * admin is the account address of the group admin.
+   */
   admin: string;
-  /** group_policy_address is the account address of the group policy. */
+  /**
+   * group_policy_address is the account address of the group policy.
+   */
   groupPolicyAddress: string;
-  /** new_admin is the new group policy admin. */
+  /**
+   * new_admin is the new group policy admin.
+   */
   newAdmin: string;
 }
-/** MsgUpdateGroupPolicyAdminResponse is the Msg/UpdateGroupPolicyAdmin response type. */
+/**
+ * MsgUpdateGroupPolicyAdminResponse is the Msg/UpdateGroupPolicyAdmin response type.
+ * @name MsgUpdateGroupPolicyAdminResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupPolicyAdminResponse
+ */
 export interface MsgUpdateGroupPolicyAdminResponse {}
-/** MsgCreateGroupWithPolicy is the Msg/CreateGroupWithPolicy request type. */
+/**
+ * MsgCreateGroupWithPolicy is the Msg/CreateGroupWithPolicy request type.
+ * @name MsgCreateGroupWithPolicy
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgCreateGroupWithPolicy
+ */
 export interface MsgCreateGroupWithPolicy {
-  /** admin is the account address of the group and group policy admin. */
+  /**
+   * admin is the account address of the group and group policy admin.
+   */
   admin: string;
-  /** members defines the group members. */
+  /**
+   * members defines the group members.
+   */
   members: MemberRequest[];
-  /** group_metadata is any arbitrary metadata attached to the group. */
+  /**
+   * group_metadata is any arbitrary metadata attached to the group.
+   */
   groupMetadata: string;
-  /** group_policy_metadata is any arbitrary metadata attached to the group policy. */
+  /**
+   * group_policy_metadata is any arbitrary metadata attached to the group policy.
+   */
   groupPolicyMetadata: string;
   /**
    * group_policy_as_admin is a boolean field, if set to true, the group policy account address will be used as group
    * and group policy admin.
    */
   groupPolicyAsAdmin: boolean;
-  /** decision_policy specifies the group policy's decision policy. */
+  /**
+   * decision_policy specifies the group policy's decision policy.
+   */
   decisionPolicy?: Any;
 }
-/** MsgCreateGroupWithPolicyResponse is the Msg/CreateGroupWithPolicy response type. */
+/**
+ * MsgCreateGroupWithPolicyResponse is the Msg/CreateGroupWithPolicy response type.
+ * @name MsgCreateGroupWithPolicyResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgCreateGroupWithPolicyResponse
+ */
 export interface MsgCreateGroupWithPolicyResponse {
-  /** group_id is the unique ID of the newly created group with policy. */
+  /**
+   * group_id is the unique ID of the newly created group with policy.
+   */
   groupId: bigint;
-  /** group_policy_address is the account address of the newly created group policy. */
+  /**
+   * group_policy_address is the account address of the newly created group policy.
+   */
   groupPolicyAddress: string;
 }
-/** MsgUpdateGroupPolicyDecisionPolicy is the Msg/UpdateGroupPolicyDecisionPolicy request type. */
+/**
+ * MsgUpdateGroupPolicyDecisionPolicy is the Msg/UpdateGroupPolicyDecisionPolicy request type.
+ * @name MsgUpdateGroupPolicyDecisionPolicy
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicy
+ */
 export interface MsgUpdateGroupPolicyDecisionPolicy {
-  /** admin is the account address of the group admin. */
+  /**
+   * admin is the account address of the group admin.
+   */
   admin: string;
-  /** group_policy_address is the account address of group policy. */
+  /**
+   * group_policy_address is the account address of group policy.
+   */
   groupPolicyAddress: string;
-  /** decision_policy is the updated group policy's decision policy. */
+  /**
+   * decision_policy is the updated group policy's decision policy.
+   */
   decisionPolicy?: Any;
 }
-/** MsgUpdateGroupPolicyDecisionPolicyResponse is the Msg/UpdateGroupPolicyDecisionPolicy response type. */
+/**
+ * MsgUpdateGroupPolicyDecisionPolicyResponse is the Msg/UpdateGroupPolicyDecisionPolicy response type.
+ * @name MsgUpdateGroupPolicyDecisionPolicyResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicyResponse
+ */
 export interface MsgUpdateGroupPolicyDecisionPolicyResponse {}
-/** MsgUpdateGroupPolicyMetadata is the Msg/UpdateGroupPolicyMetadata request type. */
+/**
+ * MsgUpdateGroupPolicyMetadata is the Msg/UpdateGroupPolicyMetadata request type.
+ * @name MsgUpdateGroupPolicyMetadata
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupPolicyMetadata
+ */
 export interface MsgUpdateGroupPolicyMetadata {
-  /** admin is the account address of the group admin. */
+  /**
+   * admin is the account address of the group admin.
+   */
   admin: string;
-  /** group_policy_address is the account address of group policy. */
+  /**
+   * group_policy_address is the account address of group policy.
+   */
   groupPolicyAddress: string;
-  /** metadata is the group policy metadata to be updated. */
+  /**
+   * metadata is the group policy metadata to be updated.
+   */
   metadata: string;
 }
-/** MsgUpdateGroupPolicyMetadataResponse is the Msg/UpdateGroupPolicyMetadata response type. */
+/**
+ * MsgUpdateGroupPolicyMetadataResponse is the Msg/UpdateGroupPolicyMetadata response type.
+ * @name MsgUpdateGroupPolicyMetadataResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupPolicyMetadataResponse
+ */
 export interface MsgUpdateGroupPolicyMetadataResponse {}
-/** MsgSubmitProposal is the Msg/SubmitProposal request type. */
+/**
+ * MsgSubmitProposal is the Msg/SubmitProposal request type.
+ * @name MsgSubmitProposal
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgSubmitProposal
+ */
 export interface MsgSubmitProposal {
-  /** group_policy_address is the account address of group policy. */
+  /**
+   * group_policy_address is the account address of group policy.
+   */
   groupPolicyAddress: string;
   /**
    * proposers are the account addresses of the proposers.
    * Proposers signatures will be counted as yes votes.
    */
   proposers: string[];
-  /** metadata is any arbitrary metadata attached to the proposal. */
+  /**
+   * metadata is any arbitrary metadata attached to the proposal.
+   */
   metadata: string;
-  /** messages is a list of `sdk.Msg`s that will be executed if the proposal passes. */
+  /**
+   * messages is a list of `sdk.Msg`s that will be executed if the proposal passes.
+   */
   messages: Any[];
   /**
    * exec defines the mode of execution of the proposal,
@@ -198,34 +365,72 @@ export interface MsgSubmitProposal {
    * If so, proposers signatures are considered as Yes votes.
    */
   exec: Exec;
-  /** title is the title of the proposal. */
+  /**
+   * title is the title of the proposal.
+   */
   title: string;
-  /** summary is the summary of the proposal. */
+  /**
+   * summary is the summary of the proposal.
+   */
   summary: string;
 }
-/** MsgSubmitProposalResponse is the Msg/SubmitProposal response type. */
+/**
+ * MsgSubmitProposalResponse is the Msg/SubmitProposal response type.
+ * @name MsgSubmitProposalResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgSubmitProposalResponse
+ */
 export interface MsgSubmitProposalResponse {
-  /** proposal is the unique ID of the proposal. */
+  /**
+   * proposal is the unique ID of the proposal.
+   */
   proposalId: bigint;
 }
-/** MsgWithdrawProposal is the Msg/WithdrawProposal request type. */
+/**
+ * MsgWithdrawProposal is the Msg/WithdrawProposal request type.
+ * @name MsgWithdrawProposal
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgWithdrawProposal
+ */
 export interface MsgWithdrawProposal {
-  /** proposal is the unique ID of the proposal. */
+  /**
+   * proposal is the unique ID of the proposal.
+   */
   proposalId: bigint;
-  /** address is the admin of the group policy or one of the proposer of the proposal. */
+  /**
+   * address is the admin of the group policy or one of the proposer of the proposal.
+   */
   address: string;
 }
-/** MsgWithdrawProposalResponse is the Msg/WithdrawProposal response type. */
+/**
+ * MsgWithdrawProposalResponse is the Msg/WithdrawProposal response type.
+ * @name MsgWithdrawProposalResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgWithdrawProposalResponse
+ */
 export interface MsgWithdrawProposalResponse {}
-/** MsgVote is the Msg/Vote request type. */
+/**
+ * MsgVote is the Msg/Vote request type.
+ * @name MsgVote
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgVote
+ */
 export interface MsgVote {
-  /** proposal is the unique ID of the proposal. */
+  /**
+   * proposal is the unique ID of the proposal.
+   */
   proposalId: bigint;
-  /** voter is the voter account address. */
+  /**
+   * voter is the voter account address.
+   */
   voter: string;
-  /** option is the voter's choice on the proposal. */
+  /**
+   * option is the voter's choice on the proposal.
+   */
   option: VoteOption;
-  /** metadata is any arbitrary metadata attached to the vote. */
+  /**
+   * metadata is any arbitrary metadata attached to the vote.
+   */
   metadata: string;
   /**
    * exec defines whether the proposal should be executed
@@ -233,28 +438,63 @@ export interface MsgVote {
    */
   exec: Exec;
 }
-/** MsgVoteResponse is the Msg/Vote response type. */
+/**
+ * MsgVoteResponse is the Msg/Vote response type.
+ * @name MsgVoteResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgVoteResponse
+ */
 export interface MsgVoteResponse {}
-/** MsgExec is the Msg/Exec request type. */
+/**
+ * MsgExec is the Msg/Exec request type.
+ * @name MsgExec
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgExec
+ */
 export interface MsgExec {
-  /** proposal is the unique ID of the proposal. */
+  /**
+   * proposal is the unique ID of the proposal.
+   */
   proposalId: bigint;
-  /** executor is the account address used to execute the proposal. */
+  /**
+   * executor is the account address used to execute the proposal.
+   */
   executor: string;
 }
-/** MsgExecResponse is the Msg/Exec request type. */
+/**
+ * MsgExecResponse is the Msg/Exec request type.
+ * @name MsgExecResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgExecResponse
+ */
 export interface MsgExecResponse {
-  /** result is the final result of the proposal execution. */
+  /**
+   * result is the final result of the proposal execution.
+   */
   result: ProposalExecutorResult;
 }
-/** MsgLeaveGroup is the Msg/LeaveGroup request type. */
+/**
+ * MsgLeaveGroup is the Msg/LeaveGroup request type.
+ * @name MsgLeaveGroup
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgLeaveGroup
+ */
 export interface MsgLeaveGroup {
-  /** address is the account address of the group member. */
+  /**
+   * address is the account address of the group member.
+   */
   address: string;
-  /** group_id is the unique ID of the group. */
+  /**
+   * group_id is the unique ID of the group.
+   */
   groupId: bigint;
 }
-/** MsgLeaveGroupResponse is the Msg/LeaveGroup response type. */
+/**
+ * MsgLeaveGroupResponse is the Msg/LeaveGroup response type.
+ * @name MsgLeaveGroupResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgLeaveGroupResponse
+ */
 export interface MsgLeaveGroupResponse {}
 function createBaseMsgCreateGroup(): MsgCreateGroup {
   return {
@@ -263,6 +503,12 @@ function createBaseMsgCreateGroup(): MsgCreateGroup {
     metadata: "",
   };
 }
+/**
+ * MsgCreateGroup is the Msg/CreateGroup request type.
+ * @name MsgCreateGroup
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgCreateGroup
+ */
 export const MsgCreateGroup = {
   typeUrl: "/cosmos.group.v1.MsgCreateGroup",
   encode(message: MsgCreateGroup, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -332,6 +578,12 @@ function createBaseMsgCreateGroupResponse(): MsgCreateGroupResponse {
     groupId: BigInt(0),
   };
 }
+/**
+ * MsgCreateGroupResponse is the Msg/CreateGroup response type.
+ * @name MsgCreateGroupResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgCreateGroupResponse
+ */
 export const MsgCreateGroupResponse = {
   typeUrl: "/cosmos.group.v1.MsgCreateGroupResponse",
   encode(message: MsgCreateGroupResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -382,6 +634,12 @@ function createBaseMsgUpdateGroupMembers(): MsgUpdateGroupMembers {
     memberUpdates: [],
   };
 }
+/**
+ * MsgUpdateGroupMembers is the Msg/UpdateGroupMembers request type.
+ * @name MsgUpdateGroupMembers
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupMembers
+ */
 export const MsgUpdateGroupMembers = {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupMembers",
   encode(message: MsgUpdateGroupMembers, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -451,6 +709,12 @@ export const MsgUpdateGroupMembers = {
 function createBaseMsgUpdateGroupMembersResponse(): MsgUpdateGroupMembersResponse {
   return {};
 }
+/**
+ * MsgUpdateGroupMembersResponse is the Msg/UpdateGroupMembers response type.
+ * @name MsgUpdateGroupMembersResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupMembersResponse
+ */
 export const MsgUpdateGroupMembersResponse = {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupMembersResponse",
   encode(_: MsgUpdateGroupMembersResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -492,6 +756,12 @@ function createBaseMsgUpdateGroupAdmin(): MsgUpdateGroupAdmin {
     newAdmin: "",
   };
 }
+/**
+ * MsgUpdateGroupAdmin is the Msg/UpdateGroupAdmin request type.
+ * @name MsgUpdateGroupAdmin
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupAdmin
+ */
 export const MsgUpdateGroupAdmin = {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupAdmin",
   encode(message: MsgUpdateGroupAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -556,6 +826,12 @@ export const MsgUpdateGroupAdmin = {
 function createBaseMsgUpdateGroupAdminResponse(): MsgUpdateGroupAdminResponse {
   return {};
 }
+/**
+ * MsgUpdateGroupAdminResponse is the Msg/UpdateGroupAdmin response type.
+ * @name MsgUpdateGroupAdminResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupAdminResponse
+ */
 export const MsgUpdateGroupAdminResponse = {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupAdminResponse",
   encode(_: MsgUpdateGroupAdminResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -597,6 +873,12 @@ function createBaseMsgUpdateGroupMetadata(): MsgUpdateGroupMetadata {
     metadata: "",
   };
 }
+/**
+ * MsgUpdateGroupMetadata is the Msg/UpdateGroupMetadata request type.
+ * @name MsgUpdateGroupMetadata
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupMetadata
+ */
 export const MsgUpdateGroupMetadata = {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupMetadata",
   encode(message: MsgUpdateGroupMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -661,6 +943,12 @@ export const MsgUpdateGroupMetadata = {
 function createBaseMsgUpdateGroupMetadataResponse(): MsgUpdateGroupMetadataResponse {
   return {};
 }
+/**
+ * MsgUpdateGroupMetadataResponse is the Msg/UpdateGroupMetadata response type.
+ * @name MsgUpdateGroupMetadataResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupMetadataResponse
+ */
 export const MsgUpdateGroupMetadataResponse = {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupMetadataResponse",
   encode(_: MsgUpdateGroupMetadataResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -703,6 +991,12 @@ function createBaseMsgCreateGroupPolicy(): MsgCreateGroupPolicy {
     decisionPolicy: undefined,
   };
 }
+/**
+ * MsgCreateGroupPolicy is the Msg/CreateGroupPolicy request type.
+ * @name MsgCreateGroupPolicy
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgCreateGroupPolicy
+ */
 export const MsgCreateGroupPolicy = {
   typeUrl: "/cosmos.group.v1.MsgCreateGroupPolicy",
   encode(message: MsgCreateGroupPolicy, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -781,6 +1075,12 @@ function createBaseMsgCreateGroupPolicyResponse(): MsgCreateGroupPolicyResponse 
     address: "",
   };
 }
+/**
+ * MsgCreateGroupPolicyResponse is the Msg/CreateGroupPolicy response type.
+ * @name MsgCreateGroupPolicyResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgCreateGroupPolicyResponse
+ */
 export const MsgCreateGroupPolicyResponse = {
   typeUrl: "/cosmos.group.v1.MsgCreateGroupPolicyResponse",
   encode(message: MsgCreateGroupPolicyResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -831,6 +1131,12 @@ function createBaseMsgUpdateGroupPolicyAdmin(): MsgUpdateGroupPolicyAdmin {
     newAdmin: "",
   };
 }
+/**
+ * MsgUpdateGroupPolicyAdmin is the Msg/UpdateGroupPolicyAdmin request type.
+ * @name MsgUpdateGroupPolicyAdmin
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupPolicyAdmin
+ */
 export const MsgUpdateGroupPolicyAdmin = {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyAdmin",
   encode(message: MsgUpdateGroupPolicyAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -895,6 +1201,12 @@ export const MsgUpdateGroupPolicyAdmin = {
 function createBaseMsgUpdateGroupPolicyAdminResponse(): MsgUpdateGroupPolicyAdminResponse {
   return {};
 }
+/**
+ * MsgUpdateGroupPolicyAdminResponse is the Msg/UpdateGroupPolicyAdmin response type.
+ * @name MsgUpdateGroupPolicyAdminResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupPolicyAdminResponse
+ */
 export const MsgUpdateGroupPolicyAdminResponse = {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyAdminResponse",
   encode(_: MsgUpdateGroupPolicyAdminResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -939,6 +1251,12 @@ function createBaseMsgCreateGroupWithPolicy(): MsgCreateGroupWithPolicy {
     decisionPolicy: undefined,
   };
 }
+/**
+ * MsgCreateGroupWithPolicy is the Msg/CreateGroupWithPolicy request type.
+ * @name MsgCreateGroupWithPolicy
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgCreateGroupWithPolicy
+ */
 export const MsgCreateGroupWithPolicy = {
   typeUrl: "/cosmos.group.v1.MsgCreateGroupWithPolicy",
   encode(message: MsgCreateGroupWithPolicy, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1041,6 +1359,12 @@ function createBaseMsgCreateGroupWithPolicyResponse(): MsgCreateGroupWithPolicyR
     groupPolicyAddress: "",
   };
 }
+/**
+ * MsgCreateGroupWithPolicyResponse is the Msg/CreateGroupWithPolicy response type.
+ * @name MsgCreateGroupWithPolicyResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgCreateGroupWithPolicyResponse
+ */
 export const MsgCreateGroupWithPolicyResponse = {
   typeUrl: "/cosmos.group.v1.MsgCreateGroupWithPolicyResponse",
   encode(
@@ -1105,6 +1429,12 @@ function createBaseMsgUpdateGroupPolicyDecisionPolicy(): MsgUpdateGroupPolicyDec
     decisionPolicy: undefined,
   };
 }
+/**
+ * MsgUpdateGroupPolicyDecisionPolicy is the Msg/UpdateGroupPolicyDecisionPolicy request type.
+ * @name MsgUpdateGroupPolicyDecisionPolicy
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicy
+ */
 export const MsgUpdateGroupPolicyDecisionPolicy = {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicy",
   encode(
@@ -1175,6 +1505,12 @@ export const MsgUpdateGroupPolicyDecisionPolicy = {
 function createBaseMsgUpdateGroupPolicyDecisionPolicyResponse(): MsgUpdateGroupPolicyDecisionPolicyResponse {
   return {};
 }
+/**
+ * MsgUpdateGroupPolicyDecisionPolicyResponse is the Msg/UpdateGroupPolicyDecisionPolicy response type.
+ * @name MsgUpdateGroupPolicyDecisionPolicyResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicyResponse
+ */
 export const MsgUpdateGroupPolicyDecisionPolicyResponse = {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicyResponse",
   encode(
@@ -1221,6 +1557,12 @@ function createBaseMsgUpdateGroupPolicyMetadata(): MsgUpdateGroupPolicyMetadata 
     metadata: "",
   };
 }
+/**
+ * MsgUpdateGroupPolicyMetadata is the Msg/UpdateGroupPolicyMetadata request type.
+ * @name MsgUpdateGroupPolicyMetadata
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupPolicyMetadata
+ */
 export const MsgUpdateGroupPolicyMetadata = {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyMetadata",
   encode(message: MsgUpdateGroupPolicyMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1285,6 +1627,12 @@ export const MsgUpdateGroupPolicyMetadata = {
 function createBaseMsgUpdateGroupPolicyMetadataResponse(): MsgUpdateGroupPolicyMetadataResponse {
   return {};
 }
+/**
+ * MsgUpdateGroupPolicyMetadataResponse is the Msg/UpdateGroupPolicyMetadata response type.
+ * @name MsgUpdateGroupPolicyMetadataResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgUpdateGroupPolicyMetadataResponse
+ */
 export const MsgUpdateGroupPolicyMetadataResponse = {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyMetadataResponse",
   encode(
@@ -1333,6 +1681,12 @@ function createBaseMsgSubmitProposal(): MsgSubmitProposal {
     summary: "",
   };
 }
+/**
+ * MsgSubmitProposal is the Msg/SubmitProposal request type.
+ * @name MsgSubmitProposal
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgSubmitProposal
+ */
 export const MsgSubmitProposal = {
   typeUrl: "/cosmos.group.v1.MsgSubmitProposal",
   encode(message: MsgSubmitProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1441,6 +1795,12 @@ function createBaseMsgSubmitProposalResponse(): MsgSubmitProposalResponse {
     proposalId: BigInt(0),
   };
 }
+/**
+ * MsgSubmitProposalResponse is the Msg/SubmitProposal response type.
+ * @name MsgSubmitProposalResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgSubmitProposalResponse
+ */
 export const MsgSubmitProposalResponse = {
   typeUrl: "/cosmos.group.v1.MsgSubmitProposalResponse",
   encode(message: MsgSubmitProposalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1492,6 +1852,12 @@ function createBaseMsgWithdrawProposal(): MsgWithdrawProposal {
     address: "",
   };
 }
+/**
+ * MsgWithdrawProposal is the Msg/WithdrawProposal request type.
+ * @name MsgWithdrawProposal
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgWithdrawProposal
+ */
 export const MsgWithdrawProposal = {
   typeUrl: "/cosmos.group.v1.MsgWithdrawProposal",
   encode(message: MsgWithdrawProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1547,6 +1913,12 @@ export const MsgWithdrawProposal = {
 function createBaseMsgWithdrawProposalResponse(): MsgWithdrawProposalResponse {
   return {};
 }
+/**
+ * MsgWithdrawProposalResponse is the Msg/WithdrawProposal response type.
+ * @name MsgWithdrawProposalResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgWithdrawProposalResponse
+ */
 export const MsgWithdrawProposalResponse = {
   typeUrl: "/cosmos.group.v1.MsgWithdrawProposalResponse",
   encode(_: MsgWithdrawProposalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1590,6 +1962,12 @@ function createBaseMsgVote(): MsgVote {
     exec: 0,
   };
 }
+/**
+ * MsgVote is the Msg/Vote request type.
+ * @name MsgVote
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgVote
+ */
 export const MsgVote = {
   typeUrl: "/cosmos.group.v1.MsgVote",
   encode(message: MsgVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1672,6 +2050,12 @@ export const MsgVote = {
 function createBaseMsgVoteResponse(): MsgVoteResponse {
   return {};
 }
+/**
+ * MsgVoteResponse is the Msg/Vote response type.
+ * @name MsgVoteResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgVoteResponse
+ */
 export const MsgVoteResponse = {
   typeUrl: "/cosmos.group.v1.MsgVoteResponse",
   encode(_: MsgVoteResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1710,6 +2094,12 @@ function createBaseMsgExec(): MsgExec {
     executor: "",
   };
 }
+/**
+ * MsgExec is the Msg/Exec request type.
+ * @name MsgExec
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgExec
+ */
 export const MsgExec = {
   typeUrl: "/cosmos.group.v1.MsgExec",
   encode(message: MsgExec, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1767,6 +2157,12 @@ function createBaseMsgExecResponse(): MsgExecResponse {
     result: 0,
   };
 }
+/**
+ * MsgExecResponse is the Msg/Exec request type.
+ * @name MsgExecResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgExecResponse
+ */
 export const MsgExecResponse = {
   typeUrl: "/cosmos.group.v1.MsgExecResponse",
   encode(message: MsgExecResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1814,6 +2210,12 @@ function createBaseMsgLeaveGroup(): MsgLeaveGroup {
     groupId: BigInt(0),
   };
 }
+/**
+ * MsgLeaveGroup is the Msg/LeaveGroup request type.
+ * @name MsgLeaveGroup
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgLeaveGroup
+ */
 export const MsgLeaveGroup = {
   typeUrl: "/cosmos.group.v1.MsgLeaveGroup",
   encode(message: MsgLeaveGroup, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1869,6 +2271,12 @@ export const MsgLeaveGroup = {
 function createBaseMsgLeaveGroupResponse(): MsgLeaveGroupResponse {
   return {};
 }
+/**
+ * MsgLeaveGroupResponse is the Msg/LeaveGroup response type.
+ * @name MsgLeaveGroupResponse
+ * @package cosmos.group.v1
+ * @see proto type: cosmos.group.v1.MsgLeaveGroupResponse
+ */
 export const MsgLeaveGroupResponse = {
   typeUrl: "/cosmos.group.v1.MsgLeaveGroupResponse",
   encode(_: MsgLeaveGroupResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

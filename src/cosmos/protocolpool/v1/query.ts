@@ -1,62 +1,105 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../base/v1beta1/coin";
-import { ContinuousFund, Params } from "./types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { ContinuousFund, Params } from "./types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "cosmos.protocolpool.v1";
 /**
  * QueryCommunityPoolRequest is the request type for the Query/CommunityPool RPC
  * method.
+ * @name QueryCommunityPoolRequest
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryCommunityPoolRequest
  */
 export interface QueryCommunityPoolRequest {}
 /**
  * QueryCommunityPoolResponse is the response type for the Query/CommunityPool
  * RPC method.
+ * @name QueryCommunityPoolResponse
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryCommunityPoolResponse
  */
 export interface QueryCommunityPoolResponse {
-  /** pool defines community pool's coins. */
+  /**
+   * pool defines community pool's coins.
+   */
   pool: Coin[];
 }
 /**
  * QueryContinuousFundRequest is the request type for the Query/ContinuousFund
  * RPC method.
+ * @name QueryContinuousFundRequest
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryContinuousFundRequest
  */
 export interface QueryContinuousFundRequest {
-  /** recipient is the recipient address to query unclaimed budget amount for. */
+  /**
+   * recipient is the recipient address to query unclaimed budget amount for.
+   */
   recipient: string;
 }
 /**
  * QueryUnclaimedBudgetResponse is the response type for the Query/ContinuousFund
  * RPC method.
+ * @name QueryContinuousFundResponse
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryContinuousFundResponse
  */
 export interface QueryContinuousFundResponse {
-  /** ContinuousFunds is the given continuous fund returned in the query. */
+  /**
+   * ContinuousFunds is the given continuous fund returned in the query.
+   */
   continuousFund: ContinuousFund;
 }
 /**
  * QueryContinuousFundRequest is the request type for the Query/ContinuousFunds
  * RPC method.
+ * @name QueryContinuousFundsRequest
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryContinuousFundsRequest
  */
 export interface QueryContinuousFundsRequest {}
 /**
  * QueryUnclaimedBudgetResponse is the response type for the Query/ContinuousFunds
  * RPC method.
+ * @name QueryContinuousFundsResponse
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryContinuousFundsResponse
  */
 export interface QueryContinuousFundsResponse {
-  /** ContinuousFunds defines all continuous funds in state. */
+  /**
+   * ContinuousFunds defines all continuous funds in state.
+   */
   continuousFunds: ContinuousFund[];
 }
-/** QueryParamsRequest is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the response type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
   params: Params;
 }
 function createBaseQueryCommunityPoolRequest(): QueryCommunityPoolRequest {
   return {};
 }
+/**
+ * QueryCommunityPoolRequest is the request type for the Query/CommunityPool RPC
+ * method.
+ * @name QueryCommunityPoolRequest
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryCommunityPoolRequest
+ */
 export const QueryCommunityPoolRequest = {
   typeUrl: "/cosmos.protocolpool.v1.QueryCommunityPoolRequest",
   encode(_: QueryCommunityPoolRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -94,6 +137,13 @@ function createBaseQueryCommunityPoolResponse(): QueryCommunityPoolResponse {
     pool: [],
   };
 }
+/**
+ * QueryCommunityPoolResponse is the response type for the Query/CommunityPool
+ * RPC method.
+ * @name QueryCommunityPoolResponse
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryCommunityPoolResponse
+ */
 export const QueryCommunityPoolResponse = {
   typeUrl: "/cosmos.protocolpool.v1.QueryCommunityPoolResponse",
   encode(message: QueryCommunityPoolResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -146,6 +196,13 @@ function createBaseQueryContinuousFundRequest(): QueryContinuousFundRequest {
     recipient: "",
   };
 }
+/**
+ * QueryContinuousFundRequest is the request type for the Query/ContinuousFund
+ * RPC method.
+ * @name QueryContinuousFundRequest
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryContinuousFundRequest
+ */
 export const QueryContinuousFundRequest = {
   typeUrl: "/cosmos.protocolpool.v1.QueryContinuousFundRequest",
   encode(message: QueryContinuousFundRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -194,6 +251,13 @@ function createBaseQueryContinuousFundResponse(): QueryContinuousFundResponse {
     continuousFund: ContinuousFund.fromPartial({}),
   };
 }
+/**
+ * QueryUnclaimedBudgetResponse is the response type for the Query/ContinuousFund
+ * RPC method.
+ * @name QueryContinuousFundResponse
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryContinuousFundResponse
+ */
 export const QueryContinuousFundResponse = {
   typeUrl: "/cosmos.protocolpool.v1.QueryContinuousFundResponse",
   encode(message: QueryContinuousFundResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -245,6 +309,13 @@ export const QueryContinuousFundResponse = {
 function createBaseQueryContinuousFundsRequest(): QueryContinuousFundsRequest {
   return {};
 }
+/**
+ * QueryContinuousFundRequest is the request type for the Query/ContinuousFunds
+ * RPC method.
+ * @name QueryContinuousFundsRequest
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryContinuousFundsRequest
+ */
 export const QueryContinuousFundsRequest = {
   typeUrl: "/cosmos.protocolpool.v1.QueryContinuousFundsRequest",
   encode(_: QueryContinuousFundsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -284,6 +355,13 @@ function createBaseQueryContinuousFundsResponse(): QueryContinuousFundsResponse 
     continuousFunds: [],
   };
 }
+/**
+ * QueryUnclaimedBudgetResponse is the response type for the Query/ContinuousFunds
+ * RPC method.
+ * @name QueryContinuousFundsResponse
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryContinuousFundsResponse
+ */
 export const QueryContinuousFundsResponse = {
   typeUrl: "/cosmos.protocolpool.v1.QueryContinuousFundsResponse",
   encode(message: QueryContinuousFundsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -335,6 +413,12 @@ export const QueryContinuousFundsResponse = {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is the response type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/cosmos.protocolpool.v1.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -372,6 +456,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package cosmos.protocolpool.v1
+ * @see proto type: cosmos.protocolpool.v1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/cosmos.protocolpool.v1.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

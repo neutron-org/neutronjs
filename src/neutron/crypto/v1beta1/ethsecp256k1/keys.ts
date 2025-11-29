@@ -1,13 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "neutron.crypto.v1beta1.ethsecp256k1";
 /**
  * PubKey defines a type alias for an ecdsa.PublicKey that implements
  * Tendermint's PubKey interface. It represents the 33-byte compressed public
  * key format.
+ * @name PubKey
+ * @package neutron.crypto.v1beta1.ethsecp256k1
+ * @see proto type: neutron.crypto.v1beta1.ethsecp256k1.PubKey
  */
 export interface PubKey {
   key: Uint8Array;
@@ -15,6 +18,9 @@ export interface PubKey {
 /**
  * PrivKey defines a type alias for an ecdsa.PrivateKey that implements
  * Tendermint's PrivateKey interface.
+ * @name PrivKey
+ * @package neutron.crypto.v1beta1.ethsecp256k1
+ * @see proto type: neutron.crypto.v1beta1.ethsecp256k1.PrivKey
  */
 export interface PrivKey {
   key: Uint8Array;
@@ -24,6 +30,14 @@ function createBasePubKey(): PubKey {
     key: new Uint8Array(),
   };
 }
+/**
+ * PubKey defines a type alias for an ecdsa.PublicKey that implements
+ * Tendermint's PubKey interface. It represents the 33-byte compressed public
+ * key format.
+ * @name PubKey
+ * @package neutron.crypto.v1beta1.ethsecp256k1
+ * @see proto type: neutron.crypto.v1beta1.ethsecp256k1.PubKey
+ */
 export const PubKey = {
   typeUrl: "/neutron.crypto.v1beta1.ethsecp256k1.PubKey",
   encode(message: PubKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -71,6 +85,13 @@ function createBasePrivKey(): PrivKey {
     key: new Uint8Array(),
   };
 }
+/**
+ * PrivKey defines a type alias for an ecdsa.PrivateKey that implements
+ * Tendermint's PrivateKey interface.
+ * @name PrivKey
+ * @package neutron.crypto.v1beta1.ethsecp256k1
+ * @see proto type: neutron.crypto.v1beta1.ethsecp256k1.PrivKey
+ */
 export const PrivKey = {
   typeUrl: "/neutron.crypto.v1beta1.ethsecp256k1.PrivKey",
   encode(message: PrivKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -1,36 +1,68 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.benchmark.module.v1";
-/** Module is the config object of the benchmark module. */
+/**
+ * Module is the config object of the benchmark module.
+ * @name Module
+ * @package cosmos.benchmark.module.v1
+ * @see proto type: cosmos.benchmark.module.v1.Module
+ */
 export interface Module {
   genesisParams?: GeneratorParams;
 }
-/** GenesisParams defines the genesis parameters for the benchmark module. */
+/**
+ * GenesisParams defines the genesis parameters for the benchmark module.
+ * @name GeneratorParams
+ * @package cosmos.benchmark.module.v1
+ * @see proto type: cosmos.benchmark.module.v1.GeneratorParams
+ */
 export interface GeneratorParams {
-  /** seed is the seed for the random number generator. */
+  /**
+   * seed is the seed for the random number generator.
+   */
   seed: bigint;
-  /** bucket_count is the number of store keys to uniformly distribute genesis_count keys across. */
+  /**
+   * bucket_count is the number of store keys to uniformly distribute genesis_count keys across.
+   */
   bucketCount: bigint;
-  /** key_mean is the mean size (in normal distribution) of keys in each bucket. */
+  /**
+   * key_mean is the mean size (in normal distribution) of keys in each bucket.
+   */
   keyMean: bigint;
-  /** key_std_dev is the standard deviation of key sizes in each bucket. */
+  /**
+   * key_std_dev is the standard deviation of key sizes in each bucket.
+   */
   keyStdDev: bigint;
-  /** value_mean is the mean size (in normal distribution) of values in each bucket. */
+  /**
+   * value_mean is the mean size (in normal distribution) of values in each bucket.
+   */
   valueMean: bigint;
-  /** value_std_dev is the standard deviation of value sizes in each bucket. */
+  /**
+   * value_std_dev is the standard deviation of value sizes in each bucket.
+   */
   valueStdDev: bigint;
-  /** genesis_count is the number of keys to insert in the store, distributed across all buckets. */
+  /**
+   * genesis_count is the number of keys to insert in the store, distributed across all buckets.
+   */
   genesisCount: bigint;
-  /** insert_weight is the weight of insert operations. */
+  /**
+   * insert_weight is the weight of insert operations.
+   */
   insertWeight: number;
-  /** update_weight is the weight of update operations. */
+  /**
+   * update_weight is the weight of update operations.
+   */
   updateWeight: number;
-  /** get_weight is the weight of get operations. */
+  /**
+   * get_weight is the weight of get operations.
+   */
   getWeight: number;
-  /** delete_weight is the weight of delete operations. */
+  /**
+   * delete_weight is the weight of delete operations.
+   */
   deleteWeight: number;
 }
 function createBaseModule(): Module {
@@ -38,6 +70,12 @@ function createBaseModule(): Module {
     genesisParams: undefined,
   };
 }
+/**
+ * Module is the config object of the benchmark module.
+ * @name Module
+ * @package cosmos.benchmark.module.v1
+ * @see proto type: cosmos.benchmark.module.v1.Module
+ */
 export const Module = {
   typeUrl: "/cosmos.benchmark.module.v1.Module",
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -97,6 +135,12 @@ function createBaseGeneratorParams(): GeneratorParams {
     deleteWeight: 0,
   };
 }
+/**
+ * GenesisParams defines the genesis parameters for the benchmark module.
+ * @name GeneratorParams
+ * @package cosmos.benchmark.module.v1
+ * @see proto type: cosmos.benchmark.module.v1.GeneratorParams
+ */
 export const GeneratorParams = {
   typeUrl: "/cosmos.benchmark.module.v1.GeneratorParams",
   encode(message: GeneratorParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

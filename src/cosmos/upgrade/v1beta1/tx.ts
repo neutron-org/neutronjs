@@ -1,25 +1,51 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Plan } from "./upgrade";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Plan } from "./upgrade.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.upgrade.v1beta1";
-/** MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type. */
+/**
+ * MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type.
+ * @name MsgSoftwareUpgrade
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.MsgSoftwareUpgrade
+ */
 export interface MsgSoftwareUpgrade {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless overwritten).
+   */
   authority: string;
-  /** plan is the upgrade plan. */
+  /**
+   * plan is the upgrade plan.
+   */
   plan: Plan;
 }
-/** MsgSoftwareUpgradeResponse is the Msg/SoftwareUpgrade response type. */
+/**
+ * MsgSoftwareUpgradeResponse is the Msg/SoftwareUpgrade response type.
+ * @name MsgSoftwareUpgradeResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse
+ */
 export interface MsgSoftwareUpgradeResponse {}
-/** MsgCancelUpgrade is the Msg/CancelUpgrade request type. */
+/**
+ * MsgCancelUpgrade is the Msg/CancelUpgrade request type.
+ * @name MsgCancelUpgrade
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.MsgCancelUpgrade
+ */
 export interface MsgCancelUpgrade {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless overwritten).
+   */
   authority: string;
 }
-/** MsgCancelUpgradeResponse is the Msg/CancelUpgrade response type. */
+/**
+ * MsgCancelUpgradeResponse is the Msg/CancelUpgrade response type.
+ * @name MsgCancelUpgradeResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.MsgCancelUpgradeResponse
+ */
 export interface MsgCancelUpgradeResponse {}
 function createBaseMsgSoftwareUpgrade(): MsgSoftwareUpgrade {
   return {
@@ -27,6 +53,12 @@ function createBaseMsgSoftwareUpgrade(): MsgSoftwareUpgrade {
     plan: Plan.fromPartial({}),
   };
 }
+/**
+ * MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type.
+ * @name MsgSoftwareUpgrade
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.MsgSoftwareUpgrade
+ */
 export const MsgSoftwareUpgrade = {
   typeUrl: "/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade",
   encode(message: MsgSoftwareUpgrade, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -82,6 +114,12 @@ export const MsgSoftwareUpgrade = {
 function createBaseMsgSoftwareUpgradeResponse(): MsgSoftwareUpgradeResponse {
   return {};
 }
+/**
+ * MsgSoftwareUpgradeResponse is the Msg/SoftwareUpgrade response type.
+ * @name MsgSoftwareUpgradeResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse
+ */
 export const MsgSoftwareUpgradeResponse = {
   typeUrl: "/cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse",
   encode(_: MsgSoftwareUpgradeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -119,6 +157,12 @@ function createBaseMsgCancelUpgrade(): MsgCancelUpgrade {
     authority: "",
   };
 }
+/**
+ * MsgCancelUpgrade is the Msg/CancelUpgrade request type.
+ * @name MsgCancelUpgrade
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.MsgCancelUpgrade
+ */
 export const MsgCancelUpgrade = {
   typeUrl: "/cosmos.upgrade.v1beta1.MsgCancelUpgrade",
   encode(message: MsgCancelUpgrade, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -163,6 +207,12 @@ export const MsgCancelUpgrade = {
 function createBaseMsgCancelUpgradeResponse(): MsgCancelUpgradeResponse {
   return {};
 }
+/**
+ * MsgCancelUpgradeResponse is the Msg/CancelUpgrade response type.
+ * @name MsgCancelUpgradeResponse
+ * @package cosmos.upgrade.v1beta1
+ * @see proto type: cosmos.upgrade.v1beta1.MsgCancelUpgradeResponse
+ */
 export const MsgCancelUpgradeResponse = {
   typeUrl: "/cosmos.upgrade.v1beta1.MsgCancelUpgradeResponse",
   encode(_: MsgCancelUpgradeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

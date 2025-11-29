@@ -1,17 +1,24 @@
 //@ts-nocheck
 /* eslint-disable */
-import { KVKey } from "./genesis";
-import { Params } from "./params";
-import { ProofOps, Proof } from "../../tendermint/crypto/proof";
-import { Any } from "../../google/protobuf/any";
-import { ExecTxResult } from "../../tendermint/abci/types";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { KVKey } from "./genesis.js";
+import { Params } from "./params.js";
+import { ProofOps, Proof } from "../../tendermint/crypto/proof.js";
+import { Any } from "../../google/protobuf/any.js";
+import { ExecTxResult } from "../../tendermint/abci/types.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.interchainqueries";
-/** Request type for the Msg/RegisterInterchainQuery RPC method. */
+/**
+ * Request type for the Msg/RegisterInterchainQuery RPC method.
+ * @name MsgRegisterInterchainQuery
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgRegisterInterchainQuery
+ */
 export interface MsgRegisterInterchainQuery {
-  /** The query type identifier: `kv` or `tx`. */
+  /**
+   * The query type identifier: `kv` or `tx`.
+   */
   queryType: string;
   /**
    * The KV-storage keys for which we want to get values from remote chain. Only applicable for the
@@ -36,28 +43,48 @@ export interface MsgRegisterInterchainQuery {
    * minimal delay between query results update).
    */
   updatePeriod: bigint;
-  /** The signer of the message. */
+  /**
+   * The signer of the message.
+   */
   sender: string;
 }
-/** Response type for the Msg/RegisterInterchainQuery RPC method. */
+/**
+ * Response type for the Msg/RegisterInterchainQuery RPC method.
+ * @name MsgRegisterInterchainQueryResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgRegisterInterchainQueryResponse
+ */
 export interface MsgRegisterInterchainQueryResponse {
-  /** The ID assigned to the registered Interchain Query by the module. */
+  /**
+   * The ID assigned to the registered Interchain Query by the module.
+   */
   id: bigint;
 }
-/** Request type for the Msg/SubmitQueryResult RPC method. */
+/**
+ * Request type for the Msg/SubmitQueryResult RPC method.
+ * @name MsgSubmitQueryResult
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgSubmitQueryResult
+ */
 export interface MsgSubmitQueryResult {
-  /** The ID of the Interchain Query. */
+  /**
+   * The ID of the Interchain Query.
+   */
   queryId: bigint;
-  /** The signer of the message. */
+  /**
+   * The signer of the message.
+   */
   sender: string;
   /**
    * The IBC client ID that corresponds to the IBC connection to the remote chain (where the
    * query result is coming from).
    * Deprecated: populating this field does not make any affect
+   * @deprecated
    */
-  /** @deprecated */
   clientId: string;
-  /** The result of the Interchain Query execution. */
+  /**
+   * The result of the Interchain Query execution.
+   */
   result?: QueryResult;
 }
 /**
@@ -68,6 +95,9 @@ export interface MsgSubmitQueryResult {
  * provided to the interchainqueries module in order to verify the result against the IBC client's
  * state. But in order to lighten the chain state, the interchainqueries module removes the block
  * field and proofs from the kv_results.
+ * @name QueryResult
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryResult
  */
 export interface QueryResult {
   /**
@@ -81,9 +111,13 @@ export interface QueryResult {
    * and emptied when saving the result on chain.
    */
   block?: Block;
-  /** The height of the chain at the moment of the Interchain Query execution. */
+  /**
+   * The height of the chain at the moment of the Interchain Query execution.
+   */
   height: bigint;
-  /** The revision number of the chain at the moment of the Interchain Query execution. */
+  /**
+   * The revision number of the chain at the moment of the Interchain Query execution.
+   */
   revision: bigint;
   /**
    * Whether to send the query result to the owner contract as a sudo message. Only applicable for
@@ -91,16 +125,25 @@ export interface QueryResult {
    */
   allowKvCallbacks: boolean;
 }
-/** A verifiable result of performing a single KVKey read. */
+/**
+ * A verifiable result of performing a single KVKey read.
+ * @name StorageValue
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.StorageValue
+ */
 export interface StorageValue {
   /**
    * The substore name used in the read operation. Typically, this corresponds to the keeper's
    * storeKey, usually the module's name, such as "bank", "staking", etc.
    */
   storagePrefix: string;
-  /** A bytes field representing the key of the data read from the module's storage. */
+  /**
+   * A bytes field representing the key of the data read from the module's storage.
+   */
   key: Uint8Array;
-  /** A bytes field containing the value associated with the key in the store. */
+  /**
+   * A bytes field containing the value associated with the key in the store.
+   */
   value: Uint8Array;
   /**
    * The Merkle Proof which proves existence/nonexistence of key-value pair in IAVL storage. Is
@@ -109,7 +152,12 @@ export interface StorageValue {
    */
   proof?: ProofOps;
 }
-/** A single verifiable result of an Interchain Query of TX type. */
+/**
+ * A single verifiable result of an Interchain Query of TX type.
+ * @name Block
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.Block
+ */
 export interface Block {
   /**
    * The header of the block next to the block the transaction is included in. It is needed to know
@@ -122,37 +170,76 @@ export interface Block {
    * verify inclusion of the transaction.
    */
   header?: Any;
-  /** The transaction matched by the Interchain Query's transaction filter. */
+  /**
+   * The transaction matched by the Interchain Query's transaction filter.
+   */
   tx?: TxValue;
 }
-/** Contains transaction body, response, and proofs of inclusion and delivery. */
+/**
+ * Contains transaction body, response, and proofs of inclusion and delivery.
+ * @name TxValue
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.TxValue
+ */
 export interface TxValue {
-  /** The result of the transaction execution. */
+  /**
+   * The result of the transaction execution.
+   */
   response?: ExecTxResult;
   /**
    * The Merkle Proof which proves existence of response in the block next to the block the
    * transaction is included in.
    */
   deliveryProof?: Proof;
-  /** The Merkle Proof which proves inclusion of the transaction in the block. */
+  /**
+   * The Merkle Proof which proves inclusion of the transaction in the block.
+   */
   inclusionProof?: Proof;
-  /** The arbitrary data typed body of the transaction. */
+  /**
+   * The arbitrary data typed body of the transaction.
+   */
   data: Uint8Array;
 }
-/** Response type for the Msg/SubmitQueryResult RPC method. */
+/**
+ * Response type for the Msg/SubmitQueryResult RPC method.
+ * @name MsgSubmitQueryResultResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgSubmitQueryResultResponse
+ */
 export interface MsgSubmitQueryResultResponse {}
-/** Request type for the Msg/RemoveInterchainQuery RPC method. */
+/**
+ * Request type for the Msg/RemoveInterchainQuery RPC method.
+ * @name MsgRemoveInterchainQueryRequest
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgRemoveInterchainQueryRequest
+ */
 export interface MsgRemoveInterchainQueryRequest {
-  /** The ID of the query to remove. */
+  /**
+   * The ID of the query to remove.
+   */
   queryId: bigint;
-  /** The signer of the message. */
+  /**
+   * The signer of the message.
+   */
   sender: string;
 }
-/** Response type for the Msg/RemoveInterchainQuery RPC method. */
+/**
+ * Response type for the Msg/RemoveInterchainQuery RPC method.
+ * @name MsgRemoveInterchainQueryResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgRemoveInterchainQueryResponse
+ */
 export interface MsgRemoveInterchainQueryResponse {}
-/** Request type for the Msg/UpdateInterchainQuery RPC method. */
+/**
+ * Request type for the Msg/UpdateInterchainQuery RPC method.
+ * @name MsgUpdateInterchainQueryRequest
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgUpdateInterchainQueryRequest
+ */
 export interface MsgUpdateInterchainQueryRequest {
-  /** The ID of the query to update. */
+  /**
+   * The ID of the query to update.
+   */
   queryId: bigint;
   /**
    * A new list of KV-storage keys for which to get values from the remote chain. Only applicable
@@ -160,7 +247,9 @@ export interface MsgUpdateInterchainQueryRequest {
    * parameters.
    */
   newKeys: KVKey[];
-  /** A new minimal delay between consecutive query executions. */
+  /**
+   * A new minimal delay between consecutive query executions.
+   */
   newUpdatePeriod: bigint;
   /**
    * A new list of filters for remote transactions search. Only applicable for a TX Interchain
@@ -169,19 +258,40 @@ export interface MsgUpdateInterchainQueryRequest {
    * limited by the module's `max_transactions_filters` parameters.
    */
   newTransactionsFilter: string;
-  /** The signer of the message. */
+  /**
+   * The signer of the message.
+   */
   sender: string;
 }
-/** Response type for the Msg/UpdateInterchainQuery RPC method. */
+/**
+ * Response type for the Msg/UpdateInterchainQuery RPC method.
+ * @name MsgUpdateInterchainQueryResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgUpdateInterchainQueryResponse
+ */
 export interface MsgUpdateInterchainQueryResponse {}
-/** Request type for the Msg/UpdateParams RPC method. */
+/**
+ * Request type for the Msg/UpdateParams RPC method.
+ * @name MsgUpdateParams
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** The address of the authority of the module. */
+  /**
+   * The address of the authority of the module.
+   */
   authority: string;
-  /** The new parameters of the module. All parameters must be supplied. */
+  /**
+   * The new parameters of the module. All parameters must be supplied.
+   */
   params: Params;
 }
-/** Response type for the Msg/UpdateParams RPC method. */
+/**
+ * Response type for the Msg/UpdateParams RPC method.
+ * @name MsgUpdateParamsResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgRegisterInterchainQuery(): MsgRegisterInterchainQuery {
   return {
@@ -193,6 +303,12 @@ function createBaseMsgRegisterInterchainQuery(): MsgRegisterInterchainQuery {
     sender: "",
   };
 }
+/**
+ * Request type for the Msg/RegisterInterchainQuery RPC method.
+ * @name MsgRegisterInterchainQuery
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgRegisterInterchainQuery
+ */
 export const MsgRegisterInterchainQuery = {
   typeUrl: "/neutron.interchainqueries.MsgRegisterInterchainQuery",
   encode(message: MsgRegisterInterchainQuery, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -292,6 +408,12 @@ function createBaseMsgRegisterInterchainQueryResponse(): MsgRegisterInterchainQu
     id: BigInt(0),
   };
 }
+/**
+ * Response type for the Msg/RegisterInterchainQuery RPC method.
+ * @name MsgRegisterInterchainQueryResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgRegisterInterchainQueryResponse
+ */
 export const MsgRegisterInterchainQueryResponse = {
   typeUrl: "/neutron.interchainqueries.MsgRegisterInterchainQueryResponse",
   encode(
@@ -348,6 +470,12 @@ function createBaseMsgSubmitQueryResult(): MsgSubmitQueryResult {
     result: undefined,
   };
 }
+/**
+ * Request type for the Msg/SubmitQueryResult RPC method.
+ * @name MsgSubmitQueryResult
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgSubmitQueryResult
+ */
 export const MsgSubmitQueryResult = {
   typeUrl: "/neutron.interchainqueries.MsgSubmitQueryResult",
   encode(message: MsgSubmitQueryResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -430,6 +558,18 @@ function createBaseQueryResult(): QueryResult {
     allowKvCallbacks: false,
   };
 }
+/**
+ * Contains different information about a single Interchain Query execution result. Currently,
+ * this structure is used both in query result submission via an ICQ Relayer and as a query result
+ * storage for read/write operations to interchainqueries module, but the structure fields are
+ * populated in a bit different ways. When submitting a query result, all fields are populated and
+ * provided to the interchainqueries module in order to verify the result against the IBC client's
+ * state. But in order to lighten the chain state, the interchainqueries module removes the block
+ * field and proofs from the kv_results.
+ * @name QueryResult
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.QueryResult
+ */
 export const QueryResult = {
   typeUrl: "/neutron.interchainqueries.QueryResult",
   encode(message: QueryResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -526,6 +666,12 @@ function createBaseStorageValue(): StorageValue {
     proof: undefined,
   };
 }
+/**
+ * A verifiable result of performing a single KVKey read.
+ * @name StorageValue
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.StorageValue
+ */
 export const StorageValue = {
   typeUrl: "/neutron.interchainqueries.StorageValue",
   encode(message: StorageValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -605,6 +751,12 @@ function createBaseBlock(): Block {
     tx: undefined,
   };
 }
+/**
+ * A single verifiable result of an Interchain Query of TX type.
+ * @name Block
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.Block
+ */
 export const Block = {
   typeUrl: "/neutron.interchainqueries.Block",
   encode(message: Block, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -679,6 +831,12 @@ function createBaseTxValue(): TxValue {
     data: new Uint8Array(),
   };
 }
+/**
+ * Contains transaction body, response, and proofs of inclusion and delivery.
+ * @name TxValue
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.TxValue
+ */
 export const TxValue = {
   typeUrl: "/neutron.interchainqueries.TxValue",
   encode(message: TxValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -760,6 +918,12 @@ export const TxValue = {
 function createBaseMsgSubmitQueryResultResponse(): MsgSubmitQueryResultResponse {
   return {};
 }
+/**
+ * Response type for the Msg/SubmitQueryResult RPC method.
+ * @name MsgSubmitQueryResultResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgSubmitQueryResultResponse
+ */
 export const MsgSubmitQueryResultResponse = {
   typeUrl: "/neutron.interchainqueries.MsgSubmitQueryResultResponse",
   encode(_: MsgSubmitQueryResultResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -800,6 +964,12 @@ function createBaseMsgRemoveInterchainQueryRequest(): MsgRemoveInterchainQueryRe
     sender: "",
   };
 }
+/**
+ * Request type for the Msg/RemoveInterchainQuery RPC method.
+ * @name MsgRemoveInterchainQueryRequest
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgRemoveInterchainQueryRequest
+ */
 export const MsgRemoveInterchainQueryRequest = {
   typeUrl: "/neutron.interchainqueries.MsgRemoveInterchainQueryRequest",
   encode(
@@ -860,6 +1030,12 @@ export const MsgRemoveInterchainQueryRequest = {
 function createBaseMsgRemoveInterchainQueryResponse(): MsgRemoveInterchainQueryResponse {
   return {};
 }
+/**
+ * Response type for the Msg/RemoveInterchainQuery RPC method.
+ * @name MsgRemoveInterchainQueryResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgRemoveInterchainQueryResponse
+ */
 export const MsgRemoveInterchainQueryResponse = {
   typeUrl: "/neutron.interchainqueries.MsgRemoveInterchainQueryResponse",
   encode(_: MsgRemoveInterchainQueryResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -903,6 +1079,12 @@ function createBaseMsgUpdateInterchainQueryRequest(): MsgUpdateInterchainQueryRe
     sender: "",
   };
 }
+/**
+ * Request type for the Msg/UpdateInterchainQuery RPC method.
+ * @name MsgUpdateInterchainQueryRequest
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgUpdateInterchainQueryRequest
+ */
 export const MsgUpdateInterchainQueryRequest = {
   typeUrl: "/neutron.interchainqueries.MsgUpdateInterchainQueryRequest",
   encode(
@@ -998,6 +1180,12 @@ export const MsgUpdateInterchainQueryRequest = {
 function createBaseMsgUpdateInterchainQueryResponse(): MsgUpdateInterchainQueryResponse {
   return {};
 }
+/**
+ * Response type for the Msg/UpdateInterchainQuery RPC method.
+ * @name MsgUpdateInterchainQueryResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgUpdateInterchainQueryResponse
+ */
 export const MsgUpdateInterchainQueryResponse = {
   typeUrl: "/neutron.interchainqueries.MsgUpdateInterchainQueryResponse",
   encode(_: MsgUpdateInterchainQueryResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1038,6 +1226,12 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * Request type for the Msg/UpdateParams RPC method.
+ * @name MsgUpdateParams
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/neutron.interchainqueries.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -1093,6 +1287,12 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * Response type for the Msg/UpdateParams RPC method.
+ * @name MsgUpdateParamsResponse
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/neutron.interchainqueries.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

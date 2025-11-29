@@ -1,12 +1,17 @@
 //@ts-nocheck
 /* eslint-disable */
-import { MarketMap } from "./market";
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { MarketMap } from "./market.js";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "slinky.marketmap.v1";
-/** GenesisState defines the x/marketmap module's genesis state. */
+/**
+ * GenesisState defines the x/marketmap module's genesis state.
+ * @name GenesisState
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.GenesisState
+ */
 export interface GenesisState {
   /**
    * MarketMap defines the global set of market configurations for all providers
@@ -19,7 +24,9 @@ export interface GenesisState {
    * is a new update to the map.
    */
   lastUpdated: bigint;
-  /** Params are the parameters for the x/marketmap module. */
+  /**
+   * Params are the parameters for the x/marketmap module.
+   */
   params: Params;
 }
 function createBaseGenesisState(): GenesisState {
@@ -29,6 +36,12 @@ function createBaseGenesisState(): GenesisState {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * GenesisState defines the x/marketmap module's genesis state.
+ * @name GenesisState
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/slinky.marketmap.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

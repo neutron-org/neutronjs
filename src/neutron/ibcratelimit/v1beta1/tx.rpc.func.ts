@@ -1,0 +1,12 @@
+//@ts-nocheck
+/* eslint-disable */
+import { buildTx } from "../../../helper-func-types.js";
+import { MsgUpdateParams } from "./tx.js";
+/**
+ * @name updateParams
+ * @package neutron.ibcratelimit.v1beta1
+ * @see proto service: neutron.ibcratelimit.v1beta1.UpdateParams
+ */
+export const updateParams = buildTx<MsgUpdateParams>({
+  msg: MsgUpdateParams,
+});

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
-import { MsgGrant, MsgGrantResponse, MsgExec, MsgExecResponse, MsgRevoke, MsgRevokeResponse } from "./tx";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
+import { MsgGrant, MsgGrantResponse, MsgExec, MsgExecResponse, MsgRevoke, MsgRevokeResponse } from "./tx.js";
 /** Msg defines the authz Msg service. */
 export interface Msg {
   /**
@@ -25,8 +25,8 @@ export interface Msg {
   revoke(request: MsgRevoke): Promise<MsgRevokeResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.grant = this.grant.bind(this);
     this.exec = this.exec.bind(this);
@@ -48,3 +48,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgRevokeResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

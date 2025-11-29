@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.interchainqueries";
-/** The parameters for the module. */
+/**
+ * The parameters for the module.
+ * @name Params
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.Params
+ */
 export interface Params {
   /**
    * The duration, measured in blocks, that must pass since the query's registration or its last
@@ -13,16 +18,22 @@ export interface Params {
    * `submit_timeout` on Interchain Query registration.
    */
   querySubmitTimeout: bigint;
-  /** Amount of coins required to be provided as deposit on Interchain Query registration. */
+  /**
+   * Amount of coins required to be provided as deposit on Interchain Query registration.
+   */
   queryDeposit: Coin[];
   /**
    * Amount of tx hashes to be removed during a single EndBlock. Can vary to balance between
    * network cleaning speed and EndBlock duration. A zero value means no limit.
    */
   txQueryRemovalLimit: bigint;
-  /** Maximum amount of keys in a registered key value query */
+  /**
+   * Maximum amount of keys in a registered key value query
+   */
   maxKvQueryKeysCount: bigint;
-  /** max_transactions_filters defines maximum allowed amount of tx filters in msgRegisterInterchainQuery */
+  /**
+   * max_transactions_filters defines maximum allowed amount of tx filters in msgRegisterInterchainQuery
+   */
   maxTransactionsFilters: bigint;
 }
 function createBaseParams(): Params {
@@ -34,6 +45,12 @@ function createBaseParams(): Params {
     maxTransactionsFilters: BigInt(0),
   };
 }
+/**
+ * The parameters for the module.
+ * @name Params
+ * @package neutron.interchainqueries
+ * @see proto type: neutron.interchainqueries.Params
+ */
 export const Params = {
   typeUrl: "/neutron.interchainqueries.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

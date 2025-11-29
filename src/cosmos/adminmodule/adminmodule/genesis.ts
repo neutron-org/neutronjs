@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact } from "../../../helpers";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../helpers.js";
 export const protobufPackage = "cosmos.adminmodule.adminmodule";
-/** GenesisState defines the adminmodule module's genesis state. */
+/**
+ * GenesisState defines the adminmodule module's genesis state.
+ * @name GenesisState
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.GenesisState
+ */
 export interface GenesisState {
   admins: string[];
 }
@@ -13,6 +18,12 @@ function createBaseGenesisState(): GenesisState {
     admins: [],
   };
 }
+/**
+ * GenesisState defines the adminmodule module's genesis state.
+ * @name GenesisState
+ * @package cosmos.adminmodule.adminmodule
+ * @see proto type: cosmos.adminmodule.adminmodule.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmos.adminmodule.adminmodule.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

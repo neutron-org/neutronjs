@@ -1,36 +1,71 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.nft.v1beta1";
-/** EventSend is emitted on Msg/Send */
+/**
+ * EventSend is emitted on Msg/Send
+ * @name EventSend
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.EventSend
+ */
 export interface EventSend {
-  /** class_id associated with the nft */
+  /**
+   * class_id associated with the nft
+   */
   classId: string;
-  /** id is a unique identifier of the nft */
+  /**
+   * id is a unique identifier of the nft
+   */
   id: string;
-  /** sender is the address of the owner of nft */
+  /**
+   * sender is the address of the owner of nft
+   */
   sender: string;
-  /** receiver is the receiver address of nft */
+  /**
+   * receiver is the receiver address of nft
+   */
   receiver: string;
 }
-/** EventMint is emitted on Mint */
+/**
+ * EventMint is emitted on Mint
+ * @name EventMint
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.EventMint
+ */
 export interface EventMint {
-  /** class_id associated with the nft */
+  /**
+   * class_id associated with the nft
+   */
   classId: string;
-  /** id is a unique identifier of the nft */
+  /**
+   * id is a unique identifier of the nft
+   */
   id: string;
-  /** owner is the owner address of the nft */
+  /**
+   * owner is the owner address of the nft
+   */
   owner: string;
 }
-/** EventBurn is emitted on Burn */
+/**
+ * EventBurn is emitted on Burn
+ * @name EventBurn
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.EventBurn
+ */
 export interface EventBurn {
-  /** class_id associated with the nft */
+  /**
+   * class_id associated with the nft
+   */
   classId: string;
-  /** id is a unique identifier of the nft */
+  /**
+   * id is a unique identifier of the nft
+   */
   id: string;
-  /** owner is the owner address of the nft */
+  /**
+   * owner is the owner address of the nft
+   */
   owner: string;
 }
 function createBaseEventSend(): EventSend {
@@ -41,6 +76,12 @@ function createBaseEventSend(): EventSend {
     receiver: "",
   };
 }
+/**
+ * EventSend is emitted on Msg/Send
+ * @name EventSend
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.EventSend
+ */
 export const EventSend = {
   typeUrl: "/cosmos.nft.v1beta1.EventSend",
   encode(message: EventSend, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -116,6 +157,12 @@ function createBaseEventMint(): EventMint {
     owner: "",
   };
 }
+/**
+ * EventMint is emitted on Mint
+ * @name EventMint
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.EventMint
+ */
 export const EventMint = {
   typeUrl: "/cosmos.nft.v1beta1.EventMint",
   encode(message: EventMint, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -182,6 +229,12 @@ function createBaseEventBurn(): EventBurn {
     owner: "",
   };
 }
+/**
+ * EventBurn is emitted on Burn
+ * @name EventBurn
+ * @package cosmos.nft.v1beta1
+ * @see proto type: cosmos.nft.v1beta1.EventBurn
+ */
 export const EventBurn = {
   typeUrl: "/cosmos.nft.v1beta1.EventBurn",
   encode(message: EventBurn, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

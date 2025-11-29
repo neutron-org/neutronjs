@@ -1,6 +1,6 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GeneratedType, Registry } from "@cosmjs/proto-signing";
+import { TelescopeGeneratedType } from "../../../types.js";
 import {
   MsgCreateDenom,
   MsgMint,
@@ -10,8 +10,8 @@ import {
   MsgSetBeforeSendHook,
   MsgForceTransfer,
   MsgUpdateParams,
-} from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [
+} from "./tx.js";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [
   ["/osmosis.tokenfactory.v1beta1.MsgCreateDenom", MsgCreateDenom],
   ["/osmosis.tokenfactory.v1beta1.MsgMint", MsgMint],
   ["/osmosis.tokenfactory.v1beta1.MsgBurn", MsgBurn],
@@ -21,11 +21,6 @@ export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/osmosis.tokenfactory.v1beta1.MsgForceTransfer", MsgForceTransfer],
   ["/osmosis.tokenfactory.v1beta1.MsgUpdateParams", MsgUpdateParams],
 ];
-export const load = (protoRegistry: Registry) => {
-  registry.forEach(([typeUrl, mod]) => {
-    protoRegistry.register(typeUrl, mod);
-  });
-};
 export const MessageComposer = {
   encoded: {
     createDenom(value: MsgCreateDenom) {

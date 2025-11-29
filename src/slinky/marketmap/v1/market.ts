@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CurrencyPair } from "../../types/v1/currency_pair";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, isObject } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { CurrencyPair } from "../../types/v1/currency_pair.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, isObject } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "slinky.marketmap.v1";
-/** Market encapsulates a Ticker and its provider-specific configuration. */
+/**
+ * Market encapsulates a Ticker and its provider-specific configuration.
+ * @name Market
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.Market
+ */
 export interface Market {
   /**
    * Ticker represents a price feed for a given asset pair i.e. BTC/USD. The
@@ -13,16 +18,23 @@ export interface Market {
    * of providers required to consider the ticker valid.
    */
   ticker: Ticker;
-  /** ProviderConfigs is the list of provider-specific configs for this Market. */
+  /**
+   * ProviderConfigs is the list of provider-specific configs for this Market.
+   */
   providerConfigs: ProviderConfig[];
 }
 /**
  * Ticker represents a price feed for a given asset pair i.e. BTC/USD. The price
  * feed is scaled to a number of decimal places and has a minimum number of
  * providers required to consider the ticker valid.
+ * @name Ticker
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.Ticker
  */
 export interface Ticker {
-  /** CurrencyPair is the currency pair for this ticker. */
+  /**
+   * CurrencyPair is the currency pair for this ticker.
+   */
   currencyPair: CurrencyPair;
   /**
    * Decimals is the number of decimal places for the ticker. The number of
@@ -45,6 +57,11 @@ export interface Ticker {
    */
   metadataJSON: string;
 }
+/**
+ * @name ProviderConfig
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.ProviderConfig
+ */
 export interface ProviderConfig {
   /**
    * Name corresponds to the name of the provider for which the configuration is
@@ -75,11 +92,21 @@ export interface ProviderConfig {
    */
   metadataJSON: string;
 }
+/**
+ * @name MarketMap_MarketsEntry
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.undefined
+ */
 export interface MarketMap_MarketsEntry {
   key: string;
   value?: Market;
 }
-/** MarketMap maps ticker strings to their Markets. */
+/**
+ * MarketMap maps ticker strings to their Markets.
+ * @name MarketMap
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketMap
+ */
 export interface MarketMap {
   /**
    * Markets is the full list of tickers and their associated configurations
@@ -95,6 +122,12 @@ function createBaseMarket(): Market {
     providerConfigs: [],
   };
 }
+/**
+ * Market encapsulates a Ticker and its provider-specific configuration.
+ * @name Market
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.Market
+ */
 export const Market = {
   typeUrl: "/slinky.marketmap.v1.Market",
   encode(message: Market, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -161,6 +194,14 @@ function createBaseTicker(): Ticker {
     metadataJSON: "",
   };
 }
+/**
+ * Ticker represents a price feed for a given asset pair i.e. BTC/USD. The price
+ * feed is scaled to a number of decimal places and has a minimum number of
+ * providers required to consider the ticker valid.
+ * @name Ticker
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.Ticker
+ */
 export const Ticker = {
   typeUrl: "/slinky.marketmap.v1.Ticker",
   encode(message: Ticker, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -255,6 +296,11 @@ function createBaseProviderConfig(): ProviderConfig {
     metadataJSON: "",
   };
 }
+/**
+ * @name ProviderConfig
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.ProviderConfig
+ */
 export const ProviderConfig = {
   typeUrl: "/slinky.marketmap.v1.ProviderConfig",
   encode(message: ProviderConfig, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -343,6 +389,11 @@ function createBaseMarketMap_MarketsEntry(): MarketMap_MarketsEntry {
     value: undefined,
   };
 }
+/**
+ * @name MarketMap_MarketsEntry
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.undefined
+ */
 export const MarketMap_MarketsEntry = {
   encode(message: MarketMap_MarketsEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
@@ -399,6 +450,12 @@ function createBaseMarketMap(): MarketMap {
     markets: {},
   };
 }
+/**
+ * MarketMap maps ticker strings to their Markets.
+ * @name MarketMap
+ * @package slinky.marketmap.v1
+ * @see proto type: slinky.marketmap.v1.MarketMap
+ */
 export const MarketMap = {
   typeUrl: "/slinky.marketmap.v1.MarketMap",
   encode(message: MarketMap, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

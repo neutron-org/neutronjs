@@ -1,37 +1,75 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
-import { Params } from "./params";
-import { Failure } from "./failure";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../helpers";
+import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination.js";
+import { Params } from "./params.js";
+import { Failure } from "./failure.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../helpers.js";
 export const protobufPackage = "neutron.contractmanager";
-/** QueryParamsRequest is request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
-/** QueryParamsResponse is response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params holds all the parameters of this module. */
+  /**
+   * params holds all the parameters of this module.
+   */
   params: Params;
 }
-/** QueryFailuresRequest is request type for the Query/Failures RPC method. */
+/**
+ * QueryFailuresRequest is request type for the Query/Failures RPC method.
+ * @name QueryFailuresRequest
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.QueryFailuresRequest
+ */
 export interface QueryFailuresRequest {
-  /** address of the contract which Sudo call failed. */
+  /**
+   * address of the contract which Sudo call failed.
+   */
   address: string;
   pagination?: PageRequest;
 }
-/** QueryFailureRequest is request type for the Query/Failures RPC method. */
+/**
+ * QueryFailureRequest is request type for the Query/Failures RPC method.
+ * @name QueryFailureRequest
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.QueryFailureRequest
+ */
 export interface QueryFailureRequest {
-  /** address of the contract which Sudo call failed. */
+  /**
+   * address of the contract which Sudo call failed.
+   */
   address: string;
-  /** ID of the failure for the given contract. */
+  /**
+   * ID of the failure for the given contract.
+   */
   failureId: bigint;
 }
-/** QueryFailureResponse is response type for the Query/Failure RPC method. */
+/**
+ * QueryFailureResponse is response type for the Query/Failure RPC method.
+ * @name QueryFailureResponse
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.QueryFailureResponse
+ */
 export interface QueryFailureResponse {
   failure: Failure;
 }
-/** QueryFailuresResponse is response type for the Query/Failures RPC method. */
+/**
+ * QueryFailuresResponse is response type for the Query/Failures RPC method.
+ * @name QueryFailuresResponse
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.QueryFailuresResponse
+ */
 export interface QueryFailuresResponse {
   failures: Failure[];
   pagination?: PageResponse;
@@ -39,6 +77,12 @@ export interface QueryFailuresResponse {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/neutron.contractmanager.QueryParamsRequest",
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -76,6 +120,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * QueryParamsResponse is response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/neutron.contractmanager.QueryParamsResponse",
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -125,6 +175,12 @@ function createBaseQueryFailuresRequest(): QueryFailuresRequest {
     pagination: undefined,
   };
 }
+/**
+ * QueryFailuresRequest is request type for the Query/Failures RPC method.
+ * @name QueryFailuresRequest
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.QueryFailuresRequest
+ */
 export const QueryFailuresRequest = {
   typeUrl: "/neutron.contractmanager.QueryFailuresRequest",
   encode(message: QueryFailuresRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -184,6 +240,12 @@ function createBaseQueryFailureRequest(): QueryFailureRequest {
     failureId: BigInt(0),
   };
 }
+/**
+ * QueryFailureRequest is request type for the Query/Failures RPC method.
+ * @name QueryFailureRequest
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.QueryFailureRequest
+ */
 export const QueryFailureRequest = {
   typeUrl: "/neutron.contractmanager.QueryFailureRequest",
   encode(message: QueryFailureRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -241,6 +303,12 @@ function createBaseQueryFailureResponse(): QueryFailureResponse {
     failure: Failure.fromPartial({}),
   };
 }
+/**
+ * QueryFailureResponse is response type for the Query/Failure RPC method.
+ * @name QueryFailureResponse
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.QueryFailureResponse
+ */
 export const QueryFailureResponse = {
   typeUrl: "/neutron.contractmanager.QueryFailureResponse",
   encode(message: QueryFailureResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -291,6 +359,12 @@ function createBaseQueryFailuresResponse(): QueryFailuresResponse {
     pagination: undefined,
   };
 }
+/**
+ * QueryFailuresResponse is response type for the Query/Failures RPC method.
+ * @name QueryFailuresResponse
+ * @package neutron.contractmanager
+ * @see proto type: neutron.contractmanager.QueryFailuresResponse
+ */
 export const QueryFailuresResponse = {
   typeUrl: "/neutron.contractmanager.QueryFailuresResponse",
   encode(message: QueryFailuresResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

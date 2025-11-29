@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../../../cosmos/base/query/v1beta1/pagination";
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { PageRequest } from "../../../../cosmos/base/query/v1beta1/pagination.js";
+import { TxRpc } from "../../../../types.js";
+import { BinaryReader } from "../../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryChecksumsRequest, QueryChecksumsResponse, QueryCodeRequest, QueryCodeResponse } from "./query";
+import {
+  QueryChecksumsRequest,
+  QueryChecksumsResponse,
+  QueryCodeRequest,
+  QueryCodeResponse,
+} from "./query.js";
 /** Query service for wasm module */
 export interface Query {
   /** Get all Wasm checksums */
@@ -13,8 +18,8 @@ export interface Query {
   code(request: QueryCodeRequest): Promise<QueryCodeResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.checksums = this.checksums.bind(this);
     this.code = this.code.bind(this);

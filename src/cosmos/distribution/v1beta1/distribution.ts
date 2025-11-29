@@ -1,25 +1,30 @@
 //@ts-nocheck
 /* eslint-disable */
-import { DecCoin, Coin } from "../../base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { Decimal } from "@cosmjs/math";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { DecCoin, Coin } from "../../base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { Decimal } from "@interchainjs/math";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.distribution.v1beta1";
-/** Params defines the set of params for the distribution module. */
+/**
+ * Params defines the set of params for the distribution module.
+ * @name Params
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.Params
+ */
 export interface Params {
   communityTax: string;
   /**
    * Deprecated: The base_proposer_reward field is deprecated and is no longer used
    * in the x/distribution module's reward mechanism.
+   * @deprecated
    */
-  /** @deprecated */
   baseProposerReward: string;
   /**
    * Deprecated: The bonus_proposer_reward field is deprecated and is no longer used
    * in the x/distribution module's reward mechanism.
+   * @deprecated
    */
-  /** @deprecated */
   bonusProposerReward: string;
   withdrawAddrEnabled: boolean;
 }
@@ -36,6 +41,9 @@ export interface Params {
  *  + number of slashes which ended the associated period (and might need to
  *  read that record)
  *  + one per validator for the zeroeth period, set on initialization
+ * @name ValidatorHistoricalRewards
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.ValidatorHistoricalRewards
  */
 export interface ValidatorHistoricalRewards {
   cumulativeRewardRatio: DecCoin[];
@@ -45,6 +53,9 @@ export interface ValidatorHistoricalRewards {
  * ValidatorCurrentRewards represents current rewards and current
  * period for a validator kept as a running counter and incremented
  * each block as long as the validator's tokens remain constant.
+ * @name ValidatorCurrentRewards
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.ValidatorCurrentRewards
  */
 export interface ValidatorCurrentRewards {
   rewards: DecCoin[];
@@ -53,6 +64,9 @@ export interface ValidatorCurrentRewards {
 /**
  * ValidatorAccumulatedCommission represents accumulated commission
  * for a validator kept as a running counter, can be withdrawn at any time.
+ * @name ValidatorAccumulatedCommission
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.ValidatorAccumulatedCommission
  */
 export interface ValidatorAccumulatedCommission {
   commission: DecCoin[];
@@ -60,6 +74,9 @@ export interface ValidatorAccumulatedCommission {
 /**
  * ValidatorOutstandingRewards represents outstanding (un-withdrawn) rewards
  * for a validator inexpensive to track, allows simple sanity checks.
+ * @name ValidatorOutstandingRewards
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.ValidatorOutstandingRewards
  */
 export interface ValidatorOutstandingRewards {
   rewards: DecCoin[];
@@ -69,16 +86,29 @@ export interface ValidatorOutstandingRewards {
  * Height is implicit within the store key.
  * This is needed to calculate appropriate amount of staking tokens
  * for delegations which are withdrawn after a slash has occurred.
+ * @name ValidatorSlashEvent
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.ValidatorSlashEvent
  */
 export interface ValidatorSlashEvent {
   validatorPeriod: bigint;
   fraction: string;
 }
-/** ValidatorSlashEvents is a collection of ValidatorSlashEvent messages. */
+/**
+ * ValidatorSlashEvents is a collection of ValidatorSlashEvent messages.
+ * @name ValidatorSlashEvents
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.ValidatorSlashEvents
+ */
 export interface ValidatorSlashEvents {
   validatorSlashEvents: ValidatorSlashEvent[];
 }
-/** FeePool is the global fee pool for distribution. */
+/**
+ * FeePool is the global fee pool for distribution.
+ * @name FeePool
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.FeePool
+ */
 export interface FeePool {
   communityPool: DecCoin[];
 }
@@ -91,8 +121,11 @@ export interface FeePool {
  * longer a need for an explicit CommunityPoolSpendProposal. To spend community
  * pool funds, a simple MsgCommunityPoolSpend can be invoked from the x/gov
  * module via a v1 governance proposal.
+ * @name CommunityPoolSpendProposal
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.CommunityPoolSpendProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface CommunityPoolSpendProposal {
   title: string;
   description: string;
@@ -106,6 +139,9 @@ export interface CommunityPoolSpendProposal {
  * occurred). NOTE: Even though validators are slashed to whole staking tokens,
  * the delegators within the validator may be left with less than a full token,
  * thus sdk.Dec is used.
+ * @name DelegatorStartingInfo
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.DelegatorStartingInfo
  */
 export interface DelegatorStartingInfo {
   previousPeriod: bigint;
@@ -115,6 +151,9 @@ export interface DelegatorStartingInfo {
 /**
  * DelegationDelegatorReward represents the properties
  * of a delegator's delegation reward.
+ * @name DelegationDelegatorReward
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.DelegationDelegatorReward
  */
 export interface DelegationDelegatorReward {
   validatorAddress: string;
@@ -123,6 +162,9 @@ export interface DelegationDelegatorReward {
 /**
  * CommunityPoolSpendProposalWithDeposit defines a CommunityPoolSpendProposal
  * with a deposit
+ * @name CommunityPoolSpendProposalWithDeposit
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit
  */
 export interface CommunityPoolSpendProposalWithDeposit {
   title: string;
@@ -139,6 +181,12 @@ function createBaseParams(): Params {
     withdrawAddrEnabled: false,
   };
 }
+/**
+ * Params defines the set of params for the distribution module.
+ * @name Params
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/cosmos.distribution.v1beta1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -213,6 +261,23 @@ function createBaseValidatorHistoricalRewards(): ValidatorHistoricalRewards {
     referenceCount: 0,
   };
 }
+/**
+ * ValidatorHistoricalRewards represents historical rewards for a validator.
+ * Height is implicit within the store key.
+ * Cumulative reward ratio is the sum from the zeroeth period
+ * until this period of rewards / tokens, per the spec.
+ * The reference count indicates the number of objects
+ * which might need to reference this historical entry at any point.
+ * ReferenceCount =
+ *    number of outstanding delegations which ended the associated period (and
+ *    might need to read that record)
+ *  + number of slashes which ended the associated period (and might need to
+ *  read that record)
+ *  + one per validator for the zeroeth period, set on initialization
+ * @name ValidatorHistoricalRewards
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.ValidatorHistoricalRewards
+ */
 export const ValidatorHistoricalRewards = {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorHistoricalRewards",
   encode(message: ValidatorHistoricalRewards, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -278,6 +343,14 @@ function createBaseValidatorCurrentRewards(): ValidatorCurrentRewards {
     period: BigInt(0),
   };
 }
+/**
+ * ValidatorCurrentRewards represents current rewards and current
+ * period for a validator kept as a running counter and incremented
+ * each block as long as the validator's tokens remain constant.
+ * @name ValidatorCurrentRewards
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.ValidatorCurrentRewards
+ */
 export const ValidatorCurrentRewards = {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorCurrentRewards",
   encode(message: ValidatorCurrentRewards, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -339,6 +412,13 @@ function createBaseValidatorAccumulatedCommission(): ValidatorAccumulatedCommiss
     commission: [],
   };
 }
+/**
+ * ValidatorAccumulatedCommission represents accumulated commission
+ * for a validator kept as a running counter, can be withdrawn at any time.
+ * @name ValidatorAccumulatedCommission
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.ValidatorAccumulatedCommission
+ */
 export const ValidatorAccumulatedCommission = {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorAccumulatedCommission",
   encode(
@@ -395,6 +475,13 @@ function createBaseValidatorOutstandingRewards(): ValidatorOutstandingRewards {
     rewards: [],
   };
 }
+/**
+ * ValidatorOutstandingRewards represents outstanding (un-withdrawn) rewards
+ * for a validator inexpensive to track, allows simple sanity checks.
+ * @name ValidatorOutstandingRewards
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.ValidatorOutstandingRewards
+ */
 export const ValidatorOutstandingRewards = {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorOutstandingRewards",
   encode(message: ValidatorOutstandingRewards, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -448,6 +535,15 @@ function createBaseValidatorSlashEvent(): ValidatorSlashEvent {
     fraction: "",
   };
 }
+/**
+ * ValidatorSlashEvent represents a validator slash event.
+ * Height is implicit within the store key.
+ * This is needed to calculate appropriate amount of staking tokens
+ * for delegations which are withdrawn after a slash has occurred.
+ * @name ValidatorSlashEvent
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.ValidatorSlashEvent
+ */
 export const ValidatorSlashEvent = {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorSlashEvent",
   encode(message: ValidatorSlashEvent, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -506,6 +602,12 @@ function createBaseValidatorSlashEvents(): ValidatorSlashEvents {
     validatorSlashEvents: [],
   };
 }
+/**
+ * ValidatorSlashEvents is a collection of ValidatorSlashEvent messages.
+ * @name ValidatorSlashEvents
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.ValidatorSlashEvents
+ */
 export const ValidatorSlashEvents = {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorSlashEvents",
   encode(message: ValidatorSlashEvents, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -560,6 +662,12 @@ function createBaseFeePool(): FeePool {
     communityPool: [],
   };
 }
+/**
+ * FeePool is the global fee pool for distribution.
+ * @name FeePool
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.FeePool
+ */
 export const FeePool = {
   typeUrl: "/cosmos.distribution.v1beta1.FeePool",
   encode(message: FeePool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -614,6 +722,20 @@ function createBaseCommunityPoolSpendProposal(): CommunityPoolSpendProposal {
     amount: [],
   };
 }
+/**
+ * CommunityPoolSpendProposal details a proposal for use of community funds,
+ * together with how many coins are proposed to be spent, and to which
+ * recipient account.
+ *
+ * Deprecated: Do not use. As of the Cosmos SDK release v0.47.x, there is no
+ * longer a need for an explicit CommunityPoolSpendProposal. To spend community
+ * pool funds, a simple MsgCommunityPoolSpend can be invoked from the x/gov
+ * module via a v1 governance proposal.
+ * @name CommunityPoolSpendProposal
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.CommunityPoolSpendProposal
+ * @deprecated
+ */
 export const CommunityPoolSpendProposal = {
   typeUrl: "/cosmos.distribution.v1beta1.CommunityPoolSpendProposal",
   encode(message: CommunityPoolSpendProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -695,6 +817,17 @@ function createBaseDelegatorStartingInfo(): DelegatorStartingInfo {
     height: BigInt(0),
   };
 }
+/**
+ * DelegatorStartingInfo represents the starting info for a delegator reward
+ * period. It tracks the previous validator period, the delegation's amount of
+ * staking token, and the creation height (to check later on if any slashes have
+ * occurred). NOTE: Even though validators are slashed to whole staking tokens,
+ * the delegators within the validator may be left with less than a full token,
+ * thus sdk.Dec is used.
+ * @name DelegatorStartingInfo
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.DelegatorStartingInfo
+ */
 export const DelegatorStartingInfo = {
   typeUrl: "/cosmos.distribution.v1beta1.DelegatorStartingInfo",
   encode(message: DelegatorStartingInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -765,6 +898,13 @@ function createBaseDelegationDelegatorReward(): DelegationDelegatorReward {
     reward: [],
   };
 }
+/**
+ * DelegationDelegatorReward represents the properties
+ * of a delegator's delegation reward.
+ * @name DelegationDelegatorReward
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.DelegationDelegatorReward
+ */
 export const DelegationDelegatorReward = {
   typeUrl: "/cosmos.distribution.v1beta1.DelegationDelegatorReward",
   encode(message: DelegationDelegatorReward, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -830,6 +970,13 @@ function createBaseCommunityPoolSpendProposalWithDeposit(): CommunityPoolSpendPr
     deposit: "",
   };
 }
+/**
+ * CommunityPoolSpendProposalWithDeposit defines a CommunityPoolSpendProposal
+ * with a deposit
+ * @name CommunityPoolSpendProposalWithDeposit
+ * @package cosmos.distribution.v1beta1
+ * @see proto type: cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit
+ */
 export const CommunityPoolSpendProposalWithDeposit = {
   typeUrl: "/cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit",
   encode(

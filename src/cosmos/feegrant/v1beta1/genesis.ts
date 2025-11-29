@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Grant } from "./feegrant";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact } from "../../../helpers";
+import { Grant } from "./feegrant.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../helpers.js";
 export const protobufPackage = "cosmos.feegrant.v1beta1";
-/** GenesisState contains a set of fee allowances, persisted from the store */
+/**
+ * GenesisState contains a set of fee allowances, persisted from the store
+ * @name GenesisState
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.GenesisState
+ */
 export interface GenesisState {
   allowances: Grant[];
 }
@@ -14,6 +19,12 @@ function createBaseGenesisState(): GenesisState {
     allowances: [],
   };
 }
+/**
+ * GenesisState contains a set of fee allowances, persisted from the store
+ * @name GenesisState
+ * @package cosmos.feegrant.v1beta1
+ * @see proto type: cosmos.feegrant.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmos.feegrant.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

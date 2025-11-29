@@ -1,13 +1,20 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params, QueryRequest } from "./host";
-import { BinaryReader, BinaryWriter } from "../../../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../../helpers";
-import { JsonSafe } from "../../../../../json-safe";
+import { Params, QueryRequest } from "./host.js";
+import { BinaryReader, BinaryWriter } from "../../../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../../helpers.js";
+import { JsonSafe } from "../../../../../json-safe.js";
 export const protobufPackage = "ibc.applications.interchain_accounts.host.v1";
-/** MsgUpdateParams defines the payload for Msg/UpdateParams */
+/**
+ * MsgUpdateParams defines the payload for Msg/UpdateParams
+ * @name MsgUpdateParams
+ * @package ibc.applications.interchain_accounts.host.v1
+ * @see proto type: ibc.applications.interchain_accounts.host.v1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
   /**
    * params defines the 27-interchain-accounts/host parameters to update.
@@ -16,20 +23,43 @@ export interface MsgUpdateParams {
    */
   params: Params;
 }
-/** MsgUpdateParamsResponse defines the response for Msg/UpdateParams */
+/**
+ * MsgUpdateParamsResponse defines the response for Msg/UpdateParams
+ * @name MsgUpdateParamsResponse
+ * @package ibc.applications.interchain_accounts.host.v1
+ * @see proto type: ibc.applications.interchain_accounts.host.v1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
-/** MsgModuleQuerySafe defines the payload for Msg/ModuleQuerySafe */
+/**
+ * MsgModuleQuerySafe defines the payload for Msg/ModuleQuerySafe
+ * @name MsgModuleQuerySafe
+ * @package ibc.applications.interchain_accounts.host.v1
+ * @see proto type: ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe
+ */
 export interface MsgModuleQuerySafe {
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
-  /** requests defines the module safe queries to execute. */
+  /**
+   * requests defines the module safe queries to execute.
+   */
   requests: QueryRequest[];
 }
-/** MsgModuleQuerySafeResponse defines the response for Msg/ModuleQuerySafe */
+/**
+ * MsgModuleQuerySafeResponse defines the response for Msg/ModuleQuerySafe
+ * @name MsgModuleQuerySafeResponse
+ * @package ibc.applications.interchain_accounts.host.v1
+ * @see proto type: ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse
+ */
 export interface MsgModuleQuerySafeResponse {
-  /** height at which the responses were queried */
+  /**
+   * height at which the responses were queried
+   */
   height: bigint;
-  /** protobuf encoded responses for each query */
+  /**
+   * protobuf encoded responses for each query
+   */
   responses: Uint8Array[];
 }
 function createBaseMsgUpdateParams(): MsgUpdateParams {
@@ -38,6 +68,12 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * MsgUpdateParams defines the payload for Msg/UpdateParams
+ * @name MsgUpdateParams
+ * @package ibc.applications.interchain_accounts.host.v1
+ * @see proto type: ibc.applications.interchain_accounts.host.v1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/ibc.applications.interchain_accounts.host.v1.MsgUpdateParams",
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -93,6 +129,12 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response for Msg/UpdateParams
+ * @name MsgUpdateParamsResponse
+ * @package ibc.applications.interchain_accounts.host.v1
+ * @see proto type: ibc.applications.interchain_accounts.host.v1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/ibc.applications.interchain_accounts.host.v1.MsgUpdateParamsResponse",
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -131,6 +173,12 @@ function createBaseMsgModuleQuerySafe(): MsgModuleQuerySafe {
     requests: [],
   };
 }
+/**
+ * MsgModuleQuerySafe defines the payload for Msg/ModuleQuerySafe
+ * @name MsgModuleQuerySafe
+ * @package ibc.applications.interchain_accounts.host.v1
+ * @see proto type: ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe
+ */
 export const MsgModuleQuerySafe = {
   typeUrl: "/ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe",
   encode(message: MsgModuleQuerySafe, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -192,6 +240,12 @@ function createBaseMsgModuleQuerySafeResponse(): MsgModuleQuerySafeResponse {
     responses: [],
   };
 }
+/**
+ * MsgModuleQuerySafeResponse defines the response for Msg/ModuleQuerySafe
+ * @name MsgModuleQuerySafeResponse
+ * @package ibc.applications.interchain_accounts.host.v1
+ * @see proto type: ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse
+ */
 export const MsgModuleQuerySafeResponse = {
   typeUrl: "/ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse",
   encode(message: MsgModuleQuerySafeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

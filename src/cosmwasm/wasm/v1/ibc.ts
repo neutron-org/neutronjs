@@ -1,12 +1,19 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmwasm.wasm.v1";
-/** MsgIBCSend */
+/**
+ * MsgIBCSend
+ * @name MsgIBCSend
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCSend
+ */
 export interface MsgIBCSend {
-  /** the channel by which the packet will be sent */
+  /**
+   * the channel by which the packet will be sent
+   */
   channel: string;
   /**
    * Timeout height relative to the current block height.
@@ -24,14 +31,31 @@ export interface MsgIBCSend {
    */
   data: Uint8Array;
 }
-/** MsgIBCSendResponse */
+/**
+ * MsgIBCSendResponse
+ * @name MsgIBCSendResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCSendResponse
+ */
 export interface MsgIBCSendResponse {
-  /** Sequence number of the IBC packet sent */
+  /**
+   * Sequence number of the IBC packet sent
+   */
   sequence: bigint;
 }
-/** MsgIBCWriteAcknowledgementResponse */
+/**
+ * MsgIBCWriteAcknowledgementResponse
+ * @name MsgIBCWriteAcknowledgementResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCWriteAcknowledgementResponse
+ */
 export interface MsgIBCWriteAcknowledgementResponse {}
-/** MsgIBCCloseChannel port and channel need to be owned by the contract */
+/**
+ * MsgIBCCloseChannel port and channel need to be owned by the contract
+ * @name MsgIBCCloseChannel
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCCloseChannel
+ */
 export interface MsgIBCCloseChannel {
   channel: string;
 }
@@ -43,6 +67,12 @@ function createBaseMsgIBCSend(): MsgIBCSend {
     data: new Uint8Array(),
   };
 }
+/**
+ * MsgIBCSend
+ * @name MsgIBCSend
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCSend
+ */
 export const MsgIBCSend = {
   typeUrl: "/cosmwasm.wasm.v1.MsgIBCSend",
   encode(message: MsgIBCSend, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -123,6 +153,12 @@ function createBaseMsgIBCSendResponse(): MsgIBCSendResponse {
     sequence: BigInt(0),
   };
 }
+/**
+ * MsgIBCSendResponse
+ * @name MsgIBCSendResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCSendResponse
+ */
 export const MsgIBCSendResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgIBCSendResponse",
   encode(message: MsgIBCSendResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -169,6 +205,12 @@ export const MsgIBCSendResponse = {
 function createBaseMsgIBCWriteAcknowledgementResponse(): MsgIBCWriteAcknowledgementResponse {
   return {};
 }
+/**
+ * MsgIBCWriteAcknowledgementResponse
+ * @name MsgIBCWriteAcknowledgementResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCWriteAcknowledgementResponse
+ */
 export const MsgIBCWriteAcknowledgementResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgIBCWriteAcknowledgementResponse",
   encode(_: MsgIBCWriteAcknowledgementResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -208,6 +250,12 @@ function createBaseMsgIBCCloseChannel(): MsgIBCCloseChannel {
     channel: "",
   };
 }
+/**
+ * MsgIBCCloseChannel port and channel need to be owned by the contract
+ * @name MsgIBCCloseChannel
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCCloseChannel
+ */
 export const MsgIBCCloseChannel = {
   typeUrl: "/cosmwasm.wasm.v1.MsgIBCCloseChannel",
   encode(message: MsgIBCCloseChannel, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

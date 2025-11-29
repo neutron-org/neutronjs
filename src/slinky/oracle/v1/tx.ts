@@ -1,15 +1,18 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CurrencyPair } from "../../types/v1/currency_pair";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { CurrencyPair } from "../../types/v1/currency_pair.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "slinky.oracle.v1";
 /**
  * Given an authority + a set of CurrencyPairs, the x/oracle module will
  * check to see that the authority has permissions to update the set of
  * CurrencyPairs tracked in the oracle, and add the given CurrencyPairs to be
  * tracked in each VoteExtension
+ * @name MsgAddCurrencyPairs
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.MsgAddCurrencyPairs
  */
 export interface MsgAddCurrencyPairs {
   /**
@@ -23,6 +26,11 @@ export interface MsgAddCurrencyPairs {
    */
   currencyPairs: CurrencyPair[];
 }
+/**
+ * @name MsgAddCurrencyPairsResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.MsgAddCurrencyPairsResponse
+ */
 export interface MsgAddCurrencyPairsResponse {}
 /**
  * Given an authority + a set of CurrencyPairIDs, the x/oracle module's message
@@ -30,6 +38,9 @@ export interface MsgAddCurrencyPairsResponse {}
  * CurrencyPairID in the request from state. Notice, if a given currency-pair
  * does not exist in state, the module ignores that currency-pair and continues
  * removing the rest.
+ * @name MsgRemoveCurrencyPairs
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.MsgRemoveCurrencyPairs
  */
 export interface MsgRemoveCurrencyPairs {
   /**
@@ -43,6 +54,11 @@ export interface MsgRemoveCurrencyPairs {
    */
   currencyPairIds: string[];
 }
+/**
+ * @name MsgRemoveCurrencyPairsResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.MsgRemoveCurrencyPairsResponse
+ */
 export interface MsgRemoveCurrencyPairsResponse {}
 function createBaseMsgAddCurrencyPairs(): MsgAddCurrencyPairs {
   return {
@@ -50,6 +66,15 @@ function createBaseMsgAddCurrencyPairs(): MsgAddCurrencyPairs {
     currencyPairs: [],
   };
 }
+/**
+ * Given an authority + a set of CurrencyPairs, the x/oracle module will
+ * check to see that the authority has permissions to update the set of
+ * CurrencyPairs tracked in the oracle, and add the given CurrencyPairs to be
+ * tracked in each VoteExtension
+ * @name MsgAddCurrencyPairs
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.MsgAddCurrencyPairs
+ */
 export const MsgAddCurrencyPairs = {
   typeUrl: "/slinky.oracle.v1.MsgAddCurrencyPairs",
   encode(message: MsgAddCurrencyPairs, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -108,6 +133,11 @@ export const MsgAddCurrencyPairs = {
 function createBaseMsgAddCurrencyPairsResponse(): MsgAddCurrencyPairsResponse {
   return {};
 }
+/**
+ * @name MsgAddCurrencyPairsResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.MsgAddCurrencyPairsResponse
+ */
 export const MsgAddCurrencyPairsResponse = {
   typeUrl: "/slinky.oracle.v1.MsgAddCurrencyPairsResponse",
   encode(_: MsgAddCurrencyPairsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -148,6 +178,16 @@ function createBaseMsgRemoveCurrencyPairs(): MsgRemoveCurrencyPairs {
     currencyPairIds: [],
   };
 }
+/**
+ * Given an authority + a set of CurrencyPairIDs, the x/oracle module's message
+ * service will remove all of the CurrencyPairs identified by each
+ * CurrencyPairID in the request from state. Notice, if a given currency-pair
+ * does not exist in state, the module ignores that currency-pair and continues
+ * removing the rest.
+ * @name MsgRemoveCurrencyPairs
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.MsgRemoveCurrencyPairs
+ */
 export const MsgRemoveCurrencyPairs = {
   typeUrl: "/slinky.oracle.v1.MsgRemoveCurrencyPairs",
   encode(message: MsgRemoveCurrencyPairs, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -206,6 +246,11 @@ export const MsgRemoveCurrencyPairs = {
 function createBaseMsgRemoveCurrencyPairsResponse(): MsgRemoveCurrencyPairsResponse {
   return {};
 }
+/**
+ * @name MsgRemoveCurrencyPairsResponse
+ * @package slinky.oracle.v1
+ * @see proto type: slinky.oracle.v1.MsgRemoveCurrencyPairsResponse
+ */
 export const MsgRemoveCurrencyPairsResponse = {
   typeUrl: "/slinky.oracle.v1.MsgRemoveCurrencyPairsResponse",
   encode(_: MsgRemoveCurrencyPairsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

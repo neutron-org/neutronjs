@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.benchmark.v1";
-/** Op is a message describing a benchmark operation. */
+/**
+ * Op is a message describing a benchmark operation.
+ * @name Op
+ * @package cosmos.benchmark.v1
+ * @see proto type: cosmos.benchmark.v1.Op
+ */
 export interface Op {
   seed: bigint;
   actor: string;
@@ -25,6 +30,12 @@ function createBaseOp(): Op {
     exists: false,
   };
 }
+/**
+ * Op is a message describing a benchmark operation.
+ * @name Op
+ * @package cosmos.benchmark.v1
+ * @see proto type: cosmos.benchmark.v1.Op
+ */
 export const Op = {
   typeUrl: "/cosmos.benchmark.v1.Op",
   encode(message: Op, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

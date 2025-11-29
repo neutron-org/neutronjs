@@ -1,13 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Duration } from "../../google/protobuf/duration";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Duration } from "../../google/protobuf/duration.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "tendermint.types";
 /**
  * ConsensusParams contains consensus critical parameters that determine the
  * validity of blocks.
+ * @name ConsensusParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.ConsensusParams
  */
 export interface ConsensusParams {
   block?: BlockParams;
@@ -16,7 +19,12 @@ export interface ConsensusParams {
   version?: VersionParams;
   abci?: ABCIParams;
 }
-/** BlockParams contains limits on the block size. */
+/**
+ * BlockParams contains limits on the block size.
+ * @name BlockParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.BlockParams
+ */
 export interface BlockParams {
   /**
    * Max block size, in bytes.
@@ -29,7 +37,12 @@ export interface BlockParams {
    */
   maxGas: bigint;
 }
-/** EvidenceParams determine how we handle evidence of malfeasance. */
+/**
+ * EvidenceParams determine how we handle evidence of malfeasance.
+ * @name EvidenceParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.EvidenceParams
+ */
 export interface EvidenceParams {
   /**
    * Max age of evidence, in blocks.
@@ -56,11 +69,19 @@ export interface EvidenceParams {
 /**
  * ValidatorParams restrict the public key types validators can use.
  * NOTE: uses ABCI pubkey naming, not Amino names.
+ * @name ValidatorParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.ValidatorParams
  */
 export interface ValidatorParams {
   pubKeyTypes: string[];
 }
-/** VersionParams contains the ABCI application version. */
+/**
+ * VersionParams contains the ABCI application version.
+ * @name VersionParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.VersionParams
+ */
 export interface VersionParams {
   app: bigint;
 }
@@ -68,12 +89,20 @@ export interface VersionParams {
  * HashedParams is a subset of ConsensusParams.
  *
  * It is hashed into the Header.ConsensusHash.
+ * @name HashedParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.HashedParams
  */
 export interface HashedParams {
   blockMaxBytes: bigint;
   blockMaxGas: bigint;
 }
-/** ABCIParams configure functionality specific to the Application Blockchain Interface. */
+/**
+ * ABCIParams configure functionality specific to the Application Blockchain Interface.
+ * @name ABCIParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.ABCIParams
+ */
 export interface ABCIParams {
   /**
    * vote_extensions_enable_height configures the first height during which
@@ -97,6 +126,13 @@ function createBaseConsensusParams(): ConsensusParams {
     abci: undefined,
   };
 }
+/**
+ * ConsensusParams contains consensus critical parameters that determine the
+ * validity of blocks.
+ * @name ConsensusParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.ConsensusParams
+ */
 export const ConsensusParams = {
   typeUrl: "/tendermint.types.ConsensusParams",
   encode(message: ConsensusParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -194,6 +230,12 @@ function createBaseBlockParams(): BlockParams {
     maxGas: BigInt(0),
   };
 }
+/**
+ * BlockParams contains limits on the block size.
+ * @name BlockParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.BlockParams
+ */
 export const BlockParams = {
   typeUrl: "/tendermint.types.BlockParams",
   encode(message: BlockParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -255,6 +297,12 @@ function createBaseEvidenceParams(): EvidenceParams {
     maxBytes: BigInt(0),
   };
 }
+/**
+ * EvidenceParams determine how we handle evidence of malfeasance.
+ * @name EvidenceParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.EvidenceParams
+ */
 export const EvidenceParams = {
   typeUrl: "/tendermint.types.EvidenceParams",
   encode(message: EvidenceParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -327,6 +375,13 @@ function createBaseValidatorParams(): ValidatorParams {
     pubKeyTypes: [],
   };
 }
+/**
+ * ValidatorParams restrict the public key types validators can use.
+ * NOTE: uses ABCI pubkey naming, not Amino names.
+ * @name ValidatorParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.ValidatorParams
+ */
 export const ValidatorParams = {
   typeUrl: "/tendermint.types.ValidatorParams",
   encode(message: ValidatorParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -377,6 +432,12 @@ function createBaseVersionParams(): VersionParams {
     app: BigInt(0),
   };
 }
+/**
+ * VersionParams contains the ABCI application version.
+ * @name VersionParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.VersionParams
+ */
 export const VersionParams = {
   typeUrl: "/tendermint.types.VersionParams",
   encode(message: VersionParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -426,6 +487,14 @@ function createBaseHashedParams(): HashedParams {
     blockMaxGas: BigInt(0),
   };
 }
+/**
+ * HashedParams is a subset of ConsensusParams.
+ *
+ * It is hashed into the Header.ConsensusHash.
+ * @name HashedParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.HashedParams
+ */
 export const HashedParams = {
   typeUrl: "/tendermint.types.HashedParams",
   encode(message: HashedParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -486,6 +555,12 @@ function createBaseABCIParams(): ABCIParams {
     voteExtensionsEnableHeight: BigInt(0),
   };
 }
+/**
+ * ABCIParams configure functionality specific to the Application Blockchain Interface.
+ * @name ABCIParams
+ * @package tendermint.types
+ * @see proto type: tendermint.types.ABCIParams
+ */
 export const ABCIParams = {
   typeUrl: "/tendermint.types.ABCIParams",
   encode(message: ABCIParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

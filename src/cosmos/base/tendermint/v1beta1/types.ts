@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Data, Commit, BlockID } from "../../../../tendermint/types/types";
-import { EvidenceList } from "../../../../tendermint/types/evidence";
-import { Consensus } from "../../../../tendermint/version/types";
-import { Timestamp } from "../../../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { Data, Commit, BlockID } from "../../../../tendermint/types/types.js";
+import { EvidenceList } from "../../../../tendermint/types/evidence.js";
+import { Consensus } from "../../../../tendermint/version/types.js";
+import { Timestamp } from "../../../../google/protobuf/timestamp.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
 import {
   isSet,
   DeepPartial,
@@ -13,12 +13,15 @@ import {
   bytesFromBase64,
   fromTimestamp,
   base64FromBytes,
-} from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+} from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.base.tendermint.v1beta1";
 /**
  * Block is tendermint type Block, with the Header proposer address
  * field converted to bech32 string.
+ * @name Block
+ * @package cosmos.base.tendermint.v1beta1
+ * @see proto type: cosmos.base.tendermint.v1beta1.Block
  */
 export interface Block {
   header: Header;
@@ -26,30 +29,55 @@ export interface Block {
   evidence: EvidenceList;
   lastCommit?: Commit;
 }
-/** Header defines the structure of a Tendermint block header. */
+/**
+ * Header defines the structure of a Tendermint block header.
+ * @name Header
+ * @package cosmos.base.tendermint.v1beta1
+ * @see proto type: cosmos.base.tendermint.v1beta1.Header
+ */
 export interface Header {
-  /** basic block info */
+  /**
+   * basic block info
+   */
   version: Consensus;
   chainId: string;
   height: bigint;
   time: Timestamp;
-  /** prev block info */
+  /**
+   * prev block info
+   */
   lastBlockId: BlockID;
-  /** hashes of block data */
+  /**
+   * hashes of block data
+   */
   lastCommitHash: Uint8Array;
-  /** transactions */
+  /**
+   * transactions
+   */
   dataHash: Uint8Array;
-  /** hashes from the app output from the prev block */
+  /**
+   * hashes from the app output from the prev block
+   */
   validatorsHash: Uint8Array;
-  /** validators for the next block */
+  /**
+   * validators for the next block
+   */
   nextValidatorsHash: Uint8Array;
-  /** consensus params for current block */
+  /**
+   * consensus params for current block
+   */
   consensusHash: Uint8Array;
-  /** state after txs from the previous block */
+  /**
+   * state after txs from the previous block
+   */
   appHash: Uint8Array;
-  /** root hash of all results from the txs from the previous block */
+  /**
+   * root hash of all results from the txs from the previous block
+   */
   lastResultsHash: Uint8Array;
-  /** consensus info */
+  /**
+   * consensus info
+   */
   evidenceHash: Uint8Array;
   /**
    * proposer_address is the original block proposer address, formatted as a Bech32 string.
@@ -66,6 +94,13 @@ function createBaseBlock(): Block {
     lastCommit: undefined,
   };
 }
+/**
+ * Block is tendermint type Block, with the Header proposer address
+ * field converted to bech32 string.
+ * @name Block
+ * @package cosmos.base.tendermint.v1beta1
+ * @see proto type: cosmos.base.tendermint.v1beta1.Block
+ */
 export const Block = {
   typeUrl: "/cosmos.base.tendermint.v1beta1.Block",
   encode(message: Block, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -162,6 +197,12 @@ function createBaseHeader(): Header {
     proposerAddress: "",
   };
 }
+/**
+ * Header defines the structure of a Tendermint block header.
+ * @name Header
+ * @package cosmos.base.tendermint.v1beta1
+ * @see proto type: cosmos.base.tendermint.v1beta1.Header
+ */
 export const Header = {
   typeUrl: "/cosmos.base.tendermint.v1beta1.Header",
   encode(message: Header, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

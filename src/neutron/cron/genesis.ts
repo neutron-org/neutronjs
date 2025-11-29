@@ -1,12 +1,17 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Schedule } from "./schedule";
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Schedule } from "./schedule.js";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.cron";
-/** Defines the cron module's genesis state. */
+/**
+ * Defines the cron module's genesis state.
+ * @name GenesisState
+ * @package neutron.cron
+ * @see proto type: neutron.cron.GenesisState
+ */
 export interface GenesisState {
   scheduleList: Schedule[];
   params: Params;
@@ -17,6 +22,12 @@ function createBaseGenesisState(): GenesisState {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * Defines the cron module's genesis state.
+ * @name GenesisState
+ * @package neutron.cron
+ * @see proto type: neutron.cron.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/neutron.cron.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

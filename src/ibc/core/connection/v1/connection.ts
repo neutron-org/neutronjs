@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { MerklePrefix } from "../../commitment/v1/commitment";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { MerklePrefix } from "../../commitment/v1/commitment.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.connection.v1";
 /**
  * State defines if a connection is in one of the following states:
@@ -63,18 +63,27 @@ export function stateToJSON(object: State): string {
  * separate one.
  * NOTE: there must only be 2 defined ConnectionEnds to establish
  * a connection between two chains.
+ * @name ConnectionEnd
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.ConnectionEnd
  */
 export interface ConnectionEnd {
-  /** client associated with this connection. */
+  /**
+   * client associated with this connection.
+   */
   clientId: string;
   /**
    * IBC version which can be utilised to determine encodings or protocols for
    * channels or packets utilising this connection.
    */
   versions: Version[];
-  /** current state of the connection end. */
+  /**
+   * current state of the connection end.
+   */
   state: State;
-  /** counterparty chain associated with this connection. */
+  /**
+   * counterparty chain associated with this connection.
+   */
   counterparty: Counterparty;
   /**
    * delay period that must pass before a consensus state can be used for
@@ -86,25 +95,43 @@ export interface ConnectionEnd {
 /**
  * IdentifiedConnection defines a connection with additional connection
  * identifier field.
+ * @name IdentifiedConnection
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.IdentifiedConnection
  */
 export interface IdentifiedConnection {
-  /** connection identifier. */
+  /**
+   * connection identifier.
+   */
   id: string;
-  /** client associated with this connection. */
+  /**
+   * client associated with this connection.
+   */
   clientId: string;
   /**
    * IBC version which can be utilised to determine encodings or protocols for
    * channels or packets utilising this connection
    */
   versions: Version[];
-  /** current state of the connection end. */
+  /**
+   * current state of the connection end.
+   */
   state: State;
-  /** counterparty chain associated with this connection. */
+  /**
+   * counterparty chain associated with this connection.
+   */
   counterparty: Counterparty;
-  /** delay period associated with this connection. */
+  /**
+   * delay period associated with this connection.
+   */
   delayPeriod: bigint;
 }
-/** Counterparty defines the counterparty chain associated with a connection end. */
+/**
+ * Counterparty defines the counterparty chain associated with a connection end.
+ * @name Counterparty
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.Counterparty
+ */
 export interface Counterparty {
   /**
    * identifies the client on the counterparty chain associated with a given
@@ -116,32 +143,62 @@ export interface Counterparty {
    * given connection.
    */
   connectionId: string;
-  /** commitment merkle prefix of the counterparty chain. */
+  /**
+   * commitment merkle prefix of the counterparty chain.
+   */
   prefix: MerklePrefix;
 }
-/** ClientPaths define all the connection paths for a client state. */
+/**
+ * ClientPaths define all the connection paths for a client state.
+ * @name ClientPaths
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.ClientPaths
+ */
 export interface ClientPaths {
-  /** list of connection paths */
+  /**
+   * list of connection paths
+   */
   paths: string[];
 }
-/** ConnectionPaths define all the connection paths for a given client state. */
+/**
+ * ConnectionPaths define all the connection paths for a given client state.
+ * @name ConnectionPaths
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.ConnectionPaths
+ */
 export interface ConnectionPaths {
-  /** client state unique identifier */
+  /**
+   * client state unique identifier
+   */
   clientId: string;
-  /** list of connection paths */
+  /**
+   * list of connection paths
+   */
   paths: string[];
 }
 /**
  * Version defines the versioning scheme used to negotiate the IBC version in
  * the connection handshake.
+ * @name Version
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.Version
  */
 export interface Version {
-  /** unique version identifier */
+  /**
+   * unique version identifier
+   */
   identifier: string;
-  /** list of features compatible with the specified identifier */
+  /**
+   * list of features compatible with the specified identifier
+   */
   features: string[];
 }
-/** Params defines the set of Connection parameters. */
+/**
+ * Params defines the set of Connection parameters.
+ * @name Params
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.Params
+ */
 export interface Params {
   /**
    * maximum expected time per block (in nanoseconds), used to enforce block delay. This parameter should reflect the
@@ -159,6 +216,15 @@ function createBaseConnectionEnd(): ConnectionEnd {
     delayPeriod: BigInt(0),
   };
 }
+/**
+ * ConnectionEnd defines a stateful object on a chain connected to another
+ * separate one.
+ * NOTE: there must only be 2 defined ConnectionEnds to establish
+ * a connection between two chains.
+ * @name ConnectionEnd
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.ConnectionEnd
+ */
 export const ConnectionEnd = {
   typeUrl: "/ibc.core.connection.v1.ConnectionEnd",
   encode(message: ConnectionEnd, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -255,6 +321,13 @@ function createBaseIdentifiedConnection(): IdentifiedConnection {
     delayPeriod: BigInt(0),
   };
 }
+/**
+ * IdentifiedConnection defines a connection with additional connection
+ * identifier field.
+ * @name IdentifiedConnection
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.IdentifiedConnection
+ */
 export const IdentifiedConnection = {
   typeUrl: "/ibc.core.connection.v1.IdentifiedConnection",
   encode(message: IdentifiedConnection, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -357,6 +430,12 @@ function createBaseCounterparty(): Counterparty {
     prefix: MerklePrefix.fromPartial({}),
   };
 }
+/**
+ * Counterparty defines the counterparty chain associated with a connection end.
+ * @name Counterparty
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.Counterparty
+ */
 export const Counterparty = {
   typeUrl: "/ibc.core.connection.v1.Counterparty",
   encode(message: Counterparty, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -424,6 +503,12 @@ function createBaseClientPaths(): ClientPaths {
     paths: [],
   };
 }
+/**
+ * ClientPaths define all the connection paths for a client state.
+ * @name ClientPaths
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.ClientPaths
+ */
 export const ClientPaths = {
   typeUrl: "/ibc.core.connection.v1.ClientPaths",
   encode(message: ClientPaths, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -475,6 +560,12 @@ function createBaseConnectionPaths(): ConnectionPaths {
     paths: [],
   };
 }
+/**
+ * ConnectionPaths define all the connection paths for a given client state.
+ * @name ConnectionPaths
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.ConnectionPaths
+ */
 export const ConnectionPaths = {
   typeUrl: "/ibc.core.connection.v1.ConnectionPaths",
   encode(message: ConnectionPaths, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -535,6 +626,13 @@ function createBaseVersion(): Version {
     features: [],
   };
 }
+/**
+ * Version defines the versioning scheme used to negotiate the IBC version in
+ * the connection handshake.
+ * @name Version
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.Version
+ */
 export const Version = {
   typeUrl: "/ibc.core.connection.v1.Version",
   encode(message: Version, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -594,6 +692,12 @@ function createBaseParams(): Params {
     maxExpectedTimePerBlock: BigInt(0),
   };
 }
+/**
+ * Params defines the set of Connection parameters.
+ * @name Params
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.Params
+ */
 export const Params = {
   typeUrl: "/ibc.core.connection.v1.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

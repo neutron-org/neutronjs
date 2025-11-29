@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   GetAllCurrencyPairsRequest,
@@ -14,7 +14,7 @@ import {
   GetCurrencyPairMappingResponse,
   GetCurrencyPairMappingListRequest,
   GetCurrencyPairMappingListResponse,
-} from "./query";
+} from "./query.js";
 /** Query is the query service for the x/oracle module. */
 export interface Query {
   /** Get all the currency pairs the x/oracle module is tracking price-data for. */
@@ -41,8 +41,8 @@ export interface Query {
   ): Promise<GetCurrencyPairMappingListResponse>;
 }
 export class QueryClientImpl implements Query {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.getAllCurrencyPairs = this.getAllCurrencyPairs.bind(this);
     this.getPrice = this.getPrice.bind(this);

@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.interchaintxs.v1";
-/** GenesisState defines the interchaintxs module's genesis state. */
+/**
+ * GenesisState defines the interchaintxs module's genesis state.
+ * @name GenesisState
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.GenesisState
+ */
 export interface GenesisState {
   params: Params;
 }
@@ -14,6 +19,12 @@ function createBaseGenesisState(): GenesisState {
     params: Params.fromPartial({}),
   };
 }
+/**
+ * GenesisState defines the interchaintxs module's genesis state.
+ * @name GenesisState
+ * @package neutron.interchaintxs.v1
+ * @see proto type: neutron.interchaintxs.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/neutron.interchaintxs.v1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

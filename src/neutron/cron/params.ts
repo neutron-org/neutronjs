@@ -1,14 +1,23 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.cron";
-/** Defines the parameters for the module. */
+/**
+ * Defines the parameters for the module.
+ * @name Params
+ * @package neutron.cron
+ * @see proto type: neutron.cron.Params
+ */
 export interface Params {
-  /** Security address that can remove schedules */
+  /**
+   * Security address that can remove schedules
+   */
   securityAddress: string;
-  /** Limit of schedules executed in one block */
+  /**
+   * Limit of schedules executed in one block
+   */
   limit: bigint;
 }
 function createBaseParams(): Params {
@@ -17,6 +26,12 @@ function createBaseParams(): Params {
     limit: BigInt(0),
   };
 }
+/**
+ * Defines the parameters for the module.
+ * @name Params
+ * @package neutron.cron
+ * @see proto type: neutron.cron.Params
+ */
 export const Params = {
   typeUrl: "/neutron.cron.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

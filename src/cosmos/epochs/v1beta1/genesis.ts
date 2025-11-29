@@ -1,17 +1,22 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Duration } from "../../../google/protobuf/duration";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { Duration } from "../../../google/protobuf/duration.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.epochs.v1beta1";
 /**
  * EpochInfo is a struct that describes the data going into
  * a timer defined by the x/epochs module.
+ * @name EpochInfo
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.EpochInfo
  */
 export interface EpochInfo {
-  /** identifier is a unique reference to this particular timer. */
+  /**
+   * identifier is a unique reference to this particular timer.
+   */
   identifier: string;
   /**
    * start_time is the time at which the timer first ever ticks.
@@ -64,7 +69,12 @@ export interface EpochInfo {
    */
   currentEpochStartHeight: bigint;
 }
-/** GenesisState defines the epochs module's genesis state. */
+/**
+ * GenesisState defines the epochs module's genesis state.
+ * @name GenesisState
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.GenesisState
+ */
 export interface GenesisState {
   epochs: EpochInfo[];
 }
@@ -79,6 +89,13 @@ function createBaseEpochInfo(): EpochInfo {
     currentEpochStartHeight: BigInt(0),
   };
 }
+/**
+ * EpochInfo is a struct that describes the data going into
+ * a timer defined by the x/epochs module.
+ * @name EpochInfo
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.EpochInfo
+ */
 export const EpochInfo = {
   typeUrl: "/cosmos.epochs.v1beta1.EpochInfo",
   encode(message: EpochInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -194,6 +211,12 @@ function createBaseGenesisState(): GenesisState {
     epochs: [],
   };
 }
+/**
+ * GenesisState defines the epochs module's genesis state.
+ * @name GenesisState
+ * @package cosmos.epochs.v1beta1
+ * @see proto type: cosmos.epochs.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmos.epochs.v1beta1.GenesisState",
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

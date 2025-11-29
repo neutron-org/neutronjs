@@ -1,11 +1,16 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
-import { Decimal } from "@cosmjs/math";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
+import { Decimal } from "@interchainjs/math";
 export const protobufPackage = "neutron.revenue";
-/** Defines the parameters for the module. */
+/**
+ * Defines the parameters for the module.
+ * @name Params
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.Params
+ */
 export interface Params {
   /**
    * The asset used in revenue payments to validators. Expected to be a native token of the chain
@@ -14,7 +19,9 @@ export interface Params {
    * exponent.
    */
   rewardAsset: string;
-  /** Quotation of the reward asset. */
+  /**
+   * Quotation of the reward asset.
+   */
   rewardQuote?: RewardQuote;
   /**
    * Specifies performance requirements for validators in scope of blocks signing and creation. If
@@ -26,12 +33,21 @@ export interface Params {
    * met, the validator is not rewarded.
    */
   oracleVotesPerformanceRequirement?: PerformanceRequirement;
-  /** Indicates the currently active type of payment schedule. */
+  /**
+   * Indicates the currently active type of payment schedule.
+   */
   paymentScheduleType?: PaymentScheduleType;
-  /** The time window, in seconds, used to calculate the TWAP of the reward asset. */
+  /**
+   * The time window, in seconds, used to calculate the TWAP of the reward asset.
+   */
   twapWindow: bigint;
 }
-/** Defines information about the reward quote. */
+/**
+ * Defines information about the reward quote.
+ * @name RewardQuote
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.RewardQuote
+ */
 export interface RewardQuote {
   /**
    * The compensation amount measured in the quote asset. The amount is divided by the price of
@@ -49,25 +65,48 @@ export interface RewardQuote {
  * oneof implementations define the payment schedule that must be used currently.
  * This is a module's parameter. It's not updated automatically in runtime in contrast to the
  * payment schedule which is a state variable, but is updated via MsgUpdateParams.
+ * @name PaymentScheduleType
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.PaymentScheduleType
  */
 export interface PaymentScheduleType {
   monthlyPaymentScheduleType?: MonthlyPaymentScheduleType;
   blockBasedPaymentScheduleType?: BlockBasedPaymentScheduleType;
   emptyPaymentScheduleType?: EmptyPaymentScheduleType;
 }
-/** Monthly periods with payments made at the end of each month. */
+/**
+ * Monthly periods with payments made at the end of each month.
+ * @name MonthlyPaymentScheduleType
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.MonthlyPaymentScheduleType
+ */
 export interface MonthlyPaymentScheduleType {}
 /**
  * Periods defined by a specific number of blocks, with payments made when the required block
  * count is reached.
+ * @name BlockBasedPaymentScheduleType
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.BlockBasedPaymentScheduleType
  */
 export interface BlockBasedPaymentScheduleType {
-  /** The number of blocks in a payment period. */
+  /**
+   * The number of blocks in a payment period.
+   */
   blocksPerPeriod: bigint;
 }
-/** Endless periods with payments never made. */
+/**
+ * Endless periods with payments never made.
+ * @name EmptyPaymentScheduleType
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.EmptyPaymentScheduleType
+ */
 export interface EmptyPaymentScheduleType {}
-/** Specifies a performance criteria that validators must meet to qualify for network rewards. */
+/**
+ * Specifies a performance criteria that validators must meet to qualify for network rewards.
+ * @name PerformanceRequirement
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.PerformanceRequirement
+ */
 export interface PerformanceRequirement {
   /**
    * The fraction of the total performance a validator can miss without affecting their reward.
@@ -91,6 +130,12 @@ function createBaseParams(): Params {
     twapWindow: BigInt(0),
   };
 }
+/**
+ * Defines the parameters for the module.
+ * @name Params
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.Params
+ */
 export const Params = {
   typeUrl: "/neutron.revenue.Params",
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -218,6 +263,12 @@ function createBaseRewardQuote(): RewardQuote {
     asset: "",
   };
 }
+/**
+ * Defines information about the reward quote.
+ * @name RewardQuote
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.RewardQuote
+ */
 export const RewardQuote = {
   typeUrl: "/neutron.revenue.RewardQuote",
   encode(message: RewardQuote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -277,6 +328,15 @@ function createBasePaymentScheduleType(): PaymentScheduleType {
     emptyPaymentScheduleType: undefined,
   };
 }
+/**
+ * A model that contains information specific to the currently active payment schedule type. The
+ * oneof implementations define the payment schedule that must be used currently.
+ * This is a module's parameter. It's not updated automatically in runtime in contrast to the
+ * payment schedule which is a state variable, but is updated via MsgUpdateParams.
+ * @name PaymentScheduleType
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.PaymentScheduleType
+ */
 export const PaymentScheduleType = {
   typeUrl: "/neutron.revenue.PaymentScheduleType",
   encode(message: PaymentScheduleType, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -374,6 +434,12 @@ export const PaymentScheduleType = {
 function createBaseMonthlyPaymentScheduleType(): MonthlyPaymentScheduleType {
   return {};
 }
+/**
+ * Monthly periods with payments made at the end of each month.
+ * @name MonthlyPaymentScheduleType
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.MonthlyPaymentScheduleType
+ */
 export const MonthlyPaymentScheduleType = {
   typeUrl: "/neutron.revenue.MonthlyPaymentScheduleType",
   encode(_: MonthlyPaymentScheduleType, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -411,6 +477,13 @@ function createBaseBlockBasedPaymentScheduleType(): BlockBasedPaymentScheduleTyp
     blocksPerPeriod: BigInt(0),
   };
 }
+/**
+ * Periods defined by a specific number of blocks, with payments made when the required block
+ * count is reached.
+ * @name BlockBasedPaymentScheduleType
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.BlockBasedPaymentScheduleType
+ */
 export const BlockBasedPaymentScheduleType = {
   typeUrl: "/neutron.revenue.BlockBasedPaymentScheduleType",
   encode(message: BlockBasedPaymentScheduleType, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -460,6 +533,12 @@ export const BlockBasedPaymentScheduleType = {
 function createBaseEmptyPaymentScheduleType(): EmptyPaymentScheduleType {
   return {};
 }
+/**
+ * Endless periods with payments never made.
+ * @name EmptyPaymentScheduleType
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.EmptyPaymentScheduleType
+ */
 export const EmptyPaymentScheduleType = {
   typeUrl: "/neutron.revenue.EmptyPaymentScheduleType",
   encode(_: EmptyPaymentScheduleType, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -498,6 +577,12 @@ function createBasePerformanceRequirement(): PerformanceRequirement {
     requiredAtLeast: "",
   };
 }
+/**
+ * Specifies a performance criteria that validators must meet to qualify for network rewards.
+ * @name PerformanceRequirement
+ * @package neutron.revenue
+ * @see proto type: neutron.revenue.PerformanceRequirement
+ */
 export const PerformanceRequirement = {
   typeUrl: "/neutron.revenue.PerformanceRequirement",
   encode(message: PerformanceRequirement, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

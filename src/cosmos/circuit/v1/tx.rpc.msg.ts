@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { TxRpc } from "../../../types.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgAuthorizeCircuitBreaker,
   MsgAuthorizeCircuitBreakerResponse,
@@ -9,7 +9,7 @@ import {
   MsgTripCircuitBreakerResponse,
   MsgResetCircuitBreaker,
   MsgResetCircuitBreakerResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the circuit Msg service. */
 export interface Msg {
   /**
@@ -26,8 +26,8 @@ export interface Msg {
   resetCircuitBreaker(request: MsgResetCircuitBreaker): Promise<MsgResetCircuitBreakerResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.authorizeCircuitBreaker = this.authorizeCircuitBreaker.bind(this);
     this.tripCircuitBreaker = this.tripCircuitBreaker.bind(this);
@@ -49,3 +49,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgResetCircuitBreakerResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};

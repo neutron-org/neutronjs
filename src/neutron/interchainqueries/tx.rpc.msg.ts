@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../helpers";
-import { BinaryReader } from "../../binary";
+import { TxRpc } from "../../types.js";
+import { BinaryReader } from "../../binary.js";
 import {
   MsgRegisterInterchainQuery,
   MsgRegisterInterchainQueryResponse,
@@ -13,7 +13,7 @@ import {
   MsgUpdateInterchainQueryResponse,
   MsgUpdateParams,
   MsgUpdateParamsResponse,
-} from "./tx";
+} from "./tx.js";
 /** Defines the Msg interface of the module. */
 export interface Msg {
   /**
@@ -51,8 +51,8 @@ export interface Msg {
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }
 export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly rpc: TxRpc;
+  constructor(rpc: TxRpc) {
     this.rpc = rpc;
     this.registerInterchainQuery = this.registerInterchainQuery.bind(this);
     this.submitQueryResult = this.submitQueryResult.bind(this);
@@ -86,3 +86,6 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
   }
 }
+export const createClientImpl = (rpc: TxRpc) => {
+  return new MsgClientImpl(rpc);
+};
