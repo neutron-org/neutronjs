@@ -140,6 +140,7 @@ export interface ContractInfo {
    * persistence model.
    */
   extension?: Any;
+  ibc2PortId: string;
 }
 /** ContractCodeHistoryEntry metadata to a contract. */
 export interface ContractCodeHistoryEntry {
@@ -421,6 +422,7 @@ function createBaseContractInfo(): ContractInfo {
     created: undefined,
     ibcPortId: "",
     extension: undefined,
+    ibc2PortId: "",
   };
 }
 export const ContractInfo = {
@@ -446,6 +448,9 @@ export const ContractInfo = {
     }
     if (message.extension !== undefined) {
       Any.encode(message.extension, writer.uint32(58).fork()).ldelim();
+    }
+    if (message.ibc2PortId !== "") {
+      writer.uint32(66).string(message.ibc2PortId);
     }
     return writer;
   },
@@ -477,6 +482,9 @@ export const ContractInfo = {
         case 7:
           message.extension = Any.decode(reader, reader.uint32());
           break;
+        case 8:
+          message.ibc2PortId = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -493,6 +501,7 @@ export const ContractInfo = {
     if (isSet(object.created)) obj.created = AbsoluteTxPosition.fromJSON(object.created);
     if (isSet(object.ibcPortId)) obj.ibcPortId = String(object.ibcPortId);
     if (isSet(object.extension)) obj.extension = Any.fromJSON(object.extension);
+    if (isSet(object.ibc2PortId)) obj.ibc2PortId = String(object.ibc2PortId);
     return obj;
   },
   toJSON(message: ContractInfo): JsonSafe<ContractInfo> {
@@ -506,6 +515,7 @@ export const ContractInfo = {
     message.ibcPortId !== undefined && (obj.ibcPortId = message.ibcPortId);
     message.extension !== undefined &&
       (obj.extension = message.extension ? Any.toJSON(message.extension) : undefined);
+    message.ibc2PortId !== undefined && (obj.ibc2PortId = message.ibc2PortId);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<ContractInfo>, I>>(object: I): ContractInfo {
@@ -523,6 +533,7 @@ export const ContractInfo = {
     if (object.extension !== undefined && object.extension !== null) {
       message.extension = Any.fromPartial(object.extension);
     }
+    message.ibc2PortId = object.ibc2PortId ?? "";
     return message;
   },
 };

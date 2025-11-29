@@ -47,7 +47,6 @@ telescope({
           "slinky/marketmap/v1/tx.proto",
           "mexc/pushdata_v3_api_wrapper.proto",
           "mexc/response.proto",
-          "protos/slinky-src/proto/mexc/pushdata_v3_api_wrapper.proto",
         ],
         packages: ["google.api"],
       },
