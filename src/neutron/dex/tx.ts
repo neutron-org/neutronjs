@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
 import { Timestamp } from "../../google/protobuf/timestamp.js";
 import { Params } from "./params.js";
-import { Coin } from "../../cosmos/base/v1beta1/coin.js";
 import { PrecDecCoin } from "./precdec_coin.js";
 import { BinaryReader, BinaryWriter } from "../../binary.js";
 import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers.js";
@@ -98,6 +98,11 @@ export interface MsgWithdrawal {
   sharesToRemove: string[];
   tickIndexesAToB: bigint[];
   fees: bigint[];
+}
+export interface MsgWithdrawalWithShares {
+  creator: string;
+  receiver: string;
+  sharesToRemove: Coin[];
 }
 export interface MsgWithdrawalResponse {
   /** reserve0_withdrawn is DEPRECATED */
@@ -784,6 +789,77 @@ export const MsgWithdrawal = {
     message.sharesToRemove = object.sharesToRemove?.map((e) => e) || [];
     message.tickIndexesAToB = object.tickIndexesAToB?.map((e) => BigInt(e.toString())) || [];
     message.fees = object.fees?.map((e) => BigInt(e.toString())) || [];
+    return message;
+  },
+};
+function createBaseMsgWithdrawalWithShares(): MsgWithdrawalWithShares {
+  return {
+    creator: "",
+    receiver: "",
+    sharesToRemove: [],
+  };
+}
+export const MsgWithdrawalWithShares = {
+  typeUrl: "/neutron.dex.MsgWithdrawalWithShares",
+  encode(message: MsgWithdrawalWithShares, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.receiver !== "") {
+      writer.uint32(18).string(message.receiver);
+    }
+    for (const v of message.sharesToRemove) {
+      Coin.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgWithdrawalWithShares {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgWithdrawalWithShares();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.receiver = reader.string();
+          break;
+        case 3:
+          message.sharesToRemove.push(Coin.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): MsgWithdrawalWithShares {
+    const obj = createBaseMsgWithdrawalWithShares();
+    if (isSet(object.creator)) obj.creator = String(object.creator);
+    if (isSet(object.receiver)) obj.receiver = String(object.receiver);
+    if (Array.isArray(object?.sharesToRemove))
+      obj.sharesToRemove = object.sharesToRemove.map((e: any) => Coin.fromJSON(e));
+    return obj;
+  },
+  toJSON(message: MsgWithdrawalWithShares): JsonSafe<MsgWithdrawalWithShares> {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.receiver !== undefined && (obj.receiver = message.receiver);
+    if (message.sharesToRemove) {
+      obj.sharesToRemove = message.sharesToRemove.map((e) => (e ? Coin.toJSON(e) : undefined));
+    } else {
+      obj.sharesToRemove = [];
+    }
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<MsgWithdrawalWithShares>, I>>(object: I): MsgWithdrawalWithShares {
+    const message = createBaseMsgWithdrawalWithShares();
+    message.creator = object.creator ?? "";
+    message.receiver = object.receiver ?? "";
+    message.sharesToRemove = object.sharesToRemove?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };

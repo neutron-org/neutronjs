@@ -6,6 +6,7 @@ import {
   limitOrderTypeFromJSON,
   MsgDeposit,
   MsgWithdrawal,
+  MsgWithdrawalWithShares,
   MsgPlaceLimitOrder,
   MsgWithdrawFilledLimitOrder,
   MsgCancelLimitOrder,
@@ -41,6 +42,17 @@ export interface MsgWithdrawalAminoType extends AminoMsg {
     shares_to_remove: string[];
     tick_indexes_a_to_b: string[];
     fees: string[];
+  };
+}
+export interface MsgWithdrawalWithSharesAminoType extends AminoMsg {
+  type: "dex/MsgWithdrawalWithShares";
+  value: {
+    creator: string;
+    receiver: string;
+    shares_to_remove: {
+      denom: string;
+      amount: string;
+    }[];
   };
 }
 export interface MsgPlaceLimitOrderAminoType extends AminoMsg {
@@ -200,6 +212,37 @@ export const AminoConverter = {
         sharesToRemove: shares_to_remove,
         tickIndexesAToB: tick_indexes_a_to_b.map?.((el0) => BigInt(el0)),
         fees: fees.map?.((el0) => BigInt(el0)),
+      };
+    },
+  },
+  "/neutron.dex.MsgWithdrawalWithShares": {
+    aminoType: "dex/MsgWithdrawalWithShares",
+    toAmino: ({
+      creator,
+      receiver,
+      sharesToRemove,
+    }: MsgWithdrawalWithShares): MsgWithdrawalWithSharesAminoType["value"] => {
+      return {
+        creator,
+        receiver,
+        shares_to_remove: sharesToRemove.map((el0) => ({
+          denom: el0.denom,
+          amount: el0.amount,
+        })),
+      };
+    },
+    fromAmino: ({
+      creator,
+      receiver,
+      shares_to_remove,
+    }: MsgWithdrawalWithSharesAminoType["value"]): MsgWithdrawalWithShares => {
+      return {
+        creator,
+        receiver,
+        sharesToRemove: shares_to_remove.map?.((el0) => ({
+          denom: el0.denom,
+          amount: el0.amount,
+        })),
       };
     },
   },
