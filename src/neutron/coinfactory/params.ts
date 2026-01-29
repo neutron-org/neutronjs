@@ -14,7 +14,7 @@ export interface WhitelistedHook {
   codeId: bigint;
   denomCreator: string;
 }
-/** Params defines the parameters for the tokenfactory module. */
+/** Params defines the parameters for the coinfactory module. */
 export interface Params {
   /**
    * DenomCreationFee defines the fee to be charged on the creation of a new
@@ -36,6 +36,8 @@ export interface Params {
   feeCollectorAddress: string;
   /** whitelisted_hooks is the list of hooks which are allowed to be added and executed */
   whitelistedHooks: WhitelistedHook[];
+  /** Sets a limit on the gas that can be consumed by the before_send hook. */
+  trackBeforeSendGasLimit: bigint;
 }
 function createBaseWhitelistedHook(): WhitelistedHook {
   return {
@@ -101,6 +103,7 @@ function createBaseParams(): Params {
     denomCreationGasConsume: undefined,
     feeCollectorAddress: "",
     whitelistedHooks: [],
+    trackBeforeSendGasLimit: BigInt(0),
   };
 }
 export const Params = {
@@ -117,6 +120,9 @@ export const Params = {
     }
     for (const v of message.whitelistedHooks) {
       WhitelistedHook.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.trackBeforeSendGasLimit !== BigInt(0)) {
+      writer.uint32(40).uint64(message.trackBeforeSendGasLimit);
     }
     return writer;
   },
@@ -139,6 +145,9 @@ export const Params = {
         case 4:
           message.whitelistedHooks.push(WhitelistedHook.decode(reader, reader.uint32()));
           break;
+        case 5:
+          message.trackBeforeSendGasLimit = reader.uint64();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -155,6 +164,8 @@ export const Params = {
     if (isSet(object.feeCollectorAddress)) obj.feeCollectorAddress = String(object.feeCollectorAddress);
     if (Array.isArray(object?.whitelistedHooks))
       obj.whitelistedHooks = object.whitelistedHooks.map((e: any) => WhitelistedHook.fromJSON(e));
+    if (isSet(object.trackBeforeSendGasLimit))
+      obj.trackBeforeSendGasLimit = BigInt(object.trackBeforeSendGasLimit.toString());
     return obj;
   },
   toJSON(message: Params): JsonSafe<Params> {
@@ -173,6 +184,8 @@ export const Params = {
     } else {
       obj.whitelistedHooks = [];
     }
+    message.trackBeforeSendGasLimit !== undefined &&
+      (obj.trackBeforeSendGasLimit = (message.trackBeforeSendGasLimit || BigInt(0)).toString());
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
@@ -183,6 +196,9 @@ export const Params = {
     }
     message.feeCollectorAddress = object.feeCollectorAddress ?? "";
     message.whitelistedHooks = object.whitelistedHooks?.map((e) => WhitelistedHook.fromPartial(e)) || [];
+    if (object.trackBeforeSendGasLimit !== undefined && object.trackBeforeSendGasLimit !== null) {
+      message.trackBeforeSendGasLimit = BigInt(object.trackBeforeSendGasLimit.toString());
+    }
     return message;
   },
 };

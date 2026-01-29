@@ -6,14 +6,14 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "neutron.coinfactory.v1beta1";
-/** GenesisState defines the tokenfactory module's genesis state. */
+/** GenesisState defines the coinfactory module's genesis state. */
 export interface GenesisState {
   /** params defines the parameters of the module. */
   params: Params;
   factoryDenoms: GenesisDenom[];
 }
 /**
- * GenesisDenom defines a tokenfactory denom that is defined within genesis
+ * GenesisDenom defines a coinfactory denom that is defined within genesis
  * state. The structure contains DenomAuthorityMetadata which defines the
  * denom's admin.
  */

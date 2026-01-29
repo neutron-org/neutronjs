@@ -13,7 +13,7 @@ export const protobufPackage = "neutron.coinfactory.v1beta1";
  * must be unique and cannot be re-used.
  *
  * The resulting denom created is defined as
- * <factory/{creatorAddress}/{subdenom}>. The resulting denom's admin is
+ * <factory.{creatorAddress}.{subdenom}>. The resulting denom's admin is
  * originally set to be the creator, but this can be changed later. The token
  * denom does not indicate the current admin.
  */
@@ -106,7 +106,7 @@ export interface MsgUpdateParams {
   /** Authority is the address of the governance account. */
   authority: string;
   /**
-   * params defines the x/tokenfactory parameters to update.
+   * params defines the x/coinfactory parameters to update.
    *
    * NOTE: All parameters must be supplied.
    */

@@ -4,6 +4,7 @@ import { GeneratedType, Registry } from "@cosmjs/proto-signing";
 import {
   MsgDeposit,
   MsgWithdrawal,
+  MsgWithdrawalWithShares,
   MsgPlaceLimitOrder,
   MsgWithdrawFilledLimitOrder,
   MsgCancelLimitOrder,
@@ -13,6 +14,7 @@ import {
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/neutron.dex.MsgDeposit", MsgDeposit],
   ["/neutron.dex.MsgWithdrawal", MsgWithdrawal],
+  ["/neutron.dex.MsgWithdrawalWithShares", MsgWithdrawalWithShares],
   ["/neutron.dex.MsgPlaceLimitOrder", MsgPlaceLimitOrder],
   ["/neutron.dex.MsgWithdrawFilledLimitOrder", MsgWithdrawFilledLimitOrder],
   ["/neutron.dex.MsgCancelLimitOrder", MsgCancelLimitOrder],
@@ -36,6 +38,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/neutron.dex.MsgWithdrawal",
         value: MsgWithdrawal.encode(value).finish(),
+      };
+    },
+    withdrawalWithShares(value: MsgWithdrawalWithShares) {
+      return {
+        typeUrl: "/neutron.dex.MsgWithdrawalWithShares",
+        value: MsgWithdrawalWithShares.encode(value).finish(),
       };
     },
     placeLimitOrder(value: MsgPlaceLimitOrder) {
@@ -79,6 +87,12 @@ export const MessageComposer = {
     withdrawal(value: MsgWithdrawal) {
       return {
         typeUrl: "/neutron.dex.MsgWithdrawal",
+        value,
+      };
+    },
+    withdrawalWithShares(value: MsgWithdrawalWithShares) {
+      return {
+        typeUrl: "/neutron.dex.MsgWithdrawalWithShares",
         value,
       };
     },
@@ -126,6 +140,12 @@ export const MessageComposer = {
         value: MsgWithdrawal.toJSON(value),
       };
     },
+    withdrawalWithShares(value: MsgWithdrawalWithShares) {
+      return {
+        typeUrl: "/neutron.dex.MsgWithdrawalWithShares",
+        value: MsgWithdrawalWithShares.toJSON(value),
+      };
+    },
     placeLimitOrder(value: MsgPlaceLimitOrder) {
       return {
         typeUrl: "/neutron.dex.MsgPlaceLimitOrder",
@@ -170,6 +190,12 @@ export const MessageComposer = {
         value: MsgWithdrawal.fromJSON(value),
       };
     },
+    withdrawalWithShares(value: any) {
+      return {
+        typeUrl: "/neutron.dex.MsgWithdrawalWithShares",
+        value: MsgWithdrawalWithShares.fromJSON(value),
+      };
+    },
     placeLimitOrder(value: any) {
       return {
         typeUrl: "/neutron.dex.MsgPlaceLimitOrder",
@@ -212,6 +238,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/neutron.dex.MsgWithdrawal",
         value: MsgWithdrawal.fromPartial(value),
+      };
+    },
+    withdrawalWithShares(value: MsgWithdrawalWithShares) {
+      return {
+        typeUrl: "/neutron.dex.MsgWithdrawalWithShares",
+        value: MsgWithdrawalWithShares.fromPartial(value),
       };
     },
     placeLimitOrder(value: MsgPlaceLimitOrder) {

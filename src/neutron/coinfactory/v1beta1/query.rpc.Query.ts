@@ -18,7 +18,7 @@ import {
 /** Query defines the gRPC querier service. */
 export interface Query {
   /**
-   * Params defines a gRPC query method that returns the tokenfactory module's
+   * Params defines a gRPC query method that returns the coinfactory module's
    * parameters.
    */
   params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;

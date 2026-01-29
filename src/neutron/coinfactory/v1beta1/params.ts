@@ -5,7 +5,7 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../helpers";
 import { JsonSafe } from "../../../json-safe";
 export const protobufPackage = "neutron.coinfactory.v1beta1";
-/** Params defines the parameters for the tokenfactory module. */
+/** Params defines the parameters for the coinfactory module. */
 export interface Params {
   /**
    * DenomCreationFee defines the fee to be charged on the creation of a new
