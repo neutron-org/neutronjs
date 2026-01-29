@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Channel, Packet, State, stateFromJSON, stateToJSON } from "./channel";
 import { Height, Params } from "../../client/v1/client";

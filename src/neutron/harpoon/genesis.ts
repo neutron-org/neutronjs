@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { HookSubscriptions } from "./hooks";
 import { BinaryReader, BinaryWriter } from "../../binary";

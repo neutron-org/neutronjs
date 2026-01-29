@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Rpc } from "../../../helpers";
 import { BinaryReader } from "../../../binary";
@@ -11,6 +12,8 @@ import {
   GetPricesResponse,
   GetCurrencyPairMappingRequest,
   GetCurrencyPairMappingResponse,
+  GetCurrencyPairMappingListRequest,
+  GetCurrencyPairMappingListResponse,
 } from "./query";
 /** Query is the query service for the x/oracle module. */
 export interface Query {
@@ -28,6 +31,14 @@ export interface Query {
    * the underlying currency pair from it.
    */
   getCurrencyPairMapping(request?: GetCurrencyPairMappingRequest): Promise<GetCurrencyPairMappingResponse>;
+  /**
+   * Get the mapping of currency pair ID <-> currency pair as a list. This is
+   * useful for indexers that have access to the ID of a currency pair, but no
+   * way to get the underlying currency pair from it.
+   */
+  getCurrencyPairMappingList(
+    request?: GetCurrencyPairMappingListRequest,
+  ): Promise<GetCurrencyPairMappingListResponse>;
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
@@ -37,6 +48,7 @@ export class QueryClientImpl implements Query {
     this.getPrice = this.getPrice.bind(this);
     this.getPrices = this.getPrices.bind(this);
     this.getCurrencyPairMapping = this.getCurrencyPairMapping.bind(this);
+    this.getCurrencyPairMappingList = this.getCurrencyPairMappingList.bind(this);
   }
   getAllCurrencyPairs(request: GetAllCurrencyPairsRequest = {}): Promise<GetAllCurrencyPairsResponse> {
     const data = GetAllCurrencyPairsRequest.encode(request).finish();
@@ -60,6 +72,13 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("slinky.oracle.v1.Query", "GetCurrencyPairMapping", data);
     return promise.then((data) => GetCurrencyPairMappingResponse.decode(new BinaryReader(data)));
   }
+  getCurrencyPairMappingList(
+    request: GetCurrencyPairMappingListRequest = {},
+  ): Promise<GetCurrencyPairMappingListResponse> {
+    const data = GetCurrencyPairMappingListRequest.encode(request).finish();
+    const promise = this.rpc.request("slinky.oracle.v1.Query", "GetCurrencyPairMappingList", data);
+    return promise.then((data) => GetCurrencyPairMappingListResponse.decode(new BinaryReader(data)));
+  }
 }
 export const createRpcQueryExtension = (base: QueryClient) => {
   const rpc = createProtobufRpcClient(base);
@@ -76,6 +95,11 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     },
     getCurrencyPairMapping(request?: GetCurrencyPairMappingRequest): Promise<GetCurrencyPairMappingResponse> {
       return queryService.getCurrencyPairMapping(request);
+    },
+    getCurrencyPairMappingList(
+      request?: GetCurrencyPairMappingListRequest,
+    ): Promise<GetCurrencyPairMappingListResponse> {
+      return queryService.getCurrencyPairMappingList(request);
     },
   };
 };

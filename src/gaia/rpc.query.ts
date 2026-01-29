@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { connectComet, HttpEndpoint } from "@cosmjs/tendermint-rpc";
 import { QueryClient } from "@cosmjs/stargate";

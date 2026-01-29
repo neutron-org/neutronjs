@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Height } from "../../client/v1/client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";

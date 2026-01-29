@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Any } from "../../../../google/protobuf/any";
 import { BIP44Params } from "../../hd/v1/hd";

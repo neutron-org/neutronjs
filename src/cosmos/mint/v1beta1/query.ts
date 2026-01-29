@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./mint";
 import { BinaryReader, BinaryWriter } from "../../../binary";

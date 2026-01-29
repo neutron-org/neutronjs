@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { PageRequest } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Rpc } from "../../../helpers";
@@ -20,12 +21,16 @@ import {
   QueryCodeResponse,
   QueryCodesRequest,
   QueryCodesResponse,
+  QueryCodeInfoRequest,
+  QueryCodeInfoResponse,
   QueryPinnedCodesRequest,
   QueryPinnedCodesResponse,
   QueryParamsRequest,
   QueryParamsResponse,
   QueryContractsByCreatorRequest,
   QueryContractsByCreatorResponse,
+  QueryWasmLimitsConfigRequest,
+  QueryWasmLimitsConfigResponse,
   QueryBuildAddressRequest,
   QueryBuildAddressResponse,
 } from "./query";
@@ -43,16 +48,23 @@ export interface Query {
   rawContractState(request: QueryRawContractStateRequest): Promise<QueryRawContractStateResponse>;
   /** SmartContractState get smart query result from the contract */
   smartContractState(request: QuerySmartContractStateRequest): Promise<QuerySmartContractStateResponse>;
-  /** Code gets the binary code and metadata for a singe wasm code */
+  /** Code gets the binary code and metadata for a single wasm code */
   code(request: QueryCodeRequest): Promise<QueryCodeResponse>;
   /** Codes gets the metadata for all stored wasm codes */
   codes(request?: QueryCodesRequest): Promise<QueryCodesResponse>;
+  /** CodeInfo gets the metadata for a single wasm code */
+  codeInfo(request: QueryCodeInfoRequest): Promise<QueryCodeInfoResponse>;
   /** PinnedCodes gets the pinned code ids */
   pinnedCodes(request?: QueryPinnedCodesRequest): Promise<QueryPinnedCodesResponse>;
   /** Params gets the module params */
   params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
   /** ContractsByCreator gets the contracts by creator */
   contractsByCreator(request: QueryContractsByCreatorRequest): Promise<QueryContractsByCreatorResponse>;
+  /**
+   * WasmLimitsConfig gets the configured limits for static validation of Wasm
+   * files, encoded in JSON.
+   */
+  wasmLimitsConfig(request?: QueryWasmLimitsConfigRequest): Promise<QueryWasmLimitsConfigResponse>;
   /** BuildAddress builds a contract address */
   buildAddress(request: QueryBuildAddressRequest): Promise<QueryBuildAddressResponse>;
 }
@@ -68,9 +80,11 @@ export class QueryClientImpl implements Query {
     this.smartContractState = this.smartContractState.bind(this);
     this.code = this.code.bind(this);
     this.codes = this.codes.bind(this);
+    this.codeInfo = this.codeInfo.bind(this);
     this.pinnedCodes = this.pinnedCodes.bind(this);
     this.params = this.params.bind(this);
     this.contractsByCreator = this.contractsByCreator.bind(this);
+    this.wasmLimitsConfig = this.wasmLimitsConfig.bind(this);
     this.buildAddress = this.buildAddress.bind(this);
   }
   contractInfo(request: QueryContractInfoRequest): Promise<QueryContractInfoResponse> {
@@ -117,6 +131,11 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("cosmwasm.wasm.v1.Query", "Codes", data);
     return promise.then((data) => QueryCodesResponse.decode(new BinaryReader(data)));
   }
+  codeInfo(request: QueryCodeInfoRequest): Promise<QueryCodeInfoResponse> {
+    const data = QueryCodeInfoRequest.encode(request).finish();
+    const promise = this.rpc.request("cosmwasm.wasm.v1.Query", "CodeInfo", data);
+    return promise.then((data) => QueryCodeInfoResponse.decode(new BinaryReader(data)));
+  }
   pinnedCodes(
     request: QueryPinnedCodesRequest = {
       pagination: PageRequest.fromPartial({}),
@@ -135,6 +154,11 @@ export class QueryClientImpl implements Query {
     const data = QueryContractsByCreatorRequest.encode(request).finish();
     const promise = this.rpc.request("cosmwasm.wasm.v1.Query", "ContractsByCreator", data);
     return promise.then((data) => QueryContractsByCreatorResponse.decode(new BinaryReader(data)));
+  }
+  wasmLimitsConfig(request: QueryWasmLimitsConfigRequest = {}): Promise<QueryWasmLimitsConfigResponse> {
+    const data = QueryWasmLimitsConfigRequest.encode(request).finish();
+    const promise = this.rpc.request("cosmwasm.wasm.v1.Query", "WasmLimitsConfig", data);
+    return promise.then((data) => QueryWasmLimitsConfigResponse.decode(new BinaryReader(data)));
   }
   buildAddress(request: QueryBuildAddressRequest): Promise<QueryBuildAddressResponse> {
     const data = QueryBuildAddressRequest.encode(request).finish();
@@ -170,6 +194,9 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     codes(request?: QueryCodesRequest): Promise<QueryCodesResponse> {
       return queryService.codes(request);
     },
+    codeInfo(request: QueryCodeInfoRequest): Promise<QueryCodeInfoResponse> {
+      return queryService.codeInfo(request);
+    },
     pinnedCodes(request?: QueryPinnedCodesRequest): Promise<QueryPinnedCodesResponse> {
       return queryService.pinnedCodes(request);
     },
@@ -178,6 +205,9 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     },
     contractsByCreator(request: QueryContractsByCreatorRequest): Promise<QueryContractsByCreatorResponse> {
       return queryService.contractsByCreator(request);
+    },
+    wasmLimitsConfig(request?: QueryWasmLimitsConfigRequest): Promise<QueryWasmLimitsConfigResponse> {
+      return queryService.wasmLimitsConfig(request);
     },
     buildAddress(request: QueryBuildAddressRequest): Promise<QueryBuildAddressResponse> {
       return queryService.buildAddress(request);

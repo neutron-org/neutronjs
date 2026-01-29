@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params, Metadata, SendEnabled } from "./bank";
 import { Coin } from "../../base/v1beta1/coin";

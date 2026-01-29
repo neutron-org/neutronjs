@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Rpc } from "../helpers";
 export const createRPCMsgClient = async ({ rpc }: { rpc: Rpc }) => ({
@@ -59,6 +60,9 @@ export const createRPCMsgClient = async ({ rpc }: { rpc: Rpc }) => ({
     },
   },
   neutron: {
+    coinfactory: {
+      v1beta1: new (await import("./coinfactory/v1beta1/tx.rpc.msg")).MsgClientImpl(rpc),
+    },
     contractmanager: new (await import("./contractmanager/tx.rpc.msg")).MsgClientImpl(rpc),
     cron: new (await import("./cron/tx.rpc.msg")).MsgClientImpl(rpc),
     dex: new (await import("./dex/tx.rpc.msg")).MsgClientImpl(rpc),

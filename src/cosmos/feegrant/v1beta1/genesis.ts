@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Grant } from "./feegrant";
 import { BinaryReader, BinaryWriter } from "../../../binary";

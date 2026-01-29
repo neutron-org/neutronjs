@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { CurrencyPair } from "../../types/v1/currency_pair";
 import { MarketMap, Market } from "./market";
@@ -26,6 +27,13 @@ export interface MarketMapResponse {
   lastUpdated: bigint;
   /** ChainId is the chain identifier for the market map. */
   chainId: string;
+}
+/** MarketsRequest is the query request for the Market query. */
+export interface MarketsRequest {}
+/** MarketsResponse is the query response for the Markets query. */
+export interface MarketsResponse {
+  /** Markets is a sorted list of all markets in the module. */
+  markets: Market[];
 }
 /**
  * MarketRequest is the query request for the Market query.
@@ -164,6 +172,91 @@ export const MarketMapResponse = {
       message.lastUpdated = BigInt(object.lastUpdated.toString());
     }
     message.chainId = object.chainId ?? "";
+    return message;
+  },
+};
+function createBaseMarketsRequest(): MarketsRequest {
+  return {};
+}
+export const MarketsRequest = {
+  typeUrl: "/slinky.marketmap.v1.MarketsRequest",
+  encode(_: MarketsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MarketsRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMarketsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(_: any): MarketsRequest {
+    const obj = createBaseMarketsRequest();
+    return obj;
+  },
+  toJSON(_: MarketsRequest): JsonSafe<MarketsRequest> {
+    const obj: any = {};
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<MarketsRequest>, I>>(_: I): MarketsRequest {
+    const message = createBaseMarketsRequest();
+    return message;
+  },
+};
+function createBaseMarketsResponse(): MarketsResponse {
+  return {
+    markets: [],
+  };
+}
+export const MarketsResponse = {
+  typeUrl: "/slinky.marketmap.v1.MarketsResponse",
+  encode(message: MarketsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.markets) {
+      Market.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MarketsResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMarketsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.markets.push(Market.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): MarketsResponse {
+    const obj = createBaseMarketsResponse();
+    if (Array.isArray(object?.markets)) obj.markets = object.markets.map((e: any) => Market.fromJSON(e));
+    return obj;
+  },
+  toJSON(message: MarketsResponse): JsonSafe<MarketsResponse> {
+    const obj: any = {};
+    if (message.markets) {
+      obj.markets = message.markets.map((e) => (e ? Market.toJSON(e) : undefined));
+    } else {
+      obj.markets = [];
+    }
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<MarketsResponse>, I>>(object: I): MarketsResponse {
+    const message = createBaseMarketsResponse();
+    message.markets = object.markets?.map((e) => Market.fromPartial(e)) || [];
     return message;
   },
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "../../../cosmos/bank/v1beta1/bank";
 import { BinaryReader, BinaryWriter } from "../../../binary";

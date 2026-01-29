@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Order, orderFromJSON, orderToJSON } from "../../../../core/channel/v1/channel";
 import { InterchainAccountPacketData } from "../../v1/packet";

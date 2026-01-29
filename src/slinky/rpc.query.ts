@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { connectComet, HttpEndpoint } from "@cosmjs/tendermint-rpc";
 import { QueryClient } from "@cosmjs/stargate";
@@ -92,20 +93,11 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
       },
     },
     slinky: {
-      alerts: {
-        v1: (await import("./alerts/v1/query.rpc.Query")).createRpcQueryExtension(client),
-      },
-      incentives: {
-        v1: (await import("./incentives/v1/query.rpc.Query")).createRpcQueryExtension(client),
-      },
       marketmap: {
         v1: (await import("./marketmap/v1/query.rpc.Query")).createRpcQueryExtension(client),
       },
       oracle: {
         v1: (await import("./oracle/v1/query.rpc.Query")).createRpcQueryExtension(client),
-      },
-      sla: {
-        v1: (await import("./sla/v1/query.rpc.Query")).createRpcQueryExtension(client),
       },
     },
   };

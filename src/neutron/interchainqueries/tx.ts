@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { KVKey } from "./genesis";
 import { Params } from "./params";

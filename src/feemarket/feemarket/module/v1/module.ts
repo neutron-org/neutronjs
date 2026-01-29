@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { isSet, DeepPartial, Exact } from "../../../../helpers";
@@ -10,10 +11,13 @@ export interface Module {
    * governance module.
    */
   authority: string;
+  /** FeeRecipientModule defines the custom module account that the fee will be sent to. */
+  feeRecipientModule: string;
 }
 function createBaseModule(): Module {
   return {
     authority: "",
+    feeRecipientModule: "",
   };
 }
 export const Module = {
@@ -21,6 +25,9 @@ export const Module = {
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
+    }
+    if (message.feeRecipientModule !== "") {
+      writer.uint32(18).string(message.feeRecipientModule);
     }
     return writer;
   },
@@ -34,6 +41,9 @@ export const Module = {
         case 1:
           message.authority = reader.string();
           break;
+        case 2:
+          message.feeRecipientModule = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -44,16 +54,19 @@ export const Module = {
   fromJSON(object: any): Module {
     const obj = createBaseModule();
     if (isSet(object.authority)) obj.authority = String(object.authority);
+    if (isSet(object.feeRecipientModule)) obj.feeRecipientModule = String(object.feeRecipientModule);
     return obj;
   },
   toJSON(message: Module): JsonSafe<Module> {
     const obj: any = {};
     message.authority !== undefined && (obj.authority = message.authority);
+    message.feeRecipientModule !== undefined && (obj.feeRecipientModule = message.feeRecipientModule);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<Module>, I>>(object: I): Module {
     const message = createBaseModule();
     message.authority = object.authority ?? "";
+    message.feeRecipientModule = object.feeRecipientModule ?? "";
     return message;
   },
 };

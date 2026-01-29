@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { ResponseCommit, RequestFinalizeBlock, ResponseFinalizeBlock } from "../../../tendermint/abci/types";
 import { BinaryReader, BinaryWriter } from "../../../binary";

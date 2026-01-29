@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { ModuleOptions } from "./options";
 import { BinaryReader, BinaryWriter } from "../../../binary";

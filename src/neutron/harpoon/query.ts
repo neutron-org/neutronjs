@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { HookType, hookTypeFromJSON, hookTypeToJSON } from "./hooks";
 import { BinaryReader, BinaryWriter } from "../../binary";

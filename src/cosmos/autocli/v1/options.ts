@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { isSet, DeepPartial, Exact, isObject } from "../../../helpers";

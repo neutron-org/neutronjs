@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { MsgExecuteContract, ExecutionStage, executionStageFromJSON, executionStageToJSON } from "./schedule";
 import { Params } from "./params";

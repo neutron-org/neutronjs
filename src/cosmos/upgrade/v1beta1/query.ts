@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Plan, ModuleVersion } from "./upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";

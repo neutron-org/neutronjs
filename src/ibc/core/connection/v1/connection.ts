@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { MerklePrefix } from "../../commitment/v1/commitment";
 import { BinaryReader, BinaryWriter } from "../../../../binary";

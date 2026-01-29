@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params, ValidatorSigningInfo } from "./slashing";
 import { BinaryReader, BinaryWriter } from "../../../binary";

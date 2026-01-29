@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../helpers";

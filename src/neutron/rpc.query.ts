@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { connectComet, HttpEndpoint } from "@cosmjs/tendermint-rpc";
 import { QueryClient } from "@cosmjs/stargate";
@@ -92,6 +93,9 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
       },
     },
     neutron: {
+      coinfactory: {
+        v1beta1: (await import("./coinfactory/v1beta1/query.rpc.Query")).createRpcQueryExtension(client),
+      },
       contractmanager: (await import("./contractmanager/query.rpc.Query")).createRpcQueryExtension(client),
       cron: (await import("./cron/query.rpc.Query")).createRpcQueryExtension(client),
       dex: (await import("./dex/query.rpc.Query")).createRpcQueryExtension(client),
@@ -111,6 +115,9 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
         v1: (await import("./interchaintxs/v1/query.rpc.Query")).createRpcQueryExtension(client),
       },
       revenue: (await import("./revenue/query.rpc.Query")).createRpcQueryExtension(client),
+      state_verifier: {
+        v1: (await import("./state_verifier/v1/query.rpc.Query")).createRpcQueryExtension(client),
+      },
     },
   };
 };

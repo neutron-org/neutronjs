@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Params } from "./params";
 import { PaymentSchedule, ValidatorInfo } from "./genesis";

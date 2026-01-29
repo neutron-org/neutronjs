@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { Timestamp } from "../../google/protobuf/timestamp";
 import { ConsensusParams } from "../types/params";

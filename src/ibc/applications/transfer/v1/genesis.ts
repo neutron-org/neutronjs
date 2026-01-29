@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable */
 import { DenomTrace, Params } from "./transfer";
 import { Coin } from "../../../../cosmos/base/v1beta1/coin";
