@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params, Validator, Delegation, UnbondingDelegation, Redelegation } from "./staking";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Params, Validator, Delegation, UnbondingDelegation, Redelegation } from "./staking.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.staking.v1beta1";
 /** GenesisState defines the staking module's genesis state. */
 export interface GenesisState {

@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PublicKey } from "../crypto/keys";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { PublicKey } from "../crypto/keys.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "tendermint.types";
 /** BlockIdFlag indicates which BlockID the signature is for */
 export enum BlockIDFlag {

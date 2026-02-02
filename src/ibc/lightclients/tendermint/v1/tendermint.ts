@@ -1,13 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Duration } from "../../../../google/protobuf/duration";
-import { Height } from "../../../core/client/v1/client";
-import { ProofSpec } from "../../../../cosmos/ics23/v1/proofs";
-import { Timestamp } from "../../../../google/protobuf/timestamp";
-import { MerkleRoot } from "../../../core/commitment/v1/commitment";
-import { SignedHeader } from "../../../../tendermint/types/types";
-import { ValidatorSet } from "../../../../tendermint/types/validator";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { Duration } from "../../../../google/protobuf/duration.js";
+import { Height } from "../../../core/client/v1/client.js";
+import { ProofSpec } from "../../../../cosmos/ics23/v1/proofs.js";
+import { Timestamp } from "../../../../google/protobuf/timestamp.js";
+import { MerkleRoot } from "../../../core/commitment/v1/commitment.js";
+import { SignedHeader } from "../../../../tendermint/types/types.js";
+import { ValidatorSet } from "../../../../tendermint/types/validator.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
 import {
   isSet,
   DeepPartial,
@@ -16,8 +16,8 @@ import {
   bytesFromBase64,
   fromTimestamp,
   base64FromBytes,
-} from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+} from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.lightclients.tendermint.v1";
 /**
  * ClientState from Tendermint tracks the current validator set, latest height,
@@ -27,7 +27,7 @@ export interface ClientState {
   chainId: string;
   trustLevel: Fraction;
   /**
-   * duration of the period since the LastestTimestamp during which the
+   * duration of the period since the LatestTimestamp during which the
    * submitted headers are valid for upgrade
    */
   trustingPeriod: Duration;

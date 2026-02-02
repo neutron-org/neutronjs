@@ -3,8 +3,8 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-import * as gaiaGlobalfeeV1beta1TxRegistry from "./globalfee/v1beta1/tx.registry";
-import * as gaiaGlobalfeeV1beta1TxAmino from "./globalfee/v1beta1/tx.amino";
+import * as gaiaGlobalfeeV1beta1TxRegistry from "./globalfee/v1beta1/tx.registry.js";
+import * as gaiaGlobalfeeV1beta1TxAmino from "./globalfee/v1beta1/tx.amino.js";
 export const gaiaAminoConverters = {
   ...gaiaGlobalfeeV1beta1TxAmino.AminoConverter,
 };

@@ -1,6 +1,6 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
 import {
   Validator,
   DelegationResponse,
@@ -9,10 +9,10 @@ import {
   HistoricalInfo,
   Pool,
   Params,
-} from "./staking";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+} from "./staking.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.staking.v1beta1";
 /** QueryValidatorsRequest is request type for Query/Validators RPC method. */
 export interface QueryValidatorsRequest {

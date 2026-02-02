@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { MsgStoreCode, MsgInstantiateContract, MsgExecuteContract } from "./tx";
-import { Params, CodeInfo, ContractInfo, Model, ContractCodeHistoryEntry } from "./types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { MsgStoreCode, MsgInstantiateContract, MsgExecuteContract } from "./tx.js";
+import { Params, CodeInfo, ContractInfo, Model, ContractCodeHistoryEntry } from "./types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmwasm.wasm.v1";
 /** GenesisState - genesis state of x/wasm */
 export interface GenesisState {

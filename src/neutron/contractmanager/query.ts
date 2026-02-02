@@ -1,11 +1,11 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
-import { Params } from "./params";
-import { Failure } from "./failure";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../helpers";
+import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination.js";
+import { Params } from "./params.js";
+import { Failure } from "./failure.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../helpers.js";
 export const protobufPackage = "neutron.contractmanager";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../query/v1beta1/pagination";
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { PageRequest } from "../../query/v1beta1/pagination.js";
+import { Rpc } from "../../../../helpers.js";
+import { BinaryReader } from "../../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   GetNodeInfoRequest,
@@ -19,7 +19,7 @@ import {
   GetValidatorSetByHeightResponse,
   ABCIQueryRequest,
   ABCIQueryResponse,
-} from "./query";
+} from "./query.js";
 /** Service defines the gRPC querier service for tendermint queries. */
 export interface Service {
   /** GetNodeInfo queries the current node info. */
@@ -38,8 +38,6 @@ export interface Service {
    * ABCIQuery defines a query handler that supports ABCI queries directly to the
    * application, bypassing Tendermint completely. The ABCI query must contain
    * a valid and supported path, including app, custom, p2p, and store.
-   *
-   * Since: cosmos-sdk 0.46
    */
   aBCIQuery(request: ABCIQueryRequest): Promise<ABCIQueryResponse>;
 }

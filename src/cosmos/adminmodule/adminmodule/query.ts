@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Proposal as Proposal1 } from "../../gov/v1/gov";
-import { Proposal as Proposal2 } from "../../gov/v1beta1/gov";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact } from "../../../helpers";
+import { Proposal as Proposal1 } from "../../gov/v1/gov.js";
+import { Proposal as Proposal2 } from "../../gov/v1beta1/gov.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../helpers.js";
 export const protobufPackage = "cosmos.adminmodule.adminmodule";
 export interface QueryAdminsRequest {}
 export interface QueryAdminsResponse {

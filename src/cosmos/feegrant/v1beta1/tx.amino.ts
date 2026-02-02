@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgGrantAllowance, MsgRevokeAllowance, MsgPruneAllowances } from "./tx";
+import { MsgGrantAllowance, MsgRevokeAllowance, MsgPruneAllowances } from "./tx.js";
 export interface MsgGrantAllowanceAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgGrantAllowance";
   value: {

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Duration } from "../../../google/protobuf/duration";
-import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { Duration } from "../../../google/protobuf/duration.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
 import {
   isSet,
   fromJsonTimestamp,
@@ -11,8 +11,8 @@ import {
   Exact,
   bytesFromBase64,
   base64FromBytes,
-} from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+} from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.slashing.v1beta1";
 /**
  * ValidatorSigningInfo defines a validator's signing info for monitoring their

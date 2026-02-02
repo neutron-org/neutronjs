@@ -7,7 +7,7 @@ import {
   MsgConnectionOpenAck,
   MsgConnectionOpenConfirm,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/ibc.core.connection.v1.MsgConnectionOpenInit", MsgConnectionOpenInit],
   ["/ibc.core.connection.v1.MsgConnectionOpenTry", MsgConnectionOpenTry],

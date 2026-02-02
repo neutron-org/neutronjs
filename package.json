@@ -45,12 +45,15 @@
     "clean": "./scripts/clean.sh",
     "build": "rm -rf ./build && tsc && npm run prepare-publishing && npm run clean"
   },
-  "dependencies": {},
+  "dependencies": {
+    "protobufjs": "^7.5.4"
+  },
   "devDependencies": {
+    "@cosmjs/math": "^0.37.0",
+    "@cosmjs/stargate": "^0.37.0",
     "@cosmology/telescope": "^1.12.12",
+    "@types/minimatch": "^5.1.2",
     "@types/node": "^15.6.2",
-    "@cosmjs/math": "^0.32.4",
-    "@cosmjs/stargate": "^0.32.4",
     "prettier": "^3.0.3",
     "typescript": "~5.2"
   }

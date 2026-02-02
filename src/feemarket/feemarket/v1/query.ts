@@ -1,11 +1,11 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { State } from "./genesis";
-import { DecCoin } from "../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Params } from "./params.js";
+import { State } from "./genesis.js";
+import { DecCoin } from "../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "feemarket.feemarket.v1";
 /** ParamsRequest is the request type for the Query/Params RPC method. */
 export interface ParamsRequest {}

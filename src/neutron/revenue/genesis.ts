@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 import { Decimal } from "@cosmjs/math";
 export const protobufPackage = "neutron.revenue";
 /** Defines the revenue module's genesis state. */

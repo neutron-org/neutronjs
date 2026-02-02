@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgSubmitEvidence } from "./tx";
+import { MsgSubmitEvidence } from "./tx.js";
 export interface MsgSubmitEvidenceAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgSubmitEvidence";
   value: {

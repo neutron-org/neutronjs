@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../cosmos/base/query/v1beta1/pagination";
-import { Rpc } from "../../helpers";
-import { BinaryReader } from "../../binary";
+import { PageRequest } from "../../cosmos/base/query/v1beta1/pagination.js";
+import { Rpc } from "../../helpers.js";
+import { BinaryReader } from "../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryParamsRequest,
@@ -44,6 +44,7 @@ import {
   QuerySimulateDepositResponse,
   QuerySimulateWithdrawalRequest,
   QuerySimulateWithdrawalResponse,
+  QuerySimulateWithdrawalWithSharesRequest,
   QuerySimulatePlaceLimitOrderRequest,
   QuerySimulatePlaceLimitOrderResponse,
   QuerySimulateWithdrawFilledLimitOrderRequest,
@@ -52,7 +53,7 @@ import {
   QuerySimulateCancelLimitOrderResponse,
   QuerySimulateMultiHopSwapRequest,
   QuerySimulateMultiHopSwapResponse,
-} from "./query";
+} from "./query.js";
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -110,6 +111,10 @@ export interface Query {
   simulateDeposit(request: QuerySimulateDepositRequest): Promise<QuerySimulateDepositResponse>;
   /** Simulates MsgWithdrawal */
   simulateWithdrawal(request: QuerySimulateWithdrawalRequest): Promise<QuerySimulateWithdrawalResponse>;
+  /** Simulates MsgWithdrawalWithShares */
+  simulateWithdrawalWithShares(
+    request: QuerySimulateWithdrawalWithSharesRequest,
+  ): Promise<QuerySimulateWithdrawalResponse>;
   /** Simulates MsgPlaceLimitOrder */
   simulatePlaceLimitOrder(
     request: QuerySimulatePlaceLimitOrderRequest,
@@ -149,6 +154,7 @@ export class QueryClientImpl implements Query {
     this.poolMetadataAll = this.poolMetadataAll.bind(this);
     this.simulateDeposit = this.simulateDeposit.bind(this);
     this.simulateWithdrawal = this.simulateWithdrawal.bind(this);
+    this.simulateWithdrawalWithShares = this.simulateWithdrawalWithShares.bind(this);
     this.simulatePlaceLimitOrder = this.simulatePlaceLimitOrder.bind(this);
     this.simulateWithdrawFilledLimitOrder = this.simulateWithdrawFilledLimitOrder.bind(this);
     this.simulateCancelLimitOrder = this.simulateCancelLimitOrder.bind(this);
@@ -280,6 +286,13 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("neutron.dex.Query", "SimulateWithdrawal", data);
     return promise.then((data) => QuerySimulateWithdrawalResponse.decode(new BinaryReader(data)));
   }
+  simulateWithdrawalWithShares(
+    request: QuerySimulateWithdrawalWithSharesRequest,
+  ): Promise<QuerySimulateWithdrawalResponse> {
+    const data = QuerySimulateWithdrawalWithSharesRequest.encode(request).finish();
+    const promise = this.rpc.request("neutron.dex.Query", "SimulateWithdrawalWithShares", data);
+    return promise.then((data) => QuerySimulateWithdrawalResponse.decode(new BinaryReader(data)));
+  }
   simulatePlaceLimitOrder(
     request: QuerySimulatePlaceLimitOrderRequest,
   ): Promise<QuerySimulatePlaceLimitOrderResponse> {
@@ -390,6 +403,11 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     },
     simulateWithdrawal(request: QuerySimulateWithdrawalRequest): Promise<QuerySimulateWithdrawalResponse> {
       return queryService.simulateWithdrawal(request);
+    },
+    simulateWithdrawalWithShares(
+      request: QuerySimulateWithdrawalWithSharesRequest,
+    ): Promise<QuerySimulateWithdrawalResponse> {
+      return queryService.simulateWithdrawalWithShares(request);
     },
     simulatePlaceLimitOrder(
       request: QuerySimulatePlaceLimitOrderRequest,

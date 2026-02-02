@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../../cosmos/base/v1beta1/coin";
-import { Height, Params } from "../../../core/client/v1/client";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Coin } from "../../../../cosmos/base/v1beta1/coin.js";
+import { Height, Params } from "../../../core/client/v1/client.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.applications.transfer.v1";
 /**
  * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
@@ -16,7 +16,7 @@ export interface MsgTransfer {
   sourcePort: string;
   /** the channel by which the packet will be sent */
   sourceChannel: string;
-  /** the tokens to be transferred */
+  /** token to be transferred */
   token: Coin;
   /** the sender address */
   sender: string;
@@ -24,16 +24,20 @@ export interface MsgTransfer {
   receiver: string;
   /**
    * Timeout height relative to the current block height.
-   * The timeout is disabled when set to 0.
+   * If you are sending with IBC v1 protocol, either timeout_height or timeout_timestamp must be set.
+   * If you are sending with IBC v2 protocol, timeout_timestamp must be set, and timeout_height must be omitted.
    */
   timeoutHeight: Height;
   /**
    * Timeout timestamp in absolute nanoseconds since unix epoch.
-   * The timeout is disabled when set to 0.
+   * If you are sending with IBC v1 protocol, either timeout_height or timeout_timestamp must be set.
+   * If you are sending with IBC v2 protocol, timeout_timestamp must be set.
    */
   timeoutTimestamp: bigint;
   /** optional memo */
   memo: string;
+  /** optional encoding */
+  encoding: string;
 }
 /** MsgTransferResponse defines the Msg/Transfer response type. */
 export interface MsgTransferResponse {
@@ -66,6 +70,7 @@ function createBaseMsgTransfer(): MsgTransfer {
     timeoutHeight: Height.fromPartial({}),
     timeoutTimestamp: BigInt(0),
     memo: "",
+    encoding: "",
   };
 }
 export const MsgTransfer = {
@@ -94,6 +99,9 @@ export const MsgTransfer = {
     }
     if (message.memo !== "") {
       writer.uint32(66).string(message.memo);
+    }
+    if (message.encoding !== "") {
+      writer.uint32(74).string(message.encoding);
     }
     return writer;
   },
@@ -128,6 +136,9 @@ export const MsgTransfer = {
         case 8:
           message.memo = reader.string();
           break;
+        case 9:
+          message.encoding = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -145,6 +156,7 @@ export const MsgTransfer = {
     if (isSet(object.timeoutHeight)) obj.timeoutHeight = Height.fromJSON(object.timeoutHeight);
     if (isSet(object.timeoutTimestamp)) obj.timeoutTimestamp = BigInt(object.timeoutTimestamp.toString());
     if (isSet(object.memo)) obj.memo = String(object.memo);
+    if (isSet(object.encoding)) obj.encoding = String(object.encoding);
     return obj;
   },
   toJSON(message: MsgTransfer): JsonSafe<MsgTransfer> {
@@ -159,6 +171,7 @@ export const MsgTransfer = {
     message.timeoutTimestamp !== undefined &&
       (obj.timeoutTimestamp = (message.timeoutTimestamp || BigInt(0)).toString());
     message.memo !== undefined && (obj.memo = message.memo);
+    message.encoding !== undefined && (obj.encoding = message.encoding);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MsgTransfer>, I>>(object: I): MsgTransfer {
@@ -177,6 +190,7 @@ export const MsgTransfer = {
       message.timeoutTimestamp = BigInt(object.timeoutTimestamp.toString());
     }
     message.memo = object.memo ?? "";
+    message.encoding = object.encoding ?? "";
     return message;
   },
 };

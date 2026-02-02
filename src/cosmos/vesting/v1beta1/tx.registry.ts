@@ -5,7 +5,7 @@ import {
   MsgCreateVestingAccount,
   MsgCreatePermanentLockedAccount,
   MsgCreatePeriodicVestingAccount,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.vesting.v1beta1.MsgCreateVestingAccount", MsgCreateVestingAccount],
   ["/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccount", MsgCreatePermanentLockedAccount],

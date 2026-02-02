@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
-import { MsgSubmitEvidence, MsgSubmitEvidenceResponse } from "./tx";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
+import { MsgSubmitEvidence, MsgSubmitEvidenceResponse } from "./tx.js";
 /** Msg defines the evidence Msg service. */
 export interface Msg {
   /**

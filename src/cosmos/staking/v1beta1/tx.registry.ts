@@ -9,7 +9,7 @@ import {
   MsgUndelegate,
   MsgCancelUnbondingDelegation,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.staking.v1beta1.MsgCreateValidator", MsgCreateValidator],
   ["/cosmos.staking.v1beta1.MsgEditValidator", MsgEditValidator],

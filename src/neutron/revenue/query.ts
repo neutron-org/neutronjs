@@ -1,11 +1,11 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { PaymentSchedule, ValidatorInfo } from "./genesis";
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../helpers";
+import { Params } from "./params.js";
+import { PaymentSchedule, ValidatorInfo } from "./genesis.js";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../helpers.js";
 import { Decimal } from "@cosmjs/math";
 export const protobufPackage = "neutron.revenue";
 /** Request type for the Query/Params RPC method. */

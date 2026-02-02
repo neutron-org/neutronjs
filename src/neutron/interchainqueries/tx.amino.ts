@@ -1,14 +1,14 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../helpers";
+import { omitDefault } from "../../helpers.js";
 import {
   MsgRegisterInterchainQuery,
   MsgSubmitQueryResult,
   MsgRemoveInterchainQueryRequest,
   MsgUpdateInterchainQueryRequest,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export interface MsgRegisterInterchainQueryAminoType extends AminoMsg {
   type: "/neutron.interchainqueries.MsgRegisterInterchainQuery";
   value: {

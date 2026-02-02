@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CompactBitArray } from "../../../crypto/multisig/v1beta1/multisig";
-import { Any } from "../../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { JsonSafe } from "../../../../json-safe";
-import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { CompactBitArray } from "../../../crypto/multisig/v1beta1/multisig.js";
+import { Any } from "../../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { JsonSafe } from "../../../../json-safe.js";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers.js";
 export const protobufPackage = "cosmos.tx.signing.v1beta1";
 /**
  * SignMode represents a signing mode with its own security guarantees.

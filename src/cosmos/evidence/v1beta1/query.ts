@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.evidence.v1beta1";
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
 export interface QueryEvidenceRequest {
@@ -14,11 +14,7 @@ export interface QueryEvidenceRequest {
    */
   /** @deprecated */
   evidenceHash: Uint8Array;
-  /**
-   * hash defines the evidence hash of the requested evidence.
-   *
-   * Since: cosmos-sdk 0.47
-   */
+  /** hash defines the evidence hash of the requested evidence. */
   hash: string;
 }
 /** QueryEvidenceResponse is the response type for the Query/Evidence RPC method. */

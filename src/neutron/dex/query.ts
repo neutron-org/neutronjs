@@ -1,11 +1,12 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
+import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination.js";
 import {
   MultiHopRoute,
   LimitOrderType,
   MsgDeposit,
   MsgWithdrawal,
+  MsgWithdrawalWithShares,
   MsgPlaceLimitOrder,
   MsgWithdrawFilledLimitOrder,
   MsgCancelLimitOrder,
@@ -18,20 +19,20 @@ import {
   MsgMultiHopSwapResponse,
   limitOrderTypeFromJSON,
   limitOrderTypeToJSON,
-} from "./tx";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { Params } from "./params";
-import { LimitOrderTrancheUser } from "./limit_order_tranche_user";
-import { LimitOrderTranche } from "./limit_order_tranche";
-import { DepositRecord } from "./deposit_record";
-import { TickLiquidity } from "./tick_liquidity";
-import { PoolReserves } from "./pool_reserves";
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { Pool } from "./pool";
-import { PoolMetadata } from "./pool_metadata";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact, isSet, fromJsonTimestamp, fromTimestamp } from "../../helpers";
+} from "./tx.js";
+import { Timestamp } from "../../google/protobuf/timestamp.js";
+import { Params } from "./params.js";
+import { LimitOrderTrancheUser } from "./limit_order_tranche_user.js";
+import { LimitOrderTranche } from "./limit_order_tranche.js";
+import { DepositRecord } from "./deposit_record.js";
+import { TickLiquidity } from "./tick_liquidity.js";
+import { PoolReserves } from "./pool_reserves.js";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { Pool } from "./pool.js";
+import { PoolMetadata } from "./pool_metadata.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact, isSet, fromJsonTimestamp, fromTimestamp } from "../../helpers.js";
 export const protobufPackage = "neutron.dex";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
@@ -212,6 +213,9 @@ export interface QuerySimulateDepositResponse {
 }
 export interface QuerySimulateWithdrawalRequest {
   msg?: MsgWithdrawal;
+}
+export interface QuerySimulateWithdrawalWithSharesRequest {
+  msg?: MsgWithdrawalWithShares;
 }
 export interface QuerySimulateWithdrawalResponse {
   resp?: MsgWithdrawalResponse;
@@ -2743,6 +2747,62 @@ export const QuerySimulateWithdrawalRequest = {
     const message = createBaseQuerySimulateWithdrawalRequest();
     if (object.msg !== undefined && object.msg !== null) {
       message.msg = MsgWithdrawal.fromPartial(object.msg);
+    }
+    return message;
+  },
+};
+function createBaseQuerySimulateWithdrawalWithSharesRequest(): QuerySimulateWithdrawalWithSharesRequest {
+  return {
+    msg: undefined,
+  };
+}
+export const QuerySimulateWithdrawalWithSharesRequest = {
+  typeUrl: "/neutron.dex.QuerySimulateWithdrawalWithSharesRequest",
+  encode(
+    message: QuerySimulateWithdrawalWithSharesRequest,
+    writer: BinaryWriter = BinaryWriter.create(),
+  ): BinaryWriter {
+    if (message.msg !== undefined) {
+      MsgWithdrawalWithShares.encode(message.msg, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QuerySimulateWithdrawalWithSharesRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQuerySimulateWithdrawalWithSharesRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.msg = MsgWithdrawalWithShares.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): QuerySimulateWithdrawalWithSharesRequest {
+    const obj = createBaseQuerySimulateWithdrawalWithSharesRequest();
+    if (isSet(object.msg)) obj.msg = MsgWithdrawalWithShares.fromJSON(object.msg);
+    return obj;
+  },
+  toJSON(
+    message: QuerySimulateWithdrawalWithSharesRequest,
+  ): JsonSafe<QuerySimulateWithdrawalWithSharesRequest> {
+    const obj: any = {};
+    message.msg !== undefined &&
+      (obj.msg = message.msg ? MsgWithdrawalWithShares.toJSON(message.msg) : undefined);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<QuerySimulateWithdrawalWithSharesRequest>, I>>(
+    object: I,
+  ): QuerySimulateWithdrawalWithSharesRequest {
+    const message = createBaseQuerySimulateWithdrawalWithSharesRequest();
+    if (object.msg !== undefined && object.msg !== null) {
+      message.msg = MsgWithdrawalWithShares.fromPartial(object.msg);
     }
     return message;
   },

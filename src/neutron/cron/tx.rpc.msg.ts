@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../helpers";
-import { BinaryReader } from "../../binary";
+import { Rpc } from "../../helpers.js";
+import { BinaryReader } from "../../binary.js";
 import {
   MsgAddSchedule,
   MsgAddScheduleResponse,
@@ -9,7 +9,7 @@ import {
   MsgRemoveScheduleResponse,
   MsgUpdateParams,
   MsgUpdateParamsResponse,
-} from "./tx";
+} from "./tx.js";
 /** Defines the Msg service. */
 export interface Msg {
   /** Adds new schedule. */

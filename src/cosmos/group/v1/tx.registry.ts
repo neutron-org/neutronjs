@@ -16,7 +16,7 @@ import {
   MsgVote,
   MsgExec,
   MsgLeaveGroup,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.group.v1.MsgCreateGroup", MsgCreateGroup],
   ["/cosmos.group.v1.MsgUpdateGroupMembers", MsgUpdateGroupMembers],

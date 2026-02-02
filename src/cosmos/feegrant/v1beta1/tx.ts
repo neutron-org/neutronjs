@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.feegrant.v1beta1";
 /**
  * MsgGrantAllowance adds permission for Grantee to spend up to Allowance
@@ -28,20 +28,12 @@ export interface MsgRevokeAllowance {
 }
 /** MsgRevokeAllowanceResponse defines the Msg/RevokeAllowanceResponse response type. */
 export interface MsgRevokeAllowanceResponse {}
-/**
- * MsgPruneAllowances prunes expired fee allowances.
- *
- * Since cosmos-sdk 0.50
- */
+/** MsgPruneAllowances prunes expired fee allowances. */
 export interface MsgPruneAllowances {
   /** pruner is the address of the user pruning expired allowances. */
   pruner: string;
 }
-/**
- * MsgPruneAllowancesResponse defines the Msg/PruneAllowancesResponse response type.
- *
- * Since cosmos-sdk 0.50
- */
+/** MsgPruneAllowancesResponse defines the Msg/PruneAllowancesResponse response type. */
 export interface MsgPruneAllowancesResponse {}
 function createBaseMsgGrantAllowance(): MsgGrantAllowance {
   return {

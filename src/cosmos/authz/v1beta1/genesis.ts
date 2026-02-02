@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { GrantAuthorization } from "./authz";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact } from "../../../helpers";
+import { GrantAuthorization } from "./authz.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../helpers.js";
 export const protobufPackage = "cosmos.authz.v1beta1";
 /** GenesisState defines the authz module's genesis state. */
 export interface GenesisState {

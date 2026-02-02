@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Any } from "../../../../google/protobuf/any";
-import { BIP44Params } from "../../hd/v1/hd";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Any } from "../../../../google/protobuf/any.js";
+import { BIP44Params } from "../../hd/v1/hd.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.crypto.keyring.v1";
 /** Record is used for representing a key in the keyring. */
 export interface Record {

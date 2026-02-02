@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgSubmitProposal,
   MsgSubmitProposalResponse,
@@ -11,18 +11,14 @@ import {
   MsgVoteWeightedResponse,
   MsgDeposit,
   MsgDepositResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the gov Msg service. */
 export interface Msg {
   /** SubmitProposal defines a method to create new proposal given a content. */
   submitProposal(request: MsgSubmitProposal): Promise<MsgSubmitProposalResponse>;
   /** Vote defines a method to add a vote on a specific proposal. */
   vote(request: MsgVote): Promise<MsgVoteResponse>;
-  /**
-   * VoteWeighted defines a method to add a weighted vote on a specific proposal.
-   *
-   * Since: cosmos-sdk 0.43
-   */
+  /** VoteWeighted defines a method to add a weighted vote on a specific proposal. */
   voteWeighted(request: MsgVoteWeighted): Promise<MsgVoteWeightedResponse>;
   /** Deposit defines a method to add deposit on a specific proposal. */
   deposit(request: MsgDeposit): Promise<MsgDepositResponse>;

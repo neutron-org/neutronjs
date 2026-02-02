@@ -1,11 +1,11 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Vote, LightBlock } from "./types";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { Validator } from "./validator";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Vote, LightBlock } from "./types.js";
+import { Timestamp } from "../../google/protobuf/timestamp.js";
+import { Validator } from "./validator.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "tendermint.types";
 export interface Evidence {
   duplicateVoteEvidence?: DuplicateVoteEvidence;

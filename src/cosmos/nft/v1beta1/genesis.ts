@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Class, NFT } from "./nft";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Class, NFT } from "./nft.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "cosmos.nft.v1beta1";
 /** GenesisState defines the nft module's genesis state. */
 export interface GenesisState {

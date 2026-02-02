@@ -4,11 +4,11 @@ import {
   RequestFinalizeBlock,
   ResponseFinalizeBlock,
   ResponseCommit,
-} from "../../../../tendermint/abci/types";
-import { StoreKVPair } from "../../v1beta1/listening";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+} from "../../../../tendermint/abci/types.js";
+import { StoreKVPair } from "../../v1beta1/listening.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.store.streaming.abci";
 /** ListenEndBlockRequest is the request type for the ListenEndBlock RPC method */
 export interface ListenFinalizeBlockRequest {

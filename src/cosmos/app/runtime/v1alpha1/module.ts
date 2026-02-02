@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.app.runtime.v1alpha1";
 /** Module is the config object for the runtime module. */
 export interface Module {
@@ -38,9 +38,15 @@ export interface Module {
    */
   overrideStoreKeys: StoreKeyConfig[];
   /**
+   * skip_store_keys is an optional list of store keys to skip when constructing the
+   * module's keeper. This is useful when a module does not have a store key.
+   * NOTE: the provided environment variable will have a fake store service.
+   */
+  skipStoreKeys: string[];
+  /**
    * order_migrations defines the order in which module migrations are performed.
    * If this is left empty, it uses the default migration order.
-   * https://pkg.go.dev/github.com/cosmos/cosmos-sdk@v0.47.0-alpha2/types/module#DefaultMigrationsOrder
+   * https://pkg.go.dev/github.com/cosmos/cosmos-sdk/types/module#DefaultMigrationsOrder
    */
   orderMigrations: string[];
   /**
@@ -55,6 +61,12 @@ export interface Module {
    * no preparecheckstate function will be registered.
    */
   prepareCheckStaters: string[];
+  /**
+   * pre_blockers specifies the module names of pre blockers
+   * to call in the order in which they should be called. If this is left empty
+   * no pre blocker will be registered.
+   */
+  preBlockers: string[];
 }
 /**
  * StoreKeyConfig may be supplied to override the default module store key, which
@@ -74,9 +86,11 @@ function createBaseModule(): Module {
     initGenesis: [],
     exportGenesis: [],
     overrideStoreKeys: [],
+    skipStoreKeys: [],
     orderMigrations: [],
     precommiters: [],
     prepareCheckStaters: [],
+    preBlockers: [],
   };
 }
 export const Module = {
@@ -100,6 +114,9 @@ export const Module = {
     for (const v of message.overrideStoreKeys) {
       StoreKeyConfig.encode(v!, writer.uint32(50).fork()).ldelim();
     }
+    for (const v of message.skipStoreKeys) {
+      writer.uint32(90).string(v!);
+    }
     for (const v of message.orderMigrations) {
       writer.uint32(58).string(v!);
     }
@@ -108,6 +125,9 @@ export const Module = {
     }
     for (const v of message.prepareCheckStaters) {
       writer.uint32(74).string(v!);
+    }
+    for (const v of message.preBlockers) {
+      writer.uint32(82).string(v!);
     }
     return writer;
   },
@@ -136,6 +156,9 @@ export const Module = {
         case 6:
           message.overrideStoreKeys.push(StoreKeyConfig.decode(reader, reader.uint32()));
           break;
+        case 11:
+          message.skipStoreKeys.push(reader.string());
+          break;
         case 7:
           message.orderMigrations.push(reader.string());
           break;
@@ -144,6 +167,9 @@ export const Module = {
           break;
         case 9:
           message.prepareCheckStaters.push(reader.string());
+          break;
+        case 10:
+          message.preBlockers.push(reader.string());
           break;
         default:
           reader.skipType(tag & 7);
@@ -163,12 +189,15 @@ export const Module = {
       obj.exportGenesis = object.exportGenesis.map((e: any) => String(e));
     if (Array.isArray(object?.overrideStoreKeys))
       obj.overrideStoreKeys = object.overrideStoreKeys.map((e: any) => StoreKeyConfig.fromJSON(e));
+    if (Array.isArray(object?.skipStoreKeys))
+      obj.skipStoreKeys = object.skipStoreKeys.map((e: any) => String(e));
     if (Array.isArray(object?.orderMigrations))
       obj.orderMigrations = object.orderMigrations.map((e: any) => String(e));
     if (Array.isArray(object?.precommiters))
       obj.precommiters = object.precommiters.map((e: any) => String(e));
     if (Array.isArray(object?.prepareCheckStaters))
       obj.prepareCheckStaters = object.prepareCheckStaters.map((e: any) => String(e));
+    if (Array.isArray(object?.preBlockers)) obj.preBlockers = object.preBlockers.map((e: any) => String(e));
     return obj;
   },
   toJSON(message: Module): JsonSafe<Module> {
@@ -201,6 +230,11 @@ export const Module = {
     } else {
       obj.overrideStoreKeys = [];
     }
+    if (message.skipStoreKeys) {
+      obj.skipStoreKeys = message.skipStoreKeys.map((e) => e);
+    } else {
+      obj.skipStoreKeys = [];
+    }
     if (message.orderMigrations) {
       obj.orderMigrations = message.orderMigrations.map((e) => e);
     } else {
@@ -216,6 +250,11 @@ export const Module = {
     } else {
       obj.prepareCheckStaters = [];
     }
+    if (message.preBlockers) {
+      obj.preBlockers = message.preBlockers.map((e) => e);
+    } else {
+      obj.preBlockers = [];
+    }
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<Module>, I>>(object: I): Module {
@@ -226,9 +265,11 @@ export const Module = {
     message.initGenesis = object.initGenesis?.map((e) => e) || [];
     message.exportGenesis = object.exportGenesis?.map((e) => e) || [];
     message.overrideStoreKeys = object.overrideStoreKeys?.map((e) => StoreKeyConfig.fromPartial(e)) || [];
+    message.skipStoreKeys = object.skipStoreKeys?.map((e) => e) || [];
     message.orderMigrations = object.orderMigrations?.map((e) => e) || [];
     message.precommiters = object.precommiters?.map((e) => e) || [];
     message.prepareCheckStaters = object.prepareCheckStaters?.map((e) => e) || [];
+    message.preBlockers = object.preBlockers?.map((e) => e) || [];
     return message;
   },
 };

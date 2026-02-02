@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, isObject } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, isObject } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.autocli.v1";
 /** ModuleOptions describes the CLI options for a Cosmos SDK module. */
 export interface ModuleOptions {
@@ -37,6 +37,14 @@ export interface ServiceCommandDescriptor {
   subCommands: {
     [key: string]: ServiceCommandDescriptor;
   };
+  /**
+   * enhance_custom_commands specifies whether to skip the service when generating commands, if a custom command already
+   * exists, or enhance the existing command. If set to true, the custom command will be enhanced with the services from
+   * gRPC. otherwise when a custom command exists, no commands will be generated for the service.
+   */
+  enhanceCustomCommand: boolean;
+  /** short is an optional parameter used to override the short description of the auto generated command. */
+  short: string;
 }
 export interface RpcCommandOptions_FlagOptionsEntry {
   key: string;
@@ -94,6 +102,13 @@ export interface RpcCommandOptions {
   positionalArgs: PositionalArgDescriptor[];
   /** skip specifies whether to skip this rpc method when generating commands. */
   skip: boolean;
+  /**
+   * gov_proposal specifies whether autocli should generate a gov proposal transaction for this rpc method.
+   * Normally autocli generates a transaction containing the message and broadcast it.
+   * However, when true, autocli generates a proposal transaction containing the message and broadcast it.
+   * This option is ineffective for query commands.
+   */
+  govProposal: boolean;
 }
 /**
  * FlagOptions are options for flags generated from rpc request fields.
@@ -127,9 +142,14 @@ export interface PositionalArgDescriptor {
   /**
    * varargs makes a positional parameter a varargs parameter. This can only be
    * applied to last positional parameter and the proto_field must a repeated
-   * field.
+   * field. Note: It is mutually exclusive with optional.
    */
   varargs: boolean;
+  /**
+   * optional makes the last positional parameter optional.
+   * Note: It is mutually exclusive with varargs.
+   */
+  optional: boolean;
 }
 function createBaseModuleOptions(): ModuleOptions {
   return {
@@ -263,6 +283,8 @@ function createBaseServiceCommandDescriptor(): ServiceCommandDescriptor {
     service: "",
     rpcCommandOptions: [],
     subCommands: {},
+    enhanceCustomCommand: false,
+    short: "",
   };
 }
 export const ServiceCommandDescriptor = {
@@ -283,6 +305,12 @@ export const ServiceCommandDescriptor = {
         writer.uint32(26).fork(),
       ).ldelim();
     });
+    if (message.enhanceCustomCommand === true) {
+      writer.uint32(32).bool(message.enhanceCustomCommand);
+    }
+    if (message.short !== "") {
+      writer.uint32(42).string(message.short);
+    }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ServiceCommandDescriptor {
@@ -304,6 +332,12 @@ export const ServiceCommandDescriptor = {
             message.subCommands[entry3.key] = entry3.value;
           }
           break;
+        case 4:
+          message.enhanceCustomCommand = reader.bool();
+          break;
+        case 5:
+          message.short = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -323,6 +357,8 @@ export const ServiceCommandDescriptor = {
         acc[key] = ServiceCommandDescriptor.fromJSON(value);
         return acc;
       }, {});
+    if (isSet(object.enhanceCustomCommand)) obj.enhanceCustomCommand = Boolean(object.enhanceCustomCommand);
+    if (isSet(object.short)) obj.short = String(object.short);
     return obj;
   },
   toJSON(message: ServiceCommandDescriptor): JsonSafe<ServiceCommandDescriptor> {
@@ -341,6 +377,8 @@ export const ServiceCommandDescriptor = {
         obj.subCommands[k] = ServiceCommandDescriptor.toJSON(v);
       });
     }
+    message.enhanceCustomCommand !== undefined && (obj.enhanceCustomCommand = message.enhanceCustomCommand);
+    message.short !== undefined && (obj.short = message.short);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<ServiceCommandDescriptor>, I>>(
@@ -357,6 +395,8 @@ export const ServiceCommandDescriptor = {
       }
       return acc;
     }, {});
+    message.enhanceCustomCommand = object.enhanceCustomCommand ?? false;
+    message.short = object.short ?? "";
     return message;
   },
 };
@@ -437,6 +477,7 @@ function createBaseRpcCommandOptions(): RpcCommandOptions {
     flagOptions: {},
     positionalArgs: [],
     skip: false,
+    govProposal: false,
   };
 }
 export const RpcCommandOptions = {
@@ -483,6 +524,9 @@ export const RpcCommandOptions = {
     }
     if (message.skip === true) {
       writer.uint32(96).bool(message.skip);
+    }
+    if (message.govProposal === true) {
+      writer.uint32(104).bool(message.govProposal);
     }
     return writer;
   },
@@ -532,6 +576,9 @@ export const RpcCommandOptions = {
         case 12:
           message.skip = reader.bool();
           break;
+        case 13:
+          message.govProposal = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -560,6 +607,7 @@ export const RpcCommandOptions = {
     if (Array.isArray(object?.positionalArgs))
       obj.positionalArgs = object.positionalArgs.map((e: any) => PositionalArgDescriptor.fromJSON(e));
     if (isSet(object.skip)) obj.skip = Boolean(object.skip);
+    if (isSet(object.govProposal)) obj.govProposal = Boolean(object.govProposal);
     return obj;
   },
   toJSON(message: RpcCommandOptions): JsonSafe<RpcCommandOptions> {
@@ -595,6 +643,7 @@ export const RpcCommandOptions = {
       obj.positionalArgs = [];
     }
     message.skip !== undefined && (obj.skip = message.skip);
+    message.govProposal !== undefined && (obj.govProposal = message.govProposal);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<RpcCommandOptions>, I>>(object: I): RpcCommandOptions {
@@ -618,6 +667,7 @@ export const RpcCommandOptions = {
     }, {});
     message.positionalArgs = object.positionalArgs?.map((e) => PositionalArgDescriptor.fromPartial(e)) || [];
     message.skip = object.skip ?? false;
+    message.govProposal = object.govProposal ?? false;
     return message;
   },
 };
@@ -731,6 +781,7 @@ function createBasePositionalArgDescriptor(): PositionalArgDescriptor {
   return {
     protoField: "",
     varargs: false,
+    optional: false,
   };
 }
 export const PositionalArgDescriptor = {
@@ -741,6 +792,9 @@ export const PositionalArgDescriptor = {
     }
     if (message.varargs === true) {
       writer.uint32(16).bool(message.varargs);
+    }
+    if (message.optional === true) {
+      writer.uint32(24).bool(message.optional);
     }
     return writer;
   },
@@ -757,6 +811,9 @@ export const PositionalArgDescriptor = {
         case 2:
           message.varargs = reader.bool();
           break;
+        case 3:
+          message.optional = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -768,18 +825,21 @@ export const PositionalArgDescriptor = {
     const obj = createBasePositionalArgDescriptor();
     if (isSet(object.protoField)) obj.protoField = String(object.protoField);
     if (isSet(object.varargs)) obj.varargs = Boolean(object.varargs);
+    if (isSet(object.optional)) obj.optional = Boolean(object.optional);
     return obj;
   },
   toJSON(message: PositionalArgDescriptor): JsonSafe<PositionalArgDescriptor> {
     const obj: any = {};
     message.protoField !== undefined && (obj.protoField = message.protoField);
     message.varargs !== undefined && (obj.varargs = message.varargs);
+    message.optional !== undefined && (obj.optional = message.optional);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<PositionalArgDescriptor>, I>>(object: I): PositionalArgDescriptor {
     const message = createBasePositionalArgDescriptor();
     message.protoField = object.protoField ?? "";
     message.varargs = object.varargs ?? false;
+    message.optional = object.optional ?? false;
     return message;
   },
 };

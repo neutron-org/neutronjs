@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Plan, ModuleVersion } from "./upgrade";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { Plan, ModuleVersion } from "./upgrade.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
 export const protobufPackage = "cosmos.upgrade.v1beta1";
 /**
  * QueryCurrentPlanRequest is the request type for the Query/CurrentPlan RPC
@@ -52,14 +52,11 @@ export interface QueryUpgradedConsensusStateRequest {
  */
 /** @deprecated */
 export interface QueryUpgradedConsensusStateResponse {
-  /** Since: cosmos-sdk 0.43 */
   upgradedConsensusState: Uint8Array;
 }
 /**
  * QueryModuleVersionsRequest is the request type for the Query/ModuleVersions
  * RPC method.
- *
- * Since: cosmos-sdk 0.43
  */
 export interface QueryModuleVersionsRequest {
   /**
@@ -72,24 +69,14 @@ export interface QueryModuleVersionsRequest {
 /**
  * QueryModuleVersionsResponse is the response type for the Query/ModuleVersions
  * RPC method.
- *
- * Since: cosmos-sdk 0.43
  */
 export interface QueryModuleVersionsResponse {
   /** module_versions is a list of module names with their consensus versions. */
   moduleVersions: ModuleVersion[];
 }
-/**
- * QueryAuthorityRequest is the request type for Query/Authority
- *
- * Since: cosmos-sdk 0.46
- */
+/** QueryAuthorityRequest is the request type for Query/Authority */
 export interface QueryAuthorityRequest {}
-/**
- * QueryAuthorityResponse is the response type for Query/Authority
- *
- * Since: cosmos-sdk 0.46
- */
+/** QueryAuthorityResponse is the response type for Query/Authority */
 export interface QueryAuthorityResponse {
   address: string;
 }

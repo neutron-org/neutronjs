@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryParamsRequest, QueryParamsResponse } from "./query";
+import { QueryParamsRequest, QueryParamsResponse } from "./query.js";
 /** Query defines the x/auction querier service. */
 export interface Query {
   /** Params queries the parameters of the x/auction module. */

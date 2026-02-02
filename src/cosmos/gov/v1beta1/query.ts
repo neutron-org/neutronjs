@@ -11,11 +11,11 @@ import {
   TallyResult,
   proposalStatusFromJSON,
   proposalStatusToJSON,
-} from "./gov";
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+} from "./gov.js";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.gov.v1beta1";
 /** QueryProposalRequest is the request type for the Query/Proposal RPC method. */
 export interface QueryProposalRequest {

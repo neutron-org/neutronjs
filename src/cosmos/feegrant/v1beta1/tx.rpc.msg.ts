@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgGrantAllowance,
   MsgGrantAllowanceResponse,
@@ -9,7 +9,7 @@ import {
   MsgRevokeAllowanceResponse,
   MsgPruneAllowances,
   MsgPruneAllowancesResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the feegrant msg service. */
 export interface Msg {
   /**
@@ -22,11 +22,7 @@ export interface Msg {
    * has been granted to the grantee.
    */
   revokeAllowance(request: MsgRevokeAllowance): Promise<MsgRevokeAllowanceResponse>;
-  /**
-   * PruneAllowances prunes expired fee allowances, currently up to 75 at a time.
-   *
-   * Since cosmos-sdk 0.50
-   */
+  /** PruneAllowances prunes expired fee allowances, currently up to 75 at a time. */
   pruneAllowances(request: MsgPruneAllowances): Promise<MsgPruneAllowancesResponse>;
 }
 export class MsgClientImpl implements Msg {

@@ -1,41 +1,25 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Plan } from "./upgrade";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Plan } from "./upgrade.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.upgrade.v1beta1";
-/**
- * MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type.
- *
- * Since: cosmos-sdk 0.46
- */
+/** MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type. */
 export interface MsgSoftwareUpgrade {
   /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority: string;
   /** plan is the upgrade plan. */
   plan: Plan;
 }
-/**
- * MsgSoftwareUpgradeResponse is the Msg/SoftwareUpgrade response type.
- *
- * Since: cosmos-sdk 0.46
- */
+/** MsgSoftwareUpgradeResponse is the Msg/SoftwareUpgrade response type. */
 export interface MsgSoftwareUpgradeResponse {}
-/**
- * MsgCancelUpgrade is the Msg/CancelUpgrade request type.
- *
- * Since: cosmos-sdk 0.46
- */
+/** MsgCancelUpgrade is the Msg/CancelUpgrade request type. */
 export interface MsgCancelUpgrade {
   /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority: string;
 }
-/**
- * MsgCancelUpgradeResponse is the Msg/CancelUpgrade response type.
- *
- * Since: cosmos-sdk 0.46
- */
+/** MsgCancelUpgradeResponse is the Msg/CancelUpgrade response type. */
 export interface MsgCancelUpgradeResponse {}
 function createBaseMsgSoftwareUpgrade(): MsgSoftwareUpgrade {
   return {

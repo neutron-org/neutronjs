@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Minter, Params } from "./mint";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Minter, Params } from "./mint.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.mint.v1beta1";
 /** GenesisState defines the mint module's genesis state. */
 export interface GenesisState {

@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgCreateGroup,
   MsgCreateGroupResponse,
@@ -31,7 +31,7 @@ import {
   MsgExecResponse,
   MsgLeaveGroup,
   MsgLeaveGroupResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg is the cosmos.group.v1 Msg service. */
 export interface Msg {
   /** CreateGroup creates a new group with an admin account address, a list of members and some optional metadata. */

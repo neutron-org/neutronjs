@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CurrencyPair } from "../../types/v1/currency_pair";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, isObject } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { CurrencyPair } from "../../types/v1/currency_pair.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, isObject } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "slinky.marketmap.v1";
 /** Market encapsulates a Ticker and its provider-specific configuration. */
 export interface Market {

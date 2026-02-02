@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgStoreCode, MsgRemoveChecksum, MsgMigrateContract } from "./tx";
+import { MsgStoreCode, MsgRemoveChecksum, MsgMigrateContract } from "./tx.js";
 export interface MsgStoreCodeAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgStoreCode";
   value: {

@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "../params";
-import { DenomAuthorityMetadata } from "./authorityMetadata";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Params } from "../params.js";
+import { DenomAuthorityMetadata } from "./authorityMetadata.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "osmosis.tokenfactory.v1beta1";
 /** GenesisState defines the tokenfactory module's genesis state. */
 export interface GenesisState {

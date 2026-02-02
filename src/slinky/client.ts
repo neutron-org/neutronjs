@@ -3,8 +3,8 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-import * as slinkyOracleV1TxRegistry from "./oracle/v1/tx.registry";
-import * as slinkyOracleV1TxAmino from "./oracle/v1/tx.amino";
+import * as slinkyOracleV1TxRegistry from "./oracle/v1/tx.registry.js";
+import * as slinkyOracleV1TxAmino from "./oracle/v1/tx.amino.js";
 export const slinkyAminoConverters = {
   ...slinkyOracleV1TxAmino.AminoConverter,
 };

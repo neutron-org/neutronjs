@@ -1,13 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../../helpers";
-import { BinaryReader } from "../../../../../binary";
+import { Rpc } from "../../../../../helpers.js";
+import { BinaryReader } from "../../../../../binary.js";
 import {
   MsgUpdateParams,
   MsgUpdateParamsResponse,
   MsgModuleQuerySafe,
   MsgModuleQuerySafeResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the 27-interchain-accounts/host Msg service. */
 export interface Msg {
   /** UpdateParams defines a rpc handler for MsgUpdateParams. */

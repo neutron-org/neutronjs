@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgSend } from "./tx";
+import { MsgSend } from "./tx.js";
 export interface MsgSendAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgNFTSend";
   value: {

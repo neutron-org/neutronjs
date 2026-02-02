@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
+import { omitDefault } from "../../../helpers.js";
 import {
   MsgCreateDenom,
   MsgMint,
@@ -11,7 +11,7 @@ import {
   MsgSetBeforeSendHook,
   MsgForceTransfer,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export interface MsgCreateDenomAminoType extends AminoMsg {
   type: "osmosis/tokenfactory/create-denom";
   value: {
@@ -90,7 +90,7 @@ export interface MsgForceTransferAminoType extends AminoMsg {
   };
 }
 export interface MsgUpdateParamsAminoType extends AminoMsg {
-  type: "interchainqueries/MsgUpdateParams";
+  type: "osmosis/tokenfactory/MsgUpdateParams";
   value: {
     authority: string;
     params: {
@@ -295,7 +295,7 @@ export const AminoConverter = {
     },
   },
   "/osmosis.tokenfactory.v1beta1.MsgUpdateParams": {
-    aminoType: "interchainqueries/MsgUpdateParams",
+    aminoType: "osmosis/tokenfactory/MsgUpdateParams",
     toAmino: ({ authority, params }: MsgUpdateParams): MsgUpdateParamsAminoType["value"] => {
       return {
         authority,

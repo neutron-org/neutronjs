@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgAddCurrencyPairs, MsgRemoveCurrencyPairs } from "./tx";
+import { MsgAddCurrencyPairs, MsgRemoveCurrencyPairs } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/slinky.oracle.v1.MsgAddCurrencyPairs", MsgAddCurrencyPairs],
   ["/slinky.oracle.v1.MsgRemoveCurrencyPairs", MsgRemoveCurrencyPairs],

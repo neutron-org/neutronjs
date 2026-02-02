@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryCurrentPlanRequest,
@@ -14,7 +14,7 @@ import {
   QueryModuleVersionsResponse,
   QueryAuthorityRequest,
   QueryAuthorityResponse,
-} from "./query";
+} from "./query.js";
 /** Query defines the gRPC upgrade querier service. */
 export interface Query {
   /** CurrentPlan queries the current upgrade plan. */
@@ -32,17 +32,9 @@ export interface Query {
   upgradedConsensusState(
     request: QueryUpgradedConsensusStateRequest,
   ): Promise<QueryUpgradedConsensusStateResponse>;
-  /**
-   * ModuleVersions queries the list of module versions from state.
-   *
-   * Since: cosmos-sdk 0.43
-   */
+  /** ModuleVersions queries the list of module versions from state. */
   moduleVersions(request: QueryModuleVersionsRequest): Promise<QueryModuleVersionsResponse>;
-  /**
-   * Returns the account with authority to conduct upgrades
-   *
-   * Since: cosmos-sdk 0.46
-   */
+  /** Returns the account with authority to conduct upgrades */
   authority(request?: QueryAuthorityRequest): Promise<QueryAuthorityResponse>;
 }
 export class QueryClientImpl implements Query {

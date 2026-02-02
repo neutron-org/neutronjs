@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BaseAccount } from "../../../../cosmos/auth/v1beta1/auth";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BaseAccount } from "../../../../cosmos/auth/v1beta1/auth.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.applications.interchain_accounts.v1";
 /** An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain */
 export interface InterchainAccount {

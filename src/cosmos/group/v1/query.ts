@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { GroupInfo, GroupPolicyInfo, GroupMember, Proposal, Vote, TallyResult } from "./types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { GroupInfo, GroupPolicyInfo, GroupMember, Proposal, Vote, TallyResult } from "./types.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.group.v1";
 /** QueryGroupInfoRequest is the Query/GroupInfo request type. */
 export interface QueryGroupInfoRequest {
@@ -170,20 +170,12 @@ export interface QueryTallyResultResponse {
   /** tally defines the requested tally. */
   tally: TallyResult;
 }
-/**
- * QueryGroupsRequest is the Query/Groups request type.
- *
- * Since: cosmos-sdk 0.47.1
- */
+/** QueryGroupsRequest is the Query/Groups request type. */
 export interface QueryGroupsRequest {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
 }
-/**
- * QueryGroupsResponse is the Query/Groups response type.
- *
- * Since: cosmos-sdk 0.47.1
- */
+/** QueryGroupsResponse is the Query/Groups response type. */
 export interface QueryGroupsResponse {
   /** `groups` is all the groups present in state. */
   groups: GroupInfo[];

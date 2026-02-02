@@ -9,7 +9,7 @@ import {
   MsgUpdateParams,
   MsgCommunityPoolSpend,
   MsgDepositValidatorRewardsPool,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.distribution.v1beta1.MsgSetWithdrawAddress", MsgSetWithdrawAddress],
   ["/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward", MsgWithdrawDelegatorReward],

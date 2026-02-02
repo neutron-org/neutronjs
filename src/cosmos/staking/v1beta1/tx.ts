@@ -1,12 +1,12 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Description, CommissionRates, Params } from "./staking";
-import { Any } from "../../../google/protobuf/any";
-import { Coin } from "../../base/v1beta1/coin";
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Description, CommissionRates, Params } from "./staking.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 import { Decimal } from "@cosmjs/math";
 export const protobufPackage = "cosmos.staking.v1beta1";
 /** MsgCreateValidator defines a SDK message for creating a new validator. */
@@ -79,18 +79,10 @@ export interface MsgUndelegate {
 /** MsgUndelegateResponse defines the Msg/Undelegate response type. */
 export interface MsgUndelegateResponse {
   completionTime: Timestamp;
-  /**
-   * amount returns the amount of undelegated coins
-   *
-   * Since: cosmos-sdk 0.50
-   */
+  /** amount returns the amount of undelegated coins */
   amount: Coin;
 }
-/**
- * MsgCancelUnbondingDelegation defines the SDK message for performing a cancel unbonding delegation for delegator
- *
- * Since: cosmos-sdk 0.46
- */
+/** MsgCancelUnbondingDelegation defines the SDK message for performing a cancel unbonding delegation for delegator */
 export interface MsgCancelUnbondingDelegation {
   delegatorAddress: string;
   validatorAddress: string;
@@ -99,17 +91,9 @@ export interface MsgCancelUnbondingDelegation {
   /** creation_height is the height which the unbonding took place. */
   creationHeight: bigint;
 }
-/**
- * MsgCancelUnbondingDelegationResponse
- *
- * Since: cosmos-sdk 0.46
- */
+/** MsgCancelUnbondingDelegationResponse */
 export interface MsgCancelUnbondingDelegationResponse {}
-/**
- * MsgUpdateParams is the Msg/UpdateParams request type.
- *
- * Since: cosmos-sdk 0.47
- */
+/** MsgUpdateParams is the Msg/UpdateParams request type. */
 export interface MsgUpdateParams {
   /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority: string;
@@ -123,8 +107,6 @@ export interface MsgUpdateParams {
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
- *
- * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponse {}
 function createBaseMsgCreateValidator(): MsgCreateValidator {

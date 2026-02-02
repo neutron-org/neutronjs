@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { Grant } from "./feegrant";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { Grant } from "./feegrant.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.feegrant.v1beta1";
 /** QueryAllowanceRequest is the request type for the Query/Allowance RPC method. */
 export interface QueryAllowanceRequest {
@@ -31,21 +31,13 @@ export interface QueryAllowancesResponse {
   /** pagination defines an pagination for the response. */
   pagination?: PageResponse;
 }
-/**
- * QueryAllowancesByGranterRequest is the request type for the Query/AllowancesByGranter RPC method.
- *
- * Since: cosmos-sdk 0.46
- */
+/** QueryAllowancesByGranterRequest is the request type for the Query/AllowancesByGranter RPC method. */
 export interface QueryAllowancesByGranterRequest {
   granter: string;
   /** pagination defines an pagination for the request. */
   pagination?: PageRequest;
 }
-/**
- * QueryAllowancesByGranterResponse is the response type for the Query/AllowancesByGranter RPC method.
- *
- * Since: cosmos-sdk 0.46
- */
+/** QueryAllowancesByGranterResponse is the response type for the Query/AllowancesByGranter RPC method. */
 export interface QueryAllowancesByGranterResponse {
   /** allowances that have been issued by the granter. */
   allowances: Grant[];

@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryParamsRequest,
@@ -24,7 +24,7 @@ import {
   QueryDelegatorWithdrawAddressResponse,
   QueryCommunityPoolRequest,
   QueryCommunityPoolResponse,
-} from "./query";
+} from "./query.js";
 /** Query defines the gRPC querier service for distribution module. */
 export interface Query {
   /** Params queries params of the distribution module. */
@@ -56,7 +56,11 @@ export interface Query {
   delegatorWithdrawAddress(
     request: QueryDelegatorWithdrawAddressRequest,
   ): Promise<QueryDelegatorWithdrawAddressResponse>;
-  /** CommunityPool queries the community pool coins. */
+  /**
+   * CommunityPool queries the community pool coins.
+   *
+   * WARNING: This query will fail if an external community pool is used.
+   */
   communityPool(request?: QueryCommunityPoolRequest): Promise<QueryCommunityPoolResponse>;
 }
 export class QueryClientImpl implements Query {

@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Proof } from "../crypto/proof";
-import { Consensus } from "../version/types";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { BlockIDFlag, ValidatorSet, blockIDFlagFromJSON, blockIDFlagToJSON } from "./validator";
-import { BinaryReader, BinaryWriter } from "../../binary";
+import { Proof } from "../crypto/proof.js";
+import { Consensus } from "../version/types.js";
+import { Timestamp } from "../../google/protobuf/timestamp.js";
+import { BlockIDFlag, ValidatorSet, blockIDFlagFromJSON, blockIDFlagToJSON } from "./validator.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
 import {
   isSet,
   bytesFromBase64,
@@ -13,8 +13,8 @@ import {
   Exact,
   fromJsonTimestamp,
   fromTimestamp,
-} from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+} from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "tendermint.types";
 /** SignedMsgType is a type of signed message in the consensus. */
 export enum SignedMsgType {

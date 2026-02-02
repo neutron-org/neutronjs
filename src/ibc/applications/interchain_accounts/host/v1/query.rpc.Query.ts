@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../../helpers";
-import { BinaryReader } from "../../../../../binary";
+import { Rpc } from "../../../../../helpers.js";
+import { BinaryReader } from "../../../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryParamsRequest, QueryParamsResponse } from "./query";
+import { QueryParamsRequest, QueryParamsResponse } from "./query.js";
 /** Query provides defines the gRPC querier service. */
 export interface Query {
   /** Params queries all parameters of the ICA host submodule. */

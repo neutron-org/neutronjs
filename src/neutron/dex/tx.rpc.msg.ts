@@ -1,12 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../helpers";
-import { BinaryReader } from "../../binary";
+import { Rpc } from "../../helpers.js";
+import { BinaryReader } from "../../binary.js";
 import {
   MsgDeposit,
   MsgDepositResponse,
   MsgWithdrawal,
   MsgWithdrawalResponse,
+  MsgWithdrawalWithShares,
   MsgPlaceLimitOrder,
   MsgPlaceLimitOrderResponse,
   MsgWithdrawFilledLimitOrder,
@@ -17,11 +18,12 @@ import {
   MsgMultiHopSwapResponse,
   MsgUpdateParams,
   MsgUpdateParamsResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the Msg service. */
 export interface Msg {
   deposit(request: MsgDeposit): Promise<MsgDepositResponse>;
   withdrawal(request: MsgWithdrawal): Promise<MsgWithdrawalResponse>;
+  withdrawalWithShares(request: MsgWithdrawalWithShares): Promise<MsgWithdrawalResponse>;
   placeLimitOrder(request: MsgPlaceLimitOrder): Promise<MsgPlaceLimitOrderResponse>;
   withdrawFilledLimitOrder(
     request: MsgWithdrawFilledLimitOrder,
@@ -36,6 +38,7 @@ export class MsgClientImpl implements Msg {
     this.rpc = rpc;
     this.deposit = this.deposit.bind(this);
     this.withdrawal = this.withdrawal.bind(this);
+    this.withdrawalWithShares = this.withdrawalWithShares.bind(this);
     this.placeLimitOrder = this.placeLimitOrder.bind(this);
     this.withdrawFilledLimitOrder = this.withdrawFilledLimitOrder.bind(this);
     this.cancelLimitOrder = this.cancelLimitOrder.bind(this);
@@ -50,6 +53,11 @@ export class MsgClientImpl implements Msg {
   withdrawal(request: MsgWithdrawal): Promise<MsgWithdrawalResponse> {
     const data = MsgWithdrawal.encode(request).finish();
     const promise = this.rpc.request("neutron.dex.Msg", "Withdrawal", data);
+    return promise.then((data) => MsgWithdrawalResponse.decode(new BinaryReader(data)));
+  }
+  withdrawalWithShares(request: MsgWithdrawalWithShares): Promise<MsgWithdrawalResponse> {
+    const data = MsgWithdrawalWithShares.encode(request).finish();
+    const promise = this.rpc.request("neutron.dex.Msg", "WithdrawalWithShares", data);
     return promise.then((data) => MsgWithdrawalResponse.decode(new BinaryReader(data)));
   }
   placeLimitOrder(request: MsgPlaceLimitOrder): Promise<MsgPlaceLimitOrderResponse> {

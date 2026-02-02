@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgSoftwareUpgrade, MsgCancelUpgrade } from "./tx";
+import { omitDefault } from "../../../helpers.js";
+import { MsgSoftwareUpgrade, MsgCancelUpgrade } from "./tx.js";
 export interface MsgSoftwareUpgradeAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgSoftwareUpgrade";
   value: {

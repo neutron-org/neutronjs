@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgVerifyInvariant, MsgUpdateParams } from "./tx";
+import { MsgVerifyInvariant, MsgUpdateParams } from "./tx.js";
 export interface MsgVerifyInvariantAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgVerifyInvariant";
   value: {

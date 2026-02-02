@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { bytesFromBase64, base64FromBytes, DeepPartial, Exact, isSet } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { bytesFromBase64, base64FromBytes, DeepPartial, Exact, isSet } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.crypto.multisig.v1beta1";
 /**
  * MultiSignature wraps the signatures from a multisig.LegacyAminoPubKey.

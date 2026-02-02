@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { JsonSafe } from "../../../../json-safe";
+import { Timestamp } from "../../../../google/protobuf/timestamp.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { JsonSafe } from "../../../../json-safe.js";
 import {
   DeepPartial,
   Exact,
@@ -11,7 +11,7 @@ import {
   bytesFromBase64,
   fromTimestamp,
   base64FromBytes,
-} from "../../../../helpers";
+} from "../../../../helpers.js";
 export const protobufPackage = "cosmos.base.node.v1beta1";
 /** ConfigRequest defines the request structure for the Config gRPC query. */
 export interface ConfigRequest {}

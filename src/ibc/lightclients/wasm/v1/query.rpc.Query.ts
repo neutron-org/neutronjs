@@ -1,10 +1,15 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../../../cosmos/base/query/v1beta1/pagination";
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { PageRequest } from "../../../../cosmos/base/query/v1beta1/pagination.js";
+import { Rpc } from "../../../../helpers.js";
+import { BinaryReader } from "../../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryChecksumsRequest, QueryChecksumsResponse, QueryCodeRequest, QueryCodeResponse } from "./query";
+import {
+  QueryChecksumsRequest,
+  QueryChecksumsResponse,
+  QueryCodeRequest,
+  QueryCodeResponse,
+} from "./query.js";
 /** Query service for wasm module */
 export interface Query {
   /** Get all Wasm checksums */

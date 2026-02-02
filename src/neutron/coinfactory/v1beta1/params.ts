@@ -1,11 +1,11 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.coinfactory.v1beta1";
-/** Params defines the parameters for the tokenfactory module. */
+/** Params defines the parameters for the coinfactory module. */
 export interface Params {
   /**
    * DenomCreationFee defines the fee to be charged on the creation of a new

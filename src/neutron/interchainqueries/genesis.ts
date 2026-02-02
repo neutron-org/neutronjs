@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Height, Params } from "../../ibc/core/client/v1/client";
-import { Coin } from "../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Height, Params } from "../../ibc/core/client/v1/client.js";
+import { Coin } from "../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.interchainqueries";
 /** Information about an Interchain Query registered in the interchainqueries module. */
 export interface RegisteredQuery {

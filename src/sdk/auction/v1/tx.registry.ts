@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgAuctionBid, MsgUpdateParams } from "./tx";
+import { MsgAuctionBid, MsgUpdateParams } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/sdk.auction.v1.MsgAuctionBid", MsgAuctionBid],
   ["/sdk.auction.v1.MsgUpdateParams", MsgUpdateParams],

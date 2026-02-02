@@ -16,6 +16,7 @@ This section is for maintainers of this repo, not users.
 
 ```sh
 # Pull external code
+git submodule update --remote
 git submodule update --init --recursive
 
 # Install dependencies
@@ -25,6 +26,9 @@ npm install
 # Submodules versions (commits or tags) should be set in the ./scripts/set-versions.sh script for the corresponding *_REV constants
 npm run set-versions
 ```
+
+Generate updated protos directories in protos/*-src folders:
+npm run precodegen
 
 ### Rebuilding types
 

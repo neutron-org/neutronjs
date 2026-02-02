@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest } from "../../../../cosmos/base/query/v1beta1/pagination";
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { PageRequest } from "../../../../cosmos/base/query/v1beta1/pagination.js";
+import { Rpc } from "../../../../helpers.js";
+import { BinaryReader } from "../../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryClientStateRequest,
@@ -19,13 +19,15 @@ import {
   QueryClientStatusResponse,
   QueryClientParamsRequest,
   QueryClientParamsResponse,
+  QueryClientCreatorRequest,
+  QueryClientCreatorResponse,
   QueryUpgradedClientStateRequest,
   QueryUpgradedClientStateResponse,
   QueryUpgradedConsensusStateRequest,
   QueryUpgradedConsensusStateResponse,
   QueryVerifyMembershipRequest,
   QueryVerifyMembershipResponse,
-} from "./query";
+} from "./query.js";
 /** Query provides defines the gRPC querier service */
 export interface Query {
   /** ClientState queries an IBC light client. */
@@ -50,6 +52,8 @@ export interface Query {
   clientStatus(request: QueryClientStatusRequest): Promise<QueryClientStatusResponse>;
   /** ClientParams queries all parameters of the ibc client submodule. */
   clientParams(request?: QueryClientParamsRequest): Promise<QueryClientParamsResponse>;
+  /** ClientCreator queries the creator of a given client. */
+  clientCreator(request: QueryClientCreatorRequest): Promise<QueryClientCreatorResponse>;
   /** UpgradedClientState queries an Upgraded IBC light client. */
   upgradedClientState(request?: QueryUpgradedClientStateRequest): Promise<QueryUpgradedClientStateResponse>;
   /** UpgradedConsensusState queries an Upgraded IBC consensus state. */
@@ -70,6 +74,7 @@ export class QueryClientImpl implements Query {
     this.consensusStateHeights = this.consensusStateHeights.bind(this);
     this.clientStatus = this.clientStatus.bind(this);
     this.clientParams = this.clientParams.bind(this);
+    this.clientCreator = this.clientCreator.bind(this);
     this.upgradedClientState = this.upgradedClientState.bind(this);
     this.upgradedConsensusState = this.upgradedConsensusState.bind(this);
     this.verifyMembership = this.verifyMembership.bind(this);
@@ -114,6 +119,11 @@ export class QueryClientImpl implements Query {
     const data = QueryClientParamsRequest.encode(request).finish();
     const promise = this.rpc.request("ibc.core.client.v1.Query", "ClientParams", data);
     return promise.then((data) => QueryClientParamsResponse.decode(new BinaryReader(data)));
+  }
+  clientCreator(request: QueryClientCreatorRequest): Promise<QueryClientCreatorResponse> {
+    const data = QueryClientCreatorRequest.encode(request).finish();
+    const promise = this.rpc.request("ibc.core.client.v1.Query", "ClientCreator", data);
+    return promise.then((data) => QueryClientCreatorResponse.decode(new BinaryReader(data)));
   }
   upgradedClientState(
     request: QueryUpgradedClientStateRequest = {},
@@ -161,6 +171,9 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     },
     clientParams(request?: QueryClientParamsRequest): Promise<QueryClientParamsResponse> {
       return queryService.clientParams(request);
+    },
+    clientCreator(request: QueryClientCreatorRequest): Promise<QueryClientCreatorResponse> {
+      return queryService.clientCreator(request);
     },
     upgradedClientState(
       request?: QueryUpgradedClientStateRequest,

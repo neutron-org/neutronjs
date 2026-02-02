@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgUnjail, MsgUpdateParams } from "./tx";
+import { omitDefault } from "../../../helpers.js";
+import { MsgUnjail, MsgUpdateParams } from "./tx.js";
 export interface MsgUnjailAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgUnjail";
   value: {

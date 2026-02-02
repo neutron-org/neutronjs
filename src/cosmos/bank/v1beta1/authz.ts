@@ -1,23 +1,19 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact } from "../../../helpers";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../helpers.js";
 export const protobufPackage = "cosmos.bank.v1beta1";
 /**
  * SendAuthorization allows the grantee to spend up to spend_limit coins from
  * the granter's account.
- *
- * Since: cosmos-sdk 0.43
  */
 export interface SendAuthorization {
   spendLimit: Coin[];
   /**
    * allow_list specifies an optional list of addresses to whom the grantee can send tokens on behalf of the
    * granter. If omitted, any recipient is allowed.
-   *
-   * Since: cosmos-sdk 0.47
    */
   allowList: string[];
 }

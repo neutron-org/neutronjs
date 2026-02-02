@@ -1,11 +1,11 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { Coin } from "../../base/v1beta1/coin";
-import { Params, Metadata, SendEnabled } from "./bank";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { Params, Metadata, SendEnabled } from "./bank.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.bank.v1beta1";
 /** QueryBalanceRequest is the request type for the Query/Balance RPC method. */
 export interface QueryBalanceRequest {
@@ -25,11 +25,7 @@ export interface QueryAllBalancesRequest {
   address: string;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-  /**
-   * resolve_denom is the flag to resolve the denom into a human-readable form from the metadata.
-   *
-   * Since: cosmos-sdk 0.50
-   */
+  /** resolve_denom is the flag to resolve the denom into a human-readable form from the metadata. */
   resolveDenom: boolean;
 }
 /**
@@ -45,8 +41,6 @@ export interface QueryAllBalancesResponse {
 /**
  * QuerySpendableBalancesRequest defines the gRPC request structure for querying
  * an account's spendable balances.
- *
- * Since: cosmos-sdk 0.46
  */
 export interface QuerySpendableBalancesRequest {
   /** address is the address to query spendable balances for. */
@@ -57,8 +51,6 @@ export interface QuerySpendableBalancesRequest {
 /**
  * QuerySpendableBalancesResponse defines the gRPC response structure for querying
  * an account's spendable balances.
- *
- * Since: cosmos-sdk 0.46
  */
 export interface QuerySpendableBalancesResponse {
   /** balances is the spendable balances of all the coins. */
@@ -69,8 +61,6 @@ export interface QuerySpendableBalancesResponse {
 /**
  * QuerySpendableBalanceByDenomRequest defines the gRPC request structure for
  * querying an account's spendable balance for a specific denom.
- *
- * Since: cosmos-sdk 0.47
  */
 export interface QuerySpendableBalanceByDenomRequest {
   /** address is the address to query balances for. */
@@ -81,8 +71,6 @@ export interface QuerySpendableBalanceByDenomRequest {
 /**
  * QuerySpendableBalanceByDenomResponse defines the gRPC response structure for
  * querying an account's spendable balance for a specific denom.
- *
- * Since: cosmos-sdk 0.47
  */
 export interface QuerySpendableBalanceByDenomResponse {
   /** balance is the balance of the coin. */
@@ -93,11 +81,7 @@ export interface QuerySpendableBalanceByDenomResponse {
  * method.
  */
 export interface QueryTotalSupplyRequest {
-  /**
-   * pagination defines an optional pagination for the request.
-   *
-   * Since: cosmos-sdk 0.43
-   */
+  /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
 }
 /**
@@ -107,11 +91,7 @@ export interface QueryTotalSupplyRequest {
 export interface QueryTotalSupplyResponse {
   /** supply is the supply of the coins */
   supply: Coin[];
-  /**
-   * pagination defines the pagination in the response.
-   *
-   * Since: cosmos-sdk 0.43
-   */
+  /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
 /** QuerySupplyOfRequest is the request type for the Query/SupplyOf RPC method. */
@@ -190,8 +170,6 @@ export interface QueryDenomOwnersRequest {
  * DenomOwner defines structure representing an account that owns or holds a
  * particular denominated token. It contains the account address and account
  * balance of the denominated token.
- *
- * Since: cosmos-sdk 0.46
  */
 export interface DenomOwner {
   /** address defines the address that owns a particular denomination. */
@@ -199,11 +177,7 @@ export interface DenomOwner {
   /** balance is the balance of the denominated coin for an account. */
   balance: Coin;
 }
-/**
- * QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query.
- *
- * Since: cosmos-sdk 0.46
- */
+/** QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query. */
 export interface QueryDenomOwnersResponse {
   denomOwners: DenomOwner[];
   /** pagination defines the pagination in the response. */
@@ -213,8 +187,6 @@ export interface QueryDenomOwnersResponse {
  * QueryDenomOwnersByQueryRequest defines the request type for the DenomOwnersByQuery RPC query,
  * which queries for a paginated set of all account holders of a particular
  * denomination.
- *
- * Since: cosmos-sdk 0.50.3
  */
 export interface QueryDenomOwnersByQueryRequest {
   /** denom defines the coin denomination to query all account holders for. */
@@ -222,21 +194,13 @@ export interface QueryDenomOwnersByQueryRequest {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
 }
-/**
- * QueryDenomOwnersByQueryResponse defines the RPC response of a DenomOwnersByQuery RPC query.
- *
- * Since: cosmos-sdk 0.50.3
- */
+/** QueryDenomOwnersByQueryResponse defines the RPC response of a DenomOwnersByQuery RPC query. */
 export interface QueryDenomOwnersByQueryResponse {
   denomOwners: DenomOwner[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-/**
- * QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
- *
- * Since: cosmos-sdk 0.47
- */
+/** QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries. */
 export interface QuerySendEnabledRequest {
   /** denoms is the specific denoms you want look up. Leave empty to get all entries. */
   denoms: string[];
@@ -246,11 +210,7 @@ export interface QuerySendEnabledRequest {
    */
   pagination?: PageRequest;
 }
-/**
- * QuerySendEnabledResponse defines the RPC response of a SendEnable query.
- *
- * Since: cosmos-sdk 0.47
- */
+/** QuerySendEnabledResponse defines the RPC response of a SendEnable query. */
 export interface QuerySendEnabledResponse {
   sendEnabled: SendEnabled[];
   /**

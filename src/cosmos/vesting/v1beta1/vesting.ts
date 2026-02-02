@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BaseAccount } from "../../auth/v1beta1/auth";
-import { Coin } from "../../base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BaseAccount } from "../../auth/v1beta1/auth.js";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.vesting.v1beta1";
 /**
  * BaseVestingAccount implements the VestingAccount interface. It contains all
@@ -54,8 +54,6 @@ export interface PeriodicVestingAccount {
  * PermanentLockedAccount implements the VestingAccount interface. It does
  * not ever release coins, locking them indefinitely. Coins in this account can
  * still be used for delegating and for governance votes even while locked.
- *
- * Since: cosmos-sdk 0.43
  */
 export interface PermanentLockedAccount {
   baseVestingAccount?: BaseVestingAccount;

@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { ModuleOptions } from "./options";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, isObject } from "../../../helpers";
+import { ModuleOptions } from "./options.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, isObject } from "../../../helpers.js";
 export const protobufPackage = "cosmos.autocli.v1";
 /** AppOptionsRequest is the RemoteInfoService/AppOptions request type. */
 export interface AppOptionsRequest {}

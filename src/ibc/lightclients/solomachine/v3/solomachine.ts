@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Any } from "../../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { Any } from "../../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.lightclients.solomachine.v3";
 /**
  * ClientState defines a solo machine client that tracks the current consensus
@@ -25,7 +25,7 @@ export interface ConsensusState {
   /** public key of the solo machine */
   publicKey?: Any;
   /**
-   * diversifier allows the same public key to be re-used across different solo
+   * diversifier allows the same public key to be reused across different solo
    * machine clients (potentially on different chains) without being considered
    * misbehaviour.
    */

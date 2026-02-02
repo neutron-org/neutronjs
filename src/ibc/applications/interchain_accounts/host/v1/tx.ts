@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params, QueryRequest } from "./host";
-import { BinaryReader, BinaryWriter } from "../../../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../../helpers";
-import { JsonSafe } from "../../../../../json-safe";
+import { Params, QueryRequest } from "./host.js";
+import { BinaryReader, BinaryWriter } from "../../../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../../../helpers.js";
+import { JsonSafe } from "../../../../../json-safe.js";
 export const protobufPackage = "ibc.applications.interchain_accounts.host.v1";
 /** MsgUpdateParams defines the payload for Msg/UpdateParams */
 export interface MsgUpdateParams {

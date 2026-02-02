@@ -1,13 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { KVKey } from "./genesis";
-import { Params } from "./params";
-import { ProofOps, Proof } from "../../tendermint/crypto/proof";
-import { Any } from "../../google/protobuf/any";
-import { ExecTxResult } from "../../tendermint/abci/types";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { KVKey } from "./genesis.js";
+import { Params } from "./params.js";
+import { ProofOps, Proof } from "../../tendermint/crypto/proof.js";
+import { Any } from "../../google/protobuf/any.js";
+import { ExecTxResult } from "../../tendermint/abci/types.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.interchainqueries";
 /** Request type for the Msg/RegisterInterchainQuery RPC method. */
 export interface MsgRegisterInterchainQuery {

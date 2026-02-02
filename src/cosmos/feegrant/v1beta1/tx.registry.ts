@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgGrantAllowance, MsgRevokeAllowance, MsgPruneAllowances } from "./tx";
+import { MsgGrantAllowance, MsgRevokeAllowance, MsgPruneAllowances } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.feegrant.v1beta1.MsgGrantAllowance", MsgGrantAllowance],
   ["/cosmos.feegrant.v1beta1.MsgRevokeAllowance", MsgRevokeAllowance],

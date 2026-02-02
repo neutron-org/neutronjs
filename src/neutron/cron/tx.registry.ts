@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgAddSchedule, MsgRemoveSchedule, MsgUpdateParams } from "./tx";
+import { MsgAddSchedule, MsgRemoveSchedule, MsgUpdateParams } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/neutron.cron.MsgAddSchedule", MsgAddSchedule],
   ["/neutron.cron.MsgRemoveSchedule", MsgRemoveSchedule],

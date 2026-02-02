@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CommitmentProof } from "../../../../cosmos/ics23/v1/proofs";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { CommitmentProof } from "../../../../cosmos/ics23/v1/proofs.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.commitment.v1";
 /**
  * MerkleRoot defines a merkle root hash.
@@ -19,14 +19,6 @@ export interface MerkleRoot {
  */
 export interface MerklePrefix {
   keyPrefix: Uint8Array;
-}
-/**
- * MerklePath is the path used to verify commitment proofs, which can be an
- * arbitrary structured object (defined by a commitment type).
- * MerklePath is represented from root-to-leaf
- */
-export interface MerklePath {
-  keyPath: string[];
 }
 /**
  * MerkleProof is a wrapper type over a chain of CommitmentProofs.
@@ -131,56 +123,6 @@ export const MerklePrefix = {
   fromPartial<I extends Exact<DeepPartial<MerklePrefix>, I>>(object: I): MerklePrefix {
     const message = createBaseMerklePrefix();
     message.keyPrefix = object.keyPrefix ?? new Uint8Array();
-    return message;
-  },
-};
-function createBaseMerklePath(): MerklePath {
-  return {
-    keyPath: [],
-  };
-}
-export const MerklePath = {
-  typeUrl: "/ibc.core.commitment.v1.MerklePath",
-  encode(message: MerklePath, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    for (const v of message.keyPath) {
-      writer.uint32(10).string(v!);
-    }
-    return writer;
-  },
-  decode(input: BinaryReader | Uint8Array, length?: number): MerklePath {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMerklePath();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.keyPath.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromJSON(object: any): MerklePath {
-    const obj = createBaseMerklePath();
-    if (Array.isArray(object?.keyPath)) obj.keyPath = object.keyPath.map((e: any) => String(e));
-    return obj;
-  },
-  toJSON(message: MerklePath): JsonSafe<MerklePath> {
-    const obj: any = {};
-    if (message.keyPath) {
-      obj.keyPath = message.keyPath.map((e) => e);
-    } else {
-      obj.keyPath = [];
-    }
-    return obj;
-  },
-  fromPartial<I extends Exact<DeepPartial<MerklePath>, I>>(object: I): MerklePath {
-    const message = createBaseMerklePath();
-    message.keyPath = object.keyPath?.map((e) => e) || [];
     return message;
   },
 };

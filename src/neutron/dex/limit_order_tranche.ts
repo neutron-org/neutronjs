@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { TradePairID } from "./trade_pair_id";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { TradePairID } from "./trade_pair_id.js";
+import { Timestamp } from "../../google/protobuf/timestamp.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact, fromJsonTimestamp, fromTimestamp } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
 export interface LimitOrderTrancheKey {
   tradePairId?: TradePairID;
