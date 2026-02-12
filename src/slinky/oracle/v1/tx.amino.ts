@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgAddCurrencyPairs, MsgRemoveCurrencyPairs } from "./tx";
+import { MsgAddCurrencyPairs, MsgRemoveCurrencyPairs } from "./tx.js";
 export interface MsgAddCurrencyPairsAminoType extends AminoMsg {
   type: "slinky/x/oracle/MsgAddCurrencyPairs";
   value: {

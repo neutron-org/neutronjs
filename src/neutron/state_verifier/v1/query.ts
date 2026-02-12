@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { StorageValue } from "../../interchainqueries/tx";
-import { ConsensusState } from "./genesis";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { StorageValue } from "../../interchainqueries/tx.js";
+import { ConsensusState } from "./genesis.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.state_verifier.v1";
 /** Describes a structure to verify storage values from the chain state from a particular height in the past */
 export interface QueryVerifyStateValuesRequest {

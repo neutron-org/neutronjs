@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { orderFromJSON } from "../../../ibc/core/channel/v1/channel";
+import { orderFromJSON } from "../../../ibc/core/channel/v1/channel.js";
 import { AminoMsg } from "@cosmjs/amino";
-import { AminoHeight, omitDefault } from "../../../helpers";
-import { MsgRegisterInterchainAccount, MsgSubmitTx, MsgUpdateParams } from "./tx";
+import { omitDefault } from "../../../helpers.js";
+import { MsgRegisterInterchainAccount, MsgSubmitTx, MsgUpdateParams } from "./tx.js";
 export interface MsgRegisterInterchainAccountAminoType extends AminoMsg {
   type: "/neutron.interchaintxs.v1.MsgRegisterInterchainAccount";
   value: {
@@ -50,10 +50,11 @@ export interface MsgUpdateParamsAminoType extends AminoMsg {
   value: {
     authority: string;
     params: {
-      upgrade_timeout: {
-        height: AminoHeight;
-        timestamp: string;
-      };
+      msg_submit_tx_max_messages: string;
+      register_fee: {
+        denom: string;
+        amount: string;
+      }[];
     };
   };
 }
@@ -179,15 +180,11 @@ export const AminoConverter = {
       return {
         authority,
         params: {
-          upgrade_timeout: {
-            height: params.upgradeTimeout.height
-              ? {
-                  revision_height: omitDefault(params.upgradeTimeout.height.revisionHeight)?.toString(),
-                  revision_number: omitDefault(params.upgradeTimeout.height.revisionNumber)?.toString(),
-                }
-              : {},
-            timestamp: omitDefault(params.upgradeTimeout.timestamp)?.toString?.(),
-          },
+          msg_submit_tx_max_messages: omitDefault(params.msgSubmitTxMaxMessages)?.toString?.(),
+          register_fee: params.registerFee.map((el0) => ({
+            denom: el0.denom,
+            amount: el0.amount,
+          })),
         },
       };
     },
@@ -198,21 +195,14 @@ export const AminoConverter = {
           params == null
             ? params
             : {
-                upgradeTimeout:
-                  params.upgrade_timeout == null
-                    ? params.upgrade_timeout
-                    : {
-                        height: params.upgrade_timeout.height
-                          ? {
-                              revisionHeight: BigInt(params.upgrade_timeout.height.revision_height || "0"),
-                              revisionNumber: BigInt(params.upgrade_timeout.height.revision_number || "0"),
-                            }
-                          : undefined,
-                        timestamp:
-                          params.upgrade_timeout.timestamp == null
-                            ? params.upgrade_timeout.timestamp
-                            : BigInt(params.upgrade_timeout.timestamp),
-                      },
+                msgSubmitTxMaxMessages:
+                  params.msg_submit_tx_max_messages == null
+                    ? params.msg_submit_tx_max_messages
+                    : BigInt(params.msg_submit_tx_max_messages),
+                registerFee: params.register_fee.map?.((el1) => ({
+                  denom: el1.denom,
+                  amount: el1.amount,
+                })),
               },
       };
     },

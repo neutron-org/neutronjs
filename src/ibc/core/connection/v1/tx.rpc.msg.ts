@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { Rpc } from "../../../../helpers.js";
+import { BinaryReader } from "../../../../binary.js";
 import {
   MsgConnectionOpenInit,
   MsgConnectionOpenInitResponse,
@@ -13,7 +13,7 @@ import {
   MsgConnectionOpenConfirmResponse,
   MsgUpdateParams,
   MsgUpdateParamsResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the ibc/connection Msg service. */
 export interface Msg {
   /** ConnectionOpenInit defines a rpc handler method for MsgConnectionOpenInit. */

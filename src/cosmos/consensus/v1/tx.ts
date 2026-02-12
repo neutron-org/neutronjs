@@ -1,9 +1,14 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BlockParams, EvidenceParams, ValidatorParams, ABCIParams } from "../../../tendermint/types/params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import {
+  BlockParams,
+  EvidenceParams,
+  ValidatorParams,
+  ABCIParams,
+} from "../../../tendermint/types/params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.consensus.v1";
 /** MsgUpdateParams is the Msg/UpdateParams request type. */
 export interface MsgUpdateParams {
@@ -19,7 +24,6 @@ export interface MsgUpdateParams {
   block?: BlockParams;
   evidence?: EvidenceParams;
   validator?: ValidatorParams;
-  /** Since: cosmos-sdk 0.50 */
   abci?: ABCIParams;
 }
 /**

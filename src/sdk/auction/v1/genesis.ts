@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 import { Decimal } from "@cosmjs/math";
 export const protobufPackage = "sdk.auction.v1";
 /** GenesisState defines the genesis state of the x/auction module. */

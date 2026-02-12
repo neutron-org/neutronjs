@@ -7,7 +7,7 @@ import {
   MsgRemoveInterchainQueryRequest,
   MsgUpdateInterchainQueryRequest,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/neutron.interchainqueries.MsgRegisterInterchainQuery", MsgRegisterInterchainQuery],
   ["/neutron.interchainqueries.MsgSubmitQueryResult", MsgSubmitQueryResult],

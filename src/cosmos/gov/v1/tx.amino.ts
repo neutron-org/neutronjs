@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { voteOptionFromJSON } from "./gov";
+import { voteOptionFromJSON } from "./gov.js";
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
+import { omitDefault } from "../../../helpers.js";
 import {
   MsgSubmitProposal,
   MsgExecLegacyContent,
@@ -11,7 +11,7 @@ import {
   MsgDeposit,
   MsgUpdateParams,
   MsgCancelProposal,
-} from "./tx";
+} from "./tx.js";
 export interface MsgSubmitProposalAminoType extends AminoMsg {
   type: "cosmos-sdk/v1/MsgSubmitProposal";
   value: {

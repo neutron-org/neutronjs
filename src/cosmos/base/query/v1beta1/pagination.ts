@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.base.query.v1beta1";
 /**
  * PageRequest is to be embedded in gRPC request messages for efficient
@@ -38,11 +38,7 @@ export interface PageRequest {
    * is set.
    */
   countTotal: boolean;
-  /**
-   * reverse is set to true if results are to be returned in the descending order.
-   *
-   * Since: cosmos-sdk 0.43
-   */
+  /** reverse is set to true if results are to be returned in the descending order. */
   reverse: boolean;
 }
 /**

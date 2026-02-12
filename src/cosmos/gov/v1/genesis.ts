@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Deposit, Vote, Proposal, DepositParams, VotingParams, TallyParams, Params } from "./gov";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Deposit, Vote, Proposal, DepositParams, VotingParams, TallyParams, Params } from "./gov.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.gov.v1";
 /** GenesisState defines the gov module's genesis state. */
 export interface GenesisState {
@@ -33,19 +33,13 @@ export interface GenesisState {
    */
   /** @deprecated */
   tallyParams?: TallyParams;
-  /**
-   * params defines all the paramaters of x/gov module.
-   *
-   * Since: cosmos-sdk 0.47
-   */
+  /** params defines all the paramaters of x/gov module. */
   params?: Params;
   /**
    * The constitution allows builders to lay a foundation and define purpose.
    * This is an immutable string set in genesis.
    * There are no amendments, to go outside of scope, just fork.
    * constitution is an immutable string in genesis for a chain builder to lay out their vision, ideas and ideals.
-   *
-   * Since: cosmos-sdk 0.50
    */
   constitution: string;
 }

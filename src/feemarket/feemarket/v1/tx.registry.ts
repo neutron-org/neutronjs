@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgParams } from "./tx";
+import { MsgParams } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/feemarket.feemarket.v1.MsgParams", MsgParams],
 ];

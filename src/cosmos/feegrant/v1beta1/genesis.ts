@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Grant } from "./feegrant";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact } from "../../../helpers";
+import { Grant } from "./feegrant.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../helpers.js";
 export const protobufPackage = "cosmos.feegrant.v1beta1";
 /** GenesisState contains a set of fee allowances, persisted from the store */
 export interface GenesisState {

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "tendermint.crypto";
 /** PublicKey defines the keys available for use with Validators */
 export interface PublicKey {

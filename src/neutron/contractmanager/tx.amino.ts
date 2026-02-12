@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../helpers";
-import { MsgUpdateParams, MsgResubmitFailure } from "./tx";
+import { omitDefault } from "../../helpers.js";
+import { MsgUpdateParams, MsgResubmitFailure } from "./tx.js";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "contractmanager/MsgUpdateParams";
   value: {

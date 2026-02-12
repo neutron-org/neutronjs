@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact } from "../../../helpers";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../helpers.js";
 export const protobufPackage = "cosmos.evidence.v1beta1";
 /** GenesisState defines the evidence module's genesis state. */
 export interface GenesisState {

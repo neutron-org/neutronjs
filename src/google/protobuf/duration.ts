@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "google.protobuf";
 /**
  * A Duration represents a signed, fixed-length span of time represented
@@ -26,7 +26,7 @@ export const protobufPackage = "google.protobuf";
  *     if (duration.seconds < 0 && duration.nanos > 0) {
  *       duration.seconds += 1;
  *       duration.nanos -= 1000000000;
- *     } else if (durations.seconds > 0 && duration.nanos < 0) {
+ *     } else if (duration.seconds > 0 && duration.nanos < 0) {
  *       duration.seconds -= 1;
  *       duration.nanos += 1000000000;
  *     }

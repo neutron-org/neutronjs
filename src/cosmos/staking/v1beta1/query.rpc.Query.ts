@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryValidatorsRequest,
@@ -32,7 +32,7 @@ import {
   QueryPoolResponse,
   QueryParamsRequest,
   QueryParamsResponse,
-} from "./query";
+} from "./query.js";
 /** Query defines the gRPC querier service. */
 export interface Query {
   /**

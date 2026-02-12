@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
+import { omitDefault } from "../../../helpers.js";
 import {
   MsgSetWithdrawAddress,
   MsgWithdrawDelegatorReward,
@@ -10,7 +10,7 @@ import {
   MsgUpdateParams,
   MsgCommunityPoolSpend,
   MsgDepositValidatorRewardsPool,
-} from "./tx";
+} from "./tx.js";
 export interface MsgSetWithdrawAddressAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgModifyWithdrawAddress";
   value: {

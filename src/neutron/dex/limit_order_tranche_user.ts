@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { TradePairID } from "./trade_pair_id";
-import { LimitOrderType, limitOrderTypeFromJSON, limitOrderTypeToJSON } from "./tx";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { TradePairID } from "./trade_pair_id.js";
+import { LimitOrderType, limitOrderTypeFromJSON, limitOrderTypeToJSON } from "./tx.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.dex";
 export interface LimitOrderTrancheUser {
   tradePairId?: TradePairID;

@@ -1,12 +1,12 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../base/v1beta1/coin";
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Duration } from "../../../google/protobuf/duration";
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { Duration } from "../../../google/protobuf/duration.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, fromJsonTimestamp, fromTimestamp, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.feegrant.v1beta1";
 /**
  * BasicAllowance implements Allowance with a one-time grant of coins

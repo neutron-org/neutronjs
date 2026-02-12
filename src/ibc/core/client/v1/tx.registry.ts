@@ -9,7 +9,8 @@ import {
   MsgRecoverClient,
   MsgIBCSoftwareUpgrade,
   MsgUpdateParams,
-} from "./tx";
+  MsgDeleteClientCreator,
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/ibc.core.client.v1.MsgCreateClient", MsgCreateClient],
   ["/ibc.core.client.v1.MsgUpdateClient", MsgUpdateClient],
@@ -18,6 +19,7 @@ export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/ibc.core.client.v1.MsgRecoverClient", MsgRecoverClient],
   ["/ibc.core.client.v1.MsgIBCSoftwareUpgrade", MsgIBCSoftwareUpgrade],
   ["/ibc.core.client.v1.MsgUpdateParams", MsgUpdateParams],
+  ["/ibc.core.client.v1.MsgDeleteClientCreator", MsgDeleteClientCreator],
 ];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
@@ -68,6 +70,12 @@ export const MessageComposer = {
         value: MsgUpdateParams.encode(value).finish(),
       };
     },
+    deleteClientCreator(value: MsgDeleteClientCreator) {
+      return {
+        typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreator",
+        value: MsgDeleteClientCreator.encode(value).finish(),
+      };
+    },
   },
   withTypeUrl: {
     createClient(value: MsgCreateClient) {
@@ -109,6 +117,12 @@ export const MessageComposer = {
     updateClientParams(value: MsgUpdateParams) {
       return {
         typeUrl: "/ibc.core.client.v1.MsgUpdateParams",
+        value,
+      };
+    },
+    deleteClientCreator(value: MsgDeleteClientCreator) {
+      return {
+        typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreator",
         value,
       };
     },
@@ -156,6 +170,12 @@ export const MessageComposer = {
         value: MsgUpdateParams.toJSON(value),
       };
     },
+    deleteClientCreator(value: MsgDeleteClientCreator) {
+      return {
+        typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreator",
+        value: MsgDeleteClientCreator.toJSON(value),
+      };
+    },
   },
   fromJSON: {
     createClient(value: any) {
@@ -200,6 +220,12 @@ export const MessageComposer = {
         value: MsgUpdateParams.fromJSON(value),
       };
     },
+    deleteClientCreator(value: any) {
+      return {
+        typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreator",
+        value: MsgDeleteClientCreator.fromJSON(value),
+      };
+    },
   },
   fromPartial: {
     createClient(value: MsgCreateClient) {
@@ -242,6 +268,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/ibc.core.client.v1.MsgUpdateParams",
         value: MsgUpdateParams.fromPartial(value),
+      };
+    },
+    deleteClientCreator(value: MsgDeleteClientCreator) {
+      return {
+        typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreator",
+        value: MsgDeleteClientCreator.fromPartial(value),
       };
     },
   },

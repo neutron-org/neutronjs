@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { CurrencyPair } from "../../types/v1/currency_pair";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { CurrencyPair } from "../../types/v1/currency_pair.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "slinky.oracle.v1";
 /**
  * Given an authority + a set of CurrencyPairs, the x/oracle module will

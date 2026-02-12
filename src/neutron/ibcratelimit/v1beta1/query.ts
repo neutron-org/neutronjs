@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet } from "../../../helpers";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet } from "../../../helpers.js";
 export const protobufPackage = "neutron.ibcratelimit.v1beta1";
 /** ParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}

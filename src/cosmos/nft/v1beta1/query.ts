@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination";
-import { NFT, Class } from "./nft";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { NFT, Class } from "./nft.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.nft.v1beta1";
 /** QueryBalanceRequest is the request type for the Query/Balance RPC method */
 export interface QueryBalanceRequest {

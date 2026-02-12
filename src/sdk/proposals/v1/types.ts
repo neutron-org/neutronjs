@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact, isObject } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact, isObject } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "sdk.proposals.v1";
 export interface ProposalInfo_TxsByLaneEntry {
   key: string;

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
-import { MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
+import { MsgUpdateParams, MsgUpdateParamsResponse } from "./tx.js";
 /** Msg defines the tokefactory module's gRPC message service. */
 export interface Msg {
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;

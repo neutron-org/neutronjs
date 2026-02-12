@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryConstitutionRequest,
@@ -22,7 +22,7 @@ import {
   QueryDepositsResponse,
   QueryTallyResultRequest,
   QueryTallyResultResponse,
-} from "./query";
+} from "./query.js";
 /** Query defines the gRPC querier service for gov module */
 export interface Query {
   /** Constitution queries the chain's constitution. */

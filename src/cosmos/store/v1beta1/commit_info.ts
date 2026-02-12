@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Timestamp } from "../../../google/protobuf/timestamp.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
 import {
   isSet,
   fromJsonTimestamp,
@@ -10,8 +10,8 @@ import {
   Exact,
   bytesFromBase64,
   base64FromBytes,
-} from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+} from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.store.v1beta1";
 /**
  * CommitInfo defines commit information used by the multi-store when committing

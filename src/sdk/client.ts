@@ -3,8 +3,8 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-import * as sdkAuctionV1TxRegistry from "./auction/v1/tx.registry";
-import * as sdkAuctionV1TxAmino from "./auction/v1/tx.amino";
+import * as sdkAuctionV1TxRegistry from "./auction/v1/tx.registry.js";
+import * as sdkAuctionV1TxAmino from "./auction/v1/tx.amino.js";
 export const sdkAminoConverters = {
   ...sdkAuctionV1TxAmino.AminoConverter,
 };

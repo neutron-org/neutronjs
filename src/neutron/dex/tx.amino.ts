@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../helpers";
+import { omitDefault } from "../../helpers.js";
 import {
   limitOrderTypeFromJSON,
   MsgDeposit,
@@ -12,7 +12,7 @@ import {
   MsgCancelLimitOrder,
   MsgMultiHopSwap,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export interface MsgDepositAminoType extends AminoMsg {
   type: "dex/MsgDeposit";
   value: {

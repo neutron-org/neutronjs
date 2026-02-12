@@ -10,7 +10,7 @@ import {
   MsgSetBeforeSendHook,
   MsgForceTransfer,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/osmosis.tokenfactory.v1beta1.MsgCreateDenom", MsgCreateDenom],
   ["/osmosis.tokenfactory.v1beta1.MsgMint", MsgMint],

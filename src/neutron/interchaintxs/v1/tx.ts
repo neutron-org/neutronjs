@@ -1,12 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Order, Params, orderFromJSON, orderToJSON } from "../../../ibc/core/channel/v1/channel";
-import { Any } from "../../../google/protobuf/any";
-import { Fee } from "../../feerefunder/fee";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Coin } from "../../../cosmos/base/v1beta1/coin.js";
+import { Order, orderFromJSON, orderToJSON } from "../../../ibc/core/channel/v1/channel.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { Fee } from "../../feerefunder/fee.js";
+import { Params } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.interchaintxs.v1";
 /** MsgRegisterInterchainAccount is used to register an account on a remote zone. */
 export interface MsgRegisterInterchainAccount {

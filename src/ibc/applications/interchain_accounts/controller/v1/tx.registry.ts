@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgRegisterInterchainAccount, MsgSendTx, MsgUpdateParams } from "./tx";
+import { MsgRegisterInterchainAccount, MsgSendTx, MsgUpdateParams } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   [
     "/ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount",

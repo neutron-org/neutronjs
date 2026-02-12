@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../helpers";
-import { BinaryReader } from "../../binary";
+import { Rpc } from "../../helpers.js";
+import { BinaryReader } from "../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryParamsRequest,
@@ -14,7 +14,7 @@ import {
   QueryRegisteredQueryResultResponse,
   QueryLastRemoteHeight,
   QueryLastRemoteHeightResponse,
-} from "./query";
+} from "./query.js";
 /** Defines the Query interface of the module. */
 export interface Query {
   /** Fetches the current parameters of the interchainqueries module. */

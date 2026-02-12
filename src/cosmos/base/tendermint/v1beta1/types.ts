@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Data, Commit, BlockID } from "../../../../tendermint/types/types";
-import { EvidenceList } from "../../../../tendermint/types/evidence";
-import { Consensus } from "../../../../tendermint/version/types";
-import { Timestamp } from "../../../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { Data, Commit, BlockID } from "../../../../tendermint/types/types.js";
+import { EvidenceList } from "../../../../tendermint/types/evidence.js";
+import { Consensus } from "../../../../tendermint/version/types.js";
+import { Timestamp } from "../../../../google/protobuf/timestamp.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
 import {
   isSet,
   DeepPartial,
@@ -13,8 +13,8 @@ import {
   bytesFromBase64,
   fromTimestamp,
   base64FromBytes,
-} from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+} from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "cosmos.base.tendermint.v1beta1";
 /**
  * Block is tendermint type Block, with the Header proposer address

@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   GetAllCurrencyPairsRequest,
@@ -12,7 +12,9 @@ import {
   GetPricesResponse,
   GetCurrencyPairMappingRequest,
   GetCurrencyPairMappingResponse,
-} from "./query";
+  GetCurrencyPairMappingListRequest,
+  GetCurrencyPairMappingListResponse,
+} from "./query.js";
 /** Query is the query service for the x/oracle module. */
 export interface Query {
   /** Get all the currency pairs the x/oracle module is tracking price-data for. */

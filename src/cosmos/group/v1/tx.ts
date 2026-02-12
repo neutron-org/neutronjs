@@ -8,11 +8,11 @@ import {
   voteOptionToJSON,
   proposalExecutorResultFromJSON,
   proposalExecutorResultToJSON,
-} from "./types";
-import { Any } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+} from "./types.js";
+import { Any } from "../../../google/protobuf/any.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.group.v1";
 /** Exec defines modes of execution of a proposal on creation or on new vote. */
 export enum Exec {
@@ -198,17 +198,9 @@ export interface MsgSubmitProposal {
    * If so, proposers signatures are considered as Yes votes.
    */
   exec: Exec;
-  /**
-   * title is the title of the proposal.
-   *
-   * Since: cosmos-sdk 0.47
-   */
+  /** title is the title of the proposal. */
   title: string;
-  /**
-   * summary is the summary of the proposal.
-   *
-   * Since: cosmos-sdk 0.47
-   */
+  /** summary is the summary of the proposal. */
   summary: string;
 }
 /** MsgSubmitProposalResponse is the Msg/SubmitProposal response type. */

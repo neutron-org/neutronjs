@@ -1,14 +1,14 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../../helpers";
-import { BinaryReader } from "../../../../../binary";
+import { Rpc } from "../../../../../helpers.js";
+import { BinaryReader } from "../../../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
 import {
   QueryInterchainAccountRequest,
   QueryInterchainAccountResponse,
   QueryParamsRequest,
   QueryParamsResponse,
-} from "./query";
+} from "./query.js";
 /** Query provides defines the gRPC querier service. */
 export interface Query {
   /** InterchainAccount returns the interchain account address for a given owner address on a given connection */

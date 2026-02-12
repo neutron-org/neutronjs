@@ -1,12 +1,12 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
+import { omitDefault } from "../../../helpers.js";
 import {
   MsgCreateVestingAccount,
   MsgCreatePermanentLockedAccount,
   MsgCreatePeriodicVestingAccount,
-} from "./tx";
+} from "./tx.js";
 export interface MsgCreateVestingAccountAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgCreateVestingAccount";
   value: {

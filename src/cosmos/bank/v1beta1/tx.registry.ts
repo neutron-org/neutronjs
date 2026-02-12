@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgSend, MsgMultiSend, MsgUpdateParams, MsgSetSendEnabled } from "./tx";
+import { MsgSend, MsgMultiSend, MsgUpdateParams, MsgSetSendEnabled } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.bank.v1beta1.MsgSend", MsgSend],
   ["/cosmos.bank.v1beta1.MsgMultiSend", MsgMultiSend],

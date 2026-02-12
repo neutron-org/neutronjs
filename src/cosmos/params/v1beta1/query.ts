@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { ParamChange } from "./params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { ParamChange } from "./params.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.params.v1beta1";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -20,15 +20,11 @@ export interface QueryParamsResponse {
 /**
  * QuerySubspacesRequest defines a request type for querying for all registered
  * subspaces and all keys for a subspace.
- *
- * Since: cosmos-sdk 0.46
  */
 export interface QuerySubspacesRequest {}
 /**
  * QuerySubspacesResponse defines the response types for querying for all
  * registered subspaces and all keys for a subspace.
- *
- * Since: cosmos-sdk 0.46
  */
 export interface QuerySubspacesResponse {
   subspaces: Subspace[];
@@ -36,8 +32,6 @@ export interface QuerySubspacesResponse {
 /**
  * Subspace defines a parameter subspace name and all the keys that exist for
  * the subspace.
- *
- * Since: cosmos-sdk 0.46
  */
 export interface Subspace {
   subspace: string;

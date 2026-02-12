@@ -10,7 +10,7 @@ import {
   MsgCancelLimitOrder,
   MsgMultiHopSwap,
   MsgUpdateParams,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/neutron.dex.MsgDeposit", MsgDeposit],
   ["/neutron.dex.MsgWithdrawal", MsgWithdrawal],

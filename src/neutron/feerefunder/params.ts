@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Fee } from "./fee";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Fee } from "./fee.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.feerefunder";
 /** Params defines the parameters for the module. */
 export interface Params {

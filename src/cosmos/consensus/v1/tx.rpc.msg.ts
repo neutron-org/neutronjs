@@ -1,15 +1,13 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
-import { MsgUpdateParams, MsgUpdateParamsResponse } from "./tx";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
+import { MsgUpdateParams, MsgUpdateParamsResponse } from "./tx.js";
 /** Msg defines the consensus Msg service. */
 export interface Msg {
   /**
    * UpdateParams defines a governance operation for updating the x/consensus module parameters.
    * The authority is defined in the keeper.
-   *
-   * Since: cosmos-sdk 0.47
    */
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }

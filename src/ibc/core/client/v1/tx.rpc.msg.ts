@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../../helpers";
-import { BinaryReader } from "../../../../binary";
+import { Rpc } from "../../../../helpers.js";
+import { BinaryReader } from "../../../../binary.js";
 import {
   MsgCreateClient,
   MsgCreateClientResponse,
@@ -17,7 +17,9 @@ import {
   MsgIBCSoftwareUpgradeResponse,
   MsgUpdateParams,
   MsgUpdateParamsResponse,
-} from "./tx";
+  MsgDeleteClientCreator,
+  MsgDeleteClientCreatorResponse,
+} from "./tx.js";
 /** Msg defines the ibc/client Msg service. */
 export interface Msg {
   /** CreateClient defines a rpc handler method for MsgCreateClient. */
@@ -34,6 +36,8 @@ export interface Msg {
   iBCSoftwareUpgrade(request: MsgIBCSoftwareUpgrade): Promise<MsgIBCSoftwareUpgradeResponse>;
   /** UpdateClientParams defines a rpc handler method for MsgUpdateParams. */
   updateClientParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
+  /** DeleteClientCreator defines a rpc handler method for MsgDeleteClientCreator. */
+  deleteClientCreator(request: MsgDeleteClientCreator): Promise<MsgDeleteClientCreatorResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
@@ -46,6 +50,7 @@ export class MsgClientImpl implements Msg {
     this.recoverClient = this.recoverClient.bind(this);
     this.iBCSoftwareUpgrade = this.iBCSoftwareUpgrade.bind(this);
     this.updateClientParams = this.updateClientParams.bind(this);
+    this.deleteClientCreator = this.deleteClientCreator.bind(this);
   }
   createClient(request: MsgCreateClient): Promise<MsgCreateClientResponse> {
     const data = MsgCreateClient.encode(request).finish();
@@ -81,5 +86,10 @@ export class MsgClientImpl implements Msg {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request("ibc.core.client.v1.Msg", "UpdateClientParams", data);
     return promise.then((data) => MsgUpdateParamsResponse.decode(new BinaryReader(data)));
+  }
+  deleteClientCreator(request: MsgDeleteClientCreator): Promise<MsgDeleteClientCreatorResponse> {
+    const data = MsgDeleteClientCreator.encode(request).finish();
+    const promise = this.rpc.request("ibc.core.client.v1.Msg", "DeleteClientCreator", data);
+    return promise.then((data) => MsgDeleteClientCreatorResponse.decode(new BinaryReader(data)));
   }
 }

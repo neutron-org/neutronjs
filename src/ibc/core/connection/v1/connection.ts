@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { MerklePrefix } from "../../commitment/v1/commitment";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../../helpers";
-import { JsonSafe } from "../../../../json-safe";
+import { MerklePrefix } from "../../commitment/v1/commitment.js";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
 export const protobufPackage = "ibc.core.connection.v1";
 /**
  * State defines if a connection is in one of the following states:
@@ -132,7 +132,7 @@ export interface ConnectionPaths {
   paths: string[];
 }
 /**
- * Version defines the versioning scheme used to negotiate the IBC verison in
+ * Version defines the versioning scheme used to negotiate the IBC version in
  * the connection handshake.
  */
 export interface Version {

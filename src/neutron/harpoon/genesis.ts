@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { HookSubscriptions } from "./hooks";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { JsonSafe } from "../../json-safe";
-import { DeepPartial, Exact } from "../../helpers";
+import { HookSubscriptions } from "./hooks.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { JsonSafe } from "../../json-safe.js";
+import { DeepPartial, Exact } from "../../helpers.js";
 export const protobufPackage = "neutron.harpoon";
 /** Harpoon module genesis state. */
 export interface GenesisState {

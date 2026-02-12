@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { voteOptionFromJSON } from "./types";
+import { voteOptionFromJSON } from "./types.js";
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
+import { omitDefault } from "../../../helpers.js";
 import {
   execFromJSON,
   MsgCreateGroup,
@@ -19,7 +19,7 @@ import {
   MsgVote,
   MsgExec,
   MsgLeaveGroup,
-} from "./tx";
+} from "./tx.js";
 export interface MsgCreateGroupAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgCreateGroup";
   value: {

@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { ConsensusState as ConsensusState1 } from "../../../ibc/lightclients/tendermint/v1/tendermint";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { ConsensusState as ConsensusState1 } from "../../../ibc/lightclients/tendermint/v1/tendermint.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "neutron.state_verifier.v1";
 /** Describes a "light" consensus state of the chain at a particular height */
 export interface ConsensusState {

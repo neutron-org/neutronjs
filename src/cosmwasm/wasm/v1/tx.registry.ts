@@ -19,7 +19,7 @@ import {
   MsgAddCodeUploadParamsAddresses,
   MsgStoreAndMigrateContract,
   MsgUpdateContractLabel,
-} from "./tx";
+} from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmwasm.wasm.v1.MsgStoreCode", MsgStoreCode],
   ["/cosmwasm.wasm.v1.MsgInstantiateContract", MsgInstantiateContract],

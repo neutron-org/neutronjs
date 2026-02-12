@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { MsgGrant, MsgExec, MsgRevoke } from "./tx";
+import { MsgGrant, MsgExec, MsgRevoke } from "./tx.js";
 export interface MsgGrantAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgGrant";
   value: {

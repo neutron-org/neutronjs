@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import {
   MsgCreateValidator,
   MsgCreateValidatorResponse,
@@ -17,7 +17,7 @@ import {
   MsgCancelUnbondingDelegationResponse,
   MsgUpdateParams,
   MsgUpdateParamsResponse,
-} from "./tx";
+} from "./tx.js";
 /** Msg defines the staking Msg service. */
 export interface Msg {
   /** CreateValidator defines a method for creating a new validator. */
@@ -42,8 +42,6 @@ export interface Msg {
   /**
    * CancelUnbondingDelegation defines a method for performing canceling the unbonding delegation
    * and delegate back to previous validator.
-   *
-   * Since: cosmos-sdk 0.46
    */
   cancelUnbondingDelegation(
     request: MsgCancelUnbondingDelegation,
@@ -51,7 +49,6 @@ export interface Msg {
   /**
    * UpdateParams defines an operation for updating the x/staking module
    * parameters.
-   * Since: cosmos-sdk 0.47
    */
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
 }

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../../helpers";
-import { MsgSend, MsgMultiSend, MsgUpdateParams, MsgSetSendEnabled } from "./tx";
+import { omitDefault } from "../../../helpers.js";
+import { MsgSend, MsgMultiSend, MsgUpdateParams, MsgSetSendEnabled } from "./tx.js";
 export interface MsgSendAminoType extends AminoMsg {
   type: "cosmos-sdk/MsgSend";
   value: {

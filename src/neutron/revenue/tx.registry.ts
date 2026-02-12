@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgUpdateParams, MsgFundTreasury } from "./tx";
+import { MsgUpdateParams, MsgFundTreasury } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/neutron.revenue.MsgUpdateParams", MsgUpdateParams],
   ["/neutron.revenue.MsgFundTreasury", MsgFundTreasury],

@@ -1,11 +1,11 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Any } from "../../../google/protobuf/any";
-import { Coin } from "../../base/v1beta1/coin";
-import { VoteOption, WeightedVoteOption, voteOptionFromJSON, voteOptionToJSON } from "./gov";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Any } from "../../../google/protobuf/any.js";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { VoteOption, WeightedVoteOption, voteOptionFromJSON, voteOptionToJSON } from "./gov.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.gov.v1beta1";
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
@@ -35,11 +35,7 @@ export interface MsgVote {
 }
 /** MsgVoteResponse defines the Msg/Vote response type. */
 export interface MsgVoteResponse {}
-/**
- * MsgVoteWeighted defines a message to cast a vote.
- *
- * Since: cosmos-sdk 0.43
- */
+/** MsgVoteWeighted defines a message to cast a vote. */
 export interface MsgVoteWeighted {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: bigint;
@@ -48,11 +44,7 @@ export interface MsgVoteWeighted {
   /** options defines the weighted vote options. */
   options: WeightedVoteOption[];
 }
-/**
- * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
- *
- * Since: cosmos-sdk 0.43
- */
+/** MsgVoteWeightedResponse defines the Msg/VoteWeighted response type. */
 export interface MsgVoteWeightedResponse {}
 /** MsgDeposit defines a message to submit a deposit to an existing proposal. */
 export interface MsgDeposit {

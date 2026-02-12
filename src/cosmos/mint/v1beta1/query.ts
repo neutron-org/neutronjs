@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./mint";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { Params } from "./mint.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers.js";
 export const protobufPackage = "cosmos.mint.v1beta1";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}

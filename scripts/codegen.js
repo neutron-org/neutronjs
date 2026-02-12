@@ -45,6 +45,8 @@ telescope({
           "neutron/transfer/v1/query.proto",
           "slinky/abci/v1/vote_extensions.proto",
           "slinky/marketmap/v1/tx.proto",
+          "sidecar/mexc/pushdata_v3_api_wrapper.proto",
+          "sidecar/mexc/response.proto",
         ],
         packages: ["google.api"],
       },
@@ -78,6 +80,7 @@ telescope({
       camelCase: true,
       useConnectComet: true,
     },
+    restoreImportExtension: ".js",
     aminoEncoding: {
       enabled: true,
       useLegacyInlineEncoding: true,

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, bytesFromBase64, base64FromBytes, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.crypto.secp256k1";
 /**
  * PubKey defines a secp256k1 public key

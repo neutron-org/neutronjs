@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Rpc } from "../../../helpers";
-import { BinaryReader } from "../../../binary";
+import { Rpc } from "../../../helpers.js";
+import { BinaryReader } from "../../../binary.js";
 import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryConfigRequest, QueryConfigResponse } from "./query";
+import { QueryConfigRequest, QueryConfigResponse } from "./query.js";
 /** Query is the app module query service. */
 export interface Query {
   /** Config returns the current app config. */

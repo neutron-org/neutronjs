@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params } from "./params";
-import { PacketID, Fee } from "./fee";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { isSet, DeepPartial, Exact } from "../../helpers";
-import { JsonSafe } from "../../json-safe";
+import { Params } from "./params.js";
+import { PacketID, Fee } from "./fee.js";
+import { BinaryReader, BinaryWriter } from "../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../helpers.js";
+import { JsonSafe } from "../../json-safe.js";
 export const protobufPackage = "neutron.feerefunder";
 /** GenesisState defines the fee module's genesis state. */
 export interface GenesisState {

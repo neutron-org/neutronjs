@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgSubmitProposal, MsgVote, MsgVoteWeighted, MsgDeposit } from "./tx";
+import { MsgSubmitProposal, MsgVote, MsgVoteWeighted, MsgDeposit } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/cosmos.gov.v1beta1.MsgSubmitProposal", MsgSubmitProposal],
   ["/cosmos.gov.v1beta1.MsgVote", MsgVote],

@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { JsonSafe } from "../../../../json-safe";
-import { DeepPartial, Exact } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { JsonSafe } from "../../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../../helpers.js";
 export const protobufPackage = "cosmos.nft.module.v1";
 /** Module is the config object of the nft module. */
 export interface Module {}

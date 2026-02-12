@@ -1,8 +1,8 @@
 //@ts-nocheck
 /* eslint-disable */
 import { AminoMsg } from "@cosmjs/amino";
-import { omitDefault } from "../../helpers";
-import { MsgUpdateParams, MsgFundTreasury } from "./tx";
+import { omitDefault } from "../../helpers.js";
+import { MsgUpdateParams, MsgFundTreasury } from "./tx.js";
 export interface MsgUpdateParamsAminoType extends AminoMsg {
   type: "revenue/MsgUpdateParams";
   value: {

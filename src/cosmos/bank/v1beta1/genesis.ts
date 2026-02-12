@@ -1,10 +1,10 @@
 //@ts-nocheck
 /* eslint-disable */
-import { Params, Metadata, SendEnabled } from "./bank";
-import { Coin } from "../../base/v1beta1/coin";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { isSet, DeepPartial, Exact } from "../../../helpers";
-import { JsonSafe } from "../../../json-safe";
+import { Params, Metadata, SendEnabled } from "./bank.js";
+import { Coin } from "../../base/v1beta1/coin.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { isSet, DeepPartial, Exact } from "../../../helpers.js";
+import { JsonSafe } from "../../../json-safe.js";
 export const protobufPackage = "cosmos.bank.v1beta1";
 /** GenesisState defines the bank module's genesis state. */
 export interface GenesisState {
@@ -19,11 +19,7 @@ export interface GenesisState {
   supply: Coin[];
   /** denom_metadata defines the metadata of the different coins. */
   denomMetadata: Metadata[];
-  /**
-   * send_enabled defines the denoms where send is enabled or disabled.
-   *
-   * Since: cosmos-sdk 0.47
-   */
+  /** send_enabled defines the denoms where send is enabled or disabled. */
   sendEnabled: SendEnabled[];
 }
 /**

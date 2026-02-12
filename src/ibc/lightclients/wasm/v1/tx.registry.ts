@@ -1,7 +1,7 @@
 //@ts-nocheck
 /* eslint-disable */
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgStoreCode, MsgRemoveChecksum, MsgMigrateContract } from "./tx";
+import { MsgStoreCode, MsgRemoveChecksum, MsgMigrateContract } from "./tx.js";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [
   ["/ibc.lightclients.wasm.v1.MsgStoreCode", MsgStoreCode],
   ["/ibc.lightclients.wasm.v1.MsgRemoveChecksum", MsgRemoveChecksum],

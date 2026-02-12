@@ -1,9 +1,9 @@
 //@ts-nocheck
 /* eslint-disable */
-import { FileDescriptorProto } from "../../../google/protobuf/descriptor";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { JsonSafe } from "../../../json-safe";
-import { DeepPartial, Exact } from "../../../helpers";
+import { FileDescriptorProto } from "../../../google/protobuf/descriptor.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../helpers.js";
 export const protobufPackage = "cosmos.reflection.v1";
 /** FileDescriptorsRequest is the Query/FileDescriptors request type. */
 export interface FileDescriptorsRequest {}
