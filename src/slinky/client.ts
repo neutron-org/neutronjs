@@ -3,26 +3,13 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-<<<<<<< HEAD
-import * as slinkyAlertsV1TxRegistry from "./alerts/v1/tx.registry";
-import * as slinkyOracleV1TxRegistry from "./oracle/v1/tx.registry";
-import * as slinkySlaV1TxRegistry from "./sla/v1/tx.registry";
-import * as slinkyAlertsV1TxAmino from "./alerts/v1/tx.amino";
-import * as slinkyOracleV1TxAmino from "./oracle/v1/tx.amino";
-import * as slinkySlaV1TxAmino from "./sla/v1/tx.amino";
-=======
 import * as slinkyOracleV1TxRegistry from "./oracle/v1/tx.registry.js";
 import * as slinkyOracleV1TxAmino from "./oracle/v1/tx.amino.js";
->>>>>>> main
 export const slinkyAminoConverters = {
-  ...slinkyAlertsV1TxAmino.AminoConverter,
   ...slinkyOracleV1TxAmino.AminoConverter,
-  ...slinkySlaV1TxAmino.AminoConverter,
 };
 export const slinkyProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
-  ...slinkyAlertsV1TxRegistry.registry,
   ...slinkyOracleV1TxRegistry.registry,
-  ...slinkySlaV1TxRegistry.registry,
 ];
 export const getSigningSlinkyClientOptions = ({
   defaultTypes = defaultRegistryTypes,

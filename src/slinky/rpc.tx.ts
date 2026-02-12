@@ -69,14 +69,8 @@ export const createRPCMsgClient = async ({ rpc }: { rpc: Rpc }) => ({
     },
   },
   slinky: {
-    alerts: {
-      v1: new (await import("./alerts/v1/tx.rpc.msg")).MsgClientImpl(rpc),
-    },
     oracle: {
       v1: new (await import("./oracle/v1/tx.rpc.msg.js")).MsgClientImpl(rpc),
-    },
-    sla: {
-      v1: new (await import("./sla/v1/tx.rpc.msg")).MsgClientImpl(rpc),
     },
   },
 });
