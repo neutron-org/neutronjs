@@ -69,6 +69,9 @@ export const createRPCMsgClient = async ({ rpc }: { rpc: Rpc }) => ({
     },
   },
   slinky: {
+    marketmap: {
+      v1: new (await import("./marketmap/v1/tx.rpc.msg.js")).MsgClientImpl(rpc),
+    },
     oracle: {
       v1: new (await import("./oracle/v1/tx.rpc.msg.js")).MsgClientImpl(rpc),
     },

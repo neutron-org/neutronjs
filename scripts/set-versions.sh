@@ -15,10 +15,10 @@ readonly WASMD_DIR="wasmd-src"
 readonly ADMIN_MODULE_REV="chore/cosmos-sdk-0.53"
 readonly BLOCK_SDK_REV="v2.1.5"
 readonly COSMOS_SDK_REV="releases/v0.53.x"
-readonly FEEMARKET_REV="chore/cosmos-sdk-0.53"
+readonly FEEMARKET_REV="v1.2.0"
 readonly IBC_GO_REV="v10.4.0"
-readonly NEUTRON_REV="feat/cosmos-sdk-53"
-readonly SLINKY_REV="feat/cosmos-sdk-53"
+readonly NEUTRON_REV="main"
+readonly SLINKY_REV="v1.3.0"
 readonly WASMD_REV="releases/v0.61.x"
 
 checkout_version () {

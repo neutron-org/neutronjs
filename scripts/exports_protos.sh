@@ -2,7 +2,7 @@
 
 set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
-
+buf --version
 for dir in admin-module cosmos-sdk ibc-go wasmd; do
   rm -rf "protos/$dir"
   mkdir -p "protos/$dir"
