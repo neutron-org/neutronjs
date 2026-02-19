@@ -31,6 +31,7 @@ export interface MsgTransferAminoType extends AminoMsg {
         amount: string;
       }[];
     };
+    encoding: string;
   };
 }
 export interface MsgUpdateParamsAminoType extends AminoMsg {
@@ -56,6 +57,7 @@ export const AminoConverter = {
       timeoutTimestamp,
       memo,
       fee,
+      encoding,
     }: MsgTransfer): MsgTransferAminoType["value"] => {
       return {
         source_port: sourcePort,
@@ -88,6 +90,7 @@ export const AminoConverter = {
             amount: el0.amount,
           })),
         },
+        encoding,
       };
     },
     fromAmino: ({
@@ -100,6 +103,7 @@ export const AminoConverter = {
       timeout_timestamp,
       memo,
       fee,
+      encoding,
     }: MsgTransferAminoType["value"]): MsgTransfer => {
       return {
         sourcePort: source_port,
@@ -138,6 +142,7 @@ export const AminoConverter = {
                   amount: el1.amount,
                 })),
               },
+        encoding,
       };
     },
   },

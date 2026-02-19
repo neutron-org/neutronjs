@@ -31,6 +31,8 @@ export interface MsgTransfer {
   timeoutTimestamp: bigint;
   memo: string;
   fee: Fee;
+  /** optional encoding */
+  encoding: string;
 }
 /**
  * MsgTransferResponse is the modified response type for
@@ -69,6 +71,7 @@ function createBaseMsgTransfer(): MsgTransfer {
     timeoutTimestamp: BigInt(0),
     memo: "",
     fee: Fee.fromPartial({}),
+    encoding: "",
   };
 }
 export const MsgTransfer = {
@@ -100,6 +103,9 @@ export const MsgTransfer = {
     }
     if (message.fee !== undefined) {
       Fee.encode(message.fee, writer.uint32(74).fork()).ldelim();
+    }
+    if (message.encoding !== "") {
+      writer.uint32(82).string(message.encoding);
     }
     return writer;
   },
@@ -137,6 +143,9 @@ export const MsgTransfer = {
         case 9:
           message.fee = Fee.decode(reader, reader.uint32());
           break;
+        case 10:
+          message.encoding = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -155,6 +164,7 @@ export const MsgTransfer = {
     if (isSet(object.timeoutTimestamp)) obj.timeoutTimestamp = BigInt(object.timeoutTimestamp.toString());
     if (isSet(object.memo)) obj.memo = String(object.memo);
     if (isSet(object.fee)) obj.fee = Fee.fromJSON(object.fee);
+    if (isSet(object.encoding)) obj.encoding = String(object.encoding);
     return obj;
   },
   toJSON(message: MsgTransfer): JsonSafe<MsgTransfer> {
@@ -170,6 +180,7 @@ export const MsgTransfer = {
       (obj.timeoutTimestamp = (message.timeoutTimestamp || BigInt(0)).toString());
     message.memo !== undefined && (obj.memo = message.memo);
     message.fee !== undefined && (obj.fee = message.fee ? Fee.toJSON(message.fee) : undefined);
+    message.encoding !== undefined && (obj.encoding = message.encoding);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<MsgTransfer>, I>>(object: I): MsgTransfer {
@@ -191,6 +202,7 @@ export const MsgTransfer = {
     if (object.fee !== undefined && object.fee !== null) {
       message.fee = Fee.fromPartial(object.fee);
     }
+    message.encoding = object.encoding ?? "";
     return message;
   },
 };
