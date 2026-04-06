@@ -1,6 +1,6 @@
 {
   "name": "@neutron-org/neutronjs",
-  "version": "4.2.0",
+  "version": "5.0.0-rc0",
   "description": "JS and TS types relating to Protocol Buffers used by Neutron",
   "contributors": [],
   "license": "Apache-2.0",
@@ -12,7 +12,6 @@
     "access": "public"
   },
   "files": [
-    "capability/",
     "cosmos/",
     "cosmos_proto/",
     "cosmwasm/",
@@ -43,7 +42,9 @@
     "codegen": "rm -rf ./src && ./scripts/codegen.js && cp -rf copypaste_files/* ./src/ && npm run format",
     "prepare-publishing": "./scripts/prepare-publishing.sh",
     "clean": "./scripts/clean.sh",
-    "build": "rm -rf ./build && tsc && npm run prepare-publishing && npm run clean"
+    "build": "rm -rf ./build && tsc && npm run prepare-publishing",
+    "prepublishOnly": "npm run build",
+    "postpublish": "npm run clean"
   },
   "dependencies": {
     "protobufjs": "^7.5.4"
@@ -55,6 +56,6 @@
     "@types/minimatch": "^5.1.2",
     "@types/node": "^15.6.2",
     "prettier": "^3.0.3",
-    "typescript": "~5.2"
+    "typescript": "^6.0.0"
   }
 }
