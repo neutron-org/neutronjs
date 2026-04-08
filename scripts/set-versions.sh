@@ -12,14 +12,14 @@ readonly NEUTRON_DIR="neutron-src"
 readonly SLINKY_DIR="slinky-src"
 readonly WASMD_DIR="wasmd-src"
 
-readonly ADMIN_MODULE_REV="chore/cosmos-sdk-0.53"
+readonly ADMIN_MODULE_REV="v2.1.0"
 readonly BLOCK_SDK_REV="v2.1.5"
-readonly COSMOS_SDK_REV="releases/v0.53.x"
-readonly FEEMARKET_REV="chore/cosmos-sdk-0.53"
-readonly IBC_GO_REV="v10.4.0"
-readonly NEUTRON_REV="feat/cosmos-sdk-53"
-readonly SLINKY_REV="feat/cosmos-sdk-53"
-readonly WASMD_REV="releases/v0.61.x"
+readonly COSMOS_SDK_REV="v0.53.4-neutron"
+readonly FEEMARKET_REV="v1.2.0"
+readonly IBC_GO_REV="v10.5.0"
+readonly NEUTRON_REV="v10.3.0"
+readonly SLINKY_REV="v1.3.1"
+readonly WASMD_REV="v0.61.10-neutron"
 
 checkout_version () {
    git -C protos/$1 checkout $2

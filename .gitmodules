@@ -18,7 +18,7 @@
 	url = git@github.com:neutron-org/neutron.git
 [submodule "slinky"]
 	path = protos/slinky-src
-	url = git@github.com:skip-mev/slinky.git
+	url = git@github.com:neutron-org/connect.git
 [submodule "wasmd"]
 	path = protos/wasmd-src
 	url = git@github.com:neutron-org/wasmd.git
