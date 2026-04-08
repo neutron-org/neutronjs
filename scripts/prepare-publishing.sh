@@ -23,3 +23,14 @@ for file in "${ROOT_FILES[@]}"; do
 
   cp "./$file" "$BUILD_DIR/"
 done
+
+# Remove root-only fields from publish manifest inside ./build.
+node -e '
+const fs = require("node:fs");
+const pkgPath = "./build/package.json";
+const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+delete pkg.scripts;
+delete pkg.devDependencies;
+delete pkg.packageManager;
+fs.writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`);
+'
