@@ -3,33 +3,23 @@
 set -o errexit -o nounset -o pipefail
 command -v shellcheck >/dev/null && shellcheck "$0"
 
-DIRS=(cosmos cosmos_proto cosmwasm feemarket gaia gogoproto google ibc neutron osmosis sdk slinky tendermint)
-FILES=(
-  binary.d.ts
-  binary.js
-  binary.js.map
-  helpers.d.ts
-  helpers.js
-  helpers.js.map
-  json-safe.d.ts
-  json-safe.js
-  json-safe.js.map
-  utf8.d.ts
-  utf8.js
-  utf8.js.map
-  varint.d.ts
-  varint.js
-  varint.js.map
-  querier_types.js
-  querier_types.d.ts
+readonly BUILD_DIR="./build"
+readonly ROOT_FILES=(
+  LICENSE
+  README.md
+  package.json
 )
 
-for dir in "${DIRS[@]}"; do
-  rm -rf "$dir"
-  cp -R "./build/$dir" ./
-done
+if [[ ! -d "$BUILD_DIR" ]]; then
+  echo "Build directory not found: $BUILD_DIR. Run 'npm run build' first."
+  exit 1
+fi
 
-for f in "${FILES[@]}"; do
-  rm -rf "$f"
-  cp "./build/$f" ./
+for file in "${ROOT_FILES[@]}"; do
+  if [[ ! -f "./$file" ]]; then
+    echo "Required file not found: ./$file"
+    exit 1
+  fi
+
+  cp "./$file" "$BUILD_DIR/"
 done

@@ -1,0 +1,26 @@
+import { BinaryReader, BinaryWriter } from "../../../../binary.js";
+import { DeepPartial, Exact } from "../../../../helpers.js";
+import { JsonSafe } from "../../../../json-safe.js";
+export declare const protobufPackage = "slinky.marketmap.module.v1";
+/** Module is the config object of the builder module. */
+export interface Module {
+    /**
+     * Authority defines the custom module authority. If not set, defaults to the
+     * governance module.
+     */
+    authority: string;
+    /**
+     * HooksOrder specifies the order of marketmap hooks and should be a list
+     * of module names which provide a marketmap hooks instance. If no order is
+     * provided, then hooks will be applied in alphabetical order of module names.
+     */
+    hooksOrder: string[];
+}
+export declare const Module: {
+    typeUrl: string;
+    encode(message: Module, writer?: BinaryWriter): BinaryWriter;
+    decode(input: BinaryReader | Uint8Array, length?: number): Module;
+    fromJSON(object: any): Module;
+    toJSON(message: Module): JsonSafe<Module>;
+    fromPartial<I extends Exact<DeepPartial<Module>, I>>(object: I): Module;
+};

@@ -1,0 +1,93 @@
+import { PageRequest, PageResponse } from "../../base/query/v1beta1/pagination.js";
+import { Params, ValidatorSigningInfo } from "./slashing.js";
+import { BinaryReader, BinaryWriter } from "../../../binary.js";
+import { JsonSafe } from "../../../json-safe.js";
+import { DeepPartial, Exact } from "../../../helpers.js";
+export declare const protobufPackage = "cosmos.slashing.v1beta1";
+/** QueryParamsRequest is the request type for the Query/Params RPC method */
+export interface QueryParamsRequest {
+}
+/** QueryParamsResponse is the response type for the Query/Params RPC method */
+export interface QueryParamsResponse {
+    params: Params;
+}
+/**
+ * QuerySigningInfoRequest is the request type for the Query/SigningInfo RPC
+ * method
+ */
+export interface QuerySigningInfoRequest {
+    /** cons_address is the address to query signing info of */
+    consAddress: string;
+}
+/**
+ * QuerySigningInfoResponse is the response type for the Query/SigningInfo RPC
+ * method
+ */
+export interface QuerySigningInfoResponse {
+    /** val_signing_info is the signing info of requested val cons address */
+    valSigningInfo: ValidatorSigningInfo;
+}
+/**
+ * QuerySigningInfosRequest is the request type for the Query/SigningInfos RPC
+ * method
+ */
+export interface QuerySigningInfosRequest {
+    pagination?: PageRequest;
+}
+/**
+ * QuerySigningInfosResponse is the response type for the Query/SigningInfos RPC
+ * method
+ */
+export interface QuerySigningInfosResponse {
+    /** info is the signing info of all validators */
+    info: ValidatorSigningInfo[];
+    pagination?: PageResponse;
+}
+export declare const QueryParamsRequest: {
+    typeUrl: string;
+    encode(_: QueryParamsRequest, writer?: BinaryWriter): BinaryWriter;
+    decode(input: BinaryReader | Uint8Array, length?: number): QueryParamsRequest;
+    fromJSON(_: any): QueryParamsRequest;
+    toJSON(_: QueryParamsRequest): JsonSafe<QueryParamsRequest>;
+    fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest;
+};
+export declare const QueryParamsResponse: {
+    typeUrl: string;
+    encode(message: QueryParamsResponse, writer?: BinaryWriter): BinaryWriter;
+    decode(input: BinaryReader | Uint8Array, length?: number): QueryParamsResponse;
+    fromJSON(object: any): QueryParamsResponse;
+    toJSON(message: QueryParamsResponse): JsonSafe<QueryParamsResponse>;
+    fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse;
+};
+export declare const QuerySigningInfoRequest: {
+    typeUrl: string;
+    encode(message: QuerySigningInfoRequest, writer?: BinaryWriter): BinaryWriter;
+    decode(input: BinaryReader | Uint8Array, length?: number): QuerySigningInfoRequest;
+    fromJSON(object: any): QuerySigningInfoRequest;
+    toJSON(message: QuerySigningInfoRequest): JsonSafe<QuerySigningInfoRequest>;
+    fromPartial<I extends Exact<DeepPartial<QuerySigningInfoRequest>, I>>(object: I): QuerySigningInfoRequest;
+};
+export declare const QuerySigningInfoResponse: {
+    typeUrl: string;
+    encode(message: QuerySigningInfoResponse, writer?: BinaryWriter): BinaryWriter;
+    decode(input: BinaryReader | Uint8Array, length?: number): QuerySigningInfoResponse;
+    fromJSON(object: any): QuerySigningInfoResponse;
+    toJSON(message: QuerySigningInfoResponse): JsonSafe<QuerySigningInfoResponse>;
+    fromPartial<I extends Exact<DeepPartial<QuerySigningInfoResponse>, I>>(object: I): QuerySigningInfoResponse;
+};
+export declare const QuerySigningInfosRequest: {
+    typeUrl: string;
+    encode(message: QuerySigningInfosRequest, writer?: BinaryWriter): BinaryWriter;
+    decode(input: BinaryReader | Uint8Array, length?: number): QuerySigningInfosRequest;
+    fromJSON(object: any): QuerySigningInfosRequest;
+    toJSON(message: QuerySigningInfosRequest): JsonSafe<QuerySigningInfosRequest>;
+    fromPartial<I extends Exact<DeepPartial<QuerySigningInfosRequest>, I>>(object: I): QuerySigningInfosRequest;
+};
+export declare const QuerySigningInfosResponse: {
+    typeUrl: string;
+    encode(message: QuerySigningInfosResponse, writer?: BinaryWriter): BinaryWriter;
+    decode(input: BinaryReader | Uint8Array, length?: number): QuerySigningInfosResponse;
+    fromJSON(object: any): QuerySigningInfosResponse;
+    toJSON(message: QuerySigningInfosResponse): JsonSafe<QuerySigningInfosResponse>;
+    fromPartial<I extends Exact<DeepPartial<QuerySigningInfosResponse>, I>>(object: I): QuerySigningInfosResponse;
+};

@@ -1,0 +1,119 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getSigningNeutronClient = exports.getSigningNeutronClientOptions = exports.neutronProtoRegistry = exports.neutronAminoConverters = void 0;
+//@ts-nocheck
+/* eslint-disable */
+const proto_signing_1 = require("@cosmjs/proto-signing");
+const stargate_1 = require("@cosmjs/stargate");
+const neutronCoinfactoryV1beta1TxRegistry = __importStar(require("./coinfactory/v1beta1/tx.registry.js"));
+const neutronContractmanagerTxRegistry = __importStar(require("./contractmanager/tx.registry.js"));
+const neutronCronTxRegistry = __importStar(require("./cron/tx.registry.js"));
+const neutronDexTxRegistry = __importStar(require("./dex/tx.registry.js"));
+const neutronDynamicfeesV1TxRegistry = __importStar(require("./dynamicfees/v1/tx.registry.js"));
+const neutronFeeburnerTxRegistry = __importStar(require("./feeburner/tx.registry.js"));
+const neutronFeerefunderTxRegistry = __importStar(require("./feerefunder/tx.registry.js"));
+const neutronHarpoonTxRegistry = __importStar(require("./harpoon/tx.registry.js"));
+const neutronIbcratelimitV1beta1TxRegistry = __importStar(require("./ibcratelimit/v1beta1/tx.registry.js"));
+const neutronInterchainqueriesTxRegistry = __importStar(require("./interchainqueries/tx.registry.js"));
+const neutronInterchaintxsV1TxRegistry = __importStar(require("./interchaintxs/v1/tx.registry.js"));
+const neutronRevenueTxRegistry = __importStar(require("./revenue/tx.registry.js"));
+const neutronTransferV1TxRegistry = __importStar(require("./transfer/v1/tx.registry.js"));
+const neutronCoinfactoryV1beta1TxAmino = __importStar(require("./coinfactory/v1beta1/tx.amino.js"));
+const neutronContractmanagerTxAmino = __importStar(require("./contractmanager/tx.amino.js"));
+const neutronCronTxAmino = __importStar(require("./cron/tx.amino.js"));
+const neutronDexTxAmino = __importStar(require("./dex/tx.amino.js"));
+const neutronDynamicfeesV1TxAmino = __importStar(require("./dynamicfees/v1/tx.amino.js"));
+const neutronFeeburnerTxAmino = __importStar(require("./feeburner/tx.amino.js"));
+const neutronFeerefunderTxAmino = __importStar(require("./feerefunder/tx.amino.js"));
+const neutronHarpoonTxAmino = __importStar(require("./harpoon/tx.amino.js"));
+const neutronIbcratelimitV1beta1TxAmino = __importStar(require("./ibcratelimit/v1beta1/tx.amino.js"));
+const neutronInterchainqueriesTxAmino = __importStar(require("./interchainqueries/tx.amino.js"));
+const neutronInterchaintxsV1TxAmino = __importStar(require("./interchaintxs/v1/tx.amino.js"));
+const neutronRevenueTxAmino = __importStar(require("./revenue/tx.amino.js"));
+const neutronTransferV1TxAmino = __importStar(require("./transfer/v1/tx.amino.js"));
+exports.neutronAminoConverters = {
+    ...neutronCoinfactoryV1beta1TxAmino.AminoConverter,
+    ...neutronContractmanagerTxAmino.AminoConverter,
+    ...neutronCronTxAmino.AminoConverter,
+    ...neutronDexTxAmino.AminoConverter,
+    ...neutronDynamicfeesV1TxAmino.AminoConverter,
+    ...neutronFeeburnerTxAmino.AminoConverter,
+    ...neutronFeerefunderTxAmino.AminoConverter,
+    ...neutronHarpoonTxAmino.AminoConverter,
+    ...neutronIbcratelimitV1beta1TxAmino.AminoConverter,
+    ...neutronInterchainqueriesTxAmino.AminoConverter,
+    ...neutronInterchaintxsV1TxAmino.AminoConverter,
+    ...neutronRevenueTxAmino.AminoConverter,
+    ...neutronTransferV1TxAmino.AminoConverter,
+};
+exports.neutronProtoRegistry = [
+    ...neutronCoinfactoryV1beta1TxRegistry.registry,
+    ...neutronContractmanagerTxRegistry.registry,
+    ...neutronCronTxRegistry.registry,
+    ...neutronDexTxRegistry.registry,
+    ...neutronDynamicfeesV1TxRegistry.registry,
+    ...neutronFeeburnerTxRegistry.registry,
+    ...neutronFeerefunderTxRegistry.registry,
+    ...neutronHarpoonTxRegistry.registry,
+    ...neutronIbcratelimitV1beta1TxRegistry.registry,
+    ...neutronInterchainqueriesTxRegistry.registry,
+    ...neutronInterchaintxsV1TxRegistry.registry,
+    ...neutronRevenueTxRegistry.registry,
+    ...neutronTransferV1TxRegistry.registry,
+];
+const getSigningNeutronClientOptions = ({ defaultTypes = stargate_1.defaultRegistryTypes, } = {}) => {
+    const registry = new proto_signing_1.Registry([...defaultTypes, ...exports.neutronProtoRegistry]);
+    const aminoTypes = new stargate_1.AminoTypes({
+        ...exports.neutronAminoConverters,
+    });
+    return {
+        registry,
+        aminoTypes,
+    };
+};
+exports.getSigningNeutronClientOptions = getSigningNeutronClientOptions;
+const getSigningNeutronClient = async ({ rpcEndpoint, signer, defaultTypes = stargate_1.defaultRegistryTypes, }) => {
+    const { registry, aminoTypes } = (0, exports.getSigningNeutronClientOptions)({
+        defaultTypes,
+    });
+    const client = await stargate_1.SigningStargateClient.connectWithSigner(rpcEndpoint, signer, {
+        registry: registry,
+        aminoTypes,
+    });
+    return client;
+};
+exports.getSigningNeutronClient = getSigningNeutronClient;
+//# sourceMappingURL=client.js.map
