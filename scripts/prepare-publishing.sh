@@ -25,6 +25,7 @@ for file in "${ROOT_FILES[@]}"; do
 done
 
 # Remove root-only fields from publish manifest inside ./build.
+# shellcheck disable=SC2016
 node -e '
 const fs = require("node:fs");
 const pkgPath = "./build/package.json";

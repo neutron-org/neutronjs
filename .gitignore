@@ -12,6 +12,8 @@ node_modules/
 /protos/slinky
 /protos/wasmd
 
+/build/
+
 # IDEs
 .vscode/
 

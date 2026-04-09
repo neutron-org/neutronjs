@@ -22,7 +22,7 @@ readonly SLINKY_REV="v1.3.1"
 readonly WASMD_REV="v0.61.10-neutron"
 
 checkout_version () {
-   git -C protos/$1 checkout $2
+   git -C "protos/$1" checkout "$2"
 }
 
 checkout_version $ADMIN_MODULE_DIR $ADMIN_MODULE_REV
