@@ -15,6 +15,7 @@ export interface Params {
    * currently, the only such privilege is depositing outside of the allowed fee_tiers.
    */
   whitelistedLps: string[];
+  withdrawOnly: boolean;
 }
 function createBaseParams(): Params {
   return {
@@ -23,6 +24,7 @@ function createBaseParams(): Params {
     maxJitsPerBlock: BigInt(0),
     goodTilPurgeAllowance: BigInt(0),
     whitelistedLps: [],
+    withdrawOnly: false,
   };
 }
 export const Params = {
@@ -44,6 +46,9 @@ export const Params = {
     }
     for (const v of message.whitelistedLps) {
       writer.uint32(50).string(v!);
+    }
+    if (message.withdrawOnly === true) {
+      writer.uint32(56).bool(message.withdrawOnly);
     }
     return writer;
   },
@@ -76,6 +81,9 @@ export const Params = {
         case 6:
           message.whitelistedLps.push(reader.string());
           break;
+        case 7:
+          message.withdrawOnly = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -92,6 +100,7 @@ export const Params = {
       obj.goodTilPurgeAllowance = BigInt(object.goodTilPurgeAllowance.toString());
     if (Array.isArray(object?.whitelistedLps))
       obj.whitelistedLps = object.whitelistedLps.map((e: any) => String(e));
+    if (isSet(object.withdrawOnly)) obj.withdrawOnly = Boolean(object.withdrawOnly);
     return obj;
   },
   toJSON(message: Params): JsonSafe<Params> {
@@ -111,6 +120,7 @@ export const Params = {
     } else {
       obj.whitelistedLps = [];
     }
+    message.withdrawOnly !== undefined && (obj.withdrawOnly = message.withdrawOnly);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
@@ -124,6 +134,7 @@ export const Params = {
       message.goodTilPurgeAllowance = BigInt(object.goodTilPurgeAllowance.toString());
     }
     message.whitelistedLps = object.whitelistedLps?.map((e) => e) || [];
+    message.withdrawOnly = object.withdrawOnly ?? false;
     return message;
   },
 };
