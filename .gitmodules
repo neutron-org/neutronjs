@@ -9,7 +9,7 @@
 	url = git@github.com:neutron-org/cosmos-sdk.git
 [submodule "feemarket"]
 	path = protos/feemarket-src
-	url = git@github.com:skip-mev/feemarket.git
+	url = git@github.com:neutron-org/feemarket.git
 [submodule "ibc-go"]
 	path = protos/ibc-go-src
 	url = git@github.com:cosmos/ibc-go.git
