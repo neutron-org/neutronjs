@@ -39,3 +39,8 @@ npm run codegen
 # Build .js/.d.ts files
 npm run build
 ```
+
+### Publishing
+
+Publishing to npm is handled by the GitHub Actions workflow in `.github/workflows/publish.yml`.
+The workflow runs on `push` events for tags matching `v[0-9]*` (for example, `v7.0.0`), and then performs the npm publish pipeline.
