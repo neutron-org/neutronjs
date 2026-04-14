@@ -42,5 +42,21 @@ npm run build
 
 ### Publishing
 
-Publishing to npm is handled by the GitHub Actions workflow in `.github/workflows/publish.yml`.
-The workflow runs on `push` events for tags matching `v[0-9]*` (for example, `v7.0.0`), and then performs the npm publish pipeline.
+Before publishing, make sure package and dependency versions are aligned with [Neutron core](https://github.com/neutron-org/neutron):
+
+- `package.json` version must match the Neutron core version exactly. In other words, `@neutron-org/neutronjs@X.Y.Z` must correspond to Neutron core `vX.Y.Z` release.
+- All `*_REV` values in `scripts/set-versions.sh` must match the versions pinned in [Neutron core go.mod](https://github.com/neutron-org/neutron/blob/main/go.mod).
+
+Publish a stable release as `latest`:
+
+```sh
+# package.json version: X.Y.Z
+npm publish --access public --tag latest
+```
+
+Publish a release candidate as `next`:
+
+```sh
+# package.json version: X.Y.Z-rc.N
+npm publish --access public --tag next
+```
