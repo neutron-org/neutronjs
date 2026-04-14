@@ -51,12 +51,18 @@ Publish a stable release as `latest`:
 
 ```sh
 # package.json version: X.Y.Z
-npm publish --access public --tag latest
+npm publish ./build --access public --tag latest
 ```
 
 Publish a release candidate as `next`:
 
 ```sh
 # package.json version: X.Y.Z-rc.N
-npm publish --access public --tag next
+npm publish ./build --access public --tag next
+```
+
+You can safely check the release content using
+
+```sh
+npm pack --dry-run ./build 2>&1 | less
 ```
