@@ -1,6 +1,6 @@
 {
   "name": "@neutron-org/neutronjs",
-  "version": "5.0.0-beta.1",
+  "version": "10.3.0-fix.1",
   "description": "JS and TS types relating to Protocol Buffers used by Neutron",
   "contributors": [],
   "license": "Apache-2.0",
@@ -41,7 +41,7 @@
     "format": "prettier --write --log-level warn \"./src/**/*.ts\" \"./scripts/**/*.js\"",
     "codegen": "rm -rf ./src && ./scripts/codegen.js && cp -rf copypaste_files/* ./src/ && npm run format",
     "prepare-publishing": "./scripts/prepare-publishing.sh",
-    "clean": "./scripts/clean.sh",
+    "clean": "rm -rf ./build",
     "build": "rm -rf ./build && tsc && npm run prepare-publishing",
     "prepublishOnly": "npm run build",
     "postpublish": "npm run clean"
