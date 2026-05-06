@@ -19,6 +19,7 @@ for dir in block-sdk feemarket slinky; do
   buf export "protos/$dir-src/proto" --output "protos/$dir"
 done
 
+# shellcheck disable=SC2043
 for dir in neutron; do
   rm -rf "protos/$dir"
   mkdir -p "protos/$dir"

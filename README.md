@@ -39,3 +39,30 @@ npm run codegen
 # Build .js/.d.ts files
 npm run build
 ```
+
+### Publishing
+
+Before publishing, make sure package and dependency versions are aligned with [Neutron core](https://github.com/neutron-org/neutron):
+
+- `package.json` version must match the Neutron core version exactly. In other words, `@neutron-org/neutronjs@X.Y.Z` must correspond to Neutron core `vX.Y.Z` release.
+- All `*_REV` values in `scripts/set-versions.sh` must match the versions pinned in [Neutron core go.mod](https://github.com/neutron-org/neutron/blob/main/go.mod).
+
+Publish a stable release as `latest`:
+
+```sh
+# package.json version: X.Y.Z
+npm publish ./build --access public --tag latest
+```
+
+Publish a release candidate as `next`:
+
+```sh
+# package.json version: X.Y.Z-rc.N
+npm publish ./build --access public --tag next
+```
+
+You can safely check the release content using
+
+```sh
+npm pack --dry-run ./build 2>&1 | less
+```

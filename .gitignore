@@ -13,26 +13,6 @@ node_modules/
 /protos/wasmd
 
 /build/
-/capability/
-/cosmos/
-/cosmos_proto/
-/cosmwasm/
-/feemarket/
-/gaia/
-/gogoproto/
-/google/
-/ibc/
-/neutron/
-/osmosis/
-/sdk/
-/slinky/
-/tendermint/
-/binary.*
-/helpers.*
-/index.*
-/utf8.*
-/varint.*
-/querier_types.*
 
 # IDEs
 .vscode/
