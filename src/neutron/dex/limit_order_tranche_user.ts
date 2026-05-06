@@ -12,10 +12,13 @@ export interface LimitOrderTrancheUser {
   trancheKey: string;
   address: string;
   sharesOwned: string;
+  /** DEPRECATED: shares_withdrawn will be removed in a future release, `dec_shares_withdrawn` should be used */
+  /** @deprecated */
   sharesWithdrawn: string;
   /** TODO: remove this in next release. It is no longer used */
   sharesCancelled: string;
   orderType: LimitOrderType;
+  decSharesWithdrawn: string;
 }
 function createBaseLimitOrderTrancheUser(): LimitOrderTrancheUser {
   return {
@@ -27,6 +30,7 @@ function createBaseLimitOrderTrancheUser(): LimitOrderTrancheUser {
     sharesWithdrawn: "",
     sharesCancelled: "",
     orderType: 0,
+    decSharesWithdrawn: "",
   };
 }
 export const LimitOrderTrancheUser = {
@@ -55,6 +59,9 @@ export const LimitOrderTrancheUser = {
     }
     if (message.orderType !== 0) {
       writer.uint32(64).int32(message.orderType);
+    }
+    if (message.decSharesWithdrawn !== "") {
+      writer.uint32(74).string(message.decSharesWithdrawn);
     }
     return writer;
   },
@@ -89,6 +96,9 @@ export const LimitOrderTrancheUser = {
         case 8:
           message.orderType = reader.int32() as any;
           break;
+        case 9:
+          message.decSharesWithdrawn = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -107,6 +117,7 @@ export const LimitOrderTrancheUser = {
     if (isSet(object.sharesWithdrawn)) obj.sharesWithdrawn = String(object.sharesWithdrawn);
     if (isSet(object.sharesCancelled)) obj.sharesCancelled = String(object.sharesCancelled);
     if (isSet(object.orderType)) obj.orderType = limitOrderTypeFromJSON(object.orderType);
+    if (isSet(object.decSharesWithdrawn)) obj.decSharesWithdrawn = String(object.decSharesWithdrawn);
     return obj;
   },
   toJSON(message: LimitOrderTrancheUser): JsonSafe<LimitOrderTrancheUser> {
@@ -121,6 +132,7 @@ export const LimitOrderTrancheUser = {
     message.sharesWithdrawn !== undefined && (obj.sharesWithdrawn = message.sharesWithdrawn);
     message.sharesCancelled !== undefined && (obj.sharesCancelled = message.sharesCancelled);
     message.orderType !== undefined && (obj.orderType = limitOrderTypeToJSON(message.orderType));
+    message.decSharesWithdrawn !== undefined && (obj.decSharesWithdrawn = message.decSharesWithdrawn);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<LimitOrderTrancheUser>, I>>(object: I): LimitOrderTrancheUser {
@@ -137,6 +149,7 @@ export const LimitOrderTrancheUser = {
     message.sharesWithdrawn = object.sharesWithdrawn ?? "";
     message.sharesCancelled = object.sharesCancelled ?? "";
     message.orderType = object.orderType ?? 0;
+    message.decSharesWithdrawn = object.decSharesWithdrawn ?? "";
     return message;
   },
 };

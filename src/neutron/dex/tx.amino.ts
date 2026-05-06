@@ -108,6 +108,7 @@ export interface MsgUpdateParamsAminoType extends AminoMsg {
       max_jits_per_block: string;
       good_til_purge_allowance: string;
       whitelisted_lps: string[];
+      withdraw_only: boolean;
     };
   };
 }
@@ -391,6 +392,7 @@ export const AminoConverter = {
           max_jits_per_block: omitDefault(params.maxJitsPerBlock)?.toString?.(),
           good_til_purge_allowance: omitDefault(params.goodTilPurgeAllowance)?.toString?.(),
           whitelisted_lps: params.whitelistedLps,
+          withdraw_only: params.withdrawOnly,
         },
       };
     },
@@ -412,6 +414,7 @@ export const AminoConverter = {
                     ? params.good_til_purge_allowance
                     : BigInt(params.good_til_purge_allowance),
                 whitelistedLps: params.whitelisted_lps,
+                withdrawOnly: params.withdraw_only,
               },
       };
     },
