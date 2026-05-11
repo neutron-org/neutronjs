@@ -1,6 +1,3 @@
-[submodule "admin-module"]
-	path = protos/admin-module-src
-	url = git@github.com:neutron-org/admin-module.git
 [submodule "block-sdk"]
 	path = protos/block-sdk-src
 	url = git@github.com:skip-mev/block-sdk.git

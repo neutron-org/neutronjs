@@ -3,9 +3,6 @@
 import { Rpc } from "../helpers.js";
 export const createRPCMsgClient = async ({ rpc }: { rpc: Rpc }) => ({
   cosmos: {
-    adminmodule: {
-      adminmodule: new (await import("../cosmos/adminmodule/adminmodule/tx.rpc.msg.js")).MsgClientImpl(rpc),
-    },
     auth: {
       v1beta1: new (await import("../cosmos/auth/v1beta1/tx.rpc.msg.js")).MsgClientImpl(rpc),
     },
@@ -69,6 +66,9 @@ export const createRPCMsgClient = async ({ rpc }: { rpc: Rpc }) => ({
     },
   },
   slinky: {
+    marketmap: {
+      v1: new (await import("./marketmap/v1/tx.rpc.msg.js")).MsgClientImpl(rpc),
+    },
     oracle: {
       v1: new (await import("./oracle/v1/tx.rpc.msg.js")).MsgClientImpl(rpc),
     },
