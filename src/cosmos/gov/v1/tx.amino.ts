@@ -107,6 +107,7 @@ export interface MsgUpdateParamsAminoType extends AminoMsg {
       burn_vote_quorum: boolean;
       burn_proposal_deposit_prevote: boolean;
       burn_vote_veto: boolean;
+      min_deposit_ratio: string;
     };
   };
 }
@@ -299,6 +300,7 @@ export const AminoConverter = {
           burn_vote_quorum: omitDefault(params.burnVoteQuorum),
           burn_proposal_deposit_prevote: omitDefault(params.burnProposalDepositPrevote),
           burn_vote_veto: omitDefault(params.burnVoteVeto),
+          min_deposit_ratio: params.minDepositRatio,
         },
       };
     },
@@ -348,6 +350,7 @@ export const AminoConverter = {
                 burnVoteQuorum: params.burn_vote_quorum,
                 burnProposalDepositPrevote: params.burn_proposal_deposit_prevote,
                 burnVoteVeto: params.burn_vote_veto,
+                minDepositRatio: params.min_deposit_ratio,
               },
       };
     },

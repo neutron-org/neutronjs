@@ -183,38 +183,19 @@ export interface Proposal {
   votingEndTime?: Timestamp;
   /**
    * metadata is any arbitrary metadata attached to the proposal.
-   * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#proposal-3
+   * the recommended format of the metadata is to be found here:
+   * https://docs.cosmos.network/v0.47/modules/gov#proposal-3
    */
   metadata: string;
-  /**
-   * title is the title of the proposal
-   *
-   * Since: cosmos-sdk 0.47
-   */
+  /** title is the title of the proposal */
   title: string;
-  /**
-   * summary is a short summary of the proposal
-   *
-   * Since: cosmos-sdk 0.47
-   */
+  /** summary is a short summary of the proposal */
   summary: string;
-  /**
-   * proposer is the address of the proposal sumbitter
-   *
-   * Since: cosmos-sdk 0.47
-   */
+  /** proposer is the address of the proposal sumbitter */
   proposer: string;
-  /**
-   * expedited defines if the proposal is expedited
-   *
-   * Since: cosmos-sdk 0.50
-   */
+  /** expedited defines if the proposal is expedited */
   expedited: boolean;
-  /**
-   * failed_reason defines the reason why the proposal failed
-   *
-   * Since: cosmos-sdk 0.50
-   */
+  /** failed_reason defines the reason why the proposal failed */
   failedReason: string;
 }
 /** TallyResult defines a standard tally for a governance proposal. */
@@ -278,11 +259,7 @@ export interface TallyParams {
    */
   vetoThreshold: string;
 }
-/**
- * Params defines the parameters for the x/gov module.
- *
- * Since: cosmos-sdk 0.47
- */
+/** Params defines the parameters for the x/gov module. */
 export interface Params {
   /** Minimum deposit for a proposal to enter voting period. */
   minDeposit: Coin[];
@@ -307,30 +284,16 @@ export interface Params {
   vetoThreshold: string;
   /** The ratio representing the proportion of the deposit value that must be paid at proposal submission. */
   minInitialDepositRatio: string;
-  /**
-   * The cancel ratio which will not be returned back to the depositors when a proposal is cancelled.
-   *
-   * Since: cosmos-sdk 0.50
-   */
+  /** The cancel ratio which will not be returned back to the depositors when a proposal is cancelled. */
   proposalCancelRatio: string;
   /**
    * The address which will receive (proposal_cancel_ratio * deposit) proposal deposits.
    * If empty, the (proposal_cancel_ratio * deposit) proposal deposits will be burned.
-   *
-   * Since: cosmos-sdk 0.50
    */
   proposalCancelDest: string;
-  /**
-   * Duration of the voting period of an expedited proposal.
-   *
-   * Since: cosmos-sdk 0.50
-   */
+  /** Duration of the voting period of an expedited proposal. */
   expeditedVotingPeriod?: Duration;
-  /**
-   * Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
-   *
-   * Since: cosmos-sdk 0.50
-   */
+  /** Minimum proportion of Yes votes for proposal to pass. Default value: 0.67. */
   expeditedThreshold: string;
   /** Minimum expedited deposit for a proposal to enter voting period. */
   expeditedMinDeposit: Coin[];
@@ -340,6 +303,12 @@ export interface Params {
   burnProposalDepositPrevote: boolean;
   /** burn deposits if quorum with vote type no_veto is met */
   burnVoteVeto: boolean;
+  /**
+   * The ratio representing the proportion of the deposit value minimum that must be met when making a deposit.
+   * Default value: 0.01. Meaning that for a chain with a min_deposit of 100stake, a deposit of 1stake would be
+   * required.
+   */
+  minDepositRatio: string;
 }
 function createBaseWeightedVoteOption(): WeightedVoteOption {
   return {
@@ -1039,6 +1008,7 @@ function createBaseParams(): Params {
     burnVoteQuorum: false,
     burnProposalDepositPrevote: false,
     burnVoteVeto: false,
+    minDepositRatio: "",
   };
 }
 export const Params = {
@@ -1088,6 +1058,9 @@ export const Params = {
     }
     if (message.burnVoteVeto === true) {
       writer.uint32(120).bool(message.burnVoteVeto);
+    }
+    if (message.minDepositRatio !== "") {
+      writer.uint32(130).string(message.minDepositRatio);
     }
     return writer;
   },
@@ -1143,6 +1116,9 @@ export const Params = {
         case 15:
           message.burnVoteVeto = reader.bool();
           break;
+        case 16:
+          message.minDepositRatio = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1172,6 +1148,7 @@ export const Params = {
     if (isSet(object.burnProposalDepositPrevote))
       obj.burnProposalDepositPrevote = Boolean(object.burnProposalDepositPrevote);
     if (isSet(object.burnVoteVeto)) obj.burnVoteVeto = Boolean(object.burnVoteVeto);
+    if (isSet(object.minDepositRatio)) obj.minDepositRatio = String(object.minDepositRatio);
     return obj;
   },
   toJSON(message: Params): JsonSafe<Params> {
@@ -1208,6 +1185,7 @@ export const Params = {
     message.burnProposalDepositPrevote !== undefined &&
       (obj.burnProposalDepositPrevote = message.burnProposalDepositPrevote);
     message.burnVoteVeto !== undefined && (obj.burnVoteVeto = message.burnVoteVeto);
+    message.minDepositRatio !== undefined && (obj.minDepositRatio = message.minDepositRatio);
     return obj;
   },
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
@@ -1233,6 +1211,7 @@ export const Params = {
     message.burnVoteQuorum = object.burnVoteQuorum ?? false;
     message.burnProposalDepositPrevote = object.burnProposalDepositPrevote ?? false;
     message.burnVoteVeto = object.burnVoteVeto ?? false;
+    message.minDepositRatio = object.minDepositRatio ?? "";
     return message;
   },
 };

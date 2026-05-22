@@ -7,7 +7,6 @@ const outPath = join(__dirname, "/../src");
 
 telescope({
   protoDirs: [
-    "protos/admin-module",
     "protos/block-sdk",
     "protos/cosmos-sdk",
     "protos/feemarket",
@@ -41,10 +40,8 @@ telescope({
       addTypeUrlToDecoders: false,
       excluded: {
         protos: [
-          "neutron/dex/genesis.proto",
           "neutron/transfer/v1/query.proto",
           "slinky/abci/v1/vote_extensions.proto",
-          "slinky/marketmap/v1/tx.proto",
           "sidecar/mexc/pushdata_v3_api_wrapper.proto",
           "sidecar/mexc/response.proto",
         ],

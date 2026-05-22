@@ -25,6 +25,14 @@ export interface DecCoin {
   denom: string;
   amount: string;
 }
+/** IntProto defines a Protobuf wrapper around an Int object. */
+export interface IntProto {
+  int: string;
+}
+/** DecProto defines a Protobuf wrapper around a Dec object. */
+export interface DecProto {
+  dec: string;
+}
 function createBaseCoin(): Coin {
   return {
     denom: "",
@@ -134,6 +142,98 @@ export const DecCoin = {
     const message = createBaseDecCoin();
     message.denom = object.denom ?? "";
     message.amount = object.amount ?? "";
+    return message;
+  },
+};
+function createBaseIntProto(): IntProto {
+  return {
+    int: "",
+  };
+}
+export const IntProto = {
+  typeUrl: "/cosmos.base.v1beta1.IntProto",
+  encode(message: IntProto, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.int !== "") {
+      writer.uint32(10).string(message.int);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): IntProto {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseIntProto();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.int = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): IntProto {
+    const obj = createBaseIntProto();
+    if (isSet(object.int)) obj.int = String(object.int);
+    return obj;
+  },
+  toJSON(message: IntProto): JsonSafe<IntProto> {
+    const obj: any = {};
+    message.int !== undefined && (obj.int = message.int);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<IntProto>, I>>(object: I): IntProto {
+    const message = createBaseIntProto();
+    message.int = object.int ?? "";
+    return message;
+  },
+};
+function createBaseDecProto(): DecProto {
+  return {
+    dec: "",
+  };
+}
+export const DecProto = {
+  typeUrl: "/cosmos.base.v1beta1.DecProto",
+  encode(message: DecProto, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.dec !== "") {
+      writer.uint32(10).string(Decimal.fromUserInput(message.dec, 18).atomics);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): DecProto {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDecProto();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.dec = Decimal.fromAtomics(reader.string(), 18).toString();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): DecProto {
+    const obj = createBaseDecProto();
+    if (isSet(object.dec)) obj.dec = String(object.dec);
+    return obj;
+  },
+  toJSON(message: DecProto): JsonSafe<DecProto> {
+    const obj: any = {};
+    message.dec !== undefined && (obj.dec = message.dec);
+    return obj;
+  },
+  fromPartial<I extends Exact<DeepPartial<DecProto>, I>>(object: I): DecProto {
+    const message = createBaseDecProto();
+    message.dec = object.dec ?? "";
     return message;
   },
 };

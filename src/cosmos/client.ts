@@ -3,7 +3,6 @@
 import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
 import { AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-import * as cosmosAdminmoduleAdminmoduleTxRegistry from "./adminmodule/adminmodule/tx.registry.js";
 import * as cosmosAuthV1beta1TxRegistry from "./auth/v1beta1/tx.registry.js";
 import * as cosmosAuthzV1beta1TxRegistry from "./authz/v1beta1/tx.registry.js";
 import * as cosmosBankV1beta1TxRegistry from "./bank/v1beta1/tx.registry.js";
@@ -25,7 +24,6 @@ import * as cosmosSlashingV1beta1TxRegistry from "./slashing/v1beta1/tx.registry
 import * as cosmosStakingV1beta1TxRegistry from "./staking/v1beta1/tx.registry.js";
 import * as cosmosUpgradeV1beta1TxRegistry from "./upgrade/v1beta1/tx.registry.js";
 import * as cosmosVestingV1beta1TxRegistry from "./vesting/v1beta1/tx.registry.js";
-import * as cosmosAdminmoduleAdminmoduleTxAmino from "./adminmodule/adminmodule/tx.amino.js";
 import * as cosmosAuthV1beta1TxAmino from "./auth/v1beta1/tx.amino.js";
 import * as cosmosAuthzV1beta1TxAmino from "./authz/v1beta1/tx.amino.js";
 import * as cosmosBankV1beta1TxAmino from "./bank/v1beta1/tx.amino.js";
@@ -48,7 +46,6 @@ import * as cosmosStakingV1beta1TxAmino from "./staking/v1beta1/tx.amino.js";
 import * as cosmosUpgradeV1beta1TxAmino from "./upgrade/v1beta1/tx.amino.js";
 import * as cosmosVestingV1beta1TxAmino from "./vesting/v1beta1/tx.amino.js";
 export const cosmosAminoConverters = {
-  ...cosmosAdminmoduleAdminmoduleTxAmino.AminoConverter,
   ...cosmosAuthV1beta1TxAmino.AminoConverter,
   ...cosmosAuthzV1beta1TxAmino.AminoConverter,
   ...cosmosBankV1beta1TxAmino.AminoConverter,
@@ -72,7 +69,6 @@ export const cosmosAminoConverters = {
   ...cosmosVestingV1beta1TxAmino.AminoConverter,
 };
 export const cosmosProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
-  ...cosmosAdminmoduleAdminmoduleTxRegistry.registry,
   ...cosmosAuthV1beta1TxRegistry.registry,
   ...cosmosAuthzV1beta1TxRegistry.registry,
   ...cosmosBankV1beta1TxRegistry.registry,

@@ -3,9 +3,6 @@
 import { Rpc } from "../helpers.js";
 export const createRPCMsgClient = async ({ rpc }: { rpc: Rpc }) => ({
   cosmos: {
-    adminmodule: {
-      adminmodule: new (await import("./adminmodule/adminmodule/tx.rpc.msg.js")).MsgClientImpl(rpc),
-    },
     auth: {
       v1beta1: new (await import("./auth/v1beta1/tx.rpc.msg.js")).MsgClientImpl(rpc),
     },
