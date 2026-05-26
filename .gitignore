@@ -3,7 +3,6 @@ yarn.lock
 
 node_modules/
 
-/protos/admin-module
 /protos/block-sdk
 /protos/cosmos-sdk
 /protos/feemarket

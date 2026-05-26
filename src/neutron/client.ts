@@ -8,26 +8,20 @@ import * as neutronContractmanagerTxRegistry from "./contractmanager/tx.registry
 import * as neutronCronTxRegistry from "./cron/tx.registry.js";
 import * as neutronDexTxRegistry from "./dex/tx.registry.js";
 import * as neutronDynamicfeesV1TxRegistry from "./dynamicfees/v1/tx.registry.js";
-import * as neutronFeeburnerTxRegistry from "./feeburner/tx.registry.js";
 import * as neutronFeerefunderTxRegistry from "./feerefunder/tx.registry.js";
-import * as neutronHarpoonTxRegistry from "./harpoon/tx.registry.js";
 import * as neutronIbcratelimitV1beta1TxRegistry from "./ibcratelimit/v1beta1/tx.registry.js";
 import * as neutronInterchainqueriesTxRegistry from "./interchainqueries/tx.registry.js";
 import * as neutronInterchaintxsV1TxRegistry from "./interchaintxs/v1/tx.registry.js";
-import * as neutronRevenueTxRegistry from "./revenue/tx.registry.js";
 import * as neutronTransferV1TxRegistry from "./transfer/v1/tx.registry.js";
 import * as neutronCoinfactoryV1beta1TxAmino from "./coinfactory/v1beta1/tx.amino.js";
 import * as neutronContractmanagerTxAmino from "./contractmanager/tx.amino.js";
 import * as neutronCronTxAmino from "./cron/tx.amino.js";
 import * as neutronDexTxAmino from "./dex/tx.amino.js";
 import * as neutronDynamicfeesV1TxAmino from "./dynamicfees/v1/tx.amino.js";
-import * as neutronFeeburnerTxAmino from "./feeburner/tx.amino.js";
 import * as neutronFeerefunderTxAmino from "./feerefunder/tx.amino.js";
-import * as neutronHarpoonTxAmino from "./harpoon/tx.amino.js";
 import * as neutronIbcratelimitV1beta1TxAmino from "./ibcratelimit/v1beta1/tx.amino.js";
 import * as neutronInterchainqueriesTxAmino from "./interchainqueries/tx.amino.js";
 import * as neutronInterchaintxsV1TxAmino from "./interchaintxs/v1/tx.amino.js";
-import * as neutronRevenueTxAmino from "./revenue/tx.amino.js";
 import * as neutronTransferV1TxAmino from "./transfer/v1/tx.amino.js";
 export const neutronAminoConverters = {
   ...neutronCoinfactoryV1beta1TxAmino.AminoConverter,
@@ -35,13 +29,10 @@ export const neutronAminoConverters = {
   ...neutronCronTxAmino.AminoConverter,
   ...neutronDexTxAmino.AminoConverter,
   ...neutronDynamicfeesV1TxAmino.AminoConverter,
-  ...neutronFeeburnerTxAmino.AminoConverter,
   ...neutronFeerefunderTxAmino.AminoConverter,
-  ...neutronHarpoonTxAmino.AminoConverter,
   ...neutronIbcratelimitV1beta1TxAmino.AminoConverter,
   ...neutronInterchainqueriesTxAmino.AminoConverter,
   ...neutronInterchaintxsV1TxAmino.AminoConverter,
-  ...neutronRevenueTxAmino.AminoConverter,
   ...neutronTransferV1TxAmino.AminoConverter,
 };
 export const neutronProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
@@ -50,13 +41,10 @@ export const neutronProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [
   ...neutronCronTxRegistry.registry,
   ...neutronDexTxRegistry.registry,
   ...neutronDynamicfeesV1TxRegistry.registry,
-  ...neutronFeeburnerTxRegistry.registry,
   ...neutronFeerefunderTxRegistry.registry,
-  ...neutronHarpoonTxRegistry.registry,
   ...neutronIbcratelimitV1beta1TxRegistry.registry,
   ...neutronInterchainqueriesTxRegistry.registry,
   ...neutronInterchaintxsV1TxRegistry.registry,
-  ...neutronRevenueTxRegistry.registry,
   ...neutronTransferV1TxRegistry.registry,
 ];
 export const getSigningNeutronClientOptions = ({

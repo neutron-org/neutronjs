@@ -7,11 +7,6 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
   const client = new QueryClient(tmClient);
   return {
     cosmos: {
-      adminmodule: {
-        adminmodule: (
-          await import("../cosmos/adminmodule/adminmodule/query.rpc.Query.js")
-        ).createRpcQueryExtension(client),
-      },
       app: {
         v1alpha1: (await import("../cosmos/app/v1alpha1/query.rpc.Query.js")).createRpcQueryExtension(client),
       },
@@ -120,9 +115,7 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
       dynamicfees: {
         v1: (await import("./dynamicfees/v1/query.rpc.Query.js")).createRpcQueryExtension(client),
       },
-      feeburner: (await import("./feeburner/query.rpc.Query.js")).createRpcQueryExtension(client),
       feerefunder: (await import("./feerefunder/query.rpc.Query.js")).createRpcQueryExtension(client),
-      harpoon: (await import("./harpoon/query.rpc.Query.js")).createRpcQueryExtension(client),
       ibcratelimit: {
         v1beta1: (await import("./ibcratelimit/v1beta1/query.rpc.Query.js")).createRpcQueryExtension(client),
       },
@@ -132,7 +125,6 @@ export const createRPCQueryClient = async ({ rpcEndpoint }: { rpcEndpoint: strin
       interchaintxs: {
         v1: (await import("./interchaintxs/v1/query.rpc.Query.js")).createRpcQueryExtension(client),
       },
-      revenue: (await import("./revenue/query.rpc.Query.js")).createRpcQueryExtension(client),
       state_verifier: {
         v1: (await import("./state_verifier/v1/query.rpc.Query.js")).createRpcQueryExtension(client),
       },
